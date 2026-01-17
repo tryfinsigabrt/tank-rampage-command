@@ -14,3 +14,7 @@ config/name="tank-rampage-command"
 run/main_scene="uid://c15qtg2d1emrk"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
