@@ -1,0 +1,27 @@
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+build/
+logs/
+
+# Mac OS ignores
+.DS_Store
+
+# local VSCode settings
+.vscode/
+*.code-workspace
+
+#JetBrains IDE ignores
+.idea
+
+# Blender backup files
+*.blend[0-9]
+
+# Audacity temp files
+*.aup3-*
+
+# Krita temp files
+*.kra~
+*.png~
