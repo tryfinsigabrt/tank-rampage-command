@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c15qtg2d1emrk"]
+
+[sub_resource type="Environment" id="Environment_7dm0k"]
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7dm0k")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.77887845, 0, 0.6271749, -0.2445831, 0.92082506, 0.30374384, -0.5775184, -0.3899759, 0.71721077, -0.2314682, -0.20254272, -3.313699)
+size = Vector3(1, 1, 1.1258545)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.88937646, 0.45717555, 0, -0.45717555, 0.88937646, 0, 0, 0)
