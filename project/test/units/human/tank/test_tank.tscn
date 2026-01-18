@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://blrkufxsnfysm"]
+
+[ext_resource type="PackedScene" uid="uid://c8xnoic8jo2ja" path="res://units/human/tank/human_tank.tscn" id="1_nsiie"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_w7djc")
+
+[sub_resource type="Environment" id="Environment_nsiie"]
+background_mode = 2
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
+
+[node name="TestTank" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_nsiie")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Environment"]
+transform = Transform3D(0.9659208, 0.003118823, -0.25881907, 0.1266126, 0.86643875, 0.4829629, 0.22575712, -0.49927375, 0.8365164, 0, 31, 0)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(1000, 1, 1000)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="hero_tank" parent="." instance=ExtResource("1_nsiie")]
