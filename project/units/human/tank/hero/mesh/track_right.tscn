@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://comy5fqj8vcwt"]
+
+[ext_resource type="PackedScene" uid="uid://b3q46fsse5fun" path="res://units/human/tank/hero/mesh/track_right.glb" id="1_ia43g"]
+[ext_resource type="Material" uid="uid://dd50ig6r55a2h" path="res://units/human/tank/treads_material.tres" id="2_38d4k"]
+
+[node name="track_right" instance=ExtResource("1_ia43g")]
+
+[node name="RightTrack" parent="." index="0"]
+material_override = ExtResource("2_38d4k")
