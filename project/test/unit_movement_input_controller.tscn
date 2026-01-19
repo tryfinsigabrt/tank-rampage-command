@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3oxlp0dvekqy"]
 
-[ext_resource type="Script" uid="uid://cnpv3t7a3aa5b" path="res://units/unit_movement_input_controller.gd" id="1_frhgn"]
+[ext_resource type="Script" uid="uid://cnpv3t7a3aa5b" path="res://test/unit_movement_input_controller.gd" id="1_frhgn"]
 
 [node name="UnitMovementController" type="Node"]
 script = ExtResource("1_frhgn")

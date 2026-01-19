@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://y2gjgrbqtl7n"]
+[gd_scene load_steps=7 format=3 uid="uid://y2gjgrbqtl7n"]
 
 [ext_resource type="Terrain3DMaterial" uid="uid://x7mxifjc6k7h" path="res://test/terrain/test_terrain_material.tres" id="1_a4auo"]
 [ext_resource type="Terrain3DAssets" uid="uid://bcofwilflqk15" path="res://test/terrain/test_terrain_assets.tres" id="2_dsixg"]
+[ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="3_dsixg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
 
@@ -32,5 +33,5 @@ environment = SubResource("Environment_sttne")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Environment"]
-transform = Transform3D(0.9659208, 0.003118823, -0.25881907, 0.1266126, 0.86643875, 0.4829629, 0.22575712, -0.49927375, 0.8365164, 0, 31, 0)
+[node name="HumanTankMovementTest" parent="." instance=ExtResource("3_dsixg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)

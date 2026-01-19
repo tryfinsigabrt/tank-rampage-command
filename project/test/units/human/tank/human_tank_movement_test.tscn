@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcimhgmigjvu4"]
+
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_m68ci"]
+[ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://test/unit_movement_input_controller.tscn" id="2_6vdnj"]
+
+[node name="HumanTankMovementTest" type="Node3D"]
+
+[node name="HumanTank" parent="." instance=ExtResource("1_m68ci")]
+
+[node name="Camera" type="Camera3D" parent="HumanTank"]
+transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
+
+[node name="UnitMovementController" parent="." node_paths=PackedStringArray("pawn") instance=ExtResource("2_6vdnj")]
+pawn = NodePath("../HumanTank")
