@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://blrkufxsnfysm"]
 
-[ext_resource type="PackedScene" uid="uid://c8xnoic8jo2ja" path="res://units/human/tank/human_tank.tscn" id="1_nsiie"]
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_nsiie"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -33,4 +33,4 @@ size = Vector3(1000, 1, 1000)
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
-[node name="hero_tank" parent="." instance=ExtResource("1_nsiie")]
+[node name="HumanTank" parent="." instance=ExtResource("1_nsiie")]
