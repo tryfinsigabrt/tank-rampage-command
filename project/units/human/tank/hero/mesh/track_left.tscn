@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjt3upoq4cg4x"]
+[gd_scene load_steps=3 format=3 uid="uid://jwbji3u34cd2"]
 
 [ext_resource type="PackedScene" uid="uid://c6n5dncnf34sp" path="res://units/human/tank/hero/mesh/track_left.glb" id="1_tuv76"]
 [ext_resource type="Material" uid="uid://dd50ig6r55a2h" path="res://units/human/tank/treads_material.tres" id="2_s3kon"]
 
-[node name="track_left" instance=ExtResource("1_tuv76")]
+[node name="TrackLeft" type="Node3D"]
 
-[node name="LeftTrack" parent="." index="0"]
+[node name="Mesh" parent="." instance=ExtResource("1_tuv76")]
+
+[node name="LeftTrack" parent="Mesh" index="0"]
 material_override = ExtResource("2_s3kon")
+
+[editable path="Mesh"]

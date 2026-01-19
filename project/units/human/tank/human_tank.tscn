@@ -1,36 +1,51 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0o1pskrhf044"]
+[gd_scene load_steps=12 format=3 uid="uid://b0o1pskrhf044"]
 
-[ext_resource type="PackedScene" uid="uid://bl1u87bcdpwpp" path="res://units/human/tank/hero/mesh/_barrel.tscn" id="1_im0k6"]
-[ext_resource type="PackedScene" uid="uid://grj13bnaxr3y" path="res://units/human/tank/hero/mesh/_body.tscn" id="1_qkawa"]
-[ext_resource type="PackedScene" uid="uid://csc70s1egoraf" path="res://units/human/tank/hero/mesh/_turret.tscn" id="2_bvbqh"]
+[ext_resource type="Script" uid="uid://6awqg74wnvfp" path="res://units/human/tank/human_tank.gd" id="1_itvlm"]
 [ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="3_irgey"]
 [ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="4_4csg3"]
-[ext_resource type="PackedScene" uid="uid://dn22taffuyql4" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="4_83yeg"]
-[ext_resource type="PackedScene" uid="uid://0lgndf4tb5kr" path="res://units/human/tank/hero/mesh/wheels_right.tscn" id="5_itvlm"]
-[ext_resource type="PackedScene" uid="uid://comy5fqj8vcwt" path="res://units/human/tank/hero/mesh/track_right.tscn" id="6_s68el"]
-[ext_resource type="PackedScene" uid="uid://bjt3upoq4cg4x" path="res://units/human/tank/hero/mesh/track_left.tscn" id="7_jrc1l"]
+[ext_resource type="PackedScene" uid="uid://bkefu1383smlp" path="res://units/human/tank/hero/mesh/body.tscn" id="10_v2578"]
+[ext_resource type="PackedScene" uid="uid://baiqwcwaqg702" path="res://units/human/tank/hero/mesh/turret.tscn" id="11_3jpjq"]
+[ext_resource type="PackedScene" uid="uid://coecg4slmgj7w" path="res://units/human/tank/hero/mesh/barrel.tscn" id="12_l52bp"]
+[ext_resource type="PackedScene" uid="uid://jwbji3u34cd2" path="res://units/human/tank/hero/mesh/track_left.tscn" id="13_th8qc"]
+[ext_resource type="PackedScene" uid="uid://djeqvfuxtgxpj" path="res://units/human/tank/hero/mesh/track_right.tscn" id="14_o8pnh"]
+[ext_resource type="PackedScene" uid="uid://bs46upv5xhqe4" path="res://units/human/tank/hero/mesh/wheels_right.tscn" id="15_bakst"]
+[ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
 
-[node name="HumanTank" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
+radius = 1.6
+height = 8.0
 
-[node name="Body" parent="." instance=ExtResource("1_qkawa")]
+[node name="HumanTank" type="CharacterBody3D"]
+script = ExtResource("1_itvlm")
 
-[node name="BodyMain" parent="Body" index="0"]
+[node name="MeshRoot" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Body" parent="MeshRoot" instance=ExtResource("10_v2578")]
+
+[node name="BodyMain" parent="MeshRoot/Body/Mesh" index="0"]
 material_override = ExtResource("4_4csg3")
 
-[node name="Turret" parent="." instance=ExtResource("2_bvbqh")]
+[node name="Turret" parent="MeshRoot" instance=ExtResource("11_3jpjq")]
 
-[node name="Turret" parent="Turret" index="0"]
+[node name="Turret" parent="MeshRoot/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
-[node name="Barrel" parent="Turret" instance=ExtResource("1_im0k6")]
+[node name="Barrel" parent="MeshRoot/Turret" instance=ExtResource("12_l52bp")]
 
-[node name="WheelsLeft" parent="." instance=ExtResource("4_83yeg")]
+[node name="TrackLeft" parent="MeshRoot" instance=ExtResource("13_th8qc")]
 
-[node name="WheelsRight" parent="." instance=ExtResource("5_itvlm")]
+[node name="TrackRight" parent="MeshRoot" instance=ExtResource("14_o8pnh")]
 
-[node name="TrackRight" parent="." instance=ExtResource("6_s68el")]
+[node name="WheelsRight" parent="MeshRoot" instance=ExtResource("15_bakst")]
 
-[node name="TrackLeft" parent="." instance=ExtResource("7_jrc1l")]
+[node name="WheelsLeft" parent="MeshRoot" instance=ExtResource("16_4wo5m")]
 
-[editable path="Body"]
-[editable path="Turret"]
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
+shape = SubResource("CapsuleShape3D_83yeg")
+
+[editable path="MeshRoot/Body"]
+[editable path="MeshRoot/Body/Mesh"]
+[editable path="MeshRoot/Turret"]
+[editable path="MeshRoot/Turret/Mesh"]

@@ -22,9 +22,6 @@ environment = SubResource("Environment_nsiie")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Environment"]
-transform = Transform3D(0.9659208, 0.003118823, -0.25881907, 0.1266126, 0.86643875, 0.4829629, 0.22575712, -0.49927375, 0.8365164, 0, 31, 0)
-
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
@@ -34,3 +31,76 @@ size = Vector3(1000, 1, 1000)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
 [node name="HumanTank" parent="." instance=ExtResource("1_nsiie")]
+
+[node name="Camera" type="Camera3D" parent="HumanTank"]
+transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="Cylinder" type="CSGCylinder3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 11.726185, 7.500001, 35.455025)
+use_collision = true
+radius = 5.0
+height = 15.0
+
+[node name="Cylinder2" type="CSGCylinder3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 63.233223, 7.500001, 42.667835)
+use_collision = true
+radius = 5.0
+height = 15.0
+
+[node name="Cylinder3" type="CSGCylinder3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.013372, 7.500001, -71.83216)
+use_collision = true
+radius = 5.0
+height = 15.0
+
+[node name="Box" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.412718, 5, 8.500542)
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box2" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -41.94111, 5, 44.50054)
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box3" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -54.44111, 5, -40.05906)
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Box4" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -6.757154, 5, -48.55906)
+use_collision = true
+size = Vector3(10, 10, 10)
+
+[node name="Sphere" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.09925, 5, -34.042397)
+use_collision = true
+radius = 5.0
+
+[node name="Sphere2" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -20.907791, 5, 84.318474)
+use_collision = true
+radius = 5.0
+
+[node name="Sphere3" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -49.41483, 5, 9.555677)
+use_collision = true
+radius = 5.0
+
+[node name="Sphere4" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -25.041765, 5, -32.22893)
+use_collision = true
+radius = 5.0
+
+[node name="Sphere5" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 43.759506, 5, -13.061636)
+use_collision = true
+radius = 5.0
+
+[node name="Sphere6" type="CSGSphere3D" parent="Obstacles"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 59.259506, 5, 13.785151)
+use_collision = true
+radius = 5.0

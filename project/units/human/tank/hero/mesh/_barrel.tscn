@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl1u87bcdpwpp"]
-
-[ext_resource type="PackedScene" uid="uid://bgrts8fxvecde" path="res://units/human/tank/hero/mesh/barrel.glb" id="1_bk8ov"]
-[ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="2_6oftd"]
-
-[node name="barrel" instance=ExtResource("1_bk8ov")]
-
-[node name="Gun" parent="." index="0"]
-material_override = ExtResource("2_6oftd")

@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://0lgndf4tb5kr"]
+[gd_scene load_steps=3 format=3 uid="uid://bs46upv5xhqe4"]
 
 [ext_resource type="PackedScene" uid="uid://bchbc4mf3i4th" path="res://units/human/tank/hero/mesh/wheels_right.glb" id="1_0d4ck"]
 [ext_resource type="Material" uid="uid://dweobtql83d38" path="res://units/human/tank/wheels_material.tres" id="2_8kpdl"]
 
-[node name="wheels_right" instance=ExtResource("1_0d4ck")]
+[node name="WheelsRight" type="Node3D"]
 
-[node name="RightWheel" parent="." index="0"]
+[node name="Mesh" parent="." instance=ExtResource("1_0d4ck")]
+
+[node name="RightWheel" parent="Mesh" index="0"]
 material_override = ExtResource("2_8kpdl")
+
+[editable path="Mesh"]
