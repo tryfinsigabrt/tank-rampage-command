@@ -1,5 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://csc70s1egoraf"]
+[gd_scene load_steps=3 format=3 uid="uid://baiqwcwaqg702"]
 
 [ext_resource type="PackedScene" uid="uid://bt6eli867bsex" path="res://units/human/tank/hero/mesh/turret.glb" id="1_fv20s"]
 
-[node name="turret" instance=ExtResource("1_fv20s")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ci8ng"]
+size = Vector3(2.7, 1.1, 3.6000001)
+
+[node name="Turret" type="StaticBody3D"]
+
+[node name="Mesh" parent="." instance=ExtResource("1_fv20s")]
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999982, 2.45, -0.100000024)
+shape = SubResource("BoxShape3D_ci8ng")

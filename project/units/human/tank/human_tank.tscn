@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://b0o1pskrhf044"]
 
-[ext_resource type="PackedScene" uid="uid://bl1u87bcdpwpp" path="res://units/human/tank/hero/mesh/barrel.tscn" id="1_im0k6"]
-[ext_resource type="PackedScene" uid="uid://grj13bnaxr3y" path="res://units/human/tank/hero/mesh/body.tscn" id="1_qkawa"]
-[ext_resource type="PackedScene" uid="uid://csc70s1egoraf" path="res://units/human/tank/hero/mesh/turret.tscn" id="2_bvbqh"]
+[ext_resource type="PackedScene" uid="uid://bl1u87bcdpwpp" path="res://units/human/tank/hero/mesh/_barrel.tscn" id="1_im0k6"]
+[ext_resource type="PackedScene" uid="uid://grj13bnaxr3y" path="res://units/human/tank/hero/mesh/_body.tscn" id="1_qkawa"]
+[ext_resource type="PackedScene" uid="uid://csc70s1egoraf" path="res://units/human/tank/hero/mesh/_turret.tscn" id="2_bvbqh"]
 [ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="3_irgey"]
 [ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="4_4csg3"]
 [ext_resource type="PackedScene" uid="uid://dn22taffuyql4" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="4_83yeg"]

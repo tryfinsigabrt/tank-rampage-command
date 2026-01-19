@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl1u87bcdpwpp"]
+[gd_scene load_steps=4 format=3 uid="uid://coecg4slmgj7w"]
 
 [ext_resource type="PackedScene" uid="uid://bgrts8fxvecde" path="res://units/human/tank/hero/mesh/barrel.glb" id="1_bk8ov"]
 [ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="2_6oftd"]
 
-[node name="barrel" instance=ExtResource("1_bk8ov")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bk8ov"]
+height = 4.1081543
+radius = 0.123
 
-[node name="Gun" parent="." index="0"]
+[node name="Barrel" type="StaticBody3D"]
+
+[node name="Mesh" parent="." instance=ExtResource("1_bk8ov")]
+
+[node name="Gun" parent="Mesh" index="0"]
 material_override = ExtResource("2_6oftd")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.030505419, 2.4033122, 3.7218018)
+shape = SubResource("CylinderShape3D_bk8ov")
+
+[editable path="Mesh"]
