@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://blrkufxsnfysm"]
+[gd_scene load_steps=6 format=3 uid="uid://blrkufxsnfysm"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_nsiie"]
+[ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://units/unit_movement_input_controller.tscn" id="2_7hsth"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -34,6 +35,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 
 [node name="Camera" type="Camera3D" parent="HumanTank"]
 transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
+
+[node name="UnitMovementController" parent="HumanTank" node_paths=PackedStringArray("pawn") instance=ExtResource("2_7hsth")]
+pawn = NodePath("..")
 
 [node name="Obstacles" type="Node3D" parent="."]
 
