@@ -18,36 +18,34 @@ height = 8.0
 [node name="HumanTank" type="CharacterBody3D"]
 script = ExtResource("1_itvlm")
 
-[node name="MeshRoot" type="Node3D" parent="."]
+[node name="Body" parent="." instance=ExtResource("10_v2578")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Body" parent="MeshRoot" instance=ExtResource("10_v2578")]
-
-[node name="BodyMain" parent="MeshRoot/Body/Mesh" index="0"]
+[node name="BodyMain" parent="Body/Mesh" index="0"]
 material_override = ExtResource("4_4csg3")
 
-[node name="Turret" parent="MeshRoot" instance=ExtResource("11_3jpjq")]
+[node name="Turret" parent="Body" instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="MeshRoot/Turret/Mesh" index="0"]
+[node name="Turret" parent="Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
-[node name="Barrel" parent="MeshRoot/Turret" instance=ExtResource("12_l52bp")]
+[node name="Barrel" parent="Body/Turret" instance=ExtResource("12_l52bp")]
 unique_name_in_owner = true
 
-[node name="TrackLeft" parent="MeshRoot" instance=ExtResource("13_th8qc")]
+[node name="WheelsRight" parent="Body" instance=ExtResource("15_bakst")]
 
-[node name="TrackRight" parent="MeshRoot" instance=ExtResource("14_o8pnh")]
+[node name="TrackRight" parent="Body/WheelsRight" instance=ExtResource("14_o8pnh")]
 
-[node name="WheelsRight" parent="MeshRoot" instance=ExtResource("15_bakst")]
+[node name="WheelsLeft" parent="Body" instance=ExtResource("16_4wo5m")]
 
-[node name="WheelsLeft" parent="MeshRoot" instance=ExtResource("16_4wo5m")]
+[node name="TrackLeft" parent="Body/WheelsLeft" instance=ExtResource("13_th8qc")]
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
 shape = SubResource("CapsuleShape3D_83yeg")
 
-[editable path="MeshRoot/Body"]
-[editable path="MeshRoot/Body/Mesh"]
-[editable path="MeshRoot/Turret"]
-[editable path="MeshRoot/Turret/Mesh"]
+[editable path="Body"]
+[editable path="Body/Mesh"]
+[editable path="Body/Turret"]
+[editable path="Body/Turret/Mesh"]
