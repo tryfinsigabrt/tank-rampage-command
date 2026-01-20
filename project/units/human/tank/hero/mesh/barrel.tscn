@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://coecg4slmgj7w"]
+[gd_scene load_steps=4 format=3 uid="uid://coecg4slmgj7w"]
 
+[ext_resource type="Script" uid="uid://bho5adjuh805c" path="res://units/human/tank/hero/mesh/barrel.gd" id="1_6oftd"]
 [ext_resource type="PackedScene" uid="uid://bgrts8fxvecde" path="res://units/human/tank/hero/mesh/barrel.glb" id="1_bk8ov"]
 [ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="2_6oftd"]
 
 [node name="Barrel" type="Node3D"]
+script = ExtResource("1_6oftd")
 
 [node name="Mesh" parent="." instance=ExtResource("1_bk8ov")]
 

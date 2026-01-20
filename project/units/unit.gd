@@ -10,14 +10,26 @@ func move(input_direction:Vector2) -> void
 func aim_at(world_location:Vector3) -> void
 
 
-var global_foward:Vector3:
+var global_forward:Vector3:
 	get:
 		return -global_transform.basis.z
 
+var forward:Vector3:
+	get:
+		return -transform.basis.z
+		
 var global_right:Vector3:
 	get:
 		return global_transform.basis.x
 
+var right:Vector3:
+	get:
+		return transform.basis.x
+		
 var global_up:Vector3:
 	get:
 		return global_transform.basis.y
+		
+var up:Vector3:
+	get:
+		return transform.basis.y

@@ -7,5 +7,5 @@ var angular_speed_deg:float = 90.0
 func rotate_turret(direction:float) -> void:
 	if is_zero_approx(direction):
 		return
-	var rot:float = angular_speed_deg * get_physics_process_delta_time() * sign(direction)
+	var rot:float = angular_speed_deg * get_physics_process_delta_time() * signf(direction)
 	rotation_degrees += Vector3.UP * rot

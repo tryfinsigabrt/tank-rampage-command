@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkefu1383smlp"]
+[gd_scene load_steps=3 format=3 uid="uid://bkefu1383smlp"]
 
+[ext_resource type="Script" uid="uid://bvtrnnjd2rn7u" path="res://units/human/tank/hero/mesh/body.gd" id="1_clrja"]
 [ext_resource type="PackedScene" uid="uid://chhyv5l8ed1lm" path="res://units/human/tank/hero/mesh/body.glb" id="1_wel5u"]
 
 [node name="Body" type="Node3D"]
+script = ExtResource("1_clrja")
 
 [node name="Mesh" parent="." instance=ExtResource("1_wel5u")]

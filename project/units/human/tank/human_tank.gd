@@ -1,7 +1,8 @@
 class_name HumanTank extends Unit
 
 @onready var turret: Turret = %Turret
-@onready var barrel: Node3D = %Barrel
+@onready var barrel: TankBarrel = %Barrel
+@onready var body: TankBody = %Body
 
 @export_range(0.0, 1e9, 0.01, "or_greater")
 var turret_aim_tolerance_deg:float = 1.0
@@ -15,10 +16,19 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 func move(input_direction:Vector2) -> void:
-	var direction := (transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
-	if direction:
-		velocity.x = direction.x * movement_speed
-		velocity.z = direction.z * movement_speed
+	# Move forward/back always proceeds along forward vector 
+	# and left/right rotates in place
+	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)
+	
+	var direction := (transform.basis * input_direction_3).normalized()
+	var rotation_dir:float = signf(-direction.x)
+	body.turn(rotation_dir)
+
+	# Negative as "forward" is -z as we are using right-handed OpenGL-style coordinate system
+	var movement_direction := -input_direction_3.z * body.global_basis.z
+	if movement_direction:
+		velocity.x = movement_direction.x * movement_speed
+		velocity.z = movement_direction.z * movement_speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, movement_speed)
 		velocity.z = move_toward(velocity.z, 0, movement_speed)
@@ -29,7 +39,7 @@ func aim_at(world_location:Vector3) -> void:
 	# TODO: pitch the barrel
 	
 	var aim_direction:Vector3 = (world_location - turret.global_position).normalized()
-	var forward_vector:Vector3 = global_foward
+	var forward_vector:Vector3 = global_forward
 	
 	#Check if we are almost there
 	var angle:float = rad_to_deg(aim_direction.angle_to(forward_vector))
