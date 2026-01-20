@@ -27,11 +27,13 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 material_override = ExtResource("4_4csg3")
 
 [node name="Turret" parent="MeshRoot" instance=ExtResource("11_3jpjq")]
+unique_name_in_owner = true
 
 [node name="Turret" parent="MeshRoot/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
 [node name="Barrel" parent="MeshRoot/Turret" instance=ExtResource("12_l52bp")]
+unique_name_in_owner = true
 
 [node name="TrackLeft" parent="MeshRoot" instance=ExtResource("13_th8qc")]
 
