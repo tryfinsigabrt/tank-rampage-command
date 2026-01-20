@@ -35,3 +35,8 @@ transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 
 
 [node name="HumanTankMovementTest" parent="." instance=ExtResource("3_dsixg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
+
+[node name="UnitMovementController" parent="HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
+pawn = NodePath("../HumanTank")
+
+[editable path="HumanTankMovementTest"]

@@ -10,5 +10,4 @@
 [node name="Camera" type="Camera3D" parent="HumanTank"]
 transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
 
-[node name="UnitMovementController" parent="." node_paths=PackedStringArray("pawn") instance=ExtResource("2_6vdnj")]
-pawn = NodePath("../HumanTank")
+[node name="UnitMovementController" parent="." instance=ExtResource("2_6vdnj")]

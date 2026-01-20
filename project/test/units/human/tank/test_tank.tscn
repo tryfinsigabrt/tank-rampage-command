@@ -101,3 +101,8 @@ use_collision = true
 radius = 5.0
 
 [node name="HumanTankMovementTest" parent="." instance=ExtResource("1_nsiie")]
+
+[node name="UnitMovementController" parent="HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
+pawn = NodePath("../HumanTank")
+
+[editable path="HumanTankMovementTest"]
