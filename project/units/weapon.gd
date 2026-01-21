@@ -15,6 +15,9 @@ var cooldown_time_range:Vector2 = Vector2(1.5,2.0)
 @export
 var enable_debug_draw:bool = true
 
+@export_flags_3d_physics
+var damage_mask:int = Collisions.CompositeMasks.visibility
+
 func fire() -> void:
 	if not cooldown_timer.is_stopped():
 		await cooldown_timer.timeout
@@ -38,11 +41,13 @@ func _hit_scan() -> void:
 	
 	var origin:Vector3 = global_position
 	var target:Vector3 = origin + global_forward * cast_distance
-	# TODO: Collision mask
+
 	var query := PhysicsRayQueryParameters3D.create(origin, target)
 	
 	query.collide_with_areas = true
 	query.collide_with_bodies = true
+	query.collision_mask = damage_mask
+	
 	var result := space.intersect_ray(query)
 	var hit_or_end:Vector3
 	var is_hit:bool = false
