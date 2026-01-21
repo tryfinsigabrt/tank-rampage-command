@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8nxs1p4lvu0t"]
+
+[ext_resource type="Script" uid="uid://kvgc1bommrqm" path="res://units/weapon.gd" id="1_jedj3"]
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_jedj3")
+speed_range = null
+max_distance_range = null
+cooldown_time_range = null
+enable_debug_draw = null
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ImpactTimer" type="Timer" parent="."]
+one_shot = true

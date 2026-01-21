@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://coecg4slmgj7w"]
+[gd_scene load_steps=5 format=3 uid="uid://coecg4slmgj7w"]
 
 [ext_resource type="Script" uid="uid://bho5adjuh805c" path="res://units/human/tank/hero/mesh/barrel.gd" id="1_6oftd"]
 [ext_resource type="PackedScene" uid="uid://bgrts8fxvecde" path="res://units/human/tank/hero/mesh/barrel.glb" id="1_bk8ov"]
 [ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="2_6oftd"]
+[ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="4_ndtj3"]
 
 [node name="Barrel" type="Node3D"]
 script = ExtResource("1_6oftd")
@@ -15,5 +16,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021162987, -2.4240916, -1.
 
 [node name="Gun" parent="Pivot/Mesh" index="0"]
 material_override = ExtResource("2_6oftd")
+
+[node name="FireLocation" type="Marker3D" parent="Pivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1338673)
+
+[node name="Weapon" parent="Pivot/FireLocation" instance=ExtResource("4_ndtj3")]
 
 [editable path="Pivot/Mesh"]

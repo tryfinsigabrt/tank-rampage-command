@@ -1,6 +1,7 @@
 class_name TankBarrel extends Node3D
 
 @onready var pivot: Marker3D = $Pivot
+@onready var fire_location: Marker3D = %FireLocation
 
 @export_range(0.0, 90.0, 0.01)
 var max_pitch_degrees:float = 30.0
