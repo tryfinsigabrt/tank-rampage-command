@@ -7,9 +7,13 @@
 [node name="Barrel" type="Node3D"]
 script = ExtResource("1_6oftd")
 
-[node name="Mesh" parent="." instance=ExtResource("1_bk8ov")]
+[node name="Pivot" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021162987, 2.4240916, 1.7063181)
 
-[node name="Gun" parent="Mesh" index="0"]
+[node name="Mesh" parent="Pivot" instance=ExtResource("1_bk8ov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021162987, -2.4240916, -1.7063181)
+
+[node name="Gun" parent="Pivot/Mesh" index="0"]
 material_override = ExtResource("2_6oftd")
 
-[editable path="Mesh"]
+[editable path="Pivot/Mesh"]

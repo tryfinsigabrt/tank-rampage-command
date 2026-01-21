@@ -22,8 +22,22 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("rotate_gun_cw"):
 		rot_dir -= 1
 	
+	var pitch_dir:int = 0
+	# Up is negative
+	if Input.is_action_pressed("aim_up"):
+		pitch_dir -= 1
+	if Input.is_action_pressed("aim_down"):
+		pitch_dir += 1
+	
+	var aim_location:Vector3 = Vector3.ZERO
+	
 	if rot_dir:
 		# CCW is positive
-		var aim_location:Vector3 = pawn.global_position - rot_dir * pawn.global_right * 100.0
+		aim_location += pawn.global_position - rot_dir * pawn.global_right * 100.0
+	
+	if pitch_dir:
+		aim_location.y += pawn.global_position.y + pitch_dir * 100.0
+
+	if aim_location:
 		pawn.aim_at(aim_location)
 	

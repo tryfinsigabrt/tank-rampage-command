@@ -4,8 +4,11 @@ class_name HumanTank extends Unit
 @onready var barrel: TankBarrel = %Barrel
 @onready var body: TankBody = %Body
 
-@export_range(0.0, 1e9, 0.01, "or_greater")
+@export_range(0.0, 90.0, 0.01)
 var turret_aim_tolerance_deg:float = 1.0
+
+@export_range(0.0, 1.0, 0.001)
+var pitch_tolerance:float = 0.01
 
 @export_range(1.0, 1e9, 0.1, "or_greater")
 var movement_speed:float = 15.0
@@ -35,18 +38,17 @@ func move(input_direction:Vector2) -> void:
 
 	move_and_slide()
 
-func aim_at(world_location:Vector3) -> void:
-	# TODO: pitch the barrel
-	
+func aim_at(world_location:Vector3) -> void:	
 	var aim_direction:Vector3 = (world_location - turret.global_position).normalized()
 	var forward_vector:Vector3 = global_forward
 	
 	#Check if we are almost there
 	var angle:float = rad_to_deg(aim_direction.angle_to(forward_vector))
-	if angle <= turret_aim_tolerance_deg:
-		return
+	if angle > turret_aim_tolerance_deg:
+		var rotation_dir:float = forward_vector.cross(aim_direction).y
+		turret.rotate_turret(rotation_dir)
 	
-	var rotation_dir:float = forward_vector.cross(aim_direction).y
-	
-	turret.rotate_turret(rotation_dir)
-	
+	var aim_pitch:float = aim_direction.y
+	# Technically this is not an angle but using some small value to avoid jitter
+	if absf(aim_pitch) > pitch_tolerance:
+		barrel.pitch_barrel(aim_pitch)
