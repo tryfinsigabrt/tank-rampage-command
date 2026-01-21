@@ -26,7 +26,7 @@ func fire() -> void:
 	
 
 var global_forward:Vector3:
-	get: return -global_transform.basis.z
+	get: return global_transform.basis.z
 	
 func _hit_scan() -> void:
 	# Use physics server rather than ray 3D
@@ -70,23 +70,10 @@ func _hit_scan() -> void:
 func _draw_debug(start: Vector3, end: Vector3, success:bool) -> void:
 	if not enable_debug_draw or not OS.is_debug_build():
 		return
-	
-	#get_world_3d().draw
-	#DebugDraw3D.draw_line(origin, target, Color.RED)
-# Draw the ray
-#DebugDraw3D.draw_line(origin, target, Color.RED)
-#
-#if result:
-	## Draw the hit point
-	#DebugDraw3D.draw_sphere(result.position, 0.2, Color.YELLOW)
-#
-	## Draw the surface normal
-	#var normal_end = result.position + result.normal * 1.0
-	#DebugDraw3D.draw_arrow(result.position, normal_end, Color.GREEN)
+	DebugDraw3D.draw_arrow(start, end, Color.GREEN if success else Color.RED, 0.1, false, 3.0)
 
-		
-func _randv(range: Vector2) -> float:
-	return randf_range(range.x, range.y)
+func _randv(min_max: Vector2) -> float:
+	return randf_range(min_max.x, min_max.y)
 	
 func _set_timer(timer:Timer, time: float) -> void:
 	timer.wait_time = time

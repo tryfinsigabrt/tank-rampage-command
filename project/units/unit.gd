@@ -9,6 +9,8 @@ func move(input_direction:Vector2) -> void
 @abstract
 func aim_at(world_location:Vector3) -> void
 
+@abstract
+func shoot() -> void
 
 var global_forward:Vector3:
 	get:

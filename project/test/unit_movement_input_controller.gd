@@ -41,3 +41,6 @@ func _physics_process(_delta: float) -> void:
 	if aim_location:
 		pawn.aim_at(aim_location)
 	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("fire"):
+		pawn.shoot()

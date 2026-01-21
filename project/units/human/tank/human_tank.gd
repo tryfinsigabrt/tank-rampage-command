@@ -52,3 +52,6 @@ func aim_at(world_location:Vector3) -> void:
 	# Technically this is not an angle but using some small value to avoid jitter
 	if absf(aim_pitch) > pitch_tolerance:
 		barrel.pitch_barrel(aim_pitch)
+
+func shoot() -> void:
+	barrel.shoot()
