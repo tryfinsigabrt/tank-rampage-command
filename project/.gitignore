@@ -1,7 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-/demo/
 
 # Godot 4.1+ specific ignores
 export_credentials.cfg
@@ -12,3 +11,7 @@ export_credentials.cfg
 *.translation
 
 ~*
+
+# Godot Add on Ignores
+/demo/
+/examples_dd3d/
