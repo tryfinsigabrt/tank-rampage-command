@@ -2,6 +2,8 @@ class_name Weapon extends Node3D
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
+@onready var fire_emitter: CPUParticles3D = $FireEmitter
+@onready var hit_emitter: CPUParticles3D = $HitEmitter
 
 @export
 var speed_range:Vector2 = Vector2(1500,2000)
@@ -22,6 +24,7 @@ func fire() -> void:
 	if not cooldown_timer.is_stopped():
 		await cooldown_timer.timeout
 	
+	fire_emitter.restart()
 	var cooldown:float = _randv(cooldown_time_range)
 	_set_timer(cooldown_timer, cooldown)
 	
@@ -71,6 +74,12 @@ func _hit_scan() -> void:
 		await impact_timer.timeout
 	
 	_draw_debug(origin, hit_or_end, is_hit)
+	
+	if is_hit:
+		# TODO: Emit damage signal on signal bus
+		hit_emitter.global_position = hit_or_end
+		hit_emitter.restart()
+
 	
 func _draw_debug(start: Vector3, end: Vector3, success:bool) -> void:
 	if not enable_debug_draw or not OS.is_debug_build():

@@ -1,6 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8nxs1p4lvu0t"]
+[gd_scene load_steps=8 format=3 uid="uid://b8nxs1p4lvu0t"]
 
 [ext_resource type="Script" uid="uid://kvgc1bommrqm" path="res://units/weapon.gd" id="1_jedj3"]
+[ext_resource type="Material" uid="uid://se2b8wovedow" path="res://units/weapon_fire_material.tres" id="2_aqau3"]
+[ext_resource type="Material" uid="uid://bvwc34m4rdpyy" path="res://units/weapon_hit_material.tres" id="3_pljod"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_aqau3"]
+material = ExtResource("2_aqau3")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="Gradient" id="Gradient_aqau3"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.015810277, 0.5810277)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5bddv"]
+material = ExtResource("3_pljod")
+radius = 0.25
+height = 0.5
+radial_segments = 8
+rings = 6
+
+[sub_resource type="Gradient" id="Gradient_pljod"]
+offsets = PackedFloat32Array(0, 0.5513834, 0.9920949, 1)
+colors = PackedColorArray(0.38142294, 0.38142294, 0.38142294, 1, 0, 0, 0, 1, 0.09090904, 0.09090904, 0.09090904, 1, 1, 1, 1, 1)
 
 [node name="Weapon" type="Node3D"]
 script = ExtResource("1_jedj3")
@@ -10,3 +33,53 @@ one_shot = true
 
 [node name="ImpactTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="FireEmitter" type="CPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.1
+randomness = 0.2
+lifetime_randomness = 0.2
+mesh = SubResource("SphereMesh_aqau3")
+direction = Vector3(0, 0, 1)
+spread = 20.0
+gravity = Vector3(0, 0, 0)
+color = Color(0.9463554, 0.22539788, 0.10773837, 1)
+color_ramp = SubResource("Gradient_aqau3")
+hue_variation_min = -0.2
+hue_variation_max = 0.2
+
+[node name="HitEmitter" type="CPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 50
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+lifetime_randomness = 0.2
+mesh = SubResource("SphereMesh_5bddv")
+emission_shape = 1
+emission_sphere_radius = 2.0
+emission_colors = PackedColorArray(1, 1, 1, 1)
+direction = Vector3(0, 1, -0.1)
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+linear_accel_max = 2.5
+radial_accel_max = 2.5
+tangential_accel_max = 2.5
+damping_min = 0.2
+damping_max = 0.5
+angle_min = -90.0
+angle_max = 90.0
+scale_amount_min = 0.2
+scale_amount_max = 2.0
+color = Color(0.9463554, 0.22539788, 0.10773837, 1)
+color_ramp = SubResource("Gradient_pljod")
+hue_variation_min = -0.2
+hue_variation_max = 0.2
