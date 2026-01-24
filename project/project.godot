@@ -22,6 +22,10 @@ Collisions="*res://utils/collisions.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [debug_draw_3d]
 
 settings/addon_root_folder="res://addons/debug_draw_3d"

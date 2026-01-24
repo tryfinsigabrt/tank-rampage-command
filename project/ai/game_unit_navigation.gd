@@ -8,7 +8,7 @@ var _unit:Unit
 var distance_threshold:float = 4.0
 
 @export
-var alignment_turn_threshold:float = 0.8
+var alignment_turn_threshold:float = 0.92
 
 @export
 var alignment_forward_threshold:float = 0.6
@@ -50,11 +50,13 @@ func _physics_process(_delta: float) -> void:
 	var alignment:float = -direction.dot(forward_vector)
 	var unit_move_dir:Vector2 = Vector2.ZERO
 	if alignment < alignment_turn_threshold:
-		unit_move_dir.x = forward_vector.cross(direction).y
+		unit_move_dir.x = 1.0 * signf(forward_vector.cross(direction).y)
 	if alignment >= alignment_forward_threshold:
 		unit_move_dir.y = -1.0
 		
 	unit_move_dir = unit_move_dir.normalized()
 	
-	#print_debug("%s: issue move to for %s: %s -> %s (dir=%s); alignment=%f" % [name, _unit, current_position, next_position, unit_move_dir, alignment])
+	if OS.is_stdout_verbose():
+		print_verbose("%s: issue move to for %s: %s -> %s (dir=%s); alignment=%f" % [name, _unit, current_position, next_position, unit_move_dir, alignment])
+	
 	_unit.move(unit_move_dir)

@@ -48,13 +48,16 @@ func _handle_unit_select(event: InputEvent) -> void:
 		
 		print_debug("%s: Selected unit=%s on team=%d; out_team=%d" % [name, new_unit.name, new_unit.team, team])
 		if OS.is_debug_build():
-			DebugDraw3D.draw_sphere(new_unit.global_position, 2.0, Color.GREEN if _selected_unit.team == team else Color.ORANGE)
+			DebugDraw3D.draw_sphere(
+				new_unit.global_position, 5.0
+				,Color.GREEN if _selected_unit.team == team else Color.ORANGE
+				, 3.0)
 	else:
 		_selected_unit = null
 	
 func _issue_move_to(target_position: Vector3) -> void:
 	if OS.is_debug_build():
-		DebugDraw3D.draw_sphere(target_position, 2.0, Color.YELLOW)
+		DebugDraw3D.draw_sphere(target_position, 5.0, Color.YELLOW, 3.0)
 		
 	SignalBus.on_unit_move_issued.emit(_selected_unit, target_position)
 	
