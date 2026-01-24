@@ -13,10 +13,16 @@ var _selected_unit:Unit
 
 func _ready() -> void:
 	if not camera:
-		camera = get_viewport().get_camera_3d()
-		print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
+		_pick_camera.call_deferred()
+
+func _pick_camera() -> void:
+	camera = get_viewport().get_camera_3d()
+	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not camera:
+		return
+		
 	# Only process if visible
 	if not is_visible_in_tree():
 		return
