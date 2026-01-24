@@ -1,13 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcimhgmigjvu4"]
+[gd_scene load_steps=4 format=3 uid="uid://dcimhgmigjvu4"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_m68ci"]
 [ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://test/unit_movement_input_controller.tscn" id="2_6vdnj"]
 
+[sub_resource type="GDScript" id="GDScript_m68ci"]
+script/source = "extends Node3D
+
+@onready var camera: Camera3D = %Camera
+
+func _ready() -> void:
+	if visible:
+		camera.make_current()
+		
+func _on_visibility_changed() -> void:
+	if visible:
+		camera.make_current()
+"
+
 [node name="HumanTankMovementTest" type="Node3D"]
+script = SubResource("GDScript_m68ci")
 
 [node name="HumanTank" parent="." instance=ExtResource("1_m68ci")]
 
 [node name="Camera" type="Camera3D" parent="HumanTank"]
+unique_name_in_owner = true
 transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
 
 [node name="UnitMovementController" parent="." instance=ExtResource("2_6vdnj")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

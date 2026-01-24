@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnqhpy3uvhqdh"]
+
+[ext_resource type="Script" uid="uid://3psy7pwt3jxj" path="res://player/unit_actions.gd" id="1_64uf0"]
+
+[node name="UnitActions" type="Node3D"]
+script = ExtResource("1_64uf0")

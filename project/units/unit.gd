@@ -2,6 +2,9 @@
 @abstract
 class_name Unit extends CharacterBody3D
 
+@export
+var team:int
+
 ## Provides the screen direction to instruct the unit to move to
 @abstract
 func move(input_direction:Vector2) -> void
@@ -12,26 +15,29 @@ func aim_at(world_location:Vector3) -> void
 @abstract
 func shoot() -> void
 
+func _orientation_basis() -> Node3D:
+	return self
+	
 var global_forward:Vector3:
 	get:
-		return -global_transform.basis.z
+		return -_orientation_basis().global_transform.basis.z
 
 var forward:Vector3:
 	get:
-		return -transform.basis.z
+		return -_orientation_basis().transform.basis.z
 		
 var global_right:Vector3:
 	get:
-		return global_transform.basis.x
+		return _orientation_basis().global_transform.basis.x
 
 var right:Vector3:
 	get:
-		return transform.basis.x
+		return _orientation_basis().transform.basis.x
 		
 var global_up:Vector3:
 	get:
-		return global_transform.basis.y
+		return _orientation_basis().global_transform.basis.y
 		
 var up:Vector3:
 	get:
-		return transform.basis.y
+		return _orientation_basis().transform.basis.y

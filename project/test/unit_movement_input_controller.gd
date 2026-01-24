@@ -28,6 +28,7 @@ func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	#print_debug("input_dir=%s" % input_dir)
 	pawn.move(input_dir)
 	
 	var rot_dir:int = 0
@@ -45,6 +46,8 @@ func _physics_process(_delta: float) -> void:
 	
 	var aim_location:Vector3 = Vector3.ZERO
 	
+	# FIXME: pawn.global_position does not account for weapon position so we are off by a little
+	# For tank this shuold be turret.global_position
 	if rot_dir:
 		# CCW is positive
 		aim_location += pawn.global_position - rot_dir * pawn.global_right * 100.0

@@ -17,6 +17,7 @@ class CompositeMasks:
 	const all: int = 0xFFFFFFFF
 	const world:int = Layers.world_static | Layers.terrain | Layers.world_dynamic
 	const visibility: int = world | Layers.unit
+	const ground: int = Layers.world_static | Layers.terrain
 
 func add_exception_for_layer_and_group(in_body: Node, layer:int, group:StringName) -> void:
 	in_body.collision_mask &= ~layer

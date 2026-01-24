@@ -8,11 +8,17 @@ class_name HumanTank extends Unit
 var turret_aim_tolerance_deg:float = 1.0
 
 @export_range(0.0, 1.0, 0.001)
+var turret_aim_tolerance:float = 0.1
+
+@export_range(0.0, 1.0, 0.001)
 var pitch_tolerance:float = 0.01
 
 @export_range(1.0, 1e9, 0.1, "or_greater")
 var movement_speed:float = 15.0
 
+func _orientation_basis() -> Node3D:
+	return body
+	
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -40,12 +46,18 @@ func move(input_direction:Vector2) -> void:
 
 func aim_at(world_location:Vector3) -> void:	
 	var aim_direction:Vector3 = (world_location - turret.global_position).normalized()
-	var forward_vector:Vector3 = global_forward
+	
+	#var barrel_dir:Vector3 = -barrel.global_transform.basis.z
+	#var forward_vector:Vector2 = Vector2(barrel_dir.x, barrel_dir.z)
+	var v:Vector3 = global_forward
+	var forward_vector:Vector2 = Vector2(v.x, v.z)
+	var aim_dir_turret:Vector2 = Vector2(aim_direction.x, aim_direction.z)
 	
 	#Check if we are almost there
-	var angle:float = rad_to_deg(aim_direction.angle_to(forward_vector))
-	if angle > turret_aim_tolerance_deg:
-		var rotation_dir:float = forward_vector.cross(aim_direction).y
+	#var angle:float = rad_to_deg(aim_dir_turret.angle_to(forward_vector))
+	#if absf(angle) > turret_aim_tolerance_deg:
+	if aim_dir_turret.length() > turret_aim_tolerance:
+		var rotation_dir:float = -forward_vector.cross(aim_dir_turret)
 		turret.rotate_turret(rotation_dir)
 	
 	var aim_pitch:float = aim_direction.y

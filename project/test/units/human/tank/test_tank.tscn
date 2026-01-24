@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://blrkufxsnfysm"]
+[gd_scene load_steps=7 format=3 uid="uid://blrkufxsnfysm"]
 
 [ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="1_nsiie"]
+[ext_resource type="PackedScene" uid="uid://ci6cv007qkn2k" path="res://test/units/human/tank/human_tank_actions_controller.tscn" id="2_7hsth"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -107,8 +108,11 @@ use_collision = true
 radius = 5.0
 
 [node name="HumanTankMovementTest" parent="World" instance=ExtResource("1_nsiie")]
+visible = false
 
 [node name="UnitMovementController" parent="World/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
+
+[node name="HumanTankActionsController" parent="World" instance=ExtResource("2_7hsth")]
 
 [editable path="World/HumanTankMovementTest"]
