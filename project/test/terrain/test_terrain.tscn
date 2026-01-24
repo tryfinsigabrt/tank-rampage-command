@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://y2gjgrbqtl7n"]
+[gd_scene load_steps=9 format=3 uid="uid://y2gjgrbqtl7n"]
 
 [ext_resource type="Terrain3DMaterial" uid="uid://x7mxifjc6k7h" path="res://test/terrain/test_terrain_material.tres" id="1_a4auo"]
 [ext_resource type="Terrain3DAssets" uid="uid://bcofwilflqk15" path="res://test/terrain/test_terrain_assets.tres" id="2_dsixg"]
+[ext_resource type="PackedScene" uid="uid://ci6cv007qkn2k" path="res://test/units/human/tank/human_tank_actions_controller.tscn" id="2_l5wcu"]
 [ext_resource type="NavigationMesh" uid="uid://ecbf3m4x73w3" path="res://test/terrain/test_terrain_nav.res" id="2_nm2cs"]
 [ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="3_dsixg"]
 
@@ -27,9 +28,13 @@ transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 
 
 [node name="HumanTankMovementTest" parent="." instance=ExtResource("3_dsixg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
+visible = false
 
 [node name="UnitMovementController" parent="HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
+
+[node name="HumanTankActionsController" parent="." instance=ExtResource("2_l5wcu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
 
 [node name="World" type="Node3D" parent="."]
 
