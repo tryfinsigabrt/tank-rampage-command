@@ -4,3 +4,5 @@
 
 [node name="UnitActions" type="Node3D"]
 script = ExtResource("1_64uf0")
+
+[node name="ActionsContainer" type="Node3D" parent="."]

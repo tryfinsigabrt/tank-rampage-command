@@ -1,5 +1,7 @@
 extends Node3D
 
+const attack_action_scene = preload("res://player/attack_action.tscn")
+
 @export
 var ray_cast_distance:float = 10000
 
@@ -11,6 +13,17 @@ var team:int
 
 var _selected_unit:Unit
 
+enum Mode
+{
+	NONE,
+	MOVE,
+	ATTACK
+}
+
+var _mode:Mode = Mode.NONE
+
+@onready var actions_container: Node3D = $ActionsContainer
+
 func _ready() -> void:
 	if not camera:
 		_pick_camera.call_deferred()
@@ -19,25 +32,71 @@ func _pick_camera() -> void:
 	camera = get_viewport().get_camera_3d()
 	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
 
+func _check_for_mode(event: InputEvent) -> void:
+	if event.is_action_pressed("unit_mode_attack"):
+		_mode = Mode.ATTACK
+	elif event.is_action_pressed("unit_mode_move"):
+		_mode = Mode.MOVE
+	
 func _unhandled_input(event: InputEvent) -> void:
 	if not camera:
 		return
 		
+	_check_for_mode(event)
+		
 	# Only process if visible
 	if not is_visible_in_tree():
 		return
+		
+	# TODO: THis is the "commit" left click mode that also depends on the 
+	# action mode like "move" or "attack" (M or A)
 	if event.is_action_pressed("unit_select"):
-		_handle_unit_select(event)
-	elif event.is_action_pressed("unit_move_to"):
-		_handle_move_to(event)
+		_handle_select(event)
+		return
 	
-func _handle_move_to(event: InputEvent) -> void:
+	# This is the context-aware "right click" mode that doesn't take _mode into account	
+	# Attacks unit if selects an enemy unit, follows an ally unit
+	if event.is_action_pressed("unit_move_to"):
+		_handle_context_action(event)
+	
+func _handle_context_action(event: InputEvent) -> void:
 	if not _selected_unit:
 		return
+	_handle_move_to(event)
+	# TODO: Will need to attack along the path		
+	
+func _handle_move_to(event: InputEvent) -> Dictionary:
 	var result := _pick_node(event, Collisions.CompositeMasks.ground)
 	if not result:
-		return
-	_issue_move_to(result.get("position"))
+		return {}
+	
+	var return_value:Dictionary = {}
+	var move_to_position:Vector3 = result.get("position")
+	
+	return_value["position"] = move_to_position
+	
+	_issue_move_to(move_to_position)
+	
+	return return_value
+	
+func _handle_select(event: InputEvent) -> void:
+	match _mode:
+		Mode.NONE: _handle_unit_select(event)
+		Mode.ATTACK: _handle_attack(event)
+		Mode.MOVE: _handle_move_to(event)
+		_ : return
+
+func _handle_attack(event: InputEvent) -> void:
+	# Move to location
+	var result:Dictionary = _handle_move_to(event)
+	# TODO: Only attack threats while moving
+	# Right now just attacking the location itself repeatedly
+	if result and _selected_unit:
+		var attack_scene:AttackAction = attack_action_scene.instantiate()
+		attack_scene.controlled_unit = _selected_unit
+		attack_scene.targeted_location = result.get("position")
+		
+		actions_container.add_child(attack_scene)
 	
 func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = _pick_unit(event)
@@ -60,7 +119,7 @@ func _handle_unit_select(event: InputEvent) -> void:
 				, 3.0)
 	else:
 		_selected_unit = null
-	
+		
 func _issue_move_to(target_position: Vector3) -> void:
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(target_position, 5.0, Color.YELLOW, 3.0)

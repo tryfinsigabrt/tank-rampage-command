@@ -1,6 +1,8 @@
 class_name GameUnitNavigation extends Node
 
 var _unit:Unit
+var _current_target_position: Vector3
+var _target_reached:bool = false
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
@@ -28,7 +30,10 @@ func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
 	
 func move_to(target:Vector3) -> void:
 	print_debug("%s: move_to - target=%s" % [name, target])
+	
+	_current_target_position = target
 	navigation_agent_3d.target_position = target
+	_target_reached = false
 	
 func set_enabled(enabled:bool) -> void:
 	set_physics_process(enabled)
@@ -40,6 +45,7 @@ func _physics_process(_delta: float) -> void:
 	var current_position := _unit.global_position
 	
 	if next_position.distance_squared_to(current_position) <= distance_threshold * distance_threshold:
+		_emit_target_reached()
 		return
 		
 	var direction := current_position.direction_to(next_position)
@@ -60,3 +66,13 @@ func _physics_process(_delta: float) -> void:
 		print_verbose("%s: issue move to for %s: %s -> %s (dir=%s); alignment=%f" % [name, _unit, current_position, next_position, unit_move_dir, alignment])
 	
 	_unit.move(unit_move_dir)
+
+
+func _on_navigation_agent_3d_navigation_finished() -> void:
+	_emit_target_reached()
+	
+func _emit_target_reached() -> void:
+	if not _target_reached:
+		print_debug("%s: Target Reached - unit=%s; target=%s" % [name, _unit.name, _current_target_position])
+		_target_reached = true
+		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
