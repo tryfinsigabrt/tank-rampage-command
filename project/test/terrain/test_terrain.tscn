@@ -2,6 +2,7 @@
 
 [ext_resource type="Terrain3DMaterial" uid="uid://x7mxifjc6k7h" path="res://test/terrain/test_terrain_material.tres" id="1_a4auo"]
 [ext_resource type="Terrain3DAssets" uid="uid://bcofwilflqk15" path="res://test/terrain/test_terrain_assets.tres" id="2_dsixg"]
+[ext_resource type="NavigationMesh" uid="uid://ecbf3m4x73w3" path="res://test/terrain/test_terrain_nav.res" id="2_nm2cs"]
 [ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="3_dsixg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
@@ -13,8 +14,6 @@ sky_material = SubResource("ProceduralSkyMaterial_nm2cs")
 background_mode = 2
 sky = SubResource("Sky_l5wcu")
 ambient_light_source = 3
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_dsixg"]
 
 [node name="TerrainTest" type="Node3D"]
 
@@ -35,7 +34,7 @@ pawn = NodePath("../HumanTank")
 [node name="World" type="Node3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World"]
-navigation_mesh = SubResource("NavigationMesh_dsixg")
+navigation_mesh = ExtResource("2_nm2cs")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D"]
 data_directory = "res://test/terrain/data"
