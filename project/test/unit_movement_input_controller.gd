@@ -6,10 +6,24 @@ var pawn:Unit
 func _ready() -> void:
 	if not pawn:
 		push_error("%s: No pawn configured - movement disabled!" % name)
-		set_physics_process(false)
-		set_process(false)
+		_toggle_controls(false)
+		return
+	pawn.visibility_changed.connect(_on_pawn_visibility_changed)
+	
+	if not pawn.is_visible_in_tree():
+		print_debug("%s: Disabling input as pawn %s is not visible in tree" % [name, pawn.name])
+		_toggle_controls(false)
 		return
 		
+func _on_pawn_visibility_changed() -> void:
+	var is_visible:bool = pawn.is_visible_in_tree()
+	print_debug("%s: Visibility of pawn %s changed to %s" % [name, pawn.name, is_visible])
+	_toggle_controls(is_visible)
+	
+func _toggle_controls(enabled:bool) -> void:
+	set_physics_process(enabled)
+	set_process(enabled)
+	
 func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
