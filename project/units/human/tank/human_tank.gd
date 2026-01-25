@@ -3,6 +3,7 @@ class_name HumanTank extends Unit
 @onready var turret: Turret = %Turret
 @onready var barrel: TankBarrel = %Barrel
 @onready var body: TankBody = %Body
+@onready var collision: CollisionShape3D = $Collision
 
 @export_range(0.0, 90.0, 0.01)
 var turret_aim_tolerance_deg:float = 1.0
@@ -20,6 +21,8 @@ func _orientation_basis() -> Node3D:
 	return body
 	
 func _physics_process(delta: float) -> void:
+	collision.disabled = not is_visible_in_tree()
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -29,9 +32,13 @@ func move(input_direction:Vector2) -> void:
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)
 	
-	var direction := (transform.basis * input_direction_3).normalized()
-	var rotation_dir:float = signf(-direction.x)
-	body.turn(rotation_dir)
+	#var direction := (transform.basis * input_direction_3).normalized()
+	#var rotation_dir:float = signf(-direction.x)
+	var rotation_dir:float = signf(-input_direction.x)
+	var rot:float = deg_to_rad(body.turning_speed_degrees) * get_physics_process_delta_time() * rotation_dir
+	
+	# Rotate the whole character so that the collider rotates too
+	rotate_y(rot)
 
 	# Negative as "forward" is -z as we are using right-handed OpenGL-style coordinate system
 	var movement_direction := -input_direction_3.z * body.global_basis.z

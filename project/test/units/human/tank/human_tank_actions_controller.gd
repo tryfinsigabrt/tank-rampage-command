@@ -1,11 +1,11 @@
 extends Node3D
 
-@onready var camera: Camera3D = %Camera
+@onready var follow_camera: FollowCamera = $FollowCamera
 
 func _ready() -> void:
 	if visible:
-		camera.make_current()
+		follow_camera.make_camera_current()
 		
 func _on_visibility_changed() -> void:
 	if visible:
-		camera.make_current()
+		follow_camera.make_camera_current()

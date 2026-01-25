@@ -39,24 +39,19 @@ func _check_for_mode(event: InputEvent) -> void:
 		_mode = Mode.MOVE
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if not camera:
+	# Only process if visible
+	if not camera or not is_visible_in_tree():
 		return
 		
 	_check_for_mode(event)
-		
-	# Only process if visible
-	if not is_visible_in_tree():
-		return
-		
+
 	# TODO: THis is the "commit" left click mode that also depends on the 
 	# action mode like "move" or "attack" (M or A)
 	if event.is_action_pressed("unit_select"):
-		_handle_select(event)
-		return
-	
+		_handle_select(event)	
 	# This is the context-aware "right click" mode that doesn't take _mode into account	
 	# Attacks unit if selects an enemy unit, follows an ally unit
-	if event.is_action_pressed("unit_move_to"):
+	elif event.is_action_pressed("unit_move_to"):
 		_handle_context_action(event)
 	
 func _handle_context_action(event: InputEvent) -> void:
@@ -69,6 +64,8 @@ func _handle_move_to(event: InputEvent) -> Dictionary:
 	var result := _pick_node(event, Collisions.CompositeMasks.ground)
 	if not result:
 		return {}
+	
+	_clear_all_actions()
 	
 	var return_value:Dictionary = {}
 	var move_to_position:Vector3 = result.get("position")
@@ -92,11 +89,16 @@ func _handle_attack(event: InputEvent) -> void:
 	# TODO: Only attack threats while moving
 	# Right now just attacking the location itself repeatedly
 	if result and _selected_unit:
+		_clear_all_actions()
 		var attack_scene:AttackAction = attack_action_scene.instantiate()
 		attack_scene.controlled_unit = _selected_unit
 		attack_scene.targeted_location = result.get("position")
 		
 		actions_container.add_child(attack_scene)
+
+func _clear_all_actions() -> void:
+	for node in actions_container.get_children():
+		node.queue_free()
 	
 func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = _pick_unit(event)

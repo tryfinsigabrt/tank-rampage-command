@@ -29,7 +29,6 @@ func fire() -> void:
 	_set_timer(cooldown_timer, cooldown)
 	
 	_hit_scan()
-	
 
 var global_forward:Vector3:
 	get: return global_transform.basis.z
@@ -80,7 +79,6 @@ func _hit_scan() -> void:
 		hit_emitter.global_position = hit_or_end
 		hit_emitter.restart()
 
-	
 func _draw_debug(start: Vector3, end: Vector3, success:bool) -> void:
 	if not enable_debug_draw or not OS.is_debug_build():
 		return

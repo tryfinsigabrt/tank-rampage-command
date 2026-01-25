@@ -24,6 +24,7 @@ func _toggle_controls(enabled:bool) -> void:
 	set_physics_process(enabled)
 	set_process(enabled)
 	
+# Movement must happen in physics process since we are moving the collider
 func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -31,6 +32,8 @@ func _physics_process(_delta: float) -> void:
 	#print_debug("input_dir=%s" % input_dir)
 	pawn.move(input_dir)
 	
+# Aiming can happen in process as it is purely visual
+func _process(_delta: float) -> void:
 	var rot_dir:int = 0
 	if Input.is_action_pressed("rotate_gun_ccw"):
 		rot_dir += 1
@@ -57,7 +60,7 @@ func _physics_process(_delta: float) -> void:
 
 	if aim_location:
 		pawn.aim_at(aim_location)
-	
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
 		pawn.shoot()

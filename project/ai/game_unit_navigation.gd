@@ -2,7 +2,7 @@ class_name GameUnitNavigation extends Node
 
 var _unit:Unit
 var _current_target_position: Vector3
-var _target_reached:bool = false
+var _target_reached:bool = true
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 
@@ -73,6 +73,6 @@ func _on_navigation_agent_3d_navigation_finished() -> void:
 	
 func _emit_target_reached() -> void:
 	if not _target_reached:
-		print_debug("%s: Target Reached - unit=%s; target=%s" % [name, _unit.name, _current_target_position])
+		print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
 		_target_reached = true
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
