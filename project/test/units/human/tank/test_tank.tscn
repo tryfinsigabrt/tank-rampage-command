@@ -110,14 +110,40 @@ transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 59.25950
 use_collision = true
 radius = 5.0
 
+[node name="Walls" type="Node3D" parent="World/NavigationRegion3D/Obstacles"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.63021, 0, 0)
+use_collision = true
+collision_mask = 13
+size = Vector3(10, 500, 1000)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.23093, 0, 0)
+use_collision = true
+collision_mask = 13
+size = Vector3(10, 500, 1000)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, -141)
+use_collision = true
+collision_layer = 13
+size = Vector3(10, 500, 1000)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, 165)
+use_collision = true
+collision_mask = 13
+size = Vector3(10, 500, 1000)
+
 [node name="HumanTankMovementTest" parent="World" instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
+visible = false
 
 [node name="UnitMovementController" parent="World/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
 
 [node name="HumanTankActionsController" parent="World" instance=ExtResource("2_7hsth")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
-visible = false
 
 [editable path="World/HumanTankMovementTest"]

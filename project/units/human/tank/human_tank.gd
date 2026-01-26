@@ -48,9 +48,9 @@ func move(input_direction:Vector2) -> void:
 	move_and_slide()
 
 func aim_at(world_location:Vector3) -> void:	
-	var aim_direction:Vector3 = (world_location - turret.global_position).normalized()
+	var aim_direction:Vector3 = (world_location - barrel.fire_position_marker.global_position).normalized()
 	
-	var heading:Vector3 = global_forward
+	var heading:Vector3 = get_fire_global_forward()
 	var projected_forward_vector:Vector2 = Vector2(heading.x, heading.z)
 	var projected_aim_dir_turret:Vector2 = Vector2(aim_direction.x, aim_direction.z)
 	
@@ -68,3 +68,22 @@ func aim_at(world_location:Vector3) -> void:
 
 func shoot() -> void:
 	barrel.shoot()
+	
+func get_fire_global_position() -> Vector3:
+	return barrel.fire_position_marker.global_position
+	
+func get_fire_global_forward() -> Vector3:
+	# Positive as we rotated around
+	var orig_basis:Basis = barrel.fire_position_marker.global_basis
+	var corrected_basis:Basis = body.transform.basis
+	var final_basis:Basis = orig_basis * corrected_basis
+	return -final_basis.z
+	#return -barrel.global_basis.z
+
+func get_fire_global_right() -> Vector3:
+	#var final_basis:Basis = barrel.global_basis * body.transform.basis
+	#return final_basis.x
+	return barrel.fire_position_marker.global_basis.x
+
+func get_fire_global_up() -> Vector3:
+	return barrel.global_basis.y

@@ -13,8 +13,11 @@ var rotation_speed_degrees:float = 15.0
 func pitch_barrel(direction:float) -> void:
 	if is_zero_approx(direction):
 		return
-	var rot:float = rotation_speed_degrees * get_process_delta_time() * signf(direction)
+	var rot:float = -rotation_speed_degrees * get_process_delta_time() * signf(direction)
 	pivot.rotation_degrees.x = clampf(pivot.rotation_degrees.x + rot, -max_pitch_degrees, 0.0)
 
 func shoot() -> void:
 	weapon.fire()
+
+var fire_position_marker:Node3D:
+	get: return fire_location

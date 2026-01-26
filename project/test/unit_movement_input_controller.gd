@@ -41,22 +41,21 @@ func _process(_delta: float) -> void:
 		rot_dir -= 1
 	
 	var pitch_dir:int = 0
-	# Up is negative
+
 	if Input.is_action_pressed("aim_up"):
-		pitch_dir -= 1
-	if Input.is_action_pressed("aim_down"):
 		pitch_dir += 1
+	if Input.is_action_pressed("aim_down"):
+		pitch_dir -= 1
 	
 	var aim_location:Vector3 = Vector3.ZERO
 	
-	# FIXME: pawn.global_position does not account for weapon position so we are off by a little
-	# For tank this shuold be turret.global_position
 	if rot_dir:
 		# CCW is positive
-		aim_location += pawn.global_position - rot_dir * pawn.global_right * 100.0
+		#DebugDraw3D.draw_ray(pawn.get_fire_global_position(), pawn.get_fire_global_right() * rot_dir * 100.0, 100.0, Color.BLUE)
+		aim_location += pawn.get_fire_global_position() + rot_dir * pawn.get_fire_global_right() * 100.0
 	
 	if pitch_dir:
-		aim_location.y += pawn.global_position.y + pitch_dir * 100.0
+		aim_location.y += pawn.get_fire_global_position().y + pitch_dir * 100.0
 
 	if aim_location:
 		pawn.aim_at(aim_location)

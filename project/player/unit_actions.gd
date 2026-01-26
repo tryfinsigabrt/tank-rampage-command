@@ -57,10 +57,14 @@ func _unhandled_input(event: InputEvent) -> void:
 func _handle_context_action(event: InputEvent) -> void:
 	if not _selected_unit:
 		return
-	_handle_move_to(event)
+	var result := _move_to(event)
+	
+	if OS.is_debug_build() and result.has("position"):
+		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+		
 	# TODO: Will need to attack along the path		
 	
-func _handle_move_to(event: InputEvent) -> Dictionary:
+func _move_to(event: InputEvent) -> Dictionary:
 	var result := _pick_node(event, Collisions.CompositeMasks.ground)
 	if not result:
 		return {}
@@ -83,18 +87,32 @@ func _handle_select(event: InputEvent) -> void:
 		Mode.MOVE: _handle_move_to(event)
 		_ : return
 
+func _handle_move_to(event: InputEvent) -> void:
+	var result := _move_to(event)
+	if OS.is_debug_build() and result.has("position"):
+		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+			
 func _handle_attack(event: InputEvent) -> void:
 	# Move to location
-	var result:Dictionary = _handle_move_to(event)
+	var result:Dictionary = _move_to(event)
 	# TODO: Only attack threats while moving
 	# Right now just attacking the location itself repeatedly
 	if result and _selected_unit:
 		_clear_all_actions()
+		
+		var target_position:Vector3 = result.get("position")
+		if OS.is_debug_build():
+			DebugDraw3D.draw_sphere(target_position, 5.0, Color.RED, 3.0)
+		
 		var attack_scene:AttackAction = attack_action_scene.instantiate()
 		attack_scene.controlled_unit = _selected_unit
-		attack_scene.targeted_location = result.get("position")
+		attack_scene.targeted_location = target_position
 		
 		actions_container.add_child(attack_scene)
+	elif result:
+		if OS.is_debug_build():
+			DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+		
 
 func _clear_all_actions() -> void:
 	for node in actions_container.get_children():
@@ -123,9 +141,6 @@ func _handle_unit_select(event: InputEvent) -> void:
 		_selected_unit = null
 		
 func _issue_move_to(target_position: Vector3) -> void:
-	if OS.is_debug_build():
-		DebugDraw3D.draw_sphere(target_position, 5.0, Color.YELLOW, 3.0)
-		
 	SignalBus.on_unit_move_issued.emit(_selected_unit, target_position)
 	
 func _pick_unit(event: InputEvent) -> Unit:
