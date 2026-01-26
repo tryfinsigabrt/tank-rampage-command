@@ -51,13 +51,14 @@ func _physics_process(_delta: float) -> void:
 	var direction := current_position.direction_to(next_position)
 	var forward_vector := _unit.global_forward
 	
-	# FIXME: Need a negative sign as the human_tank body is backwards but reverting makes it not move at all
-	# as have to fix the backwards nature of the tank movement itself in the move function and the movement_input_controller
-	var alignment:float = -direction.dot(forward_vector)
+	var alignment:float = direction.dot(forward_vector)
 	var unit_move_dir:Vector2 = Vector2.ZERO
 	if alignment < alignment_turn_threshold:
-		unit_move_dir.x = 1.0 * signf(forward_vector.cross(direction).y)
+		# We expect positive x to cause cw rotation
+		# which is opposite to Godot have ccw be positive so we negate
+		unit_move_dir.x = -1.0 * signf(forward_vector.cross(direction).y)
 	if alignment >= alignment_forward_threshold:
+		# Negative y moves up in the direction of our target
 		unit_move_dir.y = -1.0
 		
 	unit_move_dir = unit_move_dir.normalized()

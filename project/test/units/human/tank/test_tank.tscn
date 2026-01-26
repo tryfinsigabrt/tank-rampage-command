@@ -112,12 +112,12 @@ radius = 5.0
 
 [node name="HumanTankMovementTest" parent="World" instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
-visible = false
 
 [node name="UnitMovementController" parent="World/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
 
 [node name="HumanTankActionsController" parent="World" instance=ExtResource("2_7hsth")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
+visible = false
 
 [editable path="World/HumanTankMovementTest"]
