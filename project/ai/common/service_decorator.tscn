@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://8qb71a6u6aiu"]
+
+[ext_resource type="Script" uid="uid://cnxybcf1dpbfq" path="res://ai/common/service_decorator.gd" id="1_ipr31"]
+
+[node name="ServiceDecorator" type="Node" unique_id=897680993]
+script = ExtResource("1_ipr31")
+metadata/_custom_type_script = "uid://kfhcykujhf38"

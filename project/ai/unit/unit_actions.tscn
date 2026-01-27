@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://hxa7arwfl6dn"]
+
+[ext_resource type="Script" uid="uid://dl7xamkn0es4b" path="res://ai/unit/unit_actions.gd" id="1_l3gab"]
+[ext_resource type="Script" uid="uid://djwnntfar1tly" path="res://ai/unit/unit_blackboard.gd" id="2_osbnw"]
+[ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_x0nt3"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_gd3js"]
+
+[node name="UnitActions" type="Node3D" unique_id=883247030]
+script = ExtResource("1_l3gab")
+
+[node name="Blackboard" type="Node" parent="." unique_id=331095330]
+script = ExtResource("2_osbnw")
+metadata/_custom_type_script = "uid://dme5f24l0edsf"
+
+[node name="BeehaveTree" type="Node" parent="." unique_id=1481707243 node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("2_x0nt3")
+enabled = false
+blackboard = NodePath("../Blackboard")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
+
+[node name="SequenceComposite" type="Node" parent="BeehaveTree" unique_id=1636318576]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
