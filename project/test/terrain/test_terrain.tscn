@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://y2gjgrbqtl7n"]
+[gd_scene format=3 uid="uid://y2gjgrbqtl7n"]
 
 [ext_resource type="Terrain3DMaterial" uid="uid://x7mxifjc6k7h" path="res://test/terrain/test_terrain_material.tres" id="1_a4auo"]
 [ext_resource type="Terrain3DAssets" uid="uid://bcofwilflqk15" path="res://test/terrain/test_terrain_assets.tres" id="2_dsixg"]
@@ -16,32 +16,32 @@ background_mode = 2
 sky = SubResource("Sky_l5wcu")
 ambient_light_source = 3
 
-[node name="TerrainTest" type="Node3D"]
+[node name="TerrainTest" type="Node3D" unique_id=1177153595]
 
-[node name="Environment" type="Node3D" parent="."]
+[node name="Environment" type="Node3D" parent="." unique_id=137710324]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=2124647438]
 environment = SubResource("Environment_sttne")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=888974588]
 transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
 
-[node name="HumanTankMovementTest" parent="." instance=ExtResource("3_dsixg")]
+[node name="HumanTankMovementTest" parent="." unique_id=1568440106 instance=ExtResource("3_dsixg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
 visible = false
 
 [node name="UnitMovementController" parent="HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
 
-[node name="HumanTankActionsController" parent="." instance=ExtResource("2_l5wcu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
+[node name="HumanTankActionsController" parent="." unique_id=793616599 instance=ExtResource("2_l5wcu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0.36842346, 86)
 
-[node name="World" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=1547469510]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=933238423]
 navigation_mesh = ExtResource("2_nm2cs")
 
-[node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D"]
+[node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=1196308757]
 data_directory = "res://test/terrain/data"
 material = ExtResource("1_a4auo")
 assets = ExtResource("2_dsixg")

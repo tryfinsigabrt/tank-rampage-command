@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://blrkufxsnfysm"]
+[gd_scene format=3 uid="uid://blrkufxsnfysm"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_0g124"]
 [ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="1_nsiie"]
@@ -25,125 +25,125 @@ agent_height = 3.0
 agent_radius = 3.0
 agent_max_slope = 60.0
 
-[node name="TestTank" type="Node3D"]
+[node name="TestTank" type="Node3D" unique_id=1293608661]
 
-[node name="Environment" type="Node3D" parent="."]
+[node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1566065024]
 environment = SubResource("Environment_nsiie")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1635653192]
 transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
 
-[node name="World" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=1409335951]
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=2066909013]
 navigation_mesh = SubResource("NavigationMesh_nsiie")
 
-[node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D"]
+[node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(1000, 1, 1000)
 
-[node name="Obstacles" type="Node3D" parent="World/NavigationRegion3D"]
+[node name="Obstacles" type="Node3D" parent="World/NavigationRegion3D" unique_id=1029330028]
 
-[node name="Cylinder" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Cylinder" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles" unique_id=2010542841]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 11.726185, 7.500001, 35.455025)
 use_collision = true
 radius = 5.0
 height = 15.0
 
-[node name="Cylinder2" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Cylinder2" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles" unique_id=958672581]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 63.233223, 7.500001, 42.667835)
 use_collision = true
 radius = 5.0
 height = 15.0
 
-[node name="Cylinder3" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Cylinder3" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1150413660]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.013372, 7.500001, -71.83216)
 use_collision = true
 radius = 5.0
 height = 15.0
 
-[node name="Box" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Box" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=18289378]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.412718, 5, 8.500542)
 use_collision = true
 size = Vector3(10, 10, 10)
 
-[node name="Box2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Box2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=882373229]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -41.94111, 5, 44.50054)
 use_collision = true
 size = Vector3(10, 10, 10)
 
-[node name="Box3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Box3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1626290272]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -54.44111, 5, -40.05906)
 use_collision = true
 size = Vector3(10, 10, 10)
 
-[node name="Box4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Box4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=617673272]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -6.757154, 5, -48.55906)
 use_collision = true
 size = Vector3(10, 10, 10)
 
-[node name="Sphere" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1086912375]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 20.09925, 5, -34.042397)
 use_collision = true
 radius = 5.0
 
-[node name="Sphere2" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere2" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=897273426]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -20.907791, 5, 84.318474)
 use_collision = true
 radius = 5.0
 
-[node name="Sphere3" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere3" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=321873303]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -49.41483, 5, 9.555677)
 use_collision = true
 radius = 5.0
 
-[node name="Sphere4" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere4" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=297319568]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -25.041765, 5, -32.22893)
 use_collision = true
 radius = 5.0
 
-[node name="Sphere5" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere5" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1176970434]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 43.759506, 5, -13.061636)
 use_collision = true
 radius = 5.0
 
-[node name="Sphere6" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Sphere6" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1183885763]
 transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 59.259506, 5, 13.785151)
 use_collision = true
 radius = 5.0
 
-[node name="Walls" type="Node3D" parent="World/NavigationRegion3D/Obstacles"]
+[node name="Walls" type="Node3D" parent="World/NavigationRegion3D/Obstacles" unique_id=2116088433]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+[node name="CSGBox3D" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=689713005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 126.63021, 0, 0)
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 500, 1000)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=381548462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -177.23093, 0, 0)
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 500, 1000)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=1965899627]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, -141)
 use_collision = true
 collision_layer = 13
 size = Vector3(10, 500, 1000)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=1412574193]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, 165)
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 500, 1000)
 
-[node name="Enemies" type="Node3D" parent="World"]
+[node name="Enemies" type="Node3D" parent="World" unique_id=1702973220]
 
-[node name="EnemyTank01" parent="World/Enemies" instance=ExtResource("1_0g124")]
+[node name="EnemyTank01" parent="World/Enemies" unique_id=1223720870 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0"]
@@ -152,7 +152,7 @@ material_override = ExtResource("2_7hbj1")
 [node name="Turret" parent="World/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_y6dha")
 
-[node name="EnemyTank02" parent="World/Enemies" instance=ExtResource("1_0g124")]
+[node name="EnemyTank02" parent="World/Enemies" unique_id=295616966 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
@@ -161,16 +161,16 @@ material_override = ExtResource("4_weikl")
 [node name="Turret" parent="World/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("5_ojclk")
 
-[node name="Player" type="Node3D" parent="World"]
+[node name="Player" type="Node3D" parent="World" unique_id=556120660]
 
-[node name="HumanTankMovementTest" parent="World/Player" instance=ExtResource("1_nsiie")]
+[node name="HumanTankMovementTest" parent="World/Player" unique_id=1336520158 instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 visible = false
 
 [node name="UnitMovementController" parent="World/Player/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
 
-[node name="HumanTankActionsController" parent="World/Player" instance=ExtResource("2_7hsth")]
+[node name="HumanTankActionsController" parent="World/Player" unique_id=798168858 instance=ExtResource("2_7hsth")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 
 [editable path="World/Enemies/EnemyTank01"]
