@@ -1,7 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://blrkufxsnfysm"]
+[gd_scene load_steps=12 format=3 uid="uid://blrkufxsnfysm"]
 
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_0g124"]
 [ext_resource type="PackedScene" uid="uid://dcimhgmigjvu4" path="res://test/units/human/tank/human_tank_movement_test.tscn" id="1_nsiie"]
+[ext_resource type="Material" uid="uid://745i788v8vyq" path="res://units/human/tank/tank01_body_material.tres" id="2_7hbj1"]
 [ext_resource type="PackedScene" uid="uid://ci6cv007qkn2k" path="res://test/units/human/tank/human_tank_actions_controller.tscn" id="2_7hsth"]
+[ext_resource type="Material" uid="uid://h16symhq6i3u" path="res://units/human/tank/tank01_turret_material.tres" id="3_y6dha"]
+[ext_resource type="Material" uid="uid://heghdvyj6q77" path="res://units/human/tank/tank03_body_material.tres" id="4_weikl"]
+[ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="5_ojclk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -136,14 +141,48 @@ use_collision = true
 collision_mask = 13
 size = Vector3(10, 500, 1000)
 
-[node name="HumanTankMovementTest" parent="World" instance=ExtResource("1_nsiie")]
+[node name="Enemies" type="Node3D" parent="World"]
+
+[node name="EnemyTank01" parent="World/Enemies" instance=ExtResource("1_0g124")]
+transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
+
+[node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0"]
+material_override = ExtResource("2_7hbj1")
+
+[node name="Turret" parent="World/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("3_y6dha")
+
+[node name="EnemyTank02" parent="World/Enemies" instance=ExtResource("1_0g124")]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
+
+[node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
+material_override = ExtResource("4_weikl")
+
+[node name="Turret" parent="World/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("5_ojclk")
+
+[node name="Player" type="Node3D" parent="World"]
+
+[node name="HumanTankMovementTest" parent="World/Player" instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 visible = false
 
-[node name="UnitMovementController" parent="World/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
+[node name="UnitMovementController" parent="World/Player/HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
 pawn = NodePath("../HumanTank")
 
-[node name="HumanTankActionsController" parent="World" instance=ExtResource("2_7hsth")]
+[node name="HumanTankActionsController" parent="World/Player" instance=ExtResource("2_7hsth")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 
-[editable path="World/HumanTankMovementTest"]
+[editable path="World/Enemies/EnemyTank01"]
+[editable path="World/Enemies/EnemyTank01/Body"]
+[editable path="World/Enemies/EnemyTank01/Body/Mesh"]
+[editable path="World/Enemies/EnemyTank01/Body/Turret"]
+[editable path="World/Enemies/EnemyTank01/Body/Turret/Mesh"]
+[editable path="World/Enemies/EnemyTank01/GameUnitNavigation"]
+[editable path="World/Enemies/EnemyTank02"]
+[editable path="World/Enemies/EnemyTank02/Body"]
+[editable path="World/Enemies/EnemyTank02/Body/Mesh"]
+[editable path="World/Enemies/EnemyTank02/Body/Turret"]
+[editable path="World/Enemies/EnemyTank02/Body/Turret/Mesh"]
+[editable path="World/Enemies/EnemyTank02/GameUnitNavigation"]
+[editable path="World/Player/HumanTankMovementTest"]

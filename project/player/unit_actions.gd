@@ -63,20 +63,22 @@ func _handle_context_action(event: InputEvent) -> void:
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
 		
 	# TODO: Will need to attack along the path		
+
+func _pick_ground(event: InputEvent) -> Dictionary:
+	return _pick_node(event, Collisions.CompositeMasks.ground)
 	
 func _move_to(event: InputEvent) -> Dictionary:
-	var result := _pick_node(event, Collisions.CompositeMasks.ground)
+	var result := _pick_ground(event)
 	if not result:
 		return {}
-	
-	_clear_all_actions()
-	
+		
 	var return_value:Dictionary = {}
 	var move_to_position:Vector3 = result.get("position")
 	
 	return_value["position"] = move_to_position
 	
-	_issue_move_to(move_to_position)
+	if _selected_unit:
+		_issue_move_to(move_to_position)
 	
 	return return_value
 	
@@ -89,30 +91,45 @@ func _handle_select(event: InputEvent) -> void:
 
 func _handle_move_to(event: InputEvent) -> void:
 	var result := _move_to(event)
+	if result:
+		_clear_all_actions()
+
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
-			
+
+# TODO: Attacking selected unit only in context select - _handle_context_action path		
 func _handle_attack(event: InputEvent) -> void:
-	# Move to location
-	var result:Dictionary = _move_to(event)
-	# TODO: Only attack threats while moving
-	# Right now just attacking the location itself repeatedly
-	if result and _selected_unit:
-		_clear_all_actions()
+	if not _selected_unit:
+		return
 		
-		var target_position:Vector3 = result.get("position")
-		if OS.is_debug_build():
-			DebugDraw3D.draw_sphere(target_position, 5.0, Color.RED, 3.0)
+	# Move to location
+	# First try to select a unit at the indicated location
+	var result:Dictionary
+	var selected_unit:Unit = _pick_unit(event)
+	
+	if not selected_unit:
+		result = _pick_ground(event)
+		
+	if result or selected_unit:
+		_clear_all_actions()
 		
 		var attack_scene:AttackAction = attack_action_scene.instantiate()
 		attack_scene.controlled_unit = _selected_unit
-		attack_scene.targeted_location = target_position
+		
+		# TODO: Only attack threats while moving
+		# Right now just attacking the location itself repeatedly
+		if result:
+			var target_position:Vector3 = result.get("position")
+			if OS.is_debug_build():
+				DebugDraw3D.draw_sphere(target_position, 5.0, Color.ORANGE, 3.0)
+			
+			attack_scene.targeted_location = target_position
+		else:
+			attack_scene.targeted_unit = selected_unit
+			if OS.is_debug_build():
+				DebugDraw3D.draw_sphere(selected_unit.global_position, 10.0, Color.RED, 3.0)
 		
 		actions_container.add_child(attack_scene)
-	elif result:
-		if OS.is_debug_build():
-			DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
-		
 
 func _clear_all_actions() -> void:
 	for node in actions_container.get_children():
