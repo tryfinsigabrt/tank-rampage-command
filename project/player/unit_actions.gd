@@ -58,6 +58,8 @@ func _handle_context_action(event: InputEvent) -> void:
 	if not _selected_unit:
 		return
 	var result := _move_to(event)
+	if result:
+		_clear_all_actions()
 	
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
@@ -87,7 +89,10 @@ func _handle_select(event: InputEvent) -> void:
 		Mode.NONE: _handle_unit_select(event)
 		Mode.ATTACK: _handle_attack(event)
 		Mode.MOVE: _handle_move_to(event)
-		_ : return
+		_ : pass
+	
+	# Clear mode after action taken
+	_mode = Mode.NONE
 
 func _handle_move_to(event: InputEvent) -> void:
 	var result := _move_to(event)
@@ -96,7 +101,9 @@ func _handle_move_to(event: InputEvent) -> void:
 
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
-
+	
+	_mode = Mode.NONE
+	
 # TODO: Attacking selected unit only in context select - _handle_context_action path		
 func _handle_attack(event: InputEvent) -> void:
 	if not _selected_unit:

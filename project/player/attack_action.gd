@@ -21,7 +21,7 @@ var ray_cast_dest_offset:float = 5.0
 
 var _fire_timer:Timer
 
-signal los_signal
+signal _los_signal
 
 var _check_los:bool
 var _has_los:bool
@@ -61,7 +61,7 @@ func _process(_delta: float) -> void:
 	if in_range and _check_los:
 		_has_los = _check_target_los()
 		if _has_los:
-			los_signal.emit()
+			_los_signal.emit()
 		
 	if in_range and not fire_timer_running:
 		_fire_and_schedule()
@@ -152,7 +152,7 @@ func _fire() -> void:
 	_has_los = _check_target_los()
 	if not _has_los:
 		_check_los = true
-		await los_signal
+		await _los_signal
 		_check_los = false
 		
 	controlled_unit.shoot()

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnqhpy3uvhqdh"]
+[gd_scene format=3 uid="uid://bnqhpy3uvhqdh"]
 
 [ext_resource type="Script" uid="uid://3psy7pwt3jxj" path="res://player/unit_actions.gd" id="1_64uf0"]
 
-[node name="UnitActions" type="Node3D"]
+[node name="UnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_64uf0")
 
-[node name="ActionsContainer" type="Node3D" parent="."]
+[node name="ActionsContainer" type="Node3D" parent="." unique_id=115080080]

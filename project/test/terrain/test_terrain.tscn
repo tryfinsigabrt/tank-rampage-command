@@ -27,7 +27,7 @@ environment = SubResource("Environment_sttne")
 transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
 
 [node name="HumanTankMovementTest" parent="." unique_id=1568440106 instance=ExtResource("3_dsixg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0, 86)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78, 0.87592506, 86)
 visible = false
 
 [node name="UnitMovementController" parent="HumanTankMovementTest" index="1" node_paths=PackedStringArray("pawn")]
