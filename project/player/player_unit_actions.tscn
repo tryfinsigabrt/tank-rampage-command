@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bnqhpy3uvhqdh"]
 
-[ext_resource type="Script" uid="uid://3psy7pwt3jxj" path="res://player/unit_actions.gd" id="1_64uf0"]
+[ext_resource type="Script" uid="uid://3psy7pwt3jxj" path="res://player/player_unit_actions.gd" id="1_ygm0o"]
 
 [node name="UnitActions" type="Node3D" unique_id=518831115]
-script = ExtResource("1_64uf0")
+script = ExtResource("1_ygm0o")
 
 [node name="ActionsContainer" type="Node3D" parent="." unique_id=115080080]
