@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_gd3js"]
 [ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_ak1gx"]
 [ext_resource type="Script" uid="uid://c2cb2ielji34i" path="res://ai/unit/move_action.gd" id="7_2o64v"]
+[ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_action.gd" id="8_ak1gx"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030]
 script = ExtResource("1_l3gab")
@@ -22,22 +23,36 @@ blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="SelectorComposite" type="Node" parent="BeehaveTree" unique_id=1059972984]
+[node name="CommandSelector" type="Node" parent="BeehaveTree" unique_id=1059972984]
 script = ExtResource("4_2o64v")
 metadata/_custom_type_script = "uid://8hn4kne15ac5"
 
-[node name="MoveCommand" type="Node" parent="BeehaveTree/SelectorComposite" unique_id=1095537611]
+[node name="MoveCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1095537611]
 script = ExtResource("4_gd3js")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="IsMove" type="Node" parent="BeehaveTree/SelectorComposite/MoveCommand" unique_id=1305819116]
+[node name="IsMove" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1305819116]
 script = ExtResource("6_ak1gx")
 left_operand = "get_value(\"action\")"
 right_operand = "\"move\""
 metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 
-[node name="Move" type="Node" parent="BeehaveTree/SelectorComposite/MoveCommand" unique_id=1950796187]
+[node name="Move" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1950796187]
 script = ExtResource("7_2o64v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="AttackCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=668162113]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsAttack" type="Node" parent="BeehaveTree/CommandSelector/AttackCommand" unique_id=1302349945]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"attack_unit\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="Attack" type="Node" parent="BeehaveTree/CommandSelector/AttackCommand" unique_id=1540231039]
+script = ExtResource("8_ak1gx")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ActionsContainer" type="Node3D" parent="." unique_id=2125471629]

@@ -37,14 +37,8 @@ func move(target_position:Vector3) -> void:
 func attack(enemy:Unit) -> void:
 	_clear_all_actions()
 	
-	var attack_scene:AttackAction = attack_action_scene.instantiate()
-	attack_scene.controlled_unit = unit
-	
-	attack_scene.targeted_unit = enemy
-	if OS.is_debug_build():
-		DebugDraw3D.draw_sphere(enemy.global_position, 10.0, Color.RED, 3.0)
-	
-	_actions_container.add_child(attack_scene)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.AttackUnit)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetUnit, enemy)
 
 func move_and_attack(target_position:Vector3) -> void:
 	_clear_all_actions()

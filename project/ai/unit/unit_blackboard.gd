@@ -10,3 +10,4 @@ class Action:
 class Keys:
 	const TargetPosition:StringName = &"target_position"
 	const Action:StringName = &"action"
+	const TargetUnit:StringName = &"target_unit"
