@@ -19,9 +19,10 @@ func _ready() -> void:
 	_unit = get_parent() as Unit
 	if not _unit:
 		push_error("%s: Parent node=%s is not a unit" % [name, get_parent()])
-		set_enabled(false)
 		return
 	SignalBus.on_unit_move_issued.connect(_on_unit_move_issued)
+	SignalBus.on_unit_move_canceled.connect(_on_unit_move_canceled)
+	set_enabled(false)
 
 func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
 	if unit != _unit:
@@ -34,6 +35,7 @@ func move_to(target:Vector3) -> void:
 	_current_target_position = target
 	navigation_agent_3d.target_position = target
 	_target_reached = false
+	set_enabled(true)
 	
 func set_enabled(enabled:bool) -> void:
 	set_physics_process(enabled)
@@ -68,7 +70,13 @@ func _physics_process(_delta: float) -> void:
 	
 	_unit.move(unit_move_dir)
 
-
+func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
+	if unit != _unit:
+		return
+	
+	print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
+	set_enabled(false)
+	
 func _on_navigation_agent_3d_navigation_finished() -> void:
 	_emit_target_reached()
 	
@@ -76,4 +84,5 @@ func _emit_target_reached() -> void:
 	if not _target_reached:
 		print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
 		_target_reached = true
+		set_enabled(false)
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)

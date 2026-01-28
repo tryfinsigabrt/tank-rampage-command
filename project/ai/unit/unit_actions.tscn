@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://dl7xamkn0es4b" path="res://ai/unit/unit_actions.gd" id="1_l3gab"]
 [ext_resource type="Script" uid="uid://djwnntfar1tly" path="res://ai/unit/unit_blackboard.gd" id="2_osbnw"]
 [ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_x0nt3"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="4_2o64v"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_gd3js"]
+[ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_ak1gx"]
+[ext_resource type="Script" uid="uid://c2cb2ielji34i" path="res://ai/unit/move_action.gd" id="7_2o64v"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030]
 script = ExtResource("1_l3gab")
@@ -19,8 +22,22 @@ blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="SequenceComposite" type="Node" parent="BeehaveTree" unique_id=1636318576]
+[node name="SelectorComposite" type="Node" parent="BeehaveTree" unique_id=1059972984]
+script = ExtResource("4_2o64v")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="MoveCommand" type="Node" parent="BeehaveTree/SelectorComposite" unique_id=1095537611]
 script = ExtResource("4_gd3js")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsMove" type="Node" parent="BeehaveTree/SelectorComposite/MoveCommand" unique_id=1305819116]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"move\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="Move" type="Node" parent="BeehaveTree/SelectorComposite/MoveCommand" unique_id=1950796187]
+script = ExtResource("7_2o64v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ActionsContainer" type="Node3D" parent="." unique_id=2125471629]

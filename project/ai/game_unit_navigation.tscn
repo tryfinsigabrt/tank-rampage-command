@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d151phd3t42ye"]
+[gd_scene format=3 uid="uid://d151phd3t42ye"]
 
 [ext_resource type="Script" uid="uid://bv1k7e1a16o8b" path="res://ai/game_unit_navigation.gd" id="1_nose6"]
 
-[node name="GameUnitNavigation" type="Node3D"]
+[node name="GameUnitNavigation" type="Node3D" unique_id=1412332106]
 script = ExtResource("1_nose6")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512793571]
 debug_enabled = true
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

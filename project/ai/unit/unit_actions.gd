@@ -23,6 +23,7 @@ func _ready() -> void:
 		push_error("%s: Unit is not set" % name)
 		return
 	behavior_tree.actor_node_path = unit.get_path()
+	behavior_tree.actor = unit
 	
 	_update_tree_state()
 		
@@ -65,10 +66,13 @@ func follow(_friendly:Unit) -> void:
 #region Intermediate Logic
 
 func _clear_all_actions() -> void:
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
+
 	for node in _actions_container.get_children():
 		node.queue_free()
 
 func _issue_move_to(target_position: Vector3) -> void:
-	SignalBus.on_unit_move_issued.emit(unit, target_position)
-
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
+	
 #endregion
