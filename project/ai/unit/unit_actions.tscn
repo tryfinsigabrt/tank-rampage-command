@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_ak1gx"]
 [ext_resource type="Script" uid="uid://c2cb2ielji34i" path="res://ai/unit/move_action.gd" id="7_2o64v"]
 [ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_action.gd" id="8_ak1gx"]
+[ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030]
 script = ExtResource("1_l3gab")
@@ -55,4 +56,16 @@ metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 script = ExtResource("8_ak1gx")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="ActionsContainer" type="Node3D" parent="." unique_id=2125471629]
+[node name="MoveAndAttackCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1752044902]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsMoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/MoveAndAttackCommand" unique_id=1693911096]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"move_and_attack\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/MoveAndAttackCommand" unique_id=257258532]
+script = ExtResource("9_y0ny0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
