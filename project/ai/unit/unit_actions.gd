@@ -5,6 +5,11 @@ class_name UnitActions extends Node3D
 @export
 var unit:Unit
 
+# TODO: Intermediate refactoring step
+const attack_action_scene = preload("res://player/attack_action.tscn")
+
+@onready var _actions_container: Node3D = $ActionsContainer
+
 @export
 var enabled:bool:
 	set(value):
@@ -24,15 +29,46 @@ func _ready() -> void:
 func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
 
-# TODO: This will update the appropriate behavior tree state		
 func move(target_position:Vector3) -> void:
-	pass
+	_clear_all_actions()
+	_issue_move_to(target_position)
 
 func attack(enemy:Unit) -> void:
-	pass
+	_clear_all_actions()
+	
+	var attack_scene:AttackAction = attack_action_scene.instantiate()
+	attack_scene.controlled_unit = unit
+	
+	attack_scene.targeted_unit = enemy
+	if OS.is_debug_build():
+		DebugDraw3D.draw_sphere(enemy.global_position, 10.0, Color.RED, 3.0)
+	
+	_actions_container.add_child(attack_scene)
 
 func move_and_attack(target_position:Vector3) -> void:
-	pass
+	_clear_all_actions()
+	
+	var attack_scene:AttackAction = attack_action_scene.instantiate()
+	attack_scene.controlled_unit = unit
+	
+	# TODO: Only attack threats while moving
+	# Right now just attacking the location itself repeatedly
+	if OS.is_debug_build():
+		DebugDraw3D.draw_sphere(target_position, 5.0, Color.ORANGE, 3.0)
+		
+	attack_scene.targeted_location = target_position
+	_actions_container.add_child(attack_scene)
 
-func follow(friendly:Unit) -> void:
-	pass
+func follow(_friendly:Unit) -> void:
+	push_error("Not implemented")
+
+#region Intermediate Logic
+
+func _clear_all_actions() -> void:
+	for node in _actions_container.get_children():
+		node.queue_free()
+
+func _issue_move_to(target_position: Vector3) -> void:
+	SignalBus.on_unit_move_issued.emit(unit, target_position)
+
+#endregion

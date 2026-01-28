@@ -22,3 +22,5 @@ metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 [node name="SequenceComposite" type="Node" parent="BeehaveTree" unique_id=1636318576]
 script = ExtResource("4_gd3js")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="ActionsContainer" type="Node3D" parent="." unique_id=2125471629]

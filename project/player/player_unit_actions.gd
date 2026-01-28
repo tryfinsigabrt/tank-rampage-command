@@ -1,6 +1,6 @@
 extends Node3D
 
-const attack_action_scene = preload("res://player/attack_action.tscn")
+const unit_actions_scene = preload("uid://hxa7arwfl6dn")
 
 @export
 var ray_cast_distance:float = 10000
@@ -70,18 +70,22 @@ func _pick_ground(event: InputEvent) -> Dictionary:
 	return _pick_node(event, Collisions.CompositeMasks.ground)
 	
 func _move_to(event: InputEvent) -> Dictionary:
+	if not _selected_unit:
+		return {}
+		
 	var result := _pick_ground(event)
 	if not result:
 		return {}
 		
-	var return_value:Dictionary = {}
+	_clear_all_actions()
+		
 	var move_to_position:Vector3 = result.get("position")
 	
+	var action := _create_unit_actions()
+	action.move(move_to_position)
+	
+	var return_value:Dictionary = {}
 	return_value["position"] = move_to_position
-	
-	if _selected_unit:
-		_issue_move_to(move_to_position)
-	
 	return return_value
 	
 func _handle_select(event: InputEvent) -> void:
@@ -96,8 +100,6 @@ func _handle_select(event: InputEvent) -> void:
 
 func _handle_move_to(event: InputEvent) -> void:
 	var result := _move_to(event)
-	if result:
-		_clear_all_actions()
 
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
@@ -120,28 +122,16 @@ func _handle_attack(event: InputEvent) -> void:
 	if result or selected_unit:
 		_clear_all_actions()
 		
-		var attack_scene:AttackAction = attack_action_scene.instantiate()
-		attack_scene.controlled_unit = _selected_unit
-		
-		# TODO: Only attack threats while moving
-		# Right now just attacking the location itself repeatedly
+		var unit_actions := _create_unit_actions()
+		unit_actions.unit = _selected_unit
 		if result:
 			var target_position:Vector3 = result.get("position")
 			if OS.is_debug_build():
 				DebugDraw3D.draw_sphere(target_position, 5.0, Color.ORANGE, 3.0)
-			
-			attack_scene.targeted_location = target_position
+			unit_actions.move_and_attack(target_position)
 		else:
-			attack_scene.targeted_unit = selected_unit
-			if OS.is_debug_build():
-				DebugDraw3D.draw_sphere(selected_unit.global_position, 10.0, Color.RED, 3.0)
-		
-		actions_container.add_child(attack_scene)
+			unit_actions.attack(selected_unit)
 
-func _clear_all_actions() -> void:
-	for node in actions_container.get_children():
-		node.queue_free()
-	
 func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = _pick_unit(event)
 
@@ -164,8 +154,12 @@ func _handle_unit_select(event: InputEvent) -> void:
 	else:
 		_selected_unit = null
 		
-func _issue_move_to(target_position: Vector3) -> void:
-	SignalBus.on_unit_move_issued.emit(_selected_unit, target_position)
+func _create_unit_actions() -> UnitActions:
+	var unit_actions:UnitActions = unit_actions_scene.instantiate()
+	unit_actions.unit = _selected_unit
+	actions_container.add_child(unit_actions)
+	unit_actions.enabled = true
+	return unit_actions
 	
 func _pick_unit(event: InputEvent) -> Unit:
 	var result := _pick_node(event, Collisions.Layers.unit)
@@ -186,3 +180,7 @@ func _pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
 	ray_params.to = to
 	
 	return space_state.intersect_ray(ray_params)
+
+func _clear_all_actions() -> void:
+	for node in actions_container.get_children():
+		node.queue_free()
