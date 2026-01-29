@@ -1,7 +1,5 @@
 extends Node3D
 
-const unit_actions_scene = preload("uid://hxa7arwfl6dn")
-
 @export
 var ray_cast_distance:float = 10000
 
@@ -21,8 +19,6 @@ enum Mode
 }
 
 var _mode:Mode = Mode.NONE
-
-@onready var actions_container: Node3D = $ActionsContainer
 
 func _ready() -> void:
 	if not camera:
@@ -58,14 +54,10 @@ func _handle_context_action(event: InputEvent) -> void:
 	if not _selected_unit:
 		return
 	var result := _move_to(event)
-	if result:
-		_clear_all_actions()
 	
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
 		
-	# TODO: Will need to attack along the path		
-
 func _pick_ground(event: InputEvent) -> Dictionary:
 	return _pick_node(event, Collisions.CompositeMasks.ground)
 	
@@ -76,14 +68,12 @@ func _move_to(event: InputEvent) -> Dictionary:
 	var result := _pick_ground(event)
 	if not result:
 		return {}
-		
-	_clear_all_actions()
-		
+				
 	var move_to_position:Vector3 = result.get("position")
 	
-	var action := _create_unit_actions()
+	var action := _selected_unit.get_or_add_actions()
 	action.move(move_to_position)
-	
+
 	var return_value:Dictionary = {}
 	return_value["position"] = move_to_position
 	return return_value
@@ -120,10 +110,7 @@ func _handle_attack(event: InputEvent) -> void:
 		result = _pick_ground(event)
 		
 	if result or selected_unit:
-		_clear_all_actions()
-		
-		var unit_actions := _create_unit_actions()
-		unit_actions.unit = _selected_unit
+		var unit_actions := _selected_unit.get_or_add_actions()
 		if result:
 			var target_position:Vector3 = result.get("position")
 			if OS.is_debug_build():
@@ -153,13 +140,6 @@ func _handle_unit_select(event: InputEvent) -> void:
 				, 3.0)
 	else:
 		_selected_unit = null
-		
-func _create_unit_actions() -> UnitActions:
-	var unit_actions:UnitActions = unit_actions_scene.instantiate()
-	unit_actions.unit = _selected_unit
-	actions_container.add_child(unit_actions)
-	unit_actions.enabled = true
-	return unit_actions
 	
 func _pick_unit(event: InputEvent) -> Unit:
 	var result := _pick_node(event, Collisions.Layers.unit)
@@ -180,7 +160,3 @@ func _pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
 	ray_params.to = to
 	
 	return space_state.intersect_ray(ray_params)
-
-func _clear_all_actions() -> void:
-	for node in actions_container.get_children():
-		node.queue_free()

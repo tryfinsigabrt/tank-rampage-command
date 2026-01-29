@@ -1,5 +1,5 @@
 @tool
-extends ActionLeaf
+extends CommandActionLeaf
 
 var _unit:Unit
 var _target_position:Vector3
@@ -9,12 +9,14 @@ var _attack_action:AttackAction
 # TODO: Intermediate refactoring step
 const attack_action_scene = preload("uid://cwj8iaowhbop5")
 
-func interrupt(actor: Node, blackboard: Blackboard) -> void:
+func after_run(_actor: Node, _blackboard: Blackboard) -> void:
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
-	super.interrupt(actor, blackboard)
-
+	
 func before_run(actor: Node, blackboard: Blackboard) -> void:
+	super.before_run(actor, blackboard)
+	
+	_finished = 0
 	_unit = actor as Unit
 	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
 	if not _unit:
@@ -37,11 +39,15 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 
 	add_child(_attack_action)
 
-func tick(_actor: Node, _blackboard: Blackboard) -> int:
+func tick(_actor: Node, blackboard: Blackboard) -> int:
 	match _finished:
 		0:
-			return RUNNING
+			return _check_running_state(blackboard)
 		1:
 			return SUCCESS
 		_:
 			return FAILURE
+
+func _should_continue_running(blackboard: Blackboard) -> bool:
+	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
+	return current_target.is_equal_approx(_target_position)

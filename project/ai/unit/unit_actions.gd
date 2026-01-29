@@ -32,18 +32,24 @@ func move(target_position:Vector3) -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 	
+	enabled = true
+	
 func attack(enemy:Unit) -> void:
 	_clear_all_actions()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.AttackUnit)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetUnit, enemy)
 
+	enabled = true
+	
 func move_and_attack(target_position:Vector3) -> void:
 	_clear_all_actions()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.MoveAndAttack)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 
+	enabled = true
+	
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
 

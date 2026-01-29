@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0o1pskrhf044"]
+[gd_scene format=3 uid="uid://b0o1pskrhf044"]
 
 [ext_resource type="Script" uid="uid://6awqg74wnvfp" path="res://units/human/tank/human_tank.gd" id="1_itvlm"]
 [ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="3_irgey"]
@@ -16,42 +16,42 @@
 radius = 1.6
 height = 8.0
 
-[node name="HumanTank" type="CharacterBody3D" groups=["Unit"]]
+[node name="HumanTank" type="CharacterBody3D" unique_id=260396010 groups=["Unit"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_itvlm")
 
-[node name="Body" parent="." instance=ExtResource("10_v2578")]
+[node name="Body" parent="." unique_id=1516550406 instance=ExtResource("10_v2578")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="BodyMain" parent="Body/Mesh" index="0"]
 material_override = ExtResource("4_4csg3")
 
-[node name="Turret" parent="Body" instance=ExtResource("11_3jpjq")]
+[node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
 [node name="Turret" parent="Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
-[node name="Barrel" parent="Body/Turret" instance=ExtResource("12_l52bp")]
+[node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]
 unique_name_in_owner = true
 
-[node name="WheelsRight" parent="Body" instance=ExtResource("15_bakst")]
+[node name="WheelsRight" parent="Body" unique_id=433920229 instance=ExtResource("15_bakst")]
 
-[node name="TrackRight" parent="Body/WheelsRight" instance=ExtResource("14_o8pnh")]
+[node name="TrackRight" parent="Body/WheelsRight" unique_id=980590034 instance=ExtResource("14_o8pnh")]
 
-[node name="WheelsLeft" parent="Body" instance=ExtResource("16_4wo5m")]
+[node name="WheelsLeft" parent="Body" unique_id=1739753998 instance=ExtResource("16_4wo5m")]
 
-[node name="TrackLeft" parent="Body/WheelsLeft" instance=ExtResource("13_th8qc")]
+[node name="TrackLeft" parent="Body/WheelsLeft" unique_id=1143058301 instance=ExtResource("13_th8qc")]
 
-[node name="Collision" type="CollisionShape3D" parent="."]
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
 shape = SubResource("CapsuleShape3D_83yeg")
 
-[node name="GameUnitNavigation" parent="." instance=ExtResource("11_s68el")]
+[node name="GameUnitNavigation" parent="." unique_id=1689817134 instance=ExtResource("11_s68el")]
 
-[node name="NavigationAgent3D" parent="GameUnitNavigation" index="0"]
+[node name="NavigationAgent3D" parent="GameUnitNavigation" index="0" unique_id=512793571]
 path_desired_distance = 4.0
 target_desired_distance = 4.0
 path_max_distance = 8.01

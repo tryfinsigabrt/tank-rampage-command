@@ -4,5 +4,5 @@
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_ygm0o")
-
-[node name="ActionsContainer" type="Node3D" parent="." unique_id=1588696446]
+ray_cast_distance = null
+team = null

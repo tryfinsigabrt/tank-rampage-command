@@ -8,9 +8,10 @@
 [ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_ak1gx"]
 [ext_resource type="Script" uid="uid://c2cb2ielji34i" path="res://ai/unit/move_action.gd" id="7_2o64v"]
 [ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_action.gd" id="8_ak1gx"]
+[ext_resource type="Script" uid="uid://r8b0istslwhq" path="res://addons/beehave/nodes/leaves/blackboard_erase.gd" id="8_j7wwn"]
 [ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
 
-[node name="UnitActions" type="Node3D" unique_id=883247030]
+[node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
 
 [node name="Blackboard" type="Node" parent="." unique_id=331095330]
@@ -24,23 +25,9 @@ blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="CommandSelector" type="Node" parent="BeehaveTree" unique_id=1059972984]
+[node name="CommandSelector" type="Node" parent="BeehaveTree" unique_id=1958529416]
 script = ExtResource("4_2o64v")
 metadata/_custom_type_script = "uid://8hn4kne15ac5"
-
-[node name="MoveCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1095537611]
-script = ExtResource("4_gd3js")
-metadata/_custom_type_script = "uid://cg016dbe7gs1x"
-
-[node name="IsMove" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1305819116]
-script = ExtResource("6_ak1gx")
-left_operand = "get_value(\"action\")"
-right_operand = "\"move\""
-metadata/_custom_type_script = "uid://uoy6r3dbnq25"
-
-[node name="Move" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1950796187]
-script = ExtResource("7_2o64v")
-metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="AttackCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=668162113]
 script = ExtResource("4_gd3js")
@@ -56,6 +43,11 @@ metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 script = ExtResource("8_ak1gx")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
+[node name="EraseCommand" type="Node" parent="BeehaveTree/CommandSelector/AttackCommand" unique_id=859611787]
+script = ExtResource("8_j7wwn")
+key = "\"action\""
+metadata/_custom_type_script = "uid://r8b0istslwhq"
+
 [node name="MoveAndAttackCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1752044902]
 script = ExtResource("4_gd3js")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
@@ -69,3 +61,27 @@ metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 [node name="MoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/MoveAndAttackCommand" unique_id=257258532]
 script = ExtResource("9_y0ny0")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="EraseCommand" type="Node" parent="BeehaveTree/CommandSelector/MoveAndAttackCommand" unique_id=153090297]
+script = ExtResource("8_j7wwn")
+key = "\"action\""
+metadata/_custom_type_script = "uid://r8b0istslwhq"
+
+[node name="MoveCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1095537611]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsMove" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1305819116]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"move\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="Move" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=1950796187]
+script = ExtResource("7_2o64v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="EraseCommand" type="Node" parent="BeehaveTree/CommandSelector/MoveCommand" unique_id=46845506]
+script = ExtResource("8_j7wwn")
+key = "\"action\""
+metadata/_custom_type_script = "uid://r8b0istslwhq"

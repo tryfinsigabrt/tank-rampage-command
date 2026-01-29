@@ -15,6 +15,23 @@ func aim_at(world_location:Vector3) -> void
 @abstract
 func shoot() -> void
 
+var _unit_actions:UnitActions
+
+func _get_unit_actions_scene() -> PackedScene:
+	# unit_actions.tscn
+	return preload("uid://hxa7arwfl6dn")
+
+func get_or_add_actions() -> UnitActions:
+	if is_instance_valid(_unit_actions):
+		return _unit_actions
+	_unit_actions = _get_unit_actions_scene().instantiate()
+
+	_unit_actions.name = "UnitActions"
+	_unit_actions.unit = self
+
+	add_child(_unit_actions)
+	return _unit_actions
+
 func get_fire_global_position() -> Vector3:
 	return global_position
 

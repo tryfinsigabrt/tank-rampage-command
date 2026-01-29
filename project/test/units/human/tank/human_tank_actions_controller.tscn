@@ -10,8 +10,8 @@ script = ExtResource("1_px2s1")
 
 [node name="HumanTank" parent="." unique_id=1566666795 instance=ExtResource("1_7v57y")]
 
-[node name="UnitActions" parent="HumanTank" unique_id=963139019 instance=ExtResource("2_px2s1")]
-
 [node name="FollowCamera" parent="." unique_id=1084344874 node_paths=PackedStringArray("follow_unit") instance=ExtResource("4_vlmyw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29, 24)
 follow_unit = NodePath("../HumanTank")
+
+[node name="ActionsInput" parent="." unique_id=963139019 instance=ExtResource("2_px2s1")]

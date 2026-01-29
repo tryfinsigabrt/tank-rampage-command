@@ -37,6 +37,7 @@ enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/terra
 [global_group]
 
 Unit="A game unit"
+UnitActions="AI actions for a unit"
 
 [input]
 
