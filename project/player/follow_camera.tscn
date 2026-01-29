@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6athfiajv0em"]
+[gd_scene format=3 uid="uid://b6athfiajv0em"]
 
 [ext_resource type="Script" uid="uid://calm2qvr4ksvs" path="res://player/follow_camera.gd" id="1_2j38y"]
 
-[node name="FollowCamera" type="Node3D"]
+[node name="FollowCamera" type="Node3D" unique_id=463893300]
 script = ExtResource("1_2j38y")
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="SpringArm" type="SpringArm3D" parent="." unique_id=745892761]
 unique_name_in_owner = true
-transform = Transform3D(0.96592075, 0.003118992, -0.25881922, 0.18072864, 0.707694, 0.6830127, 0.18529512, -0.7065123, 0.6830126, 0, 29, 24)
+transform = Transform3D(0.9659207, 0.0031189919, -0.2588192, 0.18072863, 0.707694, 0.6830127, 0.18529509, -0.7065122, 0.6830126, 0, 29, 24)
+collision_mask = 15
+spring_length = 15.0
+
+[node name="Camera" type="Camera3D" parent="SpringArm" unique_id=1381737979]
+unique_name_in_owner = true
