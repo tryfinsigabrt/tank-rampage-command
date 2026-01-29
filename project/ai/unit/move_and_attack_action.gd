@@ -44,6 +44,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 		0:
 			return _check_running_state(blackboard)
 		1:
+			SignalBus.on_unit_command_finished.emit(_unit, my_action)
 			return SUCCESS
 		_:
 			return FAILURE

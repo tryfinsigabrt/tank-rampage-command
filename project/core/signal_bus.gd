@@ -9,4 +9,6 @@ signal on_unit_move_issued(unit: Unit, target_position: Vector3)
 signal on_unit_move_canceled(unit: Unit, target_position: Vector3)
 signal on_destination_reached(unit: Unit, target_position: Vector3)
 
+signal on_unit_command_finished(unit:Unit, command: StringName)
+
 @warning_ignore_restore("unused_signal")

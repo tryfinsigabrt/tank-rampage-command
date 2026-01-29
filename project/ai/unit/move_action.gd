@@ -21,7 +21,10 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
 	
 func tick(_actor: Node, blackboard: Blackboard) -> int:
-	return SUCCESS if _finished else _check_running_state(blackboard)
+	if _finished:
+		SignalBus.on_unit_command_finished.emit(_unit, my_action)
+		return SUCCESS
+	return _check_running_state(blackboard)
 
 func _on_destination_reached(unit:Unit, target:Vector3) -> void:
 	if unit != _unit:

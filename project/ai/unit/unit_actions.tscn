@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_gd3js"]
 [ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_ak1gx"]
 [ext_resource type="Script" uid="uid://c2cb2ielji34i" path="res://ai/unit/move_action.gd" id="7_2o64v"]
-[ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_action.gd" id="8_ak1gx"]
+[ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_command_action.gd" id="8_ak1gx"]
 [ext_resource type="Script" uid="uid://r8b0istslwhq" path="res://addons/beehave/nodes/leaves/blackboard_erase.gd" id="8_j7wwn"]
 [ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
 
