@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dvn60hgaapy6y"]
+
+[ext_resource type="Script" uid="uid://baulpd6yxgdem" path="res://player/rts_camera.gd" id="1_ce6vh"]
+
+[node name="RTSCamera" type="Node3D" unique_id=2011851028]
+script = ExtResource("1_ce6vh")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=1510512380]
+unique_name_in_owner = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

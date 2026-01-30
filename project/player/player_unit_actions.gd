@@ -20,26 +20,44 @@ enum Mode
 
 var _mode:Mode = Mode.NONE
 
+var enabled:bool:
+	get: return is_processing_unhandled_input()
+	set(value):
+		set_process_unhandled_input(value)
+		
 func _ready() -> void:
 	if not camera:
 		_pick_camera.call_deferred()
+	if is_visible_in_tree():
+		enabled = true
 
 func _pick_camera() -> void:
 	camera = get_viewport().get_camera_3d()
 	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
 
-func _check_for_mode(event: InputEvent) -> void:
+func _check_for_mode(event: InputEvent) -> bool:
+	if not _selected_unit:
+		return false
+		
 	if event.is_action_pressed("unit_mode_attack"):
-		_mode = Mode.ATTACK
+		if _mode != Mode.ATTACK:
+			_mode = Mode.ATTACK
+			get_viewport().set_input_as_handled()
+			return true
 	elif event.is_action_pressed("unit_mode_move"):
-		_mode = Mode.MOVE
+		if _mode != Mode.MOVE:
+			_mode = Mode.MOVE
+			get_viewport().set_input_as_handled()
+			return true
+	return false
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# Only process if visible
 	if not camera or not is_visible_in_tree():
 		return
 		
-	_check_for_mode(event)
+	if _check_for_mode(event):
+		return
 
 	# TODO: THis is the "commit" left click mode that also depends on the 
 	# action mode like "move" or "attack" (M or A)
@@ -160,3 +178,7 @@ func _pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
 	ray_params.to = to
 	
 	return space_state.intersect_ray(ray_params)
+
+
+func _on_visibility_changed() -> void:
+	enabled = visible

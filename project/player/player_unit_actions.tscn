@@ -4,5 +4,5 @@
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_ygm0o")
-ray_cast_distance = null
-team = null
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

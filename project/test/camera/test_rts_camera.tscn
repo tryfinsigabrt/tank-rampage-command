@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://cmug4xp2idf1h"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_qkxfu"]
+[ext_resource type="PackedScene" uid="uid://dvn60hgaapy6y" path="res://player/rts_camera.tscn" id="2_njx8i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_njx8i"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_028ro"]
+sky_material = SubResource("ProceduralSkyMaterial_njx8i")
+
+[sub_resource type="Environment" id="Environment_dgut3"]
+background_mode = 2
+sky = SubResource("Sky_028ro")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_okmvw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahnqi"]
+albedo_texture = ExtResource("1_qkxfu")
+uv1_scale = Vector3(-100, -100, -100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_njx8i"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_028ro"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dgut3"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.014651676, 0.47069666, 0.47069666, 0.073521286, 0.35295743, 0.47060993, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.014651676, 0.47069666, -0.47069666, 0.5, -0.5, 0.5, -0.014651676, 0.47069666, 0.47069666, 0.014651676, 0.47069666, -0.47069666)
+
+[node name="TestRtsCamera" type="Node3D" unique_id=53521307]
+
+[node name="World" type="Node3D" parent="." unique_id=2025637456]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=150292403]
+environment = SubResource("Environment_dgut3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=60121156]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="World" unique_id=1348533511]
+transform = Transform3D(1000, 0, 0, 0, 10, 0, 0, 0, 1000, 0, -10, 0)
+mesh = SubResource("BoxMesh_okmvw")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ahnqi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Floor" unique_id=1824504287]
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Floor/StaticBody3D" unique_id=2024620080]
+shape = SubResource("BoxShape3D_njx8i")
+
+[node name="RTSCamera" parent="World" unique_id=2011851028 instance=ExtResource("2_njx8i")]
+
+[node name="Huts" type="Node3D" parent="World" unique_id=2103555102]
+
+[node name="Hut" type="MeshInstance3D" parent="World/Huts" unique_id=1857306933]
+transform = Transform3D(1.7320508, 0, 1, 0, 1, 0, -1, 0, 1.7320508, 5.3, -4.5000005, -13.3)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut" unique_id=1319594113]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut/StaticBody3D" unique_id=1756982700]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut4" type="MeshInstance3D" parent="World/Huts" unique_id=993465246]
+transform = Transform3D(-1.0000001, 0, 1.7320508, 0, 1, 0, -1.7320508, 0, -1.0000001, 5.3, -4.5000005, -6.2000003)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut4" unique_id=161696419]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut4/StaticBody3D" unique_id=198128436]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut2" type="MeshInstance3D" parent="World/Huts" unique_id=1148430480]
+transform = Transform3D(0.99999994, 0, -1.7320509, 0, 1, 0, 1.7320509, 0, 0.99999994, 11.700001, -4.5000005, -13.3)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut2" unique_id=1407350066]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut2/StaticBody3D" unique_id=1527846030]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut3" type="MeshInstance3D" parent="World/Huts" unique_id=249530994]
+transform = Transform3D(0.99999994, 0, -1.7320509, 0, 1, 0, 1.7320509, 0, 0.99999994, 11.700001, -4.5000005, -6.2000003)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut3" unique_id=830791486]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut3/StaticBody3D" unique_id=712611173]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut5" type="MeshInstance3D" parent="World/Huts" unique_id=399908597]
+transform = Transform3D(1.7320508, 0, 1, 0, 1, 0, -1, 0, 1.7320508, -15.6, -4.5000005, -19.263569)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut5" unique_id=75576436]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut5/StaticBody3D" unique_id=1718700295]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut6" type="MeshInstance3D" parent="World/Huts" unique_id=2129723843]
+transform = Transform3D(-1.0000001, 0, 1.7320508, 0, 1, 0, -1.7320508, 0, -1.0000001, -15.6, -4.5000005, -12.1635685)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut6" unique_id=501061676]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut6/StaticBody3D" unique_id=970798026]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut7" type="MeshInstance3D" parent="World/Huts" unique_id=1161497323]
+transform = Transform3D(0.99999994, 0, -1.7320509, 0, 1, 0, 1.7320509, 0, 0.99999994, -9.200001, -4.5000005, -19.263569)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut7" unique_id=1800158629]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut7/StaticBody3D" unique_id=375178824]
+shape = SubResource("ConvexPolygonShape3D_dgut3")
+
+[node name="Hut8" type="MeshInstance3D" parent="World/Huts" unique_id=1951120237]
+transform = Transform3D(0.99999994, 0, -1.7320509, 0, 1, 0, 1.7320509, 0, 0.99999994, -9.200001, -4.5000005, -12.1635685)
+mesh = SubResource("PrismMesh_028ro")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Huts/Hut8" unique_id=1887838228]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Huts/Hut8/StaticBody3D" unique_id=1776524029]
+shape = SubResource("ConvexPolygonShape3D_dgut3")

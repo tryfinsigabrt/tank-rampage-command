@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcimhgmigjvu4"]
+[gd_scene format=3 uid="uid://dcimhgmigjvu4"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_m68ci"]
 [ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://test/unit_movement_input_controller.tscn" id="2_6vdnj"]
@@ -10,7 +10,7 @@ script/source = "extends Node3D
 @onready var follow_camera: FollowCamera = $FollowCamera
 
 func _ready() -> void:
-	if visible:
+	if is_visible_in_tree():
 		follow_camera.make_camera_current()
 		
 func _on_visibility_changed() -> void:
@@ -18,14 +18,14 @@ func _on_visibility_changed() -> void:
 		follow_camera.make_camera_current()
 "
 
-[node name="HumanTankMovementTest" type="Node3D"]
+[node name="HumanTankMovementTest" type="Node3D" unique_id=430594706]
 script = SubResource("GDScript_m68ci")
 
-[node name="HumanTank" parent="." instance=ExtResource("1_m68ci")]
+[node name="HumanTank" parent="." unique_id=1241774273 instance=ExtResource("1_m68ci")]
 
-[node name="UnitMovementController" parent="." instance=ExtResource("2_6vdnj")]
+[node name="UnitMovementController" parent="." unique_id=841931747 instance=ExtResource("2_6vdnj")]
 
-[node name="FollowCamera" parent="." node_paths=PackedStringArray("follow_unit") instance=ExtResource("3_6vdnj")]
+[node name="FollowCamera" parent="." unique_id=263279016 node_paths=PackedStringArray("follow_unit") instance=ExtResource("3_6vdnj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29, 24)
 follow_unit = NodePath("../HumanTank")
 
