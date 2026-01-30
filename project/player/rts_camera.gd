@@ -21,6 +21,8 @@ var _camera_movement_velocity:Vector3 = Vector3.ZERO
 var _camera_current_zoom_speed:float = 0.0
 var _mouse_zoom:int = 0
 
+var _selected_units:PackedInt32Array
+
 #region public methods
 func capture_mouse(capture:bool) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED if capture else Input.MOUSE_MODE_VISIBLE
@@ -40,14 +42,18 @@ func pan_camera(delta:float) -> void:
 	var viewport_size:Vector2 = viewport.get_visible_rect().size
 	
 	var mouse_pos:Vector2 = viewport.get_mouse_position()
-	if Input.is_action_pressed("camera_move_left") or mouse_pos.x < camera_pan_margin_pixels:
+	
+	#WASD confuses action so this is a simple hack to avoid panning camera when attacking
+	var process_camera_input:bool = _selected_units.is_empty()
+	
+	if (process_camera_input and Input.is_action_pressed("camera_move_left")) or mouse_pos.x < camera_pan_margin_pixels:
 		_camera_movement_velocity.x = -delta
-	elif Input.is_action_pressed("camera_move_right") or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
+	elif (process_camera_input and Input.is_action_pressed("camera_move_right")) or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
 		_camera_movement_velocity.x = delta
 		
-	if Input.is_action_pressed("camera_move_forward") or mouse_pos.y < camera_pan_margin_pixels:
+	if (process_camera_input and Input.is_action_pressed("camera_move_forward")) or mouse_pos.y < camera_pan_margin_pixels:
 		_camera_movement_velocity.y = delta
-	elif Input.is_action_pressed("camera_move_backward") or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
+	elif (process_camera_input and Input.is_action_pressed("camera_move_backward")) or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
 		_camera_movement_velocity.y = -delta
 
 func rotate_camera(delta:float) -> void:
@@ -71,6 +77,9 @@ func _ready() -> void:
 	_setup_camera()
 	if make_current_if_visible and is_visible_in_tree():
 		make_camera_current()
+		
+	SignalBus.on_unit_selected.connect(_on_unit_selected)
+	SignalBus.on_unit_deselected.connect(_on_unit_deselected)
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("camera_primary_button"):
@@ -131,5 +140,14 @@ func _apply_zoom_velocity() -> void:
 		
 	_camera_current_zoom_speed = 0.0
 	_mouse_zoom = 0
+	
+func _on_unit_selected(unit:Unit) -> void:
+	var id:int = unit.get_instance_id()
+	if not id in _selected_units:
+		_selected_units.push_back(id)
+
+func _on_unit_deselected(unit:Unit) -> void:
+	var id:int = unit.get_instance_id()
+	_selected_units.erase(id)
 		
 #endregion
