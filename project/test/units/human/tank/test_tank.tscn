@@ -151,6 +151,7 @@ size = Vector3(10, 500, 1000)
 
 [node name="EnemyTank01" parent="World/Enemies" unique_id=1223720870 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
+team = 2
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0"]
 material_override = ExtResource("2_7hbj1")
@@ -160,6 +161,7 @@ material_override = ExtResource("3_y6dha")
 
 [node name="EnemyTank02" parent="World/Enemies" unique_id=295616966 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
+team = 3
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
 material_override = ExtResource("4_weikl")
@@ -169,6 +171,7 @@ material_override = ExtResource("5_ojclk")
 
 [node name="EnemyTank03" parent="World/Enemies" unique_id=260396010 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
+team = 4
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank03/Body/Mesh" index="0"]
 material_override = ExtResource("6_ojclk")
@@ -178,6 +181,7 @@ material_override = ExtResource("7_g60nt")
 
 [node name="EnemyTank04" parent="World/Enemies" unique_id=186169172 instance=ExtResource("1_0g124")]
 transform = Transform3D(0.25881916, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881916, -66, 0, 27)
+team = 5
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank04/Body/Mesh" index="0"]
 material_override = ExtResource("8_dvi1i")
@@ -194,6 +198,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 214)
 pos_y = 100.0
 
 [node name="PlayerUnitActions" parent="World/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("13_dvi1i")]
+team = 1
+
+[node name="PlayerTank" parent="World/Player/RTSCameraTest" unique_id=1709231356 instance=ExtResource("1_0g124")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
+team = 1
 
 [node name="HumanTankMovementTest" parent="World/Player" unique_id=1336520158 instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
@@ -205,9 +214,6 @@ pawn = NodePath("../HumanTank")
 [node name="HumanTankActionsController" parent="World/Player" unique_id=798168858 instance=ExtResource("2_7hsth")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 visible = false
-
-[node name="PlayerTank" parent="World/Player" unique_id=1709231356 instance=ExtResource("1_0g124")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 
 [editable path="World/Enemies/EnemyTank01"]
 [editable path="World/Enemies/EnemyTank01/Body"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dcimhgmigjvu4"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_m68ci"]
-[ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://test/unit_movement_input_controller.tscn" id="2_6vdnj"]
+[ext_resource type="PackedScene" uid="uid://3oxlp0dvekqy" path="res://player/unit_movement_input_controller.tscn" id="2_6vdnj"]
 [ext_resource type="PackedScene" uid="uid://b6athfiajv0em" path="res://player/follow_camera.tscn" id="3_6vdnj"]
 
 [sub_resource type="GDScript" id="GDScript_m68ci"]
