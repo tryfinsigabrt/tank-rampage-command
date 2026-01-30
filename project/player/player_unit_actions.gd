@@ -69,18 +69,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		_handle_context_action(event)
 	
 func _handle_context_action(event: InputEvent) -> void:
-	if not _selected_unit:
+	if not _can_issue_orders_to_unit(_selected_unit):
 		return
+		
 	var result := _move_to(event)
 	
 	if OS.is_debug_build() and result.has("position"):
 		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+	
+func _can_issue_orders_to_unit(unit: Unit) -> bool:
+	return unit and unit.team == team
 		
 func _pick_ground(event: InputEvent) -> Dictionary:
 	return _pick_node(event, Collisions.CompositeMasks.ground)
 	
 func _move_to(event: InputEvent) -> Dictionary:
-	if not _selected_unit:
+	if not _can_issue_orders_to_unit(_selected_unit):
 		return {}
 		
 	var result := _pick_ground(event)
@@ -116,7 +120,7 @@ func _handle_move_to(event: InputEvent) -> void:
 	
 # TODO: Attacking selected unit only in context select - _handle_context_action path		
 func _handle_attack(event: InputEvent) -> void:
-	if not _selected_unit:
+	if not _can_issue_orders_to_unit(_selected_unit):
 		return
 		
 	# Move to location
