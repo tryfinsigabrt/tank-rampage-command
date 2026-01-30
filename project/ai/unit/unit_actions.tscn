@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://dme5f24l0edsf"
 [node name="BeehaveTree" type="Node" parent="." unique_id=1481707243 node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_x0nt3")
 enabled = false
+tick_rate = 5
 blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
