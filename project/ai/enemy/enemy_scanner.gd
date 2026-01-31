@@ -8,6 +8,8 @@ const max_unit_result_count:int = 256
 var vision_radius:float = 100.0
 
 var _enemy_sweep_rid:RID
+var _visible_enemies:PackedInt64Array
+var _new_visible_enemies:PackedInt64Array
 
 func _ready() -> void:
 	_enemy_sweep_rid = _create_sweep_shape()
@@ -23,11 +25,18 @@ func _tick() -> void:
 	enemy_data.mark_all_not_visible()
 	
 	var enemies:Array[Unit] = sweep_enemies(attention_center)
+	_new_visible_enemies.clear()
+	
 	print_debug("%s: Team %d found %d enemies" % [name, blackboard.team, enemies.size()])
 	for enemy in enemies:
 		var team_info := enemy_data.get_team(enemy.team)
 		if team_info:
 			team_info.mark_seen(enemy)
+			_new_visible_enemies.push_back(enemy.get_instance_id())
+	_new_visible_enemies.sort()
+	if _new_visible_enemies != _visible_enemies:
+		_visible_enemies = _new_visible_enemies
+		blackboard.on_unit_visibility_changed.emit()
 		
 
 func _create_sweep_shape() -> RID:

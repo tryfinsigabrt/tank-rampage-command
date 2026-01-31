@@ -16,6 +16,15 @@ func get_team(team:int) -> EnemyTeamUnits:
 func all_teams() -> Array:
 	return _teams.values()
 
+func get_all_visible_ids(ids:PackedInt64Array, team_id:int = -1) -> void:
+	if team_id < 0:
+		for team:EnemyTeamUnits in _teams.values():
+			team.get_all_visible_ids(ids)
+	else:
+		var team := get_team(team_id)
+		if team:
+			team.get_all_visible_ids(ids)
+	
 func mark_all_not_visible() -> void:
-	for team in _teams.values():
+	for team:EnemyTeamUnits in _teams.values():
 		team.mark_all_not_visible()

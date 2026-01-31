@@ -1,17 +1,34 @@
 class_name EnemyTeamBlackboard extends Blackboard
 
+@warning_ignore("unused_signal")
+signal on_unit_visibility_changed
+ 
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
 	const team_info:String = &"team_info"
 	const focus_position:StringName = &"focus_position"
 	const team:StringName = &"team"
-
+	const attack_priorities:StringName = &"attack_priorities"
+	const currently_attacking:StringName = &"currently_attacking"
+	
 var enemy_teams_info:EnemyTeams:
 	get:
 		return get_value(Keys.enemy_teams_info)
 	set(value):
 		set_value(Keys.enemy_teams_info, value)
 
+var currently_attacking:Array[Unit]:
+	get:
+		return get_value(Keys.currently_attacking)
+	set(value):
+		set_value(Keys.currently_attacking, value)
+		
+var attack_priorities:Array[Unit]:
+	get:
+		return get_value(Keys.attack_priorities)
+	set(value):
+		set_value(Keys.attack_priorities, value)
+		
 var team_info:TeamUnits:
 	get:
 		return get_value(Keys.team_info)
