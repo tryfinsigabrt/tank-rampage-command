@@ -3,6 +3,14 @@ class_name Groups
 @warning_ignore("shadowed_global_identifier")
 const Unit:StringName = &"Unit"
 
+@warning_ignore("shadowed_global_identifier")
+const UnitActions:StringName = &"UnitActions"
+
+class Units:
+	const Tank:StringName = &"UnitClassTank"
+	const Artillery:StringName = &"UnitClassArtillery"
+	const Soldier:StringName = &"UnitClassSoldier"
+		
 static func get_parent_in_group(node: Node, group: StringName) -> Node:
 	if node.is_in_group(group):
 		return node

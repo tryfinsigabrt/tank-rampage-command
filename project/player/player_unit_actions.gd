@@ -51,15 +51,37 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _check_for_mode(event):
 		return
 
-	# TODO: THis is the "commit" left click mode that also depends on the 
-	# action mode like "move" or "attack" (M or A)
-	if event.is_action_pressed("unit_select"):
-		_handle_select(event)	
+	if event.is_action_pressed("unit_select", false, true):
+		_handle_select(event)
+	elif event.is_action_pressed("unit_multi_toggle_select", false, true):
+		_handle_toggle_unit(event)
+	elif event.is_action_pressed("unit_type_select", false, true):
+		_handle_select_all_of_type(event)
+	elif event.is_action_pressed("unit_select_all", false, true):
+		_handle_select_all(event)
+		
 	# This is the context-aware "right click" mode that doesn't take _mode into account	
 	# Attacks unit if selects an enemy unit, follows an ally unit
 	elif event.is_action_pressed("unit_move_to"):
 		_handle_context_action(event)
 	
+func _handle_toggle_unit(event: InputEvent) -> void:
+	var unit := node_picker.pick_unit(event)
+	if unit:
+		selection_manager.toggle(unit)
+
+func _handle_select_all_of_type(event: InputEvent) -> void:
+	var unit := node_picker.pick_unit(event)
+	if not unit:
+		return
+	selection_manager.set_selection_multiple(unit.get_all_units_same_team_and_class())
+
+func _handle_select_all(event: InputEvent) -> void:
+	var unit := node_picker.pick_unit(event)
+	if not unit:
+		return
+	selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
+		
 func _handle_context_action(event: InputEvent) -> void:
 	_move_to(event)
 	
@@ -116,6 +138,9 @@ func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = node_picker.pick_unit(event)
 	if new_unit:
 		selection_manager.add(new_unit)
+	else:
+		print_debug("%s: Clear Selection" % name)
+		selection_manager.clear()
 	
 func _on_visibility_changed() -> void:
 	enabled = visible

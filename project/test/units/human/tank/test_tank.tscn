@@ -204,6 +204,18 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
 
+[node name="PlayerTank2" parent="World/Player/RTSCameraTest" unique_id=1000018207 instance=ExtResource("1_0g124")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
+team = 1
+
+[node name="PlayerTank3" parent="World/Player/RTSCameraTest" unique_id=6855099 instance=ExtResource("1_0g124")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
+team = 1
+
+[node name="PlayerTank4" parent="World/Player/RTSCameraTest" unique_id=271356045 instance=ExtResource("1_0g124")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
+team = 1
+
 [node name="HumanTankMovementTest" parent="World/Player" unique_id=1336520158 instance=ExtResource("1_nsiie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 0)
 visible = false
