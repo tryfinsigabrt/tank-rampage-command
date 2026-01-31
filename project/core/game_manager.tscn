@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://3t5i7ypkifpd"]
+
+[ext_resource type="Script" uid="uid://cxb13y8p7a37r" path="res://core/game_manager.gd" id="1_xjh8w"]
+[ext_resource type="Script" uid="uid://bo11ctxxylhpf" path="res://utils/game_timer.gd" id="2_ulge3"]
+[ext_resource type="Script" uid="uid://dt8dxbkfxeyg0" path="res://utils/scene_manager.gd" id="3_ulge3"]
+
+[node name="GameManager" type="Node" unique_id=2103378881]
+script = ExtResource("1_xjh8w")
+
+[node name="GameTimer" type="Node" parent="." unique_id=1885696302]
+unique_name_in_owner = true
+script = ExtResource("2_ulge3")
+
+[node name="SceneManager" type="Node" parent="." unique_id=488891922]
+unique_name_in_owner = true
+script = ExtResource("3_ulge3")
+metadata/_custom_type_script = "uid://dt8dxbkfxeyg0"

@@ -10,6 +10,14 @@ enum UnitClass
 	Soldier,
 }
 
+static func group_for_class(in_class:UnitClass) -> StringName:
+	match in_class:
+		UnitClass.Tank: return Groups.Units.Tank
+		UnitClass.Artillery: return Groups.Units.Artillery
+		UnitClass.Soldier: return Groups.Units.Soldier
+		_:
+			push_warning("Invalid unit_class=%d" % [in_class])
+			return &""
 @export
 var team:int
 
@@ -18,13 +26,7 @@ var unit_class:UnitClass
 
 var unit_class_group:StringName:
 	get:
-		match unit_class:
-			UnitClass.Tank: return Groups.Units.Tank
-			UnitClass.Artillery: return Groups.Units.Artillery
-			UnitClass.Soldier: return Groups.Units.Soldier
-			_:
-				push_warning("%s: Invalid unit_class=%d" % [name, unit_class])
-				return &""
+		return group_for_class(unit_class)
 
 ## Provides the screen direction to instruct the unit to move to
 @abstract
@@ -58,26 +60,35 @@ func is_enemy(unit:Unit) -> bool:
 func is_enemy_team(in_team:int) -> bool:
 	return not is_ally_team(in_team)
 
-func get_all_units_on_same_team() -> Array[Unit]:
-	var nodes: Array[Node] = get_tree().get_nodes_in_group(Groups.Unit)
+static func get_all_units_on_team(in_team:int) -> Array[Unit]:
+	var nodes: Array[Node] = Engine.get_main_loop().get_nodes_in_group(Groups.Unit)
 	var units:Array[Unit] = []
 	for node in nodes:
-		if node is Unit and on_same_team(node):
+		if node is Unit and node.is_on_team(in_team):
+			units.push_back(node)
+	return units
+	
+func get_all_units_on_same_team() -> Array[Unit]:
+	return get_all_units_on_team(team)
+#endregion
+	
+#region Unit Classes
+static func get_all_units_on_team_and_class(in_team:int, in_class:UnitClass) -> Array[Unit]:
+	var nodes: Array[Node] = Engine.get_main_loop().get_nodes_in_group(group_for_class(in_class))
+	var units:Array[Unit] = []
+	for node in nodes:
+		if node is Unit and node.is_on_team(in_team):
 			units.push_back(node)
 	return units
 	
 func get_all_units_same_team_and_class() -> Array[Unit]:
-	var nodes: Array[Node] = get_tree().get_nodes_in_group(unit_class_group)
-	var units:Array[Unit] = []
-	for node in nodes:
-		if node is Unit and on_same_team(node):
-			units.push_back(node)
-	return units
-#endregion
+	return get_all_units_on_team_and_class(team, unit_class)
 	
 func is_same_class(unit:Unit) -> bool:
 	return unit and unit_class == unit.unit_class
 	
+#endregion
+
 func _get_unit_actions_scene() -> PackedScene:
 	# unit_actions.tscn
 	return preload("uid://hxa7arwfl6dn")

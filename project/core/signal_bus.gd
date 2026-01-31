@@ -2,6 +2,8 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 
+signal on_paused(paused:bool)
+
 signal on_unit_deselected(unit:Unit)
 signal on_unit_selected(unit: Unit)
 

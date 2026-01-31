@@ -161,7 +161,7 @@ material_override = ExtResource("3_y6dha")
 
 [node name="EnemyTank02" parent="World/Enemies" unique_id=295616966 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
-team = 3
+team = 2
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
 material_override = ExtResource("4_weikl")
@@ -171,7 +171,7 @@ material_override = ExtResource("5_ojclk")
 
 [node name="EnemyTank03" parent="World/Enemies" unique_id=260396010 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
-team = 4
+team = 2
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank03/Body/Mesh" index="0"]
 material_override = ExtResource("6_ojclk")
@@ -181,7 +181,7 @@ material_override = ExtResource("7_g60nt")
 
 [node name="EnemyTank04" parent="World/Enemies" unique_id=186169172 instance=ExtResource("1_0g124")]
 transform = Transform3D(0.25881916, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881916, -66, 0, 27)
-team = 5
+team = 2
 
 [node name="BodyMain" parent="World/Enemies/EnemyTank04/Body/Mesh" index="0"]
 material_override = ExtResource("8_dvi1i")
