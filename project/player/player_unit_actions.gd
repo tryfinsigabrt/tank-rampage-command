@@ -1,15 +1,7 @@
 extends Node3D
 
 @export
-var ray_cast_distance:float = 10000
-
-@export
-var camera:Camera3D
-
-@export
 var team:int
-
-var _selected_unit:Unit
 
 enum Mode
 {
@@ -20,23 +12,23 @@ enum Mode
 
 var _mode:Mode = Mode.NONE
 
+@onready var node_picker: NodePicker = $NodePicker
+@onready var selection_manager: SelectionManager = $SelectionManager
+@onready var order_manager: OrderManager = $OrderManager
+
 var enabled:bool:
 	get: return is_processing_unhandled_input()
 	set(value):
 		set_process_unhandled_input(value)
 		
 func _ready() -> void:
-	if not camera:
-		_pick_camera.call_deferred()
+	selection_manager.team = team
+	
 	if is_visible_in_tree():
 		enabled = true
 
-func _pick_camera() -> void:
-	camera = get_viewport().get_camera_3d()
-	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
-
 func _check_for_mode(event: InputEvent) -> bool:
-	if not _selected_unit:
+	if not selection_manager.any:
 		return false
 		
 	if event.is_action_pressed("unit_mode_attack"):
@@ -53,7 +45,7 @@ func _check_for_mode(event: InputEvent) -> bool:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	# Only process if visible
-	if not camera or not is_visible_in_tree():
+	if not node_picker.is_valid or not is_visible_in_tree():
 		return
 		
 	if _check_for_mode(event):
@@ -69,36 +61,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		_handle_context_action(event)
 	
 func _handle_context_action(event: InputEvent) -> void:
-	if not _can_issue_orders_to_unit(_selected_unit):
-		return
-		
-	var result := _move_to(event)
-	
-	if OS.is_debug_build() and result.has("position"):
-		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+	_move_to(event)
 	
 func _can_issue_orders_to_unit(unit: Unit) -> bool:
 	return unit and unit.team == team
-		
-func _pick_ground(event: InputEvent) -> Dictionary:
-	return _pick_node(event, Collisions.CompositeMasks.ground)
 	
-func _move_to(event: InputEvent) -> Dictionary:
-	if not _can_issue_orders_to_unit(_selected_unit):
-		return {}
+func _move_to(event: InputEvent) -> void:
+	if not selection_manager.any_same_team:
+		return
 		
-	var result := _pick_ground(event)
+	var result := node_picker.pick_ground(event)
 	if not result:
-		return {}
+		return
 				
 	var move_to_position:Vector3 = result.get("position")
-	
-	var action := _selected_unit.get_or_add_actions()
-	action.move(move_to_position)
-
-	var return_value:Dictionary = {}
-	return_value["position"] = move_to_position
-	return return_value
+	order_manager.move(move_to_position)
 	
 func _handle_select(event: InputEvent) -> void:
 	match _mode:
@@ -111,78 +88,34 @@ func _handle_select(event: InputEvent) -> void:
 	_mode = Mode.NONE
 
 func _handle_move_to(event: InputEvent) -> void:
-	var result := _move_to(event)
-
-	if OS.is_debug_build() and result.has("position"):
-		DebugDraw3D.draw_sphere(result.get("position"), 5.0, Color.YELLOW, 3.0)
+	_move_to(event)
 	
 	_mode = Mode.NONE
 	
 # TODO: Attacking selected unit only in context select - _handle_context_action path		
 func _handle_attack(event: InputEvent) -> void:
-	if not _can_issue_orders_to_unit(_selected_unit):
+	if not selection_manager.any_same_team:
 		return
 		
 	# Move to location
 	# First try to select a unit at the indicated location
 	var result:Dictionary
-	var selected_unit:Unit = _pick_unit(event)
+	var selected_unit:Unit = node_picker.pick_unit(event)
 	
 	if not selected_unit:
-		result = _pick_ground(event)
+		result = node_picker.pick_ground(event)
 		
 	if result or selected_unit:
-		var unit_actions := _selected_unit.get_or_add_actions()
 		if result:
 			var target_position:Vector3 = result.get("position")
-			if OS.is_debug_build():
-				DebugDraw3D.draw_sphere(target_position, 5.0, Color.ORANGE, 3.0)
-			unit_actions.move_and_attack(target_position)
+			order_manager.move_and_attack(target_position)
 		else:
-			unit_actions.attack(selected_unit)
+			order_manager.attack(selected_unit)
 
 func _handle_unit_select(event: InputEvent) -> void:
-	var new_unit:Unit = _pick_unit(event)
-
-	# Clicking on your unit twice deselects
-	# TODO: Double check this behavior if it is a standard or makes sense in RTS
-	if _selected_unit:
-		print_debug("%s: De-select unit=%s" % [name, _selected_unit])
-		SignalBus.on_unit_deselected.emit(_selected_unit)
+	var new_unit:Unit = node_picker.pick_unit(event)
+	if new_unit:
+		selection_manager.add(new_unit)
 	
-	if new_unit and new_unit != _selected_unit:
-		_selected_unit = new_unit
-		SignalBus.on_unit_selected.emit(new_unit)
-		
-		print_debug("%s: Selected unit=%s on team=%d; out_team=%d" % [name, new_unit.name, new_unit.team, team])
-		if OS.is_debug_build():
-			DebugDraw3D.draw_sphere(
-				new_unit.global_position, 5.0
-				,Color.GREEN if _selected_unit.team == team else Color.ORANGE
-				, 3.0)
-	else:
-		_selected_unit = null
-	
-func _pick_unit(event: InputEvent) -> Unit:
-	var result := _pick_node(event, Collisions.Layers.unit)
-	if not result:
-		return
-	var clicked_object = result.collider
-	return Groups.get_parent_in_group(clicked_object, Groups.Unit)
-	
-func _pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
-	var from := camera.project_ray_origin(event.position)
-	var to := from + camera.project_ray_normal(event.position) * ray_cast_distance  # Long ray
-
-	var space_state := get_world_3d().direct_space_state
-	
-	var ray_params := PhysicsRayQueryParameters3D.new()
-	ray_params.collision_mask = collision_mask
-	ray_params.from = from
-	ray_params.to = to
-	
-	return space_state.intersect_ray(ray_params)
-
-
 func _on_visibility_changed() -> void:
 	enabled = visible

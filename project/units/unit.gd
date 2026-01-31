@@ -17,6 +17,28 @@ func shoot() -> void
 
 var _unit_actions:UnitActions
 
+#region Teams
+func on_same_team(unit:Unit) -> bool:
+	return unit and unit.team == team
+	
+func is_on_team(in_team:int) -> bool:
+	return team == in_team
+
+# TODO: Right now don't have concept of allied teams but this leaves that open for future
+func is_ally(unit:Unit) -> bool:
+	return on_same_team(unit)
+	
+func is_ally_team(in_team:int) -> bool:
+	return is_on_team(in_team)
+	
+func is_enemy(unit:Unit) -> bool:
+	return unit and not is_ally(unit)
+	
+func is_enemy_team(in_team:int) -> bool:
+	return not is_ally_team(in_team)
+	
+#endregion
+
 func _get_unit_actions_scene() -> PackedScene:
 	# unit_actions.tscn
 	return preload("uid://hxa7arwfl6dn")
