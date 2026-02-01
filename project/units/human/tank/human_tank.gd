@@ -4,6 +4,7 @@ class_name HumanTank extends Unit
 @onready var barrel: TankBarrel = %Barrel
 @onready var body: TankBody = %Body
 @onready var collision: CollisionShape3D = $Collision
+@onready var game_unit_navigation: GameUnitNavigation = $GameUnitNavigation
 
 @export_range(0.0, 90.0, 0.01)
 var turret_aim_tolerance_deg:float = 1.0
@@ -87,3 +88,6 @@ func get_fire_global_right() -> Vector3:
 
 func get_fire_global_up() -> Vector3:
 	return barrel.global_basis.y
+	
+func _is_moving() -> bool:
+	return game_unit_navigation.enabled

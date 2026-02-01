@@ -27,6 +27,9 @@ var unit_class:UnitClass
 var unit_class_group:StringName:
 	get:
 		return group_for_class(unit_class)
+		
+var is_moving:bool:
+	get: return _is_moving()
 
 ## Provides the screen direction to instruct the unit to move to
 @abstract
@@ -37,6 +40,9 @@ func aim_at(world_location:Vector3) -> void
 
 @abstract
 func shoot() -> void
+
+@abstract
+func _is_moving() -> bool
 
 var _unit_actions:UnitActions
 

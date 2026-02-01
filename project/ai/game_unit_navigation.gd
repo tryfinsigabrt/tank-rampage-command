@@ -15,6 +15,10 @@ var alignment_turn_threshold:float = 0.92
 @export
 var alignment_forward_threshold:float = 0.6
 
+var enabled:bool:
+	get:
+		return is_physics_processing()
+
 func _ready() -> void:
 	_unit = get_parent() as Unit
 	if not _unit:

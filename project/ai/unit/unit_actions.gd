@@ -1,6 +1,7 @@
 class_name UnitActions extends Node3D
 
 @onready var behavior_tree: BeehaveTree = $BeehaveTree
+@onready var blackboard: UnitBlackboard = $Blackboard
 
 @export
 var unit:Unit
@@ -62,3 +63,12 @@ func follow(_friendly:Unit) -> void:
 
 func _clear_all_actions() -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
+	
+func is_attacking() -> bool:
+	return blackboard.is_attacking
+	
+func get_attack_target() -> Unit:
+	return blackboard.target_unit if is_attacking() else null
+	
+func is_moving() -> bool:
+	return unit and unit.is_moving

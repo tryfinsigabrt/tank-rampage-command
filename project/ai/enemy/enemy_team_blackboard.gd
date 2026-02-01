@@ -2,6 +2,10 @@ class_name EnemyTeamBlackboard extends Blackboard
 
 @warning_ignore("unused_signal")
 signal on_unit_visibility_changed
+
+signal on_attacking_units_changed
+
+signal on_attacking_priorities_changed
  
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
@@ -19,15 +23,17 @@ var enemy_teams_info:EnemyTeams:
 
 var currently_attacking:Array[Unit]:
 	get:
-		return get_value(Keys.currently_attacking)
+		return get_value(Keys.currently_attacking, [] as Array[Unit])
 	set(value):
 		set_value(Keys.currently_attacking, value)
+		on_attacking_units_changed.emit()
 		
 var attack_priorities:Array[Unit]:
 	get:
-		return get_value(Keys.attack_priorities)
+		return get_value(Keys.attack_priorities, [] as Array[Unit])
 	set(value):
 		set_value(Keys.attack_priorities, value)
+		on_attacking_priorities_changed.emit()
 		
 var team_info:TeamUnits:
 	get:
