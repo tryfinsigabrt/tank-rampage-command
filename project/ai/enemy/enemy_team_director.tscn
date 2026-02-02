@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c6fxci58sachj" path="res://ai/enemy/enemy_team_director.gd" id="1_78fuh"]
 [ext_resource type="Script" uid="uid://b6a66j7illytq" path="res://ai/enemy/enemy_team_blackboard.gd" id="2_tto3g"]
 [ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="3_72way"]
+[ext_resource type="Script" uid="uid://cw22yurt5l74k" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="4_4dbsd"]
 [ext_resource type="Script" uid="uid://4v5sk8oa3mdf" path="res://ai/enemy/team_units.gd" id="4_72way"]
-[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="4_xr3dc"]
 [ext_resource type="Script" uid="uid://dcojdhvj8qcw0" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="5_4dbsd"]
 [ext_resource type="Script" uid="uid://dqdnxbt6y61it" path="res://ai/enemy/enemy_scanner.gd" id="5_4jxhc"]
 [ext_resource type="Script" uid="uid://cissk7xwwdj40" path="res://ai/enemy/enemy_teams.gd" id="5_orm22"]
@@ -25,15 +25,14 @@ metadata/_custom_type_script = "uid://dme5f24l0edsf"
 [node name="BeehaveTree" type="Node" parent="." unique_id=901334094 node_paths=PackedStringArray("blackboard", "actor")]
 unique_name_in_owner = true
 script = ExtResource("3_72way")
-enabled = false
 tick_rate = 10
 blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="Root" type="Node" parent="BeehaveTree" unique_id=1997957688]
-script = ExtResource("4_xr3dc")
-metadata/_custom_type_script = "uid://8hn4kne15ac5"
+[node name="Root" type="Node" parent="BeehaveTree" unique_id=222201389]
+script = ExtResource("4_4dbsd")
+metadata/_custom_type_script = "uid://cw22yurt5l74k"
 
 [node name="Attack" type="Node" parent="BeehaveTree/Root" unique_id=1138940261]
 script = ExtResource("5_4dbsd")
@@ -63,6 +62,7 @@ script = ExtResource("5_orm22")
 
 [node name="EnemyScanner" type="Node" parent="GlobalServices" unique_id=961277824]
 script = ExtResource("5_4jxhc")
+vision_radius = 300.0
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyScanner" unique_id=464442711]
 wait_time = 0.2

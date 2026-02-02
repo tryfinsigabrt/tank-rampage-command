@@ -45,9 +45,9 @@ func move_to(target:Vector3) -> void:
 	else:
 		_emit_target_reached()
 	
-func set_enabled(enabled:bool) -> void:
-	set_physics_process(enabled)
-	set_process(enabled)		
+func set_enabled(in_enabled:bool) -> void:
+	set_physics_process(in_enabled)
+	set_process(in_enabled)		
 
 func _is_at_target(next_position: Vector3) -> bool:
 	var current_position := _unit.global_position

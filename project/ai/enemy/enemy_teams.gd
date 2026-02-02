@@ -9,6 +9,7 @@ func add_team(team:int) -> void:
 	enemy_team_units.team = team
 	
 	add_child(enemy_team_units)
+	_teams[team] = enemy_team_units
 
 func get_team(team:int) -> EnemyTeamUnits:
 	return _teams.get(team)

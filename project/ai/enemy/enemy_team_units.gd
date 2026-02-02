@@ -31,7 +31,7 @@ func mark_seen(unit:Unit) -> UnitData:
 	var unit_data:UnitData = mark_known(unit)
 	unit_data.visible = true
 	unit_data.last_known_position = unit.global_position
-	unit_data.last_seen_timestamp = GameManager.game_timer.elapsed_time
+	unit_data.last_seen_timestamp = GameManager.game_timer.time_seconds
 	
 	return unit_data
 

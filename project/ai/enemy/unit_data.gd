@@ -17,4 +17,4 @@ static func create(in_unit:Unit) -> UnitData:
 	
 var last_seen_dt:float:
 	get:
-		return GameManager.game_timer.elapsed_time - last_seen_timestamp if last_seen_timestamp >= 0 else 1e12
+		return GameManager.game_timer.time_seconds - last_seen_timestamp if last_seen_timestamp >= 0 else 1e12
