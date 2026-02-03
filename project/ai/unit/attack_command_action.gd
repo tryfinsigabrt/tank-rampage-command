@@ -48,6 +48,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 			SignalBus.on_unit_command_finished.emit(_unit, my_action)
 			return SUCCESS
 		_:
+			SignalBus.on_unit_command_finished.emit(_unit, my_action)
 			return FAILURE
 
 func _should_continue_running(blackboard: Blackboard) -> bool:
