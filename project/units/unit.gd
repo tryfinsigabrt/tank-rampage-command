@@ -30,6 +30,12 @@ var unit_class_group:StringName:
 		
 var is_moving:bool:
 	get: return _is_moving()
+	
+var is_alive:bool:
+	get: return _is_alive()
+
+var is_dead:bool:
+	get: return not is_alive
 
 ## Provides the screen direction to instruct the unit to move to
 @abstract
@@ -43,6 +49,9 @@ func shoot() -> void
 
 @abstract
 func _is_moving() -> bool
+
+func _is_alive() -> bool:
+	return true
 
 var _unit_actions:UnitActions
 

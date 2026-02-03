@@ -41,6 +41,7 @@ enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/debug
 Unit="A game unit"
 UnitActions="AI actions for a unit"
 UnitClassTank=""
+Damageable=""
 
 [input]
 

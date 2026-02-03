@@ -4,6 +4,7 @@ class_name Weapon extends Node3D
 @onready var impact_timer: Timer = $ImpactTimer
 @onready var fire_emitter: CPUParticles3D = $FireEmitter
 @onready var hit_emitter: CPUParticles3D = $HitEmitter
+@onready var damage_emitter: DamageEmitter = $DamageEmitter
 
 @export
 var speed_range:Vector2 = Vector2(1500,2000)
@@ -19,6 +20,8 @@ var enable_debug_draw:bool = true
 
 @export_flags_3d_physics
 var damage_mask:int = Collisions.CompositeMasks.visibility
+
+@export var allow_source_damage:bool
 
 func fire() -> void:
 	if not cooldown_timer.is_stopped():
@@ -50,6 +53,10 @@ func _hit_scan() -> void:
 	query.collide_with_bodies = true
 	query.collision_mask = damage_mask
 	
+	var unit:Unit = Groups.get_parent_in_group(self, Groups.Unit)
+	if not allow_source_damage and unit:
+		query.exclude = [unit.get_rid()]
+	
 	var result := space.intersect_ray(query)
 	var hit_or_end:Vector3
 	var is_hit:bool = false
@@ -75,7 +82,12 @@ func _hit_scan() -> void:
 	_draw_debug(origin, hit_or_end, is_hit)
 	
 	if is_hit:
-		# TODO: Emit damage signal on signal bus
+		var damage_params := DamageParameters.from_ray_intersect(result)
+		damage_params.source_weapon = self
+		damage_params.source_damage_allowed = allow_source_damage
+		damage_params.source_unit = unit
+		damage_emitter.damage(damage_params)
+		
 		hit_emitter.global_position = hit_or_end
 		hit_emitter.restart()
 
