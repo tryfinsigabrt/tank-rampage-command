@@ -5,6 +5,9 @@ var damage_mask:int
 ## The object collided
 var target_object:Node3D
 
+## RID of physics object collision
+var target_rid:RID
+
 var target_collider_id:int
 
 var source_weapon:Weapon
@@ -53,6 +56,7 @@ static func from_ray_intersect(results: Dictionary, prototype:DamageParameters =
 	params.target_collider_id = results["collider_id"]
 	params.contact_point = results["position"]
 	params.contact_normal = results["normal"]
+	params.target_rid = results["rid"]
 	params.is_direct_hit = true
 
 	return params
@@ -66,6 +70,7 @@ static func from_shape_intersect(results: Dictionary, prototype:DamageParameters
 	params.target_object = results["collider"]
 	params.target_collider_id = results["collider_id"]
 	params.contact_point = params.target_object.global_position
+	params.target_rid = results["rid"]
 	params.is_direct_hit = false
 
 	return params

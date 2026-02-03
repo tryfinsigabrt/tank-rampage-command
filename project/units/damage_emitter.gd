@@ -9,17 +9,11 @@ enum DamageFalloffType
 
 @export var damage_falloff_type: DamageFalloffType = DamageFalloffType.Linear
 
-@export var min_falloff_distance: float = 10:
-	get: return min_falloff_distance * falloff_distance_multiplier
-@export var max_falloff_distance: float = 60:
-	get: return max_falloff_distance * falloff_distance_multiplier
-@export var falloff_distance_multiplier: float
+@export var min_falloff_distance: float = 10
+@export var max_falloff_distance: float = 60
 
-@export var min_damage: float = 10:
-	get: return min_damage * damage_multiplier
-@export var max_damage: float = 100:
-	get: return max_damage * damage_multiplier
-@export var damage_multiplier: float
+@export var min_damage: float = 50
+@export var max_damage: float = 500
 
 var _sweep_shape:RID
 
@@ -75,7 +69,7 @@ func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]
 	params.margin = Collisions.default_collision_margin
 	params.transform = Transform3D(Basis.IDENTITY, incident_damage_params.contact_point)
 	# Exclude our units
-	var to_exclude:Array[RID] = [incident_damage_params.target_object.get_rid()]
+	var to_exclude:Array[RID] = [incident_damage_params.target_rid]
 	if not incident_damage_params.source_damage_allowed and incident_damage_params.source_unit:
 		to_exclude.push_back(incident_damage_params.source_unit.get_rid())
 		

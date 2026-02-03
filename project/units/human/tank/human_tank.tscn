@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bkefu1383smlp" path="res://units/human/tank/hero/mesh/body.tscn" id="10_v2578"]
 [ext_resource type="PackedScene" uid="uid://baiqwcwaqg702" path="res://units/human/tank/hero/mesh/turret.tscn" id="11_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="11_s68el"]
-[ext_resource type="Script" uid="uid://d8mfe0vom8c" path="res://units/stats/health_stat.gd" id="12_jrc1l"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="12_jrc1l"]
 [ext_resource type="PackedScene" uid="uid://coecg4slmgj7w" path="res://units/human/tank/hero/mesh/barrel.tscn" id="12_l52bp"]
 [ext_resource type="PackedScene" uid="uid://jwbji3u34cd2" path="res://units/human/tank/hero/mesh/track_left.tscn" id="13_th8qc"]
 [ext_resource type="PackedScene" uid="uid://djeqvfuxtgxpj" path="res://units/human/tank/hero/mesh/track_right.tscn" id="14_o8pnh"]
@@ -60,8 +60,10 @@ path_max_distance = 8.01
 
 [node name="Stats" type="Node" parent="." unique_id=1147446724]
 
-[node name="HealthStat" type="Node" parent="Stats" unique_id=1064482339 groups=["Damageable"]]
-script = ExtResource("12_jrc1l")
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("12_jrc1l")]
+unique_name_in_owner = true
+
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 
 [editable path="Body"]
 [editable path="Body/Mesh"]

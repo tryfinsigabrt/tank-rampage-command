@@ -5,6 +5,7 @@ class_name HumanTank extends Unit
 @onready var body: TankBody = %Body
 @onready var collision: CollisionShape3D = $Collision
 @onready var game_unit_navigation: GameUnitNavigation = $GameUnitNavigation
+@onready var health_stat: HealthStat = %HealthStat
 
 @export_range(0.0, 90.0, 0.01)
 var turret_aim_tolerance_deg:float = 1.0
@@ -17,6 +18,9 @@ var pitch_tolerance:float = 0.01
 
 @export_range(1.0, 1e9, 0.1, "or_greater")
 var movement_speed:float = 15.0
+	
+func _is_alive() -> bool:
+	return health_stat.is_alive
 	
 func _physics_process(delta: float) -> void:
 	collision.disabled = not is_visible_in_tree()
@@ -91,3 +95,12 @@ func get_fire_global_up() -> Vector3:
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
+
+func _die() -> void:
+	print_debug("%s: Die" % name)
+	queue_free()
+	
+func _on_health_changed(previous_health: float, current_health: float) -> void:
+	print_debug("%s: health_changed: %f -> %f" % [name, previous_health, current_health])
+	if health_stat.is_dead:
+		_die()

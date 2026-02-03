@@ -4,15 +4,25 @@ class_name HealthStat extends Node
 signal health_changed(previous_health:float, current_health:float)
 signal took_damage(damage_params:DamageParameters)
 
-@export var starting_health:float = 100.0
-@export var max_health:float = 100.0
+@export var max_health:float = 1000.0
 
-@onready var health: float = starting_health: # Must be onready to read export value at runtime
+var is_alive:bool:
+	get: return health > 0
+
+var is_dead:bool:
+	get: return not is_alive
+	
+## The current health, set to non-zero to start with that health instead of max
+var _health:float = 0.0
+
+@export
+var health: float:
+	get: return _health 
 	set(value):
-		var original_health:float = health
-		health = clampf(value, 0.0, max_health)
-		if not is_equal_approx(health, original_health):
-			health_changed.emit(original_health, health)
+		var original_health:float = _health
+		_health = clampf(value, 0.0, max_health)
+		if not is_equal_approx(_health, original_health):
+			health_changed.emit(original_health, _health)
 		
 func on_damage(damage_params:DamageParameters) -> void:
 	var orig_health = health
@@ -24,3 +34,7 @@ func on_damage(damage_params:DamageParameters) -> void:
 		damage_params.damage = actual_damage
 		
 	took_damage.emit(damage_params)
+
+func _ready() -> void:
+	if _health <= 0.0:
+		_health = max_health

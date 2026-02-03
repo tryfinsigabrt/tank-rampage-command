@@ -194,26 +194,26 @@ material_override = ExtResource("9_yoo7s")
 [node name="RTSCameraTest" type="Node3D" parent="World/Player" unique_id=1507688131]
 
 [node name="RTSCamera" parent="World/Player/RTSCameraTest" unique_id=2011851028 instance=ExtResource("12_g60nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 214)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 98)
 pos_y = 100.0
 
 [node name="PlayerUnitActions" parent="World/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("13_dvi1i")]
 team = 1
 
 [node name="PlayerTank" parent="World/Player/RTSCameraTest" unique_id=1709231356 instance=ExtResource("1_0g124")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -0.049999833, 22)
 team = 1
 
 [node name="PlayerTank2" parent="World/Player/RTSCameraTest" unique_id=1000018207 instance=ExtResource("1_0g124")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 22)
 team = 1
 
 [node name="PlayerTank3" parent="World/Player/RTSCameraTest" unique_id=6855099 instance=ExtResource("1_0g124")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -0.049999833, 36)
 team = 1
 
 [node name="PlayerTank4" parent="World/Player/RTSCameraTest" unique_id=271356045 instance=ExtResource("1_0g124")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 37)
 team = 1
 
 [node name="HumanTankMovementTest" parent="World/Player" unique_id=1336520158 instance=ExtResource("1_nsiie")]

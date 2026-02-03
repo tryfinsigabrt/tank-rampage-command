@@ -87,10 +87,3 @@ hue_variation_max = 0.2
 
 [node name="DamageEmitter" type="Node" parent="." unique_id=1547374086]
 script = ExtResource("4_5bddv")
-damage_falloff_type = null
-min_falloff_distance = null
-max_falloff_distance = null
-falloff_distance_multiplier = null
-min_damage = null
-max_damage = null
-damage_multiplier = null

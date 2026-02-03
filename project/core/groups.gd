@@ -20,15 +20,15 @@ static func get_parent_in_group(node: Node, group: StringName) -> Node:
 		return null
 	return get_parent_in_group(node.get_parent(), group)
 	
-static func get_children_in_group(node: Node, group: StringName, return_on_first:bool=false) -> Array[Node]:
-	var stack:Array[Node] = [node]
+static func get_children_in_group(root: Node, group: StringName, return_on_first:bool=false) -> Array[Node]:
+	var stack:Array[Node] = [root]
 	var group_nodes:Array[Node] = []
 	
-	for child in node.get_children():
-		var next:Node = stack.pop_back()
-		if next.is_in_group(group):
-			group_nodes.push_back(next)
+	while not stack.is_empty():
+		var node:Node = stack.pop_back()
+		if node.is_in_group(group):
+			group_nodes.push_back(node)
 			if return_on_first:
 				return group_nodes
-		stack.push_back(child)
+		stack.append_array(node.get_children())
 	return group_nodes

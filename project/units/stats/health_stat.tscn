@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dcsegqdbxoa0i"]
+
+[ext_resource type="Script" uid="uid://d8mfe0vom8c" path="res://units/stats/health_stat.gd" id="1_w2viw"]
+
+[node name="HealthStat" type="Node" unique_id=1169615643 groups=["Damageable"]]
+script = ExtResource("1_w2viw")
