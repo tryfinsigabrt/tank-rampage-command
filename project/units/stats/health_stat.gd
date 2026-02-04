@@ -23,6 +23,9 @@ var health: float:
 		_health = clampf(value, 0.0, max_health)
 		if not is_equal_approx(_health, original_health):
 			health_changed.emit(original_health, _health)
+	
+var health_fraction:float:
+	get: return health / max_health
 		
 func on_damage(damage_params:DamageParameters) -> void:
 	var orig_health = health

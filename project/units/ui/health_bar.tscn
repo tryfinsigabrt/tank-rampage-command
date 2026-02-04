@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://j43jw0xttqg3"]
+
+[ext_resource type="Script" uid="uid://bps3e171luvlr" path="res://units/ui/health_bar.gd" id="1_kueee"]
+[ext_resource type="Shader" uid="uid://cbru204mqb4dl" path="res://units/ui/health_bar.gdshader" id="2_abptx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sn2g"]
+render_priority = 0
+shader = ExtResource("2_abptx")
+shader_parameter/health_color = Color(0, 1, 0, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dlkao"]
+size = Vector2(500, 25)
+
+[node name="HealthBar" type="Node3D" unique_id=1686186120]
+script = ExtResource("1_kueee")
+
+[node name="Sprite" type="Sprite3D" parent="." unique_id=1754435293]
+material_override = SubResource("ShaderMaterial_3sn2g")
+billboard = 1
+texture = SubResource("PlaceholderTexture2D_dlkao")
