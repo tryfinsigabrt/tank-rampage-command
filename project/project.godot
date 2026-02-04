@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="tank-rampage-command"
-run/main_scene="uid://y2gjgrbqtl7n"
+run/main_scene="uid://blrkufxsnfysm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
