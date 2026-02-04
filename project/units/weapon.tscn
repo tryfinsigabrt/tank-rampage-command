@@ -87,3 +87,4 @@ hue_variation_max = 0.2
 
 [node name="DamageEmitter" type="Node" parent="." unique_id=1547374086]
 script = ExtResource("4_5bddv")
+max_damage = 250.0
