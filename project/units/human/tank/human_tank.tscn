@@ -66,9 +66,17 @@ unique_name_in_owner = true
 
 [node name="UI" type="Node3D" parent="." unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("13_ih5ua")]
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 

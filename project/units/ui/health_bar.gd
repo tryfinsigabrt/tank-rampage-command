@@ -9,11 +9,11 @@ var always_display:bool = false
 var health_stat:HealthStat
 
 func _ready() -> void:
-	_update_visible(health_stat.health_fraction)
-		
 	if not health_stat:
 		push_error("%s: Missing health state set up" % name)
 		return
+		
+	_update_visible(health_stat.health_fraction)
 	health_stat.health_changed.connect(_on_health_changed.unbind(2))
 
 func _update_visible(fraction:float) -> void:

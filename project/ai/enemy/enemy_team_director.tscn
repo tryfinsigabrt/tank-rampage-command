@@ -62,7 +62,7 @@ script = ExtResource("5_orm22")
 
 [node name="EnemyScanner" type="Node" parent="GlobalServices" unique_id=961277824]
 script = ExtResource("5_4jxhc")
-vision_radius = 300.0
+vision_radius = 200.0
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyScanner" unique_id=464442711]
 wait_time = 0.2

@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3sn2g"]
 render_priority = 0
 shader = ExtResource("2_abptx")
-shader_parameter/health_color = Color(0, 1, 0, 1)
+shader_parameter/health_color = Color(1, 0, 0, 1)
 shader_parameter/bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dlkao"]
@@ -17,5 +17,7 @@ script = ExtResource("1_kueee")
 
 [node name="Sprite" type="Sprite3D" parent="." unique_id=1754435293]
 material_override = SubResource("ShaderMaterial_3sn2g")
-billboard = 1
+cast_shadow = 0
+billboard = 2
+transparent = false
 texture = SubResource("PlaceholderTexture2D_dlkao")
