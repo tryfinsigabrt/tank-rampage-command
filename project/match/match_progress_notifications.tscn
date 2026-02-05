@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b0w5itefev4dg"]
+
+[ext_resource type="Script" uid="uid://d348ij5blmfb5" path="res://match/match_progress_notifications.gd" id="1_qwig8"]
+
+[node name="MatchProgressNotifications" type="Node" unique_id=795051228]
+script = ExtResource("1_qwig8")

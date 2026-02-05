@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b1ep470134kra"]
+
+[sub_resource type="GDScript" id="GDScript_0syg6"]
+script/source = "extends Node3D
+
+const toast_notification_scene:PackedScene = preload(\"uid://crooxytfm2w0g\")
+
+@export
+var wait_time:float = 2.0
+
+func _ready() -> void:
+	await _create_toast(\"Team 2 eliminated\")
+	await _create_toast(\"Team 1 wins!\")
+	
+func _create_toast(message: String) -> void:
+	var toast:ToastNotification = toast_notification_scene.instantiate()
+	toast.message = message
+	add_child(toast)
+	
+	await get_tree().create_timer(wait_time).timeout
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0syg6"]
+
+[sub_resource type="Sky" id="Sky_i2lbv"]
+sky_material = SubResource("ProceduralSkyMaterial_0syg6")
+
+[sub_resource type="Environment" id="Environment_0syg6"]
+background_mode = 2
+sky = SubResource("Sky_i2lbv")
+ambient_light_source = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0syg6"]
+albedo_color = Color(0.40133336, 0, 0.56, 1)
+metallic_specular = 0.8
+roughness = 0.0
+
+[node name="ToastNotificationTests" type="Node3D" unique_id=1990576729]
+script = SubResource("GDScript_0syg6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2134798819]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 3.5, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=915738334]
+environment = SubResource("Environment_0syg6")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1093364118]
+transform = Transform3D(1, 0, 0, 0, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, 0, 4, 0.6)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=622661043]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8000001, -5.6)
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=64875859]
+size = Vector3(1000, 1, 1000)
+material = SubResource("StandardMaterial3D_0syg6")

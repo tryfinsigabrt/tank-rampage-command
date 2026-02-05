@@ -6,6 +6,8 @@ const Unit:StringName = &"Unit"
 const MatchTeam:StringName = &"MatchTeam"
 const Match:StringName = &"Match"
 
+const Player:StringName = &"Player"
+
 const UnitActions:StringName = &"UnitActions"
 
 const Damageable:StringName = &"Damageable"
@@ -23,6 +25,9 @@ static func get_parent_in_group(leaf: Node, group: StringName) -> Node:
 static func get_parent_with_type(leaf: Node, type) -> Node:
 	return get_parent_matching(leaf, func(node): return is_instance_of(node, type) )
 
+static func has_ancestor(leaf: Node, ancestor: Node) -> bool:
+	return get_parent_matching(leaf, func(node): return node == ancestor) != null
+	
 static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
 	var node:Node = leaf
 	while node:
@@ -37,6 +42,9 @@ static func get_children_in_group(root: Node, group: StringName, return_on_first
 static func get_children_with_type(root: Node, type, return_on_first:bool=false) -> Array[Node]:
 	return get_children_matching(root, func(node): return is_instance_of(node, type), return_on_first)
 
+static func is_child_in_tree(root:Node, child:Node) -> bool:
+	return not get_children_matching(root, func(node): return node == child, true).is_empty()
+	
 static func get_children_matching(root: Node, predicate: Callable, return_on_first:bool=false) -> Array[Node]:
 	var stack:Array[Node] = [root]
 	var matching_nodes:Array[Node] = []

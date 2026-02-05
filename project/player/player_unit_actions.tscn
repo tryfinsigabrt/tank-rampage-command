@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://xiohmvrpkwct" path="res://player/selection_manager.gd" id="3_wse6d"]
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="4_mr66j"]
 
-[node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
+[node name="PlayerUnitActions" type="Node3D" unique_id=518831115 groups=["Player"]]
 script = ExtResource("1_ygm0o")
 
 [node name="NodePicker" type="Node3D" parent="." unique_id=830610886]

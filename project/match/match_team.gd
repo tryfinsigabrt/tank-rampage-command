@@ -29,4 +29,4 @@ func _on_unit_destroyed(unit:Unit) -> void:
 	# TODO: There will be buildings as well and match only over for team when all of those destroyed or team forfeits
 	if _units.is_empty():
 		await get_tree().process_frame
-		SignalBus.match_team_lost.emit(self)
+		SignalBus.match_team_eliminated.emit(self)

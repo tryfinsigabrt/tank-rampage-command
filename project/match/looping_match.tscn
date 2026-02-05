@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bhkuspigknepx"]
+
+[ext_resource type="Script" uid="uid://c3vg1hoyb87vk" path="res://match/looping_match.gd" id="1_3hk7i"]
+[ext_resource type="PackedScene" uid="uid://b0w5itefev4dg" path="res://match/match_progress_notifications.tscn" id="2_4hmw3"]
+
+[node name="LoopingMatch" type="Node" unique_id=1151452462]
+script = ExtResource("1_3hk7i")
+
+[node name="MatchProgressNotifications" parent="." unique_id=795051228 instance=ExtResource("2_4hmw3")]

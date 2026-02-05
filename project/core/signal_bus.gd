@@ -25,7 +25,7 @@ signal on_unit_killed(unit:Unit, damage_parameters:DamageParameters)
 signal match_ready(match_obj:Match)
 signal match_ended(match_obj:Match)
 signal match_team_ready(match_team:MatchTeam)
-signal match_team_lost(match_team:MatchTeam)
+signal match_team_eliminated(match_team:MatchTeam)
 
 @warning_ignore_restore("unused_signal")
 
