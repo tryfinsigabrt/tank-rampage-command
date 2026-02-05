@@ -96,11 +96,15 @@ func get_fire_global_up() -> Vector3:
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
 
-func _die() -> void:
+func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
+	died.emit(damage_params)
 	queue_free()
 	
 func _on_health_changed(previous_health: float, current_health: float) -> void:
 	print_debug("%s: health_changed: %f -> %f" % [name, previous_health, current_health])
+
+func _on_took_damage(damage_params: DamageParameters) -> void:
+	damaged.emit(damage_params)
 	if health_stat.is_dead:
-		_die()
+		_die(damage_params)

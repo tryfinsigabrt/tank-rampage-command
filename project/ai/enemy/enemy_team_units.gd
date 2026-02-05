@@ -19,7 +19,7 @@ func mark_known(unit:Unit) -> UnitData:
 	var unit_data:UnitData = units.get(id)
 	if not unit_data:
 		unit_data = UnitData.create(unit)
-		unit.tree_exited.connect(_on_unit_deleted.bind(unit))
+		unit.died.connect(_on_unit_deleted.bind(unit).unbind(1))
 		units[id] = unit_data
 	return unit_data
 	

@@ -1,34 +1,51 @@
 class_name Groups
 
-@warning_ignore("shadowed_global_identifier")
-const Unit:StringName = &"Unit"
+@warning_ignore_start("shadowed_global_identifier")
 
-@warning_ignore("shadowed_global_identifier")
+const Unit:StringName = &"Unit"
+const MatchTeam:StringName = &"MatchTeam"
+const Match:StringName = &"Match"
+
 const UnitActions:StringName = &"UnitActions"
 
 const Damageable:StringName = &"Damageable"
+
+@warning_ignore_restore("shadowed_global_identifier")
 
 class Units:
 	const Tank:StringName = &"UnitClassTank"
 	const Artillery:StringName = &"UnitClassArtillery"
 	const Soldier:StringName = &"UnitClassSoldier"
 		
-static func get_parent_in_group(node: Node, group: StringName) -> Node:
-	if node.is_in_group(group):
-		return node
-	if node.get_parent() == null:
-		return null
-	return get_parent_in_group(node.get_parent(), group)
+static func get_parent_in_group(leaf: Node, group: StringName) -> Node:
+	return get_parent_matching(leaf, func(node): return node.is_in_group(group) )
+	
+static func get_parent_with_type(leaf: Node, type) -> Node:
+	return get_parent_matching(leaf, func(node): return is_instance_of(node, type) )
+
+static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
+	var node:Node = leaf
+	while node:
+		if predicate.call(node):
+			return node
+		node = node.get_parent()
+	return null
 	
 static func get_children_in_group(root: Node, group: StringName, return_on_first:bool=false) -> Array[Node]:
+	return get_children_matching(root, func(node): return node.is_in_group(group), return_on_first)
+	
+static func get_children_with_type(root: Node, type, return_on_first:bool=false) -> Array[Node]:
+	return get_children_matching(root, func(node): return is_instance_of(node, type), return_on_first)
+
+static func get_children_matching(root: Node, predicate: Callable, return_on_first:bool=false) -> Array[Node]:
 	var stack:Array[Node] = [root]
-	var group_nodes:Array[Node] = []
+	var matching_nodes:Array[Node] = []
 	
 	while not stack.is_empty():
 		var node:Node = stack.pop_back()
-		if node.is_in_group(group):
-			group_nodes.push_back(node)
+		if predicate.call(node):
+			matching_nodes.push_back(node)
 			if return_on_first:
-				return group_nodes
+				return matching_nodes
 		stack.append_array(node.get_children())
-	return group_nodes
+	return matching_nodes

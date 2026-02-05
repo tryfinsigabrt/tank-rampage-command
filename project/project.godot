@@ -42,6 +42,8 @@ Unit="A game unit"
 UnitActions="AI actions for a unit"
 UnitClassTank=""
 Damageable=""
+Match=""
+MatchTeam=""
 
 [input]
 

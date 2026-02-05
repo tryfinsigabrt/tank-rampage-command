@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dskmwqo2h374f"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_h7ph6"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://core/match.tscn" id="1_ox246"]
 [ext_resource type="Material" uid="uid://745i788v8vyq" path="res://units/human/tank/tank01_body_material.tres" id="2_3shxk"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://core/match_team.tscn" id="2_ev4ck"]
 [ext_resource type="Material" uid="uid://h16symhq6i3u" path="res://units/human/tank/tank01_turret_material.tres" id="3_cievo"]
 [ext_resource type="Material" uid="uid://heghdvyj6q77" path="res://units/human/tank/tank03_body_material.tres" id="4_pdndp"]
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="5_1edn6"]
@@ -146,113 +148,121 @@ use_collision = true
 collision_mask = 13
 size = Vector3(10, 500, 1000)
 
-[node name="Enemies" type="Node3D" parent="World" unique_id=1702973220]
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("1_ox246")]
 
-[node name="EnemyTank01" parent="World/Enemies" unique_id=1223720870 instance=ExtResource("1_h7ph6")]
-transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
-team = 2
+[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("2_ev4ck")]
+team = 1
 
-[node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0"]
-material_override = ExtResource("2_3shxk")
+[node name="Player" type="Node3D" parent="World/Match/PlayerTeam" unique_id=556120660]
 
-[node name="Turret" parent="World/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
-material_override = ExtResource("3_cievo")
+[node name="RTSCameraTest" type="Node3D" parent="World/Match/PlayerTeam/Player" unique_id=1507688131]
 
-[node name="UI" parent="World/Enemies/EnemyTank01" index="4" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5.5, -37)
-
-[node name="EnemyTank02" parent="World/Enemies" unique_id=295616966 instance=ExtResource("1_h7ph6")]
-transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
-team = 2
-
-[node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
-material_override = ExtResource("4_pdndp")
-
-[node name="Turret" parent="World/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
-material_override = ExtResource("5_1edn6")
-
-[node name="UI" parent="World/Enemies/EnemyTank02" index="4" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 5.5, -33)
-
-[node name="EnemyTank03" parent="World/Enemies" unique_id=260396010 instance=ExtResource("1_h7ph6")]
-transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
-team = 2
-
-[node name="BodyMain" parent="World/Enemies/EnemyTank03/Body/Mesh" index="0"]
-material_override = ExtResource("6_45w8c")
-
-[node name="Turret" parent="World/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
-material_override = ExtResource("7_yp0w5")
-
-[node name="UI" parent="World/Enemies/EnemyTank03" index="4" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33, 5.5, -67)
-
-[node name="EnemyTank04" parent="World/Enemies" unique_id=186169172 instance=ExtResource("1_h7ph6")]
-transform = Transform3D(0.25881916, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881916, -66, 0, 27)
-team = 2
-
-[node name="BodyMain" parent="World/Enemies/EnemyTank04/Body/Mesh" index="0"]
-material_override = ExtResource("8_wygtg")
-
-[node name="Turret" parent="World/Enemies/EnemyTank04/Body/Turret/Mesh" index="0"]
-material_override = ExtResource("9_62175")
-
-[node name="UI" parent="World/Enemies/EnemyTank04" index="4" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
-
-[node name="Player" type="Node3D" parent="World" unique_id=556120660]
-
-[node name="RTSCameraTest" type="Node3D" parent="World/Player" unique_id=1507688131]
-
-[node name="RTSCamera" parent="World/Player/RTSCameraTest" unique_id=2011851028 instance=ExtResource("10_2yo3y")]
+[node name="RTSCamera" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=2011851028 instance=ExtResource("10_2yo3y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 214)
 pos_y = 100.0
 
-[node name="PlayerUnitActions" parent="World/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("11_2qenv")]
+[node name="PlayerUnitActions" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("11_2qenv")]
 team = 1
 
-[node name="PlayerTank" parent="World/Player/RTSCameraTest" unique_id=1709231356 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1709231356 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
 
-[node name="PlayerTank2" parent="World/Player/RTSCameraTest" unique_id=1000018207 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1000018207 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
 team = 1
 
-[node name="PlayerTank3" parent="World/Player/RTSCameraTest" unique_id=6855099 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=6855099 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
 team = 1
 
-[node name="PlayerTank4" parent="World/Player/RTSCameraTest" unique_id=271356045 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=271356045 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
 
-[node name="EnemyTeams" type="Node3D" parent="World" unique_id=1594109727]
+[node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]
 
-[node name="EnemyTeam1" parent="World/EnemyTeams" unique_id=20484500 instance=ExtResource("14_43cal")]
+[node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
 team = 2
 
-[editable path="World/Enemies/EnemyTank01"]
-[editable path="World/Enemies/EnemyTank01/Body"]
-[editable path="World/Enemies/EnemyTank01/Body/Mesh"]
-[editable path="World/Enemies/EnemyTank01/Body/Turret"]
-[editable path="World/Enemies/EnemyTank01/Body/Turret/Mesh"]
-[editable path="World/Enemies/EnemyTank01/GameUnitNavigation"]
-[editable path="World/Enemies/EnemyTank02"]
-[editable path="World/Enemies/EnemyTank02/Body"]
-[editable path="World/Enemies/EnemyTank02/Body/Mesh"]
-[editable path="World/Enemies/EnemyTank02/Body/Turret"]
-[editable path="World/Enemies/EnemyTank02/Body/Turret/Mesh"]
-[editable path="World/Enemies/EnemyTank02/GameUnitNavigation"]
-[editable path="World/Enemies/EnemyTank03"]
-[editable path="World/Enemies/EnemyTank03/Body"]
-[editable path="World/Enemies/EnemyTank03/Body/Mesh"]
-[editable path="World/Enemies/EnemyTank03/Body/Turret"]
-[editable path="World/Enemies/EnemyTank03/Body/Turret/Mesh"]
-[editable path="World/Enemies/EnemyTank03/GameUnitNavigation"]
-[editable path="World/Enemies/EnemyTank04"]
-[editable path="World/Enemies/EnemyTank04/Body"]
-[editable path="World/Enemies/EnemyTank04/Body/Mesh"]
-[editable path="World/Enemies/EnemyTank04/Body/Turret"]
-[editable path="World/Enemies/EnemyTank04/Body/Turret/Mesh"]
-[editable path="World/Enemies/EnemyTank04/GameUnitNavigation"]
+[node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("14_43cal")]
+team = 2
+
+[node name="Enemies" type="Node3D" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1702973220]
+
+[node name="EnemyTank01" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1223720870 instance=ExtResource("1_h7ph6")]
+transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
+team = 2
+
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh" index="0"]
+material_override = ExtResource("2_3shxk")
+
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("3_cievo")
+
+[node name="UI" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01" index="4" unique_id=1673194704]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5.5, -37)
+
+[node name="EnemyTank02" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=295616966 instance=ExtResource("1_h7ph6")]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
+team = 2
+
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Mesh" index="0"]
+material_override = ExtResource("4_pdndp")
+
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("5_1edn6")
+
+[node name="UI" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02" index="4" unique_id=1673194704]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 5.5, -33)
+
+[node name="EnemyTank03" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=260396010 instance=ExtResource("1_h7ph6")]
+transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
+team = 2
+
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Mesh" index="0"]
+material_override = ExtResource("6_45w8c")
+
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("7_yp0w5")
+
+[node name="UI" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03" index="4" unique_id=1673194704]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33, 5.5, -67)
+
+[node name="EnemyTank04" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=186169172 instance=ExtResource("1_h7ph6")]
+transform = Transform3D(0.25881916, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881916, -66, 0, 27)
+team = 2
+
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Mesh" index="0"]
+material_override = ExtResource("8_wygtg")
+
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("9_62175")
+
+[node name="UI" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04" index="4" unique_id=1673194704]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
+
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Turret"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Turret/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/GameUnitNavigation"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Turret"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Turret/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/GameUnitNavigation"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Turret"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Turret/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/GameUnitNavigation"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Turret"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Turret/Mesh"]
+[editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/GameUnitNavigation"]

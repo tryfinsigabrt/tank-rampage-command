@@ -35,7 +35,7 @@ func _refresh_monitors(source: Array[Unit], id_list:PackedInt64Array, receiver:C
 		# Cannot use is_connected since we are binding a new callable that will always be unique
 		# and easier to just track the ids
 		if not unit_id in id_list:
-			unit.tree_exited.connect(receiver.bind(unit))
+			unit.died.connect(receiver.bind(unit).unbind(1))
 
 	_set_monitored_units(source, id_list)
 	

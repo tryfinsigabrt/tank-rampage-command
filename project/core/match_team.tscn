@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cx7b217uuaivj"]
+
+[ext_resource type="Script" uid="uid://hkol5jvbf4mb" path="res://core/match_team.gd" id="1_sgnxb"]
+
+[node name="MatchTeam" type="Node3D" unique_id=1256450270 groups=["MatchTeam"]]
+script = ExtResource("1_sgnxb")

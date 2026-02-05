@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cwnbatyg51nvp"]
+
+[ext_resource type="Script" uid="uid://cw5lle6ti8dv0" path="res://core/match.gd" id="1_qvbg2"]
+
+[node name="Match" type="Node3D" unique_id=1741120106 groups=["Match"]]
+script = ExtResource("1_qvbg2")

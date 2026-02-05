@@ -2,6 +2,12 @@
 @abstract
 class_name Unit extends CharacterBody3D
 
+@warning_ignore_start("unused_signal")
+signal died(damage_params:DamageParameters)
+signal damaged(damage_params:DamageParameters)
+
+@warning_ignore_restore("unused_signal")
+
 enum UnitClass
 {
 	None,
@@ -37,8 +43,11 @@ var is_alive:bool:
 var is_dead:bool:
 	get: return not is_alive
 
-## Provides the screen direction to instruct the unit to move to
+var _unit_actions:UnitActions
+
+#region Abstracts/Hooks
 @abstract
+## Provides the screen direction to instruct the unit to move to
 func move(input_direction:Vector2) -> void
 
 @abstract
@@ -52,8 +61,11 @@ func _is_moving() -> bool
 
 func _is_alive() -> bool:
 	return true
+	
+#endregion
 
-var _unit_actions:UnitActions
+func _ready() -> void:
+	SignalBus.register_unit(self)
 
 #region Teams
 func on_same_team(unit:Unit) -> bool:

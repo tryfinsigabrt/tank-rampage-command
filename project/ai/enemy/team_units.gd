@@ -9,14 +9,13 @@ var units:Array[Unit]:
 
 func add_unit(unit:Unit) -> void:
 	_units.push_back(unit)
-	unit.tree_exited.connect(_on_unit_destroyed.bind(unit))
+	unit.died.connect(_on_unit_destroyed.bind(unit).unbind(1))
 	
 func _ready() -> void:
 	pass
 
 func _on_unit_destroyed(unit:Unit) -> void:
 	_units.erase(unit)
-
 
 func get_average_position() -> Vector3:
 	if not units:

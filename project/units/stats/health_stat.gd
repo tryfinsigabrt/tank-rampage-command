@@ -32,6 +32,9 @@ func on_damage(damage_params:DamageParameters) -> void:
 	health = health - damage_params.damage
 	var actual_damage:float = orig_health - health
 	
+	if is_zero_approx(actual_damage):
+		return
+	
 	if not is_equal_approx(actual_damage, damage_params.damage):
 		damage_params = damage_params.duplicate()
 		damage_params.damage = actual_damage

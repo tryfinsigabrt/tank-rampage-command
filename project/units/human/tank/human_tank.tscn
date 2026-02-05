@@ -79,6 +79,7 @@ update_rotation = false
 update_scale = false
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
 
 [editable path="Body"]
 [editable path="Body/Mesh"]
