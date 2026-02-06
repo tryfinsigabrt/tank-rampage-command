@@ -5,6 +5,7 @@ var _current_target_position: Vector3
 var _target_reached:bool = true
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var stuck_detector: StuckDetector = $StuckDetector
 
 @export
 var distance_threshold:float = 4.0
@@ -47,21 +48,31 @@ func move_to(target:Vector3) -> void:
 	
 func set_enabled(in_enabled:bool) -> void:
 	set_physics_process(in_enabled)
-	set_process(in_enabled)		
+	set_process(in_enabled)
+	
+	if not in_enabled:
+		stuck_detector.reset()
 
 func _is_at_target(next_position: Vector3) -> bool:
 	var current_position := _unit.global_position
 	return next_position.distance_squared_to(current_position) <= distance_threshold * distance_threshold
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var next_position := navigation_agent_3d.get_next_path_position()
-
+	
+	#print_debug("%s: NEXT POSITION=%s" % [name, next_position])
+	
 	if _is_at_target(next_position):
 		_emit_target_reached()
 		return
 	
 	# TODO: Maybe this needs to be "body.global_position"
 	var current_position := _unit.global_position
+	
+	if not stuck_detector.sample(delta, current_position, next_position):
+		# Complete move if detect are stuck
+		_emit_target_reached()
+		return
 	
 	var direction := current_position.direction_to(next_position)
 	var forward_vector := _unit.global_forward
