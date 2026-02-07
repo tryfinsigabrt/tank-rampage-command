@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dqdnxbt6y61it" path="res://ai/enemy/enemy_scanner.gd" id="5_4jxhc"]
 [ext_resource type="Script" uid="uid://cissk7xwwdj40" path="res://ai/enemy/enemy_teams.gd" id="5_orm22"]
 [ext_resource type="Script" uid="uid://b3n5injq6h5ex" path="res://ai/enemy/should_attack_condition.gd" id="6_f2wvq"]
-[ext_resource type="Script" uid="uid://b5udyyk52tnhq" path="res://ai/enemy/enemy_attack_prioritizer.gd" id="7_ectn7"]
+[ext_resource type="Script" uid="uid://b5udyyk52tnhq" path="res://ai/enemy/enemy_action_prioritizer.gd" id="7_ectn7"]
 [ext_resource type="Script" uid="uid://cyromgd13fprn" path="res://ai/enemy/attack_units.gd" id="7_ibxiw"]
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
@@ -68,7 +68,7 @@ vision_radius = 200.0
 wait_time = 0.2
 autostart = true
 
-[node name="EnemyAttackPrioritizer" type="Node" parent="GlobalServices" unique_id=1707460618]
+[node name="EnemyActionPrioritizer" type="Node" parent="GlobalServices" unique_id=1707460618]
 script = ExtResource("7_ectn7")
 
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
@@ -76,5 +76,7 @@ script = ExtResource("13_4dbsd")
 
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
-[connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyAttackPrioritizer" method="_on_unit_visibility_changed"]
+[connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
+[connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
+[connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]

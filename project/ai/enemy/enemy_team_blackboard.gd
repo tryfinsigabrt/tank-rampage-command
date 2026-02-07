@@ -4,8 +4,9 @@ class_name EnemyTeamBlackboard extends Blackboard
 signal on_unit_visibility_changed
 
 signal on_attacking_units_changed
-
 signal on_attacking_priorities_changed
+signal on_idle_units_changed
+signal on_exploring_units_changed
  
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
@@ -13,7 +14,10 @@ class Keys:
 	const focus_position:StringName = &"focus_position"
 	const team:StringName = &"team"
 	const attack_priorities:StringName = &"attack_priorities"
+	# TODO: Should probably group these by the unit action to make it more extensible and less brittle
 	const currently_attacking:StringName = &"currently_attacking"
+	const idle_units:StringName = &"idle_units"
+	const exploring_units:StringName = &"exploring_units"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -34,7 +38,21 @@ var attack_priorities:Array[Unit]:
 	set(value):
 		set_value(Keys.attack_priorities, value)
 		on_attacking_priorities_changed.emit()
-		
+	
+var idle_units:Array[Unit]:
+	get:
+		return get_value(Keys.idle_units, [] as Array[Unit])
+	set(value):
+		set_value(Keys.idle_units, value)
+		on_idle_units_changed.emit()
+
+var exploring_units:Array[Unit]:
+	get:
+		return get_value(Keys.exploring_units, [] as Array[Unit])
+	set(value):
+		set_value(Keys.exploring_units, value)
+		on_exploring_units_changed.emit()
+				
 var team_info:TeamUnits:
 	get:
 		return get_value(Keys.team_info)

@@ -3,8 +3,9 @@ class_name CommandActionLeaf extends ActionLeaf
 
 var my_action:StringName
 
-func before_run(_actor: Node, blackboard: Blackboard) -> void:
+func before_run(actor: Node, blackboard: Blackboard) -> void:
 	my_action = blackboard.get_value(UnitBlackboard.Keys.Action)
+	SignalBus.on_unit_command_started.emit(actor as Unit, my_action)
 	
 func _check_running_state(blackboard: Blackboard) -> int:
 	var current_action:StringName = blackboard.get_value(UnitBlackboard.Keys.Action, &"")

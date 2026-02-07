@@ -13,6 +13,8 @@ func _ready() -> void:
 	_init_blackboard()
 	
 func _discover_units_and_teams() -> void:
+	team_units.team = team
+
 	var nodes:Array[Node] = get_tree().get_nodes_in_group(Groups.Unit)
 	var enemy_team_ids:PackedInt32Array
 	
@@ -27,6 +29,8 @@ func _discover_units_and_teams() -> void:
 		elif not unit.team in enemy_team_ids:
 			enemy_teams.add_team(unit.team)
 			enemy_team_ids.push_back(unit.team)
+			
+	team_units.initialized.emit()
 		
 func _init_blackboard() -> void:
 	blackboard.team_info = team_units

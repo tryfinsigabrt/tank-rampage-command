@@ -2,15 +2,37 @@ extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
+# FIXME: Replace this with just storing a PackedInt64Array of ids in the blackboard itself and then use TeamUnits to get the actual unit which handles lifetime
+
 var _monitored_attacking_priorities:PackedInt64Array
 var _monitored_attacking:PackedInt64Array
+var _monitored_idle:PackedInt64Array
+var _monitored_exploring:PackedInt64Array
 
+func _on_blackboard_on_exploring_units_changed() -> void:
+	_refresh_monitors(blackboard.exploring_units, _monitored_exploring, _on_exploring_unit_destroyed)
+	
+func _on_blackboard_on_idle_units_changed() -> void:
+	_refresh_monitors(blackboard.idle_units, _monitored_idle, _on_idle_unit_destroyed)
+	
 func _on_attacking_priorities_changed() -> void:
 	_refresh_monitors(blackboard.attack_priorities, _monitored_attacking_priorities, _on_attacking_priority_unit_destroyed)
 	
 func _on_attacking_units_changed() -> void:
 	_refresh_monitors(blackboard.currently_attacking, _monitored_attacking, _on_attacking_unit_destroyed)
 
+func _on_exploring_unit_destroyed(unit:Unit) -> void:
+	_on_destroyed(unit, blackboard.exploring_units, func(updated):
+		# Trigger signal
+		blackboard.exploring_units = updated
+	)
+	
+func _on_idle_unit_destroyed(unit:Unit) -> void:
+	_on_destroyed(unit, blackboard.idle_units, func(updated):
+		# Trigger signal
+		blackboard.idle_units = updated
+	)
+	
 func _on_attacking_priority_unit_destroyed(unit:Unit) -> void:
 	_on_destroyed(unit, blackboard.attack_priorities, func(updated):
 		# Trigger signal

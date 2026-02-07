@@ -19,7 +19,8 @@ func _exit_tree() -> void:
 		PhysicsServer3D.free_rid(_enemy_sweep_rid)
 	
 func _tick() -> void:
-	var attention_center:Vector3 = blackboard.focus_position
+	var attention_center:Vector3 = blackboard.team_info.get_average_position()
+	blackboard.focus_position = attention_center
 	
 	var enemy_data:EnemyTeams = blackboard.enemy_teams_info
 	enemy_data.mark_all_not_visible()
