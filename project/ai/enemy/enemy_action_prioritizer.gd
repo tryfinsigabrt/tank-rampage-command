@@ -5,6 +5,10 @@ extends Node
 func _ready() -> void:
 	SignalBus.on_unit_command_started.connect(_on_command_started)
 	SignalBus.on_unit_command_finished.connect(_on_command_finished)
+
+func _on_team_units_initialized(source: TeamUnits) -> void:
+	# All units initially idle
+	blackboard.idle_units = source.units
 	
 func _on_unit_visibility_changed() -> void:
 	_evaluate_priorities()

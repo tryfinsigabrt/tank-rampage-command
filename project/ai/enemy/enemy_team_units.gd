@@ -5,6 +5,18 @@ var team:int
 ## Key is the instance id of the Unit
 var units:Dictionary[int, UnitData] = {}
 
+func has_unit_id(id:int) -> bool:
+	return units.has(id)
+	
+func has_unit(unit:Unit) -> bool:
+	return is_instance_valid(unit) and has_unit_id(unit.get_instance_id())
+	
+func get_unit(id:int) -> Unit:
+	var unit:Unit = units.get(id)
+	if unit and is_instance_valid(unit):
+		return unit
+	return null
+	
 func mark_all_not_visible() -> void:
 	for unit in units.values():
 		unit.visible = false

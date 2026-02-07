@@ -9,13 +9,10 @@ var heading_variation_degrees:Vector2 = Vector2(30,120)
 	
 func tick(_actor: Node, _blackboard: Blackboard) -> int:	
 	var blackboard:EnemyTeamBlackboard = _blackboard
-	var units:Dictionary[int,Unit] = blackboard.team_info.units_dict
 	
 	# TODO: EnemyActionPrioritizer will explicitly add in an exploring units directive
-	for unit_id in blackboard.idle_units:
-		var unit:Unit = units.get(unit_id)
-		if unit:
-			_select_move_target(unit)
+	for unit in blackboard.idle_units:
+		_select_move_target(unit)
 					
 	return RUNNING
 	

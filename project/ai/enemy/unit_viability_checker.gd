@@ -4,6 +4,7 @@ extends Node
 
 # FIXME: Replace this with just storing a PackedInt64Array of ids in the blackboard itself and then use TeamUnits to get the actual unit which handles lifetime
 
+# ObjectIDs require full 64-bit int looking at source in object.h
 var _monitored_attacking_priorities:PackedInt64Array
 var _monitored_attacking:PackedInt64Array
 var _monitored_idle:PackedInt64Array
@@ -57,7 +58,9 @@ func _refresh_monitors(source: Array[Unit], id_list:PackedInt64Array, receiver:C
 		# Cannot use is_connected since we are binding a new callable that will always be unique
 		# and easier to just track the ids
 		if not unit_id in id_list:
-			unit.died.connect(receiver.bind(unit).unbind(1))
+			var callable:Callable = receiver.bind(unit).unbind(1)
+			if not unit.died.is_connected(callable):
+				unit.died.connect(callable)
 
 	_set_monitored_units(source, id_list)
 	

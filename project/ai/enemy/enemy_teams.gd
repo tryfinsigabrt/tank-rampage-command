@@ -13,6 +13,14 @@ func add_team(team:int) -> void:
 
 func get_team(team:int) -> EnemyTeamUnits:
 	return _teams.get(team)
+	
+func get_unit(id:int) -> Unit:
+	for team_id in _teams:
+		var team := _teams[team_id]
+		var unit:Unit = team.get_unit(id)
+		if unit:
+			return unit
+	return null		
 
 func all_teams() -> Array:
 	return _teams.values()

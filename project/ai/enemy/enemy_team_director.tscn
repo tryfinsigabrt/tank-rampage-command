@@ -79,4 +79,5 @@ script = ExtResource("13_4dbsd")
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
+[connection signal="initialized" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_initialized" flags=18]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
