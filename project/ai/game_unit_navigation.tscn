@@ -5,6 +5,9 @@
 
 [node name="GameUnitNavigation" type="Node3D" unique_id=1412332106]
 script = ExtResource("1_nose6")
+distance_threshold = null
+alignment_turn_threshold = null
+alignment_forward_threshold = null
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512793571]
 debug_enabled = true

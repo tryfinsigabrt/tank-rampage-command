@@ -27,6 +27,8 @@ func _ready() -> void:
 		return
 	SignalBus.on_unit_move_issued.connect(_on_unit_move_issued)
 	SignalBus.on_unit_move_canceled.connect(_on_unit_move_canceled)
+	
+	stuck_detector.unit = _unit
 	set_enabled(false)
 
 func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
@@ -42,6 +44,8 @@ func move_to(target:Vector3) -> void:
 	
 	if not _is_at_target(target):
 		_target_reached = false
+		stuck_detector.goal_position = target
+		
 		set_enabled(true)
 	else:
 		_emit_target_reached()
