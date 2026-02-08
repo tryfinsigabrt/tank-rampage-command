@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b3n5injq6h5ex" path="res://ai/enemy/should_attack_condition.gd" id="6_f2wvq"]
 [ext_resource type="Script" uid="uid://b5udyyk52tnhq" path="res://ai/enemy/enemy_action_prioritizer.gd" id="7_ectn7"]
 [ext_resource type="Script" uid="uid://cyromgd13fprn" path="res://ai/enemy/attack_units.gd" id="7_ibxiw"]
+[ext_resource type="Script" uid="uid://bkr7qj44253ue" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="7_olcys"]
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 
@@ -42,8 +43,16 @@ metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
 script = ExtResource("6_f2wvq")
 metadata/_custom_type_script = "uid://cbnbvj8prv63i"
 
-[node name="AttackEnemies" type="Node" parent="BeehaveTree/Root/Attack" unique_id=1203347828]
+[node name="AttackAndExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack" unique_id=1855225030]
+script = ExtResource("7_olcys")
+metadata/_custom_type_script = "uid://bkr7qj44253ue"
+
+[node name="AttackEnemies" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=1203347828]
 script = ExtResource("7_ibxiw")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=971392095]
+script = ExtResource("8_f2wvq")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036]

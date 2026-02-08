@@ -53,8 +53,9 @@ func damage(incident_damage_params:DamageParameters) -> void:
 					amount = _calculate_damage(collider, collider.global_position, hit_position)
 					if amount > 0:
 						var damage_result:DamageParameters = DamageParameters.from_shape_intersect(result, incident_damage_params)
-						damage_result.damage = amount
-						results.push_back(damage_result)
+						if damage_result:
+							damage_result.damage = amount
+							results.push_back(damage_result)
 						
 	if OS.is_debug_build():
 		print_debug("%s: damage: nodes impacted=%d; incident_damage_params=%s" % [name, results.size(), incident_damage_params])

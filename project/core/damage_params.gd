@@ -24,7 +24,9 @@ var is_direct_hit:bool
 var source_damage_allowed:bool
 
 func _to_string() -> String:
-	return "target=%s; weapon=%s; source=%s; damage=%f; contact=%s; normal=%s; is_direct=%s" % [target_object.name, source_weapon.name, source_unit, damage, contact_point, contact_normal, is_direct_hit]
+	return "target=%s; weapon=%s; source=%s; damage=%f; contact=%s; normal=%s; is_direct=%s" % \
+	 [StringUtils.safe_name(target_object), StringUtils.safe_name(source_weapon),
+	 source_unit, damage, contact_point, contact_normal, is_direct_hit]
 	
 func duplicate() -> DamageParameters:
 	var result := _duplicate_from_prototype()
@@ -47,12 +49,13 @@ func _duplicate_from_prototype() -> DamageParameters:
 	return result
 	
 static func from_ray_intersect(results: Dictionary, prototype:DamageParameters = null) -> DamageParameters:
-	if not results:
+	var collider:Node3D = _get_collider(results)
+	if not collider:
 		return null
 
 	var params := prototype._duplicate_from_prototype() if prototype else DamageParameters.new()
 	
-	params.target_object = results["collider"]
+	params.target_object = collider
 	params.target_collider_id = results["collider_id"]
 	params.contact_point = results["position"]
 	params.contact_normal = results["normal"]
@@ -62,15 +65,21 @@ static func from_ray_intersect(results: Dictionary, prototype:DamageParameters =
 	return params
 
 static func from_shape_intersect(results: Dictionary, prototype:DamageParameters = null) -> DamageParameters:
-	if not results:
+	var collider:Node3D = _get_collider(results)
+	if not collider:
 		return null
 
 	var params := prototype._duplicate_from_prototype() if prototype else DamageParameters.new()
 	
-	params.target_object = results["collider"]
+	params.target_object = collider
 	params.target_collider_id = results["collider_id"]
 	params.contact_point = params.target_object.global_position
 	params.target_rid = results["rid"]
 	params.is_direct_hit = false
 
 	return params
+
+static func _get_collider(results: Dictionary) -> Node3D:
+	var collider := results.get("collider") as Node3D
+	return collider if is_instance_valid(collider) else null
+	

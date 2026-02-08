@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _on_team_units_initialized(source: TeamUnits) -> void:
 	# All units initially idle
-	blackboard.idle_units = source.units
+	blackboard.idle_units = source.units.duplicate()
 	
 func _on_unit_visibility_changed() -> void:
 	_evaluate_priorities()

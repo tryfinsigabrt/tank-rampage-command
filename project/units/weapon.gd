@@ -60,6 +60,7 @@ func _hit_scan() -> void:
 	var result := space.intersect_ray(query)
 	var hit_or_end:Vector3
 	var is_hit:bool = false
+	var collider_at_fire: Node3D = null
 	
 	if result:
 		var collider: Node3D = result["collider"] as Node3D
@@ -67,6 +68,7 @@ func _hit_scan() -> void:
 		hit_or_end = hit_position
 		var normal: Vector3 = result["normal"]
 		is_hit = collider != null
+		collider_at_fire = collider
 		print_debug("%s: Hit %s at %s with normal=%s" % [name, collider, hit_position, normal])
 	else:
 		hit_or_end = target
@@ -78,11 +80,19 @@ func _hit_scan() -> void:
 	if flight_time > 0:
 		_set_timer(impact_timer, flight_time)
 		await impact_timer.timeout
+
+	# Collider can be freed while we're awaiting the simulated flight time.
+	if is_hit and not is_instance_valid(collider_at_fire):
+		is_hit = false
+		result = {}
 	
 	_draw_debug(origin, hit_or_end, is_hit)
 	
 	if is_hit:
 		var damage_params := DamageParameters.from_ray_intersect(result)
+		if not damage_params:
+			return
+			
 		damage_params.source_weapon = self
 		damage_params.source_damage_allowed = allow_source_damage
 		damage_params.source_unit = unit

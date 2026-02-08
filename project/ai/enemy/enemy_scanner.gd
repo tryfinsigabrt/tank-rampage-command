@@ -65,7 +65,7 @@ func sweep_enemies(center:Vector3) -> Array[Unit]:
 	
 	for result in results:
 		var unit:Unit = result.get("collider") as Unit
-		if unit:
+		if unit and not unit in units:
 			units.push_back(unit)
 	
 	return units
