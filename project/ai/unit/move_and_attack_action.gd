@@ -40,14 +40,18 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	add_child(_attack_action)
 
 func tick(_actor: Node, blackboard: Blackboard) -> int:
+	var result:int
 	match _finished:
 		0:
-			return _check_running_state(blackboard)
+			result = _check_running_state(blackboard)
 		1:
-			SignalBus.on_unit_command_finished.emit(_unit, my_action)
-			return SUCCESS
+			result = SUCCESS
 		_:
-			return FAILURE
+			result = FAILURE
+			
+	if result != RUNNING:
+		SignalBus.on_unit_command_finished.emit(_unit, my_action)
+	return result
 
 func _should_continue_running(blackboard: Blackboard) -> bool:
 	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3

@@ -17,7 +17,7 @@ func _on_match_ready(match_object:Match) -> void:
 	
 func _on_team_eliminated(match_team:MatchTeam) -> void:
 	if match_team == player_team:
-		print_debug("%s: Player team=%d->%s eliminated" % name, match_team.team, match_team.name)
+		print_debug("%s: Player team=%d->%s eliminated" % [name, match_team.team, match_team.name])
 		_restart()
 	
 func _on_match_complete(_match_object:Match) -> void:

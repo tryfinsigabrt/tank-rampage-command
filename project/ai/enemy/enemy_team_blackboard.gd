@@ -25,33 +25,41 @@ var enemy_teams_info:EnemyTeams:
 	set(value):
 		set_value(Keys.enemy_teams_info, value)
 
-var currently_attacking:Array[Unit]:
+var currently_attacking:Dictionary[int, int]:
 	get:
-		return get_value(Keys.currently_attacking, [] as Array[Unit])
+		return get_value(Keys.currently_attacking, {} as Dictionary[int, int])
 	set(value):
+		var existing := currently_attacking
 		set_value(Keys.currently_attacking, value)
-		on_attacking_units_changed.emit()
+		if value != existing:
+			on_attacking_units_changed.emit()
 		
 var attack_priorities:Array[Unit]:
 	get:
 		return get_value(Keys.attack_priorities, [] as Array[Unit])
 	set(value):
+		var existing := attack_priorities
 		set_value(Keys.attack_priorities, value)
-		on_attacking_priorities_changed.emit()
+		if value != existing:
+			on_attacking_priorities_changed.emit()
 	
 var idle_units:Array[Unit]:
 	get:
 		return get_value(Keys.idle_units, [] as Array[Unit])
 	set(value):
+		var existing := idle_units
 		set_value(Keys.idle_units, value)
-		on_idle_units_changed.emit()
+		if value != existing:
+			on_idle_units_changed.emit()
 
 var exploring_units:Array[Unit]:
 	get:
 		return get_value(Keys.exploring_units, [] as Array[Unit])
 	set(value):
+		var existing := exploring_units
 		set_value(Keys.exploring_units, value)
-		on_exploring_units_changed.emit()
+		if value != existing:
+			on_exploring_units_changed.emit()
 				
 var team_info:TeamUnits:
 	get:
