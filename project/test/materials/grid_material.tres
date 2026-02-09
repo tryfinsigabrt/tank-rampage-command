@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dem5k4n2r82pd"]
+
+[ext_resource type="Shader" uid="uid://do2vgmxv6jgs0" path="res://test/materials/grid_material.gdshader" id="1_ja5rl"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ja5rl")
+shader_parameter/cell_size = 10.0
+shader_parameter/line_width = 0.001
+shader_parameter/axis_width = 0.02
+shader_parameter/enable_fade = true
+shader_parameter/fade_start = 500.0
+shader_parameter/fade_end = 2000.0
+shader_parameter/fade_power = 0.5
+shader_parameter/grid_color = Color(0.75, 0.75, 0.75, 1)
+shader_parameter/line_color = Color(0.15, 0.15, 0.15, 1)
+shader_parameter/axis_color = Color(0.9, 0.9, 0.9, 1)

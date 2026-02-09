@@ -87,10 +87,10 @@ script = ExtResource("14_mmd2m")
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
 
-[connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_priorities_changed"]
-[connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
+[connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_units_changed"]
+[connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]

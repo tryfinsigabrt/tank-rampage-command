@@ -26,6 +26,7 @@ func _evaluate_priorities() -> void:
 		if closest_visible_unit:
 			attack_priorities.push_back(closest_visible_unit.unit)
 	
+	print_debug("%s: Team %d attack priorities: %s" % [name, blackboard.team, attack_priorities])
 	blackboard.attack_priorities = attack_priorities
 	
 func _on_command_finished(unit:Unit, _command:StringName) -> void:

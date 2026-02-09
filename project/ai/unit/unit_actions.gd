@@ -22,14 +22,16 @@ func _ready() -> void:
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
 	
-	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
+	SignalBus.on_unit_command_finished.connect(_on_command_finished)
 	_update_tree_state()
 		
-func _on_command_finished(in_unit: Unit) -> void:
+func _on_command_finished(in_unit: Unit, command:StringName) -> void:
 	if in_unit != unit:
 		return
 	# Optimization to not tick the tree if there is nothing to do
 	enabled = false
+	
+	print_debug("%s(%s): %s command finished" % [name, StringUtils.safe_name(in_unit), command])
 	
 func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
@@ -42,6 +44,8 @@ func move(target_position:Vector3) -> void:
 	
 	enabled = true
 	
+	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
+	
 func attack(enemy:Unit) -> void:
 	_clear_all_actions()
 	
@@ -50,6 +54,8 @@ func attack(enemy:Unit) -> void:
 
 	enabled = true
 	
+	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.AttackUnit, StringUtils.safe_name(unit)])
+	
 func move_and_attack(target_position:Vector3) -> void:
 	_clear_all_actions()
 	
@@ -57,6 +63,9 @@ func move_and_attack(target_position:Vector3) -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 
 	enabled = true
+	
+	print_debug("%s(%s): %s command ordered -> %s" % \
+	[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
 	
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
