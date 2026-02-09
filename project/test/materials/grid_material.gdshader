@@ -12,9 +12,11 @@ uniform vec3 line_color:source_color = vec3(0.15);
 uniform vec3 axis_color:source_color = vec3(0.9);
 
 varying vec3 v_world_pos;
+varying float v_view_dist;
 
 void vertex() {
     v_world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+    v_view_dist = length((MODELVIEW_MATRIX * vec4(VERTEX, 1.0)).xyz);
 }
 
 void fragment() {
@@ -24,7 +26,7 @@ void fragment() {
 	float gx = abs(fract(world_pos.x / cell_size) - 0.5);
 	float gz = abs(fract(world_pos.z / cell_size) - 0.5);
 
-    float dist = length(CAMERA_POSITION_WORLD - world_pos);
+    float dist = v_view_dist;
     float line_scale = clamp(dist / fade_end, 1.0, cell_size);
 
 	// Pixel footprint in grid space
