@@ -11,9 +11,9 @@ signal on_unit_move_issued(unit: Unit, target_position: Vector3)
 signal on_unit_move_canceled(unit: Unit, target_position: Vector3)
 signal on_destination_reached(unit: Unit, target_position: Vector3)
 
-signal on_unit_command_scheduled(unit:Unit, command:StringName)
-signal on_unit_command_started(unit:Unit, command:StringName)
-signal on_unit_command_finished(unit:Unit, command: StringName)
+signal on_unit_command_scheduled(unit:Unit, command:StringName, args:Dictionary[StringName,Variant])
+signal on_unit_command_started(unit:Unit, command:StringName, args:Dictionary[StringName,Variant])
+signal on_unit_command_finished(unit:Unit, command: StringName, args:Dictionary[StringName,Variant])
 
 ## Reported for damage on any collidable object
 ## collided objects with a Damageable group are delivered the events directly

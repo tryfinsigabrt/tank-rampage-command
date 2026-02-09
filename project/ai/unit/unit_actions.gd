@@ -6,6 +6,8 @@ class_name UnitActions extends Node3D
 @export
 var unit:Unit
 
+var _command_counter:int
+
 @export
 var enabled:bool:
 	set(value):
@@ -22,14 +24,19 @@ func _ready() -> void:
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
 	
-	SignalBus.on_unit_command_finished.connect(_on_command_finished)
+	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 	_update_tree_state()
 		
 func _on_command_finished(in_unit: Unit, command:StringName) -> void:
 	if in_unit != unit:
 		return
-	# Optimization to not tick the tree if there is nothing to do
-	enabled = false
+		
+	_command_counter -= 1
+	
+	if _command_counter <= 0:
+		# Optimization to not tick the tree if there is nothing to do
+		enabled = false
+		_command_counter = 0
 	
 	print_debug("%s(%s): %s command finished" % [name, StringUtils.safe_name(in_unit), command])
 	
@@ -37,42 +44,54 @@ func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
 
 func move(target_position:Vector3) -> void:
-	_clear_all_actions()
+	_new_action()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 	
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move)
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, {
+		&"position" : target_position
+	} as Dictionary[StringName, Variant])
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
 func attack(enemy:Unit) -> void:
-	_clear_all_actions()
+	_new_action()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.AttackUnit)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetUnit, enemy)
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.AttackUnit)
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.AttackUnit, {
+		&"target": enemy
+	} as Dictionary[StringName, Variant])
+	
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.AttackUnit, StringUtils.safe_name(unit)])
 	
 func move_and_attack(target_position:Vector3) -> void:
-	_clear_all_actions()
+	_new_action()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.MoveAndAttack)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack)
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack, {
+		&"position": target_position
+	} as Dictionary[StringName, Variant])
+	
 	print_debug("%s(%s): %s command ordered -> %s" % \
 		[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
 	
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
 
+func _new_action() -> void:
+	_clear_all_actions()
+	_command_counter += 1
+	
 func _clear_all_actions() -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	
@@ -84,3 +103,6 @@ func get_attack_target() -> Unit:
 	
 func is_moving() -> bool:
 	return unit and unit.is_moving
+
+func is_idle() -> bool:
+	return _command_counter <= 0

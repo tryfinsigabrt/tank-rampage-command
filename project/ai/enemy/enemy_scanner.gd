@@ -39,7 +39,6 @@ func _tick() -> void:
 		_visible_enemies = _new_visible_enemies
 		blackboard.on_unit_visibility_changed.emit()
 		
-
 func _create_sweep_shape() -> RID:
 	var shape_rid = PhysicsServer3D.sphere_shape_create()
 	PhysicsServer3D.shape_set_data(shape_rid, vision_radius)

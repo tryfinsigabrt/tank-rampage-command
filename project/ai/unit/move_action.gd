@@ -28,7 +28,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 		result = _check_running_state(blackboard)
 		
 	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action)
+		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
 	return result
 
 func _on_destination_reached(unit:Unit, target:Vector3) -> void:
@@ -50,3 +50,8 @@ func _disconnect_move_signal() -> void:
 func _should_continue_running(blackboard: Blackboard) -> bool:
 	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
 	return current_target.is_equal_approx(_target_position)
+
+func _get_action_args() -> Dictionary[StringName, Variant]:
+	return {
+		&"position" : _target_position
+	}

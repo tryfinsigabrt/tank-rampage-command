@@ -11,16 +11,11 @@ func _on_attacking_units_changed() -> void:
 # Mapping unit being attacked to who is attacking it
 var _currently_attacking_mapping:Dictionary[int,PackedInt64Array] = {}
 var _new_attacks:Array[Unit]
+var _attacker_pool:Array[Unit]
+
 
 func _ready() -> void:
-	SignalBus.on_unit_command_finished.connect(_on_command_finished)
-	
-func _clear() -> void:
-	_currently_attacking_mapping.clear()
-	_new_attacks.clear()
-	
-	if SignalBus.on_unit_command_finished.is_connected(_on_command_finished):
-		SignalBus.on_unit_command_finished.disconnect(_on_command_finished)
+	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 
 func _execute() -> void:
 	var currently_attacking:Dictionary[int, int] = blackboard.currently_attacking
@@ -28,6 +23,7 @@ func _execute() -> void:
 		
 	# See if select new units to attack
 	_new_attacks.clear()
+	_attacker_pool.clear()
 	
 	for unit in attack_priorities:
 		if not unit.get_instance_id() in _currently_attacking_mapping:
@@ -37,14 +33,14 @@ func _execute() -> void:
 		return
 	
 	# Attacking prioritized over other actions, so not using idle here
-	var available_units:Array[Unit] = blackboard.team_info.units
+	_attacker_pool.append_array(blackboard.team_info.units)
 	
-	if not _new_attacks or not available_units:
+	if not _new_attacks or not _attacker_pool:
 		# Nothing new to do - keep thrashing the enemy!
 		return
 
 	# TODO: Simple strategy
-	var units_per_enemy:int = ceili(float(available_units.size()) / _new_attacks.size())
+	var units_per_enemy:int = ceili(float(_attacker_pool.size()) / _new_attacks.size())
 
 	for new_target in _new_attacks:
 		# See who's available
@@ -57,7 +53,7 @@ func _execute() -> void:
 			_currently_attacking_mapping[target_id] = attacker_list
 
 		var count:int = 0
-		for attacker in available_units:
+		for attacker in _attacker_pool:
 			var available_unit_id:int = attacker.get_instance_id()
 			currently_attacking[available_unit_id] = target_id
 			attacker_list.push_back(available_unit_id)
@@ -66,8 +62,8 @@ func _execute() -> void:
 				break
 			
 		# TODO: Technically the idle units will be updated once the command starts but that won't happen on this tick necessarily
-		for occupied_unit in available_units:
-			available_units.erase(occupied_unit)
+		for occupied_unit in _attacker_pool:
+			_attacker_pool.erase(occupied_unit)
 		_currently_attacking_mapping[target_id] = attacker_list
 	
 	if _new_attacks:

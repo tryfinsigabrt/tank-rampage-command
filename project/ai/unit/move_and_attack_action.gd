@@ -50,9 +50,14 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 			result = FAILURE
 			
 	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action)
+		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
 	return result
 
 func _should_continue_running(blackboard: Blackboard) -> bool:
 	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
 	return current_target.is_equal_approx(_target_position)
+
+func _get_action_args() -> Dictionary[StringName, Variant]:
+	return {
+		&"position" : _target_position
+	}

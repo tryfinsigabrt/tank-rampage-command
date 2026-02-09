@@ -51,7 +51,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 			result = FAILURE
 			
 	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action)
+		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
 	return result
 	
 func _should_continue_running(blackboard: Blackboard) -> bool:
@@ -60,3 +60,8 @@ func _should_continue_running(blackboard: Blackboard) -> bool:
 		
 	var current_target:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetUnit) as Unit
 	return current_target == _targeted_unit
+
+func _get_action_args() -> Dictionary[StringName, Variant]:
+	return {
+		&"target": _targeted_unit
+	}
