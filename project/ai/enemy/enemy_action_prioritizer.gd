@@ -3,7 +3,7 @@ extends Node
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
 func _ready() -> void:
-	SignalBus.on_unit_command_started.connect(_on_command_started)
+	SignalBus.on_unit_command_scheduled.connect(_on_command_scheduled)
 	SignalBus.on_unit_command_finished.connect(_on_command_finished)
 
 func _on_team_units_initialized(source: TeamUnits) -> void:
@@ -38,7 +38,7 @@ func _on_command_finished(unit:Unit, _command:StringName) -> void:
 	blackboard.idle_units = available_units
 	_evaluate_priorities()
 
-func _on_command_started(unit:Unit, _command:StringName) -> void:
+func _on_command_scheduled(unit:Unit, _command:StringName) -> void:
 	if not _is_on_our_team(unit):
 		return
 	

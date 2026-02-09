@@ -44,7 +44,7 @@ metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
 script = ExtResource("6_f2wvq")
 metadata/_custom_type_script = "uid://cbnbvj8prv63i"
 
-[node name="AttackAndExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack" unique_id=1798441540]
+[node name="AttackAndExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack" unique_id=860766234]
 script = ExtResource("7_mmd2m")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 

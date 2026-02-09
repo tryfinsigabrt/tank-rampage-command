@@ -36,7 +36,8 @@ func _execute() -> void:
 	if not _new_attacks and not currently_attacking:
 		return
 	
-	var available_units:Array[Unit] = blackboard.idle_units
+	# Attacking prioritized over other actions, so not using idle here
+	var available_units:Array[Unit] = blackboard.team_info.units
 	
 	if not _new_attacks or not available_units:
 		# Nothing new to do - keep thrashing the enemy!

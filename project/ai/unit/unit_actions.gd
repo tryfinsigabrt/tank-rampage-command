@@ -44,6 +44,7 @@ func move(target_position:Vector3) -> void:
 	
 	enabled = true
 	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move)
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
 func attack(enemy:Unit) -> void:
@@ -54,6 +55,7 @@ func attack(enemy:Unit) -> void:
 
 	enabled = true
 	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.AttackUnit)
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.AttackUnit, StringUtils.safe_name(unit)])
 	
 func move_and_attack(target_position:Vector3) -> void:
@@ -64,8 +66,9 @@ func move_and_attack(target_position:Vector3) -> void:
 
 	enabled = true
 	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack)
 	print_debug("%s(%s): %s command ordered -> %s" % \
-	[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
+		[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
 	
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
