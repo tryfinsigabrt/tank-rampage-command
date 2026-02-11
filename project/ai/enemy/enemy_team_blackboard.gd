@@ -29,10 +29,10 @@ var currently_attacking:Dictionary[int, int]:
 	get:
 		return get_value(Keys.currently_attacking, {} as Dictionary[int, int])
 	set(value):
-		var existing := currently_attacking
+		#var existing := currently_attacking
 		set_value(Keys.currently_attacking, value)
-		if value != existing:
-			on_attacking_units_changed.emit()
+		#if value != existing:
+		on_attacking_units_changed.emit()
 		
 var attack_priorities:Array[Unit]:
 	get:
@@ -47,10 +47,10 @@ var idle_units:Array[Unit]:
 	get:
 		return get_value(Keys.idle_units, [] as Array[Unit])
 	set(value):
-		var existing := idle_units
+		#var existing := idle_units
 		set_value(Keys.idle_units, value)
-		if value != existing:
-			on_idle_units_changed.emit()
+		#if value != existing:
+		on_idle_units_changed.emit()
 
 var exploring_units:Array[Unit]:
 	get:

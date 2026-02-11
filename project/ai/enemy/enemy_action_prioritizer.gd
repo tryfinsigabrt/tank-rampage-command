@@ -21,10 +21,10 @@ func _evaluate_priorities() -> void:
 	var attack_priorities:Array[Unit]
 	
 	for team:EnemyTeamUnits in enemy_teams.all_teams():
-		# TODO: Use utility AI here to score a list of candidates
-		var closest_visible_unit := team.get_closest_visible_unit(focus_position)
-		if closest_visible_unit:
-			attack_priorities.push_back(closest_visible_unit.unit)
+		var threat_units := team.get_visible_threat_units(focus_position)
+		if threat_units:
+			for unit_score in threat_units:
+				attack_priorities.push_back(unit_score.unit)
 	
 	print_debug("%s: Team %d attack priorities: %s" % [name, blackboard.team, attack_priorities])
 	blackboard.attack_priorities = attack_priorities

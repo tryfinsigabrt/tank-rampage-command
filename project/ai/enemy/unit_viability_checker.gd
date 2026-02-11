@@ -120,8 +120,8 @@ func _refresh_dictionary_monitors(source:Dictionary[int,int], ids:Dictionary[int
 
 		if not source_id in ids and source_unit and target_unit:
 			# Unbind the original damage parameters
-			var source_callable:Callable =  receiver.bind(0).bind(target_unit).bind(source_unit).unbind(1)
-			var target_callable:Callable =  receiver.bind(1).bind(target_unit).bind(source_unit).unbind(1)
+			var source_callable:Callable =  receiver.bind(source_unit, target_unit, 0).unbind(1)
+			var target_callable:Callable =  receiver.bind(source_unit, target_unit, 1).unbind(1)
 			
 			# If either unit is destroyed (source or target), trigger a callable
 			if not source_unit.died.is_connected(source_callable):

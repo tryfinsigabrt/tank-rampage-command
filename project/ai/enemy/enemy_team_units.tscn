@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://reqe3d0kfkhe"]
 
 [ext_resource type="Script" uid="uid://be8fgs3ms7ke6" path="res://ai/enemy/enemy_team_units.gd" id="1_13mw2"]
+[ext_resource type="Script" uid="uid://c1mibo4duodwy" path="res://ai/enemy/threat_scorer.gd" id="2_1yb7b"]
 
 [node name="EnemyTeamUnits" type="Node" unique_id=352901707]
 script = ExtResource("1_13mw2")
+
+[node name="ThreatScorer" type="Node" parent="." unique_id=566500966]
+script = ExtResource("2_1yb7b")

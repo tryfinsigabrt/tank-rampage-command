@@ -5,6 +5,8 @@ var team:int
 ## Key is the instance id of the Unit
 var units:Dictionary[int, UnitData] = {}
 
+@onready var threat_scorer: ThreatScorer = $ThreatScorer
+
 func has_unit_id(id:int) -> bool:
 	return units.has(id)
 	
@@ -58,3 +60,6 @@ func get_closest_visible_unit(position:Vector3) -> UnitData:
 				closest = unit_data
 				closest_distance = dist_sq
 	return closest
+		
+func get_visible_threat_units(position:Vector3) -> Array[UnitScore]:
+	return threat_scorer.get_visible_threat_units(units.values(), position)
