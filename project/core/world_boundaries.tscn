@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d0gcmhup8s6gs"]
+
+[ext_resource type="Script" uid="uid://dl4mf52djv62i" path="res://core/world_boundaries.gd" id="1_hwskm"]
+
+[node name="WorldBoundaries" type="Area3D" unique_id=1367598819 groups=["WorldBoundaries"]]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_hwskm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

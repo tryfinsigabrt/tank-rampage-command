@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="2_ev4ck"]
 [ext_resource type="Material" uid="uid://ct8m5pj00pr6d" path="res://test/materials/translucent_wall_material.tres" id="2_mushl"]
 [ext_resource type="Material" uid="uid://h16symhq6i3u" path="res://units/human/tank/tank01_turret_material.tres" id="3_cievo"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_mushl"]
 [ext_resource type="Material" uid="uid://heghdvyj6q77" path="res://units/human/tank/tank03_body_material.tres" id="4_pdndp"]
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="5_1edn6"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="6_45w8c"]
@@ -34,6 +35,9 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 agent_height = 3.0
 agent_radius = 3.0
 agent_max_slope = 60.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
+size = Vector3(550, 100, 400)
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
 
@@ -155,6 +159,13 @@ material_override = ExtResource("2_mushl")
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 100, 1000)
+
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("3_mushl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
+shape = SubResource("BoxShape3D_mushl")
+debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("1_ox246")]
 

@@ -29,6 +29,9 @@ signal match_ended(match_obj:Match)
 signal match_team_ready(match_team:MatchTeam)
 signal match_team_eliminated(match_team:MatchTeam)
 
+signal on_entered_world_boundaries(world_boundaries: WorldBoundaries, body: Node3D)
+signal on_left_world_boundaries(world_boundaries: WorldBoundaries, body: Node3D)
+
 @warning_ignore_restore("unused_signal")
 
 func register_unit(unit:Unit) -> void:
@@ -43,3 +46,11 @@ func register_unit(unit:Unit) -> void:
 		health_stat.health_changed.connect(func(previous_health, current_health):
 			on_unit_health_changed.emit(unit, previous_health, current_health)
 		)
+	
+	unit.on_left_world_boundaries.connect(func(world_boundaries: WorldBoundaries):
+		on_left_world_boundaries.emit(world_boundaries, unit)
+	)
+	
+	unit.on_entered_world_boundaries.connect(func(world_boundaries: WorldBoundaries):
+		on_entered_world_boundaries.emit(world_boundaries, unit)
+	)

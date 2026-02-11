@@ -7,6 +7,7 @@ class Layers:
 	const terrain:int = 1 << 1
 	const unit:int = 1 << 2
 	const world_dynamic: int = 1 << 3
+	const world_boundary: int = 1 << 4
 	
 	# This is the world bottom
 	@warning_ignore("shadowed_global_identifier")

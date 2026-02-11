@@ -45,6 +45,7 @@ Damageable=""
 Match=""
 MatchTeam=""
 Player=""
+WorldBoundaries=""
 
 [input]
 
@@ -204,6 +205,7 @@ unit_select_all={
 3d_physics/layer_2="terrain"
 3d_physics/layer_3="unit"
 3d_physics/layer_4="world_dynamic"
+3d_physics/layer_5="world_boundaries"
 
 [physics]
 

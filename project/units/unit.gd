@@ -6,6 +6,9 @@ class_name Unit extends CharacterBody3D
 signal died(damage_params:DamageParameters)
 signal damaged(damage_params:DamageParameters)
 
+signal on_entered_world_boundaries(world_boundaries: WorldBoundaries)
+signal on_left_world_boundaries(world_boundaries:WorldBoundaries)
+
 @warning_ignore_restore("unused_signal")
 
 enum UnitClass
