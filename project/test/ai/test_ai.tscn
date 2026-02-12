@@ -37,7 +37,7 @@ agent_radius = 3.0
 agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
-size = Vector3(550, 100, 400)
+size = Vector3(600, 100, 525)
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
 

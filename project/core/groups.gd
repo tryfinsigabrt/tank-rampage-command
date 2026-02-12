@@ -11,6 +11,7 @@ const Player:StringName = &"Player"
 const UnitActions:StringName = &"UnitActions"
 
 const Damageable:StringName = &"Damageable"
+const WorldBoundaries:StringName = &"WorldBoundaries"
 
 @warning_ignore_restore("shadowed_global_identifier")
 

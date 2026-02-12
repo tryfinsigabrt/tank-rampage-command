@@ -20,3 +20,21 @@ func _on_body_exited(body: Node3D) -> void:
 	if not id in _exited_bodies:
 		_exited_bodies[id] = true
 		body.on_left_world_boundaries.emit(self)
+
+func contains_point(point:Vector3) -> bool:
+	var space_state := get_world_3d().direct_space_state
+
+	var query := PhysicsPointQueryParameters3D.new()
+	query.position = point
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	query.collision_mask = collision_layer
+
+	# perform the query
+	var results := space_state.intersect_point(query)
+
+	for r in results:
+		if r.collider == self:
+			return true
+
+	return false

@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://cjijciejb75gg" path="res://ai/enemy/attack_selector.gd" id="14_mmd2m"]
+[ext_resource type="Script" uid="uid://cyiw3epu4jer6" path="res://ai/enemy/world_boundaries_checker.gd" id="16_vitsf"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -52,12 +53,16 @@ metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 script = ExtResource("7_ibxiw")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="ExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=971392095]
+[node name="ExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=971392095 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
+move_radius = Vector2(100, 250)
+world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036]
+[node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
+move_radius = Vector2(100, 400)
+world_boundaries_checker = NodePath("../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="GlobalServices" type="Node" parent="." unique_id=2044532583]
@@ -72,7 +77,6 @@ script = ExtResource("5_orm22")
 
 [node name="EnemyScanner" type="Node" parent="GlobalServices" unique_id=961277824]
 script = ExtResource("5_4jxhc")
-vision_radius = 200.0
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyScanner" unique_id=464442711]
 wait_time = 0.2
@@ -86,6 +90,9 @@ script = ExtResource("14_mmd2m")
 
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
+
+[node name="WorldBoundariesChecker" type="Node" parent="GlobalServices" unique_id=407113618]
+script = ExtResource("16_vitsf")
 
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]

@@ -41,8 +41,8 @@ func _on_attacking_priority_unit_destroyed(unit:Unit) -> void:
 		blackboard.attack_priorities = updated
 	)
 		
-func _on_attacking_unit_destroyed(source_unit:Unit, target_unit:Unit, destroyed_param_index:int) -> void:
-	_on_destroyed_dict(source_unit, target_unit, destroyed_param_index, blackboard.currently_attacking, func(updated):
+func _on_attacking_unit_destroyed(source_unit_id:int, target_unit_id:int, destroyed_param_index:int) -> void:
+	_on_destroyed_dict(source_unit_id, target_unit_id, destroyed_param_index, blackboard.currently_attacking, func(updated):
 		# Trigger signal
 		blackboard.currently_attacking = updated
 	)
@@ -59,14 +59,12 @@ func _on_destroyed_dict_keys(unit:Unit, blackboard_value, updater:Callable) -> v
 	if blackboard_value.size() != orig_size:
 		updater.call(blackboard_value)
 	
-func _on_destroyed_dict(source_unit:Unit, target_unit:Unit, destroyed_param_index:int, blackboard_value: Dictionary[int,int], updater:Callable) -> void:
+func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int, blackboard_value: Dictionary[int,int], updater:Callable) -> void:
 	var orig_size := blackboard_value.size()
 	if destroyed_param_index == 0:
-		blackboard_value.erase(source_unit.get_instance_id())
+		blackboard_value.erase(source_id)
 	else: #target
 		# Need to remove all other sources that mapped that target
-		var source_id:int = source_unit.get_instance_id()
-		var target_id:int = target_unit.get_instance_id()
 		blackboard_value.erase(source_id)
 		
 		for other_source in blackboard_value.keys():
@@ -120,8 +118,8 @@ func _refresh_dictionary_monitors(source:Dictionary[int,int], ids:Dictionary[int
 
 		if not source_id in ids and source_unit and target_unit:
 			# Unbind the original damage parameters
-			var source_callable:Callable =  receiver.bind(source_unit, target_unit, 0).unbind(1)
-			var target_callable:Callable =  receiver.bind(source_unit, target_unit, 1).unbind(1)
+			var source_callable:Callable =  receiver.bind(source_id, target_id, 0).unbind(1)
+			var target_callable:Callable =  receiver.bind(source_id, target_id, 1).unbind(1)
 			
 			# If either unit is destroyed (source or target), trigger a callable
 			if not source_unit.died.is_connected(source_callable):
