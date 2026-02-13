@@ -21,7 +21,7 @@ var winner:MatchTeam:
 func _ready() -> void:
 	SignalBus.match_team_eliminated.connect(_on_team_lost)
 	var all_teams:Array[Node] = get_tree().get_nodes_in_group(Groups.MatchTeam)
-	var player_nodes:Array = get_tree().get_nodes_in_group(Groups.Player).filter(func(node): return node.is_visible_in_tree())
+	var player_nodes:Array = get_tree().get_nodes_in_group(Groups.Player).filter(func(node): return node is Node3D and node.is_visible_in_tree())
 	if player_nodes.is_empty():
 		push_warning("%s: No player nodes found!" % name)
 	elif player_nodes.size() > 1:
