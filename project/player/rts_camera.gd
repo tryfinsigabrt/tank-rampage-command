@@ -25,10 +25,12 @@ var _selected_units:PackedInt32Array
 
 #region public methods
 func capture_mouse(capture:bool) -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED if capture else Input.MOUSE_MODE_VISIBLE
+	#MOUSE_MODE_CONFINED not supported on web
+	if not OS.has_feature("web"):
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED if capture else Input.MOUSE_MODE_VISIBLE
 	
 func is_mouse_captured() -> bool:
-	return Input.mouse_mode == Input.MOUSE_MODE_CONFINED
+	return Input.mouse_mode == Input.MOUSE_MODE_CONFINED if not  OS.has_feature("web") else true
 	
 func make_camera_current() -> void:
 	camera.make_current()
