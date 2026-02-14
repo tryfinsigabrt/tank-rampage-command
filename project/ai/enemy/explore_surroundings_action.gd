@@ -28,7 +28,7 @@ func _select_move_target(unit:Unit) -> void:
 	print_debug("%s: Select move target for unit=%s" % [name, unit.name])
 	
 	var target_pos:Vector3 = _get_move_target(unit)
-	unit.get_or_add_actions().move(target_pos)
+	unit.get_or_add_actions().move_and_attack(target_pos)
 
 func _get_move_target(unit:Unit) -> Vector3:
 	var pos:Vector3 = unit.global_position
