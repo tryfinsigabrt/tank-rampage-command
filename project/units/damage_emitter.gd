@@ -30,7 +30,9 @@ func damage(incident_damage_params:DamageParameters) -> void:
 	# Calculate initial damage point
 	var initial_target:Node3D = incident_damage_params.target_object
 	var hit_position:Vector3 = incident_damage_params.contact_point
-	var amount:float = _calculate_damage(initial_target, hit_position, hit_position)
+	var amount:float = _calculate_damage(initial_target, hit_position, hit_position) \
+		* incident_damage_params.damage_multiplier
+	
 	incident_damage_params.damage = amount
 	
 	var processed_nodes:Dictionary[Node, bool] = {}
@@ -69,6 +71,7 @@ func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]
 	params.collision_mask = incident_damage_params.damage_mask
 	params.margin = Collisions.default_collision_margin
 	params.transform = Transform3D(Basis.IDENTITY, incident_damage_params.contact_point)
+	
 	# Exclude our units
 	var to_exclude:Array[RID] = [incident_damage_params.target_rid]
 	if not incident_damage_params.source_damage_allowed and incident_damage_params.source_unit:

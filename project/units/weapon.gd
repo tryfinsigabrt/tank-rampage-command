@@ -82,7 +82,7 @@ func _calculate_final_target_deviation_deg(source:Vector3, target:Vector3) -> fl
 	if accuracy_v_velocity_alignment:
 		var to_target:Vector3 = source.direction_to(target)
 		var alignment:float = to_target.dot(movement_dir)
-		deviation += accuracy_v_velocity_alignment.sample_baked(alignment)
+		deviation += 1.0 - accuracy_v_velocity_alignment.sample_baked(alignment)
 	var sgn:float = MathUtils.randf_sgn()
 	var deviation_deg:float = sgn * minf(deviation * max_spread_angle + movement_accuracy_penalty, max_spread_angle)
 	return deviation_deg
@@ -91,8 +91,9 @@ func _calculate_damage_multiplier(dist:float) -> float:
 	if not damage_v_distance:
 		return 1.0
 	
-	var range_fract = minf(dist / (max_distance_range.y - max_distance_range.x), 1.0)
-	return damage_v_distance.sample_baked(range_fract)
+	var range_fract:float = minf(dist / max_distance_range.y, 1.0)
+	var mult:float = damage_v_distance.sample_baked(range_fract)
+	return mult
 	
 func _hit_scan() -> void:
 	# Use physics server rather than ray 3D
