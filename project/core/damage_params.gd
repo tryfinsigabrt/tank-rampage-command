@@ -10,6 +10,9 @@ var target_rid:RID
 
 var target_collider_id:int
 
+## Input parameter that is a multiplier for the final damage clamped between min and max
+var damage_multiplier:float = 1.0
+
 var source_weapon:Weapon
 
 var source_unit:Unit
@@ -33,6 +36,7 @@ func duplicate() -> DamageParameters:
 	result.target_object = target_object
 	result.target_collider_id = target_collider_id
 	result.damage = damage
+	result.damage_multiplier = damage_multiplier
 	result.contact_point = contact_point
 	result.contact_normal = contact_normal
 	result.is_direct_hit = is_direct_hit
@@ -43,6 +47,7 @@ func _duplicate_from_prototype() -> DamageParameters:
 	var result := DamageParameters.new()
 	result.damage_mask = damage_mask
 	result.source_damage_allowed = source_damage_allowed
+	result.damage_multiplier = damage_multiplier
 	result.source_weapon = source_weapon
 	result.source_unit = source_unit
 	
