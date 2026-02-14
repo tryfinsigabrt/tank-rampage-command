@@ -1,60 +1,128 @@
 @tool
 extends CommandActionLeaf
 
+@export
+var new_threat_min_distance_threshold:float = 200.0
+
+@export
+var threat_max_distance_threshold:float = 500.0
+
 var _unit:Unit
 var _target_position:Vector3
 var _finished:int = 0
+var _destination_reached:bool
+
 var _attack_action:AttackAction
+var _scanner:UnitScanner
 
-# TODO: Intermediate refactoring step
 const attack_action_scene = preload("uid://cwj8iaowhbop5")
+const scanner_scene = preload("uid://8rwv0t451365")
 
-func after_run(_actor: Node, _blackboard: Blackboard) -> void:
+func after_run(actor: Node, blackboard: Blackboard) -> void:
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
+		_attack_action = null
+	if is_instance_valid(_scanner):
+		_scanner.queue_free()
+		_scanner = null
+	if not _finished:
+		SignalBus.on_unit_move_canceled.emit(actor as Unit, blackboard.get_value(UnitBlackboard.Keys.TargetPosition))
+		_disconnect_move_signal()
 	
 func before_run(actor: Node, blackboard: Blackboard) -> void:
 	super.before_run(actor, blackboard)
 	
 	_finished = 0
+	_destination_reached = false
+	
 	_unit = actor as Unit
 	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
 	if not _unit:
 		_finished = -1
 		push_error("%s: Missing current unit - cannot perform attack action" % name)
 		return
-
-	_attack_action = attack_action_scene.instantiate()
-	_attack_action.controlled_unit = _unit
-	_attack_action.targeted_location = _target_position
-	
-	# TODO: Only attack threats while moving
-	# Right now just attacking the location itself repeatedly
+		
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(_target_position, 5.0, Color.ORANGE, 3.0)
 		
+	_scanner = scanner_scene.instantiate()
+	_scanner.my_unit = _unit
+	_scanner.threshold_distance = threat_max_distance_threshold
+	_scanner.threats_detected.connect(_threats_detected)
+	add_child(_scanner)
+
+	_connect_move_signal()
+	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
+
+func _threats_detected(threats:Array[Unit]) -> void:
+	print_debug("%s: %d threats detected" % [name, threats.size()])		
+	# If currently engaging a threat, don't stop unless new threat is much closer
+	
+	var threat_distances:Dictionary[Unit, float] = {}
+	for threat in threats:
+		threat_distances[threat] = _unit.global_position.distance_squared_to(threat.global_position)
+	
+	threats.sort_custom(func(a:Unit, b:Unit) -> bool: return threat_distances[a] < threat_distances[b])
+	
+	var top_threat:Unit = threats.front()
+	if _attack_action and _attack_action.firing:
+		var top_threat_distance:float = threat_distances[top_threat]
+		# Continue attacking existing threat to avoid thrashing
+		if top_threat_distance > new_threat_min_distance_threshold * new_threat_min_distance_threshold:
+			return
+	_attack_unit(top_threat)
+	
+func _attack_unit(enemy:Unit) -> void:
+	if is_instance_valid(_attack_action):
+		_attack_action.queue_free()
+		
+	_attack_action = attack_action_scene.instantiate()
+	_attack_action.controlled_unit = _unit
+	_attack_action.targeted_unit = enemy
+	_attack_action.move_into_range = AttackAction.MoveBehavior.NEVER
+	
 	_attack_action.tree_exited.connect(func() -> void:
-		_finished = 1
+		_attack_action = null
+		_check_and_set_finished()
 	)
 
 	add_child(_attack_action)
-
+	
 func tick(_actor: Node, blackboard: Blackboard) -> int:
 	var result:int
-	match _finished:
-		0:
-			result = _check_running_state(blackboard)
-		1:
-			result = SUCCESS
-		_:
-			result = FAILURE
-			
+	if _finished:
+		result = SUCCESS
+	else:
+		result = _check_running_state(blackboard)
+		
 	if result != RUNNING:
 		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
 	return result
 
+func _on_destination_reached(unit:Unit, target:Vector3) -> void:
+	if unit != _unit:
+		return
+	
+	print_debug("%s: Move destination reached: %s -> %s" % [name, unit, target])
+	_disconnect_move_signal()
+	_destination_reached = true
+	
+	_check_and_set_finished()
+
+func _check_and_set_finished() -> void:
+	if not _finished and _destination_reached and not is_instance_valid(_attack_action):
+		_finished = 1
+		
+func _connect_move_signal() -> void:
+	if not SignalBus.on_destination_reached.is_connected(_on_destination_reached):
+		SignalBus.on_destination_reached.connect(_on_destination_reached)
+
+func _disconnect_move_signal() -> void:
+	if SignalBus.on_destination_reached.is_connected(_on_destination_reached):
+		SignalBus.on_destination_reached.disconnect(_on_destination_reached)
+
 func _should_continue_running(blackboard: Blackboard) -> bool:
-	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
+	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
 	return current_target.is_equal_approx(_target_position)
 
 func _get_action_args() -> Dictionary[StringName, Variant]:

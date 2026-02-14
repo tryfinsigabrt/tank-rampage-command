@@ -1,8 +1,16 @@
 class_name AttackAction extends Node3D
 
+enum MoveBehavior
+{
+	ALWAYS,
+	IF_OUT_RANGE,
+	NEVER
+}
+
 var controlled_unit:Unit
 var targeted_unit:Unit
 var targeted_location:Vector3
+var move_into_range:MoveBehavior = MoveBehavior.ALWAYS
 
 # TODO: This will vary per unit so should get the min fire interval from the controlled unit
 # and maybe this will be a multiplier on top of that
@@ -11,13 +19,20 @@ var targeted_location:Vector3
 var fire_interval:float = 2.0
 
 @export
-var fire_range:Vector2 = Vector2(10.0, 2000.0)
+var fire_range:Vector2 = Vector2(10.0, 500.0)
 
 @export_range(0.0,180.0, 0.1)
 var fire_alignment_tolerance_deg:float = 15.0
 
 @export
 var ray_cast_dest_offset:float = 5.0
+
+## Time out of range to auto-expire the behavior
+## Only applicable for NEVER MoveBehavior
+@export
+var auto_expire_out_of_range:float = 5.0
+
+var _time_out_of_range:float = 0.0
 
 var _fire_timer:Timer
 
@@ -41,15 +56,30 @@ func _ready() -> void:
 	_fire_timer.timeout.connect(_on_fire)
 	add_child(_fire_timer)
 
+var firing:bool:
+	get: return not _fire_timer.is_stopped()
+	
 func _move_into_attack_range() -> void:
+	if move_into_range == MoveBehavior.NEVER:
+		return
+		
 	var attack_position:Vector3 = _get_target_position()
 	var to_attack:Vector3 = attack_position - controlled_unit.get_fire_global_position()
 	var attack_dir:Vector3 = to_attack.normalized()
-	# Move back by 2 * min attack range
-	var move_target:Vector3 = attack_position - attack_dir * fire_range.x * 2 
-	SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
+	
+	if move_into_range == MoveBehavior.ALWAYS:
+		# Move back by 2 * min attack range
+		var move_target:Vector3 = attack_position - attack_dir * fire_range.x * 2 
+		SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
+	
+	elif move_into_range == MoveBehavior.IF_OUT_RANGE:
+		var dist:float = to_attack.length()
+		var shortage:float = dist - fire_range.y
+		if shortage > 0:
+			var move_target:Vector3 = attack_position + attack_dir * shortage
+			SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if not _is_valid():
 		queue_free()
 		return
@@ -57,6 +87,14 @@ func _process(_delta: float) -> void:
 	_aim()
 	var fire_timer_running:bool = not _fire_timer.is_stopped()
 	var in_range:bool = _is_in_range()
+	
+	if move_into_range == MoveBehavior.NEVER:
+		if in_range:
+			_time_out_of_range = 0
+		else:
+			_time_out_of_range += delta
+			if _time_out_of_range > auto_expire_out_of_range:
+				queue_free()
 	
 	if in_range and _check_los:
 		_has_los = _check_target_los()

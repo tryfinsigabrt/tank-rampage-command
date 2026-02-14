@@ -6,12 +6,13 @@ var _targeted_unit:Unit
 var _finished:int = 0
 var _attack_action:AttackAction
 
-# TODO: Intermediate refactoring step
 const attack_action_scene = preload("uid://cwj8iaowhbop5")
 
 func after_run(_actor: Node, blackboard: Blackboard) -> void:
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
+		_attack_action = null
+		
 	# Erase current target if it is invalid or if was the current target since there is no new target
 	var current_target:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetUnit) as Unit
 	if not is_instance_valid(current_target) or current_target == _targeted_unit:

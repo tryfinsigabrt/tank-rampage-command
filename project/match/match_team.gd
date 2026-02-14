@@ -5,9 +5,12 @@ var team:int
 
 var _units:Dictionary[int, Unit] = {}
 
+var units:Array[Unit]:
+	get: return _units.values()
+
 func _ready() -> void:
-	var units:Array[Node] = Groups.get_children_in_group(self, Groups.Unit)
-	for node in units:
+	var starting_units:Array[Node] = Groups.get_children_in_group(self, Groups.Unit)
+	for node in starting_units:
 		var unit:Unit = node as Unit
 		if not unit:
 			push_warning("%s: Found node=%s labeled in group 'Unit' but is not a Unit type" % [name, node.name])

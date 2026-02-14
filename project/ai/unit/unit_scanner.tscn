@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://8rwv0t451365"]
+
+[ext_resource type="Script" uid="uid://ckp3te7pwt6h5" path="res://ai/unit/unit_scanner.gd" id="1_t87rr"]
+[ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="2_7mok3"]
+
+[node name="UnitScanner" type="Node" unique_id=228691689]
+script = ExtResource("1_t87rr")
+
+[node name="Sweeper" type="Node" parent="." unique_id=146096469]
+script = ExtResource("2_7mok3")
+
+[node name="Tick" type="Timer" parent="." unique_id=860207161]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Tick" to="." method="_tick"]

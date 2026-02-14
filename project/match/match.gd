@@ -18,6 +18,9 @@ var player_team:MatchTeam:
 var winner:MatchTeam:
 	get: return _active_teams.values().front() if _game_over and not _active_teams.is_empty() else null
 	
+func get_team(team:int) -> MatchTeam:
+	return _match_teams.get(team)
+	
 func _ready() -> void:
 	SignalBus.match_team_eliminated.connect(_on_team_lost)
 	var all_teams:Array[Node] = get_tree().get_nodes_in_group(Groups.MatchTeam)
