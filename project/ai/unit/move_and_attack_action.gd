@@ -58,17 +58,21 @@ func _threats_detected(threats:Array[Unit]) -> void:
 	print_debug("%s: %d threats detected" % [name, threats.size()])		
 	# If currently engaging a threat, don't stop unless new threat is much closer
 	
+	var unit_position:Vector3 = _unit.global_position
 	var threat_distances:Dictionary[Unit, float] = {}
 	for threat in threats:
-		threat_distances[threat] = _unit.global_position.distance_squared_to(threat.global_position)
+		threat_distances[threat] = unit_position.distance_squared_to(threat.global_position)
 	
 	threats.sort_custom(func(a:Unit, b:Unit) -> bool: return threat_distances[a] < threat_distances[b])
 	
 	var top_threat:Unit = threats.front()
 	if _attack_action and _attack_action.firing:
-		var top_threat_distance:float = threat_distances[top_threat]
+		var top_threat_distance:float = sqrt(threat_distances[top_threat])
+		var current_attack_distance:float = _attack_action.targeted_unit.global_position.distance_to(unit_position)
+		var distance_diff:float = current_attack_distance - top_threat_distance
+		
 		# Continue attacking existing threat to avoid thrashing
-		if top_threat_distance > new_threat_min_distance_threshold * new_threat_min_distance_threshold:
+		if distance_diff < new_threat_min_distance_threshold:
 			return
 	_attack_unit(top_threat)
 	
