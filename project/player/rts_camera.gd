@@ -45,17 +45,15 @@ func pan_camera(delta:float) -> void:
 	
 	var mouse_pos:Vector2 = viewport.get_mouse_position()
 	
-	#WASD confuses action so this is a simple hack to avoid panning camera when attacking
-	var process_camera_input:bool = _selected_units.is_empty()
-	
-	if (process_camera_input and Input.is_action_pressed("camera_move_left")) or mouse_pos.x < camera_pan_margin_pixels:
+	#WASD confuses action so this is a simple hack to avoid panning camera when attacking	
+	if (Input.is_action_pressed("camera_move_left") and (not _selected_units.is_empty() or not Input.is_action_pressed("unit_mode_attack"))) or mouse_pos.x < camera_pan_margin_pixels:
 		_camera_movement_velocity.x = -delta
-	elif (process_camera_input and Input.is_action_pressed("camera_move_right")) or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
+	elif (Input.is_action_pressed("camera_move_right")) or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
 		_camera_movement_velocity.x = delta
 		
-	if (process_camera_input and Input.is_action_pressed("camera_move_forward")) or mouse_pos.y < camera_pan_margin_pixels:
+	if (Input.is_action_pressed("camera_move_forward")) or mouse_pos.y < camera_pan_margin_pixels:
 		_camera_movement_velocity.y = delta
-	elif (process_camera_input and Input.is_action_pressed("camera_move_backward")) or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
+	elif (Input.is_action_pressed("camera_move_backward")) or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
 		_camera_movement_velocity.y = -delta
 
 func rotate_camera(delta:float) -> void:
