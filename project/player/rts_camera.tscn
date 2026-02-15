@@ -5,6 +5,9 @@
 [node name="RTSCamera" type="Node3D" unique_id=2011851028]
 script = ExtResource("1_ce6vh")
 camera_pan_margin_pixels = 50.0
+camera_pan_speed = Vector2(20, 250)
+camera_zoom_speed = 150.0
+camera_zoom_range = Vector2(10, 1000)
 
 [node name="CameraRig" type="Marker3D" parent="." unique_id=1917944956]
 unique_name_in_owner = true
