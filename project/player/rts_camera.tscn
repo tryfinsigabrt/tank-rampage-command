@@ -6,7 +6,13 @@
 script = ExtResource("1_ce6vh")
 camera_pan_margin_pixels = 50.0
 
-[node name="Camera" type="Camera3D" parent="." unique_id=1510512380]
+[node name="CameraRig" type="Marker3D" parent="." unique_id=1917944956]
+unique_name_in_owner = true
+
+[node name="CameraTilt" type="Marker3D" parent="CameraRig" unique_id=2136427056]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera3D" parent="CameraRig/CameraTilt" unique_id=1510512380]
 unique_name_in_owner = true
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -1,6 +1,12 @@
 class_name RTSCamera extends Node3D
 
+# Zoom done on the camera
 @onready var camera: Camera3D = %Camera
+# Camera "boom"/rig is for translation
+@onready var camera_boom: Marker3D = %CameraRig
+# Separate camera tilt node for future pitching up/down - right now just sets the initial 45 degree rotation
+@onready var camera_tilt: Marker3D = %CameraTilt
+
 
 @export var make_current_if_visible:bool = true
 @export var confine_mouse_to_viewport:bool = true
@@ -9,6 +15,7 @@ class_name RTSCamera extends Node3D
 @export var pos_y:float = 3.0
 @export var rot_y:float = -45.0
 @export var pos_z:float = 100.0
+
 ## Pixels to trigger pan on screen edge
 @export var camera_pan_margin_pixels:float = 5.0
 @export var camera_pan_speed:Vector2 = Vector2(20.0, 100.0)
@@ -19,6 +26,7 @@ class_name RTSCamera extends Node3D
 
 var _camera_movement_velocity:Vector3 = Vector3.ZERO
 var _camera_current_zoom_speed:float = 0.0
+var _camera_total_zoom:float = 0.0
 var _mouse_zoom:int = 0
 
 var _selected_units:PackedInt32Array
@@ -46,15 +54,15 @@ func pan_camera(delta:float) -> void:
 	var mouse_pos:Vector2 = viewport.get_mouse_position()
 	
 	#WASD confuses action so this is a simple hack to avoid panning camera when attacking	
-	if (Input.is_action_pressed("camera_move_left") and (not _selected_units.is_empty() or not Input.is_action_pressed("unit_mode_attack"))) or mouse_pos.x < camera_pan_margin_pixels:
+	if (Input.is_action_pressed("camera_move_left") and (_selected_units.is_empty() or not Input.is_action_pressed("unit_mode_attack"))) or mouse_pos.x < camera_pan_margin_pixels:
 		_camera_movement_velocity.x = -delta
 	elif (Input.is_action_pressed("camera_move_right")) or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
 		_camera_movement_velocity.x = delta
 		
 	if (Input.is_action_pressed("camera_move_forward")) or mouse_pos.y < camera_pan_margin_pixels:
-		_camera_movement_velocity.y = delta
+		_camera_movement_velocity.z = -delta
 	elif (Input.is_action_pressed("camera_move_backward")) or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
-		_camera_movement_velocity.y = -delta
+		_camera_movement_velocity.z = delta
 
 func rotate_camera(delta:float) -> void:
 	if Input.is_action_pressed("camera_rotate_right"):
@@ -110,10 +118,12 @@ func _on_visibility_changed() -> void:
 		make_camera_current()
 		
 func _setup_camera() -> void:
-	camera.fov = fov
-	camera.position.y = pos_y
-	camera.rotation.x = deg_to_rad(rot_y)
+	camera_tilt.position.y = pos_y
+	camera_tilt.rotation.x = deg_to_rad(rot_y)
+	
 	# Translate in local space
+	_camera_total_zoom = pos_z
+	camera.fov = fov
 	camera.translate_object_local(Vector3(0.0, 0.0, pos_z))
 	
 func _apply_movement_velocity() -> void:
@@ -121,13 +131,13 @@ func _apply_movement_velocity() -> void:
 		return
 	
 	var adjusted_camera_move_speed:float = remap(
-		camera.position.z, 
+		_camera_total_zoom, 
 		camera_zoom_range.x, camera_zoom_range.y,
 		camera_pan_speed.x, camera_pan_speed.y
 	)
 		
 	_camera_movement_velocity *= adjusted_camera_move_speed
-	camera.translate_object_local(_camera_movement_velocity)
+	camera_boom.translate_object_local(_camera_movement_velocity)
 	_camera_movement_velocity = Vector3.ZERO
 
 func _apply_zoom_velocity() -> void:
@@ -136,6 +146,7 @@ func _apply_zoom_velocity() -> void:
 	var calculated_zoom:float = camera.position.z + _camera_current_zoom_speed
 	# Only apply zoom if within range
 	if calculated_zoom > camera_zoom_range.x and calculated_zoom < camera_zoom_range.y:
+		_camera_total_zoom += _camera_current_zoom_speed
 		camera.translate_object_local(Vector3(0.0, 0.0, _camera_current_zoom_speed))
 		
 	_camera_current_zoom_speed = 0.0
