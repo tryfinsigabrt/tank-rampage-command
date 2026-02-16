@@ -2,6 +2,7 @@ class_name Groups
 
 @warning_ignore_start("shadowed_global_identifier")
 
+const Interactable:StringName = &"Interactable"
 const Unit:StringName = &"Unit"
 const MatchTeam:StringName = &"MatchTeam"
 const Match:StringName = &"Match"

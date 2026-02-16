@@ -46,6 +46,7 @@ Match=""
 MatchTeam=""
 Player=""
 WorldBoundaries=""
+Interactable="A Node3D that can be interacted with by the player, such as a Unit, Resource, or Building"
 
 [input]
 
