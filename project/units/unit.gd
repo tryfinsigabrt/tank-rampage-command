@@ -27,6 +27,10 @@ static func group_for_class(in_class:UnitClass) -> StringName:
 		_:
 			push_warning("Invalid unit_class=%d" % [in_class])
 			return &""
+
+@export_range(1.0, 1e9, 0.1, "or_greater")
+var movement_speed:float = 15.0
+
 @export
 var team:int
 
@@ -51,7 +55,7 @@ var _unit_actions:UnitActions
 #region Abstracts/Hooks
 @abstract
 ## Provides the screen direction to instruct the unit to move to
-func move(input_direction:Vector2) -> void
+func move(input_direction:Vector2, speed_override:float = -1.0) -> void
 
 @abstract
 func aim_at(world_location:Vector3) -> void

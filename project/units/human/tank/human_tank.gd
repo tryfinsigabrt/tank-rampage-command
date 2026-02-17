@@ -15,9 +15,6 @@ var turret_aim_tolerance:float = 0.1
 
 @export_range(0.0, 1.0, 0.001)
 var pitch_tolerance:float = 0.01
-
-@export_range(1.0, 1e9, 0.1, "or_greater")
-var movement_speed:float = 15.0
 	
 func _is_alive() -> bool:
 	return health_stat.is_alive
@@ -29,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-func move(input_direction:Vector2) -> void:
+func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)
@@ -41,14 +38,15 @@ func move(input_direction:Vector2) -> void:
 	# Rotate the whole character so that the collider rotates too
 	rotate_y(rot)
 
+	var speed:float = movement_speed if speed_override <= 0.0 else speed_override
 	# Negative as "forward" is -z as we are using right-handed OpenGL-style coordinate system
 	var movement_direction := -input_direction_3.z * body.global_basis.z
 	if movement_direction:
-		velocity.x = movement_direction.x * movement_speed
-		velocity.z = movement_direction.z * movement_speed
+		velocity.x = movement_direction.x * speed
+		velocity.z = movement_direction.z * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, movement_speed)
-		velocity.z = move_toward(velocity.z, 0, movement_speed)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
 

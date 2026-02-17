@@ -16,6 +16,9 @@ var alignment_turn_threshold:float = 0.92
 @export
 var alignment_forward_threshold:float = 0.6
 
+@export
+var avoidance_enabled:bool = true
+
 var enabled:bool:
 	get:
 		return is_physics_processing()
@@ -54,8 +57,14 @@ func set_enabled(in_enabled:bool) -> void:
 	set_physics_process(in_enabled)
 	set_process(in_enabled)
 	
-	if not in_enabled:
+	if in_enabled:
+		if avoidance_enabled:
+			navigation_agent_3d.avoidance_enabled = true
+			navigation_agent_3d.max_speed = _unit.movement_speed
+			navigation_agent_3d.set_velocity_forced(_unit.velocity)
+	else:
 		stuck_detector.reset()
+		navigation_agent_3d.avoidance_enabled = false
 
 func _is_at_target(next_position: Vector3) -> bool:
 	var current_position := _unit.global_position
@@ -78,9 +87,20 @@ func _physics_process(delta: float) -> void:
 		_emit_target_reached()
 		return
 	
-	var direction := current_position.direction_to(next_position)
+	var velocity:Vector3 = current_position.direction_to(next_position) * _unit.movement_speed
+	if navigation_agent_3d.avoidance_enabled:
+		navigation_agent_3d.velocity = velocity
+	else:
+		_move_unit(velocity)
+
+func _move_unit(velocity:Vector3) -> void:
+	if velocity.is_zero_approx():
+		return
+		
+	var speed:float = velocity.length()
+	var direction:Vector3 = velocity / speed
+		
 	var forward_vector := _unit.global_forward
-	
 	var alignment:float = direction.dot(forward_vector)
 	var unit_move_dir:Vector2 = Vector2.ZERO
 	if alignment < alignment_turn_threshold:
@@ -93,11 +113,8 @@ func _physics_process(delta: float) -> void:
 		
 	unit_move_dir = unit_move_dir.normalized()
 	
-	if OS.is_stdout_verbose():
-		print_verbose("%s: issue move to for %s: %s -> %s (dir=%s); alignment=%f" % [name, _unit, current_position, next_position, unit_move_dir, alignment])
+	_unit.move(unit_move_dir, speed)
 	
-	_unit.move(unit_move_dir)
-
 func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 	if unit != _unit:
 		return
@@ -114,3 +131,10 @@ func _emit_target_reached() -> void:
 		_target_reached = true
 		set_enabled(false)
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
+
+
+#region Avoidance
+func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+	_move_unit(safe_velocity)
+
+#endregion

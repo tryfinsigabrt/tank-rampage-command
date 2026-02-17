@@ -7,9 +7,12 @@
 script = ExtResource("1_nose6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512793571]
+avoidance_enabled = true
+max_neighbors = 20
 debug_enabled = true
 
 [node name="StuckDetector" type="Node" parent="." unique_id=126114714]
 script = ExtResource("2_p2f7o")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
