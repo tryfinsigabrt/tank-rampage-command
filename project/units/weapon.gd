@@ -162,10 +162,14 @@ func _check_hit(query: PhysicsRayQueryParameters3D, out_result:Dictionary) -> bo
 		hit_or_end = hit_position
 		var normal: Vector3 = result["normal"]
 		is_hit = collider != null
-		print_debug("%s: Hit %s at %s with normal=%s" % [name, collider, hit_position, normal])
+		
+		if LogUtils.verbose:
+			print_debug("%s: Hit %s at %s with normal=%s" % [name, collider, hit_position, normal])
 	else:
 		hit_or_end = query.to
-		print_debug("%s: No hit from %s -> %s" % [name, query.from, query.to])
+		
+		if LogUtils.verbose:
+			print_debug("%s: No hit from %s -> %s" % [name, query.from, query.to])
 
 	out_result.assign(result)
 	out_result["hit_or_end"] = hit_or_end

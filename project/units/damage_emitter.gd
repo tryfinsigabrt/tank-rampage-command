@@ -59,7 +59,7 @@ func damage(incident_damage_params:DamageParameters) -> void:
 							damage_result.damage = amount
 							results.push_back(damage_result)
 						
-	if OS.is_debug_build():
+	if LogUtils.verbose:
 		print_debug("%s: damage: nodes impacted=%d; incident_damage_params=%s" % [name, results.size(), incident_damage_params])
 	for result in results:
 		emit_damage(result)
@@ -87,7 +87,7 @@ func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]
 	return space_state.intersect_shape(params)
 	
 func emit_damage(damage_params:DamageParameters) -> void:
-	if OS.is_debug_build():
+	if LogUtils.verbose:
 		print_debug("damage=%s" % damage_params)
 	SignalBus.on_any_damage.emit(damage_params)
 	for damageable in Groups.get_children_in_group(damage_params.target_object, Groups.Damageable):

@@ -26,7 +26,9 @@ func _evaluate_priorities() -> void:
 			for unit_score in threat_units:
 				attack_priorities.push_back(unit_score.unit)
 	
-	print_debug("%s: Team %d attack priorities: %s" % [name, blackboard.team, attack_priorities])
+	if attack_priorities:
+		print_debug("%s: Team %d attack priorities: %s" % [name, blackboard.team, attack_priorities])
+		
 	blackboard.attack_priorities = attack_priorities
 	
 func _on_command_finished(unit:Unit, _command:StringName, _args:Dictionary[StringName, Variant]) -> void:

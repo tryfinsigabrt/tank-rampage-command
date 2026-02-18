@@ -54,6 +54,7 @@ func move(target_position:Vector3) -> void:
 	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, {
 		&"position" : target_position
 	} as Dictionary[StringName, Variant])
+	
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
 func attack(enemy:Unit) -> void:

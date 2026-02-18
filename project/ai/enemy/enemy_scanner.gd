@@ -18,7 +18,9 @@ func _tick() -> void:
 	var enemies:Array[Unit] = unit_sweeper.sweep_units(attention_center, blackboard.team_info.units)
 	_new_visible_enemies.clear()
 	
-	print_debug("%s: Team %d found %d enemies" % [name, blackboard.team, enemies.size()])
+	if LogUtils.verbose:
+		print_debug("%s: Team %d found %d enemies" % [name, blackboard.team, enemies.size()])
+		
 	for enemy in enemies:
 		var team_info := enemy_data.get_team(enemy.team)
 		if team_info:

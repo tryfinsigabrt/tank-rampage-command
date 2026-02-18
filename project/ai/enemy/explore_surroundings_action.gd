@@ -25,7 +25,8 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
 	return SUCCESS
 	
 func _select_move_target(unit:Unit) -> void:
-	print_debug("%s: Select move target for unit=%s" % [name, unit.name])
+	if LogUtils.debug:
+		print_debug("%s: Select move target for unit=%s" % [name, unit.name])
 	
 	var target_pos:Vector3 = _get_move_target(unit)
 	unit.get_or_add_actions().move_and_attack(target_pos)

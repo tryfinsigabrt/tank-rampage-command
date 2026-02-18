@@ -107,7 +107,9 @@ func _on_destination_reached(unit:Unit, target:Vector3) -> void:
 	if unit != _unit:
 		return
 	
-	print_debug("%s: Move destination reached: %s -> %s" % [name, unit, target])
+	if LogUtils.verbose:
+		print_debug("%s: Move destination reached: %s -> %s" % [name, unit, target])
+		
 	_disconnect_move_signal()
 	_destination_reached = true
 	

@@ -40,7 +40,8 @@ func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
 	move_to(target)
 	
 func move_to(target:Vector3) -> void:
-	print_debug("%s: move_to - target=%s" % [name, target])
+	if LogUtils.verbose:
+		print_debug("%s: move_to - target=%s" % [name, target])
 	
 	_current_target_position = target
 	navigation_agent_3d.target_position = target
@@ -127,7 +128,9 @@ func _on_navigation_agent_3d_navigation_finished() -> void:
 	
 func _emit_target_reached() -> void:
 	if not _target_reached:
-		print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
+		if LogUtils.verbose:
+			print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
+		
 		_target_reached = true
 		set_enabled(false)
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
