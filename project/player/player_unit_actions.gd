@@ -83,7 +83,15 @@ func _handle_select_all(event: InputEvent) -> void:
 	selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
 		
 func _handle_context_action(event: InputEvent) -> void:
-	_move_to(event)
+	var selected_unit:Unit = node_picker.pick_unit(event)
+	if selected_unit:
+		if selected_unit.is_on_team(team):
+			# TODO: Follow not currently implemented so just move to
+			_move_to(event)
+		else:
+			order_manager.attack(selected_unit)
+	else:
+		_move_to(event)
 	
 func _can_issue_orders_to_unit(unit: Unit) -> bool:
 	return unit and unit.team == team
@@ -114,7 +122,6 @@ func _handle_move_to(event: InputEvent) -> void:
 	
 	_mode = Mode.NONE
 	
-# TODO: Attacking selected unit only in context select - _handle_context_action path		
 func _handle_attack(event: InputEvent) -> void:
 	if not selection_manager.any_same_team:
 		return
