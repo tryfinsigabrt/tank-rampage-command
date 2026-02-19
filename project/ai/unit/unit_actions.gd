@@ -90,8 +90,8 @@ func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
 
 func _new_action() -> void:
-	_clear_all_actions()
 	_command_counter += 1
+	_clear_all_actions()
 	
 func _clear_all_actions() -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")

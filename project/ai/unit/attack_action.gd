@@ -80,7 +80,7 @@ func _move_into_attack_range() -> void:
 			SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 
 func _process(delta: float) -> void:
-	if not _is_valid():
+	if not is_valid():
 		queue_free()
 		return
 		
@@ -173,7 +173,7 @@ func _check_target_los() -> bool:
 func _get_target_position() -> Vector3:
 	return targeted_unit.global_position if targeted_unit else targeted_location
 	
-func _is_valid() -> bool:
+func is_valid() -> bool:
 	return is_instance_valid(controlled_unit) and _is_target_valid()
 
 func _fire_and_schedule() -> void:
@@ -181,7 +181,7 @@ func _fire_and_schedule() -> void:
 	_fire_timer.start()
 	
 func _on_fire() -> void:
-	if not _is_valid():
+	if not is_valid():
 		queue_free()
 		return
 	_fire_and_schedule()
