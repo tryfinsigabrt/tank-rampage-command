@@ -151,3 +151,6 @@ func _handle_unit_select(event: InputEvent) -> void:
 	
 func _on_visibility_changed() -> void:
 	enabled = visible
+
+func _on_box_select_units(_area: Rect2) -> void:
+	pass # Replace with function body.

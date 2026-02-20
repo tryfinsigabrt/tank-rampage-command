@@ -16,6 +16,10 @@ func _ready() -> void:
 func pick_ground(event: InputEvent) -> Dictionary:
 	return pick_node(event, Collisions.CompositeMasks.ground)
 	
+func pick_unit_area() -> Array[Unit]:
+	var units:Array[Unit]
+	return units
+	
 func pick_unit(event: InputEvent) -> Unit:
 	var result := pick_node(event, Collisions.Layers.unit)
 	if not result:
@@ -24,8 +28,11 @@ func pick_unit(event: InputEvent) -> Unit:
 	return Groups.get_parent_in_group(clicked_object, Groups.Unit)
 	
 func pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
-	var from := camera.project_ray_origin(event.position)
-	var to := from + camera.project_ray_normal(event.position) * ray_cast_distance  # Long ray
+	return pick_position(event.position, collision_mask)
+
+func pick_position(screen_position:Vector2, collision_mask:int) -> Dictionary:
+	var from := camera.project_ray_origin(screen_position)
+	var to := from + camera.project_ray_normal(screen_position) * ray_cast_distance  # Long ray
 
 	var space_state := get_world_3d().direct_space_state
 	
@@ -35,7 +42,7 @@ func pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
 	ray_params.to = to
 	
 	return space_state.intersect_ray(ray_params)
-
+	
 func _pick_camera() -> void:
 	camera = get_viewport().get_camera_3d()
 	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
