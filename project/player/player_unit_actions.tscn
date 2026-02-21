@@ -22,7 +22,6 @@ selection_manager = NodePath("../SelectionManager")
 [node name="BoxSelect" type="Node" parent="." unique_id=1579712261 node_paths=PackedStringArray("node_picker")]
 script = ExtResource("5_xlsxy")
 node_picker = NodePath("../NodePicker")
-min_size = null
 action_name = &"unit_select"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -1,7 +1,7 @@
 @tool
 class_name BoxSelect extends Node
 
-signal on_box_selection(area:Rect2)
+signal on_box_selection(screen_selection:Rect2, ground_selection:AABB)
 
 var action_name:StringName
 
@@ -11,7 +11,8 @@ var node_picker:NodePicker
 @export_range(1.0, 1e9, 1.0, "or_greater")
 var min_size:float = 1.0
 
-var selection_rect:Rect2
+var selection_rect_screen:Rect2
+var selection_bounds:AABB
 var pressed:bool
 
 func _ready() -> void:
@@ -29,47 +30,46 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	if not pressed and mouse_event.is_action_pressed(action_name, false, true):
 		pressed = true
-		selection_rect.position = mouse_event.position
-		selection_rect.end = mouse_event.position
+		selection_bounds = AABB()
+		selection_rect_screen.position = mouse_event.position
+		#print_debug("%s: on_box_selection begin: pos=%s" % [name, mouse_event.position])
+
+		selection_rect_screen.end = mouse_event.position
 		
 	if pressed and mouse_event.is_action_released(action_name, true):
 		pressed = false
-		selection_rect.end = mouse_event.position
-		if selection_rect.size.length() >= min_size:
-			print_debug("%s: on_box_selection=%s" % [name, selection_rect])
-			on_box_selection.emit(selection_rect)
+		selection_rect_screen.end = mouse_event.position
+		if selection_rect_screen.size.length() >= min_size:
+			print_debug("%s: on_box_selection: screen=%s; bounds=%s" % [name, selection_rect_screen, selection_bounds])
+			on_box_selection.emit(selection_rect_screen, selection_bounds)
 
 func _process(_delta: float) -> void:
 	if not pressed or not node_picker:
 		return
 	
-	var viewport := get_viewport()
-	var mouse_pos:Vector2 = viewport.get_mouse_position()
-	var current_rect:Rect2
-	current_rect.position = selection_rect.position
-	current_rect.end = mouse_pos
-	
-	var size_sq:float = current_rect.size.length_squared()
-	if size_sq < min_size * min_size:
-		return
-	
-	var size:Vector2 = current_rect.size
-	#Visualize selection	
-	#var center_screen:Vector2 = current_rect.get_center()
-	#var result := node_picker.pick_position(center_screen, Collisions.CompositeMasks.ground)
-	var result := node_picker.pick_position(current_rect.position, Collisions.CompositeMasks.ground)
-	if not result:
-		return
-	
-	#push_warning("%s: current_rect=%s" % [name, current_rect])
-	DebugDraw3D.draw_box(
-		result["position"],
-		Quaternion.IDENTITY,
-		Vector3(size.x, 5.0, size.y),
-		Color.GREEN,
-		false,
-		0.1
-	)
-		
-		
+	if selection_bounds == AABB():
+		var result := _pick_ground(selection_rect_screen.position)
+		if result:
+			selection_bounds.position = result["position"]
+	else:
+		var viewport := get_viewport()
+		var mouse_pos:Vector2 = viewport.get_mouse_position()
+		var result := _pick_ground(mouse_pos)
+		if result:
+			selection_bounds.end = result["position"]
+			
+			var size:Vector3 = selection_bounds.size
+			var planar_length:Vector2 = Vector2(size.x, size.z)
+			if planar_length.length_squared() >= min_size * min_size:
+				DebugDraw3D.draw_box(
+					selection_bounds.position,
+					Quaternion.IDENTITY,
+					Vector3(size.x, maxf(size.y,5.0), size.z),
+					Color.GREEN,
+					false,
+					0.0
+				)
+			
+func _pick_ground(screen_pos:Vector2) -> Dictionary:
+	return node_picker.pick_position(screen_pos, Collisions.CompositeMasks.ground)
 	

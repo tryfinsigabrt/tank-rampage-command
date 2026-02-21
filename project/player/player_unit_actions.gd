@@ -152,5 +152,7 @@ func _handle_unit_select(event: InputEvent) -> void:
 func _on_visibility_changed() -> void:
 	enabled = visible
 
-func _on_box_select_units(_area: Rect2) -> void:
-	pass # Replace with function body.
+func _on_box_select_units(_screen_selection:Rect2, ground_selection:AABB) -> void:
+	var selected_units:Array[Unit] = node_picker.pick_unit_world_bounds(ground_selection)
+	if selected_units:
+		selection_manager.set_selection_multiple(selected_units)
