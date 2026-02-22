@@ -8,7 +8,20 @@ enum MoveBehavior
 }
 
 var controlled_unit:Unit
-var targeted_unit:Unit
+
+var targeted_unit:Unit:
+	set(value):
+		if is_instance_valid(value):
+			_unit_was_targeted = true
+			targeted_unit = value
+		else:
+			_unit_was_targeted = false
+			targeted_unit = null
+	get:
+		return targeted_unit if is_instance_valid(targeted_unit) else null
+			
+var _unit_was_targeted:bool
+
 var targeted_location:Vector3
 var move_into_range:MoveBehavior = MoveBehavior.ALWAYS
 
@@ -143,9 +156,7 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	# We allow an explicit null targeted_unit as a valid target because then targeted_location is used
-	# It's only when we have a non-null but invalid instance that the target is invalid
-	return targeted_unit == null or is_instance_valid(targeted_unit)
+	return not _unit_was_targeted or targeted_unit
 	
 func _check_target_los() -> bool:
 	var space_state := get_world_3d().direct_space_state
