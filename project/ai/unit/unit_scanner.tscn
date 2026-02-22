@@ -11,6 +11,5 @@ script = ExtResource("2_7mok3")
 
 [node name="Tick" type="Timer" parent="." unique_id=860207161]
 wait_time = 2.0
-autostart = true
 
 [connection signal="timeout" from="Tick" to="." method="_tick"]

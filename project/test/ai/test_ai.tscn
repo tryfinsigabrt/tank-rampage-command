@@ -11,11 +11,10 @@
 [ext_resource type="Material" uid="uid://heghdvyj6q77" path="res://units/human/tank/tank03_body_material.tres" id="4_pdndp"]
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="5_1edn6"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="6_45w8c"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="6_mushl"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="7_yp0w5"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="8_wygtg"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
-[ext_resource type="PackedScene" uid="uid://dvn60hgaapy6y" path="res://player/rts_camera.tscn" id="10_2yo3y"]
-[ext_resource type="PackedScene" uid="uid://bnqhpy3uvhqdh" path="res://player/player_unit_actions.tscn" id="11_2qenv"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 
@@ -172,30 +171,26 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("2_ev4ck")]
 team = 1
 
-[node name="Player" type="Node3D" parent="World/Match/PlayerTeam" unique_id=556120660]
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_mushl")]
+player_team = NodePath("..")
 
-[node name="RTSCameraTest" type="Node3D" parent="World/Match/PlayerTeam/Player" unique_id=1507688131]
-
-[node name="RTSCamera" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=2011851028 instance=ExtResource("10_2yo3y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 214)
+[node name="RTSCamera" parent="World/Match/PlayerTeam/Player" index="0" unique_id=2011851028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 209.79999)
 pos_y = 100.0
 
-[node name="PlayerUnitActions" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("11_2qenv")]
-team = 1
-
-[node name="PlayerTank" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1709231356 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank" parent="World/Match/PlayerTeam/Player" unique_id=1709231356 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
 
-[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1000018207 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player" unique_id=1000018207 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
 team = 1
 
-[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=6855099 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player" unique_id=6855099 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
 team = 1
 
-[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=271356045 instance=ExtResource("1_h7ph6")]
+[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player" unique_id=271356045 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
 
@@ -263,6 +258,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66,
 
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
 
+[editable path="World/Match/PlayerTeam/Player"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh"]

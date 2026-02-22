@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://csoios358ouls"]
+
+[ext_resource type="Script" uid="uid://b3hu1mi4ie1my" path="res://ai/unit/idle_state.gd" id="1_n8nk0"]
+[ext_resource type="PackedScene" uid="uid://8rwv0t451365" path="res://ai/unit/unit_scanner.tscn" id="2_nmo2j"]
+[ext_resource type="Script" uid="uid://c1mibo4duodwy" path="res://ai/enemy/threat_scorer.gd" id="3_f5wcj"]
+
+[node name="IdleState" type="Node" unique_id=1002371402]
+script = ExtResource("1_n8nk0")
+
+[node name="UnitScanner" parent="." unique_id=228691689 instance=ExtResource("2_nmo2j")]
+threshold_distance = 300.0
+enabled = false
+
+[node name="ThreatScorer" type="Node" parent="." unique_id=728692785]
+script = ExtResource("3_f5wcj")
+
+[connection signal="threats_detected" from="UnitScanner" to="." method="_on_unit_scanner_threats_detected"]

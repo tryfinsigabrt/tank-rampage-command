@@ -5,9 +5,8 @@
 [ext_resource type="NavigationMesh" uid="uid://ecbf3m4x73w3" path="res://test/terrain/test_terrain_nav.res" id="2_nm2cs"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="6_sttne"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="7_0dscg"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="7_dxn8j"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="8_xxlqf"]
-[ext_resource type="PackedScene" uid="uid://dvn60hgaapy6y" path="res://player/rts_camera.tscn" id="9_saqa1"]
-[ext_resource type="PackedScene" uid="uid://bnqhpy3uvhqdh" path="res://player/player_unit_actions.tscn" id="10_83iv7"]
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="11_e1uv2"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="12_kjb5g"]
 [ext_resource type="Material" uid="uid://745i788v8vyq" path="res://units/human/tank/tank01_body_material.tres" id="13_xs5x8"]
@@ -73,95 +72,90 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("8_xxlqf")]
 team = 1
 
-[node name="Player" type="Node3D" parent="World/Match/PlayerTeam" unique_id=1250758796]
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("7_dxn8j")]
+player_team = NodePath("..")
 
-[node name="RTSCameraTest" type="Node3D" parent="World/Match/PlayerTeam/Player" unique_id=851524925]
-
-[node name="RTSCamera" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=2011851028 instance=ExtResource("9_saqa1")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 459.04544, 2, -46.954563)
+[node name="RTSCamera" parent="World/Match/PlayerTeam/Player" index="0" unique_id=2011851028]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 459.04544, 2, -80.95456)
 pos_y = 100.0
 
-[node name="PlayerUnitActions" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=518831115 instance=ExtResource("10_83iv7")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 245.04544, 0, -46.954556)
-team = 1
-
-[node name="PlayerTank" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=260396010 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank" parent="World/Match/PlayerTeam/Player" unique_id=260396010 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 339.04544, 6.95, -46.95456)
 team = 1
 
-[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1722700098 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player" unique_id=1722700098 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 339.04544, 6.95, -62.95456)
 team = 1
 
-[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1153577486 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player" unique_id=1153577486 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 353.04544, 6.95, -46.95456)
 team = 1
 
-[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1308803860 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player" unique_id=1308803860 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 354.04544, 6.95, -62.95456)
 team = 1
 
-[node name="PlayerTank5" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1845268743 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank5" parent="World/Match/PlayerTeam/Player" unique_id=1845268743 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 373.04544, 6.95, -46.95456)
 team = 1
 
-[node name="PlayerTank6" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=471777420 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank6" parent="World/Match/PlayerTeam/Player" unique_id=471777420 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 373.04544, 6.95, -62.95456)
 team = 1
 
-[node name="PlayerTank7" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=654585512 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank7" parent="World/Match/PlayerTeam/Player" unique_id=654585512 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 387.04544, 6.95, -46.95456)
 team = 1
 
-[node name="PlayerTank8" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=446474847 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank8" parent="World/Match/PlayerTeam/Player" unique_id=446474847 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 388.04544, 6.95, -62.95456)
 team = 1
 
-[node name="PlayerTank9" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=177581425 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank9" parent="World/Match/PlayerTeam/Player" unique_id=177581425 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 373.04544, 6.95, -81.95456)
 team = 1
 
-[node name="PlayerTank10" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1334857330 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank10" parent="World/Match/PlayerTeam/Player" unique_id=1334857330 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 373.04544, 6.95, -97.95456)
 team = 1
 
-[node name="PlayerTank11" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1732933287 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank11" parent="World/Match/PlayerTeam/Player" unique_id=1732933287 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 387.04544, 6.95, -81.95456)
 team = 1
 
-[node name="PlayerTank12" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1036792806 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank12" parent="World/Match/PlayerTeam/Player" unique_id=1036792806 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 388.04544, 6.95, -97.95456)
 team = 1
 
-[node name="PlayerTank13" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=2070175880 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank13" parent="World/Match/PlayerTeam/Player" unique_id=2070175880 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 337.04544, 6.95, -81.95456)
 team = 1
 
-[node name="PlayerTank14" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1159574440 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank14" parent="World/Match/PlayerTeam/Player" unique_id=1159574440 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 337.04544, 6.95, -97.95456)
 team = 1
 
-[node name="PlayerTank15" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=277227068 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank15" parent="World/Match/PlayerTeam/Player" unique_id=277227068 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 351.04544, 6.95, -81.95456)
 team = 1
 
-[node name="PlayerTank16" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1810164540 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank16" parent="World/Match/PlayerTeam/Player" unique_id=1810164540 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 352.04544, 6.95, -97.95456)
 team = 1
 
-[node name="PlayerTank17" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1150106220 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank17" parent="World/Match/PlayerTeam/Player" unique_id=1150106220 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 365.04544, 6.95, -115.95456)
 team = 1
 
-[node name="PlayerTank18" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1960660772 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank18" parent="World/Match/PlayerTeam/Player" unique_id=1960660772 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 365.04544, 6.95, -131.95456)
 team = 1
 
-[node name="PlayerTank19" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1969057793 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank19" parent="World/Match/PlayerTeam/Player" unique_id=1969057793 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 379.04544, 6.95, -115.95456)
 team = 1
 
-[node name="PlayerTank20" parent="World/Match/PlayerTeam/Player/RTSCameraTest" unique_id=1063318134 instance=ExtResource("11_e1uv2")]
+[node name="PlayerTank20" parent="World/Match/PlayerTeam/Player" unique_id=1063318134 instance=ExtResource("11_e1uv2")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 380.04544, 6.95, -131.95456)
 team = 1
 
@@ -780,6 +774,7 @@ size = Vector3(100, 100, 100)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 975, 50, -979)
 size = Vector3(100, 100, 100)
 
+[editable path="World/Match/PlayerTeam/Player"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh"]

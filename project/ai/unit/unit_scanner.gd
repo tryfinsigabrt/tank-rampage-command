@@ -3,17 +3,45 @@ class_name UnitScanner extends Node
 @export
 var threshold_distance:float = 500.0
 
+@export
 var my_unit:Unit
+
 var _team:MatchTeam
+var _init:bool
 
 @onready var sweeper: UnitSweeper = $Sweeper
+@onready var tick: Timer = $Tick
 
 signal threats_detected(threats:Array[Unit])
 
-func _ready() -> void:
+@export
+var enabled:bool = true:
+	set(value):
+		if value == enabled:
+			return
+		enabled = value
+		_on_enable_changed()
+	get:
+		return enabled
+
+func _on_enable_changed() -> void:
+	if not tick:
+		return
+		
+	if enabled:
+		if not _init:
+			_initialize()
+		if _init:
+			tick.start()
+	else:
+		tick.stop()
+
+func _initialize() -> void:
 	if not my_unit:
 		push_error("%s: my_unit not set" % name)
 		queue_free()
+		return
+		
 	var game:Match = get_tree().get_first_node_in_group(Groups.Match)
 	if game:
 		_team = game.get_team(my_unit.team)
@@ -22,7 +50,11 @@ func _ready() -> void:
 	else:
 		push_warning("%s: match not in tree - slow path taken" % name)
 		
-	sweeper.vision_radius = threshold_distance
+	sweeper.vision_radius = threshold_distance	
+	_init = true
+	
+func _ready() -> void:
+	_on_enable_changed()
 		
 func _tick() -> void:
 	var threats := sweeper.sweep_units(my_unit.global_position, _get_team_units())

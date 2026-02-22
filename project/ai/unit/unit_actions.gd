@@ -2,6 +2,7 @@ class_name UnitActions extends Node3D
 
 @onready var behavior_tree: BeehaveTree = $BeehaveTree
 @onready var blackboard: UnitBlackboard = $Blackboard
+@onready var idle_state: IdleUnitState = $IdleState
 
 @export
 var unit:Unit
@@ -15,7 +16,7 @@ var enabled:bool:
 		_update_tree_state()
 	get:
 		return enabled
-		
+			
 func _ready() -> void:
 	if not unit:
 		push_error("%s: Unit is not set" % name)
@@ -42,6 +43,9 @@ func _on_command_finished(in_unit: Unit, command:StringName) -> void:
 	
 func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
+	
+	idle_state.my_unit = unit
+	idle_state.enabled = not enabled
 
 func move(target_position:Vector3) -> void:
 	_new_action()
@@ -107,3 +111,6 @@ func is_moving() -> bool:
 
 func is_idle() -> bool:
 	return _command_counter <= 0
+
+func _on_idle_state_threat_selected(threat: Unit) -> void:
+	attack(threat)

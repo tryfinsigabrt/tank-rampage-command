@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c7o46d84p77i" path="res://ai/unit/attack_command_action.gd" id="8_ak1gx"]
 [ext_resource type="Script" uid="uid://r8b0istslwhq" path="res://addons/beehave/nodes/leaves/blackboard_erase.gd" id="8_j7wwn"]
 [ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
+[ext_resource type="PackedScene" uid="uid://csoios358ouls" path="res://ai/unit/idle_state.tscn" id="11_wbnxj"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
@@ -86,3 +87,7 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("8_j7wwn")
 key = "\"action\""
 metadata/_custom_type_script = "uid://r8b0istslwhq"
+
+[node name="IdleState" parent="." unique_id=1002371402 instance=ExtResource("11_wbnxj")]
+
+[connection signal="threat_selected" from="IdleState" to="." method="_on_idle_state_threat_selected"]

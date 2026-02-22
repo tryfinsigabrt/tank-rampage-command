@@ -6,17 +6,21 @@ var threat_score_threshold:float = 0.5
 @export
 var ideal_distance:float = 300.0
 
-#@export
-#var max_distance:float = 1500.0
-
 var _ideal_distance_sq:float
-#var _max_distance_sq:float
 
 func _ready() -> void:
 	_ideal_distance_sq = ideal_distance * ideal_distance
 	#_max_distance_sq = max_distance * max_distance
+
+func get_threat_units(units: Array[Unit], position:Vector3) -> Array[UnitScore]:
+	return _get_threat_units(units, position, func(data:Unit) -> Unit: return data)
 	
 func get_visible_threat_units(units: Array[UnitData], position:Vector3) -> Array[UnitScore]:
+	return _get_threat_units(units, position, func(data:UnitData) -> Unit: 
+		return data.unit if data.valid and data.visible else null
+	)
+	
+func _get_threat_units(units: Array, position:Vector3, viable_unit_extractor:Callable) -> Array[UnitScore]:
 	var matches:Array[UnitScore]
 	if not units:
 		return matches
@@ -25,15 +29,16 @@ func get_visible_threat_units(units: Array[UnitData], position:Vector3) -> Array
 	
 	# TODO: Placeholder Utility AI - use real utility AI system to score and filter candidates
 	for unit_data in units:
-		if unit_data.valid and unit_data.visible:
-			var score:float = unit_data.unit.global_position.distance_squared_to(position)
+		var unit:Unit = viable_unit_extractor.call(unit_data)
+		if unit:
+			var score:float = unit.global_position.distance_squared_to(position)
 			#if score > _max_distance_sq:
 				#continue
 			score = _ideal_distance_sq / maxf(score, 0.001)
 			max_score = maxf(score, max_score)
 				
 			var entry := UnitScore.new()
-			entry.unit = unit_data.unit
+			entry.unit = unit
 			entry.score = score
 			matches.push_back(entry)
 	
@@ -53,5 +58,4 @@ func get_visible_threat_units(units: Array[UnitData], position:Vector3) -> Array
 	if remove_index_start >= 0:
 		matches.resize(remove_index_start)
 		
-	return matches
-	
+	return matches	
