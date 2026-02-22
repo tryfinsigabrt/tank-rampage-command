@@ -66,7 +66,9 @@ func _threats_detected(threats:Array[Unit]) -> void:
 	threats.sort_custom(func(a:Unit, b:Unit) -> bool: return threat_distances[a] < threat_distances[b])
 	
 	var top_threat:Unit = threats.front()
-	if is_instance_valid(_attack_action) and _attack_action.is_valid() and _attack_action.firing:
+	# TODO: Somehow targeted_unit is set to null even though we never explicitly do that since we always attack explicit targets
+	# It should have been invalid per is_valid if the target got freed
+	if is_instance_valid(_attack_action) and _attack_action.is_valid() and _attack_action.firing and is_instance_valid(_attack_action.targeted_unit):
 		var top_threat_distance:float = sqrt(threat_distances[top_threat])
 		var current_attack_distance:float = _attack_action.targeted_unit.global_position.distance_to(unit_position)
 		var distance_diff:float = current_attack_distance - top_threat_distance

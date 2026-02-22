@@ -143,7 +143,9 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	return not targeted_unit or is_instance_valid(targeted_unit)
+	# We allow an explicit null targeted_unit as a valid target because then targeted_location is used
+	# It's only when we have a non-null but invalid instance that the target is invalid
+	return targeted_unit == null or is_instance_valid(targeted_unit)
 	
 func _check_target_los() -> bool:
 	var space_state := get_world_3d().direct_space_state
