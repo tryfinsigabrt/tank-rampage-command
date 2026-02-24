@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dptnf0d0iabm2" path="res://player/player.gd" id="1_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://dvn60hgaapy6y" path="res://player/rts_camera.tscn" id="2_yw30f"]
 [ext_resource type="PackedScene" uid="uid://bnqhpy3uvhqdh" path="res://player/player_unit_actions.tscn" id="3_qjkh3"]
+[ext_resource type="Script" uid="uid://cr2ajl674ao7d" path="res://player/camera_centering.gd" id="4_yw30f"]
 
 [node name="Player" type="Node3D" unique_id=686890281]
 script = ExtResource("1_g1dw6")
@@ -10,3 +11,6 @@ script = ExtResource("1_g1dw6")
 [node name="RTSCamera" parent="." unique_id=2011851028 instance=ExtResource("2_yw30f")]
 
 [node name="PlayerUnitActions" parent="." unique_id=518831115 instance=ExtResource("3_qjkh3")]
+
+[node name="CameraCentering" type="Node3D" parent="." unique_id=672709027]
+script = ExtResource("4_yw30f")

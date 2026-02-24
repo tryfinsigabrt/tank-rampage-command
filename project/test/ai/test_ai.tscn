@@ -174,10 +174,6 @@ team = 1
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_mushl")]
 player_team = NodePath("..")
 
-[node name="RTSCamera" parent="World/Match/PlayerTeam/Player" index="0" unique_id=2011851028]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 209.79999)
-pos_y = 100.0
-
 [node name="PlayerTank" parent="World/Match/PlayerTeam/Player" unique_id=1709231356 instance=ExtResource("1_h7ph6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
@@ -258,7 +254,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66,
 
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
 
-[editable path="World/Match/PlayerTeam/Player"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh"]
