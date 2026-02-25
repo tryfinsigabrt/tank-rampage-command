@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dvr8xr3q18rl8"]
+
+[ext_resource type="Texture2D" uid="uid://ctjkpefu42cxt" path="res://ui/MiniMap/MiniMapBezel.png" id="1_tuy02"]
+
+[node name="MiniMap" type="SubViewportContainer" unique_id=1355849070]
+top_level = true
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="MiniMapViewport" type="SubViewport" parent="." unique_id=995441271]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(128, 128)
+render_target_update_mode = 4
+
+[node name="MiniMapCamera" type="Camera3D" parent="MiniMapViewport" unique_id=647158867]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0, 1000, 0)
+
+[node name="MiniMapBezel" type="Sprite2D" parent="." unique_id=1318036012]
+position = Vector2(64, 64)
+texture = ExtResource("1_tuy02")

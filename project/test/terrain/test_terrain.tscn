@@ -15,6 +15,7 @@
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="16_575d2"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="17_q4yjv"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="18_lkwmk"]
+[ext_resource type="PackedScene" uid="uid://dvr8xr3q18rl8" path="res://ui/MiniMap/MiniMap.tscn" id="19_ahvu0"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="19_w6fx3"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="20_ibbv5"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
@@ -172,10 +173,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("13_xs5x8")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("14_qxacn")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01" index="1" unique_id=1002010230]
@@ -204,11 +205,11 @@ metadata/_edit_lock_ = true
 [node name="Mesh" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body" index="0"]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("15_y10a1")
 metadata/_edit_lock_ = true
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("16_575d2")
 
 [node name="WheelsRight" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank02/Body" index="2" unique_id=433920229]
@@ -237,10 +238,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("17_q4yjv")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("18_lkwmk")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank03" index="1" unique_id=1002010230]
@@ -263,10 +264,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("19_w6fx3")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("20_ibbv5")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04" index="1" unique_id=1002010230]
@@ -289,10 +290,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("13_xs5x8")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("14_qxacn")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank05" index="1" unique_id=1002010230]
@@ -321,11 +322,11 @@ metadata/_edit_lock_ = true
 [node name="Mesh" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body" index="0"]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("15_y10a1")
 metadata/_edit_lock_ = true
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("16_575d2")
 
 [node name="WheelsRight" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank06/Body" index="2" unique_id=433920229]
@@ -354,10 +355,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("17_q4yjv")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("18_lkwmk")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank07" index="1" unique_id=1002010230]
@@ -380,10 +381,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("19_w6fx3")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("20_ibbv5")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank08" index="1" unique_id=1002010230]
@@ -406,10 +407,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("13_xs5x8")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("14_qxacn")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank09" index="1" unique_id=1002010230]
@@ -438,11 +439,11 @@ metadata/_edit_lock_ = true
 [node name="Mesh" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body" index="0"]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("15_y10a1")
 metadata/_edit_lock_ = true
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("16_575d2")
 
 [node name="WheelsRight" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank10/Body" index="2" unique_id=433920229]
@@ -471,10 +472,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("17_q4yjv")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("18_lkwmk")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank11" index="1" unique_id=1002010230]
@@ -497,10 +498,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("19_w6fx3")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("20_ibbv5")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank12" index="1" unique_id=1002010230]
@@ -523,10 +524,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("13_xs5x8")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("14_qxacn")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank13" index="1" unique_id=1002010230]
@@ -555,11 +556,11 @@ metadata/_edit_lock_ = true
 [node name="Mesh" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body" index="0"]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("15_y10a1")
 metadata/_edit_lock_ = true
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("16_575d2")
 
 [node name="WheelsRight" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank14/Body" index="2" unique_id=433920229]
@@ -588,10 +589,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("17_q4yjv")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("18_lkwmk")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank15" index="1" unique_id=1002010230]
@@ -614,10 +615,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("19_w6fx3")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("20_ibbv5")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank16" index="1" unique_id=1002010230]
@@ -640,10 +641,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("13_xs5x8")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("14_qxacn")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank17" index="1" unique_id=1002010230]
@@ -672,11 +673,11 @@ metadata/_edit_lock_ = true
 [node name="Mesh" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body" index="0"]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("15_y10a1")
 metadata/_edit_lock_ = true
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("16_575d2")
 
 [node name="WheelsRight" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank18/Body" index="2" unique_id=433920229]
@@ -705,10 +706,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("17_q4yjv")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("18_lkwmk")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank19" index="1" unique_id=1002010230]
@@ -731,10 +732,10 @@ team = 2
 [node name="Body" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20" index="0" unique_id=1516550406]
 metadata/_edit_lock_ = true
 
-[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20/Body/Mesh" index="0"]
+[node name="BodyMain" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20/Body/Mesh" index="0" unique_id=735364314]
 material_override = ExtResource("19_w6fx3")
 
-[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20/Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20/Body/Turret/Mesh" index="0" unique_id=1778038016]
 material_override = ExtResource("20_ibbv5")
 
 [node name="Collision" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank20" index="1" unique_id=1002010230]
@@ -769,6 +770,8 @@ size = Vector3(100, 100, 100)
 [node name="CSGBox3D4" type="CSGBox3D" parent="World/TerrainBoundaryMarkers" unique_id=1137909239]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 975, 50, -979)
 size = Vector3(100, 100, 100)
+
+[node name="MiniMap" parent="." unique_id=1355849070 instance=ExtResource("19_ahvu0")]
 
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
