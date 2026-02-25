@@ -31,6 +31,19 @@ var _mouse_zoom:int = 0
 
 var _selected_units:PackedInt32Array
 
+var zoom:float:
+	set(value):
+		# Reset so input value is absolute zoom
+		var camera_pos:Vector3 = camera.position
+		camera_pos.z = 0.0
+		camera.position = camera_pos
+		
+		_camera_current_zoom_speed = clampf(value, camera_zoom_range.x, camera_zoom_range.y)
+		_camera_total_zoom = 0.0
+		_apply_zoom_velocity()
+	get:
+		return _camera_total_zoom
+
 #region public methods
 func capture_mouse(capture:bool) -> void:
 	#MOUSE_MODE_CONFINED not supported on web

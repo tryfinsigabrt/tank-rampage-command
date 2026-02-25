@@ -3,6 +3,9 @@ class_name CameraCentering extends Node3D
 @export
 var ideal_distance_from_closest_focus:float = 100.0
 
+@export
+var zoom_v_bounds_area:Curve
+
 var camera:RTSCamera
 var player_team:MatchTeam
 
@@ -10,6 +13,9 @@ func initialize() -> void:
 	if not camera or not player_team:
 		push_error("%s: camera or player team not set" % name)
 		return
+	if not zoom_v_bounds_area:
+		push_warning("%s: No zoom curve set - camera zoom adjustment disabled" % name)
+		
 	SignalBus.match_ready.connect(_on_match_ready.unbind(1), ConnectFlags.CONNECT_ONE_SHOT)
 
 func _on_match_ready() -> void:
@@ -55,3 +61,13 @@ func recenter() -> void:
 	var right := Vector3.UP.cross(forward).normalized()
 	var up := forward.cross(right).normalized()
 	camera.transform.basis = Basis(right, up, forward)
+	
+	if zoom_v_bounds_area:
+		#Set initial zoom based on area of bounds fitted to a curve
+		var ground_area:float = bounds.get_volume() / bounds.get_shortest_axis_size()
+		#print_debug("%s: Bounding area=%f" % [name, ground_area])
+	
+		var zoom:float = zoom_v_bounds_area.sample_baked(ground_area)
+		print_debug("%s: Adjusting camera zoom from %f -> %f" % [name, camera.zoom, zoom])
+		camera.zoom = zoom
+		
