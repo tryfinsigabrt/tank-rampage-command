@@ -13,3 +13,7 @@ static func get_angle_deg_between_points(a:Vector2, b:Vector2) -> float:
 
 static func get_rand_vector2_dir() -> Vector2:
 	return Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
+
+## Updates the given mask by masking out selector and then applying selection
+static func update_mask(mask:int, selector:int, selection:int) -> int:
+	return (mask & ~selector) | selection

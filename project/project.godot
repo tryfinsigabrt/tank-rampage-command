@@ -198,11 +198,16 @@ unit_select_all={
 
 [layer_names]
 
+3d_render/layer_1="default"
+3d_render/layer_17="team_1"
+3d_render/layer_18="team_2"
 3d_physics/layer_1="world_static"
 3d_physics/layer_2="terrain"
 3d_physics/layer_3="unit"
 3d_physics/layer_4="world_dynamic"
 3d_physics/layer_5="world_boundaries"
+3d_physics/layer_29="team_1"
+3d_physics/layer_30="team_2"
 
 [physics]
 

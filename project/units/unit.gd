@@ -32,7 +32,13 @@ static func group_for_class(in_class:UnitClass) -> StringName:
 var movement_speed:float = 15.0
 
 @export
-var team:int
+var team:int:
+	set(value):
+		if value == team:
+			return
+		team = value
+		if is_node_ready():
+			refresh_team_layers()
 
 @export
 var unit_class:UnitClass
@@ -73,8 +79,14 @@ func _is_alive() -> bool:
 
 func _ready() -> void:
 	SignalBus.register_unit(self)
+	refresh_team_layers()
 
 #region Teams
+
+func refresh_team_layers() -> void:
+	Collisions.apply_team_collision_layer(self, team)
+	Visibility.apply_team_collision_layer(self, team)
+	
 func on_same_team(unit:Unit) -> bool:
 	return unit and unit.team == team
 	
