@@ -1,5 +1,11 @@
 [gd_scene format=3 uid="uid://ds5a0jcur5xqb"]
 
+[ext_resource type="Shader" uid="uid://bqany5o1ta2de" path="res://fow/fow_explored_area.gdshader" id="1_n1b4i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ot6aq"]
+shader = ExtResource("1_n1b4i")
+shader_parameter/blur_amount = 1.5
+
 [node name="FogOfWar" type="Node" unique_id=1445970781]
 
 [node name="VisibleArea" type="SubViewport" parent="." unique_id=1013280230]
@@ -44,6 +50,7 @@ render_target_clear_mode = 1
 render_target_update_mode = 4
 
 [node name="ColorRect" type="ColorRect" parent="ExploredArea" unique_id=1449628318]
+material = SubResource("ShaderMaterial_ot6aq")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

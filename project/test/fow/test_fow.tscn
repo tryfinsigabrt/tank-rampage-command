@@ -1,12 +1,13 @@
-[gd_scene format=3 uid="uid://c46ouynh4d5hc"]
+[gd_scene format=3 uid="uid://nk5km52xcial"]
 
-[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="1_sdrge"]
-[ext_resource type="Material" uid="uid://ct8m5pj00pr6d" path="res://test/materials/translucent_wall_material.tres" id="2_kvcu3"]
-[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_oqdex"]
-[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="4_v6uyi"]
-[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="5_7qc24"]
-[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="5_qdjq2"]
-[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="8_8wgkg"]
+[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="1_bkqyk"]
+[ext_resource type="Material" uid="uid://ct8m5pj00pr6d" path="res://test/materials/translucent_wall_material.tres" id="2_ey1ua"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_7mnbm"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="4_lnha2"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="4_n0toe"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="6_6nnxe"]
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="7_1t5eo"]
+[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="8_6nnxe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -45,7 +46,7 @@ navigation_mesh = SubResource("NavigationMesh_nsiie")
 
 [node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("1_sdrge")
+material_override = ExtResource("1_bkqyk")
 use_collision = true
 size = Vector3(1000, 1, 1000)
 
@@ -123,65 +124,49 @@ radius = 5.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=689713005]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 274.63022, 0, 0)
-material_override = ExtResource("2_kvcu3")
+material_override = ExtResource("2_ey1ua")
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 100, 1000)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=381548462]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -347.23093, 0, 0)
-material_override = ExtResource("2_kvcu3")
+material_override = ExtResource("2_ey1ua")
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 100, 1000)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=1965899627]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, -141)
-material_override = ExtResource("2_kvcu3")
+material_override = ExtResource("2_ey1ua")
 use_collision = true
 collision_layer = 13
 size = Vector3(10, 100, 1000)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles/Walls" unique_id=1412574193]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 74.76907, 0, 402)
-material_override = ExtResource("2_kvcu3")
+material_override = ExtResource("2_ey1ua")
 use_collision = true
 collision_mask = 13
 size = Vector3(10, 100, 1000)
 
-[node name="Ramp" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=1962812780]
-transform = Transform3D(1, 0, 0, 0, 0.92387944, -0.38268343, 0, 0.38268343, 0.92387944, 11.7, 8.2, 40.199997)
-use_collision = true
-size = Vector3(33.8, 20, 100)
-material = ExtResource("1_sdrge")
-
-[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("3_oqdex")]
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("3_7mnbm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
 shape = SubResource("BoxShape3D_mushl")
 debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
-[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("4_v6uyi")]
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("4_lnha2")]
 
-[node name="PlayerTeam" parent="World" unique_id=1256450270 instance=ExtResource("5_qdjq2")]
+[node name="PlayerTeam" parent="World" unique_id=1256450270 instance=ExtResource("4_n0toe")]
 team = 1
 
-[node name="Player" parent="World/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("5_7qc24")]
+[node name="Player" parent="World/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_6nnxe")]
 player_team = NodePath("..")
 
-[node name="PlayerTank" parent="World/PlayerTeam/Player" unique_id=1709231356 instance=ExtResource("8_8wgkg")]
+[node name="PlayerTank" parent="World/PlayerTeam/Player" unique_id=260396010 instance=ExtResource("7_1t5eo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
 
-[node name="PlayerTank2" parent="World/PlayerTeam/Player" unique_id=1000018207 instance=ExtResource("8_8wgkg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
-team = 1
-
-[node name="PlayerTank3" parent="World/PlayerTeam/Player" unique_id=6855099 instance=ExtResource("8_8wgkg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
-team = 1
-
-[node name="PlayerTank4" parent="World/PlayerTeam/Player" unique_id=271356045 instance=ExtResource("8_8wgkg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
-team = 1
+[node name="FogOfWar" parent="World" unique_id=1445970781 instance=ExtResource("8_6nnxe")]

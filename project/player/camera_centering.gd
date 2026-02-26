@@ -39,6 +39,9 @@ func recenter() -> void:
 	for unit in units:
 		bounds = bounds.expand(unit.global_position)
 	
+	if not bounds.has_volume():
+		var current_size:Vector3 = bounds.size
+		bounds.size = Vector3(maxf(current_size.x, 0.01), maxf(current_size.y, 0.01), maxf(current_size.z, 0.01))
 	# Find initial camera reference point
 	var center:Vector3 = bounds.get_center()
 	var ray_start:Vector3 = center - avg_orientation * 100000
