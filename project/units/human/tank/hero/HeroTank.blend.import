@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqprqt4pnw8m5"
-path="res://.godot/imported/HeroTank.blend-41d12b803651ca4a5b49a944edaac464.scn"
+valid=false
 
 [deps]
 
 source_file="res://units/human/tank/hero/HeroTank.blend"
-dest_files=["res://.godot/imported/HeroTank.blend-41d12b803651ca4a5b49a944edaac464.scn"]
 
 [params]
 
@@ -55,6 +54,7 @@ blender/meshes/colors=false
 blender/meshes/uvs=true
 blender/meshes/normals=true
 blender/meshes/export_geometry_nodes_instances=false
+blender/meshes/gpu_instances=false
 blender/meshes/tangents=true
 blender/meshes/skins=2
 blender/meshes/export_bones_deforming_mesh_only=false
