@@ -30,6 +30,15 @@ var _accum_delta:float
 
 var _explored_area_material:ShaderMaterial
 
+var _world_aabb:AABB
+var _projected_size:Vector2
+
+var world_to_view_scale:Vector2:
+	get:
+		var world_size:Vector3 = _world_aabb.size
+		var map_size:Vector2 = Vector2(world_size.x, world_size.z)
+		return _projected_size / map_size
+		
 func _enter_tree() -> void:
 	SignalBus.on_unit_added.connect(_on_unit_added)
 	SignalBus.on_unit_killed.connect(_on_unit_killed)
@@ -55,6 +64,15 @@ func _ready() -> void:
 	
 	# Recommended await per the get_texture() function documentation when used in _ready
 	await RenderingServer.frame_post_draw
+	
+	var world_boundaries:WorldBoundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries)
+	if world_boundaries:
+		_world_aabb = world_boundaries.bounds
+	else:
+		push_warning("%s: No world boundaries in scene - falling back to static 1000x1000x1000 world size" % name)
+		_world_aabb = AABB(Vector3.ZERO, Vector3(500.0,500.0,500.0))
+	
+	_projected_size = explored_area_viewport.size
 		
 	_explored_area_material = explored_area_rect.material as ShaderMaterial
 	if not _explored_area_material:
@@ -72,6 +90,22 @@ func _ready() -> void:
 
 	# Prevents a brief "white clear" that permanently sets everything to explored on start
 	_clear_explored()
+	
+func project_position(pos:Vector3) -> Vector2:
+	# Remap coordinates so that pos of 0,0 is top left of the bounding box
+	var adjusted_pos:Vector3 = pos - _world_aabb.position
+	var map_size:Vector3 = _world_aabb.size
+
+	# Convert World XZ to a percentage (0.0 to 1.0) i.e. a uv coordinate
+	var uv:Vector2 = Vector2(
+		adjusted_pos.x / map_size.x,
+		adjusted_pos.z / map_size.z
+	).clampf(0.0, 1.0)
+
+	# Multiply by viewport size to get the pixel coordinate
+	var viewport_pos = uv * _projected_size
+	
+	return viewport_pos
 
 func _clear_explored() -> void:
 	explored_area_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE

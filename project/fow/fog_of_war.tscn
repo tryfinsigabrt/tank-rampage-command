@@ -54,8 +54,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="VisibleArea" unique_id=1507542739]
+[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="VisibleArea" unique_id=1507542739 node_paths=PackedStringArray("fog_of_war")]
 script = ExtResource("2_othas")
+fog_of_war = NodePath("../..")
 
 [node name="ExploredArea" type="SubViewport" parent="." unique_id=910021185]
 disable_3d = true
