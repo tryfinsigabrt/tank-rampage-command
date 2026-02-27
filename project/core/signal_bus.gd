@@ -21,6 +21,7 @@ signal on_any_damage(damage_parameters:DamageParameters)
 
 signal on_unit_health_changed(unit:Unit, previous_health:float, current_health:float)
 signal on_unit_damaged(unit:Unit, damage_parameters:DamageParameters)
+signal on_unit_added(unit:Unit)
 signal on_unit_killed(unit:Unit, damage_parameters:DamageParameters)
 
 
@@ -54,3 +55,6 @@ func register_unit(unit:Unit) -> void:
 	unit.on_entered_world_boundaries.connect(func(world_boundaries: WorldBoundaries):
 		on_entered_world_boundaries.emit(world_boundaries, unit)
 	)
+	
+	on_unit_added.emit(unit)
+	

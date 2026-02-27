@@ -1,12 +1,34 @@
 [gd_scene format=3 uid="uid://ds5a0jcur5xqb"]
 
 [ext_resource type="Shader" uid="uid://bqany5o1ta2de" path="res://fow/fow_explored_area.gdshader" id="1_n1b4i"]
+[ext_resource type="Script" uid="uid://by1vlx01himtv" path="res://fow/fog_of_war.gd" id="1_ot6aq"]
+[ext_resource type="Script" uid="uid://dn2opq0elq25m" path="res://fow/visibility_multi_mesh.gd" id="2_othas"]
+[ext_resource type="Shader" uid="uid://dpqm4a771qjf4" path="res://fow/fow_post_process.gdshader" id="4_3yecg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5w83h"]
+render_priority = 127
+shader = ExtResource("4_3yecg")
+shader_parameter/fow_range_min = 0.01
+shader_parameter/fow_range_max = 0.99
+shader_parameter/fow_world_pos = Vector2(-500, 500)
+shader_parameter/fow_world_size = 1000.0
+shader_parameter/explored_visibility = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_o1e2y"]
+size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot6aq"]
 shader = ExtResource("1_n1b4i")
 shader_parameter/blur_amount = 1.5
 
 [node name="FogOfWar" type="Node" unique_id=1445970781]
+script = ExtResource("1_ot6aq")
+
+[node name="FoWPostProcess" type="MeshInstance3D" parent="." unique_id=92291872]
+material_override = SubResource("ShaderMaterial_5w83h")
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_o1e2y")
 
 [node name="VisibleArea" type="SubViewport" parent="." unique_id=1013280230]
 disable_3d = true
@@ -32,6 +54,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="VisibleArea" unique_id=1507542739]
+script = ExtResource("2_othas")
 
 [node name="ExploredArea" type="SubViewport" parent="." unique_id=910021185]
 disable_3d = true

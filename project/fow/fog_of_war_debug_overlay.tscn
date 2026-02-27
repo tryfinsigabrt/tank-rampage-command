@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cl75y4etufctb"]
+
+[ext_resource type="Script" uid="uid://d0ej5ovh5yc4a" path="res://fog_of_war_debug_overlay.gd" id="1_8mbst"]
+
+[node name="FogOfWarDebugOverlay" type="Node2D" unique_id=1104952790]
+script = ExtResource("1_8mbst")
+
+[node name="VisibleSprite" type="Sprite2D" parent="." unique_id=1908919860]
+position = Vector2(150, 100)
+scale = Vector2(0.5, 0.5)
+
+[node name="ExploredSprite" type="Sprite2D" parent="." unique_id=801379117]
+position = Vector2(500, 100)
+scale = Vector2(0.5, 0.5)

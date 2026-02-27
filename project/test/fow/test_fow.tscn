@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="6_6nnxe"]
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="7_1t5eo"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="8_6nnxe"]
+[ext_resource type="PackedScene" uid="uid://cl75y4etufctb" path="res://fow/fog_of_war_debug_overlay.tscn" id="9_ct22n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -47,6 +48,7 @@ navigation_mesh = SubResource("NavigationMesh_nsiie")
 [node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = ExtResource("1_bkqyk")
+cast_shadow = 0
 use_collision = true
 size = Vector3(1000, 1, 1000)
 
@@ -169,4 +171,7 @@ player_team = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
 
-[node name="FogOfWar" parent="World" unique_id=1445970781 instance=ExtResource("8_6nnxe")]
+[node name="FogOfWar" parent="World" unique_id=1445970781 node_paths=PackedStringArray("terrain") instance=ExtResource("8_6nnxe")]
+terrain = NodePath("../NavigationRegion3D/Floor")
+
+[node name="FogOfWarDebugOverlay" parent="World/FogOfWar" unique_id=1104952790 instance=ExtResource("9_ct22n")]
