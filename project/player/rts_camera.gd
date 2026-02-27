@@ -9,6 +9,9 @@ class_name RTSCamera extends Node3D
 
 
 @export var make_current_if_visible:bool = true
+
+## Enable mouse capture in viewport on supported platforms
+## On web, mouse capture isn't supported so this value is effectively false for that platform
 @export var confine_mouse_to_viewport:bool = true
 
 @export var fov:float = 10.0
@@ -47,7 +50,7 @@ var zoom:float:
 #region public methods
 func capture_mouse(capture:bool) -> void:
 	#MOUSE_MODE_CONFINED not supported on web
-	if not OS.has_feature("web"):
+	if confine_mouse_to_viewport and not OS.has_feature("web"):
 		Input.mouse_mode = Input.MOUSE_MODE_CONFINED if capture else Input.MOUSE_MODE_VISIBLE
 	
 func is_mouse_captured() -> bool:

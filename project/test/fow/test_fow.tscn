@@ -167,6 +167,9 @@ team = 1
 [node name="Player" parent="World/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_6nnxe")]
 player_team = NodePath("..")
 
+[node name="RTSCamera" parent="World/PlayerTeam/Player" index="0" unique_id=2011851028]
+confine_mouse_to_viewport = false
+
 [node name="PlayerTank" parent="World/PlayerTeam/Player" unique_id=260396010 instance=ExtResource("7_1t5eo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
 team = 1
@@ -175,3 +178,5 @@ team = 1
 terrain = NodePath("../NavigationRegion3D/Floor")
 
 [node name="FogOfWarDebugOverlay" parent="World/FogOfWar" unique_id=1104952790 instance=ExtResource("9_ct22n")]
+
+[editable path="World/PlayerTeam/Player"]
