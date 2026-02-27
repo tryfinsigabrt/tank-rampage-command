@@ -11,7 +11,7 @@ shader = ExtResource("4_3yecg")
 shader_parameter/fow_range_min = 0.01
 shader_parameter/fow_range_max = 0.99
 shader_parameter/fow_world_pos = Vector2(-500, 500)
-shader_parameter/fow_world_size = 1000.0
+shader_parameter/fow_world_size = Vector2(1000, 1000)
 shader_parameter/explored_visibility = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_o1e2y"]

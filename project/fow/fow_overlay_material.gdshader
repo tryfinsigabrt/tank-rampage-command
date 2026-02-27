@@ -7,8 +7,8 @@ uniform float fow_range_min = 0.01;
 uniform float fow_range_max = 0.99;
 
 // You still need these to map the SubViewport over the whole world!
-uniform vec2 fow_world_pos; 
-uniform float fow_world_size;
+uniform vec2 fow_world_pos;
+uniform vec2 fow_world_size = vec2(1000.0, 1000.0);
 
 void fragment() {
     // 1. Map world position to FoW texture UV

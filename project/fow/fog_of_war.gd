@@ -35,10 +35,20 @@ var _projected_size:Vector2
 
 var world_to_view_scale:Vector2:
 	get:
-		var world_size:Vector3 = _world_aabb.size
-		var map_size:Vector2 = Vector2(world_size.x, world_size.z)
 		return _projected_size / map_size
-		
+	
+var map_size:Vector2:
+	get:
+		var world_size:Vector3 = _world_aabb.size
+		var size:Vector2 = Vector2(world_size.x, world_size.z)
+		return size
+
+## Adjusted position of world such that this position is at 0,0 on the 2D fow map (top-left)
+var map_origin:Vector2:
+	get:
+		var map_bounds_pos:Vector3 = _world_aabb.position
+		return Vector2(map_bounds_pos.x, map_bounds_pos.z)
+				
 func _enter_tree() -> void:
 	SignalBus.on_unit_added.connect(_on_unit_added)
 	SignalBus.on_unit_killed.connect(_on_unit_killed)
@@ -128,8 +138,10 @@ func _init_post_process_shader(fow_texture: ViewportTexture) -> void:
 		push_warning("%s: FoWPostProcess does not have a shader material override" % name)
 		return
 
-	post_process_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)
-
+	post_process_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)	
+	post_process_material.set_shader_parameter(&"fow_world_pos", map_origin)
+	post_process_material.set_shader_parameter(&"fow_world_size", map_size)
+	
 func _init_terrain_shader(fow_texture: ViewportTexture) -> void:
 	if not terrain:
 		push_warning("%s: No terrain set - no fow applied to ground" % name)
@@ -140,6 +152,8 @@ func _init_terrain_shader(fow_texture: ViewportTexture) -> void:
 		var terrain_material:ShaderMaterial = visual_instance.material_overlay
 		if terrain_material:
 			terrain_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)
+			terrain_material.set_shader_parameter(&"fow_world_pos", map_origin)
+			terrain_material.set_shader_parameter(&"fow_world_size", map_size)
 		else:
 			push_warning("%s: Terrain node %s does not have a material overlay set" % [name, visual_instance.name])
 	# TODO: handle type that is Terrain3D

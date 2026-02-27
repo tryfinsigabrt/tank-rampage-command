@@ -7,8 +7,10 @@ uniform sampler2D fow_viewport_texture : source_color, repeat_disable, filter_li
 
 uniform float fow_range_min = 0.01;
 uniform float fow_range_max = 0.99;
+
 uniform vec2 fow_world_pos;
-uniform float fow_world_size = 1000.0;
+uniform vec2 fow_world_size = vec2(1000.0, 1000.0);
+
 uniform float explored_visibility = 0.3;
 
 void vertex() {
