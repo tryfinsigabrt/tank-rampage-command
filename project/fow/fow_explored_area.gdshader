@@ -4,6 +4,7 @@ uniform sampler2D visible_data_texture; // The current visibility (blobs)
 uniform sampler2D screen_texture: hint_screen_texture, filter_nearest;
 
 uniform float blur_amount:hint_range(0.0, 10.0, 0.1) = 1.5;
+uniform bool reset;
 
 // Isolated blur function
 // samples 4 points diagonally to leverage hardware bilinear filtering
@@ -37,16 +38,22 @@ float get_box_blurred_vision(sampler2D tex, vec2 uv, float amount) {
 }
 
 void fragment() {
-	// 1. Get current blobs from Viewport A
-	float current_visible_areas = get_box_blurred_vision(visible_data_texture, UV, blur_amount);
-	
-	// Store only the GREEN channel from the visible
-	float explored_data = texture(screen_texture, SCREEN_UV).g;
-	
-	// replace darker colors by bright color, [using max()];
-	// 'adding' the GREEN channel to the current visible areas
-	float compiled_data_texture = max(explored_data, current_visible_areas);
-	
-	// Output: Red = Visible Area, Green = Explored Areas, Blue = 0
-	COLOR = vec4(current_visible_areas, compiled_data_texture, 0.0, 1.0);
+	if(!reset) {
+		// 1. Get current blobs from Viewport A
+		float current_visible_areas = get_box_blurred_vision(visible_data_texture, UV, blur_amount);
+		
+		// Store only the GREEN channel from the visible
+		float explored_data = texture(screen_texture, SCREEN_UV).g;
+		
+		// replace darker colors by bright color, [using max()];
+		// 'adding' the GREEN channel to the current visible areas
+		float compiled_data_texture = max(explored_data, current_visible_areas);
+		
+		// Output: Red = Visible Area, Green = Explored Areas, Blue = 0
+		COLOR = vec4(current_visible_areas, compiled_data_texture, 0.0, 1.0);
+	}
+	// Reset everything back to black
+	else {
+        COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	}
 }

@@ -18,7 +18,7 @@ var use_terrain_overlay:bool = false
 
 @onready var explored_area_viewport: SubViewport = $ExploredArea
 @onready var explored_area_rect: ColorRect = $ExploredArea/ColorRect
-@onready var post_process_quad: MeshInstance3D = $FoWPostProcess
+@onready var post_process_quad: MeshInstance3D = $FowPostProcess
 
 
 var _player_team:int
@@ -27,6 +27,8 @@ var _registered_dissolver_nodes: Dictionary[int, Node3D] = {}
 var _cached_nodes: Array[Node3D]
 var _nodes_dirty:bool
 var _accum_delta:float
+
+var _explored_area_material:ShaderMaterial
 
 func _enter_tree() -> void:
 	SignalBus.on_unit_added.connect(_on_unit_added)
@@ -54,19 +56,33 @@ func _ready() -> void:
 	# Recommended await per the get_texture() function documentation when used in _ready
 	await RenderingServer.frame_post_draw
 		
-	var explored_area_material: ShaderMaterial = explored_area_rect.material as ShaderMaterial
-	if not explored_area_material:
+	_explored_area_material = explored_area_rect.material as ShaderMaterial
+	if not _explored_area_material:
 		push_error("%s: ExploredArea subviewport color rect does not have a shader material!" % name)
 		return
 
 	var visible_area_tex := visible_area_viewport.get_texture()
-	explored_area_material.set_shader_parameter(&"visible_data_texture", visible_area_tex)
+	_explored_area_material.set_shader_parameter(&"visible_data_texture", visible_area_tex)
 	
 	var fow_texture := explored_area_viewport.get_texture()
 	if use_post_process_overlay:
 		_init_post_process_shader(fow_texture)
 	if use_terrain_overlay:
 		_init_terrain_shader(fow_texture)
+
+	# Prevents a brief "white clear" that permanently sets everything to explored on start
+	_clear_explored()
+
+func _clear_explored() -> void:
+	explored_area_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+	
+	# Also need to clear the explored area memory
+	# This didn't work and setting "Transparent BG" on the explored area DID clear it to black
+	# but leaving this here in case we do want to clear it through gameplay
+	
+	_explored_area_material.set_shader_parameter(&"reset", true)
+	await get_tree().create_timer(0.1).timeout
+	_explored_area_material.set_shader_parameter(&"reset", false)
 
 func _init_post_process_shader(fow_texture: ViewportTexture) -> void:
 	if not post_process_quad:

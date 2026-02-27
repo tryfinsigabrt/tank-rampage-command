@@ -6,9 +6,21 @@
 script = ExtResource("1_8mbst")
 
 [node name="VisibleSprite" type="Sprite2D" parent="." unique_id=1908919860]
-position = Vector2(150, 100)
+position = Vector2(150, 150)
 scale = Vector2(0.5, 0.5)
 
+[node name="VisibleLabel" type="Label" parent="." unique_id=1461905000]
+offset_left = 120.0
+offset_right = 186.0
+offset_bottom = 23.0
+text = "Visible"
+
 [node name="ExploredSprite" type="Sprite2D" parent="." unique_id=801379117]
-position = Vector2(500, 100)
+position = Vector2(500, 150)
 scale = Vector2(0.5, 0.5)
+
+[node name="ExploredLabel" type="Label" parent="." unique_id=655008441]
+offset_left = 475.0
+offset_right = 541.0
+offset_bottom = 23.0
+text = "Explored"

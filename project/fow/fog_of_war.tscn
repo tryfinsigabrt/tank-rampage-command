@@ -20,11 +20,12 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot6aq"]
 shader = ExtResource("1_n1b4i")
 shader_parameter/blur_amount = 1.5
+shader_parameter/reset = false
 
 [node name="FogOfWar" type="Node" unique_id=1445970781]
 script = ExtResource("1_ot6aq")
 
-[node name="FoWPostProcess" type="MeshInstance3D" parent="." unique_id=92291872]
+[node name="FowPostProcess" type="MeshInstance3D" parent="." unique_id=92291872]
 material_override = SubResource("ShaderMaterial_5w83h")
 cast_shadow = 0
 extra_cull_margin = 16384.0
@@ -58,6 +59,7 @@ script = ExtResource("2_othas")
 
 [node name="ExploredArea" type="SubViewport" parent="." unique_id=910021185]
 disable_3d = true
+transparent_bg = true
 handle_input_locally = false
 snap_2d_vertices_to_pixel = true
 anisotropic_filtering_level = 0
@@ -79,3 +81,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 1)
