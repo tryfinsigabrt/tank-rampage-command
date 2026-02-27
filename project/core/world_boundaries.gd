@@ -2,6 +2,38 @@ class_name WorldBoundaries extends Area3D
 
 var _exited_bodies:Dictionary[int,bool] = {}
 
+var _bounds:AABB
+
+var bounds:AABB:
+	get:
+		return _bounds
+		
+func _ready() -> void:
+	for child in get_children():
+		var collision_shape:CollisionShape3D = child as CollisionShape3D
+		if collision_shape and collision_shape.shape:
+			var center:Vector3 = collision_shape.global_position
+			var shape:Shape3D = collision_shape.shape
+			if shape is BoxShape3D:
+				_bounds = _bounds.expand(center + shape.size)
+				_bounds = _bounds.expand(center - shape.size)
+			elif shape is SphereShape3D:
+				_bounds = _bounds.expand(center + shape.radius)
+				_bounds = _bounds.expand(center - shape.radius)
+			else:
+				push_warning("%s: Unsupported shape %s" % [name, collision_shape])
+		elif not collision_shape:
+			var collision_poly:CollisionPolygon3D = child as CollisionPolygon3D
+			if collision_poly:
+				var center:Vector3 = collision_poly.global_position
+				var points:PackedVector2Array = collision_poly.polygon
+				for point in points:
+					var point_3d:Vector3 = Vector3(point.x, collision_poly.depth, point.y)
+					_bounds = _bounds.expand(center + point_3d)
+					
+	# Convert bounds to world space
+	print_debug("%s: World boundaries AABB=%s" % [name, _bounds])
+				
 func _on_body_entered(body: Node3D) -> void:
 	print_debug("%s: body entered: %s" % [name, body])
 	if not body.has_signal(&"on_entered_world_boundaries"):
