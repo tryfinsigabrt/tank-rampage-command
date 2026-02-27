@@ -1,7 +1,7 @@
-extends Node2D
+extends Control
 
-@onready var visible_sprite: Sprite2D = $VisibleSprite
-@onready var explored_sprite: Sprite2D = $ExploredSprite
+@onready var visible_sprite: Sprite2D = %VisibleSprite
+@onready var explored_sprite: Sprite2D = %ExploredSprite
 
 
 func _ready() -> void:

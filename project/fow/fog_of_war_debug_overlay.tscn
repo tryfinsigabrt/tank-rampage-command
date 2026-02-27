@@ -2,24 +2,48 @@
 
 [ext_resource type="Script" uid="uid://d0ej5ovh5yc4a" path="res://fog_of_war_debug_overlay.gd" id="1_8mbst"]
 
-[node name="FogOfWarDebugOverlay" type="Node2D" unique_id=1104952790]
+[node name="FogOfWarDebugOverlay" type="Control" unique_id=1922484708]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_8mbst")
 
-[node name="VisibleSprite" type="Sprite2D" parent="." unique_id=1908919860]
-position = Vector2(150, 150)
+[node name="VisibleOutline" type="ReferenceRect" parent="." unique_id=655599911]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 562.0
+offset_bottom = 562.0
 scale = Vector2(0.5, 0.5)
+border_width = 4.0
+editor_only = false
+
+[node name="VisibleSprite" type="Sprite2D" parent="VisibleOutline" unique_id=1908919860]
+unique_name_in_owner = true
+centered = false
+
+[node name="ExploredOutline" type="ReferenceRect" parent="." unique_id=1316033888]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 50.0
+offset_right = 912.0
+offset_bottom = 562.0
+scale = Vector2(0.5, 0.5)
+border_width = 4.0
+editor_only = false
+
+[node name="ExploredSprite" type="Sprite2D" parent="ExploredOutline" unique_id=801379117]
+unique_name_in_owner = true
+centered = false
 
 [node name="VisibleLabel" type="Label" parent="." unique_id=1461905000]
+layout_mode = 0
 offset_left = 120.0
 offset_right = 186.0
 offset_bottom = 23.0
 text = "Visible"
 
-[node name="ExploredSprite" type="Sprite2D" parent="." unique_id=801379117]
-position = Vector2(500, 150)
-scale = Vector2(0.5, 0.5)
-
 [node name="ExploredLabel" type="Label" parent="." unique_id=655008441]
+layout_mode = 0
 offset_left = 475.0
 offset_right = 541.0
 offset_bottom = 23.0
