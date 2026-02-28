@@ -1,7 +1,7 @@
 class_name FogOfWar extends Node
 
 @export
-var visibility_tick_rate:float = 0.2
+var visibility_tick_rate:float = 0.19
 
 ## Ground or Terrain3D instance
 @export
@@ -13,11 +13,9 @@ var use_post_process_overlay:bool = true
 @export
 var use_terrain_overlay:bool = false
 
-
 ## Enable/Disable temporarily for testing purposes
 @export
 var enable:bool = true
-
 
 @onready var visible_area_viewport: SubViewport = $VisibleArea
 @onready var visible_multi_mesh_instance: FogOfWarVisibilityInstance = $VisibleArea/MultiMeshInstance2D
@@ -26,8 +24,9 @@ var enable:bool = true
 @onready var explored_area_rect: ColorRect = $ExploredArea/ColorRect
 @onready var post_process_quad: MeshInstance3D = $FowPostProcess
 
+@onready var node_visibility_manager: NodeVisibilityManager = $NodeVisibilityManager
 
-var _player_team:int
+var _player_team:int = -1
 
 var _registered_dissolver_nodes: Dictionary[int, Node3D] = {}
 var _cached_nodes: Array[Node3D]
@@ -39,6 +38,10 @@ var _explored_area_material:ShaderMaterial
 var _world_aabb:AABB
 var _projected_size:Vector2
 
+var player_team:int:
+	get:
+		return _player_team
+		
 var world_to_view_scale:Vector2:
 	get:
 		return _projected_size / map_size
@@ -61,7 +64,7 @@ func _enter_tree() -> void:
 		return
 		
 	SignalBus.on_unit_added.connect(_on_unit_added)
-	SignalBus.on_unit_killed.connect(_on_unit_killed)
+	SignalBus.on_unit_killed.connect(_on_unit_killed.unbind(1))
 	
 # Use process for smoother tick rate
 func _process(delta: float) -> void:
@@ -81,6 +84,7 @@ func _process(delta: float) -> void:
 	
 func _ready() -> void:
 	if not enable:
+		node_visibility_manager.enable = false
 		return
 		
 	_player_team = _get_player_team()
@@ -130,6 +134,28 @@ func project_position(pos:Vector3) -> Vector2:
 	
 	return viewport_pos
 
+func get_fow_value(pos:Vector3) -> Color:
+	# Read the value of the texture on explored_area_viewport converting pos to the image pixel coordinates (inverse of project_position)
+	var viewport_pos:Vector2 = project_position(pos)
+	
+	var fow_texture:ViewportTexture = explored_area_viewport.get_texture()
+	if not fow_texture:
+		return Color.BLACK
+
+	var image:Image = fow_texture.get_image()
+	if not image or image.is_empty():
+		return Color.BLACK
+
+	var image_size:Vector2i = image.get_size()
+	if image_size.x <= 0 or image_size.y <= 0:
+		return Color.BLACK
+
+	var pixel:Vector2i = Vector2i(viewport_pos.floor())
+	pixel.x = clampi(pixel.x, 0, image_size.x - 1)
+	pixel.y = clampi(pixel.y, 0, image_size.y - 1)
+
+	return image.get_pixelv(pixel)
+	
 func _clear_explored() -> void:
 	explored_area_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
 	
@@ -185,9 +211,14 @@ func _get_player_team() -> int:
 	return match_team.team
 		
 func _on_unit_added(unit:Unit) -> void:
+	if not unit.is_on_team(_player_team):
+		return
 	_registered_dissolver_nodes[unit.get_instance_id()] = unit
 	_nodes_dirty = true
 
 func _on_unit_killed(unit:Unit) -> void:
+	if not unit.is_on_team(_player_team):
+		return
+		
 	_registered_dissolver_nodes.erase(unit.get_instance_id())
 	_nodes_dirty = true

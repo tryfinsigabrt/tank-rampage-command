@@ -6,6 +6,7 @@ class_name HumanTank extends Unit
 @onready var collision: CollisionShape3D = $Collision
 @onready var game_unit_navigation: GameUnitNavigation = $GameUnitNavigation
 @onready var health_stat: HealthStat = %HealthStat
+@onready var ui: Node3D = %UI
 
 @export_range(0.0, 90.0, 0.01)
 var turret_aim_tolerance_deg:float = 1.0
@@ -106,3 +107,7 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)
 	if health_stat.is_dead:
 		_die(damage_params)
+
+func _update_render() -> void:
+	body.visible = render
+	ui.visible = render

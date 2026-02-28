@@ -46,6 +46,13 @@ var unit_class:UnitClass
 @export_range(1.0, 1e9, 0.1, "or_greater")
 var vision:float = 50.0
 
+var render:bool = true:
+	set(value):
+		if value == render:
+			return
+		render = value
+		_update_render()
+
 var unit_class_group:StringName:
 	get:
 		return group_for_class(unit_class)
@@ -74,6 +81,10 @@ func shoot() -> void
 
 @abstract
 func _is_moving() -> bool
+
+## Hides or shows the visual instance
+@abstract
+func _update_render() -> void
 
 func _is_alive() -> bool:
 	return true
