@@ -11,6 +11,9 @@ func _ready() -> void:
 	if not fog_of_war:
 		push_error("%s: Not added to fog of war parent" % name)
 		return
-	
+	if not fog_of_war.enable:
+		hide()
+		return
+		
 	visible_sprite.texture = fog_of_war.visible_area_viewport.get_texture()
 	explored_sprite.texture = fog_of_war.explored_area_viewport.get_texture()

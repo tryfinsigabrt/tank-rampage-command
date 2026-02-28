@@ -30,7 +30,7 @@ agent_max_slope = 60.0
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
 size = Vector3(600, 100, 525)
 
-[node name="TestAI" type="Node3D" unique_id=1293608661]
+[node name="TestFOW" type="Node3D" unique_id=1293608661]
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
@@ -167,11 +167,20 @@ team = 1
 [node name="Player" parent="World/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_6nnxe")]
 player_team = NodePath("..")
 
-[node name="RTSCamera" parent="World/PlayerTeam/Player" index="0" unique_id=2011851028]
-confine_mouse_to_viewport = false
-
 [node name="PlayerTank" parent="World/PlayerTeam/Player" unique_id=260396010 instance=ExtResource("7_1t5eo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 94)
+team = 1
+
+[node name="PlayerTank2" parent="World/PlayerTeam/Player" unique_id=478821906 instance=ExtResource("7_1t5eo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 94)
+team = 1
+
+[node name="PlayerTank3" parent="World/PlayerTeam/Player" unique_id=1144228957 instance=ExtResource("7_1t5eo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 108)
+team = 1
+
+[node name="PlayerTank4" parent="World/PlayerTeam/Player" unique_id=839342163 instance=ExtResource("7_1t5eo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
 
 [node name="FogOfWar" parent="World" unique_id=1445970781 node_paths=PackedStringArray("terrain") instance=ExtResource("8_6nnxe")]

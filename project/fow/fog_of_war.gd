@@ -13,6 +13,12 @@ var use_post_process_overlay:bool = true
 @export
 var use_terrain_overlay:bool = false
 
+
+## Enable/Disable temporarily for testing purposes
+@export
+var enable:bool = true
+
+
 @onready var visible_area_viewport: SubViewport = $VisibleArea
 @onready var visible_multi_mesh_instance: FogOfWarVisibilityInstance = $VisibleArea/MultiMeshInstance2D
 
@@ -50,6 +56,10 @@ var map_origin:Vector2:
 		return Vector2(map_bounds_pos.x, map_bounds_pos.z)
 				
 func _enter_tree() -> void:
+	if not enable:
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
+		
 	SignalBus.on_unit_added.connect(_on_unit_added)
 	SignalBus.on_unit_killed.connect(_on_unit_killed)
 	
@@ -70,6 +80,9 @@ func _process(delta: float) -> void:
 	_accum_delta = 0.0
 	
 func _ready() -> void:
+	if not enable:
+		return
+		
 	_player_team = _get_player_team()
 	
 	# Recommended await per the get_texture() function documentation when used in _ready
@@ -104,12 +117,12 @@ func _ready() -> void:
 func project_position(pos:Vector3) -> Vector2:
 	# Remap coordinates so that pos of 0,0 is top left of the bounding box
 	var adjusted_pos:Vector3 = pos - _world_aabb.position
-	var map_size:Vector3 = _world_aabb.size
+	var projected_size:Vector3 = _world_aabb.size
 
 	# Convert World XZ to a percentage (0.0 to 1.0) i.e. a uv coordinate
 	var uv:Vector2 = Vector2(
-		adjusted_pos.x / map_size.x,
-		adjusted_pos.z / map_size.z
+		adjusted_pos.x / projected_size.x,
+		adjusted_pos.z / projected_size.z
 	).clampf(0.0, 1.0)
 
 	# Multiply by viewport size to get the pixel coordinate
