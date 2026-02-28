@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dg44egwlcoaq4"]
+
+[ext_resource type="Script" uid="uid://3kakp0wqatxw" path="res://ai/enemy/ai_unit_vision.gd" id="1_4rjyc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ajf7l"]
+
+[node name="AiUnitVision" type="Area3D" unique_id=1398532128]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_4rjyc")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=281523214]
+shape = SubResource("SphereShape3D_ajf7l")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

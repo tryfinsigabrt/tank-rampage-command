@@ -1,5 +1,7 @@
 class_name TeamUnits extends Node
 
+const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
+
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
 @warning_ignore("unused_signal")
@@ -18,10 +20,17 @@ var units:Array[Unit]:
 	get: return _get_units_array()
 
 func add_unit(unit:Unit) -> void:
+	_init_unit(unit)
+	
 	_units[unit.get_instance_id()] = unit
 	_dirty = true
 	unit.died.connect(_on_unit_destroyed.bind(unit).unbind(1))
-	
+
+func _init_unit(unit:Unit) -> void:
+	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
+	if GameManager.fog_of_war:
+		unit.add_child(ai_unit_vision_scene.instantiate())
+		
 func has_unit_id(id:int) -> bool:
 	return _units.has(id)
 
