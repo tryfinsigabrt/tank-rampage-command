@@ -7,6 +7,8 @@ const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
 @warning_ignore("unused_signal")
 signal initialized
 
+signal enemy_visibility_changed(unit:Unit, unit_is_visible:bool)
+
 var team:int
 
 var _units:Dictionary[int, Unit] = {}
@@ -29,7 +31,9 @@ func add_unit(unit:Unit) -> void:
 func _init_unit(unit:Unit) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:
-		unit.add_child(ai_unit_vision_scene.instantiate())
+		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
+		ai_unit_vision.enemy_visibility_changed.connect(_on_enemy_visibility_changed)
+		unit.add_child(ai_unit_vision)
 		
 func has_unit_id(id:int) -> bool:
 	return _units.has(id)
@@ -62,3 +66,6 @@ func get_average_position() -> Vector3:
 		position += unit.global_position
 	
 	return position / _units.size()
+	
+func _on_enemy_visibility_changed(unit:Unit, unit_is_visible:bool) -> void:
+	enemy_visibility_changed.emit(unit, unit_is_visible)

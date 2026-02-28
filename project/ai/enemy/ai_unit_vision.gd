@@ -2,6 +2,8 @@
 ## This is only added if fow enabled
 class_name AiUnitVision extends Area3D
 
+signal enemy_visibility_changed(unit:Unit, unit_is_visible:bool)
+
 var _unit:Unit
 var _vision_counts:Dictionary[int,int] = {}
 
@@ -39,7 +41,9 @@ func _update_visibility(body: Node3D, diff:int) -> void:
 		if updated_count == 1:
 			print_debug("%s: body=%s is visible to %s" % [name, body.name, _unit.name])
 			unit.set_visible_to(_unit.team, true)
+			enemy_visibility_changed.emit(unit, true)
 	else:
 		_vision_counts.erase(id)
 		print_debug("%s: body=%s no longer visible to %s" % [name, body.name, _unit.name])
 		unit.set_visible_to(_unit.team, false)
+		enemy_visibility_changed.emit(unit, false)

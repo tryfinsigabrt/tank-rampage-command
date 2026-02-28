@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="13_n57he"]
+[ext_resource type="Script" uid="uid://ce1oqlpwm34xd" path="res://ai/enemy/enemy_visibility_manager.gd" id="14_kcdlb"]
 [ext_resource type="Script" uid="uid://cjijciejb75gg" path="res://ai/enemy/attack_selector.gd" id="14_mmd2m"]
 [ext_resource type="Script" uid="uid://cyiw3epu4jer6" path="res://ai/enemy/world_boundaries_checker.gd" id="16_vitsf"]
 
@@ -81,6 +82,9 @@ script = ExtResource("5_4jxhc")
 
 [node name="UnitSweeper" type="Node" parent="GlobalServices/EnemyScanner" unique_id=2076683843]
 script = ExtResource("13_n57he")
+
+[node name="EnemyVisibilityManager" type="Node" parent="GlobalServices/EnemyScanner" unique_id=2074651770]
+script = ExtResource("14_kcdlb")
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyScanner" unique_id=464442711]
 wait_time = 0.2

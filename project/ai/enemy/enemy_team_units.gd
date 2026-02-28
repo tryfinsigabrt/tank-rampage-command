@@ -13,11 +13,15 @@ func has_unit_id(id:int) -> bool:
 func has_unit(unit:Unit) -> bool:
 	return is_instance_valid(unit) and has_unit_id(unit.get_instance_id())
 	
-func get_unit(id:int) -> Unit:
-	var unit:Unit = units.get(id)
-	if unit and is_instance_valid(unit):
-		return unit
+func get_unit_data(id:int) -> UnitData:
+	var data:UnitData = units.get(id)
+	if data and is_instance_valid(data.unit):
+		return data
 	return null
+
+func get_unit(id:int) -> Unit:
+	var data := get_unit_data(id)
+	return data.unit if data else null
 	
 func mark_all_not_visible() -> void:
 	for unit in units.values():
