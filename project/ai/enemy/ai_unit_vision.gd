@@ -14,9 +14,11 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	
 	# Set radius to unit vision radius
 	collision.shape.radius = _unit.vision
+	# Set mask to look for enemy team nodes
+	var mask:int = Collisions.enemy_team_mask(_unit.team)
+	collision_mask = mask
 
 func _on_body_entered(body: Node3D) -> void:
 	_update_visibility(body, 1)
@@ -27,9 +29,6 @@ func _on_body_exited(body: Node3D) -> void:
 func _update_visibility(body: Node3D, diff:int) -> void:
 	var unit:Unit = body as Unit
 	if not unit:
-		return
-	# Exclude units on same team as always can see these - including ourselves
-	if unit == _unit or unit.on_same_team(_unit):
 		return
 		
 	var id:int = unit.get_instance_id()

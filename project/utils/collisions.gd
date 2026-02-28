@@ -30,8 +30,11 @@ class CompositeMasks:
 	
 	const all_teams:int = Layers.team_1 | Layers.team_2
 	
-func enemy_team_mask(team_mask:int) -> int:
-	return CompositeMasks.all_teams & ~team_mask
+func enemy_team_mask(team:int) -> int:
+	var team_mask:int = Layers.team_masks.get(team, 0)
+	if team_mask == 0:
+		push_warning("Collisions: Invalid team=%d" % team)
+	return CompositeMasks.all_teams ^ team_mask
 	
 func add_exception_for_layer_and_group(in_body: Node, layer:int, group:StringName) -> void:
 	in_body.collision_mask &= ~layer

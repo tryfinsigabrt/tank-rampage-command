@@ -12,8 +12,11 @@ class Layers:
 	
 	const all_teams:int = team_1 | team_2
 
-static func enemy_team_mask(team_mask:int) -> int:
-	return Layers.all_teams & ~team_mask
+static func enemy_team_mask(team:int) -> int:
+	var team_mask:int = Layers.team_masks.get(team, 0)
+	if team_mask == 0:
+		push_warning("Collisions: Invalid team=%d" % team)
+	return Layers.all_teams ^ team_mask
 	
 static func apply_team_collision_layer(root: Node, team: int, recursive:bool = true) -> void:
 	if not is_instance_valid(root):

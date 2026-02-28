@@ -100,7 +100,6 @@ func _ready() -> void:
 #region Teams
 
 func refresh_team_layers() -> void:
-	# TODO: May remove having dedicated layers for visibility and collisions per team
 	Collisions.apply_team_collision_layer(self, team)
 	Visibility.apply_team_collision_layer(self, team)
 	if GameManager.fog_of_war:
