@@ -156,9 +156,13 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	return not _unit_was_targeted or targeted_unit
+	return not _unit_was_targeted or (targeted_unit and targeted_unit.is_visible_to(controlled_unit.team))
 	
 func _check_target_los() -> bool:
+	# If targeting unit make sure it is visible to us
+	if targeted_unit and not targeted_unit.is_visible_to(controlled_unit.team):
+		return false
+		
 	var space_state := get_world_3d().direct_space_state
 	
 	var from:Vector3 = controlled_unit.get_fire_global_position()

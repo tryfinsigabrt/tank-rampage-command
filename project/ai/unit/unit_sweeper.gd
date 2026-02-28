@@ -20,7 +20,8 @@ func _create_sweep_shape() -> RID:
 	
 	return shape_rid
 	
-func sweep_units(center:Vector3, exclude:Array[Unit]) -> Array[Unit]:
+## Sweep for units for indicated center point, excluding passed units, and optionally checking if visible to team if > 0
+func sweep_units(center:Vector3, exclude:Array[Unit], team:int) -> Array[Unit]:
 	var params := PhysicsShapeQueryParameters3D.new()
 	params.collide_with_areas = false
 	params.collide_with_bodies = true
@@ -39,7 +40,7 @@ func sweep_units(center:Vector3, exclude:Array[Unit]) -> Array[Unit]:
 	
 	for result in results:
 		var unit:Unit = result.get("collider") as Unit
-		if unit and not unit in units:
+		if unit and (unit.is_visible_to(team) or team <= 0) and not unit in units:
 			units.push_back(unit)
 	
 	return units

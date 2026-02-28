@@ -23,7 +23,7 @@ shader = ExtResource("1_n1b4i")
 shader_parameter/blur_amount = 1.5
 shader_parameter/reset = false
 
-[node name="FogOfWar" type="Node" unique_id=1445970781]
+[node name="FogOfWar" type="Node" unique_id=1445970781 groups=["FogOfWar"]]
 process_mode = 1
 script = ExtResource("1_ot6aq")
 

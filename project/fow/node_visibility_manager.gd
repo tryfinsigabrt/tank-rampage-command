@@ -62,6 +62,7 @@ func _update() -> void:
 			var fow_color:Color = fog_of_war.get_fow_value(world_pos)
 			var visible:bool = fow_color.r >= visible_channel_threshold
 			node.render = visible
+			node.set_visible_to(fog_of_war.player_team, visible)
 		# TODO: Buildings require a more complex approach using its AABB and checking if any point is above the threshold
 	
 	

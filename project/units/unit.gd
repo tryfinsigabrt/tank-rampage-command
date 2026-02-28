@@ -53,6 +53,8 @@ var render:bool = true:
 		render = value
 		_update_render()
 
+var team_visibility_mask:int
+	
 var unit_class_group:StringName:
 	get:
 		return group_for_class(unit_class)
@@ -98,8 +100,14 @@ func _ready() -> void:
 #region Teams
 
 func refresh_team_layers() -> void:
+	# TODO: May remove having dedicated layers for visibility and collisions per team
 	Collisions.apply_team_collision_layer(self, team)
 	Visibility.apply_team_collision_layer(self, team)
+	if GameManager.fog_of_war:
+		set_visible_to(team, true)
+	else:
+		# Everything visible
+		team_visibility_mask = 0xffffffff
 	
 func on_same_team(unit:Unit) -> bool:
 	return unit and unit.team == team
@@ -107,6 +115,19 @@ func on_same_team(unit:Unit) -> bool:
 func is_on_team(in_team:int) -> bool:
 	return team == in_team
 
+static func to_team_mask(in_team:int) -> int:
+	return in_team << (in_team - 1)
+	
+func is_visible_to(in_team:int) -> bool:
+	return team_visibility_mask & to_team_mask(in_team)
+
+func set_visible_to(in_team:int, in_visible:bool):
+	var team_mask:int = to_team_mask(in_team)
+	if in_visible:
+		team_visibility_mask |= team_mask
+	else:
+		team_visibility_mask &= ~team_mask
+	
 # TODO: Right now don't have concept of allied teams but this leaves that open for future
 func is_ally(unit:Unit) -> bool:
 	return on_same_team(unit)

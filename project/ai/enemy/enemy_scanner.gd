@@ -15,7 +15,7 @@ func _tick() -> void:
 	var enemy_data:EnemyTeams = blackboard.enemy_teams_info
 	enemy_data.mark_all_not_visible()
 	
-	var enemies:Array[Unit] = unit_sweeper.sweep_units(attention_center, blackboard.team_info.units)
+	var enemies:Array[Unit] = unit_sweeper.sweep_units(attention_center, blackboard.team_info.units, blackboard.team)
 	_new_visible_enemies.clear()
 	
 	if LogUtils.verbose:

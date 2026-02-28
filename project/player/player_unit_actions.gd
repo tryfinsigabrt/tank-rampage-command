@@ -137,7 +137,7 @@ func _handle_attack(event: InputEvent) -> void:
 	var result:Dictionary
 	var selected_unit:Unit = node_picker.pick_unit(event)
 	
-	if not selected_unit:
+	if not selected_unit or not selected_unit.is_visible_to(team):
 		result = node_picker.pick_ground(event)
 		
 	if result or selected_unit:
@@ -149,7 +149,7 @@ func _handle_attack(event: InputEvent) -> void:
 
 func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = node_picker.pick_unit(event)
-	if new_unit:
+	if new_unit and new_unit.is_visible_to(team):
 		selection_manager.add(new_unit)
 	else:
 		print_debug("%s: Clear Selection" % name)

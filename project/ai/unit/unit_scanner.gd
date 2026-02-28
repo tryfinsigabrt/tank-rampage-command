@@ -57,7 +57,7 @@ func _ready() -> void:
 	_on_enable_changed()
 		
 func _tick() -> void:
-	var threats := sweeper.sweep_units(my_unit.global_position, _get_team_units())
+	var threats := sweeper.sweep_units(my_unit.global_position, _get_team_units(), _team.team if _team else 0)
 	if threats:
 		threats_detected.emit(threats)
 

@@ -13,6 +13,7 @@ const UnitActions:StringName = &"UnitActions"
 
 const Damageable:StringName = &"Damageable"
 const WorldBoundaries:StringName = &"WorldBoundaries"
+const FogOfWar:StringName = &"FogOfWar"
 
 @warning_ignore_restore("shadowed_global_identifier")
 

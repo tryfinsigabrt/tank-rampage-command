@@ -104,9 +104,9 @@ func set_selection_multiple(units: Array[Unit]) -> void:
 			add(new[id])
 		
 func add(unit:Unit) -> bool:
-	if not unit:
+	if not unit or not unit.is_visible_to(team):
 		return false
-	print_debug("%s: Selected unit=%s on team=%d; out_team=%d" % [name, unit.name, unit.team, team])
+	print_debug("%s: Selected unit=%s on team=%d; our_team=%d" % [name, unit.name, unit.team, team])
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(
 			unit.global_position, 5.0
