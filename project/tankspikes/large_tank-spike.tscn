@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bq4xgttpcjwl4"]
 
-[ext_resource type="PackedScene" uid="uid://d0r6imcw0aiic" path="res://tankspikes/large-tank-spike.glb" id="1_y1qd2"]
-[ext_resource type="Texture2D" uid="uid://sanwoo7lpewn" path="res://tankspikes/large-tank-spikes_albedo.png" id="2_oqoc6"]
-[ext_resource type="Texture2D" uid="uid://5yws75cb883h" path="res://tankspikes/large-tank-spikes_orm.png" id="3_d4k1m"]
-[ext_resource type="Texture2D" uid="uid://d1haputvbrcui" path="res://tankspikes/large-tank-spikes_normal.png" id="4_hixhd"]
+[ext_resource type="PackedScene" uid="uid://d0r6imcw0aiic" path="res://tankspikes/assets/large-tank-spike.glb" id="1_y1qd2"]
+[ext_resource type="Texture2D" uid="uid://sanwoo7lpewn" path="res://tankspikes/assets/large-tank-spikes_albedo.png" id="2_oqoc6"]
+[ext_resource type="Texture2D" uid="uid://5yws75cb883h" path="res://tankspikes/assets/large-tank-spikes_orm.png" id="3_d4k1m"]
+[ext_resource type="Texture2D" uid="uid://d1haputvbrcui" path="res://tankspikes/assets/large-tank-spikes_normal.png" id="4_hixhd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ds0j"]
 albedo_texture = ExtResource("2_oqoc6")

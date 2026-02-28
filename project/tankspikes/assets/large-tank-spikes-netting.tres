@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dkxfnit04r2yw"]
+
+[ext_resource type="Texture2D" uid="uid://71qtj7r7jky5" path="res://tankspikes/assets/large-tank-spikes-netting_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://6233xwckgw4v" path="res://tankspikes/assets/large-tank-spikes-netting_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cg1mxwx5y0urd" path="res://tankspikes/assets/large-tank-spikes-netting_normal.png" id="3"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+albedo_texture = ExtResource("1")
+roughness_texture = ExtResource("2")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("2")
+texture_filter = 5

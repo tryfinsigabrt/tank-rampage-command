@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dxrr43foe4bms"]
+
+[ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://tankspikes/large_tank-spike.tscn" id="1_ttlxs"]
+[ext_resource type="PackedScene" uid="uid://bv1h27to7yruj" path="res://tankspikes/netting.tscn" id="2_fiqty"]
+
+[node name="large-tank-spike-with-netting" unique_id=959962087 instance=ExtResource("1_ttlxs")]
+
+[node name="large-tank-spike-netting" parent="." index="1" unique_id=1326514600 instance=ExtResource("2_fiqty")]
