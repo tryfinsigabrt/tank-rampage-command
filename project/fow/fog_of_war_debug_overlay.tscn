@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cl75y4etufctb"]
 
-[ext_resource type="Script" uid="uid://d0ej5ovh5yc4a" path="res://fog_of_war_debug_overlay.gd" id="1_8mbst"]
+[ext_resource type="Script" uid="uid://d0ej5ovh5yc4a" path="res://fow/fog_of_war_debug_overlay.gd" id="1_8mbst"]
 
 [node name="FogOfWarDebugOverlay" type="Control" unique_id=1922484708]
 layout_mode = 3
