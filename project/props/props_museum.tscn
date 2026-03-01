@@ -1,9 +1,71 @@
 [gd_scene format=3 uid="uid://dnybtwmdla40v"]
 
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://b6a7acabed2cy" path="res://props/sandbags/straight_sandbag_barrier.tscn" id="1_rnl7t"]
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="2_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="4_y20a5"]
+
+[sub_resource type="Animation" id="Animation_bhxhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(16.5, 2.5, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.75049156, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y20a5"]
+resource_name = "beauty"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(11.995, 1.62, 13.66), Vector3(-22.345, 6.305, 13.515)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 0.9659363),
+"update": 0,
+"values": [Vector3(0, 0.49741885, 0), Vector3(-0.21816616, -0.7784169, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ko5u"]
+_data = {
+&"RESET": SubResource("Animation_bhxhu"),
+&"beauty": SubResource("Animation_y20a5")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ko5u"]
 albedo_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
@@ -12,91 +74,109 @@ albedo_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
 material = SubResource("StandardMaterial3D_8ko5u")
 size = Vector2(200, 200)
 
-[node name="Node3D" type="Node3D" unique_id=144309689]
+[node name="Museum" type="Node3D" unique_id=144309689]
 
-[node name="straight-sandbag-barrier" parent="." unique_id=1083993994 instance=ExtResource("1_rnl7t")]
+[node name="BeautyCam" type="Camera3D" parent="." unique_id=1820950375]
+transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 16.5, 2.5, 16)
+fov = 45.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BeautyCam" unique_id=464215799]
+libraries/ = SubResource("AnimationLibrary_8ko5u")
+autoplay = &"beauty"
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1067294858]
+mesh = SubResource("PlaneMesh_fdxvd")
+
+[node name="Tanks" type="Node3D" parent="." unique_id=2063336032]
+
+[node name="HumanTank" parent="Tanks" unique_id=260396010 instance=ExtResource("1_0lcq6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.183264, 0, -0.018314362)
+
+[node name="HumanTank2" parent="Tanks" unique_id=1682929173 instance=ExtResource("1_0lcq6")]
+transform = Transform3D(-0.034672827, 0, -0.99939877, 0, 1, 0, 0.99939877, 0, -0.034672827, 7.9783783, 9.536743e-07, -1.9567838)
+
+[node name="Props" type="Node3D" parent="." unique_id=1438964989]
+
+[node name="straight-sandbag-barrier" parent="Props" unique_id=1083993994 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2382174, 0.1, 0.9617944)
 
-[node name="straight-sandbag-barrier8" parent="." unique_id=1518378207 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier8" parent="Props" unique_id=1518378207 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(0.73119897, 0, 0.6821643, 0, 1, 0, -0.6821643, 0, 0.73119897, 0.9024086, 0.1, 5.5342145)
 
-[node name="straight-sandbag-barrier2" parent="." unique_id=700343747 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier2" parent="Props" unique_id=700343747 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3178167, 0.1, 12.078769)
 
-[node name="straight-sandbag-barrier3" parent="." unique_id=1271640335 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier3" parent="Props" unique_id=1271640335 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.660053, 0.1, 0.64866257)
 
-[node name="straight-sandbag-barrier7" parent="." unique_id=999948878 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier7" parent="Props" unique_id=999948878 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6797905, 0.1, 4.8607445)
 
-[node name="straight-sandbag-barrier6" parent="." unique_id=151586091 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier6" parent="Props" unique_id=151586091 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(-0.00848216, 0, 0.999964, 0, 1, 0, -0.999964, 0, -0.00848216, -10.662048, 0.1, -7.565119)
 
-[node name="straight-sandbag-barrier4" parent="." unique_id=301123090 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier4" parent="Props" unique_id=301123090 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(-0.1406248, 0, -0.99006295, 0, 1, 0, 0.99006295, 0, -0.1406248, -4.2104187, 0.1, -6.580227)
 
-[node name="straight-sandbag-barrier5" parent="." unique_id=2019774855 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier5" parent="Props" unique_id=2019774855 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(-0.1406248, 0, -0.99006295, 0, 1, 0, 0.99006295, 0, -0.1406248, 1.4809866, 0.1, -5.8191695)
 
-[node name="straight-sandbag-barrier9" parent="." unique_id=869128431 instance=ExtResource("1_rnl7t")]
+[node name="straight-sandbag-barrier9" parent="Props" unique_id=869128431 instance=ExtResource("1_rnl7t")]
 transform = Transform3D(0.20620412, 0, -0.97850895, 0, 1, 0, 0.97850895, 0, 0.20620412, -2.076, 0.1, 11.52)
 
-[node name="landmine" parent="." unique_id=1356064904 instance=ExtResource("2_0lcq6")]
+[node name="landmine" parent="Props" unique_id=1356064904 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.460904, 0, -20.653233)
 
-[node name="landmine2" parent="." unique_id=724327813 instance=ExtResource("2_0lcq6")]
+[node name="landmine2" parent="Props" unique_id=724327813 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.251766, 0, -21.546762)
 
-[node name="landmine3" parent="." unique_id=921054692 instance=ExtResource("2_0lcq6")]
+[node name="landmine3" parent="Props" unique_id=921054692 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.251373, 0, -21.345922)
 
-[node name="landmine4" parent="." unique_id=765900746 instance=ExtResource("2_0lcq6")]
+[node name="landmine4" parent="Props" unique_id=765900746 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.741863, 0, -32.3282)
 
-[node name="landmine5" parent="." unique_id=11816973 instance=ExtResource("2_0lcq6")]
+[node name="landmine5" parent="Props" unique_id=11816973 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.532728, 0, -33.221725)
 
-[node name="landmine6" parent="." unique_id=928675195 instance=ExtResource("2_0lcq6")]
+[node name="landmine6" parent="Props" unique_id=928675195 instance=ExtResource("2_0lcq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.532333, 0, -33.02089)
 
-[node name="large-tank-spike-with-netting" parent="." unique_id=959962087 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting" parent="Props" unique_id=959962087 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2716088, 0, -7.648815)
 
-[node name="large-tank-spike-with-netting2" parent="." unique_id=394789339 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting2" parent="Props" unique_id=394789339 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(0.38967046, 0, -0.92095435, 0, 1, 0, 0.92095435, 0, 0.38967046, 4.4235315, 0, -7.58768)
 
-[node name="large-tank-spike-with-netting3" parent="." unique_id=1974359851 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting3" parent="Props" unique_id=1974359851 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(-0.0031241565, 0, 0.9999951, 0, 1, 0, -0.9999951, 0, -0.0031241565, 6.8771887, 0, -7.1539965)
 
-[node name="large-tank-spike-with-netting4" parent="." unique_id=2017171643 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting4" parent="Props" unique_id=2017171643 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.088137, 0, -6.1012735)
 
-[node name="large-tank-spike-with-netting5" parent="." unique_id=1856992233 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting5" parent="Props" unique_id=1856992233 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(-0.5800919, 0, 0.814551, 0, 1, 0, -0.814551, 0, -0.5800919, 2.8552008, 0, 10.241503)
 
-[node name="large-tank-spike" parent="." unique_id=1371003946 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike" parent="Props" unique_id=1371003946 instance=ExtResource("4_y20a5")]
 transform = Transform3D(-0.5454146, 0, 0.83816636, 0, 1, 0, -0.83816636, 0, -0.5454146, -13.213046, -0.13546169, -1.1894884)
 
-[node name="large-tank-spike2" parent="." unique_id=2007473543 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike2" parent="Props" unique_id=2007473543 instance=ExtResource("4_y20a5")]
 transform = Transform3D(-0.996453, 0.0031605037, -0.084091514, 0.0038699028, 0.9999583, -0.008274378, 0.08406174, -0.008570459, -0.9964239, -29.31662, 0, -24.795202)
 
-[node name="large-tank-spike3" parent="." unique_id=492737522 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike3" parent="Props" unique_id=492737522 instance=ExtResource("4_y20a5")]
 transform = Transform3D(0.50137466, 0, -0.86523026, 0, 1, 0, 0.86523026, 0, 0.50137466, -30.950275, 0, -20.809586)
 
-[node name="large-tank-spike4" parent="." unique_id=1891399094 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike4" parent="Props" unique_id=1891399094 instance=ExtResource("4_y20a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2836785, 0, -10.662015)
 
-[node name="large-tank-spike7" parent="." unique_id=1161888674 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike7" parent="Props" unique_id=1161888674 instance=ExtResource("4_y20a5")]
 transform = Transform3D(-0.9999789, 0, 0.0064924816, 0, 1, 0, -0.0064924816, 0, -0.9999789, -0.56232977, 0, -10.662015)
 
-[node name="large-tank-spike5" parent="." unique_id=1006816714 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike5" parent="Props" unique_id=1006816714 instance=ExtResource("4_y20a5")]
 transform = Transform3D(0.15336527, 0, -0.98816955, 0, 1, 0, 0.98816955, 0, 0.15336527, 2.883965, 0, -10.455855)
 
-[node name="large-tank-spike6" parent="." unique_id=1453038866 instance=ExtResource("4_y20a5")]
+[node name="large-tank-spike6" parent="Props" unique_id=1453038866 instance=ExtResource("4_y20a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.029939, 0, 1.8500246)
 
-[node name="large-tank-spike-with-netting6" parent="." unique_id=1590364607 instance=ExtResource("3_bhxhu")]
+[node name="large-tank-spike-with-netting6" parent="Props" unique_id=1590364607 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(0.37310117, 0, 0.9277907, 0, 1, 0, -0.9277907, 0, 0.37310117, -4.123106, 0, -6.2877803)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1067294858]
-mesh = SubResource("PlaneMesh_fdxvd")
