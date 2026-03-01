@@ -15,3 +15,4 @@ export_credentials.cfg
 # Godot Add on Ignores
 /demo/
 /examples_dd3d/
+/examples/
