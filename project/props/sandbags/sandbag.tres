@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c0rcvbm7bdrec"]
+
+[ext_resource type="Texture2D" uid="uid://du8yeaenad2v" path="res://props/sandbags/sandbag_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://b1k8d1kbqtus" path="res://props/sandbags/sandbag_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://d2g7fylb7kr6h" path="res://props/sandbags/sandbag_normal.png" id="3"]
+
+[resource]
+albedo_texture = ExtResource("1")
+roughness_texture = ExtResource("2")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3")
+texture_filter = 5

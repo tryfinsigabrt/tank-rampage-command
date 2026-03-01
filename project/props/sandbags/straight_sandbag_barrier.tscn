@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b6a7acabed2cy"]
+
+[ext_resource type="PackedScene" uid="uid://86wbcjpa847h" path="res://props/sandbags/straight-sandbag-barrier.glb" id="1_3fsfm"]
+[ext_resource type="Material" uid="uid://c0rcvbm7bdrec" path="res://props/sandbags/sandbag.tres" id="2_oe30p"]
+[ext_resource type="Material" uid="uid://cjxtvgidbmioa" path="res://props/sandbags/straight-sandbag-barrier.material" id="3_3fsfm"]
+
+[node name="straight-sandbag-barrier" unique_id=1083993994 instance=ExtResource("1_3fsfm")]
+
+[node name="NewSandbagBarrier_Combined" parent="." index="0" unique_id=31855486]
+surface_material_override/0 = ExtResource("2_oe30p")
+surface_material_override/1 = ExtResource("3_3fsfm")
