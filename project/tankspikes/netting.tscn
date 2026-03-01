@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://bv1h27to7yruj"]
-
-[ext_resource type="PackedScene" uid="uid://b7rv3f8mdno2i" path="res://tankspikes/assets/large-tank-spike-netting.glb" id="1_65202"]
-[ext_resource type="Material" uid="uid://dkxfnit04r2yw" path="res://tankspikes/assets/large-tank-spikes-netting.tres" id="2_jyjof"]
-
-[node name="large-tank-spike-netting" unique_id=388123320 instance=ExtResource("1_65202")]
-
-[node name="ClothLow" parent="." index="0" unique_id=1193881140]
-surface_material_override/0 = ExtResource("2_jyjof")

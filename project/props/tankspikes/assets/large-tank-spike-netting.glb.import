@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b7rv3f8mdno2i"
-path="res://.godot/imported/large-tank-spike-netting.glb-56d652d543a2f978623f4859c297f4b9.scn"
+path="res://.godot/imported/large-tank-spike-netting.glb-ea02eade054916e3a71ac8d4e2a76357.scn"
 
 [deps]
 
-source_file="res://tankspikes/assets/large-tank-spike-netting.glb"
-dest_files=["res://.godot/imported/large-tank-spike-netting.glb-56d652d543a2f978623f4859c297f4b9.scn"]
+source_file="res://props/tankspikes/assets/large-tank-spike-netting.glb"
+dest_files=["res://.godot/imported/large-tank-spike-netting.glb-ea02eade054916e3a71ac8d4e2a76357.scn"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg1mxwx5y0urd"
-path.s3tc="res://.godot/imported/large-tank-spikes-netting_normal.png-71c65d63025c99df764a8ce0263bf630.s3tc.ctex"
+uid="uid://5yws75cb883h"
+path.s3tc="res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://tankspikes/assets/large-tank-spikes-netting_normal.png"
-dest_files=["res://.godot/imported/large-tank-spikes-netting_normal.png-71c65d63025c99df764a8ce0263bf630.s3tc.ctex"]
+source_file="res://props/tankspikes/assets/large-tank-spikes_orm.png"
+dest_files=["res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.s3tc.ctex"]
 
 [params]
 
@@ -22,12 +22,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://tankspikes/large-tank-spikes-netting_normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

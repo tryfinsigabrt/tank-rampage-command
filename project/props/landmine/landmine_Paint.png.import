@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6233xwckgw4v"
-path.s3tc="res://.godot/imported/large-tank-spikes-netting_orm.png-539773c955dae849e3a73b5062237f26.s3tc.ctex"
+uid="uid://cckdsm7y3yr0d"
+path.s3tc="res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "7c4f3866655337da986a2aba92d4e0ce"
+}
 
 [deps]
 
-source_file="res://tankspikes/assets/large-tank-spikes-netting_orm.png"
-dest_files=["res://.godot/imported/large-tank-spikes-netting_orm.png-539773c955dae849e3a73b5062237f26.s3tc.ctex"]
+source_file="res://props/landmine/landmine_Paint.png"
+dest_files=["res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.s3tc.ctex"]
 
 [params]
 
@@ -26,8 +29,8 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=8
-roughness/src_normal="res://tankspikes/large-tank-spikes-netting_normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

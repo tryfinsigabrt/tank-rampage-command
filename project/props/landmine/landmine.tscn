@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c8wxog2atj6fo"]
+
+[ext_resource type="PackedScene" uid="uid://o7t2y36bqtep" path="res://props/landmine/landmine.glb" id="1_feyd5"]
+
+[node name="landmine" unique_id=1356064904 instance=ExtResource("1_feyd5")]

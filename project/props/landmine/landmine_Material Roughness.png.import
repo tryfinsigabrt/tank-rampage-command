@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://71qtj7r7jky5"
-path.s3tc="res://.godot/imported/large-tank-spikes-netting_albedo.png-3ef70ba11efc7d45728d5a42719e2ce2.s3tc.ctex"
+uid="uid://c057th6vd4lev"
+path.s3tc="res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "1498ce80cf6c0e9283a9fc4fb5e71e88"
+}
 
 [deps]
 
-source_file="res://tankspikes/assets/large-tank-spikes-netting_albedo.png"
-dest_files=["res://.godot/imported/large-tank-spikes-netting_albedo.png-3ef70ba11efc7d45728d5a42719e2ce2.s3tc.ctex"]
+source_file="res://props/landmine/landmine_Material Roughness.png"
+dest_files=["res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.s3tc.ctex"]
 
 [params]
 

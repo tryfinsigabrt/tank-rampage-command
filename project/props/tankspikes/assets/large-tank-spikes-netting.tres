@@ -1,8 +1,8 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dkxfnit04r2yw"]
 
-[ext_resource type="Texture2D" uid="uid://71qtj7r7jky5" path="res://tankspikes/assets/large-tank-spikes-netting_albedo.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://6233xwckgw4v" path="res://tankspikes/assets/large-tank-spikes-netting_orm.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://cg1mxwx5y0urd" path="res://tankspikes/assets/large-tank-spikes-netting_normal.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://71qtj7r7jky5" path="res://props/tankspikes/assets/large-tank-spikes-netting_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://6233xwckgw4v" path="res://props/tankspikes/assets/large-tank-spikes-netting_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cg1mxwx5y0urd" path="res://props/tankspikes/assets/large-tank-spikes-netting_normal.png" id="3"]
 
 [resource]
 transparency = 2

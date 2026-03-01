@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d0r6imcw0aiic"
-path="res://.godot/imported/large-tank-spike.glb-530f180bfc27bca26f8254dfa0b76736.scn"
+uid="uid://o7t2y36bqtep"
+path="res://.godot/imported/landmine.glb-7cf49478ec24ee501bfebf88eb4dc2d4.scn"
 
 [deps]
 
-source_file="res://tankspikes/assets/large-tank-spike.glb"
-dest_files=["res://.godot/imported/large-tank-spike.glb-530f180bfc27bca26f8254dfa0b76736.scn"]
+source_file="res://props/landmine/landmine.glb"
+dest_files=["res://.godot/imported/landmine.glb-7cf49478ec24ee501bfebf88eb4dc2d4.scn"]
 
 [params]
 
