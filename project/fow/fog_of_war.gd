@@ -3,16 +3,6 @@ class_name FogOfWar extends Node
 @export
 var visibility_tick_rate:float = 0.19
 
-## Ground or Terrain3D instance
-@export
-var terrain:Node3D
-
-@export
-var use_post_process_overlay:bool = true
-
-@export
-var use_terrain_overlay:bool = false
-
 ## Enable/Disable temporarily for testing purposes
 @export
 var enable:bool = true
@@ -113,10 +103,7 @@ func _ready() -> void:
 	_explored_area_material.set_shader_parameter(&"visible_data_texture", visible_area_tex)
 	
 	var fow_texture := explored_area_viewport.get_texture()
-	if use_post_process_overlay:
-		_init_post_process_shader(fow_texture)
-	if use_terrain_overlay:
-		_init_terrain_shader(fow_texture)
+	_init_post_process_shader(fow_texture)
 
 	# Prevents a brief "white clear" that permanently sets everything to explored on start
 	_clear_explored()
@@ -184,25 +171,6 @@ func _init_post_process_shader(fow_texture: ViewportTexture) -> void:
 	post_process_material.set_shader_parameter(&"fow_world_pos", map_origin)
 	post_process_material.set_shader_parameter(&"fow_world_size", map_size)
 	post_process_material.set_shader_parameter(&"explored_visibility", explored_area_modulation)
-	
-func _init_terrain_shader(fow_texture: ViewportTexture) -> void:
-	if not terrain:
-		push_warning("%s: No terrain set - no fow applied to ground" % name)
-		return
-	
-	var visual_instance:GeometryInstance3D = terrain as GeometryInstance3D
-	if visual_instance:
-		var terrain_material:ShaderMaterial = visual_instance.material_overlay
-		if terrain_material:
-			terrain_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)
-			terrain_material.set_shader_parameter(&"fow_world_pos", map_origin)
-			terrain_material.set_shader_parameter(&"fow_world_size", map_size)
-			terrain_material.set_shader_parameter(&"explored_visibility", explored_area_modulation)
-		else:
-			push_warning("%s: Terrain node %s does not have a material overlay set" % [name, visual_instance.name])
-	# TODO: handle type that is Terrain3D
-	else:
-		push_warning("%s: Unsupported terrain node %s " % [name, terrain.name])
 		
 func _get_player_team() -> int:
 	var player := get_tree().get_first_node_in_group(Groups.Player)
