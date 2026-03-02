@@ -17,6 +17,9 @@ var use_terrain_overlay:bool = false
 @export
 var enable:bool = true
 
+@export_range(0.0, 1.0, 0.01)
+var explored_area_modulation:float = 0.3
+
 @onready var visible_area_viewport: SubViewport = $VisibleArea
 @onready var visible_multi_mesh_instance: FogOfWarVisibilityInstance = $VisibleArea/MultiMeshInstance2D
 
@@ -180,6 +183,7 @@ func _init_post_process_shader(fow_texture: ViewportTexture) -> void:
 	post_process_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)	
 	post_process_material.set_shader_parameter(&"fow_world_pos", map_origin)
 	post_process_material.set_shader_parameter(&"fow_world_size", map_size)
+	post_process_material.set_shader_parameter(&"explored_visibility", explored_area_modulation)
 	
 func _init_terrain_shader(fow_texture: ViewportTexture) -> void:
 	if not terrain:
@@ -193,6 +197,7 @@ func _init_terrain_shader(fow_texture: ViewportTexture) -> void:
 			terrain_material.set_shader_parameter(&"fow_viewport_texture", fow_texture)
 			terrain_material.set_shader_parameter(&"fow_world_pos", map_origin)
 			terrain_material.set_shader_parameter(&"fow_world_size", map_size)
+			terrain_material.set_shader_parameter(&"explored_visibility", explored_area_modulation)
 		else:
 			push_warning("%s: Terrain node %s does not have a material overlay set" % [name, visual_instance.name])
 	# TODO: handle type that is Terrain3D
