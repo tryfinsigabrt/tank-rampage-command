@@ -7,5 +7,6 @@
 [node name="straight-sandbag-barrier" unique_id=1083993994 instance=ExtResource("1_3fsfm")]
 
 [node name="NewSandbagBarrier_Combined" parent="." index="0" unique_id=31855486]
+lod_bias = 0.3
 surface_material_override/0 = ExtResource("2_oe30p")
 surface_material_override/1 = ExtResource("3_3fsfm")

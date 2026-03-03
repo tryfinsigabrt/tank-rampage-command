@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dnchimu2caqyv"]
+
+[ext_resource type="PackedScene" uid="uid://ciotyolulllhk" path="res://units/human/marine/marine.blend" id="1_xj5e5"]
+[ext_resource type="Texture2D" uid="uid://bvb3p7q54xjmh" path="res://units/human/marine/Marine_Normal_2k.png" id="2_8rv8m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hx6q6"]
+albedo_color = Color(0.71024376, 0.5941849, 0.5864045, 1)
+metallic = 1.0
+roughness = 0.6
+normal_enabled = true
+normal_texture = ExtResource("2_8rv8m")
+clearcoat_enabled = true
+clearcoat_roughness = 0.84
+texture_filter = 5
+
+[node name="marine" unique_id=1031286260 instance=ExtResource("1_xj5e5")]
+
+[node name="BaseMarine_Low" parent="." index="0" unique_id=1409303473]
+transform = Transform3D(0.9781476, 0, 0.2079117, 0, 1, 0, -0.2079117, 0, 0.9781476, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_hx6q6")

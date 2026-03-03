@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="2_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="4_y20a5"]
+[ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="6_bhxhu"]
+[ext_resource type="PackedScene" uid="uid://cvrvjwepoa4m4" path="res://units/human/marine/flat_marine.glb" id="7_y20a5"]
 
 [sub_resource type="Animation" id="Animation_bhxhu"]
 length = 0.001
@@ -74,15 +76,18 @@ albedo_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
 material = SubResource("StandardMaterial3D_8ko5u")
 size = Vector2(200, 200)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdxvd"]
+albedo_color = Color(0.9178861, 0.6737027, 0.08360166, 1)
+disable_receive_shadows = true
+
 [node name="Museum" type="Node3D" unique_id=144309689]
 
 [node name="BeautyCam" type="Camera3D" parent="." unique_id=1820950375]
-transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 16.5, 2.5, 16)
+transform = Transform3D(0.73135364, 0, 0.6819983, 0, 1, 0, -0.6819983, 0, 0.73135364, 16.5, 2.5, 16)
 fov = 45.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BeautyCam" unique_id=464215799]
 libraries/ = SubResource("AnimationLibrary_8ko5u")
-autoplay = &"beauty"
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1067294858]
 mesh = SubResource("PlaneMesh_fdxvd")
@@ -125,22 +130,22 @@ transform = Transform3D(-0.1406248, 0, -0.99006295, 0, 1, 0, 0.99006295, 0, -0.1
 transform = Transform3D(0.20620412, 0, -0.97850895, 0, 1, 0, 0.97850895, 0, 0.20620412, -2.076, 0.1, 11.52)
 
 [node name="landmine" parent="Props" unique_id=1356064904 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.460904, 0, -20.653233)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.184075, 0, -17.475803)
 
 [node name="landmine2" parent="Props" unique_id=724327813 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.251766, 0, -21.546762)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.974937, 0, -18.369333)
 
 [node name="landmine3" parent="Props" unique_id=921054692 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.251373, 0, -21.345922)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.974545, 0, -18.168493)
 
 [node name="landmine4" parent="Props" unique_id=765900746 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.741863, 0, -32.3282)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.098808, 0, -22.028849)
 
 [node name="landmine5" parent="Props" unique_id=11816973 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.532728, 0, -33.221725)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.889673, 0, -22.922373)
 
 [node name="landmine6" parent="Props" unique_id=928675195 instance=ExtResource("2_0lcq6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.532333, 0, -33.02089)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.889278, 0, -22.721537)
 
 [node name="large-tank-spike-with-netting" parent="Props" unique_id=959962087 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2716088, 0, -7.648815)
@@ -180,3 +185,92 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.029939, 0, 1.8500246)
 
 [node name="large-tank-spike-with-netting6" parent="Props" unique_id=1590364607 instance=ExtResource("3_bhxhu")]
 transform = Transform3D(0.37310117, 0, 0.9277907, 0, 1, 0, -0.9277907, 0, 0.37310117, -4.123106, 0, -6.2877803)
+
+[node name="Marines" type="Node3D" parent="." unique_id=1612157688]
+
+[node name="marine" parent="Marines" unique_id=2012254258 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 5.7922)
+
+[node name="marine2" parent="Marines" unique_id=287822374 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 8.036961)
+
+[node name="marine3" parent="Marines" unique_id=1328821779 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 10.3220825)
+
+[node name="marine4" parent="Marines" unique_id=170866728 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 12.566843)
+
+[node name="marine5" parent="Marines" unique_id=1983183342 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 4.7476406)
+
+[node name="marine6" parent="Marines" unique_id=626726780 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 6.992401)
+
+[node name="marine7" parent="Marines" unique_id=1587911759 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 9.277523)
+
+[node name="marine8" parent="Marines" unique_id=1931737959 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 11.522284)
+
+[node name="marine9" parent="Marines" unique_id=1816546572 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 5.7922)
+
+[node name="marine10" parent="Marines" unique_id=1955874753 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 8.036961)
+
+[node name="marine11" parent="Marines" unique_id=1917578296 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 10.3220825)
+
+[node name="marine12" parent="Marines" unique_id=357538873 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 12.566843)
+
+[node name="marine13" parent="Marines" unique_id=340896187 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 4.7476406)
+
+[node name="marine14" parent="Marines" unique_id=1092044421 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 6.992401)
+
+[node name="marine15" parent="Marines" unique_id=1459789591 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 9.277523)
+
+[node name="marine16" parent="Marines" unique_id=1948874900 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 11.522284)
+
+[node name="marine17" parent="Marines" unique_id=1955352309 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -14.3253975, -1.9073486e-06, -6.6185884)
+
+[node name="marine18" parent="Marines" unique_id=950055338 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 8.788543, -2.3841858e-06, 6.878307)
+
+[node name="marine19" parent="Marines" unique_id=611554138 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.44070435, -1.9073486e-06, -8.6294365)
+
+[node name="marine20" parent="Marines" unique_id=219828522 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(5.9604645e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 5.9604645e-08, 6.346443, 1.9428158, -3.2025456)
+
+[node name="marine21" parent="Marines" unique_id=1459752266 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.9659258, -11.29923, -1.9073486e-06, -16.939741)
+
+[node name="marine22" parent="Marines" unique_id=1969953073 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(-0.25881913, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, -0.25881913, 8.461616, -7.1525574e-07, 8.528227)
+
+[node name="marine23" parent="Marines" unique_id=1297228761 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 8.973773, -2.6226044e-06, 5.3295116)
+
+[node name="marine24" parent="Marines" unique_id=538465393 instance=ExtResource("6_bhxhu")]
+transform = Transform3D(1, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1, 9.388755, -1.9073486e-06, 3.8658829)
+
+[node name="flat_marine" parent="Marines" unique_id=1293529275 instance=ExtResource("7_y20a5")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 8.924632, 0, 10.09015)
+
+[node name="BaseMarine_Flat" parent="Marines/flat_marine" index="0" unique_id=244175834]
+surface_material_override/0 = SubResource("StandardMaterial3D_fdxvd")
+
+[node name="flat_marine2" parent="Marines" unique_id=509537940 instance=ExtResource("7_y20a5")]
+transform = Transform3D(-0.9675109, 0, 0.25282937, 0, 1, 0, -0.25282937, 0, -0.9675109, 8.924632, 0, 11.55032)
+
+[node name="BaseMarine_Flat" parent="Marines/flat_marine2" index="0" unique_id=244175834]
+surface_material_override/0 = SubResource("StandardMaterial3D_fdxvd")
+
+[editable path="Marines/flat_marine"]
+[editable path="Marines/flat_marine2"]
