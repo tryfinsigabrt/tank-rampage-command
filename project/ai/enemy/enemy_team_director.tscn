@@ -13,10 +13,13 @@
 [ext_resource type="Script" uid="uid://cyromgd13fprn" path="res://ai/enemy/attack_units.gd" id="7_ibxiw"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="7_mmd2m"]
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
+[ext_resource type="Script" uid="uid://fgsc4iuwb1gh" path="res://ai/enemy/should_flee.gd" id="10_f6s48"]
+[ext_resource type="Script" uid="uid://vknekppxwdeb" path="res://ai/enemy/flee_from_enemies.gd" id="10_qhh88"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="13_n57he"]
 [ext_resource type="Script" uid="uid://ce1oqlpwm34xd" path="res://ai/enemy/enemy_visibility_manager.gd" id="14_kcdlb"]
 [ext_resource type="Script" uid="uid://cjijciejb75gg" path="res://ai/enemy/attack_selector.gd" id="14_mmd2m"]
+[ext_resource type="Script" uid="uid://dlglnde4rwfti" path="res://ai/enemy/utility/utility_calculator.gd" id="14_slh46"]
 [ext_resource type="Script" uid="uid://cyiw3epu4jer6" path="res://ai/enemy/world_boundaries_checker.gd" id="16_vitsf"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
@@ -61,6 +64,18 @@ move_radius = Vector2(100, 250)
 world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
+[node name="Flee" type="Node" parent="BeehaveTree/Root" unique_id=223834928]
+script = ExtResource("5_4dbsd")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="ShouldFlee" type="Node" parent="BeehaveTree/Root/Flee" unique_id=1738826321]
+script = ExtResource("10_f6s48")
+metadata/_custom_type_script = "uid://cbnbvj8prv63i"
+
+[node name="FleeFromEnemies" type="Node" parent="BeehaveTree/Root/Flee" unique_id=1216409061]
+script = ExtResource("10_qhh88")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
 move_radius = Vector2(100, 400)
@@ -93,6 +108,12 @@ autostart = true
 [node name="EnemyActionPrioritizer" type="Node" parent="GlobalServices" unique_id=1707460618]
 script = ExtResource("7_ectn7")
 
+[node name="UtilityCalculator" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=992867152]
+script = ExtResource("14_slh46")
+
+[node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=350127888]
+autostart = true
+
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")
 
@@ -111,3 +132,4 @@ script = ExtResource("16_vitsf")
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
 [connection signal="initialized" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_initialized" flags=18]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
+[connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]
