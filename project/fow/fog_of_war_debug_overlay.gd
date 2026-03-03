@@ -3,11 +3,15 @@ extends Control
 @onready var visible_sprite: Sprite2D = %VisibleSprite
 @onready var explored_sprite: Sprite2D = %ExploredSprite
 
+@export
+var fog_of_war:FogOfWar
 
 func _ready() -> void:
 	await get_tree().create_timer(0.2).timeout
 	
-	var fog_of_war:FogOfWar = get_parent() as FogOfWar
+	# Check for parent
+	if not fog_of_war:
+		fog_of_war = get_parent() as FogOfWar
 	if not fog_of_war:
 		push_error("%s: Not added to fog of war parent" % name)
 		return
