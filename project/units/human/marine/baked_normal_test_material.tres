@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dgebmnd1t2a7l"]
+
+[ext_resource type="Texture2D" uid="uid://bvb3p7q54xjmh" path="res://units/human/marine/Marine_Normal_2k.png" id="1_j36xr"]
+
+[resource]
+albedo_color = Color(0.71024376, 0.5941849, 0.5864045, 1)
+metallic = 1.0
+roughness = 0.6
+normal_enabled = true
+normal_texture = ExtResource("1_j36xr")
+clearcoat_enabled = true
+clearcoat_roughness = 0.84
+texture_filter = 5

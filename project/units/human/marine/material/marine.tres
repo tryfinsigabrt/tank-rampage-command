@@ -1,0 +1,12 @@
+[gd_resource type="ORMMaterial3D" format=3 uid="uid://mausg5iunqcp"]
+
+[ext_resource type="Texture2D" uid="uid://dmfroi6yiyd2o" path="res://units/human/marine/material/marine_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cb2re7tl78yt1" path="res://units/human/marine/material/marine_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c31huc88bnixg" path="res://units/human/marine/material/marine_normal.png" id="3"]
+
+[resource]
+albedo_texture = ExtResource("1")
+orm_texture = ExtResource("2")
+normal_enabled = true
+normal_texture = ExtResource("3")
+texture_filter = 5
