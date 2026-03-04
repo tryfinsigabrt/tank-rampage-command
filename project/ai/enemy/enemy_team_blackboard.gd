@@ -5,6 +5,7 @@ signal on_unit_visibility_changed
 
 signal on_attacking_units_changed
 signal on_attacking_priorities_changed
+signal on_avoidance_enemies_changed
 signal on_idle_units_changed
 signal on_exploring_units_changed
  
@@ -14,6 +15,7 @@ class Keys:
 	const focus_position:StringName = &"focus_position"
 	const team:StringName = &"team"
 	const attack_priorities:StringName = &"attack_priorities"
+	const avoidance_enemies:String = &"avoidance_enemies"
 	# TODO: Should probably group these by the unit action to make it more extensible and less brittle
 	const currently_attacking:StringName = &"currently_attacking"
 	const idle_units:StringName = &"idle_units"
@@ -42,7 +44,16 @@ var attack_priorities:Array[Unit]:
 		set_value(Keys.attack_priorities, value)
 		if value != existing:
 			on_attacking_priorities_changed.emit()
-	
+
+var avoidance_enemies:Array[Unit]:
+	get:
+		return get_value(Keys.avoidance_enemies, [] as Array[Unit])
+	set(value):
+		var existing := avoidance_enemies
+		set_value(Keys.avoidance_enemies, value)
+		if value != existing:
+			on_avoidance_enemies_changed.emit()
+				
 var idle_units:Array[Unit]:
 	get:
 		return get_value(Keys.idle_units, [] as Array[Unit])

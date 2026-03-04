@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://78xpbsfwlfdd"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_ertyp"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_tns74"]
+
+[sub_resource type="Resource" id="Resource_ertyp"]
+script = ExtResource("1_ertyp")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[resource]
+script = ExtResource("2_tns74")
+name = &"attack"
+considerations = Array[ExtResource("1_ertyp")]([SubResource("Resource_ertyp")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

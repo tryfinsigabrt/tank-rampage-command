@@ -112,7 +112,6 @@ script = ExtResource("7_ectn7")
 script = ExtResource("14_slh46")
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=350127888]
-autostart = true
 
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")
@@ -127,6 +126,7 @@ script = ExtResource("16_vitsf")
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_units_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
+[connection signal="on_avoidance_enemies_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_avoidance_enemies_changed"]
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]

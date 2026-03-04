@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://budmbddpy0ywh"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_di8sh"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_7ad76"]
+
+[resource]
+script = ExtResource("2_7ad76")
+name = &"flee"
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

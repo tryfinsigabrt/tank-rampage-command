@@ -10,6 +10,7 @@ var _monitored_attacking_priorities:PackedInt64Array
 var _monitored_attacking:Dictionary[int,bool]
 var _monitored_idle:PackedInt64Array
 var _monitored_exploring:PackedInt64Array
+var _monitored_avoidance_enemies:PackedInt64Array
 
 func _on_blackboard_on_exploring_units_changed() -> void:
 	_refresh_monitors(blackboard.exploring_units, _monitored_exploring, _on_exploring_unit_destroyed)
@@ -23,6 +24,9 @@ func _on_attacking_priorities_changed() -> void:
 func _on_attacking_units_changed() -> void:
 	_refresh_dictionary_monitors(blackboard.currently_attacking, _monitored_attacking, _on_attacking_unit_destroyed)
 
+func _on_avoidance_enemies_changed() -> void:
+	_refresh_monitors(blackboard.avoidance_enemies, _monitored_avoidance_enemies, _on_avoidance_enemy_destroyed)
+	
 func _on_exploring_unit_destroyed(unit:Unit) -> void:
 	_on_destroyed(unit, blackboard.exploring_units, func(updated):
 		# Trigger signal
@@ -40,13 +44,19 @@ func _on_attacking_priority_unit_destroyed(unit:Unit) -> void:
 		# Trigger signal
 		blackboard.attack_priorities = updated
 	)
+	
+func _on_avoidance_enemy_destroyed(unit:Unit) -> void:
+	_on_destroyed(unit, blackboard.avoidance_enemies, func(updated):
+		# Trigger signal
+		blackboard.avoidance_enemies = updated
+	)
 		
 func _on_attacking_unit_destroyed(source_unit_id:int, target_unit_id:int, destroyed_param_index:int) -> void:
 	_on_destroyed_dict(source_unit_id, target_unit_id, destroyed_param_index, blackboard.currently_attacking, func(updated):
 		# Trigger signal
 		blackboard.currently_attacking = updated
 	)
-
+	
 func _on_destroyed(unit:Unit, blackboard_value:Array[Unit], updater:Callable) -> void:
 	var orig_size := blackboard_value.size()
 	blackboard_value.erase(unit)
