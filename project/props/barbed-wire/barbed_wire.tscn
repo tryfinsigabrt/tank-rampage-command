@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b8tsw5fhpqkq3"]
+
+[ext_resource type="PackedScene" uid="uid://bedt4d3tg7vn3" path="res://props/barbed-wire/barbed-wire.glb" id="1_22053"]
+[ext_resource type="Material" uid="uid://ca3l7whfrhpaj" path="res://props/barbed-wire/barbed-wire-material.tres" id="2_en2he"]
+
+[node name="barbed-wire" unique_id=491837801 instance=ExtResource("1_22053")]
+
+[node name="Spiral_004" parent="." index="0" unique_id=1671749742]
+material_override = ExtResource("2_en2he")
