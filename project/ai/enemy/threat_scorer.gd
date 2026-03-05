@@ -1,5 +1,7 @@
 class_name ThreatScorer extends Node
 
+@onready var cluster_calculator: UnitClustering = $ClusterCalculator
+
 @export
 var threat_score_threshold:float = 0.5
 
@@ -59,3 +61,61 @@ func _get_threat_units(units: Array, position:Vector3, viable_unit_extractor:Cal
 		matches.resize(remove_index_start)
 		
 	return matches	
+
+func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[UnitThreatContext]:
+	var unit_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(units)
+	var threat_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(threats)
+	
+	var contexts: Array[UnitThreatContext]
+	var friendly_cluster_strengths:PackedFloat32Array
+	friendly_cluster_strengths.resize(unit_clusters.size())
+	
+	for threat_cluster in threat_clusters:
+		var min_dist_sq:float = INF
+		var friendly_cluster_index:int = -1
+	
+		var threat_center:Vector2 = threat_cluster.center
+		for i in unit_clusters.size():
+			var unit_cluster:UnitClustering.UnitCluster = unit_clusters[i]
+			var dist_sq:float = threat_center.distance_squared_to(unit_cluster.center)
+			if dist_sq < min_dist_sq:
+				min_dist_sq = dist_sq
+				friendly_cluster_index = i
+		
+		var friendly_cluster_strength:float = friendly_cluster_strengths[friendly_cluster_index]
+		if friendly_cluster_strength == 0.0:
+			for unit in unit_clusters[friendly_cluster_index]:
+				friendly_cluster_strength += calculate_strength(unit)
+			friendly_cluster_strengths[friendly_cluster_index] = friendly_cluster_strength
+			
+		var min_dist:float = sqrt(min_dist_sq)
+		
+		var threat_strength:float = 0.0
+		for threat in threat_cluster.units:
+			threat_strength += calculate_strength(threat)
+			
+		var context: UnitThreatContext = UnitThreatContext.new()
+		
+		context.threat_cluster = threat_cluster
+		context.friendly_cluster = unit_clusters[friendly_cluster_index]
+		context.distance = min_dist
+		context.threat_cluster_strength = threat_strength
+		context.assist_cluster_strength = friendly_cluster_strength
+		
+		contexts.push_back(context)
+	
+	return contexts
+
+func calculate_strength(unit:Unit) -> float:
+	var strength:float
+	match unit.unit_class:
+		Unit.UnitClass.Tank:
+			strength = 5.0
+		Unit.UnitClass.Artillery:
+			strength = 10.0
+		_:
+			strength = 1.0
+	var health_stat:HealthStat = unit.health
+	if health_stat:
+		strength *= unit.health.health_fraction
+	return strength

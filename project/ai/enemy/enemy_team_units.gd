@@ -67,3 +67,12 @@ func get_closest_visible_unit(position:Vector3) -> UnitData:
 		
 func get_visible_threat_units(position:Vector3) -> Array[UnitScore]:
 	return threat_scorer.get_visible_threat_units(units.values(), position)
+	
+func get_visible_threat_contexts(our_units:Array[Unit]) -> Array[UnitThreatContext]:
+	var threats:Array[Unit]
+	for unit_id in units:
+		var unit_data:UnitData = units[unit_id]
+		if unit_data.valid and unit_data.visible:
+			threats.push_back(unit_data.unit)
+	
+	return threat_scorer.calculate_threat_inputs(our_units, threats)

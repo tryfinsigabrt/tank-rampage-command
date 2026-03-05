@@ -67,6 +67,9 @@ var is_alive:bool:
 
 var is_dead:bool:
 	get: return not is_alive
+	
+var health:HealthStat:
+	get: return _get_health_stat()
 
 var _unit_actions:UnitActions
 
@@ -91,12 +94,15 @@ func _update_render() -> void
 func _is_alive() -> bool:
 	return true
 	
+func _get_health_stat() -> HealthStat:
+	return null
+	
 #endregion
 
 func _ready() -> void:
 	SignalBus.register_unit(self)
 	refresh_team_layers()
-
+	
 #region Teams
 
 func refresh_team_layers() -> void:

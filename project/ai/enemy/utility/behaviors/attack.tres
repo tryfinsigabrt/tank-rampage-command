@@ -1,14 +1,45 @@
 [gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://78xpbsfwlfdd"]
 
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_ertyp"]
+[ext_resource type="Curve" uid="uid://yl37u55n7eyt" path="res://ai/enemy/utility/curves/attack_dist_utility.tres" id="2_gt2pq"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_tns74"]
+[ext_resource type="Curve" uid="uid://l3die4iuh2co" path="res://ai/enemy/utility/curves/attack_threat_size_utility.tres" id="4_tqm7q"]
+[ext_resource type="Curve" uid="uid://bjauma5hc45jg" path="res://ai/enemy/utility/curves/attack_threat_cluster_strength.tres" id="5_4dw1a"]
 
-[sub_resource type="Resource" id="Resource_ertyp"]
+[sub_resource type="Resource" id="Resource_tns74"]
 script = ExtResource("1_ertyp")
+input_key = "distance"
+response_curve = ExtResource("2_gt2pq")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_4dw1a"]
+script = ExtResource("1_ertyp")
+input_key = "threat_size"
+response_curve = ExtResource("4_tqm7q")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_kn8li"]
+script = ExtResource("1_ertyp")
+input_key = "assist_size"
+invert = true
+response_curve = ExtResource("4_tqm7q")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_j2a7i"]
+script = ExtResource("1_ertyp")
+input_key = "threat_cluster_strength"
+response_curve = ExtResource("5_4dw1a")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_tqm7q"]
+script = ExtResource("1_ertyp")
+input_key = "assist_cluster_strength"
+invert = true
+response_curve = ExtResource("5_4dw1a")
 metadata/_custom_type_script = "uid://dcep36176g5w8"
 
 [resource]
 script = ExtResource("2_tns74")
 name = &"attack"
-considerations = Array[ExtResource("1_ertyp")]([SubResource("Resource_ertyp")])
+considerations = Array[ExtResource("1_ertyp")]([SubResource("Resource_tns74"), SubResource("Resource_4dw1a"), SubResource("Resource_kn8li"), SubResource("Resource_j2a7i"), SubResource("Resource_tqm7q")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

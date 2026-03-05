@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://mwp2boe4r11w"]
+
+[ext_resource type="Script" uid="uid://c1mibo4duodwy" path="res://ai/enemy/threat_scorer.gd" id="1_8omki"]
+[ext_resource type="Script" uid="uid://dim1uk61i6v5v" path="res://ai/enemy/utility/unit_clustering.gd" id="2_2kay7"]
+
+[node name="ThreatScorer" type="Node" unique_id=65921218]
+script = ExtResource("1_8omki")
+
+[node name="ClusterCalculator" type="Node" parent="." unique_id=548315344]
+script = ExtResource("2_2kay7")
