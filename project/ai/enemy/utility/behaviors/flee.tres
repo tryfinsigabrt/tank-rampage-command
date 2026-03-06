@@ -2,8 +2,45 @@
 
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_di8sh"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_7ad76"]
+[ext_resource type="Curve" uid="uid://yl37u55n7eyt" path="res://ai/enemy/utility/curves/attack_dist_utility.tres" id="2_sleks"]
+[ext_resource type="Curve" uid="uid://l3die4iuh2co" path="res://ai/enemy/utility/curves/attack_threat_size_utility.tres" id="3_mhmrw"]
+[ext_resource type="Curve" uid="uid://bjauma5hc45jg" path="res://ai/enemy/utility/curves/attack_threat_cluster_strength.tres" id="4_m2oy6"]
+
+[sub_resource type="Resource" id="Resource_sleks"]
+script = ExtResource("1_di8sh")
+input_key = "distance"
+invert = true
+response_curve = ExtResource("2_sleks")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_mhmrw"]
+script = ExtResource("1_di8sh")
+input_key = "threat_size"
+invert = true
+response_curve = ExtResource("3_mhmrw")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_m2oy6"]
+script = ExtResource("1_di8sh")
+input_key = "assist_size"
+response_curve = ExtResource("3_mhmrw")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_2r7f1"]
+script = ExtResource("1_di8sh")
+input_key = "threat_cluster_strength"
+invert = true
+response_curve = ExtResource("4_m2oy6")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
+
+[sub_resource type="Resource" id="Resource_hk5fh"]
+script = ExtResource("1_di8sh")
+input_key = "assist_cluster_strength"
+response_curve = ExtResource("4_m2oy6")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
 
 [resource]
 script = ExtResource("2_7ad76")
 name = &"flee"
+considerations = Array[ExtResource("1_di8sh")]([SubResource("Resource_sleks"), SubResource("Resource_mhmrw"), SubResource("Resource_m2oy6"), SubResource("Resource_2r7f1"), SubResource("Resource_hk5fh")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

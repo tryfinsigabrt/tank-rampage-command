@@ -26,6 +26,8 @@ class UnitCluster:
 
 func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 	var clusters:Array[UnitCluster]
+	if not units:
+		return clusters
 	
 	# Might be better to sort for more deterministic cluster behavior
 	# or support reclustering but this is a good enough approx
@@ -41,32 +43,35 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 	# Can only be in one cluster
 	var used_positions:PackedInt32Array
 	used_positions.resize(units.size())
-	var used_count:int = 0
-	
+		
 	var num_units:int = positions.size()
+	var used_index:int = num_units
 	var done:bool
 	
 	for i in num_units:
-		if i in used_positions:
+		# Have to search from a starting position to avoid looking at placeholder data from resize (avoids realloc)
+		if used_positions.find(i, used_index) != -1:
 			continue
 			
 		var cluster:UnitCluster = UnitCluster.new(units[i], positions[i])
 		clusters.push_back(cluster)
 		
-		used_positions[used_count] = i
-		used_count += 1
-		if used_count == num_units:
+		# Insert from end
+		used_index -= 1
+		used_positions[used_index] = i
+		
+		if used_index == 0:
 			break
 			
 		for j in num_units:
-			if i == j or j in used_positions:
+			if i == j or used_positions.find(j, used_index) != -1:
 				continue
 			var candidate:Vector2 = positions[j]
 			var dist_sq:float = cluster.center.distance_squared_to(candidate)
 			if dist_sq <= cluster_size_sq:
 				cluster.add(units[j], candidate)
-				used_count += 1
-				if used_count == num_units:
+				used_index -= 1
+				if used_index == 0:
 					done = true
 					break
 		if done:

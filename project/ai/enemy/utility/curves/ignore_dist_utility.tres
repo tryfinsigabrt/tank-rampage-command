@@ -1,0 +1,10 @@
+[gd_resource type="Curve" script_class="UtilityAIResponseCurve" format=3 uid="uid://b3lftp6xggui8"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_g4m37"]
+
+[resource]
+_limits = [0.0, 1.0, 0.0, 1000.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0, Vector2(874.1936, 0.09370887), 0.0006780539, 0.0006780539, 0, 0, Vector2(1000, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+script = ExtResource("1_g4m37")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"

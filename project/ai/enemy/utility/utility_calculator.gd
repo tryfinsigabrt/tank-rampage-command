@@ -26,7 +26,7 @@ func _ready() -> void:
 	]
 	
 	for option in _all_options:
-		_unit_utilities[option.action] = []
+		_unit_utilities[option.action] = [] as Array[Unit]
 
 func assess_threats() -> void:
 	var enemy_teams: EnemyTeams  = blackboard.enemy_teams_info
@@ -35,14 +35,19 @@ func assess_threats() -> void:
 		
 		var our_units:Array[Unit] = blackboard.team_info.units
 		
+		var options := _all_options.duplicate()
 		for team:EnemyTeamUnits in enemy_teams.all_teams():
 			var contexts : Array[UnitThreatContext] = team.get_visible_threat_contexts(our_units)
 			for context in contexts:
-				var decision := UtilityAI.choose_highest(_all_options)
+				for option in options:
+					option.context = context
+				
+				var decision := UtilityAI.choose_highest(options)
 				_unit_utilities[decision.action].append_array(context.threat_cluster.units)
-
-		blackboard.attack_priorities = _unit_utilities.get(ATTACK_BEHAVIOR_KEY)
-		blackboard.avoidance_enemies = _unit_utilities.get(FLEE_BEHAVIOR_KEY)
+				print_debug("%s: Team %d %s priorities: %s" % [name, blackboard.team, decision.action, _unit_utilities[decision.action]])
+		
+		blackboard.attack_priorities = _unit_utilities.get(ATTACK_BEHAVIOR_KEY) as Array[Unit]
+		blackboard.avoidance_enemies = _unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]
 			
 		_reset_unit_utilities()
 	else: #Legacy calculation

@@ -2,8 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_auc82"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_dx0y0"]
+[ext_resource type="Curve" uid="uid://b3lftp6xggui8" path="res://ai/enemy/utility/curves/ignore_dist_utility.tres" id="2_oucyc"]
+
+[sub_resource type="Resource" id="Resource_2go7r"]
+script = ExtResource("1_auc82")
+input_key = "distance"
+response_curve = ExtResource("2_oucyc")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
 
 [resource]
 script = ExtResource("2_dx0y0")
 name = &"ignore"
+considerations = Array[ExtResource("1_auc82")]([SubResource("Resource_2go7r")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

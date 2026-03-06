@@ -65,8 +65,11 @@ func _get_threat_units(units: Array, position:Vector3, viable_unit_extractor:Cal
 func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[UnitThreatContext]:
 	var unit_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(units)
 	var threat_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(threats)
-	
 	var contexts: Array[UnitThreatContext]
+	
+	if not unit_clusters or not threat_clusters:
+		return contexts
+		
 	var friendly_cluster_strengths:PackedFloat32Array
 	friendly_cluster_strengths.resize(unit_clusters.size())
 	
@@ -84,7 +87,7 @@ func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[U
 		
 		var friendly_cluster_strength:float = friendly_cluster_strengths[friendly_cluster_index]
 		if friendly_cluster_strength == 0.0:
-			for unit in unit_clusters[friendly_cluster_index]:
+			for unit in unit_clusters[friendly_cluster_index].units:
 				friendly_cluster_strength += calculate_strength(unit)
 			friendly_cluster_strengths[friendly_cluster_index] = friendly_cluster_strength
 			
