@@ -7,7 +7,7 @@ class_name Weapon extends Node3D
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
 
 @export
-var speed_range:Vector2 = Vector2(1500,2000)
+var min_distance:float = 10.0
 
 @export
 var max_distance_range:Vector2 = Vector2(500,750)
@@ -39,6 +39,10 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 @export var allow_source_damage:bool
 
 var _unit:Unit
+
+var ideal_fire_range:Vector2:
+	get:
+		return Vector2(min_distance, max_distance_range.x)
 
 func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)

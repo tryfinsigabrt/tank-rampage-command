@@ -111,3 +111,9 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 func _update_render() -> void:
 	body.visible = render
 	ui.visible = render
+
+func _get_health_stat() -> HealthStat:
+	return health_stat
+
+func _get_weapon() -> Weapon:
+	return barrel.weapon

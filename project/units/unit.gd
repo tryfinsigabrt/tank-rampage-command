@@ -70,6 +70,10 @@ var is_dead:bool:
 	
 var health:HealthStat:
 	get: return _get_health_stat()
+	
+var weapon:Weapon:
+	get:
+		return _get_weapon()
 
 var _unit_actions:UnitActions
 
@@ -95,6 +99,9 @@ func _is_alive() -> bool:
 	return true
 	
 func _get_health_stat() -> HealthStat:
+	return null
+
+func _get_weapon() -> Weapon:
 	return null
 	
 #endregion

@@ -85,6 +85,9 @@ func _attack_unit(enemy:Unit) -> void:
 	_attack_action.controlled_unit = _unit
 	_attack_action.targeted_unit = enemy
 	_attack_action.move_into_range = AttackAction.MoveBehavior.NEVER
+	var weapon:Weapon = _unit.weapon
+	if weapon:
+		_attack_action.fire_range = weapon.ideal_fire_range
 	
 	_attack_action.tree_exited.connect(func() -> void:
 		_attack_action = null
