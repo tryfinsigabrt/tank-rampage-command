@@ -74,6 +74,7 @@ metadata/_custom_type_script = "uid://cbnbvj8prv63i"
 
 [node name="FleeFromEnemies" type="Node" parent="BeehaveTree/Root/Flee" unique_id=1216409061]
 script = ExtResource("10_qhh88")
+distance_normalizer = null
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]

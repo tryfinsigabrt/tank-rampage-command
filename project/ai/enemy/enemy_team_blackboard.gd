@@ -20,6 +20,7 @@ class Keys:
 	const currently_attacking:StringName = &"currently_attacking"
 	const idle_units:StringName = &"idle_units"
 	const exploring_units:StringName = &"exploring_units"
+	const explore_heading_bias:StringName = &"explore_heading_bias"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -52,6 +53,8 @@ var avoidance_enemies:Array[Unit]:
 		var existing := avoidance_enemies
 		set_value(Keys.avoidance_enemies, value)
 		if value != existing:
+			# Clear out heading bias calculations
+			explore_heading_bias = {}
 			on_avoidance_enemies_changed.emit()
 				
 var idle_units:Array[Unit]:
@@ -95,3 +98,9 @@ var focus_position:Vector3:
 		return get_value(Keys.focus_position, Vector3.ZERO)
 	set(value):
 		set_value(Keys.focus_position, value)
+
+var explore_heading_bias:Dictionary[int,Vector3]:
+	get:
+		return get_value(Keys.explore_heading_bias, {} as Dictionary[int,Vector3])
+	set(value):
+		set_value(Keys.explore_heading_bias, value)
