@@ -46,8 +46,9 @@ func assess_threats() -> void:
 				_unit_utilities[decision.action].append_array(context.threat_cluster.units)
 				print_debug("%s: Team %d %s priorities: %s" % [name, blackboard.team, decision.action, _unit_utilities[decision.action]])
 		
-		blackboard.attack_priorities = _unit_utilities.get(ATTACK_BEHAVIOR_KEY) as Array[Unit]
-		blackboard.avoidance_enemies = _unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]
+		# Need to duplicate so that signals fire
+		blackboard.attack_priorities = (_unit_utilities.get(ATTACK_BEHAVIOR_KEY) as Array[Unit]).duplicate()
+		blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]).duplicate()
 			
 		_reset_unit_utilities()
 	else: #Legacy calculation

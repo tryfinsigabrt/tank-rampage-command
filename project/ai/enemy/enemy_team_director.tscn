@@ -13,8 +13,7 @@
 [ext_resource type="Script" uid="uid://cyromgd13fprn" path="res://ai/enemy/attack_units.gd" id="7_ibxiw"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="7_mmd2m"]
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
-[ext_resource type="Script" uid="uid://fgsc4iuwb1gh" path="res://ai/enemy/should_flee.gd" id="10_f6s48"]
-[ext_resource type="Script" uid="uid://vknekppxwdeb" path="res://ai/enemy/flee_from_enemies.gd" id="10_qhh88"]
+[ext_resource type="Script" uid="uid://vknekppxwdeb" path="res://ai/enemy/flee_avoidance_calculator.gd" id="10_qhh88"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="13_n57he"]
 [ext_resource type="Script" uid="uid://ce1oqlpwm34xd" path="res://ai/enemy/enemy_visibility_manager.gd" id="14_kcdlb"]
@@ -64,19 +63,6 @@ move_radius = Vector2(100, 250)
 world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="Flee" type="Node" parent="BeehaveTree/Root" unique_id=223834928]
-script = ExtResource("5_4dbsd")
-metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
-
-[node name="ShouldFlee" type="Node" parent="BeehaveTree/Root/Flee" unique_id=1738826321]
-script = ExtResource("10_f6s48")
-metadata/_custom_type_script = "uid://cbnbvj8prv63i"
-
-[node name="FleeFromEnemies" type="Node" parent="BeehaveTree/Root/Flee" unique_id=1216409061]
-script = ExtResource("10_qhh88")
-distance_normalizer = null
-metadata/_custom_type_script = "uid://cv74jjdrwevpr"
-
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
 move_radius = Vector2(100, 400)
@@ -118,6 +104,9 @@ use_utility = true
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")
 
+[node name="FleeAvoidanceCalculator" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=963685399]
+script = ExtResource("10_qhh88")
+
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
 
@@ -128,6 +117,7 @@ script = ExtResource("16_vitsf")
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_units_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
+[connection signal="on_avoidance_enemies_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/FleeAvoidanceCalculator" method="_on_avoidance_enemies_changed"]
 [connection signal="on_avoidance_enemies_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_avoidance_enemies_changed"]
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
