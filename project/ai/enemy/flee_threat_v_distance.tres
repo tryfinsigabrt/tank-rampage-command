@@ -1,7 +1,6 @@
 [gd_resource type="Curve" format=3 uid="uid://dv3ooxfgwsayx"]
 
 [resource]
-_limits = [0.0, 1.0, 0.0, 1000.0]
-bake_resolution = 200
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(300, 1), 0.0, 0.0, 0, 0, Vector2(500, 0.2), -0.0014351874, -0.0014351874, 0, 0, Vector2(1000, 0), 0.0, 0.0, 0, 0]
+_limits = [0.0, 1.0, 0.0, 2.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.75), -1.0158701, -1.0158701, 0, 0, Vector2(1.9964974, 0.010502219), 0.12850143, 0.0, 0, 0]
 point_count = 4

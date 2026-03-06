@@ -35,7 +35,12 @@ func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Unit]) -> Ve
 		# Effectively 1/d^2
 		cumulative_heading += to_unit / maxf(0.01, dist ** 3)
 		
-		var threat_score:float = threat_magnitude_v_distance.sample_baked(dist)
+		var firing_range_fract:float = 0.0
+		var weapon:Weapon = enemy.weapon
+		if weapon:
+			firing_range_fract = dist / weapon.ideal_fire_range.y
+			
+		var threat_score:float = threat_magnitude_v_distance.sample_baked(firing_range_fract)
 		total_threat_score += threat_score
 	
 	var heading:Vector3 = cumulative_heading.normalized()
