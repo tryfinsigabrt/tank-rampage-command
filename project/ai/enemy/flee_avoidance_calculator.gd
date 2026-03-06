@@ -1,11 +1,16 @@
 extends Node
 
-@export_range(0.0, 1e9, 0.01, "or_greater")
-var distance_normalizer:float = 1.0
+@export
+var threat_magnitude_v_distance:Curve
 
 @onready 
 var blackboard: EnemyTeamBlackboard = %Blackboard
 
+func _ready() -> void:
+	if not threat_magnitude_v_distance:
+		push_error("%s: Missing threat_magnitude_v_distance curve" % name)
+		queue_free()
+		
 func _on_avoidance_enemies_changed() -> void:
 	var avoidance_enemies = blackboard.avoidance_enemies
 	var heading_dict:Dictionary[int, Vector3]
@@ -16,8 +21,8 @@ func _on_avoidance_enemies_changed() -> void:
 	blackboard.explore_heading_bias = heading_dict
 	
 func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Unit]) -> Vector3:
-	var total_dist:float = 0.0
-	var weighted_heading:Vector3 = Vector3.ZERO
+	var total_threat_score:float = 0.0
+	var cumulative_heading:Vector3 = Vector3.ZERO
 	
 	var unit_pos:Vector3 = unit.global_position
 	
@@ -28,11 +33,13 @@ func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Unit]) -> Ve
 		var dist:float = to_unit.length()
 		
 		# Effectively 1/d^2
-		weighted_heading += to_unit / maxf(0.01, dist ** 3)
-		total_dist += dist
+		cumulative_heading += to_unit / maxf(0.01, dist ** 3)
+		
+		var threat_score:float = threat_magnitude_v_distance.sample_baked(dist)
+		total_threat_score += threat_score
 	
-	# Effectively 1/d * N * c
-	weighted_heading *= total_dist * enemies.size() * distance_normalizer
-	#print_debug("%s: Weight Length=%f" % [name, weighted_heading.length()])
+	var heading:Vector3 = cumulative_heading.normalized()
+	var weighted_heading:Vector3 = heading * total_threat_score
 	
+	#print_debug("%s: Weight Length=%f" % [name, total_threat_score])
 	return weighted_heading
