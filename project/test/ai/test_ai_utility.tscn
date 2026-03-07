@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ddediwyy0fp58"]
 
-[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_735gw"]
 [ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_6xgbv"]
 [ext_resource type="Material" uid="uid://ct8m5pj00pr6d" path="res://test/materials/translucent_wall_material.tres" id="3_lx4dd"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_xpvyd"]
@@ -42,9 +41,6 @@ agent_max_slope = 60.0
 size = Vector3(600, 100, 525)
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
-
-[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_735gw")]
-enable = false
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
