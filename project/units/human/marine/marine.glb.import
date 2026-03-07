@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cvrvjwepoa4m4"
-path="res://.godot/imported/flat_marine.glb-b31ec41ecfdb91dc98052da9fd60274e.scn"
+uid="uid://dcpvtrflwq7ur"
+path="res://.godot/imported/marine.glb-4a11ed4d116a492a02a6d8bada961832.scn"
 
 [deps]
 
-source_file="res://units/human/marine/flat_marine.glb"
-dest_files=["res://.godot/imported/flat_marine.glb-b31ec41ecfdb91dc98052da9fd60274e.scn"]
+source_file="res://units/human/marine/marine.glb"
+dest_files=["res://.godot/imported/marine.glb-4a11ed4d116a492a02a6d8bada961832.scn"]
 
 [params]
 

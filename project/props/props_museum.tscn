@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="4_y20a5"]
 [ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="6_bhxhu"]
-[ext_resource type="PackedScene" uid="uid://cvrvjwepoa4m4" path="res://units/human/marine/flat_marine.glb" id="7_y20a5"]
+[ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="7_y20a5"]
 
 [sub_resource type="Animation" id="Animation_bhxhu"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -38,29 +39,30 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_y20a5"]
 resource_name = "beauty"
 length = 10.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 2
-tracks/0/loop_wrap = true
+tracks/0/loop_wrap = false
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(11.995, 1.62, 13.66), Vector3(-22.345, 6.305, 13.515)]
+"values": [Vector3(17.265, 1.825, 13.915), Vector3(-24.57, 6.27, 19.18)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 2
-tracks/1/loop_wrap = true
+tracks/1/loop_wrap = false
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 10),
 "transitions": PackedFloat32Array(1, 0.9659363),
 "update": 0,
-"values": [Vector3(0, 0.49741885, 0), Vector3(-0.21816616, -0.7784169, 0)]
+"values": [Vector3(-0.10471976, 0.8342674, 0), Vector3(-0.21816616, -0.7784169, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ko5u"]
@@ -76,21 +78,138 @@ albedo_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
 material = SubResource("StandardMaterial3D_8ko5u")
 size = Vector2(200, 200)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fdxvd"]
-albedo_color = Color(0.9178861, 0.6737027, 0.08360166, 1)
-disable_receive_shadows = true
-
 [node name="Museum" type="Node3D" unique_id=144309689]
 
 [node name="BeautyCam" type="Camera3D" parent="." unique_id=1820950375]
-transform = Transform3D(0.73135364, 0, 0.6819983, 0, 1, 0, -0.6819983, 0, 0.73135364, 16.5, 2.5, 16)
+transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 16.5, 2.5, 16)
 fov = 45.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BeautyCam" unique_id=464215799]
 libraries/ = SubResource("AnimationLibrary_8ko5u")
+autoplay = &"beauty"
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1067294858]
 mesh = SubResource("PlaneMesh_fdxvd")
+
+[node name="Lights" type="Node3D" parent="." unique_id=520846783]
+
+[node name="Left" type="Node3D" parent="Lights" unique_id=1019879518]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights/Left" unique_id=1689729894]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -15.970898, 4.757493, 12.32093)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights/Left" unique_id=2048165348]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -15.970898, 4.757493, 6.3209295)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights/Left" unique_id=1941515552]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -15.970898, 4.757493, -1.6790705)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights/Left" unique_id=144081090]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -15.970898, 4.757493, -7.6790705)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Left" unique_id=495055389]
+transform = Transform3D(0.9991888, 0.013003341, 0.038114183, 0, 0.94643533, -0.32289353, -0.0402713, 0.32263157, 0.94566756, -15.291702, 2.4544768, 17.779917)
+light_energy = 4.0
+light_size = 0.1
+spot_range = 16.0
+spot_angle = 60.0
+
+[node name="Right" type="Node3D" parent="Lights" unique_id=602652334]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 4, 0, -1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights/Right" unique_id=740952585]
+transform = Transform3D(1.0000001, -2.9802322e-08, -8.881784e-16, 0, -4.371139e-08, 1, -2.9802322e-08, -1.0000001, -4.3711392e-08, 0.029102325, 4.757493, 12.320931)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights/Right" unique_id=481071668]
+transform = Transform3D(1.0000001, -2.9802322e-08, -8.881784e-16, 0, -4.371139e-08, 1, -2.9802322e-08, -1.0000001, -4.3711392e-08, 0.029102802, 4.757493, 6.32093)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights/Right" unique_id=129314080]
+transform = Transform3D(1.0000001, -2.9802322e-08, -6.354517e-09, 6.3545142e-09, -5.1058013e-08, 1, 0, -1.0000001, -5.1058016e-08, 0.029102325, 4.757493, -1.6790698)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights/Right" unique_id=2110740583]
+transform = Transform3D(1.0000001, -2.9802322e-08, -6.354517e-09, 6.3545142e-09, -5.1058013e-08, 1, 0, -1.0000001, -5.1058016e-08, 0.02910328, 4.7574925, -7.679068)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Right" unique_id=149178449]
+transform = Transform3D(0.18301292, 0.68301266, 0.70710695, -0.96592575, 0.2588194, -7.479035e-08, -0.18301304, -0.68301266, 0.7071068, 5.520841, 1.981035, 12.75719)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Lights/Right" unique_id=51005913]
+transform = Transform3D(0.25000015, -0.0669875, 0.96592593, -0.9330126, 0.25000036, 0.2588192, -0.25881943, -0.96592593, -7.4505806e-08, 7.020846, 2.53395, 7.1590996)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Lights/Right" unique_id=1892244569]
+transform = Transform3D(0.12500027, 0.9665065, -0.22414385, -0.8365162, 0.2241441, 0.5000002, 0.53349394, 0.12499981, 0.8365163, -5.1804247, 2.9387763, 13.901138)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
 
 [node name="Tanks" type="Node3D" parent="." unique_id=2063336032]
 
@@ -260,17 +379,5 @@ transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50
 [node name="marine24" parent="Marines" unique_id=538465393 instance=ExtResource("6_bhxhu")]
 transform = Transform3D(1, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1, 9.388755, -1.9073486e-06, 3.8658829)
 
-[node name="flat_marine" parent="Marines" unique_id=1293529275 instance=ExtResource("7_y20a5")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 8.924632, 0, 10.09015)
-
-[node name="BaseMarine_Flat" parent="Marines/flat_marine" index="0" unique_id=244175834]
-surface_material_override/0 = SubResource("StandardMaterial3D_fdxvd")
-
-[node name="flat_marine2" parent="Marines" unique_id=509537940 instance=ExtResource("7_y20a5")]
-transform = Transform3D(-0.9675109, 0, 0.25282937, 0, 1, 0, -0.25282937, 0, -0.9675109, 8.924632, 0, 11.55032)
-
-[node name="BaseMarine_Flat" parent="Marines/flat_marine2" index="0" unique_id=244175834]
-surface_material_override/0 = SubResource("StandardMaterial3D_fdxvd")
-
-[editable path="Marines/flat_marine"]
-[editable path="Marines/flat_marine2"]
+[node name="barbed-wire" parent="." unique_id=491837801 instance=ExtResource("7_y20a5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.958012, 0, -35.237183)
