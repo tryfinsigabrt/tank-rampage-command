@@ -1,6 +1,7 @@
 class_name UtilityCalculator extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
+@onready var threat_eval_tick: Timer = $Tick
 
 const ATTACK_BEHAVIOR:UtilityAIBehavior = preload("uid://78xpbsfwlfdd")
 const FLEE_BEHAVIOR:UtilityAIBehavior = preload("uid://budmbddpy0ywh")
@@ -29,6 +30,9 @@ func _ready() -> void:
 		_unit_utilities[option.action] = [] as Array[Unit]
 
 func assess_threats() -> void:
+	# Reset the timer so that it cools down when called externally
+	threat_eval_tick.start()
+	
 	var enemy_teams: EnemyTeams  = blackboard.enemy_teams_info
 	if use_utility:
 		_reset_unit_utilities()
@@ -78,6 +82,10 @@ func assess_threats() -> void:
 func _reset_unit_utilities() -> void:
 	for key in _unit_utilities:
 		_unit_utilities[key].clear()
-		
+
+
 func _tick() -> void:
-	pass # Replace with function body.
+	# Only re-evaluate if there are any visible threats
+	if not use_utility or not blackboard.any_visible_enemies:
+		return
+	assess_threats()	

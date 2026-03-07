@@ -101,6 +101,7 @@ script = ExtResource("14_slh46")
 use_utility = true
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=350127888]
+wait_time = 5.0
 
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")

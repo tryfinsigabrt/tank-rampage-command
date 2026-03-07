@@ -104,3 +104,7 @@ var explore_heading_bias:Dictionary[int,Vector3]:
 		return get_value(Keys.explore_heading_bias, {} as Dictionary[int,Vector3])
 	set(value):
 		set_value(Keys.explore_heading_bias, value)
+
+var any_visible_enemies:bool:
+	get:
+		return attack_priorities or avoidance_enemies
