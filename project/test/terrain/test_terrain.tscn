@@ -21,6 +21,7 @@
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="20_ibbv5"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_xxlqf"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="22_83iv7"]
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="22_saqa1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
@@ -781,6 +782,9 @@ size = Vector3(100, 100, 100)
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("21_xxlqf")]
 visible = false
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("22_83iv7")]
+layout_mode = 2
 
 [node name="UtilityAiDebugHud" parent="DebugHud" unique_id=2054487946 instance=ExtResource("22_saqa1")]
 layout_mode = 2

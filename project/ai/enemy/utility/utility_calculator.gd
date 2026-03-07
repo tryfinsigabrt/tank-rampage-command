@@ -86,6 +86,6 @@ func _reset_unit_utilities() -> void:
 
 func _tick() -> void:
 	# Only re-evaluate if there are any visible threats
-	if not use_utility or not blackboard.any_visible_enemies:
+	if not use_utility or not blackboard.visible_enemy_count:
 		return
 	assess_threats()	

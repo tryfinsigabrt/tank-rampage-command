@@ -34,7 +34,7 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 	var positions:PackedVector2Array
 	positions.resize(units.size())
 	
-	var cluster_size_sq:float = max_cluster_size * max_cluster_size
+	var max_cluster_size_sq:float = max_cluster_size * max_cluster_size
 	
 	for i in units.size():
 		var pos:Vector3 = units[i].global_position
@@ -45,8 +45,8 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 	used_positions.resize(units.size())
 		
 	var num_units:int = positions.size()
+	# Inserting in reverse
 	var used_index:int = num_units
-	var done:bool
 	
 	for i in num_units:
 		# Have to search from a starting position to avoid looking at placeholder data from resize (avoids realloc)
@@ -68,16 +68,16 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 				continue
 			var candidate_pos:Vector2 = positions[j]
 			var dist_sq:float = cluster.center.distance_squared_to(candidate_pos)
-			if dist_sq <= cluster_size_sq:
+			if dist_sq <= max_cluster_size_sq:
 				cluster.add(units[j], candidate_pos)
 				used_index -= 1
 				used_positions[used_index] = j
 				if used_index == 0:
-					done = true
 					break
-		if done:
+		if used_index == 0:
 			break
-						
+	
+	# We stored dist_sq so take square root at end					
 	for cluster in clusters:
 		cluster.size = sqrt(cluster.size)
 			

@@ -6,7 +6,6 @@ var team:int
 
 @onready var _label: Label = $Label
 
-var _header:String
 var _lines:PackedStringArray
 var _ended:bool
 var _index:int
@@ -14,15 +13,10 @@ var _index:int
 @export
 var draw_duration:float = 3.0
 
-func _ready() -> void:
-	_header = "TEAM %d\n%s" % [team, SEPARATOR]
-	_lines.push_back(_header)
-	_label.text = _header
-
 func update(options:Array[UtilityAIOption], chosen_option: UtilityAIOption) -> void:
 	if _ended:
-		# Keep header
-		_lines.resize(1)
+		_lines.clear()
+		_lines.push_back("TEAM %d (%.1fs)\n%s" % [team, GameManager.game_timer.time_seconds, SEPARATOR])
 		_ended = false
 	
 	_index += 1

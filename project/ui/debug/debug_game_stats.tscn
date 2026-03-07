@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dgwv34455hgs8"]
+
+[ext_resource type="Script" uid="uid://d4nf80qj04hyo" path="res://ui/debug/debug_game_stats.gd" id="1_6fuga"]
+
+[node name="DebugGameStats" type="VBoxContainer" unique_id=159246388]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6fuga")
+
+[node name="GameTimer" type="Label" parent="." unique_id=1660712095]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+
+[node name="TeamStats" type="Label" parent="." unique_id=1098840633]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+
+[node name="Tick" type="Timer" parent="." unique_id=1844323866]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="Tick" to="." method="_tick"]
