@@ -15,7 +15,7 @@ class UnitCluster:
 	# Incremental centroid
 	func add(unit:Unit, pos:Vector2) -> void:
 		var cnt:int = count
-		center = (center * cnt + pos) / cnt
+		center = (center * cnt + pos) / (cnt + 1)
 		# Update distance after center for tighter fit
 		size = maxf(size, pos.distance_squared_to(center))
 		units.push_back(unit)
