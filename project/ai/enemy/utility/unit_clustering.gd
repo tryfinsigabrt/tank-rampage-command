@@ -1,7 +1,7 @@
 class_name UnitClustering extends Node
 
 @export
-var max_cluster_size:float = 500.0
+var max_cluster_size:float = 300.0
 
 class UnitCluster:
 	var units:Array[Unit]
