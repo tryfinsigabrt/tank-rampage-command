@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://d0ej5ovh5yc4a" path="res://fow/fog_of_war_debug_overlay.gd" id="1_8mbst"]
 
 [node name="FogOfWarDebugOverlay" type="Control" unique_id=1922484708]
+custom_minimum_size = Vector2(700, 325)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 700.0
+offset_bottom = 325.0
 script = ExtResource("1_8mbst")
 
 [node name="VisibleOutline" type="ReferenceRect" parent="." unique_id=655599911]
@@ -40,6 +43,7 @@ layout_mode = 0
 offset_left = 120.0
 offset_right = 186.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
 text = "Visible"
 
 [node name="ExploredLabel" type="Label" parent="." unique_id=655008441]
@@ -47,4 +51,5 @@ layout_mode = 0
 offset_left = 475.0
 offset_right = 541.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
 text = "Explored"

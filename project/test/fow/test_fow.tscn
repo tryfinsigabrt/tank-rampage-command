@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="7_1t5eo"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="8_6nnxe"]
 [ext_resource type="PackedScene" uid="uid://cl75y4etufctb" path="res://fow/fog_of_war_debug_overlay.tscn" id="9_ct22n"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="9_cwula"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -32,10 +33,7 @@ size = Vector3(600, 100, 525)
 
 [node name="TestFOW" type="Node3D" unique_id=1293608661]
 
-[node name="FogOfWar" parent="." unique_id=1445970781 node_paths=PackedStringArray("terrain") instance=ExtResource("8_6nnxe")]
-terrain = NodePath("../World/NavigationRegion3D/Floor")
-
-[node name="FogOfWarDebugOverlay" parent="FogOfWar" unique_id=1104952790 instance=ExtResource("9_ct22n")]
+[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("8_6nnxe")]
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
@@ -187,5 +185,11 @@ team = 1
 [node name="PlayerTank4" parent="World/PlayerTeam/Player" unique_id=839342163 instance=ExtResource("7_1t5eo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("9_cwula")]
+
+[node name="FogOfWarDebugOverlay" parent="DebugHud" unique_id=1104952790 node_paths=PackedStringArray("fog_of_war") instance=ExtResource("9_ct22n")]
+layout_mode = 2
+fog_of_war = NodePath("../../FogOfWar")
 
 [editable path="World/PlayerTeam/Player"]

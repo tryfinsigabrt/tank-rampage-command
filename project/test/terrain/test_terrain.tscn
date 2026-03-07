@@ -20,6 +20,8 @@
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="19_w6fx3"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="20_ibbv5"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_xxlqf"]
+[ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="22_saqa1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
 
@@ -776,6 +778,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 975, 50, -979)
 size = Vector3(100, 100, 100)
 
 [node name="MiniMap" parent="." unique_id=1355849070 instance=ExtResource("19_ahvu0")]
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("21_xxlqf")]
+visible = false
+
+[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=2054487946 instance=ExtResource("22_saqa1")]
+layout_mode = 2
 
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]

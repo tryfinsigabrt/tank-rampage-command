@@ -33,6 +33,9 @@ signal match_team_eliminated(match_team:MatchTeam)
 signal on_entered_world_boundaries(world_boundaries: WorldBoundaries, body: Node3D)
 signal on_left_world_boundaries(world_boundaries: WorldBoundaries, body: Node3D)
 
+signal on_utility_calculation(id:StringName, team:int, options:Array[UtilityAIOption], chosen_option:UtilityAIOption)
+signal on_utility_calculation_complete(id:StringName, team:int)
+
 @warning_ignore_restore("unused_signal")
 
 func register_unit(unit:Unit) -> void:

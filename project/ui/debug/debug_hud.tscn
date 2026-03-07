@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://woa50sqkcenb"]
+
+[ext_resource type="Script" uid="uid://5p46t68yyp1k" path="res://ui/debug/debug_hud.gd" id="1_kodiw"]
+
+[node name="DebugHud" type="HFlowContainer" unique_id=1595490819]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kodiw")

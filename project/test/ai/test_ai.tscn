@@ -18,6 +18,8 @@
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
+[ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="20_ij0eg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -256,6 +258,11 @@ material_override = ExtResource("9_62175")
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
 
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("19_le2i0")]
+
+[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=1352376986 instance=ExtResource("20_ij0eg")]
+layout_mode = 2
 
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]

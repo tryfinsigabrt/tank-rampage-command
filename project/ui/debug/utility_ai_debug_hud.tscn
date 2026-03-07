@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://di8abaeq2tkdk"]
+
+[ext_resource type="Script" uid="uid://dfjxj432eb4qb" path="res://ui/debug/utility_ai_debug_hud.gd" id="1_je7ij"]
+
+[node name="UtilityAiDebugHud" type="MarginContainer" unique_id=2054487946]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+script = ExtResource("1_je7ij")
+
+[node name="Container" type="VBoxContainer" parent="." unique_id=329601040]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Container" unique_id=128466663]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Utility AI"
+uppercase = true
