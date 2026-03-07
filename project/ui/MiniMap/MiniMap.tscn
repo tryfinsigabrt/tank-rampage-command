@@ -4,8 +4,12 @@
 
 [node name="MiniMap" type="SubViewportContainer" unique_id=1355849070]
 top_level = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
 offset_right = 128.0
-offset_bottom = 128.0
+grow_vertical = 0
 
 [node name="MiniMapViewport" type="SubViewport" parent="." unique_id=995441271]
 transparent_bg = true
