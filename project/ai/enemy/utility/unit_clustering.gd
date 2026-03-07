@@ -66,11 +66,12 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 		for j in num_units:
 			if i == j or used_positions.find(j, used_index) != -1:
 				continue
-			var candidate:Vector2 = positions[j]
-			var dist_sq:float = cluster.center.distance_squared_to(candidate)
+			var candidate_pos:Vector2 = positions[j]
+			var dist_sq:float = cluster.center.distance_squared_to(candidate_pos)
 			if dist_sq <= cluster_size_sq:
-				cluster.add(units[j], candidate)
+				cluster.add(units[j], candidate_pos)
 				used_index -= 1
+				used_positions[used_index] = j
 				if used_index == 0:
 					done = true
 					break
