@@ -68,3 +68,33 @@ func apply_team_collision_layer(root: Node, team: int, recursive:bool = true) ->
 				return
 		for child in node.get_children():
 			nodes.push_back(child)
+
+func get_aabb_from_collision(collision:Node) -> AABB:
+	var collision_shape:CollisionShape3D = collision as CollisionShape3D
+	var bounds:AABB
+	
+	if collision_shape and collision_shape.shape:
+		var shape:Shape3D = collision_shape.shape
+		if shape is BoxShape3D:
+			bounds = bounds.expand(shape.size)
+			bounds = bounds.expand(-shape.size)
+		elif shape is SphereShape3D:
+			bounds = bounds.expand(shape.radius)
+			bounds = bounds.expand(-shape.radius)
+		elif shape is CapsuleShape3D:
+			var extent:Vector3 = Vector3(shape.radius, shape.height, shape.radius) * 0.5
+			bounds = bounds.expand(extent)
+			bounds = bounds.expand(-extent)
+		else:
+			push_warning("%s: Unsupported shape %s" % [name, collision_shape])
+		bounds = collision_shape.transform * bounds
+		
+	elif not collision_shape:
+		var collision_poly:CollisionPolygon3D = collision as CollisionPolygon3D
+		if collision_poly:
+			var points:PackedVector2Array = collision_poly.polygon
+			for point in points:
+				var point_3d:Vector3 = Vector3(point.x, collision_poly.depth, point.y)
+				bounds = bounds.expand(point_3d)
+			bounds = collision_poly.transform * bounds
+	return bounds

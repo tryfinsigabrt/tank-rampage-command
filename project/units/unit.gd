@@ -76,6 +76,7 @@ var weapon:Weapon:
 		return _get_weapon()
 
 var _unit_actions:UnitActions
+var _aabb:AABB
 
 #region Abstracts/Hooks
 @abstract
@@ -104,12 +105,22 @@ func _get_health_stat() -> HealthStat:
 func _get_weapon() -> Weapon:
 	return null
 	
+## Gets an AABB representing the 
+func get_bounds() -> AABB:
+	return transform * _aabb
+	
 #endregion
 
 func _ready() -> void:
 	SignalBus.register_unit(self)
 	refresh_team_layers()
-	
+	_calculate_aabb()
+
+func _calculate_aabb() -> void:
+	for child in get_children():
+		if child is CollisionShape3D or child is CollisionPolygon3D:
+			_aabb = _aabb.merge(Collisions.get_aabb_from_collision(child))
+
 #region Teams
 
 func refresh_team_layers() -> void:
