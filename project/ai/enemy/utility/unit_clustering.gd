@@ -63,8 +63,8 @@ func compute_clusters(units:Array[Unit]) -> Array[UnitCluster]:
 		if used_index == 0:
 			break
 			
-		for j in num_units:
-			if i == j or used_positions.find(j, used_index) != -1:
+		for j in range(i + 1, num_units):
+			if used_positions.find(j, used_index) != -1:
 				continue
 			var candidate_pos:Vector2 = positions[j]
 			var dist_sq:float = cluster.center.distance_squared_to(candidate_pos)
