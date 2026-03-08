@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dnybtwmdla40v"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_0lcq6"]
+[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://props/museum_ground_material.tres" id="1_domqp"]
 [ext_resource type="PackedScene" uid="uid://b6a7acabed2cy" path="res://props/sandbags/straight_sandbag_barrier.tscn" id="1_rnl7t"]
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="2_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
@@ -96,15 +97,8 @@ _data = {
 &"beauty": SubResource("Animation_y20a5")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ko5u"]
-albedo_color = Color(0, 0, 0, 1)
-roughness = 0.9
-clearcoat_enabled = true
-clearcoat = 0.4
-uv1_world_triplanar = true
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
-material = SubResource("StandardMaterial3D_8ko5u")
+material = ExtResource("1_domqp")
 size = Vector2(200, 200)
 
 [node name="Museum" type="Node3D" unique_id=144309689]

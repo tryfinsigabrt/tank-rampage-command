@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://diiupfujqa74y"]
+
+[ext_resource type="Script" uid="uid://dw5uw7kcxqvnt" path="res://test/animated_instance_stress_test.gd" id="1_r2g7t"]
+[ext_resource type="PackedScene" uid="uid://467gmcjxbokb" path="res://units/human/marine/anim-examples/run.tscn" id="2_603ws"]
+[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://props/museum_ground_material.tres" id="2_ck8ha"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ck8ha"]
+sky_top_color = Color(0.7789294, 0.5165509, 0.31880924, 1)
+sky_horizon_color = Color(0.7659861, 0.691144, 0.6361405, 1)
+ground_bottom_color = Color(0.121728905, 0.08473902, 0.062466912, 1)
+ground_horizon_color = Color(0.7659861, 0.691144, 0.6361405, 1)
+energy_multiplier = 0.3
+
+[sub_resource type="Sky" id="Sky_603ws"]
+sky_material = SubResource("ProceduralSkyMaterial_ck8ha")
+
+[sub_resource type="Environment" id="Environment_2whvd"]
+background_mode = 2
+sky = SubResource("Sky_603ws")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_603ws"]
+size = Vector2(1000, 1000)
+
+[node name="AnimatedInstanceStressTest" type="Node3D" unique_id=2052849373]
+script = ExtResource("1_r2g7t")
+scene = ExtResource("2_603ws")
+quantity = 250
+spacing = Vector2i(2, 2)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=203027246]
+environment = SubResource("Environment_2whvd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2006227957]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.75
+directional_shadow_max_distance = 75.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2013781449]
+mesh = SubResource("PlaneMesh_603ws")
+surface_material_override/0 = ExtResource("2_ck8ha")
+
+[node name="Instances" type="Node3D" parent="." unique_id=804283369]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1669172596]
+transform = Transform3D(-0.4999999, 0.43301266, -0.75000006, -7.508171e-08, 0.86602545, 0.49999994, 0.86602545, 0.24999999, -0.4330126, -7, 6, 25)
+fov = 90.0
+
+[node name="DebugLabel" type="Label3D" parent="Camera3D" unique_id=30972655]
+transform = Transform3D(0.99999994, -7.450581e-09, 1.4901161e-08, 7.450581e-09, 1.0000001, 2.9802322e-08, 0, 0, 1, -2.138, 1.211, -1.673)
+text = "Test"
