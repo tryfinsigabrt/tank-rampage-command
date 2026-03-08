@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="4_y20a5"]
 [ext_resource type="PackedScene" uid="uid://467gmcjxbokb" path="res://units/human/marine/anim-examples/run.tscn" id="6_8ko5u"]
+[ext_resource type="PackedScene" uid="uid://kyuedf4k4jej" path="res://units/human/marine/anim-examples/shoot.tscn" id="7_domqp"]
 [ext_resource type="PackedScene" uid="uid://d3c7wpm1uohjw" path="res://units/human/marine/anim-examples/idle.tscn" id="7_fdxvd"]
 [ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="7_y20a5"]
 
@@ -402,136 +403,154 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.245571, 0, -13.993485)
 [node name="marine" parent="Marines/RunningGroup" unique_id=1635078180 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0827637)
 
-[node name="marine2" parent="Marines/RunningGroup" unique_id=1769451306 instance=ExtResource("6_8ko5u")]
+[node name="marine2" parent="Marines/RunningGroup" unique_id=972718615 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.0827656)
 
-[node name="marine3" parent="Marines/RunningGroup" unique_id=1791010452 instance=ExtResource("6_8ko5u")]
+[node name="marine3" parent="Marines/RunningGroup" unique_id=1605637098 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443223, 0, 2.0827656)
 
-[node name="marine4" parent="Marines/RunningGroup" unique_id=2031584281 instance=ExtResource("6_8ko5u")]
+[node name="marine4" parent="Marines/RunningGroup" unique_id=391050389 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556777, 0, 2.0827656)
 
 [node name="BigRunningGroup" type="Node3D" parent="Marines" unique_id=1961834740]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.70782, 0, -18.736717)
 
-[node name="marine" parent="Marines/BigRunningGroup" unique_id=894738167 instance=ExtResource("6_8ko5u")]
+[node name="marine" parent="Marines/BigRunningGroup" unique_id=1156065330 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0827637)
 
-[node name="marine2" parent="Marines/BigRunningGroup" unique_id=1817107877 instance=ExtResource("6_8ko5u")]
+[node name="marine2" parent="Marines/BigRunningGroup" unique_id=181769414 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.0827656)
 
-[node name="marine3" parent="Marines/BigRunningGroup" unique_id=272737569 instance=ExtResource("6_8ko5u")]
+[node name="marine3" parent="Marines/BigRunningGroup" unique_id=2040005711 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443223, 0, 2.0827656)
 
-[node name="marine4" parent="Marines/BigRunningGroup" unique_id=947695010 instance=ExtResource("6_8ko5u")]
+[node name="marine4" parent="Marines/BigRunningGroup" unique_id=515828011 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556777, 0, 2.0827656)
 
-[node name="marine5" parent="Marines/BigRunningGroup" unique_id=1675563995 instance=ExtResource("6_8ko5u")]
+[node name="marine5" parent="Marines/BigRunningGroup" unique_id=259704722 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4.0827656)
 
-[node name="marine6" parent="Marines/BigRunningGroup" unique_id=1843180805 instance=ExtResource("6_8ko5u")]
+[node name="marine6" parent="Marines/BigRunningGroup" unique_id=1073528382 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 4.0827656)
 
-[node name="marine7" parent="Marines/BigRunningGroup" unique_id=605452096 instance=ExtResource("6_8ko5u")]
+[node name="marine7" parent="Marines/BigRunningGroup" unique_id=2050687434 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.443224, 0, 2.0827675)
 
-[node name="marine8" parent="Marines/BigRunningGroup" unique_id=1714829906 instance=ExtResource("6_8ko5u")]
+[node name="marine8" parent="Marines/BigRunningGroup" unique_id=1627011193 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.443224, 0, 2.0827656)
 
-[node name="marine9" parent="Marines/BigRunningGroup" unique_id=182349058 instance=ExtResource("6_8ko5u")]
+[node name="marine9" parent="Marines/BigRunningGroup" unique_id=225218872 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08276367)
 
-[node name="marine10" parent="Marines/BigRunningGroup" unique_id=2045612949 instance=ExtResource("6_8ko5u")]
+[node name="marine10" parent="Marines/BigRunningGroup" unique_id=681118348 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.08276558)
 
-[node name="marine11" parent="Marines/BigRunningGroup" unique_id=2132634703 instance=ExtResource("6_8ko5u")]
+[node name="marine11" parent="Marines/BigRunningGroup" unique_id=594879240 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44322395, 0, -1.9172344)
 
-[node name="marine12" parent="Marines/BigRunningGroup" unique_id=68239754 instance=ExtResource("6_8ko5u")]
+[node name="marine12" parent="Marines/BigRunningGroup" unique_id=1730869768 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556776, 0, -1.9172344)
 
-[node name="marine13" parent="Marines/BigRunningGroup" unique_id=1588251915 instance=ExtResource("6_8ko5u")]
+[node name="marine13" parent="Marines/BigRunningGroup" unique_id=1347825274 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0.08276749)
 
-[node name="marine14" parent="Marines/BigRunningGroup" unique_id=545218041 instance=ExtResource("6_8ko5u")]
+[node name="marine14" parent="Marines/BigRunningGroup" unique_id=1576695192 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0.08276558)
 
-[node name="marine15" parent="Marines/BigRunningGroup" unique_id=175782259 instance=ExtResource("6_8ko5u")]
+[node name="marine15" parent="Marines/BigRunningGroup" unique_id=2087228090 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.443224, 0, -1.9172306)
 
-[node name="marine16" parent="Marines/BigRunningGroup" unique_id=873916730 instance=ExtResource("6_8ko5u")]
+[node name="marine16" parent="Marines/BigRunningGroup" unique_id=1332629827 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.443224, 0, -1.9172344)
 
-[node name="marine" parent="Marines" unique_id=1872410598 instance=ExtResource("7_fdxvd")]
+[node name="ShootingMarine" parent="Marines" unique_id=536890766 instance=ExtResource("7_domqp")]
+transform = Transform3D(1, 7.450581e-09, -2.9802322e-08, 7.450581e-09, 0.99999994, -7.450581e-09, 0, 0, 1, 0.5252743, 5.9604645e-07, 10.274805)
+
+[node name="ShootingMarine2" parent="Marines" unique_id=1120981247 instance=ExtResource("7_domqp")]
+transform = Transform3D(1, 7.450581e-09, -2.9802322e-08, 7.450581e-09, 0.99999994, -7.450581e-09, 0, 0, 1, -1.5366554, 5.9604645e-07, 10.649302)
+
+[node name="ShootingMarine3" parent="Marines" unique_id=490669792 instance=ExtResource("7_domqp")]
+transform = Transform3D(0.9966745, 7.4258035e-09, 0.08148621, 7.450581e-09, 0.99999994, -7.450581e-09, -0.08148624, -6.071198e-10, 0.9966745, -0.47062796, 1.1920929e-07, 9.346328)
+
+[node name="ShootingMarine4" parent="Marines" unique_id=403892875 instance=ExtResource("7_domqp")]
+transform = Transform3D(-4.371139e-08, -3.2567522e-16, 1, 7.450581e-09, 0.99999994, -7.450581e-09, -1, -7.450581e-09, -1.3909066e-08, 11.963383, 5.9604645e-07, -0.31162024)
+
+[node name="ShootingMarine5" parent="Marines" unique_id=1920104026 instance=ExtResource("7_domqp")]
+transform = Transform3D(-4.371139e-08, -3.2567522e-16, 1, 7.450581e-09, 0.99999994, -7.450581e-09, -1, -7.450581e-09, -1.3909066e-08, 12.33788, 5.9604645e-07, 1.7503095)
+
+[node name="ShootingMarine6" parent="Marines" unique_id=564184262 instance=ExtResource("7_domqp")]
+transform = Transform3D(-0.081486285, -6.071193e-10, 0.9966745, 7.45058e-09, 0.9999999, -7.450581e-09, -0.9966745, -7.4258044e-09, -0.081486255, 11.034906, 1.1920929e-07, 0.6842818)
+
+[node name="marine" parent="Marines" unique_id=858388272 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -19.610798, 0, 5.9461956)
 
-[node name="marine2" parent="Marines" unique_id=1812304367 instance=ExtResource("7_fdxvd")]
+[node name="marine2" parent="Marines" unique_id=714529955 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 5.3917427)
 
-[node name="marine3" parent="Marines" unique_id=50836867 instance=ExtResource("7_fdxvd")]
+[node name="marine3" parent="Marines" unique_id=1670668633 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.61495, 0, 5.763977)
 
-[node name="marine4" parent="Marines" unique_id=780587015 instance=ExtResource("7_fdxvd")]
+[node name="marine4" parent="Marines" unique_id=819608373 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -13.617025, 0, 5.6728673)
 
-[node name="marine5" parent="Marines" unique_id=1309322385 instance=ExtResource("7_fdxvd")]
+[node name="marine5" parent="Marines" unique_id=1637452493 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.217443, 0, 7.3917427)
 
-[node name="marine6" parent="Marines" unique_id=713217924 instance=ExtResource("7_fdxvd")]
+[node name="marine6" parent="Marines" unique_id=1224483594 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 7.3917427)
 
-[node name="marine7" parent="Marines" unique_id=66446041 instance=ExtResource("7_fdxvd")]
+[node name="marine7" parent="Marines" unique_id=495847391 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.52384, 0, 7.7619004)
 
-[node name="marine8" parent="Marines" unique_id=1393256099 instance=ExtResource("7_fdxvd")]
+[node name="marine8" parent="Marines" unique_id=46803429 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -13.525916, 0, 7.6707907)
 
-[node name="marine9" parent="Marines" unique_id=1770345665 instance=ExtResource("7_fdxvd")]
+[node name="marine9" parent="Marines" unique_id=1208033217 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.217443, 0, 9.391743)
 
-[node name="marine10" parent="Marines" unique_id=1419629290 instance=ExtResource("7_fdxvd")]
+[node name="marine10" parent="Marines" unique_id=1970276213 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -17.430655, 0, 9.850934)
 
-[node name="marine11" parent="Marines" unique_id=330177069 instance=ExtResource("7_fdxvd")]
+[node name="marine11" parent="Marines" unique_id=225003218 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.217443, 0, 9.391743)
 
-[node name="marine12" parent="Marines" unique_id=1701800885 instance=ExtResource("7_fdxvd")]
+[node name="marine12" parent="Marines" unique_id=1410720775 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.217443, 0, 9.391743)
 
-[node name="marine13" parent="Marines" unique_id=380119157 instance=ExtResource("7_fdxvd")]
+[node name="marine13" parent="Marines" unique_id=619961249 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.9975274, 0, -0.070278786, 0, 1, 0, 0.070278786, 0, 0.9975274, -18.902264, 0, 11.351696)
 
-[node name="marine14" parent="Marines" unique_id=920075209 instance=ExtResource("7_fdxvd")]
+[node name="marine14" parent="Marines" unique_id=44091887 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 11.391743)
 
-[node name="marine15" parent="Marines" unique_id=505680382 instance=ExtResource("7_fdxvd")]
+[node name="marine15" parent="Marines" unique_id=857973026 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.341621, 0, 11.757748)
 
-[node name="marine16" parent="Marines" unique_id=1847776670 instance=ExtResource("7_fdxvd")]
+[node name="marine16" parent="Marines" unique_id=353179846 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.217443, 0, 11.391743)
 
-[node name="marine17" parent="Marines" unique_id=2118763491 instance=ExtResource("7_fdxvd")]
+[node name="marine17" parent="Marines" unique_id=1752489916 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3253975, -1.9073486e-06, -6.6185884)
 
-[node name="marine25" parent="Marines" unique_id=703782049 instance=ExtResource("7_fdxvd")]
+[node name="marine25" parent="Marines" unique_id=997936215 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 8.788543, -2.3841858e-06, 6.878307)
 
-[node name="marine22" parent="Marines" unique_id=1218224198 instance=ExtResource("7_fdxvd")]
+[node name="marine22" parent="Marines" unique_id=1769915228 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.44070435, -1.9073486e-06, -8.6294365)
 
-[node name="marine23" parent="Marines" unique_id=906808390 instance=ExtResource("7_fdxvd")]
+[node name="marine23" parent="Marines" unique_id=1087994129 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(5.9604645e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 5.9604645e-08, 6.346443, 1.9428158, -3.2025456)
 
-[node name="marine21" parent="Marines" unique_id=1350944310 instance=ExtResource("7_fdxvd")]
+[node name="marine21" parent="Marines" unique_id=2050973334 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.9659258, -11.29923, -1.9073486e-06, -16.939741)
 
-[node name="marine19" parent="Marines" unique_id=927430898 instance=ExtResource("7_fdxvd")]
+[node name="marine19" parent="Marines" unique_id=329701625 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.25881913, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, -0.25881913, 8.461616, -7.1525574e-07, 8.528227)
 
-[node name="marine20" parent="Marines" unique_id=994078176 instance=ExtResource("7_fdxvd")]
+[node name="marine20" parent="Marines" unique_id=909230685 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 8.973773, -2.6226044e-06, 5.3295116)
 
-[node name="marine18" parent="Marines" unique_id=1411637226 instance=ExtResource("7_fdxvd")]
+[node name="marine18" parent="Marines" unique_id=586382751 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1, 9.388755, -1.9073486e-06, 3.8658829)
 
 [node name="barbed-wire" parent="." unique_id=491837801 instance=ExtResource("7_y20a5")]
