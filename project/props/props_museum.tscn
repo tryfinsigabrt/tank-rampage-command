@@ -5,8 +5,32 @@
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="2_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="4_y20a5"]
-[ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="6_bhxhu"]
+[ext_resource type="PackedScene" uid="uid://467gmcjxbokb" path="res://units/human/marine/anim-examples/run.tscn" id="6_8ko5u"]
+[ext_resource type="PackedScene" uid="uid://d3c7wpm1uohjw" path="res://units/human/marine/anim-examples/idle.tscn" id="7_fdxvd"]
 [ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="7_y20a5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ko5u"]
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.36367378, 0.46128422, 0.3642056, 1)
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_fdxvd"]
+sky_material = SubResource("ProceduralSkyMaterial_8ko5u")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_domqp"]
+background_mode = 2
+sky = SubResource("Sky_fdxvd")
+ambient_light_source = 2
+ambient_light_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+tonemap_mode = 4
+ssao_enabled = true
+glow_enabled = true
+fog_light_energy = 0.5
+fog_sun_scatter = 1.0
+fog_density = 0.002
+fog_height = 12.0
+fog_height_density = -0.5
 
 [sub_resource type="Animation" id="Animation_bhxhu"]
 length = 0.001
@@ -72,13 +96,27 @@ _data = {
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ko5u"]
-albedo_color = Color(0.45840502, 0.45840508, 0.45840502, 1)
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.9
+clearcoat_enabled = true
+clearcoat = 0.4
+uv1_world_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
 material = SubResource("StandardMaterial3D_8ko5u")
 size = Vector2(200, 200)
 
 [node name="Museum" type="Node3D" unique_id=144309689]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1150270377]
+transform = Transform3D(-0.4508776, 0.30820826, -0.83768547, 0, 0.938493, 0.3452982, 0.89258575, 0.15568723, -0.42314547, 0, 0, 0)
+light_color = Color(0.7866393, 0.687221, 0.4915517, 1)
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_max_distance = 75.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=589963304]
+environment = SubResource("Environment_domqp")
 
 [node name="BeautyCam" type="Camera3D" parent="." unique_id=1820950375]
 transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 16.5, 2.5, 16)
@@ -133,17 +171,68 @@ spot_angle = 70.0
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Left" unique_id=495055389]
 transform = Transform3D(0.9991888, 0.013003341, 0.038114183, 0, 0.94643533, -0.32289353, -0.0402713, 0.32263157, 0.94566756, -15.291702, 2.4544768, 17.779917)
-light_energy = 4.0
+light_energy = 12.0
 light_size = 0.1
 spot_range = 16.0
 spot_angle = 60.0
+
+[node name="Center" type="Node3D" parent="Lights" unique_id=365840609]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights/Center" unique_id=733700735]
+transform = Transform3D(0.7071068, -3.090862e-08, 0.7071068, -0.7071068, -3.090862e-08, 0.7071068, 0, -1, -4.3711392e-08, -4.1709104, 2.7186382, 6.214056)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.85
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 55.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights/Center" unique_id=1204154623]
+transform = Transform3D(0.7071068, -3.090862e-08, 0.7071068, -0.7071068, -3.090862e-08, 0.7071068, 0, -1, -4.3711392e-08, -4.1709104, 2.7186382, 0.21405602)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.85
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 55.0
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights/Center" unique_id=1687807913]
+transform = Transform3D(0.7071068, -3.090862e-08, 0.7071068, -0.7071068, -3.090862e-08, 0.7071068, 0, -1, -4.3711392e-08, -4.1709104, 2.7186382, -4.785944)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.85
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 55.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights/Center" unique_id=1682656308]
+transform = Transform3D(0.7071068, -3.090862e-08, 0.7071068, -0.7071068, -3.090862e-08, 0.7071068, 0, -1, -4.3711392e-08, -4.1709104, 2.7186382, -10.785944)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.85
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 55.0
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Center" unique_id=513587843]
+transform = Transform3D(0.63201135, 0.42621803, -0.6472247, -0.45268038, 0.88091797, 0.13807261, 0.62900096, 0.20572247, 0.7496907, -12.319124, 2.6098962, 2.6730423)
+light_energy = 12.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.85
+spot_range = 12.0
+spot_angle = 55.0
 
 [node name="Right" type="Node3D" parent="Lights" unique_id=602652334]
 transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 4, 0, -1)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Lights/Right" unique_id=740952585]
 transform = Transform3D(1.0000001, -2.9802322e-08, -8.881784e-16, 0, -4.371139e-08, 1, -2.9802322e-08, -1.0000001, -4.3711392e-08, 0.029102325, 4.757493, 12.320931)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -153,7 +242,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Lights/Right" unique_id=481071668]
 transform = Transform3D(1.0000001, -2.9802322e-08, -8.881784e-16, 0, -4.371139e-08, 1, -2.9802322e-08, -1.0000001, -4.3711392e-08, 0.029102802, 4.757493, 6.32093)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -163,7 +252,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D3" type="SpotLight3D" parent="Lights/Right" unique_id=129314080]
 transform = Transform3D(1.0000001, -2.9802322e-08, -6.354517e-09, 6.3545142e-09, -5.1058013e-08, 1, 0, -1.0000001, -5.1058016e-08, 0.029102325, 4.757493, -1.6790698)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -173,7 +262,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D4" type="SpotLight3D" parent="Lights/Right" unique_id=2110740583]
 transform = Transform3D(1.0000001, -2.9802322e-08, -6.354517e-09, 6.3545142e-09, -5.1058013e-08, 1, 0, -1.0000001, -5.1058016e-08, 0.02910328, 4.7574925, -7.679068)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -183,7 +272,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Right" unique_id=149178449]
 transform = Transform3D(0.18301292, 0.68301266, 0.70710695, -0.96592575, 0.2588194, -7.479035e-08, -0.18301304, -0.68301266, 0.7071068, 5.520841, 1.981035, 12.75719)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -193,7 +282,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D6" type="SpotLight3D" parent="Lights/Right" unique_id=51005913]
 transform = Transform3D(0.25000015, -0.0669875, 0.96592593, -0.9330126, 0.25000036, 0.2588192, -0.25881943, -0.96592593, -7.4505806e-08, 7.020846, 2.53395, 7.1590996)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -203,7 +292,7 @@ spot_angle = 70.0
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="Lights/Right" unique_id=1892244569]
 transform = Transform3D(0.12500027, 0.9665065, -0.22414385, -0.8365162, 0.2241441, 0.5000002, 0.53349394, 0.12499981, 0.8365163, -5.1804247, 2.9387763, 13.901138)
-light_energy = 12.0
+light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
 shadow_opacity = 0.75
@@ -307,76 +396,142 @@ transform = Transform3D(0.37310117, 0, 0.9277907, 0, 1, 0, -0.9277907, 0, 0.3731
 
 [node name="Marines" type="Node3D" parent="." unique_id=1612157688]
 
-[node name="marine" parent="Marines" unique_id=2012254258 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 5.7922)
+[node name="RunningGroup" type="Node3D" parent="Marines" unique_id=2005668260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.245571, 0, -13.993485)
 
-[node name="marine2" parent="Marines" unique_id=287822374 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 8.036961)
+[node name="marine" parent="Marines/RunningGroup" unique_id=1635078180 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0827637)
 
-[node name="marine3" parent="Marines" unique_id=1328821779 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 10.3220825)
+[node name="marine2" parent="Marines/RunningGroup" unique_id=1769451306 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.0827656)
 
-[node name="marine4" parent="Marines" unique_id=170866728 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.388652, 0, 12.566843)
+[node name="marine3" parent="Marines/RunningGroup" unique_id=1791010452 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443223, 0, 2.0827656)
 
-[node name="marine5" parent="Marines" unique_id=1983183342 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 4.7476406)
+[node name="marine4" parent="Marines/RunningGroup" unique_id=2031584281 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556777, 0, 2.0827656)
 
-[node name="marine6" parent="Marines" unique_id=626726780 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 6.992401)
+[node name="BigRunningGroup" type="Node3D" parent="Marines" unique_id=1961834740]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 17.70782, 0, -18.736717)
 
-[node name="marine7" parent="Marines" unique_id=1587911759 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 9.277523)
+[node name="marine" parent="Marines/BigRunningGroup" unique_id=894738167 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0827637)
 
-[node name="marine8" parent="Marines" unique_id=1931737959 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.192805, 0, 11.522284)
+[node name="marine2" parent="Marines/BigRunningGroup" unique_id=1817107877 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.0827656)
 
-[node name="marine9" parent="Marines" unique_id=1816546572 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 5.7922)
+[node name="marine3" parent="Marines/BigRunningGroup" unique_id=272737569 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443223, 0, 2.0827656)
 
-[node name="marine10" parent="Marines" unique_id=1955874753 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 8.036961)
+[node name="marine4" parent="Marines/BigRunningGroup" unique_id=947695010 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556777, 0, 2.0827656)
 
-[node name="marine11" parent="Marines" unique_id=1917578296 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 10.3220825)
+[node name="marine5" parent="Marines/BigRunningGroup" unique_id=1675563995 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4.0827656)
 
-[node name="marine12" parent="Marines" unique_id=357538873 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.876123, 0, 12.566843)
+[node name="marine6" parent="Marines/BigRunningGroup" unique_id=1843180805 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 4.0827656)
 
-[node name="marine13" parent="Marines" unique_id=340896187 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 4.7476406)
+[node name="marine7" parent="Marines/BigRunningGroup" unique_id=605452096 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.443224, 0, 2.0827675)
 
-[node name="marine14" parent="Marines" unique_id=1092044421 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 6.992401)
+[node name="marine8" parent="Marines/BigRunningGroup" unique_id=1714829906 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.443224, 0, 2.0827656)
 
-[node name="marine15" parent="Marines" unique_id=1459789591 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 9.277523)
+[node name="marine9" parent="Marines/BigRunningGroup" unique_id=182349058 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08276367)
 
-[node name="marine16" parent="Marines" unique_id=1948874900 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.680277, 0, 11.522284)
+[node name="marine10" parent="Marines/BigRunningGroup" unique_id=2045612949 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.08276558)
 
-[node name="marine17" parent="Marines" unique_id=1955352309 instance=ExtResource("6_bhxhu")]
-transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -14.3253975, -1.9073486e-06, -6.6185884)
+[node name="marine11" parent="Marines/BigRunningGroup" unique_id=2132634703 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44322395, 0, -1.9172344)
 
-[node name="marine18" parent="Marines" unique_id=950055338 instance=ExtResource("6_bhxhu")]
+[node name="marine12" parent="Marines/BigRunningGroup" unique_id=68239754 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.556776, 0, -1.9172344)
+
+[node name="marine13" parent="Marines/BigRunningGroup" unique_id=1588251915 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0.08276749)
+
+[node name="marine14" parent="Marines/BigRunningGroup" unique_id=545218041 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0.08276558)
+
+[node name="marine15" parent="Marines/BigRunningGroup" unique_id=175782259 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.443224, 0, -1.9172306)
+
+[node name="marine16" parent="Marines/BigRunningGroup" unique_id=873916730 instance=ExtResource("6_8ko5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.443224, 0, -1.9172344)
+
+[node name="marine" parent="Marines" unique_id=1872410598 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -19.610798, 0, 5.9461956)
+
+[node name="marine2" parent="Marines" unique_id=1812304367 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 5.3917427)
+
+[node name="marine3" parent="Marines" unique_id=50836867 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.61495, 0, 5.763977)
+
+[node name="marine4" parent="Marines" unique_id=780587015 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -13.617025, 0, 5.6728673)
+
+[node name="marine5" parent="Marines" unique_id=1309322385 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.217443, 0, 7.3917427)
+
+[node name="marine6" parent="Marines" unique_id=713217924 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 7.3917427)
+
+[node name="marine7" parent="Marines" unique_id=66446041 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.52384, 0, 7.7619004)
+
+[node name="marine8" parent="Marines" unique_id=1393256099 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -13.525916, 0, 7.6707907)
+
+[node name="marine9" parent="Marines" unique_id=1770345665 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.217443, 0, 9.391743)
+
+[node name="marine10" parent="Marines" unique_id=1419629290 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -17.430655, 0, 9.850934)
+
+[node name="marine11" parent="Marines" unique_id=330177069 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.217443, 0, 9.391743)
+
+[node name="marine12" parent="Marines" unique_id=1701800885 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.217443, 0, 9.391743)
+
+[node name="marine13" parent="Marines" unique_id=380119157 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.9975274, 0, -0.070278786, 0, 1, 0, 0.070278786, 0, 0.9975274, -18.902264, 0, 11.351696)
+
+[node name="marine14" parent="Marines" unique_id=920075209 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.217443, 0, 11.391743)
+
+[node name="marine15" parent="Marines" unique_id=505680382 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(0.99896187, 0, 0.04555478, 0, 1, 0, -0.04555478, 0, 0.99896187, -15.341621, 0, 11.757748)
+
+[node name="marine16" parent="Marines" unique_id=1847776670 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.217443, 0, 11.391743)
+
+[node name="marine17" parent="Marines" unique_id=2118763491 instance=ExtResource("7_fdxvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.3253975, -1.9073486e-06, -6.6185884)
+
+[node name="marine25" parent="Marines" unique_id=703782049 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 8.788543, -2.3841858e-06, 6.878307)
 
-[node name="marine19" parent="Marines" unique_id=611554138 instance=ExtResource("6_bhxhu")]
+[node name="marine22" parent="Marines" unique_id=1218224198 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, -0.44070435, -1.9073486e-06, -8.6294365)
 
-[node name="marine20" parent="Marines" unique_id=219828522 instance=ExtResource("6_bhxhu")]
+[node name="marine23" parent="Marines" unique_id=906808390 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(5.9604645e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 5.9604645e-08, 6.346443, 1.9428158, -3.2025456)
 
-[node name="marine21" parent="Marines" unique_id=1459752266 instance=ExtResource("6_bhxhu")]
+[node name="marine21" parent="Marines" unique_id=1350944310 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.9659258, -11.29923, -1.9073486e-06, -16.939741)
 
-[node name="marine22" parent="Marines" unique_id=1969953073 instance=ExtResource("6_bhxhu")]
+[node name="marine19" parent="Marines" unique_id=927430898 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.25881913, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, -0.25881913, 8.461616, -7.1525574e-07, 8.528227)
 
-[node name="marine23" parent="Marines" unique_id=1297228761 instance=ExtResource("6_bhxhu")]
+[node name="marine20" parent="Marines" unique_id=994078176 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 8.973773, -2.6226044e-06, 5.3295116)
 
-[node name="marine24" parent="Marines" unique_id=538465393 instance=ExtResource("6_bhxhu")]
+[node name="marine18" parent="Marines" unique_id=1411637226 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(1, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1, 9.388755, -1.9073486e-06, 3.8658829)
 
 [node name="barbed-wire" parent="." unique_id=491837801 instance=ExtResource("7_y20a5")]
