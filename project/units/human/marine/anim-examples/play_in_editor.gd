@@ -8,6 +8,8 @@ extends AnimationPlayer
 @export var root_motion_target: Vector3 = Vector3.ZERO ## Relative offset
 @export var root_motion_duration: float = 1.0 ## In seconds
 
+@export var force_loop: bool = false ## Use the animation finished signal to loop the animation for animations that don't loop.
+
 var cached_original_position: Vector3
 var _dirty_position: bool = false
 
@@ -17,6 +19,9 @@ var root_motion: Tween
 func _ready() -> void:
 	play(autoplay)
 	seek(randf_range(0.0, get_animation(autoplay).length))
+	
+	if force_loop:
+		animation_finished.connect(play.bind(autoplay))
 	
 	if root_motion_node and root_motion_target and add_root_motion:
 		cached_original_position = root_motion_node.position

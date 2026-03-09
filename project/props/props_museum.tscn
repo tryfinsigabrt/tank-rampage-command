@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://467gmcjxbokb" path="res://units/human/marine/anim-examples/run.tscn" id="6_8ko5u"]
 [ext_resource type="PackedScene" uid="uid://kyuedf4k4jej" path="res://units/human/marine/anim-examples/shoot.tscn" id="7_domqp"]
 [ext_resource type="PackedScene" uid="uid://d3c7wpm1uohjw" path="res://units/human/marine/anim-examples/idle.tscn" id="7_fdxvd"]
+[ext_resource type="PackedScene" uid="uid://cks42gqhiqm4p" path="res://units/human/marine/anim-examples/death.tscn" id="7_x71tn"]
 [ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="7_y20a5"]
+[ext_resource type="PackedScene" uid="uid://7roqomga0wta" path="res://units/human/marine/anim-examples/death_nonlooping.tscn" id="8_a6r2u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ko5u"]
 ground_bottom_color = Color(0, 0, 0, 1)
@@ -391,10 +393,19 @@ transform = Transform3D(0.37310117, 0, 0.9277907, 0, 1, 0, -0.9277907, 0, 0.3731
 
 [node name="Marines" type="Node3D" parent="." unique_id=1612157688]
 
+[node name="dying_marine" parent="Marines" unique_id=1635078180 instance=ExtResource("7_x71tn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8961396, 0, 0.9014797)
+
+[node name="dying_marine2" parent="Marines" unique_id=990832654 instance=ExtResource("7_x71tn")]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 1.1038604, 0, -0.09852028)
+
+[node name="dead_marine" parent="Marines" unique_id=1310031934 instance=ExtResource("8_a6r2u")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -0.23628664, 2.3841858e-07, -2.439509)
+
 [node name="RunningGroup" type="Node3D" parent="Marines" unique_id=2005668260]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.245571, 0, -13.993485)
 
-[node name="marine" parent="Marines/RunningGroup" unique_id=1635078180 instance=ExtResource("6_8ko5u")]
+[node name="marine" parent="Marines/RunningGroup" unique_id=1036972000 instance=ExtResource("6_8ko5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.0827637)
 
 [node name="marine2" parent="Marines/RunningGroup" unique_id=972718615 instance=ExtResource("6_8ko5u")]
