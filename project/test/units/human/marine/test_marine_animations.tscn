@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://baas7e36cbmlb"]
+
+[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="1_c7ssw"]
+
+[sub_resource type="GDScript" id="GDScript_c7ssw"]
+script/source = "@tool
+extends Node3D
+
+@onready var animation_tree: MarineAnimation = $HumanMarineUnit/MarineAnimation
+
+
+@export
+var animation_state:MarineAnimation.State:
+	set(value):
+		animation_state = value
+		if animation_tree:
+			animation_tree.state = value
+
+
+func _ready() -> void:
+	animation_tree.state = animation_state
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2h6wx"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_tldra"]
+sky_material = SubResource("ProceduralSkyMaterial_2h6wx")
+
+[sub_resource type="Environment" id="Environment_5cmpn"]
+background_mode = 2
+sky = SubResource("Sky_tldra")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="TestMarineAnimations" type="Node3D" unique_id=110261383]
+script = SubResource("GDScript_c7ssw")
+animation_state = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=989388173]
+environment = SubResource("Environment_5cmpn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=654016488]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="HumanMarineUnit" parent="." unique_id=224944543 instance=ExtResource("1_c7ssw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5001155, 0)
+
+[node name="Skeleton3D" parent="HumanMarineUnit/VisualRoot/Armature" parent_id_path=PackedInt32Array(224944543, 326298032, 841724596) index="0" unique_id=1012015045]
+bones/1/position = Vector3(-0.01705138, 1.4051962, -0.0021419683)
+bones/2/rotation = Quaternion(-0.022803934, 0.00044002404, -0.01929471, 0.9995537)
+bones/3/rotation = Quaternion(0.10298719, 0.0010936044, 0.02118708, 0.9944564)
+bones/4/rotation = Quaternion(-0.022803934, -0.0004398986, 0.019294735, 0.9995537)
+bones/5/rotation = Quaternion(0.10298719, -0.0010936061, -0.021187102, 0.9944564)
+bones/6/rotation = Quaternion(-0.70710665, 3.2924205e-10, 0.7071069, -2.907629e-07)
+bones/8/rotation = Quaternion(-2.2028996e-09, -5.2796385e-09, -0.052841526, 0.9986029)
+bones/9/rotation = Quaternion(1.6877685e-09, 3.9535095e-09, 0.039232843, 0.9992301)
+bones/10/position = Vector3(0.006095113, -0.26628265, -0.89072573)
+bones/10/rotation = Quaternion(4.832032e-17, 2.8103143e-25, 1.3396991e-17, 1)
+bones/11/rotation = Quaternion(0.9208414, 6.0717376e-08, -2.9826577e-07, -0.38993743)
+bones/12/position = Vector3(0.006095035, 0.04857151, -0.806713)
+bones/13/position = Vector3(0.0060951915, -0.2662827, 0.89072573)
+bones/13/rotation = Quaternion(-4.8390145e-17, 1, -1.185965e-16, -7.54979e-08)
+bones/14/rotation = Quaternion(0.92084134, -4.832264e-08, 3.275361e-07, -0.38993746)
+bones/15/position = Vector3(0.006095113, 0.048571665, 0.806713)
+bones/16/rotation = Quaternion(0.8839442, -3.445917e-08, -3.5243576e-07, -0.46759233)
+bones/17/rotation = Quaternion(-0.06989117, 7.5262776e-08, -9.253344e-08, 0.99755466)
+bones/18/rotation = Quaternion(-2.7454382e-07, 0.4675925, 0.88394415, 3.5302246e-08)
+bones/19/rotation = Quaternion(-0.069891214, -3.075481e-08, 9.611055e-08, 0.9975546)
+bones/20/position = Vector3(-0.05232616, 0.124964595, -0.15121102)
+bones/20/rotation = Quaternion(-0.49640644, 0.5061128, 0.4938544, 0.5035259)
+bones/21/position = Vector3(0.000146408, -0.5969719, 0.5672346)
+bones/21/rotation = Quaternion(-0.0018071446, -4.880914e-11, 0.9999984, 2.288304e-15)
+bones/22/rotation = Quaternion(0.9986992, -5.5403085e-05, 0.0046993834, -0.050772823)
+bones/23/position = Vector3(-0.052321758, 0.1254251, 0.15083085)
+bones/23/rotation = Quaternion(-0.49461836, 0.5042896, 0.49564552, 0.50535166)
+bones/24/position = Vector3(-0.00014654273, -0.596972, 0.56723446)
+bones/24/rotation = Quaternion(0.0018070347, -8.966772e-11, 0.9999984, -5.9655615e-16)
+bones/25/rotation = Quaternion(0.9986992, 5.539765e-05, -0.0046992735, -0.050772853)
+bones/26/position = Vector3(2.027115, 1.9530662, -0.0030070222)
+
+[node name="BoneAttachment3D" parent="HumanMarineUnit/VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
+transform = Transform3D(6.3940814e-07, -0.7181409, -0.6958976, -2.897879e-07, -0.6958977, 0.71814114, -1, -2.2364348e-07, -6.2878684e-07, -0.8907255, 1.4403555, -0.038181286)
+
+[node name="UI" parent="HumanMarineUnit" index="4" unique_id=534065075]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3.5001154, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=882102240]
+use_collision = true
+size = Vector3(1000, 1, 1000)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1062626900]
+transform = Transform3D(-0.99791116, 0, -0.06460201, 0, 1, 0, 0.06460201, 0, -0.99791116, -0.32177445, 2.33854, -3.6884267)
+
+[editable path="HumanMarineUnit"]
+[editable path="HumanMarineUnit/VisualRoot"]

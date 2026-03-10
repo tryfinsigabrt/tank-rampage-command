@@ -21,10 +21,20 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	# Transition back to idle when movement has effectively stopped.
+	if _is_alive() and animation.state == MarineAnimation.State.RUN:
+		var horizontal_speed_sq := Vector2(velocity.x, velocity.z).length_squared()
+		if horizontal_speed_sq < 0.0001:
+			animation.idle()
 	
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
-	animation.run()
+	if input_direction.is_zero_approx():
+		animation.idle()
+	else:
+		animation.run()
+
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)
