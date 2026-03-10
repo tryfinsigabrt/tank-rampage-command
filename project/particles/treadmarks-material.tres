@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ty5imsycf66d"]
+
+[ext_resource type="Texture2D" uid="uid://b4jfhifn24kly" path="res://particles/treadmark.png" id="1_0ck1p"]
+
+[resource]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.34509805)
+albedo_texture = ExtResource("1_0ck1p")
