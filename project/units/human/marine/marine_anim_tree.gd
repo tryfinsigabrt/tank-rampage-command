@@ -17,13 +17,13 @@ enum State
 var _completed_first_transition:bool
 var _state:State = State.IDLE
 
+@export
 var state:State:
 	get: return _state
 	set(value):
 		_state = value
 		
 func _ready() -> void:
-	state_machine.start(&"Idle")
 	state_machine.state_started.connect(_on_state_started)
 	state_machine.state_finished.connect(_on_state_finished)
 	

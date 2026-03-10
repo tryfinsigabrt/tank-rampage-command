@@ -132,6 +132,10 @@ func _emit_target_reached() -> void:
 			print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
 		
 		_target_reached = true
+		# Clear out horizontal velocity on unit if on floor
+		if _unit.is_on_floor():
+			_unit.velocity = Vector3(0.0, _unit.velocity.y, 0.0)
+		
 		set_enabled(false)
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
 

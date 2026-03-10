@@ -3,6 +3,9 @@ class_name HumanMarineUnit extends Unit
 @export_range(1.0,360.0, 0.1)
 var turning_speed_degrees:float = 180.0
 
+@export
+var idle_animation_velocity_threshold:float = 0.001
+
 @onready var health_stat: HealthStat = %HealthStat
 @onready var collision: CollisionShape3D = %Collision
 @onready var visual_root: Node3D = %VisualRoot
@@ -10,7 +13,6 @@ var turning_speed_degrees:float = 180.0
 @onready var _weapon: Weapon = %Weapon
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
 @onready var animation: MarineAnimation = %MarineAnimation
-
 
 func _is_alive() -> bool:
 	return health_stat.is_alive
@@ -25,15 +27,14 @@ func _physics_process(delta: float) -> void:
 	# Transition back to idle when movement has effectively stopped.
 	if _is_alive() and animation.state == MarineAnimation.State.RUN:
 		var horizontal_speed_sq := Vector2(velocity.x, velocity.z).length_squared()
-		if horizontal_speed_sq < 0.0001:
+		if horizontal_speed_sq < idle_animation_velocity_threshold:
 			animation.idle()
+		#else:
+			#print("%s: VELOCITY: sq=%f; v=%s" % [name, horizontal_speed_sq, velocity])
 	
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
-	if input_direction.is_zero_approx():
-		animation.idle()
-	else:
-		animation.run()
+	animation.run()
 
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
