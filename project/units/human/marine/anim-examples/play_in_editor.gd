@@ -20,8 +20,8 @@ func _ready() -> void:
 	play(autoplay)
 	seek(randf_range(0.0, get_animation(autoplay).length))
 	
-	if force_loop:
-		animation_finished.connect(play.bind(autoplay))
+	if force_loop && get_animation(autoplay).loop_mode == 0:
+		animation_finished.connect(play.unbind(1).bind(autoplay))
 	
 	if root_motion_node and root_motion_target and add_root_motion:
 		cached_original_position = root_motion_node.position
