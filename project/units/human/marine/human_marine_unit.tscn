@@ -1,0 +1,216 @@
+[gd_scene format=3 uid="uid://dgk66pok3kgi5"]
+
+[ext_resource type="Script" uid="uid://dmxo7e0xpu1oc" path="res://units/human/marine/human_marine_unit.gd" id="1_4wrnf"]
+[ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="2_o1v4s"]
+[ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="3_5cd41"]
+[ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="3_ioppa"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="4_5cd41"]
+[ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="4_h2q4u"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_ijg8w"]
+[ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="5_mtu0e"]
+[ext_resource type="Script" uid="uid://5pqh5xi3bva6" path="res://units/human/marine/marine_anim_tree.gd" id="9_mtu0e"]
+[ext_resource type="Curve" uid="uid://cll4vwuasbk5b" path="res://units/human/marine/default_anim_state_blend_curve.tres" id="10_nmyc4"]
+
+[sub_resource type="Animation" id="Animation_mtu0e"]
+
+[sub_resource type="Animation" id="Animation_nmyc4"]
+
+[sub_resource type="Animation" id="Animation_u1d32"]
+
+[sub_resource type="Animation" id="Animation_xqhox"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rl5wh"]
+_data = {
+&"Death": SubResource("Animation_mtu0e"),
+&"Idle": SubResource("Animation_nmyc4"),
+&"Run": SubResource("Animation_u1d32"),
+&"Shoot": SubResource("Animation_xqhox")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yqf8"]
+height = 2.3
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mtu0e"]
+animation = &"human_marine_anims/Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nmyc4"]
+animation = &"human_marine_anims/Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u1d32"]
+animation = &"human_marine_anims/Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xqhox"]
+animation = &"human_marine_anims/Shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rl5wh"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0iag7"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.RUN"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02c0l"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_76v50"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.SHOOT"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7q3r4"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.IDLE"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j5gml"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.DEAD"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_66v8h"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.DEAD"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oyiib"]
+xfade_time = 0.2
+xfade_curve = ExtResource("10_nmyc4")
+advance_mode = 2
+advance_expression = "_state == State.DEAD"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mtu0e"]
+states/End/position = Vector2(1051.3334, 248)
+states/human_marine_anims_Death/node = SubResource("AnimationNodeAnimation_mtu0e")
+states/human_marine_anims_Death/position = Vector2(1008, 426)
+states/human_marine_anims_Idle/node = SubResource("AnimationNodeAnimation_nmyc4")
+states/human_marine_anims_Idle/position = Vector2(456, 168.66667)
+states/human_marine_anims_Run/node = SubResource("AnimationNodeAnimation_u1d32")
+states/human_marine_anims_Run/position = Vector2(799.3333, 80.666664)
+states/human_marine_anims_Shoot/node = SubResource("AnimationNodeAnimation_xqhox")
+states/human_marine_anims_Shoot/position = Vector2(728.6667, 232.66667)
+transitions = ["Start", "human_marine_anims_Idle", SubResource("AnimationNodeStateMachineTransition_rl5wh"), "human_marine_anims_Idle", "human_marine_anims_Run", SubResource("AnimationNodeStateMachineTransition_0iag7"), "human_marine_anims_Run", "human_marine_anims_Idle", SubResource("AnimationNodeStateMachineTransition_02c0l"), "human_marine_anims_Idle", "human_marine_anims_Shoot", SubResource("AnimationNodeStateMachineTransition_76v50"), "human_marine_anims_Shoot", "human_marine_anims_Idle", SubResource("AnimationNodeStateMachineTransition_7q3r4"), "human_marine_anims_Shoot", "human_marine_anims_Death", SubResource("AnimationNodeStateMachineTransition_j5gml"), "human_marine_anims_Run", "human_marine_anims_Death", SubResource("AnimationNodeStateMachineTransition_66v8h"), "human_marine_anims_Idle", "human_marine_anims_Death", SubResource("AnimationNodeStateMachineTransition_oyiib")]
+
+[node name="HumanMarineUnit" type="CharacterBody3D" unique_id=224944543 groups=["Interactable", "Unit", "UnitClassSoldier"]]
+collision_layer = 4
+collision_mask = 31
+script = ExtResource("1_4wrnf")
+movement_speed = 5.0
+unit_class = 3
+metadata/_custom_type_script = "uid://dmxo7e0xpu1oc"
+
+[node name="VisualRoot" parent="." unique_id=326298032 instance=ExtResource("2_o1v4s")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="VisualRoot/Armature" parent_id_path=PackedInt32Array(326298032, 841724596) index="0" unique_id=1012015045]
+bones/1/position = Vector3(-0.0008318536, 1.404882, -0.0021417262)
+bones/1/rotation = Quaternion(-0.7070734, 0.007390208, 0.7070734, 0.0063121803)
+bones/2/rotation = Quaternion(-0.0882933, -0.009203403, -0.017909775, 0.995891)
+bones/3/rotation = Quaternion(0.090009816, 0.0010950468, 0.0185173, 0.99576813)
+bones/4/rotation = Quaternion(0.07304919, 0.2289123, 0.02667301, 0.97033584)
+bones/5/rotation = Quaternion(0.003352454, -0.0010997006, -0.000689681, 0.99999356)
+bones/6/rotation = Quaternion(-0.70710665, 3.29232e-10, 0.7071069, -2.907629e-07)
+bones/7/rotation = Quaternion(2.0560046e-07, 1.6638584e-08, -2.327861e-10, 1)
+bones/8/rotation = Quaternion(-2.2029005e-09, -5.279639e-09, -0.052841533, 0.9986029)
+bones/9/rotation = Quaternion(-2.3007206e-05, 0.000608159, 0.041401908, 0.99914247)
+bones/10/position = Vector3(0.6118592, 0.02198416, 0.17906606)
+bones/10/rotation = Quaternion(-0.8889333, 0.117079176, 0.3791154, 0.22882657)
+bones/11/rotation = Quaternion(0.9208414, 5.2141385e-08, -3.0189736e-07, -0.3899374)
+bones/12/position = Vector3(0.0060950387, 0.04857149, -0.80671304)
+bones/13/position = Vector3(0.37218404, -0.015840173, 0.33478314)
+bones/13/rotation = Quaternion(-0.66162604, 0.69721854, 0.15819195, -0.22608107)
+bones/14/rotation = Quaternion(0.92084134, -4.384326e-08, 3.241232e-07, -0.38993743)
+bones/15/position = Vector3(-0.065142855, 0.06106263, 0.6848248)
+bones/16/rotation = Quaternion(0.8076475, 0.5225714, 0.01821917, 0.272567)
+bones/17/rotation = Quaternion(-0.18208444, 7.579651e-08, -2.1808684e-07, 0.9832829)
+bones/18/rotation = Quaternion(-0.3519718, 0.25517243, 0.80864125, -0.39636135)
+bones/19/rotation = Quaternion(-0.8551817, -3.695749e-08, 1.1702205e-06, 0.51832855)
+bones/20/position = Vector3(0.12068209, 0.121611625, -0.15120845)
+bones/20/rotation = Quaternion(-0.4964065, 0.5061128, 0.4938544, 0.5035259)
+bones/21/position = Vector3(0.00014640143, -0.596972, 0.56723464)
+bones/21/rotation = Quaternion(-0.0018071446, -4.8807982e-11, 0.9999984, 2.2138333e-15)
+bones/22/rotation = Quaternion(0.9986992, -5.5403038e-05, 0.0046993843, -0.050772823)
+bones/23/position = Vector3(-0.1388259, 0.1271016, 0.15082955)
+bones/23/rotation = Quaternion(-0.57977873, 0.403653, 0.39384013, 0.5880569)
+bones/24/position = Vector3(-0.00014652329, -0.59697187, 0.56723446)
+bones/24/rotation = Quaternion(0.0018070347, -7.224069e-11, 0.9999984, -3.0751894e-14)
+bones/25/rotation = Quaternion(0.9986992, 5.539901e-05, -0.004699273, -0.05077285)
+bones/26/position = Vector3(2.0084636, 1.9623741, -0.0064786286)
+
+[node name="BoneAttachment3D" parent="VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
+transform = Transform3D(-0.10592726, -0.24709314, -0.9631844, -0.9941245, 0.004615266, 0.10814593, -0.022276837, 0.9689807, -0.24613017, -0.3347831, 1.6907983, 0.34413028)
+
+[node name="FirePosition" type="Marker3D" parent="VisualRoot/Armature/Skeleton3D/BoneAttachment3D/GunPropLocal" parent_id_path=PackedInt32Array(326298032, 384279234) index="0" unique_id=1719011979]
+unique_name_in_owner = true
+transform = Transform3D(0.9999991, 1.4901161e-07, -1.3411045e-07, -1.7881393e-07, 0.9999997, 6.7055225e-08, -1.3411045e-07, -3.7252903e-09, 0.9999997, -0.017872214, 0.19639099, 0.99813867)
+
+[node name="Weapon" parent="VisualRoot/Armature/Skeleton3D/BoneAttachment3D/GunPropLocal/FirePosition" unique_id=107617315 instance=ExtResource("3_5cd41")]
+unique_name_in_owner = true
+max_distance_range = Vector2(300, 500)
+cooldown_time_range = Vector2(0.2, 0.5)
+damage_v_distance = ExtResource("4_h2q4u")
+accuracy_v_velocity_alignment = ExtResource("5_mtu0e")
+
+[node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=737157955]
+root_node = NodePath("../Armature")
+libraries/human_marine_anims = SubResource("AnimationLibrary_rl5wh")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1338189, -0.012014389)
+shape = SubResource("CapsuleShape3D_8yqf8")
+
+[node name="GameUnitNavigation" parent="." unique_id=1412332106 instance=ExtResource("3_ioppa")]
+unique_name_in_owner = true
+
+[node name="Stats" type="Node" parent="." unique_id=1534008651]
+
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("4_5cd41")]
+unique_name_in_owner = true
+max_health = 100.0
+
+[node name="UI" type="Node3D" parent="." unique_id=534065075]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("5_ijg8w")]
+transform = Transform3D(0.5, 0, 6.3573026e-08, 0, 1, 0, -3.1786513e-08, 0, 1, 0, 0, 0)
+health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1095216469]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[node name="MarineAnimation" type="Node3D" parent="." unique_id=735623335]
+unique_name_in_owner = true
+script = ExtResource("9_mtu0e")
+anim_state_mappings = Dictionary[StringName, int]({
+&"Dead": 3,
+&"Idle": 0,
+&"Run": 1,
+&"Shoot": 2
+})
+
+[node name="AnimationTree" type="AnimationTree" parent="MarineAnimation" unique_id=795871122]
+root_node = NodePath("%VisualRoot/Armature")
+root_motion_track = NodePath("Armature/Skeleton3D:Root")
+tree_root = SubResource("AnimationNodeStateMachine_mtu0e")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../../VisualRoot/AnimationPlayer")
+
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+
+[editable path="VisualRoot"]
