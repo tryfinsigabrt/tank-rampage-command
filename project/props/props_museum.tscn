@@ -115,6 +115,23 @@ directional_shadow_max_distance = 75.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=589963304]
 environment = SubResource("Environment_domqp")
 
+[node name="InGameCameraReferences" type="Node3D" parent="." unique_id=1216720419]
+editor_description = "Select one of the cameras in the tree, then click the Preview button that appears in the top left of the editor viewport."
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, -5.12, 0, -4.13)
+metadata/_edit_lock_ = true
+
+[node name="ClosestZoom" type="Camera3D" parent="InGameCameraReferences" unique_id=300380304]
+editor_description = "This is an approximation and not tied to any game logic."
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 150, 0)
+fov = 10.0
+metadata/_edit_lock_ = true
+
+[node name="FurthestZoom" type="Camera3D" parent="InGameCameraReferences" unique_id=379063492]
+editor_description = "This is an approximation and not tied to any game logic."
+transform = Transform3D(-1, 8.742278e-08, 3.821371e-15, 0, -4.371139e-08, 1, 8.742278e-08, 1, 4.371139e-08, 0, 1200, 0)
+fov = 10.0
+metadata/_edit_lock_ = true
+
 [node name="BeautyCam" type="Camera3D" parent="." unique_id=1820950375]
 transform = Transform3D(0.7313537, 0, 0.6819984, 0, 1, 0, -0.6819984, 0, 0.7313537, 16.5, 2.5, 16)
 fov = 45.0
