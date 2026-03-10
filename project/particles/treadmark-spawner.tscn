@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://mrdn8a3gifoh"]
 
 [ext_resource type="Material" uid="uid://ty5imsycf66d" path="res://particles/treadmarks-material.tres" id="1_3rec1"]
+[ext_resource type="Script" uid="uid://b57743dxrol1p" path="res://particles/treadmark_particle_controller.gd" id="2_4xio6"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_qtx04"]
 material = ExtResource("1_3rec1")
@@ -12,12 +13,12 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="TreadmarkCPUParticles3D" type="CPUParticles3D" parent="." unique_id=1040461556]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+emitting = false
 amount = 20
 lifetime = 10.0
 mesh = SubResource("QuadMesh_qtx04")
 direction = Vector3(0, -1, 0)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 2.0
-initial_velocity_max = 2.0
 color_ramp = SubResource("Gradient_v2578")
+script = ExtResource("2_4xio6")

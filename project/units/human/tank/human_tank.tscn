@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://djeqvfuxtgxpj" path="res://units/human/tank/hero/mesh/track_right.tscn" id="14_o8pnh"]
 [ext_resource type="PackedScene" uid="uid://bs46upv5xhqe4" path="res://units/human/tank/hero/mesh/wheels_right.tscn" id="15_bakst"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
-[ext_resource type="PackedScene" uid="uid://mrdn8a3gifoh" path="res://particles/treadmark-spawner.tscn" id="16_v2578"]
+[ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -27,6 +27,8 @@ collision_mask = 31
 script = ExtResource("1_itvlm")
 unit_class = 1
 vision = 200.0
+
+[node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("16_v2578")]
 
 [node name="Body" parent="." unique_id=1516550406 instance=ExtResource("10_v2578")]
 unique_name_in_owner = true
@@ -88,14 +90,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
-
-[node name="TreadmarksLeft" parent="." unique_id=1694489606 instance=ExtResource("16_v2578")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 2)
-visible = false
-
-[node name="TreadmarksRight" parent="." unique_id=211374516 instance=ExtResource("16_v2578")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4, 0, 2)
-visible = false
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
