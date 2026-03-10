@@ -160,6 +160,7 @@ damage_v_distance = ExtResource("4_h2q4u")
 accuracy_v_velocity_alignment = ExtResource("5_mtu0e")
 
 [node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=737157955]
+root_node = NodePath("..")
 libraries/human_marine_anims = SubResource("AnimationLibrary_rl5wh")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
