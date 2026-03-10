@@ -161,7 +161,7 @@ damage_v_distance = ExtResource("4_h2q4u")
 accuracy_v_velocity_alignment = ExtResource("5_mtu0e")
 
 [node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=737157955]
-root_node = NodePath("../Armature")
+root_node = NodePath("..")
 libraries/human_marine_anims = SubResource("AnimationLibrary_rl5wh")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
@@ -204,7 +204,7 @@ anim_state_mappings = Dictionary[StringName, int]({
 })
 
 [node name="AnimationTree" type="AnimationTree" parent="MarineAnimation" unique_id=795871122]
-root_node = NodePath("%VisualRoot/Armature")
+root_node = NodePath("%VisualRoot")
 root_motion_track = NodePath("Armature/Skeleton3D:Root")
 tree_root = SubResource("AnimationNodeStateMachine_mtu0e")
 advance_expression_base_node = NodePath("..")
