@@ -105,10 +105,10 @@ func _get_health_stat() -> HealthStat:
 func _get_weapon() -> Weapon:
 	return null
 	
-## Gets an AABB representing the 
+## Gets an AABB representing the bounds of the unit
 func get_bounds() -> AABB:
 	return transform * _aabb
-	
+
 #endregion
 
 func _ready() -> void:

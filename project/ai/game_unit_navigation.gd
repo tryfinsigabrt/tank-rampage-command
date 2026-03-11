@@ -19,9 +19,16 @@ var alignment_forward_threshold:float = 0.6
 @export
 var avoidance_enabled:bool = true
 
+@export
+var enable_stuck_detection:bool = true
+
 var enabled:bool:
 	get:
 		return is_physics_processing()
+
+var current_target:Vector3:
+	get:
+		return _current_target_position
 
 func _ready() -> void:
 	_unit = get_parent() as Unit
@@ -83,7 +90,7 @@ func _physics_process(delta: float) -> void:
 	# TODO: Maybe this needs to be "body.global_position"
 	var current_position := _unit.global_position
 	
-	if not stuck_detector.sample(delta, current_position, next_position):
+	if enable_stuck_detection and not stuck_detector.sample(delta, current_position, next_position):
 		# Complete move if detect are stuck
 		_emit_target_reached()
 		return

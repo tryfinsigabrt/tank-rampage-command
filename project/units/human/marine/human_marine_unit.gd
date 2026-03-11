@@ -83,24 +83,33 @@ func aim_at(world_location:Vector3) -> void:
 		#barrel.pitch_barrel(aim_pitch)
 	
 func shoot() -> void:
+	#print("%s: SHOOT!" % name)
 	animation.shoot()
 	_weapon.fire()
+	
+	# TODO: We should have a blended animation so enemy can shoot while moving
+	# This can probably be done in the animation tree blend space
+	SignalBus.on_unit_move_canceled.emit(self, game_unit_navigation.current_target)
 
 func get_fire_global_position() -> Vector3:
 	return fire_position.global_position
-	
+
+# For the directions use the marine forward because these are used for LOS and gun isn't always at "ready" position	
 func get_fire_global_forward() -> Vector3:
-	# Positive as we rotated around
-	var orig_basis:Basis = fire_position.global_basis
-	var corrected_basis:Basis = visual_root.transform.basis
-	var final_basis:Basis = orig_basis * corrected_basis
-	return -final_basis.z
+	## Positive as we rotated around
+	#var orig_basis:Basis = fire_position.global_basis
+	#var corrected_basis:Basis = visual_root.transform.basis
+	#var final_basis:Basis = orig_basis * corrected_basis
+	#return -final_basis.z
+	return global_forward
 
 func get_fire_global_right() -> Vector3:
-	return fire_position.global_basis.x
+	#return fire_position.global_basis.x
+	return global_right
 
 func get_fire_global_up() -> Vector3:
-	return fire_position.global_basis.y
+	#return fire_position.global_basis.y
+	return global_up
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
