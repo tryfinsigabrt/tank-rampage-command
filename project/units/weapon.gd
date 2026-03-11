@@ -39,6 +39,7 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 @export var allow_source_damage:bool
 
 var _unit:Unit
+var _fire_pending:bool
 
 var ideal_fire_range:Vector2:
 	get:
@@ -50,8 +51,13 @@ func _ready() -> void:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
 
 func fire() -> void:
+	if _fire_pending:
+		return
+		
+	_fire_pending = true
 	await _cooldown()
-	
+	_fire_pending = false
+
 	fire_emitter.restart()
 	
 	_set_cooldown()

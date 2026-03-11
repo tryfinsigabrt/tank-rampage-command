@@ -58,6 +58,11 @@ func _ready() -> void:
 	if not controlled_unit:
 		push_warning("%s: No controlled unit set - no attack will occur" % name)
 		return
+	
+	var weapon:Weapon = controlled_unit.weapon
+	
+	if weapon:
+		fire_interval = weapon.cooldown_time_range.x
 		
 	_move_into_attack_range()
 	
