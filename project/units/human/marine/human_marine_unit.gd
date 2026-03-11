@@ -18,7 +18,7 @@ func _is_alive() -> bool:
 	return health_stat.is_alive
 
 func _physics_process(delta: float) -> void:
-	collision.disabled = not is_visible_in_tree()
+	collision.disabled = not _is_alive() or not is_visible_in_tree()
 
 	# Add the gravity.
 	if not is_on_floor():
@@ -34,11 +34,14 @@ func _physics_process(delta: float) -> void:
 	
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
+	if input_direction.is_zero_approx():
+		return
+		
 	animation.run()
 
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
-	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)
+	var input_direction_3:Vector3 = Vector3(input_direction.x, 0.0, input_direction.y)
 	
 	# Positive rotation is ccw but we want right (+x) to turn model cw so negate
 	var rotation_dir:float = signf(-input_direction.x)
@@ -121,6 +124,8 @@ func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
 	animation.die()
 	collision.disabled = true
+	set_physics_process(false)
+	
 	died.emit(damage_params)
 	
 	# Delay so can see visuals

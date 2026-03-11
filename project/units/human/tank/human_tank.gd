@@ -28,6 +28,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
+	if input_direction.is_zero_approx():
+		return
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)

@@ -34,13 +34,13 @@ vision = 200.0
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="BodyMain" parent="Body/Mesh" index="0" unique_id=735364314]
+[node name="BodyMain" parent="Body/Mesh" index="0"]
 material_override = ExtResource("4_4csg3")
 
 [node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="Body/Turret/Mesh" index="0" unique_id=1778038016]
+[node name="Turret" parent="Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
 [node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]
