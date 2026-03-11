@@ -3,9 +3,12 @@ class_name HumanMarineUnit extends Unit
 @export_range(1.0,360.0, 0.1)
 var turning_speed_degrees:float = 180.0
 
-@export
-var idle_animation_velocity_threshold:float = 0.001
+var _is_shooting:bool
 
+var is_shooting:bool:
+	get:
+		return _is_shooting
+		
 @onready var health_stat: HealthStat = %HealthStat
 @onready var collision: CollisionShape3D = %Collision
 @onready var visual_root: Node3D = %VisualRoot
@@ -24,21 +27,11 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Transition back to idle when movement has effectively stopped.
-	if _is_alive() and animation.state == MarineAnimation.State.RUN:
-		var horizontal_speed_sq := Vector2(velocity.x, velocity.z).length_squared()
-		if horizontal_speed_sq < idle_animation_velocity_threshold:
-			animation.idle()
-		#else:
-			#print("%s: VELOCITY: sq=%f; v=%s" % [name, horizontal_speed_sq, velocity])
-	
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	if input_direction.is_zero_approx():
 		return
-		
-	animation.run()
-
+	
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0.0, input_direction.y)
@@ -86,8 +79,6 @@ func aim_at(world_location:Vector3) -> void:
 		#barrel.pitch_barrel(aim_pitch)
 	
 func shoot() -> void:
-	#print("%s: SHOOT!" % name)
-	animation.shoot()
 	_weapon.fire()
 	
 	# TODO: We should have a blended animation so enemy can shoot while moving
@@ -122,8 +113,8 @@ func _update_render() -> void:
 
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
-	animation.die()
 	collision.disabled = true
+	_is_shooting = false
 	set_physics_process(false)
 	
 	died.emit(damage_params)
@@ -146,3 +137,7 @@ func _get_health_stat() -> HealthStat:
 
 func _get_weapon() -> Weapon:
 	return _weapon
+
+func _on_weapon_firing_state_changed(firing: bool) -> void:
+	#print("%s: SHOOTING=%s" % [name, firing])
+	_is_shooting = firing and is_alive

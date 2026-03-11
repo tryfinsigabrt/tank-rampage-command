@@ -1,10 +1,13 @@
 class_name Weapon extends Node3D
 
+signal firing_state_changed(firing:bool)
+
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
 @onready var fire_emitter: CPUParticles3D = $FireEmitter
 @onready var hit_emitter: CPUParticles3D = $HitEmitter
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
+@onready var fire_state_timer: Timer = $FireStateTimer
 
 @export
 var min_distance:float = 10.0
@@ -49,10 +52,18 @@ func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)
 	if not _unit:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
-
+	
+	fire_state_timer.wait_time = cooldown_time_range.y * 2.0
+	
 func fire() -> void:
 	if _fire_pending:
 		return
+		
+	if fire_state_timer.is_stopped():
+		firing_state_changed.emit(true)
+	
+	# Be sure to always reset the firing state ended timer
+	fire_state_timer.start()
 		
 	_fire_pending = true
 	await _cooldown()
@@ -198,3 +209,5 @@ func _set_timer(timer:Timer, time: float) -> void:
 	timer.wait_time = time
 	timer.start()
 	
+func _on_fire_state_timer_timeout() -> void:
+	firing_state_changed.emit(false)

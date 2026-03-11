@@ -89,3 +89,8 @@ hue_variation_max = 0.2
 [node name="DamageEmitter" type="Node" parent="." unique_id=1547374086]
 script = ExtResource("4_5bddv")
 max_damage = 250.0
+
+[node name="FireStateTimer" type="Timer" parent="." unique_id=1486939867]
+one_shot = true
+
+[connection signal="timeout" from="FireStateTimer" to="." method="_on_fire_state_timer_timeout"]
