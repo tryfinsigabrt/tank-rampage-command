@@ -29,6 +29,7 @@ class CompositeMasks:
 	const ground: int = Layers.world_static | Layers.terrain
 	
 	const all_teams:int = Layers.team_1 | Layers.team_2
+	const any_unit:int = all_teams | Layers.unit
 	
 func enemy_team_mask(team:int) -> int:
 	var team_mask:int = Layers.team_masks.get(team, 0)

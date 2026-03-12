@@ -36,6 +36,10 @@ var max_spread_angle:float = 22.5
 @export
 var enable_debug_draw:bool = true
 
+## Whether the weapon can damage allies
+@export
+var friendly_fire:bool = false
+
 @export_flags_3d_physics
 var damage_mask:int = Collisions.CompositeMasks.visibility
 
@@ -43,6 +47,7 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 
 var _unit:Unit
 var _fire_pending:bool
+var _mask_requires_refresh:bool
 
 var ideal_fire_range:Vector2:
 	get:
@@ -54,6 +59,7 @@ func _ready() -> void:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
 	
 	fire_state_timer.wait_time = cooldown_time_range.y * 2.0
+	_mask_requires_refresh = not friendly_fire
 	
 func fire() -> void:
 	if _fire_pending:
@@ -86,7 +92,14 @@ func _cooldown() -> void:
 func _set_cooldown() -> void:
 	var cooldown:float = _randv(cooldown_time_range)
 	_set_timer(cooldown_timer, cooldown)
-	
+
+func _refresh_damage_mask() -> void:
+	if friendly_fire:
+		damage_mask |= Collisions.CompositeMasks.any_unit
+	else:
+		var enemy_team_mask:int = Collisions.enemy_team_mask(_unit.team)
+		damage_mask = MathUtils.update_mask(damage_mask, Collisions.CompositeMasks.any_unit, enemy_team_mask)
+		
 # Delay impact after fire emission before impact to avoid visually inaccurate results
 func _delay_impact() -> void:
 	var flight_time:float = _randv(fire_time_range)
@@ -117,6 +130,9 @@ func _calculate_damage_multiplier(dist:float) -> float:
 	return mult
 	
 func _hit_scan() -> void:
+	if _mask_requires_refresh:
+		_refresh_damage_mask()
+		
 	# Use physics server rather than ray 3D
 	var cast_distance:float = _randv(max_distance_range)
 		
