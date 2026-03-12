@@ -17,6 +17,8 @@ var is_shooting:bool:
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
 @onready var animation: MarineAnimation = %MarineAnimation
 
+var _aim_at_tween:Tween
+
 func _is_alive() -> bool:
 	return health_stat.is_alive
 
@@ -55,28 +57,32 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 
 	move_and_slide()
 	
-# TODO: Some of this can be moved to unit base class or separate component
 func aim_at(world_location:Vector3) -> void:
-	# TODO:
-	look_at(world_location)
+	var current_quat := global_transform.basis.get_rotation_quaternion()
+	var target_transform := global_transform.looking_at(world_location, global_up)
+	var target_quat := target_transform.basis.get_rotation_quaternion()
+
+	# Calculate the angle between current quat and target rotation quat
+	var angle_rad := current_quat.angle_to(target_quat)
+	var angle_deg := rad_to_deg(angle_rad)
 	
-	#var aim_direction:Vector3 = (world_location - fire_position.global_position).normalized()
-	#
-	#var heading:Vector3 = get_fire_global_forward()
-	#var projected_forward_vector:Vector2 = Vector2(heading.x, heading.z)
-	#var projected_aim_dir_turret:Vector2 = Vector2(aim_direction.x, aim_direction.z)
+	# Calculate duration (Time = Angular Distance / Speed)
+	# Avoid division by zero if already looking at the target
+	if angle_deg < 0.01: 
+		return 
+		
+	var duration := angle_deg / turning_speed_degrees
+		
+	if is_instance_valid(_aim_at_tween):
+		_aim_at_tween.kill()
+		_aim_at_tween = null
+
+	var tween := create_tween()
+	tween.tween_property(self, "quaternion", target_quat, duration)\
+		.set_trans(Tween.TRANS_QUART)\
+		.set_ease(Tween.EASE_OUT)
 	
-	#Check if we are almost there
-	#var angle:float = rad_to_deg(aim_dir_turret.angle_to(forward_vector))
-	#if absf(angle) > turret_aim_tolerance_deg:
-	#if projected_aim_dir_turret.length() > turret_aim_tolerance:
-		#var rotation_dir:float = -projected_forward_vector.cross(projected_aim_dir_turret)
-		#turret.rotate_turret(rotation_dir)
-	#
-	#var aim_pitch:float = aim_direction.y
-	## Technically this is not an angle but using some small value to avoid jitter
-	#if absf(aim_pitch) > pitch_tolerance:
-		#barrel.pitch_barrel(aim_pitch)
+	_aim_at_tween = tween
 	
 func shoot() -> void:
 	_weapon.fire()
