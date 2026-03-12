@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="2_m750r"]
 [ext_resource type="Script" uid="uid://xiohmvrpkwct" path="res://player/selection_manager.gd" id="3_wse6d"]
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="4_mr66j"]
+[ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="5_cg506"]
 [ext_resource type="Script" uid="uid://dv7safpx7wdvf" path="res://player/box_select.gd" id="5_xlsxy"]
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115 groups=["Player"]]
@@ -15,9 +16,13 @@ script = ExtResource("2_m750r")
 [node name="SelectionManager" type="Node" parent="." unique_id=1203779906]
 script = ExtResource("3_wse6d")
 
-[node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager")]
+[node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution")]
 script = ExtResource("4_mr66j")
 selection_manager = NodePath("../SelectionManager")
+position_distribution = NodePath("PositionDistributor")
+
+[node name="PositionDistributor" type="Node" parent="OrderManager" unique_id=61436976]
+script = ExtResource("5_cg506")
 
 [node name="BoxSelect" type="Node" parent="." unique_id=1579712261 node_paths=PackedStringArray("node_picker")]
 script = ExtResource("5_xlsxy")
