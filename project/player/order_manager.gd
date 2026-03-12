@@ -11,12 +11,11 @@ func move(position:Vector3) -> void:
 	if not units:
 		return
 		
-	#var positions_dict := position_distribution.calculate(units, position)
+	var positions_dict := position_distribution.calculate(units, position)
 	
 	for unit in units:
 		var action := unit.get_or_add_actions()
-		#var pos := positions_dict[unit.get_instance_id()]
-		var pos := position
+		var pos := positions_dict[unit.get_instance_id()]
 		action.move(pos)
 		
 	if OS.is_debug_build():
@@ -27,12 +26,11 @@ func move_and_attack(position:Vector3) -> void:
 	if not units:
 		return
 		
-	#var positions_dict := position_distribution.calculate(units, position)
+	var positions_dict := position_distribution.calculate(units, position)
 
 	for unit in units:
 		var unit_actions := unit.get_or_add_actions()
-		#var pos := positions_dict[unit.get_instance_id()]
-		var pos := position
+		var pos := positions_dict[unit.get_instance_id()]
 
 		unit_actions.move_and_attack(pos)
 		

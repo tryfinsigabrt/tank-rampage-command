@@ -23,6 +23,7 @@ position_distribution = NodePath("PositionDistributor")
 
 [node name="PositionDistributor" type="Node" parent="OrderManager" unique_id=61436976]
 script = ExtResource("5_cg506")
+max_group_separation = 75.0
 
 [node name="BoxSelect" type="Node" parent="." unique_id=1579712261 node_paths=PackedStringArray("node_picker")]
 script = ExtResource("5_xlsxy")
