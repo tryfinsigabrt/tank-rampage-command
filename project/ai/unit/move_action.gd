@@ -50,7 +50,7 @@ func _disconnect_move_signal() -> void:
 		SignalBus.on_destination_reached.disconnect(_on_destination_reached)
 
 func _should_continue_running(blackboard: Blackboard) -> bool:
-	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
+	var current_target:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition, Vector3.INF)
 	return current_target.is_equal_approx(_target_position)
 
 func _get_action_args() -> Dictionary[StringName, Variant]:

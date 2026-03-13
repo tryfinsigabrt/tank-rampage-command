@@ -99,7 +99,9 @@ func _new_action() -> void:
 	
 func _clear_all_actions() -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
-	
+	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
+	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetUnit)
+
 func is_attacking() -> bool:
 	return blackboard.is_attacking
 	

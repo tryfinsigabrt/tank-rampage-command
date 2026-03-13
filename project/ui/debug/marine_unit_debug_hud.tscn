@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cml5eraldlua2"]
+
+[ext_resource type="Script" uid="uid://tac7i8fismya" path="res://ui/debug/marine_unit_debug_hud.gd" id="1_yd1uo"]
+
+[node name="MarineUnitDebugHud" type="VBoxContainer" unique_id=1147953126]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 135.0
+offset_bottom = 65.0
+script = ExtResource("1_yd1uo")
+
+[node name="Tick" type="Timer" parent="." unique_id=1404741850]
+wait_time = 0.5
+autostart = true
+
+[node name="Header" type="Label" parent="." unique_id=1866678231]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.37254903, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Marine Units"
+
+[node name="Label" type="Label" parent="." unique_id=1143027672]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.11666669, 0.28, 1)
+theme_override_font_sizes/font_size = 18
+
+[connection signal="timeout" from="Tick" to="." method="_tick"]
