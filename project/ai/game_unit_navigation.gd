@@ -22,6 +22,11 @@ var avoidance_enabled:bool = true
 @export
 var enable_stuck_detection:bool = true
 
+## Minimum size of x or z component of move velocity to actually issue move
+## Avoids flip flopping when components are small
+@export
+var move_comp_mag_threshold:float = 0.01
+
 var enabled:bool:
 	get:
 		return is_physics_processing()
@@ -95,7 +100,13 @@ func _physics_process(delta: float) -> void:
 		_emit_target_reached()
 		return
 	
-	var velocity:Vector3 = current_position.direction_to(next_position) * _unit.movement_speed
+	var velocity:Vector3 = next_position - current_position
+	# Ignore y component and renormalize
+	velocity = _get_sanitized_velocity(velocity)
+	if not velocity:
+		return
+	velocity = velocity.normalized() * _unit.movement_speed
+	
 	if navigation_agent_3d.avoidance_enabled:
 		navigation_agent_3d.velocity = velocity
 	else:
@@ -154,6 +165,15 @@ func _stop_navigation() -> void:
 	
 #region Avoidance
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
-	_move_unit(safe_velocity)
+	var velocity:Vector3 = _get_sanitized_velocity(safe_velocity)
+	if velocity:
+		_move_unit(safe_velocity)
 
+func _get_sanitized_velocity(input:Vector3) -> Vector3:
+	input.y = 0.0
+	if absf(input.x) < move_comp_mag_threshold and absf(input.z) < move_comp_mag_threshold:
+		return Vector3.ZERO
+	
+	return input
+	
 #endregion

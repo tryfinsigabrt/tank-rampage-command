@@ -116,7 +116,7 @@ metadata/_custom_type_script = "uid://dmxo7e0xpu1oc"
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Skeleton3D" parent="VisualRoot/Armature" parent_id_path=PackedInt32Array(326298032, 841724596) index="0" unique_id=1012015045]
+[node name="Skeleton3D" parent="VisualRoot/Armature" parent_id_path=PackedInt32Array(326298032, 1247306590) index="0" unique_id=1149681073]
 bones/1/position = Vector3(-0.00040513463, 1.3864497, -0.00033394562)
 bones/1/rotation = Quaternion(-0.7070839, -0.004606153, 0.70709413, -0.0053939247)
 bones/2/rotation = Quaternion(-0.020681407, -0.048861418, -0.03506985, 0.9979754)
@@ -159,7 +159,7 @@ transform = Transform3D(0.99672437, 0.073958814, -0.03272811, -0.07831732, 0.983
 remote_path = NodePath("../../../../../../FirePosition/Weapon/FireEmitter")
 update_scale = false
 
-[node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=737157955]
+[node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=1694333748]
 libraries/human_marine_anims = ExtResource("6_u1d32")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
@@ -170,8 +170,9 @@ shape = SubResource("CapsuleShape3D_8yqf8")
 [node name="GameUnitNavigation" parent="." unique_id=1412332106 instance=ExtResource("3_ioppa")]
 unique_name_in_owner = true
 distance_threshold = 1.0
-alignment_turn_threshold = 0.995
-alignment_forward_threshold = 0.0
+alignment_turn_threshold = 0.95
+alignment_forward_threshold = 0.1
+move_comp_mag_threshold = 0.1
 
 [node name="NavigationAgent3D" parent="GameUnitNavigation" index="0" unique_id=512793571]
 path_desired_distance = 1.5
@@ -243,7 +244,7 @@ accuracy_v_velocity_alignment = ExtResource("5_mtu0e")
 max_spread_angle = 16.0
 
 [node name="FireEmitter" parent="FirePosition/Weapon" index="2" unique_id=1538926003]
-transform = Transform3D(0.2779756, 0.5490357, 0.7875713, 0.07237508, 0.80582863, -0.5874175, -0.9532252, 0.22129127, 0.18506745, 1.2065353, -0.75598705, -0.6396169)
+transform = Transform3D(0.2779755, 0.5490357, 0.7875713, 0.07237507, 0.80582863, -0.5874175, -0.95322496, 0.22129127, 0.18506745, 1.2065353, -0.75598705, -0.6396169)
 
 [node name="DamageEmitter" parent="FirePosition/Weapon" index="4" unique_id=1547374086]
 damage_falloff_type = 0
