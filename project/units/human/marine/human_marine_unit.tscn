@@ -107,7 +107,6 @@ graph_offset = Vector2(88.42267, -80.27788)
 [node name="HumanMarineUnit" type="CharacterBody3D" unique_id=224944543 groups=["Interactable", "Unit", "UnitClassSoldier"]]
 collision_layer = 4
 collision_mask = 31
-floor_max_angle = 0.65449846
 script = ExtResource("1_4wrnf")
 movement_speed = 5.0
 unit_class = 3
