@@ -96,6 +96,18 @@ func _is_moving() -> bool
 @abstract
 func _update_render() -> void
 
+func kill() -> void:
+	var _health := health
+	if not _health:
+		return
+		
+	var damage_params:= DamageParameters.new()
+	damage_params.damage = _health.health
+	damage_params.source_unit = self
+	damage_params.target_object = self
+	
+	_health.on_damage(damage_params)
+
 func _is_alive() -> bool:
 	return true
 	

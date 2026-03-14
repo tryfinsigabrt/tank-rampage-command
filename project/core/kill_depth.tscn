@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bcn1p0rk1et4w"]
+
+[ext_resource type="Script" uid="uid://6g6a474xot68" path="res://core/kill_depth.gd" id="1_jnpbq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jnpbq"]
+
+[node name="KillDepth" type="Area3D" unique_id=1499628816]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_jnpbq")
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=465135317]
+shape = SubResource("BoxShape3D_jnpbq")
+debug_fill = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
