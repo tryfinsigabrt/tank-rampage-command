@@ -167,7 +167,7 @@ func _stop_navigation() -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	var velocity:Vector3 = _get_sanitized_velocity(safe_velocity)
 	if velocity:
-		_move_unit(safe_velocity)
+		_move_unit(velocity)
 
 func _get_sanitized_velocity(input:Vector3) -> Vector3:
 	input.y = 0.0
