@@ -102,19 +102,21 @@ func _physics_process(delta: float) -> void:
 		_move_unit(velocity)
 
 func _move_unit(velocity:Vector3) -> void:
-	if not enabled or velocity.is_zero_approx():
+	var grid_velocity:Vector2 = Vector2(velocity.x, velocity.z)
+	if not enabled or grid_velocity.is_zero_approx():
 		return
 		
-	var speed:float = velocity.length()
-	var direction:Vector3 = velocity / speed
+	var speed:float = grid_velocity.length()
+	var direction:Vector2 = grid_velocity / speed
 		
 	var forward_vector := _unit.global_forward
-	var alignment:float = direction.dot(forward_vector)
+	var grid_forward: Vector2 = Vector2(forward_vector.x, forward_vector.z)
+	
+	var alignment:float = direction.dot(grid_forward)
 	var unit_move_dir:Vector2 = Vector2.ZERO
 	if alignment < alignment_turn_threshold:
 		# We expect positive x to cause cw rotation
-		# which is opposite to Godot have ccw be positive so we negate
-		unit_move_dir.x = -1.0 * signf(forward_vector.cross(direction).y)
+		unit_move_dir.x = 1.0 * signf(grid_forward.cross(direction))
 	if alignment >= alignment_forward_threshold:
 		# Negative y moves up in the direction of our target
 		unit_move_dir.y = -1.0

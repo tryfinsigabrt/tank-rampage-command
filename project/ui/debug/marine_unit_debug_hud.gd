@@ -17,8 +17,8 @@ func _tick() -> void:
 		var header:String = "%d:%s - %.1f%%" % [marine.team, marine.name, marine.health_stat.health_fraction * 100.0]
 		_lines.push_back(header)
 		
-		var unit:String = "   Move: velocity=%s; rotating=%s; on_floor=%s" % \
-		[marine.velocity, is_instance_valid(marine._aim_at_tween) and marine._aim_at_tween.is_running()\
+		var unit:String = "   Move: velocity=%s; rot=%.1f; rotating=%s; on_floor=%s" % \
+		[marine.velocity, marine.rotation_degrees.y, is_instance_valid(marine._aim_at_tween) and marine._aim_at_tween.is_running()\
 			, marine.is_on_floor()
 		]
 		_lines.push_back(unit)
