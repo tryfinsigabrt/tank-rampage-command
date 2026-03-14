@@ -1,5 +1,8 @@
 class_name PositionDistributor extends Node
 
+@export
+var enabled:bool = true
+
 @export_range(1.0, 5.0, 0.1)
 var min_spacing_angle_deg:float = 4.5
 
@@ -28,11 +31,12 @@ func calculate(units:Array[Unit], desired_position:Vector3) -> Dictionary[int,Ve
 	if not units:
 		return unit_positions
 		
-	if units.size() == 1:
-		unit_positions[units.front().get_instance_id()] = desired_position
-		return unit_positions
-	
 	var size:int = units.size()
+
+	if not enabled or size == 1:
+		for unit in units:
+			unit_positions[unit.get_instance_id()] = desired_position
+		return unit_positions
 	
 	_positions.resize(size)
 	_ids.resize(size)
