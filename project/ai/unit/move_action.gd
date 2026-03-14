@@ -2,21 +2,27 @@
 extends CommandActionLeaf
 
 var _unit:Unit
-var _target_position:Vector3
+var _target_position:Vector3 = Vector3.INF
 var _finished:bool = false
 
-func after_run(actor: Node, blackboard: Blackboard) -> void:
+func after_run(actor: Node, _blackboard: Blackboard) -> void:
 	if not _finished:
-		SignalBus.on_unit_move_canceled.emit(actor as Unit, blackboard.get_value(UnitBlackboard.Keys.TargetPosition))
+		SignalBus.on_unit_move_canceled.emit(actor as Unit, _target_position)
+		_target_position = Vector3.INF
 		_disconnect_move_signal()
 		
 func before_run(actor: Node, blackboard: Blackboard) -> void:
 	super.before_run(actor, blackboard)
 	_finished = false
 
-	_unit = actor as Unit
-	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
+	_unit = actor as Unit	
+	if not _unit or not blackboard.has_value(UnitBlackboard.Keys.TargetPosition):
+		_finished = true
+		push_error("%s: Missing current unit or target position - cannot perform attack action" % name)
+		return
 	
+	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
+
 	_connect_move_signal()
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
 	

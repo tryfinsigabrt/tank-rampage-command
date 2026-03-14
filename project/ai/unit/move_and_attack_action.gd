@@ -8,7 +8,7 @@ var new_threat_min_distance_threshold:float = 200.0
 var threat_max_distance_threshold:float = 500.0
 
 var _unit:Unit
-var _target_position:Vector3
+var _target_position:Vector3 = Vector3.INF
 var _finished:int = 0
 var _destination_reached:bool
 
@@ -18,7 +18,7 @@ var _scanner:UnitScanner
 const attack_action_scene = preload("uid://cwj8iaowhbop5")
 const scanner_scene = preload("uid://8rwv0t451365")
 
-func after_run(actor: Node, blackboard: Blackboard) -> void:
+func after_run(actor: Node, _blackboard: Blackboard) -> void:
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
 		_attack_action = null
@@ -26,7 +26,8 @@ func after_run(actor: Node, blackboard: Blackboard) -> void:
 		_scanner.queue_free()
 		_scanner = null
 	if not _finished:
-		SignalBus.on_unit_move_canceled.emit(actor as Unit, blackboard.get_value(UnitBlackboard.Keys.TargetPosition))
+		SignalBus.on_unit_move_canceled.emit(actor as Unit, _target_position)
+		_target_position = Vector3.INF
 		_disconnect_move_signal()
 	
 func before_run(actor: Node, blackboard: Blackboard) -> void:
@@ -36,12 +37,13 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	_destination_reached = false
 	
 	_unit = actor as Unit
-	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
-	if not _unit:
+	if not _unit or not blackboard.has_value(UnitBlackboard.Keys.TargetPosition):
 		_finished = -1
-		push_error("%s: Missing current unit - cannot perform attack action" % name)
+		push_error("%s: Missing current unit or target position - cannot perform attack action" % name)
 		return
 		
+	_target_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition) as Vector3
+
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(_target_position, 5.0, Color.ORANGE, 3.0)
 		
