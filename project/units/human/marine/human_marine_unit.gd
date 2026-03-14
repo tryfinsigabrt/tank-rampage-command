@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
-	if input_direction.is_zero_approx():
+	if is_dead or input_direction.is_zero_approx():
 		return
 	
 	# Move forward/back always proceeds along forward vector 
@@ -120,6 +120,7 @@ func _update_render() -> void:
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
 	collision.disabled = true
+	velocity = Vector3.ZERO
 	_is_shooting = false
 	set_physics_process(false)
 	
