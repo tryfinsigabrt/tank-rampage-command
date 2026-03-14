@@ -15,12 +15,19 @@
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="6_mushl"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="7_yp0w5"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="8_wygtg"]
+[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="9_81ogd"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
+[ext_resource type="Resource" uid="uid://diiaihg7d7x4j" path="res://units/human/marine/teams/marine_green_team.tres" id="10_yagaj"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="20_81ogd"]
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="20_ij0eg"]
+[ext_resource type="Resource" uid="uid://ios6yfj2fxv1" path="res://units/human/marine/teams/marine_magenta_team.tres" id="20_rio5w"]
+[ext_resource type="Resource" uid="uid://bfd5kf0wvq6eb" path="res://units/human/marine/teams/marine_blue_team.tres" id="21_bjm80"]
+[ext_resource type="Resource" uid="uid://cf1nyflh37tln" path="res://units/human/marine/teams/marine_yellow_team.tres" id="22_oenpu"]
+[ext_resource type="Resource" uid="uid://biw7s13xuvaoy" path="res://units/human/marine/teams/marine_red_team.tres" id="23_hsvrm"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="24_oenpu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -196,6 +203,56 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
 
+[node name="HumanMarineUnit" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09999919, 1, 117.100006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit2" parent="World/Match/PlayerTeam/Player" unique_id=1170540234 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3999991, 1, 117.100006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit3" parent="World/Match/PlayerTeam/Player" unique_id=1510439215 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.499999, 1, 117.100006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit4" parent="World/Match/PlayerTeam/Player" unique_id=1621918237 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.799999, 1, 117.100006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit5" parent="World/Match/PlayerTeam/Player" unique_id=1519198501 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.499999, 1, 117.100006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit6" parent="World/Match/PlayerTeam/Player" unique_id=536295561 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.599999, 1, 120.600006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit7" parent="World/Match/PlayerTeam/Player" unique_id=333691351 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.299999, 1, 120.600006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit8" parent="World/Match/PlayerTeam/Player" unique_id=869668768 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8999991, 1, 120.600006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit9" parent="World/Match/PlayerTeam/Player" unique_id=1645239917 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.799999, 1, 120.600006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanMarineUnit10" parent="World/Match/PlayerTeam/Player" unique_id=605256512 instance=ExtResource("9_81ogd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.200001, 1, 120.600006)
+team_resource = ExtResource("10_yagaj")
+team = 1
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
@@ -257,6 +314,58 @@ material_override = ExtResource("9_62175")
 
 [node name="UI" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank04" index="5" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
+
+[node name="EnemyMarine01" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1554156894 instance=ExtResource("9_81ogd")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -74.06275, 1, 20.198782)
+team_resource = ExtResource("20_rio5w")
+team = 2
+
+[node name="EnemyMarine02" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1349112596 instance=ExtResource("9_81ogd")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -70.951485, 1, 17.087513)
+team_resource = ExtResource("20_rio5w")
+team = 2
+
+[node name="EnemyMarine03" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1021453778 instance=ExtResource("9_81ogd")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -67.34524, 1, 13.481268)
+team_resource = ExtResource("20_rio5w")
+team = 2
+
+[node name="EnemyMarine04" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1535437267 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.9659258, 0, -0.25881895, 0, 1, 0, 0.25881895, 0, -0.9659258, -35.950558, 1, -78.403496)
+team_resource = ExtResource("21_bjm80")
+team = 2
+
+[node name="EnemyMarine05" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=53370856 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.9659258, 0, -0.25881895, 0, 1, 0, 0.25881895, 0, -0.9659258, -48.121223, 1, -75.14238)
+team_resource = ExtResource("21_bjm80")
+team = 2
+
+[node name="EnemyMarine07" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=514847865 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.99999994, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, -0.99999994, 29.995693, 1, -42.860542)
+team_resource = ExtResource("22_oenpu")
+team = 2
+
+[node name="EnemyMarine08" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1731757766 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.99999994, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, -0.99999994, 15.395697, 1, -49.66054)
+team_resource = ExtResource("23_hsvrm")
+team = 2
+
+[node name="EnemyMarine09" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=304518773 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.99999994, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, -0.99999994, 37.395695, 1, -42.860542)
+team_resource = ExtResource("22_oenpu")
+team = 2
+
+[node name="EnemyMarine10" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=738040903 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.99999994, 0, 8.940697e-08, 0, 1, 0, -8.940697e-08, 0, -0.99999994, 7.495698, 1, -49.160545)
+team_resource = ExtResource("23_hsvrm")
+team = 2
+
+[node name="EnemyMarine06" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1001045680 instance=ExtResource("9_81ogd")]
+transform = Transform3D(-0.9659258, 0, -0.25881895, 0, 1, 0, 0.25881895, 0, -0.9659258, -28.609522, 1, -80.37052)
+team_resource = ExtResource("21_bjm80")
+team = 2
+
+[node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
 
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
 
