@@ -16,9 +16,27 @@ var is_shooting:bool:
 @onready var _weapon: Weapon = %Weapon
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
 @onready var animation: MarineAnimation = %MarineAnimation
+@onready var mesh: MeshInstance3D = $VisualRoot/Armature/Skeleton3D/BaseMarine
+
+@export
+var team_resource:MarineTeamResource:
+	set(value):
+		team_resource = value
+		_set_mesh_material()
 
 var _aim_at_tween:Tween
 
+func _ready() -> void:
+	super._ready()
+	_set_mesh_material()
+	
+func _set_mesh_material() -> void:
+	if not team_resource or not team_resource.material or not mesh:
+		return
+	
+	var material_to_set:Material = team_resource.material
+	mesh.set_surface_override_material(0, material_to_set)
+	
 func _is_alive() -> bool:
 	return health_stat.is_alive
 
