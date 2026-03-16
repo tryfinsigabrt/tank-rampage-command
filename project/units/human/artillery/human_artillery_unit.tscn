@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dwsj1us3rnher"]
+
+[ext_resource type="Script" uid="uid://dh3bjijh1ah1k" path="res://units/human/artillery/human_artillery_unit.gd" id="1_trmn4"]
+[ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="2_y2wif"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_gicbj"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pf3cn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_y2wif"]
+size = Vector3(2.8, 1, 6.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gicbj"]
+size = Vector3(1.5, 1.5, 2.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y2wif"]
+top_radius = 0.195
+bottom_radius = 0.195
+height = 2.5
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
+radius = 1.5
+height = 7.0
+
+[node name="HumanArtilleryUnit" type="Node3D" unique_id=469329266]
+script = ExtResource("1_trmn4")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
+mesh = SubResource("BoxMesh_y2wif")
+
+[node name="TurretPivot" type="Marker3D" parent="VisualRoot" unique_id=1543570858]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0.00062831846, 0, -0.00062831846, 0.9999998, 0, 0, -1.3484317)
+gizmo_extents = 1.0
+
+[node name="Turret" type="MeshInstance3D" parent="VisualRoot/TurretPivot" unique_id=480676280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7562999, 1.2554424)
+mesh = SubResource("BoxMesh_gicbj")
+skeleton = NodePath("../..")
+
+[node name="Barrel" type="MeshInstance3D" parent="VisualRoot/TurretPivot/Turret" unique_id=1927654748]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 2.5141895)
+mesh = SubResource("CylinderMesh_y2wif")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=302611610]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_y2wif")
+
+[node name="GameUnitNavigation" parent="." unique_id=1412332106 instance=ExtResource("2_y2wif")]
+
+[node name="NavigationAgent3D" parent="GameUnitNavigation" index="0" unique_id=512793571]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_max_distance = 25.01
+radius = 4.0
+max_speed = 15.0
+
+[node name="Stats" type="Node" parent="." unique_id=515883401]
+
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("3_gicbj")]
+unique_name_in_owner = true
+max_health = 3000.0
+
+[node name="UI" type="Node3D" parent="." unique_id=1745454053]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_pf3cn")]
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+health_stat = NodePath("")
+
+[node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1455461980]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[editable path="GameUnitNavigation"]
