@@ -1,9 +1,15 @@
 [gd_scene format=3 uid="uid://dwsj1us3rnher"]
 
 [ext_resource type="Script" uid="uid://dh3bjijh1ah1k" path="res://units/human/artillery/human_artillery_unit.gd" id="1_trmn4"]
+[ext_resource type="Curve" uid="uid://cvg2hrk6qr7st" path="res://units/human/artillery/rotation_angle_v_distance.tres" id="2_jjc22"]
+[ext_resource type="Material" uid="uid://c3oa68bd41fvs" path="res://units/human/artillery/body_material.tres" id="2_pf3cn"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="2_y2wif"]
+[ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="3_85mja"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_gicbj"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pf3cn"]
+[ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="7_uf7ra"]
+[ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="8_jjc22"]
+[ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="9_3sucs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y2wif"]
 size = Vector3(2.8, 1, 6.5)
@@ -22,32 +28,75 @@ rings = 1
 radius = 1.5
 height = 7.0
 
-[node name="HumanArtilleryUnit" type="Node3D" unique_id=469329266]
+[node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 groups=["Interactable", "Unit", "UnitClassArtillery"]]
+collision_layer = 4
+collision_mask = 31
 script = ExtResource("1_trmn4")
+rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
+movement_speed = 5.0
+unit_class = 2
+vision = 300.0
+metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.50287104, 0)
 
 [node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
+material_override = ExtResource("2_pf3cn")
 mesh = SubResource("BoxMesh_y2wif")
 
 [node name="TurretPivot" type="Marker3D" parent="VisualRoot" unique_id=1543570858]
-transform = Transform3D(1, 0, 0, 0, 0.9999998, 0.00062831846, 0, -0.00062831846, 0.9999998, 0, 0, -1.3484317)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, -1.3484317)
 gizmo_extents = 1.0
 
 [node name="Turret" type="MeshInstance3D" parent="VisualRoot/TurretPivot" unique_id=480676280]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7562999, 1.2554424)
+material_override = ExtResource("2_pf3cn")
 mesh = SubResource("BoxMesh_gicbj")
 skeleton = NodePath("../..")
 
 [node name="Barrel" type="MeshInstance3D" parent="VisualRoot/TurretPivot/Turret" unique_id=1927654748]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 2.5141895)
+transform = Transform3D(1, 0, 0, 0, -4.3713953e-08, -1, 0, 1, -4.3713953e-08, 0, 0.23499513, 2.5143373)
+material_override = ExtResource("3_85mja")
 mesh = SubResource("CylinderMesh_y2wif")
 
+[node name="BarrelFirePosition" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/Barrel" unique_id=1775582211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3200483, 0.000829339)
+
+[node name="WeaponTrace" type="Marker3D" parent="VisualRoot" unique_id=37322823]
+unique_name_in_owner = true
+transform = Transform3D(0.9999991, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999994, -0.02219661, 1.8069646, 3.9571517)
+gizmo_extents = 2.62
+
+[node name="Weapon" parent="VisualRoot/WeaponTrace" unique_id=107617315 instance=ExtResource("7_uf7ra")]
+unique_name_in_owner = true
+min_distance = 200.0
+max_distance_range = Vector2(800, 1000)
+cooldown_time_range = Vector2(5, 6)
+fire_time_range = Vector2(3, 4.5)
+damage_v_distance = ExtResource("8_jjc22")
+accuracy_v_velocity_alignment = ExtResource("9_3sucs")
+max_spread_angle = 16.0
+friendly_fire = true
+allow_source_damage = true
+
+[node name="FireEmitter" parent="VisualRoot/WeaponTrace/Weapon" index="2" unique_id=1538926003]
+transform = Transform3D(0.28420797, 0.5476899, 0.7861805, 0.09616502, 0.79979753, -0.5921817, -0.94846493, 0.24520706, 0.17553756, 1.1919403, -0.7724378, -0.6406897)
+
+[node name="DamageEmitter" parent="VisualRoot/WeaponTrace/Weapon" index="4" unique_id=1547374086]
+damage_falloff_type = 0
+min_damage = 10.0
+max_damage = 50.0
+
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=302611610]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.4804411, 0)
 shape = SubResource("CapsuleShape3D_y2wif")
 
 [node name="GameUnitNavigation" parent="." unique_id=1412332106 instance=ExtResource("2_y2wif")]
+unique_name_in_owner = true
 
 [node name="NavigationAgent3D" parent="GameUnitNavigation" index="0" unique_id=512793571]
 path_desired_distance = 4.0
@@ -69,7 +118,7 @@ top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_pf3cn")]
 transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
-health_stat = NodePath("")
+health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1455461980]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
@@ -77,4 +126,8 @@ remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
 
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
+
+[editable path="VisualRoot/WeaponTrace/Weapon"]
 [editable path="GameUnitNavigation"]

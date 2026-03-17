@@ -17,6 +17,7 @@ var is_shooting:bool:
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
 @onready var animation: MarineAnimation = %MarineAnimation
 @onready var mesh: MeshInstance3D = $VisualRoot/Armature/Skeleton3D/BaseMarine
+@onready var ui: Node3D = %UI
 
 @export
 var team_resource:MarineTeamResource:
@@ -136,6 +137,7 @@ func _is_moving() -> bool:
 
 func _update_render() -> void:
 	visual_root.visible = render
+	ui.visible = render
 
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
