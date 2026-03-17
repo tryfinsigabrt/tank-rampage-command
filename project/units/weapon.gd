@@ -2,6 +2,22 @@ class_name Weapon extends Node3D
 
 signal firing_state_changed(firing:bool)
 
+## Type of trace to do when firing
+enum TraceType
+{
+	## Standard hit scan from source to target
+	Standard,
+	## Drop a vertical ray down to target position
+	## Useful for missile drops
+	Drop,
+	
+	## Two phase hit scan useful for artillery shells.
+	## First does a hit scan on launch to make sure doesn't hit something in front of target
+	## If so, then it explodes in that pass
+	## If no hit, then invoke drop behavior.
+	Launch
+}
+
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
 @onready var fire_emitter: CPUParticles3D = $FireEmitter
@@ -44,6 +60,8 @@ var friendly_fire:bool = false
 var damage_mask:int = Collisions.CompositeMasks.visibility
 
 @export var allow_source_damage:bool
+
+@export var type: TraceType = TraceType.Standard
 
 var _unit:Unit
 var _fire_pending:bool
@@ -134,56 +152,24 @@ func _hit_scan() -> void:
 		_refresh_damage_mask()
 		
 	# Use physics server rather than ray 3D
+	var query := _create_trace_query()
 	var cast_distance:float = _randv(max_distance_range)
-		
-	var origin:Vector3 = global_position
-	var target:Vector3 = origin + global_forward * cast_distance
-
-	var query := PhysicsRayQueryParameters3D.create(origin, target)
-	
-	query.collide_with_areas = true
-	query.collide_with_bodies = true
-	query.collision_mask = damage_mask
-	
-	var unit:Unit = Groups.get_parent_in_group(self, Groups.Unit)
-	if not allow_source_damage and unit:
-		query.exclude = [unit.get_rid()]
-	
 	var result:Dictionary
-	var is_hit:bool = _check_hit(query, result)
-	var hit_or_end:Vector3 = result["hit_or_end"]
 	
-	_draw_debug(origin, hit_or_end, is_hit)
-	
+	var is_hit:bool = _weapon_trace(query, result, cast_distance)
 	if not is_hit:
 		return
 		
-	# Apply accuracy and damage modifiers
-	var hit_position: Vector3 = result["position"]
-	var target_dev_deg:float = _calculate_final_target_deviation_deg(origin, hit_position)
-	
-	if not is_zero_approx(target_dev_deg):
-		# Need a new scan for the final target
-		var to_target:Vector3 = origin.direction_to(target)
-		var dev_to_target:Vector3 = to_target.rotated(global_basis.y, deg_to_rad(target_dev_deg))
-		var new_target:Vector3 = origin + dev_to_target * cast_distance
+	if not _apply_accuracy_modifier(query, result, cast_distance):
+		return
 		
-		query.to = new_target
-		is_hit = _check_hit(query, result)
-		if not is_hit:
-			return
-		
-	var damage_params := DamageParameters.from_ray_intersect(result)
+	var damage_params := _create_damage_params(query, result)
 	if not damage_params:
 		return
 		
-	var dist:float = origin.distance_to(hit_position)
-	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
-	damage_params.source_weapon = self
-	damage_params.source_damage_allowed = allow_source_damage
-	damage_params.source_unit = unit
 	damage_emitter.damage(damage_params)
 	
+	var hit_or_end:Vector3 = result["hit_or_end"]
 	hit_emitter.global_position = hit_or_end
 	hit_emitter.restart()
 
@@ -212,9 +198,11 @@ func _check_hit(query: PhysicsRayQueryParameters3D, out_result:Dictionary) -> bo
 	out_result["hit_or_end"] = hit_or_end
 	
 	return is_hit
-		
+
+func _is_debug_draw_enabled() -> bool: return enable_debug_draw and OS.is_debug_build()
+	
 func _draw_debug(start: Vector3, end: Vector3, success:bool) -> void:
-	if not enable_debug_draw or not OS.is_debug_build():
+	if not _is_debug_draw_enabled():
 		return
 	DebugDraw3D.draw_arrow(start, end, Color.GREEN if success else Color.RED, 0.1, false, 3.0)
 
@@ -227,3 +215,77 @@ func _set_timer(timer:Timer, time: float) -> void:
 	
 func _on_fire_state_timer_timeout() -> void:
 	firing_state_changed.emit(false)
+	
+#region Trace Helpers
+
+func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+	var origin := query.from
+	var target := query.to
+	
+	var hit_position: Vector3 = result["position"]
+	var target_dev_deg:float = _calculate_final_target_deviation_deg(origin, hit_position)
+	
+	if is_zero_approx(target_dev_deg):
+		return true
+	
+	# Need a new scan for the final target
+	var to_target:Vector3 = origin.direction_to(target)
+	var dev_to_target:Vector3 = to_target.rotated(global_basis.y, deg_to_rad(target_dev_deg))
+	var new_target:Vector3 = origin + dev_to_target * cast_distance
+	
+	query.to = new_target
+	return _check_hit(query, result)
+	
+func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionary) -> DamageParameters:
+	var damage_params := DamageParameters.from_ray_intersect(result)
+	if not damage_params:
+		return null
+		
+	var hit_position: Vector3 = result["position"]
+	var dist:float = query.from.distance_to(hit_position)
+	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
+	damage_params.source_weapon = self
+	damage_params.source_damage_allowed = allow_source_damage
+	damage_params.source_unit = _unit
+	
+	return damage_params	
+	
+func _create_trace_query() -> PhysicsRayQueryParameters3D:
+	var query := PhysicsRayQueryParameters3D.new()
+	
+	query.collide_with_areas = true
+	query.collide_with_bodies = true
+	query.collision_mask = damage_mask
+	
+	if not allow_source_damage and _unit:
+		query.exclude = [_unit.get_rid()]
+	return query
+	
+#endregion
+
+#region Trace Types
+
+func _weapon_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+	match type:
+		TraceType.Standard:
+			return _standard_trace(query, result, cast_distance)
+		_:
+			assert(false, "Unsupported trace type=%s" % type)
+			result["hit_or_end"] = Vector3.INF
+			return false
+			
+func _standard_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+	var origin:Vector3 = global_position
+	var target:Vector3 = origin + global_forward * cast_distance
+
+	query.from = origin
+	query.to = target
+	
+	var is_hit := _check_hit(query, result)
+	
+	if _is_debug_draw_enabled():
+		_draw_debug(origin, result["hit_or_end"], is_hit)
+	
+	return is_hit
+	
+#endregion
