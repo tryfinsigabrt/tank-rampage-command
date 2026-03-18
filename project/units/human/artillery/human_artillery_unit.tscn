@@ -28,11 +28,13 @@ rings = 1
 radius = 1.5
 height = 7.0
 
-[node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 groups=["Interactable", "Unit", "UnitClassArtillery"]]
+[node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 node_paths=PackedStringArray("turret_rotation_node", "barrel_pitch_node") groups=["Interactable", "Unit", "UnitClassArtillery"]]
 collision_layer = 4
 collision_mask = 31
 script = ExtResource("1_trmn4")
 rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
+turret_rotation_node = NodePath("VisualRoot/TurretPivot")
+barrel_pitch_node = NodePath("VisualRoot/TurretPivot")
 movement_speed = 5.0
 unit_class = 2
 vision = 300.0
@@ -47,7 +49,6 @@ material_override = ExtResource("2_pf3cn")
 mesh = SubResource("BoxMesh_y2wif")
 
 [node name="TurretPivot" type="Marker3D" parent="VisualRoot" unique_id=1543570858]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, -1.3484317)
 gizmo_extents = 1.0
 
