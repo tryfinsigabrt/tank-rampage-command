@@ -38,6 +38,9 @@ var cooldown_time_range:Vector2 = Vector2(1.5,2.0)
 var fire_time_range:Vector2 = Vector2(0.05,0.1)
 
 @export
+var fire_time_v_distance:Curve
+
+@export
 var damage_v_distance:Curve
 
 @export
@@ -67,6 +70,19 @@ var _unit:Unit
 var _fire_pending:bool
 var _mask_requires_refresh:bool
 
+## Target that the weapon is trying to hit
+## Not used for Standard fire mode. Used for Drop and launch
+var fire_target:Vector3
+
+## Node to use to do the launch trace for launch-based weapons
+## Defaults to self if not assigned
+@export
+var launch_trace_node:Node3D
+
+## Size of the impact probability zone vs fraction of min to max firing distance
+@export
+var target_dev_v_distance:Curve
+
 var ideal_fire_range:Vector2:
 	get:
 		return Vector2(min_distance, max_distance_range.x)
@@ -78,6 +94,9 @@ func _ready() -> void:
 	
 	fire_state_timer.wait_time = cooldown_time_range.y * 2.0
 	_mask_requires_refresh = not friendly_fire
+	
+	if not launch_trace_node:
+		launch_trace_node = self 
 	
 func fire() -> void:
 	if _fire_pending:
@@ -120,7 +139,15 @@ func _refresh_damage_mask() -> void:
 		
 # Delay impact after fire emission before impact to avoid visually inaccurate results
 func _delay_impact() -> void:
-	var flight_time:float = _randv(fire_time_range)
+	var flight_time:float
+	if fire_time_v_distance and type == TraceType.Launch:
+		var dist:float = launch_trace_node.global_position.distance_to(fire_target)
+		flight_time = fire_time_v_distance.sample_baked(dist)
+		# Randomize
+		flight_time += MathUtils.randf_range_signed(fire_time_range.x, fire_time_range.y)
+	else:
+		flight_time = _randv(fire_time_range)
+		
 	_set_timer(impact_timer, flight_time)
 	await impact_timer.timeout
 		
@@ -210,7 +237,7 @@ func _randv(min_max: Vector2) -> float:
 	return randf_range(min_max.x, min_max.y)
 	
 func _set_timer(timer:Timer, time: float) -> void:
-	timer.wait_time = time
+	timer.wait_time = maxf(0.01, time)
 	timer.start()
 	
 func _on_fire_state_timer_timeout() -> void:
@@ -243,6 +270,8 @@ func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionar
 		
 	var hit_position: Vector3 = result["position"]
 	var dist:float = query.from.distance_to(hit_position)
+	
+	damage_params.damage_mask = damage_mask
 	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
 	damage_params.source_weapon = self
 	damage_params.source_damage_allowed = allow_source_damage
@@ -269,6 +298,10 @@ func _weapon_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_d
 	match type:
 		TraceType.Standard:
 			return _standard_trace(query, result, cast_distance)
+		TraceType.Drop:
+			return _drop_trace(query, result)
+		TraceType.Launch:
+			return _launch_trace(query, result)
 		_:
 			assert(false, "Unsupported trace type=%s" % type)
 			result["hit_or_end"] = Vector3.INF
@@ -288,4 +321,44 @@ func _standard_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast
 	
 	return is_hit
 	
+func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
+	var target:Vector3 = fire_target
+	if target_dev_v_distance:
+		var origin:Vector3 = global_position
+		var dist:float = origin.distance_to(target)
+		var distance_fraction:float = clampf(dist / (max_distance_range.y - min_distance), 0.0, 1.0)
+		var radius:float = target_dev_v_distance.sample_baked(distance_fraction)
+		if radius > 0:
+			var offset:Vector2 = MathUtils.get_random_point_in_circle(radius)
+			target.x += offset.x
+			target.z += offset.y
+		
+	
+	query.from = fire_target + 1000 * Vector3.UP
+	query.to = fire_target
+	
+	var is_hit := _check_hit(query, result)
+	
+	if _is_debug_draw_enabled():
+		_draw_debug(query.from, result["hit_or_end"], is_hit)
+	
+	return is_hit
+
+func _launch_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
+	var target:Vector3 = fire_target
+	var origin:Vector3 = launch_trace_node.global_position
+	
+	var trace_dist:float = 0.5 * origin.distance_to(target)
+	var trace_dir:Vector3 = -launch_trace_node.global_transform.basis.z
+	
+	query.from = origin
+	query.to = origin + trace_dir * trace_dist
+	var is_hit := _check_hit(query, result)
+	
+	# Don't fire if going to hit an obstacle on launch
+	if is_hit:
+		return false
+		
+	return _drop_trace(query, result)
+
 #endregion

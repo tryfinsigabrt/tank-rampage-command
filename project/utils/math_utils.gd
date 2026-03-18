@@ -17,3 +17,29 @@ static func get_rand_vector2_dir() -> Vector2:
 ## Updates the given mask by masking out selector and then applying selection
 static func update_mask(mask:int, selector:int, selection:int) -> int:
 	return (mask & ~selector) | selection
+
+static func get_random_point_in_circle(radius:float) -> Vector2:
+	# Use polar coordinates for more uniformity than a random direction vector
+	var angle := randf() * TAU
+	# Must take sqrt as A = PI*r^2 to avoid clumping near center and more area as you approach the surface
+	var r := radius * sqrt(randf())
+	return Vector2.from_angle(angle).normalized() * r
+
+static func get_random_point_in_sphere(radius:float) -> Vector3:
+	# Use spherical coordinates for more uniformity than a random direction vector
+	# coordinate system is rotated since Y is up
+	# Random horizontal rotation
+	var phi := randf() * TAU
+	# Corrects the "Pole" crowding         
+	var costheta := randf_range(-1, 1)
+	
+	var theta := acos(costheta)
+	# Cube root for volume density
+	var r := radius * (randf() ** (1.0/3.0)) 
+	
+	var sintheta := sin(theta)
+	var x := r * sintheta * cos(phi)
+	var y := r * cos(theta)
+	var z := r * sintheta * sin(phi)
+	
+	return Vector3(x, y, z)

@@ -63,6 +63,8 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 
 
 func aim_at(world_location:Vector3) -> void:
+	weapon.fire_target = world_location
+	
 	_pitch_at(world_location)
 	_rotate_at(world_location)
 
@@ -124,6 +126,7 @@ func _rotate_at(world_location:Vector3) -> void:
 		.set_ease(Tween.EASE_OUT)
 	
 	_rotate_aim_tween = tween
+	
 func shoot() -> void:
 	_weapon.fire()
 

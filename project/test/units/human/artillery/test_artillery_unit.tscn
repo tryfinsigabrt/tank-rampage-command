@@ -76,7 +76,9 @@ team = 1
 [node name="Weapon" parent="World/Match/PlayerTeam/Player/Artillery/VisualRoot/WeaponTrace" parent_id_path=PackedInt32Array(1517178385, 37322823) index="0" unique_id=107617315]
 min_distance = 50.0
 max_distance_range = Vector2(300, 500)
+movement_accuracy_penalty = 0.0
 enable_debug_draw = true
+damage_mask = 15
 
 [node name="UI" parent="World/Match/PlayerTeam/Player/Artillery" index="4" unique_id=1745454053]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9241276, 5.5, -0.25313568)
