@@ -335,7 +335,7 @@ func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
 		
 	
 	query.from = fire_target + 1000 * Vector3.UP
-	query.to = fire_target
+	query.to = fire_target - 1000 * Vector3.UP
 	
 	var is_hit := _check_hit(query, result)
 	
@@ -353,6 +353,7 @@ func _launch_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> boo
 	
 	query.from = origin
 	query.to = origin + trace_dir * trace_dist
+	
 	var is_hit := _check_hit(query, result)
 	
 	# Don't fire if going to hit an obstacle on launch

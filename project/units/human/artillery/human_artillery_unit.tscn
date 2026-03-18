@@ -89,8 +89,6 @@ transform = Transform3D(0.28420797, 0.5476899, 0.7861805, 0.09616502, 0.79979753
 
 [node name="DamageEmitter" parent="VisualRoot/WeaponTrace/Weapon" index="4" unique_id=1547374086]
 damage_falloff_type = 2
-min_falloff_distance = 25.0
-max_falloff_distance = 75.0
 min_damage = 10.0
 max_damage = 1000.0
 
