@@ -47,9 +47,9 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="ArtilleryUnitMesh" parent="VisualRoot" unique_id=1589237280 instance=ExtResource("3_3sucs")]
 transform = Transform3D(-3.496911e-07, 0, -8, 0, 8, 0, 8, 0, -3.496911e-07, 1.6, -0.50287104, 1.3987645e-07)
+visible = false
 
 [node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
-visible = false
 material_override = ExtResource("2_pf3cn")
 mesh = SubResource("BoxMesh_y2wif")
 
