@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqprqt4pnw8m5"
-valid=false
+path="res://.godot/imported/HeroTank.blend-41d12b803651ca4a5b49a944edaac464.scn"
 
 [deps]
 
 source_file="res://units/human/tank/hero/HeroTank.blend"
+dest_files=["res://.godot/imported/HeroTank.blend-41d12b803651ca4a5b49a944edaac464.scn"]
 
 [params]
 

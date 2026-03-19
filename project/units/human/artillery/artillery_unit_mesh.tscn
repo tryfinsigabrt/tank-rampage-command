@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://ddgct30jgqcly"]
+
+[ext_resource type="PackedScene" uid="uid://cai3bls5myd14" path="res://units/human/artillery/ArtilleryUnit.fbx" id="1_4yg38"]
+[ext_resource type="Material" uid="uid://bu1se6fo8n113" path="res://units/human/artillery/ArtilleryUnitMaterialLight.tres" id="2_cc450"]
+[ext_resource type="Material" uid="uid://via4hw8ls0bl" path="res://units/human/artillery/ArtilleryUnitMaterialDark.tres" id="2_hjbie"]
+[ext_resource type="Material" uid="uid://5r7o71ik1i3p" path="res://units/human/artillery/ArtilleryUnitMaterialBase.tres" id="3_70pqe"]
+[ext_resource type="PackedScene" uid="uid://ur265hexlgj5" path="res://props/marine-torso-only.tscn" id="5_70pqe"]
+
+[node name="ArtilleryUnitMesh" unique_id=1589237280 instance=ExtResource("1_4yg38")]
+
+[node name="Turret" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="0" unique_id=1682255224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.225, 0.19999999)
+
+[node name="BarrelBody" parent="ArtilleryUnit/Turret/Barrel" parent_id_path=PackedInt32Array(952098901) index="0" unique_id=173850542]
+material_override = ExtResource("3_70pqe")
+
+[node name="BarrelBase" parent="ArtilleryUnit/Turret/Barrel" parent_id_path=PackedInt32Array(952098901) index="1" unique_id=1931339849]
+material_override = ExtResource("2_cc450")
+
+[node name="BarrelEnd" parent="ArtilleryUnit/Turret/Barrel" parent_id_path=PackedInt32Array(952098901) index="2" unique_id=971071454]
+material_override = ExtResource("2_cc450")
+
+[node name="TurretRotation" parent="ArtilleryUnit/Turret" index="1" unique_id=80420152]
+material_override = ExtResource("3_70pqe")
+
+[node name="FrontPiston" parent="ArtilleryUnit/Turret" index="2" unique_id=1983190326]
+material_override = ExtResource("2_hjbie")
+
+[node name="FrontPiston__1_" parent="ArtilleryUnit/Turret" index="3" unique_id=2069293717]
+material_override = ExtResource("2_hjbie")
+
+[node name="BackPiston__1_" parent="ArtilleryUnit/Turret" index="4" unique_id=1669464765]
+material_override = ExtResource("2_hjbie")
+
+[node name="BackSupport" parent="ArtilleryUnit/Turret" index="5" unique_id=1669103787]
+material_override = ExtResource("2_hjbie")
+
+[node name="BackSupport__1_" parent="ArtilleryUnit/Turret" index="6" unique_id=230667769]
+material_override = ExtResource("2_hjbie")
+
+[node name="CenterMotor" parent="ArtilleryUnit/Turret" index="7" unique_id=412389796]
+material_override = ExtResource("2_hjbie")
+
+[node name="TurretBase" parent="ArtilleryUnit/Turret" index="8" unique_id=262278023]
+material_override = ExtResource("3_70pqe")
+
+[node name="GunnerSeat" parent="ArtilleryUnit/Turret" index="9" unique_id=576942230]
+material_override = ExtResource("2_hjbie")
+
+[node name="marine" parent="ArtilleryUnit/Turret/GunnerSeat" index="0" unique_id=216610260 instance=ExtResource("5_70pqe")]
+transform = Transform3D(2.3883566e-16, -5.4639235e-09, 0.125, -0.125, -5.4639235e-09, -1.6543612e-23, 5.4639235e-09, -0.125, -5.4639235e-09, -0.1, 0.045, 0.1)
+
+[node name="GunnerPanel" parent="ArtilleryUnit/Turret" index="10" unique_id=1448727893]
+material_override = ExtResource("2_cc450")
+
+[node name="BackPiston" parent="ArtilleryUnit/Turret" index="11" unique_id=2093903925]
+material_override = ExtResource("2_hjbie")
+
+[node name="TreadsOutside" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="1" unique_id=1923256545]
+material_override = ExtResource("2_hjbie")
+
+[node name="FrontArmour" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="2" unique_id=149107673]
+material_override = ExtResource("2_hjbie")
+
+[node name="TreadCover" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="3" unique_id=995600651]
+material_override = ExtResource("3_70pqe")
+
+[node name="TopStorage" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="4" unique_id=1769380593]
+material_override = ExtResource("3_70pqe")
+
+[node name="Wheel" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="5" unique_id=1191218088]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__1_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="6" unique_id=1593575085]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__2_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="7" unique_id=712218761]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__3_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="8" unique_id=1193808724]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__4_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="9" unique_id=609341484]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__5_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="10" unique_id=852519242]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__6_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="11" unique_id=1545762559]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__7_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="12" unique_id=1943656714]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__8_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="13" unique_id=7462614]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__9_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="14" unique_id=174107926]
+material_override = ExtResource("2_cc450")
+
+[node name="Wheel__10_" parent="ArtilleryUnit" parent_id_path=PackedInt32Array(1586980956) index="15" unique_id=1416302173]
+material_override = ExtResource("2_cc450")

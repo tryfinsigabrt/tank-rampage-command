@@ -4,6 +4,7 @@
 [ext_resource type="Curve" uid="uid://cvg2hrk6qr7st" path="res://units/human/artillery/rotation_angle_v_distance.tres" id="2_jjc22"]
 [ext_resource type="Material" uid="uid://c3oa68bd41fvs" path="res://units/human/artillery/body_material.tres" id="2_pf3cn"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="2_y2wif"]
+[ext_resource type="PackedScene" uid="uid://ddgct30jgqcly" path="res://units/human/artillery/artillery_unit_mesh.tscn" id="3_3sucs"]
 [ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="3_85mja"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_gicbj"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pf3cn"]
@@ -44,12 +45,16 @@ metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.50287104, 0)
 
+[node name="ArtilleryUnitMesh" parent="VisualRoot" unique_id=1589237280 instance=ExtResource("3_3sucs")]
+transform = Transform3D(-3.496911e-07, 0, -8, 0, 8, 0, 8, 0, -3.496911e-07, 1.6, -0.50287104, 1.3987645e-07)
+
 [node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
+visible = false
 material_override = ExtResource("2_pf3cn")
 mesh = SubResource("BoxMesh_y2wif")
 
 [node name="TurretPivot" type="Marker3D" parent="VisualRoot" unique_id=1543570858]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, -1.3484317)
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0, -1.3484317)
 gizmo_extents = 1.0
 
 [node name="Turret" type="MeshInstance3D" parent="VisualRoot/TurretPivot" unique_id=480676280]

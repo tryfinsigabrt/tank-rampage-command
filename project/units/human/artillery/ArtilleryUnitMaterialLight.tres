@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bu1se6fo8n113"]
+
+[ext_resource type="Texture2D" uid="uid://omjk6kb3731g" path="res://units/human/artillery/ArtilleryUnit_0.png" id="1_kk1l2"]
+
+[resource]
+albedo_color = Color(0.99999994, 0.9591293, 0.84976953, 1)
+albedo_texture = ExtResource("1_kk1l2")
+roughness = 0.5
