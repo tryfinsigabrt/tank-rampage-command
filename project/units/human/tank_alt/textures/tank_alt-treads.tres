@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cieh34reh5tmo"]
+
+[ext_resource type="Texture2D" uid="uid://bxq8rhsi8t8ax" path="res://units/human/tank_alt/textures/tankTreads_diffuse.png" id="1_acyny"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_acyny")

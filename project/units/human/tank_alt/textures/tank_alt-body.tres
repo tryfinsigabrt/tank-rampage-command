@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bb48u0k46q7ti"]
+
+[ext_resource type="Texture2D" uid="uid://4tfrk1m5rkmo" path="res://units/human/tank_alt/textures/heroTank_diffuse.png" id="1_o0gxm"]
+
+[resource]
+albedo_texture = ExtResource("1_o0gxm")
