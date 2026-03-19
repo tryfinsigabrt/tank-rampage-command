@@ -53,16 +53,18 @@ signal _los_signal
 
 var _check_los:bool
 var _has_los:bool
+var _weapon:Weapon
 
 func _ready() -> void:
 	if not controlled_unit:
 		push_warning("%s: No controlled unit set - no attack will occur" % name)
 		return
 	
-	var weapon:Weapon = controlled_unit.weapon
+	_weapon = controlled_unit.weapon
 	
-	if weapon:
-		fire_interval = weapon.cooldown_time_range.x
+	if _weapon:
+		fire_interval = _weapon.cooldown_time_range.x
+		fire_range = _weapon.ideal_fire_range
 		
 	_move_into_attack_range()
 	
@@ -87,14 +89,22 @@ func _move_into_attack_range() -> void:
 	
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
-		var move_target:Vector3 = attack_position - attack_dir * fire_range.x * 2 
+		var ideal_dist:float = fire_range.x * 2.0 if fire_range.x / fire_range.y < 0.1 else fire_range.x + 1.0
+		var move_target:Vector3 = attack_position - attack_dir * ideal_dist
 		SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 	
+	# Out of range could be too close or too far away
 	elif move_into_range == MoveBehavior.IF_OUT_RANGE:
 		var dist:float = to_attack.length()
-		var shortage:float = dist - fire_range.y
-		if shortage > 0:
-			var move_target:Vector3 = attack_position + attack_dir * shortage
+		# Too far?
+		var diff:float = dist - fire_range.y
+		var move:bool = diff > 0
+		if not move:
+			# Too close?
+			diff = dist - fire_range.x
+			move = diff < 0
+		if move:
+			var move_target:Vector3 = attack_position + attack_dir * diff
 			SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 
 func _process(delta: float) -> void:
@@ -167,6 +177,9 @@ func _check_target_los() -> bool:
 	# If targeting unit make sure it is visible to us
 	if targeted_unit and not targeted_unit.is_visible_to(controlled_unit.team):
 		return false
+		
+	if _weapon and not _weapon.require_los:
+		return true
 		
 	var space_state := get_world_3d().direct_space_state
 	

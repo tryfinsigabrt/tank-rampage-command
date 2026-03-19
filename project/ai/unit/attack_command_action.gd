@@ -32,9 +32,13 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	_attack_action = attack_action_scene.instantiate()
 	_attack_action.controlled_unit = _unit
 	_attack_action.targeted_unit = _targeted_unit
+	
+	# Determine if we should prefer getting close or only move if out of range
+	# Some weapons like the artillery shells prefer to stay at a distance
 	var weapon:Weapon = _unit.weapon
 	if weapon:
-		_attack_action.fire_range = weapon.ideal_fire_range
+		_attack_action.move_into_range = AttackAction.MoveBehavior.ALWAYS \
+			if weapon.prefer_close_shots else AttackAction.MoveBehavior.IF_OUT_RANGE
 		
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(_targeted_unit.global_position, 10.0, Color.RED, 3.0)

@@ -66,33 +66,6 @@ mesh = SubResource("CylinderMesh_y2wif")
 [node name="BarrelFirePosition" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/Barrel" unique_id=1775582211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3200483, 0.000829339)
 
-[node name="WeaponTrace" type="Marker3D" parent="VisualRoot" unique_id=37322823]
-unique_name_in_owner = true
-transform = Transform3D(0.9999991, 0, 0, 0, 0.9999999, 0, 0, 0, 0.99999994, -0.02219661, 1.8069646, 3.9571517)
-gizmo_extents = 2.62
-
-[node name="Weapon" parent="VisualRoot/WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
-unique_name_in_owner = true
-min_distance = 200.0
-max_distance_range = Vector2(800, 1000)
-cooldown_time_range = Vector2(5, 6)
-fire_time_range = Vector2(0, 1)
-fire_time_v_distance = ExtResource("6_uf7ra")
-max_spread_angle = 16.0
-friendly_fire = true
-allow_source_damage = true
-type = 2
-launch_trace_node = NodePath("../../TurretPivot/Turret/Barrel/BarrelFirePosition")
-target_dev_v_distance = ExtResource("7_jjc22")
-
-[node name="FireEmitter" parent="VisualRoot/WeaponTrace/Weapon" index="2" unique_id=1538926003]
-transform = Transform3D(0.28420797, 0.5476899, 0.7861805, 0.09616502, 0.79979753, -0.5921817, -0.94846493, 0.24520706, 0.17553756, 1.1919403, -0.7724378, -0.6406897)
-
-[node name="DamageEmitter" parent="VisualRoot/WeaponTrace/Weapon" index="4" unique_id=1547374086]
-damage_falloff_type = 2
-min_damage = 10.0
-max_damage = 1000.0
-
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=302611610]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.4804411, 0)
@@ -129,8 +102,35 @@ remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
 
+[node name="WeaponTrace" type="Marker3D" parent="." unique_id=37322823]
+unique_name_in_owner = true
+gizmo_extents = 2.62
+
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
+unique_name_in_owner = true
+min_distance = 200.0
+max_distance_range = Vector2(800, 1000)
+cooldown_time_range = Vector2(5, 6)
+fire_time_range = Vector2(0, 1)
+fire_time_v_distance = ExtResource("6_uf7ra")
+max_spread_angle = 16.0
+friendly_fire = true
+allow_source_damage = true
+type = 2
+launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/Barrel/BarrelFirePosition")
+target_dev_v_distance = ExtResource("7_jjc22")
+prefer_close_shots = false
+
+[node name="FireEmitter" parent="WeaponTrace/Weapon" index="2" unique_id=1538926003]
+transform = Transform3D(0.28420797, 0.5476899, 0.7861805, 0.09616502, 0.79979753, -0.5921817, -0.94846493, 0.24520706, 0.17553756, 1.1919403, -0.7724378, -0.6406897)
+
+[node name="DamageEmitter" parent="WeaponTrace/Weapon" index="4" unique_id=1547374086]
+damage_falloff_type = 2
+min_damage = 10.0
+max_damage = 1000.0
+
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
 
-[editable path="VisualRoot/WeaponTrace/Weapon"]
 [editable path="GameUnitNavigation"]
+[editable path="WeaponTrace/Weapon"]

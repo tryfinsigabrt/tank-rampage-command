@@ -105,6 +105,7 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var target_rotation_euler:Vector3 = target_transform.basis.get_euler()
 	var target_yaw:float = target_rotation_euler.y
 	var yaw_diff:float = angle_difference(current_yaw, target_yaw)
+	var final_yaw := current_yaw + yaw_diff
 	var yaw_diff_mag:float = absf(yaw_diff)
 	var change_yaw:bool =  yaw_diff_mag >= 0.01
 	
@@ -128,10 +129,23 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	# First rotate yaw if it needs to change and then pitch
 	if change_yaw:
 		var yaw_duration: float = yaw_diff_mag / deg_to_rad(aim_turning_speed_degrees)
-		var target_yaw_rotation_euler:Vector3 = Vector3(current_rotation.x, target_yaw, current_rotation.z)
+		#var target_yaw_rotation_euler:Vector3 = Vector3(current_rotation.x, final_yaw, current_rotation.z)
+		#tween.tween_property(turret_rotation_node, "global_rotation", target_yaw_rotation_euler, yaw_duration)
+		var start_yaw: float = current_yaw
+		var end_yaw: float = current_yaw + yaw_diff
 		
-		tween.tween_property(turret_rotation_node, "global_rotation", target_yaw_rotation_euler, yaw_duration)
-		
+		# Using tween method as lerp_angle is more resilient to wrap around problems than tweening the euler rotation
+		# since we only modify yaw here
+		tween.tween_method(
+			func(weight: float) -> void:
+				var yaw := lerp_angle(start_yaw, end_yaw, weight)
+				var new_rotation := turret_rotation_node.global_rotation
+				new_rotation.y = yaw
+				turret_rotation_node.global_rotation = new_rotation,
+			0.0,
+			1.0,
+			yaw_duration
+		)
 	if change_pitch:
 		# Convert desired local pitch to a full global euler target.
 		# global_basis = parent_global_basis * local_basis, so:
@@ -144,7 +158,7 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 			# Yaw tween will set global_rotation to (current_x, target_yaw, current_z).
 			# Reverse that into local space to get the post-yaw local euler.
 			var post_yaw_global_basis := Basis.from_euler(
-				Vector3(current_rotation.x, target_yaw, current_rotation.z))
+				Vector3(current_rotation.x, final_yaw, current_rotation.z))
 			post_yaw_local = (parent_basis.inverse() * post_yaw_global_basis).get_euler()
 		else:
 			post_yaw_local = barrel_pitch_node.rotation
@@ -190,6 +204,10 @@ func _reset_turret_yaw() -> void:
 	if is_instance_valid(_yaw_reset_tween) and _yaw_reset_tween.is_running():
 		return
 	
+	# Don't reset if in middle of aiming
+	if is_instance_valid(_aim_at_tween) and _aim_at_tween.is_running():
+		return
+	
 	_yaw_reset_tween = null
 	var current_rotation: Vector3 = turret_rotation_node.rotation
 	if abs(current_rotation.y) < 0.01:
@@ -212,23 +230,27 @@ func shoot() -> void:
 func get_fire_global_position() -> Vector3:
 	return weapon_trace.global_position
 	
-func get_fire_global_forward() -> Vector3:	
-	# VisualRoot has a 180° Y rotation to flip the model to face -Z (Godot forward).
-	# WeaponTrace inherits that flip, so its global basis.z is already negated.
-	# Multiplying by visual_root's local basis cancels the 180° out
-	var orig_basis:Basis = weapon_trace.global_basis
-	var corrected_basis:Basis = visual_root.transform.basis
-	var final_basis:Basis = orig_basis * corrected_basis
-	return -final_basis.z
+func _get_fire_alignment_basis() -> Basis:
+	var reference_up := global_basis.y.normalized()
+	# Turret is rotated 180 due to parent visual_root so negate the basis vector +Z is model forward
+	var fire_forward := (turret_rotation_node.global_basis.z).slide(reference_up).normalized()
+
+	# Right-handed frame: right = forward x up
+	var fire_right := fire_forward.cross(reference_up).normalized()
+
+	# Recompute up so the basis is orthonormal
+	var fire_up := fire_right.cross(fire_forward).normalized()
+
+	return Basis(fire_right, fire_up, -fire_forward)
+
+func get_fire_global_forward() -> Vector3:
+	return -_get_fire_alignment_basis().z
 
 func get_fire_global_right() -> Vector3:
-	var orig_basis:Basis = weapon_trace.global_basis
-	var corrected_basis:Basis = visual_root.transform.basis
-	var final_basis:Basis = orig_basis * corrected_basis
-	return final_basis.x
+	return _get_fire_alignment_basis().x
 
 func get_fire_global_up() -> Vector3:
-	return weapon_trace.global_basis.y
+	return _get_fire_alignment_basis().y
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled

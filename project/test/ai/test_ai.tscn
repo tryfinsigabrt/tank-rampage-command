@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="9_81ogd"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
 [ext_resource type="Resource" uid="uid://diiaihg7d7x4j" path="res://units/human/marine/teams/marine_green_team.tres" id="10_yagaj"]
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="11_hsvrm"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
@@ -251,6 +252,10 @@ team = 1
 [node name="HumanMarineUnit10" parent="World/Match/PlayerTeam/Player" unique_id=605256512 instance=ExtResource("9_81ogd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.200001, 1, 120.600006)
 team_resource = ExtResource("10_yagaj")
+team = 1
+
+[node name="HumanArtilleryUnit01" parent="World/Match/PlayerTeam/Player" unique_id=1517178385 instance=ExtResource("11_hsvrm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 131.40001)
 team = 1
 
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]

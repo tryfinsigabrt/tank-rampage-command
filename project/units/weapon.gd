@@ -74,6 +74,12 @@ var _mask_requires_refresh:bool
 ## Not used for Standard fire mode. Used for Drop and launch
 var fire_target:Vector3
 
+## Indicates whether weapon requires line of sight to hit target
+## Launch or drop-style weapons do not require los.
+var require_los:bool:
+	get:
+		return type == TraceType.Standard
+
 ## Node to use to do the launch trace for launch-based weapons
 ## Defaults to self if not assigned
 @export
@@ -82,6 +88,10 @@ var launch_trace_node:Node3D
 ## Size of the impact probability zone vs fraction of min to max firing distance
 @export
 var target_dev_v_distance:Curve
+
+## Indicates whether this weapon prefers getting as close as possible or hanging back.
+@export
+var prefer_close_shots:bool = true
 
 var ideal_fire_range:Vector2:
 	get:

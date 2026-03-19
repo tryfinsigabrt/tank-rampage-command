@@ -49,6 +49,10 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 		
 	_scanner = scanner_scene.instantiate()
 	_scanner.my_unit = _unit
+	var weapon := _unit.weapon
+	if weapon:
+		threat_max_distance_threshold = maxf(threat_max_distance_threshold, weapon.ideal_fire_range.y)
+		
 	_scanner.threshold_distance = threat_max_distance_threshold
 	_scanner.threats_detected.connect(_threats_detected)
 	add_child(_scanner)
@@ -87,9 +91,6 @@ func _attack_unit(enemy:Unit) -> void:
 	_attack_action.controlled_unit = _unit
 	_attack_action.targeted_unit = enemy
 	_attack_action.move_into_range = AttackAction.MoveBehavior.NEVER
-	var weapon:Weapon = _unit.weapon
-	if weapon:
-		_attack_action.fire_range = weapon.ideal_fire_range
 	
 	_attack_action.tree_exited.connect(func() -> void:
 		_attack_action = null
