@@ -80,6 +80,11 @@ var require_los:bool:
 	get:
 		return type == TraceType.Standard
 
+## Allow attacking a position and not just a unit or building
+var allow_position_attack:bool:
+	get:
+		return type != TraceType.Standard
+		
 ## Node to use to do the launch trace for launch-based weapons
 ## Defaults to self if not assigned
 @export
