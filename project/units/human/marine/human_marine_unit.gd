@@ -66,7 +66,7 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 
 	var speed:float = movement_speed if speed_override <= 0.0 else speed_override
 	# Negative as "forward" is -z as we are using right-handed OpenGL-style coordinate system
-	var movement_direction := -input_direction_3.z * visual_root.global_basis.z
+	var movement_direction := -input_direction_3.z * global_forward
 	var projected_movement:Vector2 = Vector2(movement_direction.x, movement_direction.z).normalized()
 	
 	if projected_movement:
