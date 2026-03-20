@@ -83,14 +83,15 @@ func _move_into_attack_range() -> void:
 	if move_into_range == MoveBehavior.NEVER:
 		return
 		
+	var my_position:Vector3 = controlled_unit.get_fire_global_position()
 	var attack_position:Vector3 = _get_target_position()
-	var to_attack:Vector3 = attack_position - controlled_unit.get_fire_global_position()
+	var to_attack:Vector3 = attack_position - my_position
 	var attack_dir:Vector3 = to_attack.normalized()
 	
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
 		var ideal_dist:float = fire_range.x * 2.0 if fire_range.x / fire_range.y < 0.1 else fire_range.x + 1.0
-		var move_target:Vector3 = attack_position - attack_dir * ideal_dist
+		var move_target:Vector3 = my_position - attack_dir * ideal_dist
 		SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 	
 	# Out of range could be too close or too far away
@@ -104,7 +105,11 @@ func _move_into_attack_range() -> void:
 			diff = dist - fire_range.x
 			move = diff < 0
 		if move:
-			var move_target:Vector3 = attack_position + attack_dir * diff
+			# Add a buffer
+			var bounds_size := controlled_unit.get_bounds().size
+			var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
+			diff += signf(diff) * buffer
+			var move_target:Vector3 = my_position + attack_dir * diff
 			SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 
 func _process(delta: float) -> void:

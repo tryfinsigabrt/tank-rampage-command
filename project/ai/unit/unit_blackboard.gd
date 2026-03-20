@@ -2,7 +2,7 @@ class_name UnitBlackboard extends Blackboard
 
 class Action:
 	const Move:StringName = &"move"
-	const AttackUnit:StringName = &"attack_unit"
+	const Attack:StringName = &"attack"
 	const Follow:StringName = &"follow"
 	const MoveAndAttack:StringName = &"move_and_attack"
 
@@ -33,5 +33,5 @@ var target_unit:Unit:
 		
 var is_attacking:bool:
 	get:
-		return current_action == Action.AttackUnit
+		return current_action == Action.Attack
 		

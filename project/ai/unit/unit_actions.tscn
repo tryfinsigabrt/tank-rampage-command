@@ -38,7 +38,7 @@ metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 [node name="IsAttack" type="Node" parent="BeehaveTree/CommandSelector/AttackCommand" unique_id=1302349945]
 script = ExtResource("6_ak1gx")
 left_operand = "get_value(\"action\")"
-right_operand = "\"attack_unit\""
+right_operand = "\"attack\""
 metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 
 [node name="Attack" type="Node" parent="BeehaveTree/CommandSelector/AttackCommand" unique_id=1540231039]

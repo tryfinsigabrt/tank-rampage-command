@@ -76,7 +76,7 @@ func _execute() -> void:
 		blackboard.currently_attacking = currently_attacking
 	
 func _on_command_finished(unit:Unit, command:StringName) -> void:
-	if command == UnitBlackboard.Action.AttackUnit and is_instance_valid(unit) and unit.is_on_team(blackboard.team):
+	if command == UnitBlackboard.Action.Attack and is_instance_valid(unit) and unit.is_on_team(blackboard.team):
 		print_debug("%s: unit=%s finished attacking" % [name, unit.name])
 		
 		var attacker_mapper: Dictionary[int,int] = blackboard.currently_attacking

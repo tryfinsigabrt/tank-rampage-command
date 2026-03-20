@@ -86,7 +86,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9
 
 [node name="Weapon" parent="World/Match/PlayerTeam/Player/Artillery/WeaponTrace" parent_id_path=PackedInt32Array(1517178385, 37322823) index="0" unique_id=107617315]
 min_distance = 50.0
-max_distance_range = Vector2(300, 500)
+max_distance_range = Vector2(200, 1000)
 enable_debug_draw = true
 
 [node name="EnemyTeam" parent="World/Match" unique_id=563949230 instance=ExtResource("4_6eb3y")]
@@ -98,10 +98,10 @@ team = 2
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -67.3)
 team = 2
 
-[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Mesh" index="0" unique_id=735364314]
+[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Mesh" index="0"]
 material_override = ExtResource("8_3npu7")
 
-[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Turret/Mesh" index="0" unique_id=1778038016]
+[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("9_rl586")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="5" unique_id=1673194704]
@@ -111,10 +111,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 54.8, 0, -65.9)
 team = 2
 
-[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Mesh" index="0" unique_id=735364314]
+[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Mesh" index="0"]
 material_override = ExtResource("10_308ec")
 
-[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Turret/Mesh" index="0" unique_id=1778038016]
+[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("11_wj0es")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="5" unique_id=1673194704]
@@ -124,10 +124,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 54.8
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
 team = 2
 
-[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Mesh" index="0" unique_id=735364314]
+[node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Mesh" index="0"]
 material_override = ExtResource("12_o6aet")
 
-[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Turret/Mesh" index="0" unique_id=1778038016]
+[node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("13_ux3hc")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="5" unique_id=1673194704]

@@ -64,16 +64,30 @@ func move(target_position:Vector3) -> void:
 func attack(enemy:Unit) -> void:
 	_new_action()
 	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.AttackUnit)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetUnit, enemy)
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.AttackUnit, {
-		&"target": enemy
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, {
+		&"target_unit": enemy
 	} as Dictionary[StringName, Variant])
 	
-	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.AttackUnit, StringUtils.safe_name(unit)])
+	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
+
+func attack_position(target_position:Vector3) -> void:
+	_new_action()
+	
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
+
+	enabled = true
+	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, {
+		&"target_position": target_position
+	} as Dictionary[StringName, Variant])
+	
+	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, target_position])
 	
 func move_and_attack(target_position:Vector3) -> void:
 	_new_action()

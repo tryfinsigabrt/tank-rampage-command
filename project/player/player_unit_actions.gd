@@ -143,7 +143,12 @@ func _handle_attack(event: InputEvent) -> void:
 	if result or selected_unit:
 		if result:
 			var target_position:Vector3 = result.get("position")
-			order_manager.move_and_attack(target_position)
+			# try to attack the position and if the selection doesn't support then fallback to move and attack
+			# TODO: Think through RTS standards on this one but if we have an artillery we want it to lay down fire
+			# on the targeted position rather than moving and then trying to attack units directly.
+			# Only if a specific unit is targeted do we want to try and track and follow it
+			if not order_manager.attack_position(target_position):
+				order_manager.move_and_attack(target_position)
 		else:
 			order_manager.attack(selected_unit)
 

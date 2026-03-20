@@ -49,3 +49,20 @@ func attack(to_attack:Unit) -> void:
 	for unit in units:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack(to_attack)
+
+func attack_position(position:Vector3) -> bool:
+	var units := selection_manager.get_selected_units_on_team()
+	if not units:
+		return false
+		
+	# Only attack a position if all units in the group support it
+	for unit in units:
+		var weapon: Weapon = unit.weapon
+		if not weapon or not weapon.allow_position_attack:
+			return false
+			
+	for unit in units:
+		var unit_actions := unit.get_or_add_actions()
+		unit_actions.attack_position(position)
+	
+	return true
