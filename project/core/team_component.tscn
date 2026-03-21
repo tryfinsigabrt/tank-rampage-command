@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://d10exlndjkehi"]
+
+[ext_resource type="Script" uid="uid://butjfl7btwmh8" path="res://core/team_component.gd" id="1_f6xdb"]
+
+[node name="TeamComponent" type="Node" unique_id=1891015398]
+script = ExtResource("1_f6xdb")
+metadata/_custom_type_script = "uid://butjfl7btwmh8"

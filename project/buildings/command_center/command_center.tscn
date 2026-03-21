@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0h1th4wj1w44" path="res://buildings/command_center/command_center.gd" id="1_03wp0"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="2_4ejy1"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
@@ -26,6 +27,10 @@ script = ExtResource("1_03wp0")
 [node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("2_4ejy1")]
 unique_name_in_owner = true
 max_health = 10000.0
+
+[node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_dui3b")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
 
 [node name="UI" type="Node3D" parent="." unique_id=1700774743]
 unique_name_in_owner = true
@@ -52,3 +57,4 @@ update_scale = false
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+[connection signal="update_render" from="Stats/TeamComponent" to="." method="_update_render"]

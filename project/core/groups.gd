@@ -70,11 +70,17 @@ static func is_damageable_root(node:Node) -> bool:
 
 # Sets meta on the scene root
 static func set_scene_root_flag(start:Node, flag:StringName) -> bool:
+	var node:Node = get_scene_root(start)
+	if node:
+		node.set_meta(flag, true)
+		return true
+	return false
+
+static func get_scene_root(start:Node) -> Node:
 	var node:Node = start
 	while node:
 		if node.scene_file_path:
-			node.set_meta(flag, true)
-			return true
+			return node
 		node = node.get_parent()
 	
-	return false
+	return null

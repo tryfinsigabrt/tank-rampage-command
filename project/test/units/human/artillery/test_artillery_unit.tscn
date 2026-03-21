@@ -136,6 +136,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33,
 
 [node name="CommandCenter" parent="World/Match/EnemyTeam" unique_id=1674660700 instance=ExtResource("7_bkddm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, -7.6293945e-06, -117.99118)
+team = 2
 
 [node name="DamageVisualization" type="Node3D" parent="World" unique_id=601634826]
 visible = false

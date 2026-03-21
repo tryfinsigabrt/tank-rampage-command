@@ -5,14 +5,25 @@ signal died(damage_params:DamageParameters)
 signal damaged(damage_params:DamageParameters)
 
 @onready var health_stat: HealthStat = %HealthStat
+@onready var team_comp:TeamComponent = %TeamComponent
+@onready var visual_root: Node3D = $VisualRoot
+@onready var ui: Node3D = %UI
 
 var _aabb:AABB
 
 var heath:HealthStat:
 	get: return health_stat
 	
+@export
+var team:int:
+	set(value):
+		team = value
+		if team_comp:
+			team_comp.team = team
+	
 func _ready() -> void:
 	_aabb = Collisions.calculate_aabb(self)
+	team_comp.team = team
 	
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
@@ -29,3 +40,7 @@ func _took_damage(damage_params: DamageParameters) -> void:
 ## Gets an AABB representing the bounds of the structure
 func get_bounds() -> AABB:
 	return transform * _aabb
+
+func _update_render(in_visible: bool) -> void:
+	visual_root.visible = in_visible
+	ui.visible = in_visible
