@@ -3,7 +3,7 @@ extends CommandActionLeaf
 
 var _unit:Unit
 
-var _targeted_unit:Unit
+var _targeted_node:Node3D
 var _targeted_position:Vector3 = Vector3.INF
 
 var _finished:int = 0
@@ -17,11 +17,11 @@ func after_run(_actor: Node, blackboard: Blackboard) -> void:
 		_attack_action = null
 		
 	# Erase current target if it is invalid or if was the current target since there is no new target
-	var current_target:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetUnit) as Unit
+	var current_target:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Unit
 	var current_position:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition, -Vector3.INF)
 	
-	if not is_instance_valid(current_target) or current_target == _targeted_unit:
-		blackboard.erase_value(UnitBlackboard.Keys.TargetUnit)
+	if not is_instance_valid(current_target) or current_target == _targeted_node:
+		blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
 	if current_position.is_equal_approx(_targeted_position):
 		blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	
@@ -33,8 +33,8 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	
 	_unit = actor as Unit
 	if _unit:
-		_targeted_unit = blackboard.get_value(UnitBlackboard.Keys.TargetUnit) as Unit
-		if _targeted_unit:
+		_targeted_node = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Node3D
+		if _targeted_node:
 			valid = true
 		elif blackboard.has_value(UnitBlackboard.Keys.TargetPosition):
 			_targeted_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
@@ -47,8 +47,8 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 
 	_attack_action = attack_action_scene.instantiate()
 	_attack_action.controlled_unit = _unit
-	if _targeted_unit:
-		_attack_action.targeted_unit = _targeted_unit
+	if _targeted_node:
+		_attack_action.targeted_node = _targeted_node
 	else:
 		_attack_action.targeted_location = _targeted_position
 	
@@ -60,7 +60,7 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 			if weapon.prefer_close_shots else AttackAction.MoveBehavior.IF_OUT_RANGE
 		
 	if OS.is_debug_build():
-		var pos:Vector3 = _targeted_unit.global_position if _targeted_unit else _targeted_position
+		var pos:Vector3 = _targeted_node.global_position if _targeted_node else _targeted_position
 		DebugDraw3D.draw_sphere(pos, 10.0, Color.RED, 3.0)
 	
 	_attack_action.tree_exited.connect(func() -> void:
@@ -84,12 +84,12 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 	return result
 	
 func _should_continue_running(blackboard: Blackboard) -> bool:
-	var current_target_unit:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetUnit) as Unit
+	var current_target_node:Node3D = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Node3D
 	var current_targeted_position:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition, Vector3.INF)
 	
-	return current_target_unit == _targeted_unit and current_targeted_position.is_equal_approx(_targeted_position)
+	return current_target_node == _targeted_node and current_targeted_position.is_equal_approx(_targeted_position)
 
 func _get_action_args() -> Dictionary[StringName, Variant]:
 	return {
-		&"target": _targeted_unit
+		&"target": _targeted_node
 	}

@@ -37,7 +37,7 @@ func move_and_attack(position:Vector3) -> void:
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(position, 5.0, Color.ORANGE, 3.0)
 
-func attack(to_attack:Unit) -> void:
+func attack(to_attack:Node3D) -> void:
 	var units := selection_manager.get_selected_units_on_team()
 	if not units:
 		return

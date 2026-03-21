@@ -75,7 +75,7 @@ func _threats_detected(threats:Array[Unit]) -> void:
 
 	if is_instance_valid(_attack_action) and _attack_action.is_valid() and _attack_action.firing:
 		var top_threat_distance:float = sqrt(threat_distances[top_threat])
-		var current_attack_distance:float = _attack_action.targeted_unit.global_position.distance_to(unit_position)
+		var current_attack_distance:float = _attack_action.targeted_node.global_position.distance_to(unit_position)
 		var distance_diff:float = current_attack_distance - top_threat_distance
 		
 		# Continue attacking existing threat to avoid thrashing
@@ -89,7 +89,7 @@ func _attack_unit(enemy:Unit) -> void:
 		
 	_attack_action = attack_action_scene.instantiate()
 	_attack_action.controlled_unit = _unit
-	_attack_action.targeted_unit = enemy
+	_attack_action.targeted_node = enemy
 	_attack_action.move_into_range = AttackAction.MoveBehavior.NEVER
 	
 	_attack_action.tree_exited.connect(func() -> void:

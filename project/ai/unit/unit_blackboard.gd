@@ -10,8 +10,7 @@ class Action:
 class Keys:
 	const TargetPosition:StringName = &"target_position"
 	const Action:StringName = &"action"
-	const TargetUnit:StringName = &"target_unit"
-
+	const TargetNode:StringName = &"target_node"
 
 var current_action:StringName:
 	get:
@@ -27,9 +26,9 @@ var target_position:Vector3:
 
 var target_unit:Unit:
 	get:
-		return get_value(Keys.TargetUnit)
+		return get_value(Keys.TargetNode)
 	set(value):
-		set_value(Keys.TargetUnit, value)
+		set_value(Keys.TargetNode, value)
 		
 var is_attacking:bool:
 	get:

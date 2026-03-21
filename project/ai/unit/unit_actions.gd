@@ -61,16 +61,17 @@ func move(target_position:Vector3) -> void:
 	
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
-func attack(enemy:Unit) -> void:
+func attack(enemy:Node3D) -> void:
+	assert(enemy and enemy.is_in_group(Groups.TeamAsset), "%s: %s attaack %s - not a TeamAsset!" % [name, unit.name, StringUtils.safe_name(enemy)])
 	_new_action()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetUnit, enemy)
+	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetNode, enemy)
 
 	enabled = true
 	
 	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, {
-		&"target_unit": enemy
+		&"target_node": enemy
 	} as Dictionary[StringName, Variant])
 	
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
@@ -114,7 +115,7 @@ func _new_action() -> void:
 func _clear_all_actions() -> void:
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
-	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetUnit)
+	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
 
 func is_attacking() -> bool:
 	return blackboard.is_attacking

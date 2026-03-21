@@ -89,13 +89,13 @@ func _handle_select_all(event: InputEvent) -> void:
 	selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
 		
 func _handle_context_action(event: InputEvent) -> void:
-	var selected_unit:Unit = node_picker.pick_unit(event)
-	if selected_unit:
-		if selected_unit.is_on_team(team):
+	var selected:Node3D= node_picker.pick_team_asset(event)
+	if selected:
+		if selected.team_component.is_on_team(team):
 			# TODO: Follow not currently implemented so just move to
 			_move_to(event)
 		else:
-			order_manager.attack(selected_unit)
+			order_manager.attack(selected)
 	else:
 		_move_to(event)
 	
@@ -135,12 +135,12 @@ func _handle_attack(event: InputEvent) -> void:
 	# Move to location
 	# First try to select a unit at the indicated location
 	var result:Dictionary
-	var selected_unit:Unit = node_picker.pick_unit(event)
+	var selected:Node3D = node_picker.pick_team_asset(event)
 	
-	if not selected_unit or not selected_unit.is_visible_to(team):
+	if not selected or not selected.team_component.is_visible_to(team):
 		result = node_picker.pick_ground(event)
 		
-	if result or selected_unit:
+	if result or selected:
 		if result:
 			var target_position:Vector3 = result.get("position")
 			# try to attack the position and if the selection doesn't support then fallback to move and attack
@@ -150,7 +150,7 @@ func _handle_attack(event: InputEvent) -> void:
 			if not order_manager.attack_position(target_position):
 				order_manager.move_and_attack(target_position)
 		else:
-			order_manager.attack(selected_unit)
+			order_manager.attack(selected)
 
 func _handle_unit_select(event: InputEvent) -> void:
 	var new_unit:Unit = node_picker.pick_unit(event)

@@ -9,18 +9,21 @@ enum MoveBehavior
 
 var controlled_unit:Unit
 
-var targeted_unit:Unit:
+var targeted_node:Node3D:
 	set(value):
-		if is_instance_valid(value):
-			_unit_was_targeted = true
-			targeted_unit = value
+		if is_instance_valid(value) and value.is_in_group(Groups.TeamAsset):
+			_node_was_targeted = true
+			targeted_node = value
 		else:
-			_unit_was_targeted = false
-			targeted_unit = null
-	get:
-		return targeted_unit if is_instance_valid(targeted_unit) else null
+			# Make sure we didn't fail the group check
+			assert(not is_instance_valid(value), "%s: targeted_node=%s not in expected group!" % [name, StringUtils.safe_name(value)])
 			
-var _unit_was_targeted:bool
+			_node_was_targeted = false
+			targeted_node = null
+	get:
+		return targeted_node if is_instance_valid(targeted_node) else null
+			
+var _node_was_targeted:bool
 
 var targeted_location:Vector3
 var move_into_range:MoveBehavior = MoveBehavior.ALWAYS
@@ -176,11 +179,11 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	return not _unit_was_targeted or (targeted_unit and targeted_unit.is_visible_to(controlled_unit.team))
+	return not _node_was_targeted or (targeted_node and targeted_node.team_component.is_visible_to(controlled_unit.team))
 	
 func _check_target_los() -> bool:
 	# If targeting unit make sure it is visible to us
-	if targeted_unit and not targeted_unit.is_visible_to(controlled_unit.team):
+	if targeted_node and not targeted_node.team_component.is_visible_to(controlled_unit.team):
 		return false
 		
 	if _weapon and not _weapon.require_los:
@@ -201,8 +204,8 @@ func _check_target_los() -> bool:
 	ray_params.from = from
 	ray_params.to = to
 	
-	if targeted_unit:
-		ray_params.exclude = [targeted_unit]
+	if targeted_node:
+		ray_params.exclude = [targeted_node]
 	
 	var has_los:bool = space_state.intersect_ray(ray_params).is_empty()
 	
@@ -211,7 +214,7 @@ func _check_target_los() -> bool:
 	return has_los
 	
 func _get_target_position() -> Vector3:
-	return targeted_unit.global_position if targeted_unit else targeted_location
+	return targeted_node.global_position if targeted_node else targeted_location
 	
 func is_valid() -> bool:
 	return is_instance_valid(controlled_unit) and _is_target_valid()
