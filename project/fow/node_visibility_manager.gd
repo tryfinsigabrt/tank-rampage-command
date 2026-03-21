@@ -56,14 +56,34 @@ func _process(delta: float) -> void:
 	_accum_delta = 0.0
 	
 func _update() -> void:
+	var points_to_check: PackedVector3Array
+	points_to_check.resize(4)
+	
 	for node in _cached_nodes:
 		if is_instance_valid(node) and node.is_in_group(Groups.TeamAsset):
-			var world_pos:Vector3 = node.global_position
-			var fow_color:Color = fog_of_war.get_fow_value(world_pos)
-			var visible:bool = fow_color.r >= visible_channel_threshold
+			# For units check center point and for other types check bounding box
+			var cnt:int = 0
+			if node.is_in_group(Groups.Unit):
+				points_to_check[0] = node.global_position
+				cnt = 1
+			else:
+				var bounds:AABB = node.get_bounds()
+				
+				cnt = 4
+				points_to_check[0] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_LEFT)
+				points_to_check[1] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_RIGHT)
+				points_to_check[2] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_LEFT)
+				points_to_check[3] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_RIGHT)
+
+			var visible:bool = false
+			for i in cnt:		
+				var fow_color:Color = fog_of_war.get_fow_value(points_to_check[i])
+				if fow_color.r >= visible_channel_threshold:
+					visible = true
+					break
+			
 			node.team_component.render = visible
 			node.set_visible_to(fog_of_war.player_team, visible)
-		# TODO: Buildings require a more complex approach using its AABB and checking if any point is above the threshold
 	
 func _on_team_asset_added(asset:Node3D) -> void:
 	if asset.team_component.is_on_team(fog_of_war.player_team):

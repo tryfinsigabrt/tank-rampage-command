@@ -38,6 +38,20 @@ class CompositeMasks:
 	const any_unit:int = all_teams | Layers.unit
 	const any_asset:int = all_teams | CompositeMasks.team_asset
 	
+enum AABBCorner {
+	# Bottom / Front face (Lower Z)
+	FRONT_BOTTOM_LEFT  = 0, # (min, min, min)
+	FRONT_BOTTOM_RIGHT = 1, # (max, min, min)
+	FRONT_TOP_LEFT     = 2, # (min, max, min)
+	FRONT_TOP_RIGHT    = 3, # (max, max, min)
+	
+	# Top / Back face (Higher Z)
+	BACK_BOTTOM_LEFT   = 4, # (min, min, max)
+	BACK_BOTTOM_RIGHT  = 5, # (max, min, max)
+	BACK_TOP_LEFT      = 6, # (min, max, max)
+	BACK_TOP_RIGHT     = 7  # (max, max, max)
+}
+
 func enemy_team_mask(team:int) -> int:
 	var team_mask:int = Layers.team_masks.get(team, 0)
 	if team_mask == 0:

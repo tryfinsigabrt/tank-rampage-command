@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="8_6nnxe"]
 [ext_resource type="PackedScene" uid="uid://cl75y4etufctb" path="res://fow/fog_of_war_debug_overlay.tscn" id="9_ct22n"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="9_cwula"]
+[ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="9_ysk38"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -185,6 +186,12 @@ team = 1
 [node name="PlayerTank4" parent="World/PlayerTeam/Player" unique_id=839342163 instance=ExtResource("7_1t5eo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
+
+[node name="EnemyTeam" type="Node3D" parent="World" unique_id=1456193152]
+
+[node name="CommandCenter" parent="World/EnemyTeam" unique_id=1674660700 instance=ExtResource("9_ysk38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -125.037636)
+team = 2
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("9_cwula")]
 

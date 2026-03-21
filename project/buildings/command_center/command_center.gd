@@ -7,6 +7,8 @@ class_name CommandCenter extends StaticBody3D
 
 var _aabb:AABB
 
+var _changed_to_visible:bool
+
 var heath:HealthStat:
 	get: return health_stat
 	
@@ -37,5 +39,14 @@ func get_bounds() -> AABB:
 	return transform * _aabb
 
 func _update_render(in_visible: bool) -> void:
+	# For now, once we see a building we keep it visible
+	# There is a chance the team could move/destroy own buildings but unlikely
+	# and buildings are not like units in that once visible they should be visible in state last seen
+	if not in_visible and _changed_to_visible:
+		return
+		
+	if in_visible:
+		_changed_to_visible = true
+		
 	visual_root.visible = in_visible
 	ui.visible = in_visible
