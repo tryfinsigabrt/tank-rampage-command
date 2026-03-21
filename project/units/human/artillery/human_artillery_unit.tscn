@@ -29,7 +29,7 @@ rings = 1
 radius = 1.5
 height = 7.0
 
-[node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 node_paths=PackedStringArray("turret_rotation_node", "barrel_pitch_node") groups=["Interactable", "Unit", "UnitClassArtillery"]]
+[node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 node_paths=PackedStringArray("turret_rotation_node", "barrel_pitch_node") groups=["Interactable", "TeamAsset", "Unit", "UnitClassArtillery"]]
 collision_layer = 4
 collision_mask = 255
 script = ExtResource("1_trmn4")

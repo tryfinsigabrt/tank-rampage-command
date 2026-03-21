@@ -44,7 +44,7 @@ shape = SubResource("SphereShape3D_4ejy1")
 [node name="Mesh" type="MeshInstance3D" parent="VisualRoot" unique_id=521204587]
 mesh = SubResource("SphereMesh_qtphr")
 
-[node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=121004541]
+[node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=121004541 groups=["Building", "TeamAsset"]]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 30, 0)
 remote_path = NodePath("../UI")
 update_rotation = false

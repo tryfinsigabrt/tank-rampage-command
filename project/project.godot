@@ -53,6 +53,7 @@ UnitClassArtillery="Artillery Unit Class"
 Structure="A non-unit asset such as defensive structures like turrets, spikes, walls"
 Building="A team asset that can build other things or gather resources like a command center or barracks"
 GameResource="A resource in the game such as scrap"
+TeamAsset="A unit, building, or structure assigned to a team"
 
 [input]
 
