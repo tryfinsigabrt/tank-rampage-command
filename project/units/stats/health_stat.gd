@@ -44,3 +44,4 @@ func on_damage(damage_params:DamageParameters) -> void:
 func _ready() -> void:
 	if _health <= 0.0:
 		_health = max_health
+	Groups.set_scene_root_flag(self, Groups.Damageable)

@@ -40,16 +40,19 @@ enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/debug
 
 Unit="A game unit"
 UnitActions="AI actions for a unit"
-UnitClassTank=""
-Damageable=""
-Match=""
-MatchTeam=""
-Player=""
-WorldBoundaries=""
-Interactable="A Node3D that can be interacted with by the player, such as a Unit, Resource, or Building"
-FogOfWar=""
+UnitClassTank="Tank Unit Class"
+Damageable="A node that can receive damage events"
+Match="Top level node for controlling game state - when a team wins, loses"
+MatchTeam="A team in the match"
+Player="Node that gives player control over the battlefield. Usually a PlayerUnitActions scene"
+WorldBoundaries="Marks edge of the world. Used to keep AI fenced into the map"
+Interactable="A Node3D that can be interacted with by the player, such as a Unit, Resource, or Structure"
+FogOfWar="The fog of war node in the scene"
 UnitClassSoldier="Marine Unit Class"
-UnitClassArtillery=""
+UnitClassArtillery="Artillery Unit Class"
+Structure="A non-unit asset such as defensive structures like turrets, spikes, walls"
+Building="A team asset that can build other things or gather resources like a command center or barracks"
+GameResource="A resource in the game such as scrap"
 
 [input]
 
@@ -214,6 +217,9 @@ toggle_debug_hud={
 3d_physics/layer_3="unit"
 3d_physics/layer_4="world_dynamic"
 3d_physics/layer_5="world_boundaries"
+3d_physics/layer_6="building"
+3d_physics/layer_7="structure"
+3d_physics/layer_8="resource"
 3d_physics/layer_29="team_1"
 3d_physics/layer_30="team_2"
 

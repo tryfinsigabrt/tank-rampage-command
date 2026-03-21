@@ -9,9 +9,13 @@ class Layers:
 	const world_dynamic: int = 1 << 3
 	const world_boundary: int = 1 << 4
 	
-	# This is the world bottom
-	@warning_ignore("shadowed_global_identifier")
-	const floor:int = 1 << 5
+	## Building like a CommandCenter or Baracks (see also Groups)
+	const building:int = 1 << 5
+	## A defensive structure like a turret, tank spikes, or wall (see also Groups)
+	const structure:int = 1 << 6
+	
+	## A pickup resource like scrap
+	const resource:int = 1 << 7
 	
 	const team_1:int = 1 << 28
 	const team_2:int = 1 << 29
@@ -27,9 +31,12 @@ class CompositeMasks:
 	const world:int = Layers.world_static | Layers.terrain | Layers.world_dynamic
 	const visibility: int = world | Layers.unit
 	const ground: int = Layers.world_static | Layers.terrain
+	const team_asset:int = Layers.unit | Layers.building | Layers.structure
+	const damageable_team_asset:int = team_asset
 	
 	const all_teams:int = Layers.team_1 | Layers.team_2
 	const any_unit:int = all_teams | Layers.unit
+	const any_asset:int = all_teams | CompositeMasks.team_asset
 	
 func enemy_team_mask(team:int) -> int:
 	var team_mask:int = Layers.team_masks.get(team, 0)
@@ -80,8 +87,8 @@ func get_aabb_from_collision(collision:Node) -> AABB:
 			bounds = bounds.expand(shape.size)
 			bounds = bounds.expand(-shape.size)
 		elif shape is SphereShape3D:
-			bounds = bounds.expand(shape.radius)
-			bounds = bounds.expand(-shape.radius)
+			bounds = bounds.expand(Vector3.ONE * shape.radius)
+			bounds = bounds.expand(-Vector3.ONE * shape.radius)
 		elif shape is CapsuleShape3D:
 			var extent:Vector3 = Vector3(shape.radius, shape.height, shape.radius) * 0.5
 			bounds = bounds.expand(extent)
@@ -99,3 +106,39 @@ func get_aabb_from_collision(collision:Node) -> AABB:
 				bounds = bounds.expand(point_3d)
 			bounds = collision_poly.transform * bounds
 	return bounds
+
+## Controls how the calculation is done for AABB
+enum AABBCalculationType
+{
+	## Only use the given input node - must be a CollisionShape3D or CollisionPolygon3D
+	SELF,
+	
+	## Does calculation for all child nodes that are shapes or polygons
+	CHILDREN,
+	
+	## Does calculation for self and all children recursively
+	RECURSIVE
+}
+
+## Calculates an AABB for given node. behavior is one of AABB_SELF, AABB_CHILDREN, AABB_RECURSIVE
+func calculate_aabb(node: Node, type:AABBCalculationType = AABBCalculationType.CHILDREN) -> AABB:
+	var bounds:AABB
+	if type != AABBCalculationType.CHILDREN and is_supported_collision_type(node):
+		bounds = get_aabb_from_collision(node)
+	
+	if type == AABBCalculationType.SELF:
+		return bounds
+			
+	var nodes:Array[Node] = node.get_children()
+	var recursive:bool = type == AABBCalculationType.RECURSIVE
+	
+	while nodes:
+		var child:Node = nodes.pop_back()
+		if is_supported_collision_type(child):
+			bounds = bounds.merge(get_aabb_from_collision(child))
+		if recursive:
+			nodes.append_array(child.get_children())
+	return bounds
+
+func is_supported_collision_type(node: Node) -> bool:
+	return node is CollisionShape3D or node is CollisionPolygon3D

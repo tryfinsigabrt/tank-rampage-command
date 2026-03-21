@@ -23,7 +23,7 @@ height = 8.0
 
 [node name="HumanTank" type="CharacterBody3D" unique_id=260396010 groups=["Interactable", "Unit", "UnitClassTank"]]
 collision_layer = 4
-collision_mask = 31
+collision_mask = 255
 script = ExtResource("1_itvlm")
 unit_class = 1
 vision = 200.0

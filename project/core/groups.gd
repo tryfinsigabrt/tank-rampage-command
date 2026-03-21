@@ -15,6 +15,10 @@ const Damageable:StringName = &"Damageable"
 const WorldBoundaries:StringName = &"WorldBoundaries"
 const FogOfWar:StringName = &"FogOfWar"
 
+const Structure:StringName = &"Structure"
+const Building:StringName = &"Building"
+const GameResource:StringName = &"GameResource"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:
@@ -60,3 +64,17 @@ static func get_children_matching(root: Node, predicate: Callable, return_on_fir
 				return matching_nodes
 		stack.append_array(node.get_children())
 	return matching_nodes
+
+static func is_damageable_root(node:Node) -> bool:
+	return node.has_meta(Groups.Damageable)
+
+# Sets meta on the scene root
+static func set_scene_root_flag(start:Node, flag:StringName) -> bool:
+	var node:Node = start
+	while node:
+		if node.scene_file_path:
+			node.set_meta(flag, true)
+			return true
+		node = node.get_parent()
+	
+	return false

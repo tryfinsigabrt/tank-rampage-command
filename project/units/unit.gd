@@ -129,9 +129,7 @@ func _ready() -> void:
 	_calculate_aabb()
 
 func _calculate_aabb() -> void:
-	for child in get_children():
-		if child is CollisionShape3D or child is CollisionPolygon3D:
-			_aabb = _aabb.merge(Collisions.get_aabb_from_collision(child))
+	_aabb = Collisions.calculate_aabb(self)
 
 #region Teams
 
