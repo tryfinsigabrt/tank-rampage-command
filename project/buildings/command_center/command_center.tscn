@@ -31,6 +31,7 @@ max_health = 10000.0
 [node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_dui3b")]
 unique_name_in_owner = true
 team_asset = NodePath("../..")
+vision = 200.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1700774743]
 unique_name_in_owner = true
@@ -55,6 +56,7 @@ remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
 
+[connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
 [connection signal="update_render" from="Stats/TeamComponent" to="." method="_update_render"]

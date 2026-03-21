@@ -37,23 +37,11 @@ var team:int:
 		if value == team:
 			return
 		team = value
-		if is_node_ready():
-			refresh_team_layers()
+		if team_component:
+			team_component.team = value
 
 @export
 var unit_class:UnitClass
-
-@export_range(1.0, 1e9, 0.1, "or_greater")
-var vision:float = 50.0
-
-var render:bool = true:
-	set(value):
-		if value == render:
-			return
-		render = value
-		_update_render()
-
-var team_visibility_mask:int
 	
 var unit_class_group:StringName:
 	get:
@@ -75,6 +63,10 @@ var weapon:Weapon:
 	get:
 		return _get_weapon()
 
+var team_component:TeamComponent:
+	get:
+		return _get_team_component()
+
 var _unit_actions:UnitActions
 var _aabb:AABB
 
@@ -94,7 +86,10 @@ func _is_moving() -> bool
 
 ## Hides or shows the visual instance
 @abstract
-func _update_render() -> void
+func _update_render(in_render:bool) -> void
+
+@abstract
+func _get_team_component() -> TeamComponent
 
 func kill() -> void:
 	var _health := health
@@ -124,55 +119,39 @@ func get_bounds() -> AABB:
 #endregion
 
 func _ready() -> void:
+	team_component.team = team
 	SignalBus.register_unit(self)
-	refresh_team_layers()
 	_calculate_aabb()
 
 func _calculate_aabb() -> void:
 	_aabb = Collisions.calculate_aabb(self)
 
 #region Teams
-
-func refresh_team_layers() -> void:
-	Collisions.apply_team_collision_layer(self, team)
-	Visibility.apply_team_collision_layer(self, team)
-	if GameManager.fog_of_war:
-		set_visible_to(team, true)
-	else:
-		# Everything visible
-		team_visibility_mask = 0xffffffff
 	
 func on_same_team(unit:Unit) -> bool:
-	return unit and unit.team == team
+	return unit and team_component.on_same_team(unit.team_component)
 	
 func is_on_team(in_team:int) -> bool:
-	return team == in_team
-
-static func to_team_mask(in_team:int) -> int:
-	return in_team << (in_team - 1)
+	return team_component.is_on_team(in_team)
 	
 func is_visible_to(in_team:int) -> bool:
-	return team_visibility_mask & to_team_mask(in_team)
+	return team_component.is_visible_to(in_team)
 
 func set_visible_to(in_team:int, in_visible:bool):
-	var team_mask:int = to_team_mask(in_team)
-	if in_visible:
-		team_visibility_mask |= team_mask
-	else:
-		team_visibility_mask &= ~team_mask
+	team_component.set_visible_to(in_team, in_visible)
 	
 # TODO: Right now don't have concept of allied teams but this leaves that open for future
 func is_ally(unit:Unit) -> bool:
-	return on_same_team(unit)
+	return unit and team_component.is_ally(unit.team_component)
 	
 func is_ally_team(in_team:int) -> bool:
-	return is_on_team(in_team)
+	return team_component.is_ally_team(in_team)
 	
 func is_enemy(unit:Unit) -> bool:
-	return unit and not is_ally(unit)
+	return unit and team_component.is_enemy(unit.team_component)
 	
 func is_enemy_team(in_team:int) -> bool:
-	return not is_ally_team(in_team)
+	return team_component.is_enemy_team(in_team)
 
 static func get_all_units_on_team(in_team:int) -> Array[Unit]:
 	var nodes: Array[Node] = Engine.get_main_loop().get_nodes_in_group(Groups.Unit)

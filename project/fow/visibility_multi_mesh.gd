@@ -84,11 +84,11 @@ func update(instances: Array[Node3D]) -> void:
 	
 	for i in active_count:
 		var node:Node3D = instances[i]
-		if is_instance_valid(node) and node.is_in_group(Groups.Interactable):			
+		if is_instance_valid(node) and node.is_in_group(Groups.TeamAsset):			
 			var pos:Vector3 = node.global_position
 			var projected_pos:Vector2 = fog_of_war.project_position(pos)
 			
-			var vision_radius:Vector2 = node.vision * viewport_scale
+			var vision_radius:Vector2 = node.team_component.vision * viewport_scale
 			var xform:Transform2D = Transform2D(0.0, vision_radius, 0.0, projected_pos)
 			mesh.set_instance_transform_2d(i, xform)
 			mesh.set_instance_color(i, Color.WHITE)
@@ -96,7 +96,7 @@ func update(instances: Array[Node3D]) -> void:
 			mesh.set_instance_transform_2d(i, HIDDEN_TRANSFORM)
 			mesh.set_instance_color(i, Color(0, 0, 0, 0))
 		
-		# apply transform per visible unit
+	# apply transform per visible unit
 	for i in range(active_count, mesh.instance_count):
 		mesh.set_instance_transform_2d(i, HIDDEN_TRANSFORM)
 		mesh.set_instance_color(i, Color(0, 0, 0, 0))

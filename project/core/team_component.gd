@@ -1,6 +1,6 @@
 class_name TeamComponent extends Node
 
-signal update_render(in_visible:bool)
+signal update_render(in_render:bool)
 
 @export
 var team_asset:Node3D
@@ -27,7 +27,6 @@ var render:bool = true:
 		
 var team_visibility_mask:int
 
-
 func _ready() -> void:
 	if not team_asset:
 		team_asset = Groups.get_scene_root(self)
@@ -49,8 +48,8 @@ func refresh_team_layers() -> void:
 		# Everything visible
 		team_visibility_mask = 0xffffffff
 	
-func on_same_team(unit:Unit) -> bool:
-	return unit and unit.team == team
+func on_same_team(team_component:TeamComponent) -> bool:
+	return team_component and team_component.team == team
 	
 func is_on_team(in_team:int) -> bool:
 	return team == in_team
@@ -69,25 +68,14 @@ func set_visible_to(in_team:int, in_visible:bool):
 		team_visibility_mask &= ~team_mask
 	
 # TODO: Right now don't have concept of allied teams but this leaves that open for future
-func is_ally(unit:Unit) -> bool:
-	return on_same_team(unit)
+func is_ally(team_component:TeamComponent) -> bool:
+	return on_same_team(team_component)
 	
 func is_ally_team(in_team:int) -> bool:
 	return is_on_team(in_team)
 	
-func is_enemy(unit:Unit) -> bool:
-	return unit and not is_ally(unit)
+func is_enemy(team_component:TeamComponent) -> bool:
+	return team_component and not is_ally(team_component)
 	
 func is_enemy_team(in_team:int) -> bool:
 	return not is_ally_team(in_team)
-
-static func get_all_units_on_team(in_team:int) -> Array[Unit]:
-	var nodes: Array[Node] = Engine.get_main_loop().get_nodes_in_group(Groups.Unit)
-	var units:Array[Unit] = []
-	for node in nodes:
-		if node is Unit and node.is_on_team(in_team):
-			units.push_back(node)
-	return units
-	
-func get_all_units_on_same_team() -> Array[Unit]:
-	return get_all_units_on_team(team)

@@ -18,6 +18,7 @@ const FogOfWar:StringName = &"FogOfWar"
 const Structure:StringName = &"Structure"
 const Building:StringName = &"Building"
 const GameResource:StringName = &"GameResource"
+const TeamAsset:StringName = &"TeamAsset"
 
 @warning_ignore_restore("shadowed_global_identifier")
 
@@ -48,6 +49,9 @@ static func get_children_in_group(root: Node, group: StringName, return_on_first
 	
 static func get_children_with_type(root: Node, type, return_on_first:bool=false) -> Array[Node]:
 	return get_children_matching(root, func(node): return is_instance_of(node, type), return_on_first)
+
+static func get_child_with_type(root: Node, type) -> Node:
+	return get_children_with_type(root, type, true).front()
 
 static func is_child_in_tree(root:Node, child:Node) -> bool:
 	return not get_children_matching(root, func(node): return node == child, true).is_empty()

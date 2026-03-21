@@ -16,8 +16,8 @@ var _nodes_dirty:bool
 var _accum_delta:float
 
 func _enter_tree() -> void:
-	SignalBus.on_unit_added.connect(_on_unit_added)
-	SignalBus.on_unit_killed.connect(_on_unit_killed.unbind(1))
+	SignalBus.on_team_asset_added.connect(_on_team_asset_added)
+	SignalBus.on_team_asset_destroyed.connect(_on_team_asset_destroyed.unbind(1))
 
 func _ready() -> void:
 	if not fog_of_war:
@@ -34,10 +34,10 @@ var enable:bool = true:
 		process_mode = Node.PROCESS_MODE_PAUSABLE if enable else Node.PROCESS_MODE_DISABLED
 		
 		if not value:
-			if SignalBus.on_unit_added.is_connected(_on_unit_added):
-				SignalBus.on_unit_added.disconnect(_on_unit_added)
-			if SignalBus.on_unit_killed.is_connected(_on_unit_killed):
-				SignalBus.on_unit_killed.disconnect(_on_unit_killed)
+			if SignalBus.on_team_asset_added.is_connected(_on_team_asset_added):
+				SignalBus.on_team_asset_added.disconnect(_on_team_asset_added)
+			if SignalBus.on_team_asset_destroyed.is_connected(_on_team_asset_destroyed):
+				SignalBus.on_team_asset_destroyed.disconnect(_on_team_asset_destroyed)
 		
 # Use process for smoother tick rate
 func _process(delta: float) -> void:
@@ -57,25 +57,24 @@ func _process(delta: float) -> void:
 	
 func _update() -> void:
 	for node in _cached_nodes:
-		if is_instance_valid(node) and node.is_in_group(Groups.Unit):
+		if is_instance_valid(node) and node.is_in_group(Groups.TeamAsset):
 			var world_pos:Vector3 = node.global_position
 			var fow_color:Color = fog_of_war.get_fow_value(world_pos)
 			var visible:bool = fow_color.r >= visible_channel_threshold
-			node.render = visible
+			node.team_component.render = visible
 			node.set_visible_to(fog_of_war.player_team, visible)
 		# TODO: Buildings require a more complex approach using its AABB and checking if any point is above the threshold
 	
-	
-func _on_unit_added(unit:Unit) -> void:
-	if unit.is_on_team(fog_of_war.player_team):
+func _on_team_asset_added(asset:Node3D) -> void:
+	if asset.team_component.is_on_team(fog_of_war.player_team):
 		return
 		
-	_registered_visibility_nodes[unit.get_instance_id()] = unit
+	_registered_visibility_nodes[asset.get_instance_id()] = asset
 	_nodes_dirty = true
 
-func _on_unit_killed(unit:Unit) -> void:
-	if unit.is_on_team(fog_of_war.player_team):
+func _on_team_asset_destroyed(asset:Node3D) -> void:
+	if asset.team_component.is_on_team(fog_of_war.player_team):
 		return
 		
-	_registered_visibility_nodes.erase(unit.get_instance_id())
+	_registered_visibility_nodes.erase(asset.get_instance_id())
 	_nodes_dirty = true

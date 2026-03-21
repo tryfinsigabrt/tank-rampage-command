@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://jwbji3u34cd2" path="res://units/human/tank/hero/mesh/track_left.tscn" id="13_th8qc"]
 [ext_resource type="PackedScene" uid="uid://djeqvfuxtgxpj" path="res://units/human/tank/hero/mesh/track_right.tscn" id="14_o8pnh"]
 [ext_resource type="PackedScene" uid="uid://bs46upv5xhqe4" path="res://units/human/tank/hero/mesh/wheels_right.tscn" id="15_bakst"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="16_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
 
@@ -26,7 +27,6 @@ collision_layer = 4
 collision_mask = 255
 script = ExtResource("1_itvlm")
 unit_class = 1
-vision = 200.0
 
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("16_v2578")]
 
@@ -76,6 +76,11 @@ max_speed = 15.0
 [node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("12_jrc1l")]
 unique_name_in_owner = true
 
+[node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("16_3jpjq")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
 [node name="UI" type="Node3D" parent="." unique_id=1673194704]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
@@ -93,6 +98,7 @@ update_scale = false
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
+[connection signal="update_render" from="Stats/TeamComponent" to="." method="_update_render"]
 
 [editable path="Body"]
 [editable path="Body/Mesh"]

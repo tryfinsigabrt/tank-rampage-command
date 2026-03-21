@@ -11,6 +11,7 @@
 [ext_resource type="Curve" uid="uid://1mpejxlhr1yc" path="res://units/human/artillery/fire_time_v_dist.tres" id="6_uf7ra"]
 [ext_resource type="Curve" uid="uid://dty847jrkxj8w" path="res://units/human/artillery/radius_v_distance.tres" id="7_jjc22"]
 [ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="7_uf7ra"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="8_1vsbj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y2wif"]
 size = Vector3(2.8, 1, 6.5)
@@ -38,7 +39,6 @@ turret_rotation_node = NodePath("VisualRoot/TurretPivot")
 barrel_pitch_node = NodePath("VisualRoot/TurretPivot")
 movement_speed = 5.0
 unit_class = 2
-vision = 300.0
 metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]
@@ -95,6 +95,11 @@ max_same_target_time = 60.0
 unique_name_in_owner = true
 max_health = 3000.0
 
+[node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("8_1vsbj")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 300.0
+
 [node name="UI" type="Node3D" parent="." unique_id=1745454053]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
@@ -139,6 +144,7 @@ max_damage = 1000.0
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
+[connection signal="update_render" from="Stats/TeamComponent" to="." method="_update_render"]
 
 [editable path="GameUnitNavigation"]
 [editable path="WeaponTrace/Weapon"]

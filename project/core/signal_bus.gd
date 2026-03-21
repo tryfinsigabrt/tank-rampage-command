@@ -24,6 +24,8 @@ signal on_unit_damaged(unit:Unit, damage_parameters:DamageParameters)
 signal on_unit_added(unit:Unit)
 signal on_unit_killed(unit:Unit, damage_parameters:DamageParameters)
 
+signal on_team_asset_added(asset:Node3D)
+signal on_team_asset_destroyed(asset:Node3D, damage_parameters:DamageParameters)
 
 signal match_ready(match_obj:Match)
 signal match_ended(match_obj:Match)
@@ -38,9 +40,19 @@ signal on_utility_calculation_complete(id:StringName, team:int)
 
 @warning_ignore_restore("unused_signal")
 
+func register_building(building:Node3D) -> void:
+	var health_comp:HealthStat = Groups.get_child_with_type(building, HealthStat)
+	if health_comp:
+		health_comp.died.connect(func(damage_params):
+			on_team_asset_destroyed.emit(building, damage_params)
+		)
+	
+	on_team_asset_added.emit(building)
+			
 func register_unit(unit:Unit) -> void:
 	unit.died.connect(func(damage_params):
 		on_unit_killed.emit(unit, damage_params)
+		on_team_asset_destroyed.emit(unit, damage_params)
 	)
 	unit.damaged.connect(func(damage_params):
 		on_unit_damaged.emit(unit, damage_params)
@@ -60,4 +72,5 @@ func register_unit(unit:Unit) -> void:
 	)
 	
 	on_unit_added.emit(unit)
+	on_team_asset_added.emit(unit)
 	

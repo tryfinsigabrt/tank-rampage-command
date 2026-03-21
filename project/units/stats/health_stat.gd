@@ -1,8 +1,8 @@
 class_name HealthStat extends Node
 
-## TODO: There will be a separate 3D UI Node that will connect to this signal to update the health bar
 signal health_changed(previous_health:float, current_health:float)
 signal took_damage(damage_params:DamageParameters)
+signal died(damage_params:DamageParameters)
 
 @export var max_health:float = 1000.0
 
@@ -40,6 +40,8 @@ func on_damage(damage_params:DamageParameters) -> void:
 		damage_params.damage = actual_damage
 		
 	took_damage.emit(damage_params)
+	if is_dead:
+		died.emit(damage_params)
 
 func _ready() -> void:
 	if _health <= 0.0:

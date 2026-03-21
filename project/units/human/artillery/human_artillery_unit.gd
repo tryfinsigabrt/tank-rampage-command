@@ -20,6 +20,7 @@ var rotation_angle_v_distance_fraction:Curve
 @onready var _weapon: Weapon = %Weapon
 @onready var ui: Node3D = %UI
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
+@onready var _team_comp: TeamComponent = %TeamComponent
 
 @export
 var turret_rotation_node:Node3D
@@ -267,12 +268,15 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 	if health_stat.is_dead:
 		_die(damage_params)
 
-func _update_render() -> void:
-	visual_root.visible = render
-	ui.visible = render
+func _update_render(in_render:bool) -> void:
+	visual_root.visible = in_render
+	ui.visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat
 
 func _get_weapon() -> Weapon:
 	return _weapon
+
+func _get_team_component() -> TeamComponent:
+	return _team_comp

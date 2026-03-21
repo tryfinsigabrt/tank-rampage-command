@@ -18,6 +18,7 @@ var is_shooting:bool:
 @onready var animation: MarineAnimation = %MarineAnimation
 @onready var mesh: MeshInstance3D = $VisualRoot/Armature/Skeleton3D/BaseMarine
 @onready var ui: Node3D = %UI
+@onready var _team_comp: TeamComponent = %TeamComponent
 
 @export
 var team_resource:MarineTeamResource:
@@ -135,9 +136,9 @@ func get_fire_global_up() -> Vector3:
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
 
-func _update_render() -> void:
-	visual_root.visible = render
-	ui.visible = render
+func _update_render(in_render:bool) -> void:
+	visual_root.visible = in_render
+	ui.visible = in_render
 
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
@@ -170,3 +171,6 @@ func _get_weapon() -> Weapon:
 func _on_weapon_firing_state_changed(firing: bool) -> void:
 	#print("%s: SHOOTING=%s" % [name, firing])
 	_is_shooting = firing and is_alive
+
+func _get_team_component() -> TeamComponent:
+	return _team_comp
