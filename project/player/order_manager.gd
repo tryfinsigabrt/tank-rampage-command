@@ -42,7 +42,8 @@ func attack(to_attack:Node3D) -> void:
 	if not units:
 		return
 	# Don't attack a unit in the group
-	if to_attack in units:
+	# Only units can be in a selection group so check first that to_attack is a Unit
+	if to_attack is Unit and to_attack in units:
 		print_debug("%s: Skipping as to_attack=%s is in the selected group" % [name, to_attack.name])
 		return
 		
