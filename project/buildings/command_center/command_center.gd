@@ -13,6 +13,9 @@ var heath:HealthStat:
 	get: return health_stat
 	
 @export
+var bounds_type: Bounds.Type = Bounds.Type.AABB
+
+@export
 var team:int:
 	set(value):
 		team = value

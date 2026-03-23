@@ -22,3 +22,10 @@ func distance_to(point:Vector3) -> float:
 func contains(point:Vector3) -> bool:
 	var dist_sq:float = center.distance_squared_to(point)
 	return dist_sq <= radius * radius
+
+func closest_point_to(point:Vector3) -> Vector3:
+	if contains(point):
+		return point
+	
+	var point_dir:Vector3 = center.direction_to(point)
+	return center + point_dir * radius

@@ -21,6 +21,7 @@ is_hemisphere = true
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_03wp0")
+bounds_type = 1
 
 [node name="Stats" type="Node" parent="." unique_id=2066187832]
 

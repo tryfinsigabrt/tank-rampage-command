@@ -46,6 +46,9 @@ var unit_class:UnitClass
 var unit_class_group:StringName:
 	get:
 		return group_for_class(unit_class)
+
+@export
+var bounds_type: Bounds.Type = Bounds.Type.AABB
 		
 var is_moving:bool:
 	get: return _is_moving()
