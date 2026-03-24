@@ -37,9 +37,13 @@ func _on_health_changed(previous_health: float, current_health: float) -> void:
 func _took_damage(_damage_params: DamageParameters) -> void:
 	pass
 
-## Gets an AABB representing the bounds of the structure
+## Gets an AABB representing the bounds of the structure in local space
 func get_bounds() -> AABB:
-	return transform * _aabb
+	return _aabb
+
+## Gets the AABB representing the bounds of the structure in global space
+func get_global_bounds() -> AABB:
+	return global_transform * _aabb
 
 func _update_render(in_visible: bool) -> void:
 	# For now, once we see a building we keep it visible

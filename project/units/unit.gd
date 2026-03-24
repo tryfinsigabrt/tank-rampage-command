@@ -115,10 +115,14 @@ func _get_health_stat() -> HealthStat:
 func _get_weapon() -> Weapon:
 	return null
 	
-## Gets an AABB representing the bounds of the unit
+## Gets an AABB representing the bounds of the unit in local space
 func get_bounds() -> AABB:
-	return transform * _aabb
+	return _aabb
 
+## Gets the AABB representing the bounds of the unit in global space
+func get_global_bounds() -> AABB:
+	return global_transform * _aabb
+	
 #endregion
 
 func _ready() -> void:

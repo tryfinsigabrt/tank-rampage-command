@@ -109,7 +109,7 @@ func _move_into_attack_range() -> void:
 			move = diff < 0
 		if move:
 			# Add a buffer
-			var bounds_size := controlled_unit.get_bounds().size
+			var bounds_size := controlled_unit.get_global_bounds().size
 			var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
 			diff += signf(diff) * buffer
 			var move_target:Vector3 = my_position + attack_dir * diff

@@ -150,6 +150,7 @@ func _calculate_dist_frac(dist: float):
 func _get_contact_position(collider:Node3D, point:Vector3) -> Vector3:
 	var bounds:Bounds
 	if collider.has_method("get_bounds"):
+		# Use local bounds to avoid the OBB rotated bounds problem
 		var aabb:AABB = collider.get_bounds()
 		var bounds_type:Bounds.Type = Bounds.Type.AABB
 		
@@ -163,4 +164,9 @@ func _get_contact_position(collider:Node3D, point:Vector3) -> Vector3:
 		push_warning("%s: Collision requested for %s that doesn't have get_bounds method - potentially poor performance" % [name, collider.name])
 		bounds = Bounds.new(Collisions.calculate_aabb(collider))
 
-	return bounds.closest_point_to(point)
+	# bounds is local bounds so must transform point into collider space
+	var point_local:Vector3 = collider.to_local(point)
+	var closest_point_local:Vector3 = bounds.closest_point_to(point_local)
+	var closest_point:Vector3 = collider.to_global(closest_point_local)
+	
+	return closest_point

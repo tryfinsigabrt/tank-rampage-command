@@ -67,7 +67,7 @@ func _update() -> void:
 				points_to_check[0] = node.global_position
 				cnt = 1
 			else:
-				var bounds:AABB = node.get_bounds()
+				var bounds:AABB = node.get_global_bounds()
 				
 				cnt = 4
 				points_to_check[0] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_LEFT)
@@ -82,8 +82,9 @@ func _update() -> void:
 					visible = true
 					break
 			
-			node.team_component.render = visible
-			node.set_visible_to(fog_of_war.player_team, visible)
+			var team_component: TeamComponent = node.team_component
+			team_component.render = visible
+			team_component.set_visible_to(fog_of_war.player_team, visible)
 	
 func _on_team_asset_added(asset:Node3D) -> void:
 	if asset.team_component.is_on_team(fog_of_war.player_team):
