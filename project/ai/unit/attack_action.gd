@@ -94,7 +94,7 @@ func _move_into_attack_range() -> void:
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
 		var ideal_dist:float = fire_range.x * 2.0 if fire_range.x / fire_range.y < 0.1 else fire_range.x + 1.0
-		var move_target:Vector3 = my_position - attack_dir * ideal_dist
+		var move_target:Vector3 = attack_position - attack_dir * ideal_dist
 		SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
 	
 	# Out of range could be too close or too far away
