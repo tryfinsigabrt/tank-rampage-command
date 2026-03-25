@@ -24,6 +24,7 @@
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
+team = null
 
 [node name="Blackboard" type="Node" parent="." unique_id=185824984]
 unique_name_in_owner = true
@@ -99,7 +100,6 @@ script = ExtResource("7_ectn7")
 
 [node name="UtilityCalculator" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=992867152]
 script = ExtResource("14_slh46")
-use_utility = true
 
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=350127888]
 wait_time = 5.0

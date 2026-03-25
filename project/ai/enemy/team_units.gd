@@ -2,8 +2,6 @@ class_name TeamUnits extends Node
 
 const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
 
-@onready var blackboard: EnemyTeamBlackboard = %Blackboard
-
 @warning_ignore("unused_signal")
 signal initialized
 
@@ -11,61 +9,98 @@ signal enemy_visibility_changed(unit:Unit, unit_is_visible:bool)
 
 var team:int
 
-var _units:Dictionary[int, Unit] = {}
-var _unit_values: Array[Unit]
-var _dirty:bool
+var _assets:Dictionary[int, Node3D] = {}
+var _asset_counts:Dictionary[StringName, int] = {}
+var _assets_dirty:Dictionary[StringName,bool] = {}
 
-var units_dict:Dictionary[int, Unit]:
-	get: return _units
+var _unit_values: Array[Unit]
+var _building_values: Array[Node3D]
+var _structure_values: Array[Node3D]
+
+var assets_dict:Dictionary[int, Node3D]:
+	get: return _assets
 	
 var units:Array[Unit]:
-	get: return _get_units_array()
+	get: return _get_assets_array(Groups.Unit, _unit_values)
+	
+var buildings: Array[Node3D]:
+	get: return _get_assets_array(Groups.Building, _building_values)
+
+var structures: Array[Node3D]:
+	get: return _get_assets_array(Groups.Structure, _structure_values)
 
 func add_unit(unit:Unit) -> void:
-	_init_unit(unit)
-	
-	_units[unit.get_instance_id()] = unit
-	_dirty = true
-	unit.died.connect(_on_unit_destroyed.bind(unit).unbind(1))
+	_add_asset(unit, Groups.Unit)
 
-func _init_unit(unit:Unit) -> void:
+func add_building(building:Node3D) -> void:
+	_add_asset(building, Groups.Building)
+
+func add_structure(structure:Node3D) -> void:
+	_add_asset(structure, Groups.Structure)
+	
+func _add_asset(asset:Node3D, group: StringName) -> void:
+	_init_asset(asset)
+	
+	_assets[asset.get_instance_id()] = asset
+	_asset_counts[group] = _asset_counts.get(group, 0) + 1
+	_assets_dirty[group] = true
+	
+	var health_stat:HealthStat = Groups.get_child_with_type(asset, HealthStat)
+	if health_stat:
+		health_stat.died.connect(_on_asset_destroyed.bind(asset, group).unbind(1))
+	else:
+		push_warning("%s: asset=%s in group=%s has no HealthStat! Falling back to when asset exits tree" % [name, asset.name, group])
+		asset.tree_exited.connect(_on_asset_destroyed.bind(asset, group))
+	
+func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:
 		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
 		ai_unit_vision.enemy_visibility_changed.connect(_on_enemy_visibility_changed)
-		unit.add_child(ai_unit_vision)
+		asset.add_child(ai_unit_vision)
 		
-func has_unit_id(id:int) -> bool:
-	return _units.has(id)
+func has_asset_id(id:int) -> bool:
+	return _assets.has(id)
 
-func has_unit(unit:Unit) -> bool:
-	return is_instance_valid(unit) and has_unit_id(unit.get_instance_id())
+func has_asset(asset:Node3D) -> bool:
+	return is_instance_valid(asset) and has_asset_id(asset.get_instance_id())
 	
-func _get_units_array() -> Array[Unit]:
-	if _dirty:
-		_unit_values.resize(_units.size())
+func _get_assets_array(group:StringName, values: Array) -> Array:
+	var dirty:bool = _assets_dirty.get(group, false)
+	if dirty:
+		var size:int = _asset_counts.get(group, 0)
+		values.resize(size)
 		var i:int = 0
-		for id in _units:
-			_unit_values[i] = _units[id]
-			i += 1
-		_dirty = false
-	return _unit_values
+		for id in _assets:
+			var asset:Node3D = _assets[id]
+			if asset.is_in_group(group):
+				values[i] = asset
+				i += 1
+		_assets_dirty[group] = false
+	return values
 	
-func _on_unit_destroyed(unit:Unit) -> void:
-	_units.erase(unit.get_instance_id())
-	_dirty = true
+func _on_asset_destroyed(asset:Node3D, group: StringName) -> void:
+	var existed:bool = _assets.erase(asset.get_instance_id())
+	if existed:
+		_asset_counts[group] = _asset_counts.get(group, 1) - 1
+		_assets_dirty[group] = true
 
 func get_average_position() -> Vector3:
-	if not _units:
+	if not _asset_counts.get(Groups.Unit, 0):
 		return Vector3.ZERO
 		
 	var position:Vector3 = Vector3.ZERO
 	
-	for id in _units:
-		var unit:Unit = _units[id]
-		position += unit.global_position
+	var cnt:int = 0
+	for id in _assets:
+		var unit:Unit = _assets[id] as Unit
+		if unit:
+			cnt += 1
+			position += unit.global_position
 	
-	return position / _units.size()
+	if cnt:
+		position = position / cnt
+	return position
 	
 func _on_enemy_visibility_changed(unit:Unit, unit_is_visible:bool) -> void:
 	enemy_visibility_changed.emit(unit, unit_is_visible)
