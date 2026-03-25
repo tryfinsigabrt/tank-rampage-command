@@ -60,12 +60,12 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	_connect_move_signal()
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
 
-func _threats_detected(threats:Array[Unit]) -> void:
+func _threats_detected(threats:Array[Node3D]) -> void:
 	print_debug("%s: %d threats detected" % [name, threats.size()])		
 	# If currently engaging a threat, don't stop unless new threat is much closer
 	
 	var unit_position:Vector3 = _unit.global_position
-	var threat_distances:Dictionary[Unit, float] = {}
+	var threat_distances:Dictionary[Node3D, float] = {}
 	for threat in threats:
 		threat_distances[threat] = unit_position.distance_squared_to(threat.global_position)
 	
@@ -81,9 +81,9 @@ func _threats_detected(threats:Array[Unit]) -> void:
 		# Continue attacking existing threat to avoid thrashing
 		if distance_diff < new_threat_min_distance_threshold:
 			return
-	_attack_unit(top_threat)
+	_attack_asset(top_threat)
 	
-func _attack_unit(enemy:Unit) -> void:
+func _attack_asset(enemy:Node3D) -> void:
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
 		

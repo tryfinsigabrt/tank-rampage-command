@@ -129,5 +129,5 @@ func is_moving() -> bool:
 func is_idle() -> bool:
 	return _command_counter <= 0
 
-func _on_idle_state_threat_selected(threat: Unit) -> void:
+func _on_idle_state_threat_selected(threat: Node3D) -> void:
 	attack(threat)

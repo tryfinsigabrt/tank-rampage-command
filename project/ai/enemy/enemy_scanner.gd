@@ -38,9 +38,12 @@ func _tick() -> void:
 		blackboard.on_unit_visibility_changed.emit()
 		
 func _sweep_for_enemies(attention_center:Vector3) -> Array[Unit]:
-	var enemies:Array[Unit] = unit_sweeper.sweep_units(attention_center, blackboard.team_info.units, blackboard.team)
+	var enemies:Array[Node3D] = unit_sweeper.sweep_assets(attention_center, blackboard.team_info.units, blackboard.team)
 	
 	if LogUtils.verbose:
 		print_debug("%s: Team %d found %d enemies" % [name, blackboard.team, enemies.size()])
-		
-	return enemies
+	
+	# TODO: For now limiting to enemy units and all enemies will be units so just copy the array
+	var enemy_units: Array[Unit]
+	enemy_units.append_array(enemies)
+	return enemy_units

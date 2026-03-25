@@ -12,7 +12,7 @@ var _init:bool
 @onready var sweeper: UnitSweeper = $Sweeper
 @onready var tick: Timer = $Tick
 
-signal threats_detected(threats:Array[Unit])
+signal threats_detected(threats:Array[Node3D])
 
 @export
 var enabled:bool = true:
@@ -57,7 +57,7 @@ func _ready() -> void:
 	_on_enable_changed()
 		
 func _tick() -> void:
-	var threats := sweeper.sweep_units(my_unit.global_position, _get_team_units(), _team.team if _team else 0)
+	var threats: Array[Node3D] = sweeper.sweep_assets(my_unit.global_position, _get_team_units(), _team.team if _team else 0)
 	if threats:
 		threats_detected.emit(threats)
 

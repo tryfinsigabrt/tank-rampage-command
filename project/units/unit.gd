@@ -47,6 +47,9 @@ var unit_class_group:StringName:
 	get:
 		return group_for_class(unit_class)
 
+@export 
+var attributes:TeamAssetAttributes
+
 @export
 var bounds_type: Bounds.Type = Bounds.Type.AABB
 		

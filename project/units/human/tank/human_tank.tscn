@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b0o1pskrhf044"]
 
 [ext_resource type="Script" uid="uid://6awqg74wnvfp" path="res://units/human/tank/human_tank.gd" id="1_itvlm"]
+[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_l52bp"]
 [ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="3_irgey"]
 [ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="4_4csg3"]
 [ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="7_qtx04"]
@@ -27,6 +28,7 @@ collision_layer = 4
 collision_mask = 255
 script = ExtResource("1_itvlm")
 unit_class = 1
+attributes = ExtResource("2_l52bp")
 
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("16_v2578")]
 

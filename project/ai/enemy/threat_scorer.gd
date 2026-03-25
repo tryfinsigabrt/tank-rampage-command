@@ -14,15 +14,15 @@ func _ready() -> void:
 	_ideal_distance_sq = ideal_distance * ideal_distance
 	#_max_distance_sq = max_distance * max_distance
 
-func get_threat_units(units: Array[Unit], position:Vector3) -> Array[UnitScore]:
-	return _get_threat_units(units, position, func(data:Unit) -> Unit: return data)
+func get_threat_assets(units: Array[Node3D], position:Vector3) -> Array[UnitScore]:
+	return _get_threat_assets(units, position, func(data:Node3D) -> Node3D: return data)
 	
 func get_visible_threat_units(units: Array[UnitData], position:Vector3) -> Array[UnitScore]:
-	return _get_threat_units(units, position, func(data:UnitData) -> Unit: 
+	return _get_threat_assets(units, position, func(data:UnitData) -> Unit: 
 		return data.unit if data.valid and data.visible else null
 	)
 	
-func _get_threat_units(units: Array, position:Vector3, viable_unit_extractor:Callable) -> Array[UnitScore]:
+func _get_threat_assets(units: Array, position:Vector3, viable_asset_extractor:Callable) -> Array[UnitScore]:
 	var matches:Array[UnitScore]
 	if not units:
 		return matches
@@ -31,23 +31,29 @@ func _get_threat_units(units: Array, position:Vector3, viable_unit_extractor:Cal
 	
 	# TODO: Placeholder Utility AI - use real utility AI system to score and filter candidates
 	for unit_data in units:
-		var unit:Unit = viable_unit_extractor.call(unit_data)
-		if unit:
-			var score:float = unit.global_position.distance_squared_to(position)
+		var asset:Node3D = viable_asset_extractor.call(unit_data) as Node3D
+		if asset and asset.is_in_group(Groups.TeamAsset):
+			var score:float = asset.global_position.distance_squared_to(position)
 			#if score > _max_distance_sq:
 				#continue
 			score = _ideal_distance_sq / maxf(score, 0.001)
 			max_score = maxf(score, max_score)
-				
+			
+			var attributes:TeamAssetAttributes = asset.attributes
+			
 			var entry := UnitScore.new()
-			entry.unit = unit
+			entry.threat = asset
+			entry.priority = attributes.attack_priority
 			entry.score = score
 			matches.push_back(entry)
 	
 	# Normalize scores
 	for entry in matches:
 		entry.score = entry.score / max_score
-	matches.sort_custom(func(a:UnitScore, b:UnitScore) -> bool: return a.score > b.score)
+	matches.sort_custom(func(a:UnitScore, b:UnitScore) -> bool:
+		if a.priority < b.priority:
+			return true
+		return a.score > b.score)
 	
 	var remove_index_start:int = -1
 	for i in range(matches.size() - 1, -1, -1):
@@ -110,14 +116,7 @@ func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[U
 	return contexts
 
 func calculate_strength(unit:Unit) -> float:
-	var strength:float
-	match unit.unit_class:
-		Unit.UnitClass.Tank:
-			strength = 5.0
-		Unit.UnitClass.Artillery:
-			strength = 10.0
-		_:
-			strength = 1.0
+	var strength:float = unit.attributes.strength
 	var health_stat:HealthStat = unit.health
 	if health_stat:
 		strength *= unit.health.health_fraction

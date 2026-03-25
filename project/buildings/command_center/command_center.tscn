@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://0h1th4wj1w44" path="res://buildings/command_center/command_center.gd" id="1_03wp0"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="2_4ejy1"]
+[ext_resource type="Resource" uid="uid://dt4byhu2g71qa" path="res://buildings/command_center/command_center_attributes.tres" id="2_dui3b"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
 
@@ -21,6 +22,7 @@ is_hemisphere = true
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_03wp0")
+attributes = ExtResource("2_dui3b")
 bounds_type = 1
 
 [node name="Stats" type="Node" parent="." unique_id=2066187832]

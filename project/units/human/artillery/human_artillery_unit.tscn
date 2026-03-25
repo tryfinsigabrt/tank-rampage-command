@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ddgct30jgqcly" path="res://units/human/artillery/artillery_unit_mesh.tscn" id="3_3sucs"]
 [ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="3_85mja"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_gicbj"]
+[ext_resource type="Resource" uid="uid://c5r1ij6toia2e" path="res://units/human/artillery/artillery_attributes.tres" id="3_v88ec"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pf3cn"]
 [ext_resource type="Curve" uid="uid://1mpejxlhr1yc" path="res://units/human/artillery/fire_time_v_dist.tres" id="6_uf7ra"]
 [ext_resource type="Curve" uid="uid://dty847jrkxj8w" path="res://units/human/artillery/radius_v_distance.tres" id="7_jjc22"]
@@ -39,6 +40,7 @@ turret_rotation_node = NodePath("VisualRoot/TurretPivot")
 barrel_pitch_node = NodePath("VisualRoot/TurretPivot")
 movement_speed = 5.0
 unit_class = 2
+attributes = ExtResource("3_v88ec")
 metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]

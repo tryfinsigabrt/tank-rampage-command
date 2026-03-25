@@ -1,4 +1,5 @@
 class_name UnitScore
 
-var unit:Unit
+var threat:Node3D
+var priority:int
 var score:float
