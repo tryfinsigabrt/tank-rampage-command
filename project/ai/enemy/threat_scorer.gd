@@ -14,26 +14,27 @@ func _ready() -> void:
 	_ideal_distance_sq = ideal_distance * ideal_distance
 	#_max_distance_sq = max_distance * max_distance
 
-func get_threat_assets(units: Array[Node3D], position:Vector3) -> Array[UnitScore]:
-	return _get_threat_assets(units, position, func(data:Node3D) -> Node3D: return data)
+func get_threat_assets(assets: Array[Node3D], position:Vector3) -> Array[UnitScore]:
+	return _get_threat_assets(assets, position, func(data:Node3D) -> Node3D: return data)
 	
-func get_visible_threat_units(units: Array[UnitData], position:Vector3) -> Array[UnitScore]:
-	return _get_threat_assets(units, position, func(data:UnitData) -> Unit: 
+func get_visible_threat_units(assets: Array[UnitData], position:Vector3) -> Array[UnitScore]:
+	return _get_threat_assets(assets, position, func(data:UnitData) -> Unit: 
 		return data.unit if data.valid and data.visible else null
 	)
 	
-func _get_threat_assets(units: Array, position:Vector3, viable_asset_extractor:Callable) -> Array[UnitScore]:
+func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:Callable) -> Array[UnitScore]:
 	var matches:Array[UnitScore]
-	if not units:
+	if not assets:
 		return matches
 	
 	var max_score:float = 0.0
 	
 	# TODO: Placeholder Utility AI - use real utility AI system to score and filter candidates
-	for unit_data in units:
+	for unit_data in assets:
 		var asset:Node3D = viable_asset_extractor.call(unit_data) as Node3D
 		if asset and asset.is_in_group(Groups.TeamAsset):
-			var score:float = asset.global_position.distance_squared_to(position)
+			var dist_sq:float = asset.global_position.distance_squared_to(position)
+			var score:float = dist_sq
 			#if score > _max_distance_sq:
 				#continue
 			score = _ideal_distance_sq / maxf(score, 0.001)
@@ -45,6 +46,7 @@ func _get_threat_assets(units: Array, position:Vector3, viable_asset_extractor:C
 			entry.threat = asset
 			entry.priority = attributes.attack_priority
 			entry.score = score
+			entry._dist_sq = dist_sq
 			matches.push_back(entry)
 	
 	# Normalize scores

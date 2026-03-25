@@ -7,6 +7,9 @@ var new_threat_min_distance_threshold:float = 200.0
 @export
 var threat_max_distance_threshold:float = 500.0
 
+@export
+var threat_scorer:ThreatScorer
+
 var _unit:Unit
 var _target_position:Vector3 = Vector3.INF
 var _finished:int = 0
@@ -65,23 +68,22 @@ func _threats_detected(threats:Array[Node3D]) -> void:
 	# If currently engaging a threat, don't stop unless new threat is much closer
 	
 	var unit_position:Vector3 = _unit.global_position
-	var threat_distances:Dictionary[Node3D, float] = {}
-	for threat in threats:
-		threat_distances[threat] = unit_position.distance_squared_to(threat.global_position)
-	
-	threats.sort_custom(func(a:Unit, b:Unit) -> bool: return threat_distances[a] < threat_distances[b])
-	
-	var top_threat:Unit = threats.front()
+	var ranked_threats: Array[UnitScore] = threat_scorer.get_threat_assets(threats, unit_position)
+	if not ranked_threats:
+		print_debug("%s: No credible threats to attack" % name)
+		return
+		
+	var top_threat:UnitScore = ranked_threats.front()
 
 	if is_instance_valid(_attack_action) and _attack_action.is_valid() and _attack_action.firing:
-		var top_threat_distance:float = sqrt(threat_distances[top_threat])
+		var top_threat_distance:float = top_threat.dist
 		var current_attack_distance:float = _attack_action.targeted_node.global_position.distance_to(unit_position)
 		var distance_diff:float = current_attack_distance - top_threat_distance
 		
 		# Continue attacking existing threat to avoid thrashing
 		if distance_diff < new_threat_min_distance_threshold:
 			return
-	_attack_asset(top_threat)
+	_attack_asset(top_threat.threat)
 	
 func _attack_asset(enemy:Node3D) -> void:
 	if is_instance_valid(_attack_action):
