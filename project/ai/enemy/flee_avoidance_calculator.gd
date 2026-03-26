@@ -12,7 +12,7 @@ func _ready() -> void:
 		queue_free()
 		
 func _on_avoidance_enemies_changed() -> void:
-	var avoidance_enemies = blackboard.avoidance_enemies
+	var avoidance_enemies := blackboard.avoidance_enemies
 	var heading_dict:Dictionary[int, Vector3]
 	if avoidance_enemies:
 		for unit in blackboard.idle_units:

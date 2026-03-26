@@ -2,7 +2,7 @@ class_name EditorUtils
 
 static func get_audio_bus_selection_property(property_name:String) -> Dictionary:
 	var buses:Array[String] = []
-	var bus_count = AudioServer.bus_count
+	var bus_count := AudioServer.bus_count
 	for i in bus_count:
 		buses.append(AudioServer.get_bus_name(i))
 	
@@ -32,9 +32,9 @@ static func _get_input_actions() -> Array:
 	var props: Array[Dictionary] = ProjectSettings.get_property_list()
 
 	for prop in props:
-		var name = prop["name"]
+		var name: String = prop["name"]
 		if name.begins_with("input/"):
-			var action_name = name.trim_prefix("input/")
+			var action_name := name.trim_prefix("input/")
 			if not action_name.begins_with("ui_"):
 				actions.push_back(action_name)
 	
@@ -42,7 +42,7 @@ static func _get_input_actions() -> Array:
 	
 	return actions
 	
-static func get_input_actions_array_selection_property(property_name) -> Dictionary:
+static func get_input_actions_array_selection_property(property_name: String) -> Dictionary:
 	var actions := _get_input_actions()
 
 	return {

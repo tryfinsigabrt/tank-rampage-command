@@ -17,7 +17,7 @@ func pitch_barrel(direction:float) -> void:
 	pivot.rotation_degrees.x = clampf(pivot.rotation_degrees.x + rot, -max_pitch_degrees, 0.0)
 
 func shoot() -> void:
-	weapon.fire()
+	await weapon.fire()
 
 var fire_position_marker:Node3D:
 	get: return fire_location

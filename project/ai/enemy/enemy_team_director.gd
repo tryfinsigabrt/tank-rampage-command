@@ -31,7 +31,7 @@ func _discover_units_and_teams() -> void:
 			
 	team_units.initialized.emit()
 
-func _add_assets(group: StringName, type, enemy_team_ids:PackedInt32Array, team_units_adder:Callable) -> void:
+func _add_assets(group: StringName, type: Variant, enemy_team_ids:PackedInt32Array, team_units_adder:Callable) -> void:
 	var nodes:Array[Node] = get_tree().get_nodes_in_group(group)
 	
 	for node in nodes:

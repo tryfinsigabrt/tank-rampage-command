@@ -39,7 +39,7 @@ func assess_threats() -> void:
 	for team:EnemyTeamUnits in enemy_teams.all_teams():
 		var contexts : Array[UnitThreatContext] = team.get_visible_threat_contexts(our_units)
 		for context in contexts:
-			for option in options:
+			for option:UtilityAIOption in options:
 				option.context = context
 			
 			var decision := UtilityAI.choose_highest(options)

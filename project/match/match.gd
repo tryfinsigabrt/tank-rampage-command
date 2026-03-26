@@ -24,7 +24,10 @@ func get_team(team:int) -> MatchTeam:
 func _ready() -> void:
 	SignalBus.match_team_eliminated.connect(_on_team_lost)
 	var all_teams:Array[Node] = get_tree().get_nodes_in_group(Groups.MatchTeam)
-	var player_nodes:Array = get_tree().get_nodes_in_group(Groups.Player).filter(func(node): return node is Node3D and node.is_visible_in_tree())
+	var player_nodes:Array = get_tree().get_nodes_in_group(Groups.Player).filter(func(node: Node) -> bool:
+		return node is Node3D and node.is_visible_in_tree()
+	)
+	
 	if player_nodes.is_empty():
 		push_warning("%s: No player nodes found!" % name)
 	elif player_nodes.size() > 1:
@@ -51,7 +54,7 @@ func _is_player_team(match_team:MatchTeam) -> bool:
 func _wait_for_ready() -> void:
 	var counter:PackedInt32Array = [0]
 	var connection:Array[Callable] = []
-	connection.push_back(func(match_team:MatchTeam):
+	connection.push_back(func(match_team:MatchTeam) -> void:
 		if match_team.team in _match_teams:
 			counter[0] += 1
 			if counter[0] == _match_teams.size():

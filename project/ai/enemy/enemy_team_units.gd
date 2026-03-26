@@ -24,7 +24,7 @@ func get_unit(id:int) -> Unit:
 	return data.unit if data else null
 	
 func mark_all_not_visible() -> void:
-	for unit in units.values():
+	for unit:UnitData in units.values():
 		unit.visible = false
 
 func get_all_visible_ids(out_ids:PackedInt64Array) -> void:

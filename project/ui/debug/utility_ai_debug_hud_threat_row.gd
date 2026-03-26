@@ -32,7 +32,7 @@ func update(options:Array[UtilityAIOption], chosen_option: UtilityAIOption) -> v
 	for option in options:
 		scores[option] = option.evaluate()
 	
-	options.sort_custom(func(a, b): return scores[a] > scores[b])
+	options.sort_custom(func(a: UtilityAIOption, b: UtilityAIOption) -> bool: return scores[a] > scores[b])
 
 	var context:UnitThreatContext = chosen_option.context
 	# Options already sorted

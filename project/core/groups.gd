@@ -28,13 +28,13 @@ class Units:
 	const Soldier:StringName = &"UnitClassSoldier"
 		
 static func get_parent_in_group(leaf: Node, group: StringName) -> Node:
-	return get_parent_matching(leaf, func(node): return node.is_in_group(group) )
+	return get_parent_matching(leaf, func(node: Node) -> bool: return node.is_in_group(group) )
 	
-static func get_parent_with_type(leaf: Node, type) -> Node:
-	return get_parent_matching(leaf, func(node): return is_instance_of(node, type) )
+static func get_parent_with_type(leaf: Node, type: Variant) -> Node:
+	return get_parent_matching(leaf, func(node: Node) -> bool: return is_instance_of(node, type) )
 
 static func has_ancestor(leaf: Node, ancestor: Node) -> bool:
-	return get_parent_matching(leaf, func(node): return node == ancestor) != null
+	return get_parent_matching(leaf, func(node: Node) -> bool: return node == ancestor) != null
 	
 static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
 	var node:Node = leaf
@@ -45,16 +45,16 @@ static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
 	return null
 	
 static func get_children_in_group(root: Node, group: StringName, return_on_first:bool=false) -> Array[Node]:
-	return get_children_matching(root, func(node): return node.is_in_group(group), return_on_first)
+	return get_children_matching(root, func(node: Node) -> bool: return node.is_in_group(group), return_on_first)
 	
-static func get_children_with_type(root: Node, type, return_on_first:bool=false) -> Array[Node]:
-	return get_children_matching(root, func(node): return is_instance_of(node, type), return_on_first)
+static func get_children_with_type(root: Node, type: Variant, return_on_first:bool=false) -> Array[Node]:
+	return get_children_matching(root, func(node: Node) -> bool: return is_instance_of(node, type), return_on_first)
 
-static func get_child_with_type(root: Node, type) -> Node:
+static func get_child_with_type(root: Node, type: Variant) -> Node:
 	return get_children_with_type(root, type, true).front()
 
 static func is_child_in_tree(root:Node, child:Node) -> bool:
-	return not get_children_matching(root, func(node): return node == child, true).is_empty()
+	return not get_children_matching(root, func(node: Node) -> bool: return node == child, true).is_empty()
 	
 static func get_children_matching(root: Node, predicate: Callable, return_on_first:bool=false) -> Array[Node]:
 	var stack:Array[Node] = [root]

@@ -106,7 +106,7 @@ func _ready() -> void:
 	_init_post_process_shader(fow_texture)
 
 	# Prevents a brief "white clear" that permanently sets everything to explored on start
-	_clear_explored()
+	await _clear_explored()
 	
 func project_position(pos:Vector3) -> Vector2:
 	# Remap coordinates so that pos of 0,0 is top left of the bounding box
@@ -120,7 +120,7 @@ func project_position(pos:Vector3) -> Vector2:
 	).clampf(0.0, 1.0)
 
 	# Multiply by viewport size to get the pixel coordinate
-	var viewport_pos = uv * _projected_size
+	var viewport_pos := uv * _projected_size
 	
 	return viewport_pos
 

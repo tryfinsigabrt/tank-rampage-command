@@ -126,7 +126,7 @@ func _calculate_damage(_target: Node3D, contact_position:Vector3, damage_center:
 	return _calculate_point_damage(contact_position, damage_center)
 
 func _calculate_point_damage(impact_point: Vector3, pos:Vector3) -> float:
-	var dist = (pos - impact_point).length()
+	var dist := (pos - impact_point).length()
 	if dist >= max_falloff_distance:
 		return 0.0
 	if dist <= min_falloff_distance:
@@ -138,13 +138,13 @@ func _calculate_point_damage(impact_point: Vector3, pos:Vector3) -> float:
 		DamageFalloffType.Linear:
 			return _calculate_dist_frac(dist) * max_damage
 		DamageFalloffType.InverseSquare:
-			var falloff = _calculate_dist_frac(dist)
+			var falloff := _calculate_dist_frac(dist)
 			return falloff * falloff * max_damage
 		_:
 			push_error("Unrecognized damage type: " + str(damage_falloff_type))
 			return max_damage
 			
-func _calculate_dist_frac(dist: float):
+func _calculate_dist_frac(dist: float) -> float:
 	return  (1.0 - (dist - min_falloff_distance) / (max_falloff_distance - min_falloff_distance))
 	
 func _get_contact_position(collider:Node3D, point:Vector3) -> Vector3:
@@ -154,7 +154,7 @@ func _get_contact_position(collider:Node3D, point:Vector3) -> Vector3:
 		var aabb:AABB = collider.get_bounds()
 		var bounds_type:Bounds.Type = Bounds.Type.AABB
 		
-		var bounds_type_raw = collider.get("bounds_type")
+		var bounds_type_raw: Variant = collider.get("bounds_type")
 		if bounds_type_raw != null:
 			bounds_type = bounds_type_raw as Bounds.Type
 		else:

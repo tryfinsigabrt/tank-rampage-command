@@ -82,14 +82,14 @@ func pick_unit(event: InputEvent) -> Unit:
 	var result := pick_node(event, Collisions.Layers.unit)
 	if not result:
 		return
-	var clicked_object = result.collider
+	var clicked_object: Node = result.collider
 	return Groups.get_parent_in_group(clicked_object, Groups.Unit)
 
 func pick_team_asset(event: InputEvent) -> Node3D:
 	var result := pick_node(event, Collisions.CompositeMasks.team_asset)
 	if not result:
 		return
-	var clicked_object = result.collider
+	var clicked_object: Node = result.collider
 	return Groups.get_parent_in_group(clicked_object, Groups.TeamAsset)
 	
 func pick_node(event: InputEvent, collision_mask:int) -> Dictionary:

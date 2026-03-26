@@ -30,7 +30,7 @@ func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:
 	var max_score:float = 0.0
 	
 	# TODO: Placeholder Utility AI - use real utility AI system to score and filter candidates
-	for unit_data in assets:
+	for unit_data:Variant in assets:
 		var asset:Node3D = viable_asset_extractor.call(unit_data) as Node3D
 		if asset and asset.is_in_group(Groups.TeamAsset):
 			var dist_sq:float = asset.global_position.distance_squared_to(position)

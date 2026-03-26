@@ -225,7 +225,7 @@ func _reset_turret_yaw() -> void:
 	_yaw_reset_tween = tween
 		
 func shoot() -> void:
-	_weapon.fire()
+	await _weapon.fire()
 
 func get_fire_global_position() -> Vector3:
 	return weapon_trace.global_position

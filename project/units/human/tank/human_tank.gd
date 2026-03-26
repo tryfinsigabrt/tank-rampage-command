@@ -76,7 +76,7 @@ func aim_at(world_location:Vector3) -> void:
 		barrel.pitch_barrel(aim_pitch)
 
 func shoot() -> void:
-	barrel.shoot()
+	await barrel.shoot()
 	
 func get_fire_global_position() -> Vector3:
 	return barrel.fire_position_marker.global_position

@@ -18,7 +18,7 @@ func _exit_tree() -> void:
 		PhysicsServer3D.free_rid(_enemy_sweep_rid)
 		
 func _create_sweep_shape() -> RID:
-	var shape_rid = PhysicsServer3D.sphere_shape_create()
+	var shape_rid := PhysicsServer3D.sphere_shape_create()
 	PhysicsServer3D.shape_set_data(shape_rid, vision_radius)
 	
 	return shape_rid

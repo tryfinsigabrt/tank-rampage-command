@@ -107,11 +107,11 @@ func aim_at(world_location:Vector3) -> void:
 	_aim_at_tween = tween
 	
 func shoot() -> void:
-	_weapon.fire()
-	
 	# TODO: We should have a blended animation so enemy can shoot while moving
 	# This can probably be done in the animation tree blend space
 	SignalBus.on_unit_move_canceled.emit(self, game_unit_navigation.current_target)
+	
+	await _weapon.fire()
 
 func get_fire_global_position() -> Vector3:
 	return fire_position.global_position
@@ -160,6 +160,7 @@ func _on_health_changed(previous_health: float, current_health: float) -> void:
 func _took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)
 	if health_stat.is_dead:
+		@warning_ignore("missing_await")
 		_die(damage_params)
 
 func _get_health_stat() -> HealthStat:

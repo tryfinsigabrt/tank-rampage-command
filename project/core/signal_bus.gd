@@ -47,35 +47,35 @@ func register_building(building:Node3D) -> void:
 func _register_asset(asset:Node3D) -> void:
 	var health_comp:HealthStat = Groups.get_child_with_type(asset, HealthStat)
 	if health_comp:
-		health_comp.died.connect(func(damage_params):
+		health_comp.died.connect(func(damage_params: DamageParameters) -> void:
 			on_team_asset_destroyed.emit(asset, damage_params)
 		)
-		health_comp.took_damage.connect(func(damage_params):
+		health_comp.took_damage.connect(func(damage_params: DamageParameters) -> void:
 			on_team_asset_damaged.emit(asset, damage_params)
 		)
 	
 	on_team_asset_added.emit(asset)
 	
 func register_unit(unit:Unit) -> void:
-	unit.died.connect(func(damage_params):
+	unit.died.connect(func(damage_params: DamageParameters) -> void:
 		on_unit_killed.emit(unit, damage_params)
 		on_team_asset_destroyed.emit(unit, damage_params)
 	)
-	unit.damaged.connect(func(damage_params):
+	unit.damaged.connect(func(damage_params: DamageParameters) -> void:
 		on_unit_damaged.emit(unit, damage_params)
 		on_team_asset_damaged.emit(unit,damage_params)
 	)
 	var health_stat:HealthStat = Groups.get_children_with_type(unit, HealthStat, true).front()
 	if health_stat:
-		health_stat.health_changed.connect(func(previous_health, current_health):
+		health_stat.health_changed.connect(func(previous_health: float, current_health: float) -> void:
 			on_unit_health_changed.emit(unit, previous_health, current_health)
 		)
 	
-	unit.on_left_world_boundaries.connect(func(world_boundaries: WorldBoundaries):
+	unit.on_left_world_boundaries.connect(func(world_boundaries: WorldBoundaries) -> void:
 		on_left_world_boundaries.emit(world_boundaries, unit)
 	)
 	
-	unit.on_entered_world_boundaries.connect(func(world_boundaries: WorldBoundaries):
+	unit.on_entered_world_boundaries.connect(func(world_boundaries: WorldBoundaries) -> void:
 		on_entered_world_boundaries.emit(world_boundaries, unit)
 	)
 	

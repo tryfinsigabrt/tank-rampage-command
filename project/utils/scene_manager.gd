@@ -8,7 +8,7 @@ func pause_game(paused:bool) -> void:
 	SignalBus.pause_game.emit(paused)
 	
 func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void:
-	_switch_scene(func()->Node: 
+	await _switch_scene(func()->Node: 
 		var instantiated:Node = scene.instantiate()
 		if configurator:
 			configurator.call(instantiated)
@@ -16,7 +16,7 @@ func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void
 	)
 	
 func switch_scene_file(scene_file:String, configurator:Callable = Callable()) -> void:
-	_switch_scene(func()->Node: 
+	await _switch_scene(func()->Node: 
 		var scene:PackedScene = load(scene_file)
 		var instantiated:Node = scene.instantiate()
 		if configurator:
@@ -25,8 +25,8 @@ func switch_scene_file(scene_file:String, configurator:Callable = Callable()) ->
 	)
 
 func _switch_scene(scene_loader:Callable) -> void:    
-	var root = get_tree().root
-	var root_current_scene = root.get_child(root.get_child_count() - 1)
+	var root := get_tree().root
+	var root_current_scene := root.get_child(root.get_child_count() - 1)
 	print_debug("%s: Freeing current root scene=%s" % [name, root_current_scene.scene_file_path])
 	root_current_scene.queue_free()
 

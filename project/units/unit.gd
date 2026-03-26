@@ -147,7 +147,7 @@ func is_on_team(in_team:int) -> bool:
 func is_visible_to(in_team:int) -> bool:
 	return team_component.is_visible_to(in_team)
 
-func set_visible_to(in_team:int, in_visible:bool):
+func set_visible_to(in_team:int, in_visible:bool) -> void:
 	team_component.set_visible_to(in_team, in_visible)
 	
 # TODO: Right now don't have concept of allied teams but this leaves that open for future

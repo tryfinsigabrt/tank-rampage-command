@@ -138,6 +138,7 @@ func _process(delta: float) -> void:
 			_los_signal.emit()
 		
 	if in_range and not fire_timer_running:
+		@warning_ignore("missing_await")
 		_fire_and_schedule()
 	elif not in_range and fire_timer_running:
 		_fire_timer.stop()
@@ -227,6 +228,8 @@ func _on_fire() -> void:
 	if not is_valid():
 		queue_free()
 		return
+		
+	@warning_ignore("missing_await")
 	_fire_and_schedule()
 
 func _fire() -> void:

@@ -60,7 +60,7 @@ static func to_team_mask(in_team:int) -> int:
 func is_visible_to(in_team:int) -> bool:
 	return team_visibility_mask & to_team_mask(in_team)
 
-func set_visible_to(in_team:int, in_visible:bool):
+func set_visible_to(in_team:int, in_visible:bool) -> void:
 	var team_mask:int = to_team_mask(in_team)
 	if in_visible:
 		team_visibility_mask |= team_mask

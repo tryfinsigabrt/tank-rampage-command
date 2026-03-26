@@ -86,7 +86,7 @@ func _on_command_finished(unit:Unit, command:StringName) -> void:
 		if target_id == 0:
 			# FIXME: Slow path - Need to go through and remove from values
 			# This is happening because the currently_attacking blackboard list has already been updated before the command finishes
-			for other_target_id in _currently_attacking_mapping.keys():
+			for other_target_id:int in _currently_attacking_mapping.keys():
 				var valid:bool = is_instance_id_valid(other_target_id)
 				if valid:
 					var attackers: PackedInt64Array = _currently_attacking_mapping[other_target_id]

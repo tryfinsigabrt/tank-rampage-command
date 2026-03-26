@@ -28,7 +28,7 @@ var health_fraction:float:
 	get: return health / max_health
 		
 func on_damage(damage_params:DamageParameters) -> void:
-	var orig_health = health
+	var orig_health := health
 	health = health - damage_params.damage
 	var actual_damage:float = orig_health - health
 	

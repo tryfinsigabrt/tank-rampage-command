@@ -62,7 +62,7 @@ func closest_point_to(point:Vector3) -> Vector3:
 		# Find the closest point on the AABB
 		var pos := aabb.position
 		var end := aabb.end
-		var closest_point = Vector3(
+		var closest_point := Vector3(
 			clampf(point.x, pos.x, end.x),
 			clampf(point.y, pos.y, end.y),
 			clampf(point.z, pos.z, end.z)
