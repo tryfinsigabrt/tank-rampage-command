@@ -45,12 +45,8 @@ func _add_asset(asset:Node3D, group: StringName) -> void:
 	_asset_counts[group] = _asset_counts.get(group, 0) + 1
 	_assets_dirty[group] = true
 	
-	var health_stat:HealthStat = Groups.get_child_with_type(asset, HealthStat)
-	if health_stat:
-		health_stat.died.connect(_on_asset_destroyed.bind(asset, group).unbind(1))
-	else:
+	if not HealthStat.connect_died_signal(asset, _on_asset_destroyed.bind(asset, group)):
 		push_warning("%s: asset=%s in group=%s has no HealthStat! Falling back to when asset exits tree" % [name, asset.name, group])
-		asset.tree_exited.connect(_on_asset_destroyed.bind(asset, group))
 	
 func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated

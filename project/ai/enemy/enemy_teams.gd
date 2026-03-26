@@ -15,13 +15,16 @@ func get_team(team:int) -> EnemyTeamUnits:
 	return _teams.get(team)
 	
 func get_unit(id:int) -> Unit:
+	return get_asset(id) as Unit	
+
+func get_asset(id:int) -> Node3D:
 	for team_id in _teams:
 		var team := _teams[team_id]
-		var unit:Unit = team.get_unit(id)
-		if unit:
-			return unit
-	return null		
-
+		var asset:Node3D = team.get_asset(id)
+		if asset:
+			return asset
+	return null
+	
 func all_teams() -> Array:
 	return _teams.values()
 

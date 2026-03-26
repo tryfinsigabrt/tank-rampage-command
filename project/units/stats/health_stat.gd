@@ -43,6 +43,25 @@ func on_damage(damage_params:DamageParameters) -> void:
 	if is_dead:
 		died.emit(damage_params)
 
+## Attempts to connect the callback to the died signal of a HealthStat child node
+## Expects a callback with no arguments
+## Returns true if HealthStat died signal connected and false if it fell back to tree_exited
+## In all cases a signal will be connected for when the node is considered "dead"
+## The return result can be used as a guard for warning logging if a HealthStat was expected
+static func connect_died_signal(node: Node, callback:Callable) -> bool:
+	var health_stat:HealthStat = Groups.get_child_with_type(node, HealthStat)
+	if health_stat:
+		callback = callback.unbind(1)
+		if not health_stat.died.is_connected(callback):
+			health_stat.died.connect(callback)
+		else:
+			push_warning("connect_died_signal: node=%s with HealthStat=%s is already connected to %s"\
+				% [node.name, health_stat.name, callback])
+		return true
+
+	node.tree_exited.connect(callback)
+	return false
+	
 func _ready() -> void:
 	if _health <= 0.0:
 		_health = max_health

@@ -17,9 +17,9 @@ func _ready() -> void:
 func get_threat_assets(assets: Array[Node3D], position:Vector3) -> Array[UnitScore]:
 	return _get_threat_assets(assets, position, func(data:Node3D) -> Node3D: return data)
 	
-func get_visible_threat_units(assets: Array[UnitData], position:Vector3) -> Array[UnitScore]:
+func get_visible_threat_assets(assets: Array[UnitData], position:Vector3) -> Array[UnitScore]:
 	return _get_threat_assets(assets, position, func(data:UnitData) -> Unit: 
-		return data.unit if data.valid and data.visible else null
+		return data.asset if data.valid and data.visible else null
 	)
 	
 func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:Callable) -> Array[UnitScore]:

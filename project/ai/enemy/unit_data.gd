@@ -1,17 +1,17 @@
 class_name UnitData
 
-var unit:Unit
+var asset:Node3D
 var last_known_position:Vector3
 var visible:bool
 var last_seen_timestamp:float = -1.0
 
 var valid:bool:
 	get:
-		return is_instance_valid(unit)
+		return is_instance_valid(asset)
 		
-static func create(in_unit:Unit) -> UnitData:
+static func create(in_asset:Node3D) -> UnitData:
 	var instance := UnitData.new()
-	instance.unit = in_unit
+	instance.asset = in_asset
 	
 	return instance
 	

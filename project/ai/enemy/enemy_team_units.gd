@@ -2,53 +2,56 @@ class_name EnemyTeamUnits extends Node
 
 var team:int
 
-## Key is the instance id of the Unit
-var units:Dictionary[int, UnitData] = {}
+## Key is the instance id of the asset
+var assets:Dictionary[int, UnitData] = {}
 
 @onready var threat_scorer: ThreatScorer = $ThreatScorer
 
-func has_unit_id(id:int) -> bool:
-	return units.has(id)
+func has_asset_id(id:int) -> bool:
+	return assets.has(id)
 	
-func has_unit(unit:Unit) -> bool:
-	return is_instance_valid(unit) and has_unit_id(unit.get_instance_id())
+func has_asset(asset:Node3D) -> bool:
+	return is_instance_valid(asset) and has_asset_id(asset.get_instance_id())
 	
 func get_unit_data(id:int) -> UnitData:
-	var data:UnitData = units.get(id)
-	if data and is_instance_valid(data.unit):
+	var data:UnitData = assets.get(id)
+	if data and is_instance_valid(data.asset):
 		return data
 	return null
 
-func get_unit(id:int) -> Unit:
+func get_asset(id:int) -> Node3D:
 	var data := get_unit_data(id)
-	return data.unit if data else null
+	return data.asset if data else null
+	
+func get_unit(id:int) -> Unit:
+	return get_asset(id) as Unit
 	
 func mark_all_not_visible() -> void:
-	for unit:UnitData in units.values():
-		unit.visible = false
+	for data:UnitData in assets.values():
+		data.visible = false
 
 func get_all_visible_ids(out_ids:PackedInt64Array) -> void:
-	for unit_id in units:
-		if units[unit_id].visible:
-			out_ids.push_back(unit_id)
+	for asset_id in assets:
+		if assets[asset_id].visible:
+			out_ids.push_back(asset_id)
 
-func mark_known(unit:Unit) -> UnitData:
-	var id:int = unit.get_instance_id()
-	var unit_data:UnitData = units.get(id)
+func mark_known(asset:Node3D) -> UnitData:
+	var id:int = asset.get_instance_id()
+	var unit_data:UnitData = assets.get(id)
 	if not unit_data:
-		unit_data = UnitData.create(unit)
-		unit.died.connect(_on_unit_deleted.bind(unit).unbind(1))
-		units[id] = unit_data
+		unit_data = UnitData.create(asset)
+		HealthStat.connect_died_signal(asset, _on_asset_deleted.bind(asset))
+		assets[id] = unit_data
 	return unit_data
 	
-func _on_unit_deleted(unit: Unit) -> void:
-	print_debug("%s: unit deleted: %s" % [name, unit])
-	units.erase(unit.get_instance_id())
+func _on_asset_deleted(asset: Node3D) -> void:
+	print_debug("%s: asset deleted: %s" % [name, asset])
+	assets.erase(asset.get_instance_id())
 	
-func mark_seen(unit:Unit) -> UnitData:
-	var unit_data:UnitData = mark_known(unit)
+func mark_seen(asset:Node3D) -> UnitData:
+	var unit_data:UnitData = mark_known(asset)
 	unit_data.visible = true
-	unit_data.last_known_position = unit.global_position
+	unit_data.last_known_position = asset.global_position
 	unit_data.last_seen_timestamp = GameManager.game_timer.time_seconds
 	
 	return unit_data
@@ -57,22 +60,23 @@ func get_closest_visible_unit(position:Vector3) -> UnitData:
 	var closest:UnitData = null
 	var closest_distance:float = 1e100
 	
-	for unit_data:UnitData in units.values():
-		if unit_data.valid and unit_data.visible:
-			var dist_sq:float =  unit_data.unit.global_position.distance_squared_to(position)
+	for unit_data:UnitData in assets.values():
+		if unit_data.valid and unit_data.visible and unit_data.asset.is_in_group(Groups.Unit):
+			var dist_sq:float =  unit_data.asset.global_position.distance_squared_to(position)
 			if dist_sq < closest_distance:
 				closest = unit_data
 				closest_distance = dist_sq
 	return closest
 		
-func get_visible_threat_units(position:Vector3) -> Array[UnitScore]:
-	return threat_scorer.get_visible_threat_units(units.values(), position)
+func get_visible_threat_assets(position:Vector3) -> Array[UnitScore]:
+	return threat_scorer.get_visible_threat_assets(assets.values(), position)
 	
 func get_visible_threat_contexts(our_units:Array[Unit]) -> Array[UnitThreatContext]:
 	var threats:Array[Unit]
-	for unit_id in units:
-		var unit_data:UnitData = units[unit_id]
-		if unit_data.valid and unit_data.visible:
-			threats.push_back(unit_data.unit)
+	for unit_id in assets:
+		var unit_data:UnitData = assets[unit_id]
+		# TODO: Currently threat clusters only consider assets and not any asset
+		if unit_data.valid and unit_data.visible and unit_data.asset is Unit:
+			threats.push_back(unit_data.asset)
 	
 	return threat_scorer.calculate_threat_inputs(our_units, threats)
