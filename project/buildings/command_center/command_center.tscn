@@ -9,19 +9,21 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ejy1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dui3b"]
 albedo_color = Color(0, 0.47, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_qtphr"]
-material = SubResource("StandardMaterial3D_4ejy1")
+material = SubResource("StandardMaterial3D_dui3b")
 radius = 20.0
 height = 20.0
 is_hemisphere = true
 
-[node name="CommandCenter" type="StaticBody3D" unique_id=1674660700 groups=["Building", "Interactable", "TeamAsset"]]
+[node name="CommandCenter" type="StaticBody3D" unique_id=1674660700 node_paths=PackedStringArray("health_stat", "team_component") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_03wp0")
+health_stat = NodePath("Stats/HealthStat")
+team_component = NodePath("Stats/TeamComponent")
 attributes = ExtResource("2_dui3b")
 bounds_type = 1
 
@@ -62,4 +64,3 @@ update_scale = false
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
-[connection signal="update_render" from="Stats/TeamComponent" to="." method="_update_render"]

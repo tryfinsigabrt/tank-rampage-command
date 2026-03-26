@@ -15,6 +15,8 @@
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="12_o6aet"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="13_ux3hc"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="14_lc1ba"]
+[ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="15_44c18"]
+[ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="16_t2ffh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -136,6 +138,14 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33,
 
 [node name="CommandCenter" parent="World/Match/EnemyTeam" unique_id=1674660700 instance=ExtResource("7_bkddm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, -7.6293945e-06, -117.99118)
+team = 2
+
+[node name="Barracks" parent="World/Match/EnemyTeam" unique_id=404914555 instance=ExtResource("15_44c18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.539406, 0, -91.049255)
+team = 2
+
+[node name="Factory" parent="World/Match/EnemyTeam" unique_id=1143212309 instance=ExtResource("16_t2ffh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.695923, 7.6293945e-06, -93.38885)
 team = 2
 
 [node name="DamageVisualization" type="Node3D" parent="World" unique_id=601634826]
