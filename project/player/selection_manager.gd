@@ -11,6 +11,22 @@ var any:bool:
 var any_units:bool:
 	get: return not _selected_units.is_empty()
 	
+var any_buildings:bool:
+	get: return not _selected_buildings.is_empty()
+	
+var any_buildings_same_team:bool:
+	get:
+		if not any_buildings:
+			return false
+		for id in _selected_buildings:
+			var building:Building = instance_from_id(id)
+			if not building:
+				continue
+			var team_component:TeamComponent = Components.get_component(Components.Team, building)	
+			if team_component and team_component.is_on_team(team):
+				return true
+		return false
+		
 var any_units_same_team:bool:
 	get:
 		if not any_units:
@@ -70,20 +86,28 @@ func _get_selection(id_list:PackedInt64Array, selection: Array) -> void:
 					break
 				
 func get_selected_units_on_team() -> Array[Unit]:
-	var all_units:Array[Unit] = selected_units
+	return _get_selected_on_team(selected_units, [] as Array[Unit])
+	
+func get_selected_buildings_on_team() -> Array[Building]:
+	return _get_selected_on_team(selected_buildings, [] as Array[Building])
+		
+func _get_selected_on_team(selection:Array, filtered:Array) -> Array:
 	var uniform:bool = true
 	
-	for unit in all_units:
-		if not unit.is_on_team(team):
+	for element:Node3D in selection:
+		var team_comp:TeamComponent = Components.get_component(Components.Team, element)
+		
+		if not team_comp or not team_comp.is_on_team(team):
 			uniform = false
 			break
+			
 	if uniform:
-		return all_units
+		return selection
 	
-	var filtered:Array[Unit]
-	for unit in all_selected:
-		if unit.is_on_team(team):
-			filtered.push_back(unit)
+	for element:Node3D in selection:
+		var team_comp:TeamComponent = Components.get_component(Components.Team, element)
+		if team_comp and team_comp.is_on_team(team):
+			filtered.push_back(element)
 	
 	return filtered
 	

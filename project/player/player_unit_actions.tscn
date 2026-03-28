@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="4_mr66j"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="5_cg506"]
 [ext_resource type="Script" uid="uid://dv7safpx7wdvf" path="res://player/box_select.gd" id="5_xlsxy"]
+[ext_resource type="Script" uid="uid://d0di5ddhbt3gu" path="res://player/building_manufacturing_actions.gd" id="7_6cxnj"]
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115 groups=["Player"]]
 script = ExtResource("1_ygm0o")
@@ -29,6 +30,10 @@ max_group_separation = 75.0
 script = ExtResource("5_xlsxy")
 node_picker = NodePath("../NodePicker")
 action_name = &"unit_select"
+
+[node name="BuildingManufacturingActions" type="Node" parent="." unique_id=2042305144 node_paths=PackedStringArray("selection_manager")]
+script = ExtResource("7_6cxnj")
+selection_manager = NodePath("../SelectionManager")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]

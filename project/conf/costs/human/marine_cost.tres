@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://loyeyapypmqe"]
+
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_7txwx"]
+[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="2_lstxx"]
+
+[resource]
+script = ExtResource("1_7txwx")
+team_asset = ExtResource("2_lstxx")
+type = 1
+cost = 5
+time = 5.0
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

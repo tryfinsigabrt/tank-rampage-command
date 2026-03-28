@@ -21,6 +21,7 @@ var _mode:Mode = Mode.NONE
 @onready var node_picker: NodePicker = $NodePicker
 @onready var selection_manager: SelectionManager = $SelectionManager
 @onready var order_manager: OrderManager = $OrderManager
+@onready var building_manufacturing_actions: BuildingManufacturingActions = $BuildingManufacturingActions
 
 var enabled:bool:
 	get: return is_processing_unhandled_input()

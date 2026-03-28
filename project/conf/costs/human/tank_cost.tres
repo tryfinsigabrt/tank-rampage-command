@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c0js7vjcgp2at"]
+
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_kgnja"]
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="2_kgnja"]
+
+[resource]
+script = ExtResource("1_kgnja")
+team_asset = ExtResource("2_kgnja")
+type = 3
+cost = 100
+time = 15.0
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
+[ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
@@ -67,6 +68,7 @@ vision = 200.0
 
 [node name="ManufacturingComponent" parent="Components" unique_id=878942946 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("6_hinyq")]
 default_spawn_location = NodePath("../../BuildLocation")
+supported_types = ExtResource("7_jfsyt")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1933568097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27.4)

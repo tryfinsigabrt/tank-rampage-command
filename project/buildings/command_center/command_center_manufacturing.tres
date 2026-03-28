@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ManufacturingTypes" format=3 uid="uid://vfmdsur3fcjp"]
+
+[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="1_56a6v"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_4ndsh"]
+
+[resource]
+script = ExtResource("1_56a6v")
+metadata/_custom_type_script = "uid://dbbl6g16o8jb3"

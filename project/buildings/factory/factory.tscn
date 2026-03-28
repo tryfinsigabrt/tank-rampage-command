@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_41wx6"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_16k4d"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_l3mmg"]
+[ext_resource type="Resource" uid="uid://dxda8l74lu5jt" path="res://buildings/factory/factory_manufacturing.tres" id="7_dsl00"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(15, 12, 12)
@@ -67,6 +68,7 @@ vision = 100.0
 
 [node name="ManufacturingComponent" parent="Components" unique_id=696475781 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("6_l3mmg")]
 default_spawn_location = NodePath("../../BuildLocation")
+supported_types = ExtResource("7_dsl00")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1027968314]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)

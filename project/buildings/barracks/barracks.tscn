@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_daxdf"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pqpta"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="5_pqpta"]
+[ext_resource type="Resource" uid="uid://oyq1yod3vfoi" path="res://buildings/barracks/barracks_manufacturing.tres" id="6_niq1p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(15, 8, 10)
@@ -63,6 +64,7 @@ update_scale = false
 [node name="ManufacturingComponent" parent="Components" unique_id=878942946 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("5_pqpta")]
 unique_name_in_owner = true
 default_spawn_location = NodePath("../../BuildLocation")
+supported_types = ExtResource("6_niq1p")
 
 [node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_daxdf")]
 unique_name_in_owner = true

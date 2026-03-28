@@ -10,3 +10,9 @@ metadata/_custom_type_script = "uid://c3vn0m2h5256y"
 [node name="UnitSpawner" type="Node" parent="." unique_id=1871113501]
 unique_name_in_owner = true
 script = ExtResource("2_spnf3")
+
+[node name="BuildTimer" type="Timer" parent="." unique_id=792010527]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]
