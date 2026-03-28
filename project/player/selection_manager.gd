@@ -143,8 +143,10 @@ func add(asset:Node3D) -> bool:
 		return false
 	print_debug("%s: Selected asset=%s on team=%d; our_team=%d" % [name, asset.name, team_component.team, team])
 	if OS.is_debug_build():
+		var radius:float = Bounds.new(asset.get_bounds(), asset.bounds_type).radius if asset.has_method("get_bounds") else 5.0
+		
 		DebugDraw3D.draw_sphere(
-			asset.global_position, 5.0
+			asset.global_position, radius * 1.1
 			,Color.GREEN if team_component.is_on_team(team) else Color.BLUE_VIOLET
 			, 3.0)
 	

@@ -9,6 +9,9 @@ var health_stat:HealthStat
 
 @export
 var team_component:TeamComponent
+
+@export
+var manufacturing_component:ManufacturingComponent
 		
 @export
 var attributes:TeamAssetAttributes
@@ -32,6 +35,7 @@ func _ready() -> void:
 	if team_component:
 		team_component.update_render.connect(_update_render)
 	assert(health_stat, "%s: HealthStat not set!" % name)
+	assert(manufacturing_component, "%s: ManufacturingComponent not set!" % name)
 
 #region Abstract/Hook methods
 

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_n1581"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_41wx6"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_16k4d"]
+[ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_l3mmg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(15, 12, 12)
@@ -16,12 +17,13 @@ albedo_color = Color(0.5124412, 0.25791606, 0, 1)
 material = SubResource("StandardMaterial3D_1e70b")
 size = Vector3(15, 12, 12)
 
-[node name="Factory" type="StaticBody3D" unique_id=1143212309 node_paths=PackedStringArray("health_stat", "team_component") groups=["Building", "Interactable", "TeamAsset"]]
+[node name="Factory" type="StaticBody3D" unique_id=1143212309 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_cd5lk")
 health_stat = NodePath("Stats/HealthStat")
-team_component = NodePath("Stats/TeamComponent")
+team_component = NodePath("Components/TeamComponent")
+manufacturing_component = NodePath("Components/ManufacturingComponent")
 attributes = ExtResource("2_cd5lk")
 metadata/_custom_type_script = "uid://c24gyxnmbl3rb"
 
@@ -30,11 +32,6 @@ metadata/_custom_type_script = "uid://c24gyxnmbl3rb"
 [node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("3_n1581")]
 unique_name_in_owner = true
 max_health = 6000.0
-
-[node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("4_41wx6")]
-unique_name_in_owner = true
-team_asset = NodePath("../..")
-vision = 100.0
 
 [node name="UI" type="Node3D" parent="." unique_id=231095817]
 unique_name_in_owner = true
@@ -60,6 +57,19 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
+
+[node name="Components" type="Node" parent="." unique_id=1043012223]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("4_41wx6")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 100.0
+
+[node name="ManufacturingComponent" parent="Components" unique_id=696475781 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("6_l3mmg")]
+default_spawn_location = NodePath("../../BuildLocation")
+
+[node name="BuildLocation" type="Marker3D" parent="." unique_id=1027968314]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

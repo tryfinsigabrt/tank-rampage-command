@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dt4byhu2g71qa" path="res://buildings/command_center/command_center_attributes.tres" id="2_dui3b"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
+[ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
@@ -18,12 +19,13 @@ radius = 20.0
 height = 20.0
 is_hemisphere = true
 
-[node name="CommandCenter" type="StaticBody3D" unique_id=1674660700 node_paths=PackedStringArray("health_stat", "team_component") groups=["Building", "Interactable", "TeamAsset"]]
+[node name="CommandCenter" type="StaticBody3D" unique_id=1674660700 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_03wp0")
 health_stat = NodePath("Stats/HealthStat")
-team_component = NodePath("Stats/TeamComponent")
+team_component = NodePath("Components/TeamComponent")
+manufacturing_component = NodePath("Components/ManufacturingComponent")
 attributes = ExtResource("2_dui3b")
 bounds_type = 1
 
@@ -32,11 +34,6 @@ bounds_type = 1
 [node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("2_4ejy1")]
 unique_name_in_owner = true
 max_health = 10000.0
-
-[node name="TeamComponent" parent="Stats" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_dui3b")]
-unique_name_in_owner = true
-team_asset = NodePath("../..")
-vision = 200.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1700774743]
 unique_name_in_owner = true
@@ -60,6 +57,19 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
+
+[node name="Components" type="Node" parent="." unique_id=908056470]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_dui3b")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[node name="ManufacturingComponent" parent="Components" unique_id=878942946 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("6_hinyq")]
+default_spawn_location = NodePath("../../BuildLocation")
+
+[node name="BuildLocation" type="Marker3D" parent="." unique_id=1933568097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27.4)
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

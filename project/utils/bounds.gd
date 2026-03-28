@@ -24,7 +24,17 @@ var circumscribed_sphere:BoundingSphere:
 		if not circumscribed_sphere:
 			circumscribed_sphere = BoundingSphere.new(aabb.get_center(), _calculate_circumscribed_radius())
 		return circumscribed_sphere
-		
+	
+var radius:float:
+	get:
+		match type:
+			Type.SPHERE_INSCRIBED:
+				return inscribed_sphere.radius
+			Type.SPHERE_CIRCUMSCRIBED:
+				return circumscribed_sphere.radius
+			_:
+				return aabb.get_longest_axis_size() * 0.5
+			
 func _init(in_aabb:AABB, in_type:Bounds.Type = Bounds.Type.AABB) -> void:
 	self.aabb = in_aabb
 	self.type = in_type

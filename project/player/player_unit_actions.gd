@@ -32,7 +32,7 @@ func _ready() -> void:
 	
 	if is_visible_in_tree():
 		enabled = true
-
+		
 func _check_for_mode(event: InputEvent) -> bool:
 	if not selection_manager.any_units:
 		return false

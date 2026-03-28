@@ -2,6 +2,7 @@ class_name Components
 
 const Health:StringName = &"HealthComponent"
 const Team:StringName = &"TeamComponent"
+const Manufacturing:StringName = &"ManufacturingComponent"
 
 static func add_component(name:StringName, comp:Node) -> void:
 	assert(comp)
