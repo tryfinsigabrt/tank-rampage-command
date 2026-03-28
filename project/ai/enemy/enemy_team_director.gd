@@ -21,7 +21,7 @@ func _discover_units_and_teams() -> void:
 		team_units.add_unit(unit)
 	)
 	
-	_add_assets(Groups.Building, Node3D, enemy_team_ids, func(building:Node3D) -> void:
+	_add_assets(Groups.Building, Building, enemy_team_ids, func(building:Building) -> void:
 		team_units.add_building(building)
 	)
 	
@@ -39,7 +39,12 @@ func _add_assets(group: StringName, type: Variant, enemy_team_ids:PackedInt32Arr
 		if not asset or not is_instance_of(asset, type):
 			push_warning("%s: node=%s in group '%s' but is not a %s derived node" % [name, node.name, group, type])
 			continue
-		var team_component:TeamComponent = asset.team_component
+	
+		var team_component:TeamComponent = Components.get_component(Components.Team, asset)
+		if not team_component:
+			push_warning("%s: node=%s does not have a TeamComponent" % [name, asset.name])
+			continue
+			
 		if team_component.is_on_team(team):
 			team_units_adder.call(asset)
 		# We may not be able to see the asset yet but at least create the team

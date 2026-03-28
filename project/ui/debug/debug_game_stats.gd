@@ -18,6 +18,6 @@ func _tick() -> void:
 	_team_stat_lines.clear()
 	
 	for team in game_match.teams:
-		_team_stat_lines.push_back("TEAM %d: %d" % [team.team, team.units.size()])
+		_team_stat_lines.push_back("TEAM %d: u=%d b=%d" % [team.team, team.units.size(), team.buildings.size()])
 	
 	team_stats.text = "\n".join(_team_stat_lines)

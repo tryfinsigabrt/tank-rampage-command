@@ -19,7 +19,10 @@
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
 [ext_resource type="Resource" uid="uid://diiaihg7d7x4j" path="res://units/human/marine/teams/marine_green_team.tres" id="10_yagaj"]
 [ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="11_hsvrm"]
+[ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="12_20ymc"]
+[ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_v2lud"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
+[ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_bvix3"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="20_81ogd"]
@@ -258,6 +261,18 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 131.40001)
 team = 1
 
+[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("12_20ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
+team = 1
+
+[node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("13_v2lud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.2, 0, 167.90001)
+team = 1
+
+[node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_bvix3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
+team = 1
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
@@ -368,6 +383,18 @@ team = 2
 [node name="EnemyMarine06" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1001045680 instance=ExtResource("9_81ogd")]
 transform = Transform3D(-0.9659258, 0, -0.25881895, 0, 1, 0, 0.25881895, 0, -0.9659258, -28.609522, 1, -80.37052)
 team_resource = ExtResource("21_bjm80")
+team = 2
+
+[node name="EnemyCommandCenter" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=785510445 instance=ExtResource("12_20ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7000003, 12, -116)
+team = 2
+
+[node name="EnemyFactory" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=917319318 instance=ExtResource("14_bvix3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99.9, 0, -108.5)
+team = 2
+
+[node name="EnemyBarracks" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=153503691 instance=ExtResource("13_v2lud")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.2, 0, -85.8)
 team = 2
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
