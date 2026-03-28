@@ -34,7 +34,7 @@ func _ready() -> void:
 		enabled = true
 
 func _check_for_mode(event: InputEvent) -> bool:
-	if not selection_manager.any:
+	if not selection_manager.any_units:
 		return false
 		
 	if event.is_action_pressed("unit_mode_attack"):
@@ -89,7 +89,7 @@ func _handle_select_all(event: InputEvent) -> void:
 	selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
 		
 func _handle_context_action(event: InputEvent) -> void:
-	var selected:Node3D= node_picker.pick_team_asset(event)
+	var selected:Node3D = node_picker.pick_team_asset(event)
 	if selected:
 		if selected.team_component.is_on_team(team):
 			# TODO: Follow not currently implemented so just move to
@@ -103,7 +103,7 @@ func _can_issue_orders_to_unit(unit: Unit) -> bool:
 	return unit and unit.team == team
 	
 func _move_to(event: InputEvent) -> void:
-	if not selection_manager.any_same_team:
+	if not selection_manager.any_units_same_team:
 		return
 		
 	var result := node_picker.pick_ground(event)
@@ -115,7 +115,7 @@ func _move_to(event: InputEvent) -> void:
 	
 func _handle_select(event: InputEvent) -> void:
 	match _mode:
-		Mode.NONE: _handle_unit_select(event)
+		Mode.NONE: _handle_asset_select(event)
 		Mode.ATTACK: _handle_attack(event)
 		Mode.MOVE: _handle_move_to(event)
 		_ : pass
@@ -129,7 +129,7 @@ func _handle_move_to(event: InputEvent) -> void:
 	_mode = Mode.NONE
 	
 func _handle_attack(event: InputEvent) -> void:
-	if not selection_manager.any_same_team:
+	if not selection_manager.any_units_same_team:
 		return
 		
 	# Move to location
@@ -152,12 +152,16 @@ func _handle_attack(event: InputEvent) -> void:
 		else:
 			order_manager.attack(selected)
 
-func _handle_unit_select(event: InputEvent) -> void:
-	# Selecting individual unit clears previous selection
+func _handle_asset_select(event: InputEvent) -> void:
+	# Selecting individual team asset clears previous selection
 	selection_manager.clear()
-	var new_unit:Unit = node_picker.pick_unit(event)
-	if new_unit and new_unit.is_visible_to(team):
-		selection_manager.add(new_unit)
+	var team_asset:Node3D = node_picker.pick_team_asset(event)
+	if not team_asset:
+		return
+		
+	var team_component:TeamComponent = Components.get_component(Components.Team, team_asset)
+	if team_component and team_component.is_visible_to(team):
+		selection_manager.add(team_asset)
 	
 func _on_visibility_changed() -> void:
 	enabled = visible

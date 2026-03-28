@@ -32,8 +32,6 @@ var _camera_current_zoom_speed:float = 0.0
 var _camera_total_zoom:float = 0.0
 var _mouse_zoom:int = 0
 
-var _selected_units:PackedInt32Array
-
 var zoom:float:
 	set(value):
 		# Reset so input value is absolute zoom
@@ -100,9 +98,6 @@ func _ready() -> void:
 	_setup_camera()
 	if make_current_if_visible and is_visible_in_tree():
 		make_camera_current()
-		
-	SignalBus.on_unit_selected.connect(_on_unit_selected)
-	SignalBus.on_unit_deselected.connect(_on_unit_deselected)
 	
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("camera_primary_button"):
@@ -166,14 +161,5 @@ func _apply_zoom_velocity() -> void:
 		
 	_camera_current_zoom_speed = 0.0
 	_mouse_zoom = 0
-	
-func _on_unit_selected(unit:Unit) -> void:
-	var id:int = unit.get_instance_id()
-	if not id in _selected_units:
-		_selected_units.push_back(id)
 
-func _on_unit_deselected(unit:Unit) -> void:
-	var id:int = unit.get_instance_id()
-	_selected_units.erase(id)
-		
 #endregion

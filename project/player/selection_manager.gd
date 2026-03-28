@@ -3,13 +3,17 @@ class_name SelectionManager extends Node
 var team:int
 
 var _selected_units:PackedInt64Array = []
+var _selected_buildings:PackedInt64Array = []
 
 var any:bool:
+	get: return not _selected_units.is_empty() or not _selected_buildings.is_empty()
+	
+var any_units:bool:
 	get: return not _selected_units.is_empty()
 	
-var any_same_team:bool:
+var any_units_same_team:bool:
 	get:
-		if not any:
+		if not any_units:
 			return false
 		for id in _selected_units:
 			var unit:Unit = instance_from_id(id)
@@ -20,34 +24,61 @@ var any_same_team:bool:
 var selected_units:Array[Unit]:
 	get:
 		var units:Array[Unit]
-		units.resize(_selected_units.size())
-		var unit_count:int = 0
-		for id in _selected_units:
-			var unit:Unit = instance_from_id(id)
-			if unit:
-				units[unit_count] = unit
-				unit_count += 1
-		if unit_count != units.size():
-			print_debug("%s: Invalid instances selected - removing %d instances" % [name, units.size() - unit_count])
-			units.resize(unit_count)
-			# remove invalid
-			for i in range(_selected_units.size() - 1, -1, -1):
-				var id:int = _selected_units[i]
-				if not is_instance_id_valid(id):
-					_selected_units.remove_at(i)
-		
+		_get_selection(_selected_units, units)
 		return units
 
+var selected_buildings:Array[Building]:
+	get:
+		var buildings:Array[Building]
+		_get_selection(_selected_buildings, buildings)
+		return buildings
+		
+var all_selected:Array[Node3D]:
+	get:
+		var all:Array[Node3D]
+		
+		_get_selection(_selected_units, all)
+		_get_selection(_selected_buildings, all)
+		
+		return all
+		
+func _get_selection(id_list:PackedInt64Array, selection: Array) -> void:
+	var existing_size:int = selection.size()
+	selection.resize(existing_size + id_list.size())
+	var count:int = 0
+	
+	for id in id_list:
+		var value:Object = instance_from_id(id)
+		if value:
+			selection[count + existing_size] = value
+			count += 1
+			
+	var new_entries:int = selection.size() - existing_size
+	if count != new_entries:
+		var invalid_count:int = new_entries - count
+		print_debug("%s: Invalid instances selected - removing %d instances" % [name, invalid_count])
+		selection.resize(existing_size + count)
+		
+		# remove invalid
+		var removed_count:int = 0
+		for i in range(id_list.size() - 1, -1, -1):
+			var id:int = id_list[i]
+			if not is_instance_id_valid(id):
+				id_list.remove_at(i)
+				removed_count += 1
+				if removed_count == invalid_count:
+					break
+				
 func get_selected_units_on_team() -> Array[Unit]:
-	var all_selected:Array[Unit] = selected_units
+	var all_units:Array[Unit] = selected_units
 	var uniform:bool = true
 	
-	for unit in all_selected:
+	for unit in all_units:
 		if not unit.is_on_team(team):
 			uniform = false
 			break
 	if uniform:
-		return all_selected
+		return all_units
 	
 	var filtered:Array[Unit]
 	for unit in all_selected:
@@ -55,29 +86,30 @@ func get_selected_units_on_team() -> Array[Unit]:
 			filtered.push_back(unit)
 	
 	return filtered
-					
+	
 func clear() -> void:
-	var existing_selection := selected_units
+	var all := all_selected
 	_clear_internal()
 
-	for unit in existing_selection:
-		_do_deselect(unit)
+	for asset in all:
+		_do_deselect(asset)
 
 func _clear_internal() -> void:
 	_selected_units.clear()
+	_selected_buildings.clear()
 	
-func add_all(units: Array[Unit]) -> void:
-	for unit in units:
-		add(unit)
+func add_all(assets: Array) -> void:
+	for asset:Node3D in assets:
+		add(asset)
 
-func set_selection(unit: Unit) -> void:
-	if not unit:
+func set_selection(asset: Node3D) -> void:
+	if not asset:
 		return
 		
-	var existing_selection := selected_units
-	if existing_selection.size() != 1 or existing_selection.front() != unit:
+	var existing_selection := all_selected
+	if existing_selection.size() != 1 or existing_selection.front() != asset:
 		clear()
-		add(unit)
+		add(asset)
 	
 static func _select_compare(first:Object, second:Object) -> bool:
 	return first.get_instance_id() < second.get_instance_id()
@@ -103,16 +135,28 @@ func set_selection_multiple(units: Array[Unit]) -> void:
 		if not id in existing:
 			add(new[id])
 		
-func add(unit:Unit) -> bool:
-	if not unit or not unit.is_visible_to(team):
+func add(asset:Node3D) -> bool:
+	if not asset:
 		return false
-	print_debug("%s: Selected unit=%s on team=%d; our_team=%d" % [name, unit.name, unit.team, team])
+	var team_component: TeamComponent = Components.get_component(Components.Team, asset)
+	if not team_component or not team_component.is_visible_to(team):
+		return false
+	print_debug("%s: Selected asset=%s on team=%d; our_team=%d" % [name, asset.name, team_component.team, team])
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(
-			unit.global_position, 5.0
-			,Color.GREEN if unit.is_on_team(team) else Color.BLUE_VIOLET
+			asset.global_position, 5.0
+			,Color.GREEN if team_component.is_on_team(team) else Color.BLUE_VIOLET
 			, 3.0)
-			
+	
+	if asset is Unit:
+		return _add_unit(asset)
+	if asset is Building:
+		return _add_building(asset)
+		
+	assert(false, "asset=%s is not a supported type!" % [asset.name])		
+	return false
+
+func _add_unit(unit:Unit) -> bool:
 	var id:int = unit.get_instance_id()
 	if not id in _selected_units:
 		_selected_units.push_back(id)
@@ -120,9 +164,17 @@ func add(unit:Unit) -> bool:
 		return true
 	return false
 
-func remove_all(units:Array[Unit]) -> void:
-	for unit in units:
-		remove(unit)
+func _add_building(building:Building) -> bool:
+	var id:int = building.get_instance_id()
+	if not id in _selected_buildings:
+		_selected_buildings.push_back(id)
+		SignalBus.on_building_selected.emit(building)
+		return true
+	return false
+	
+func remove_all(assets:Array) -> void:
+	for asset:Node3D in assets:
+		remove(asset)
 		
 func remove(unit:Unit) -> bool:
 	if not unit:
@@ -133,9 +185,13 @@ func remove(unit:Unit) -> bool:
 		_do_deselect(unit)
 	return erased
 
-func _do_deselect(unit:Unit) -> void:
-	print_debug("%s: De-select unit=%s" % [name, unit.name])
-	SignalBus.on_unit_deselected.emit(unit)
+func _do_deselect(asset:Node3D) -> void:
+	if asset is Unit:
+		print_debug("%s: De-select unit=%s" % [name, asset.name])
+		SignalBus.on_unit_deselected.emit(asset)
+	elif asset is Building:
+		print_debug("%s: De-select building=%s" % [name, asset.name])
+		SignalBus.on_building_deselected.emit(asset)
 	
 func has(unit:Unit) -> bool:
 	if not unit:

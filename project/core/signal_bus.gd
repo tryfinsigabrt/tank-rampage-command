@@ -7,6 +7,9 @@ signal on_paused(paused:bool)
 signal on_unit_deselected(unit:Unit)
 signal on_unit_selected(unit: Unit)
 
+signal on_building_deselected(building:Building)
+signal on_building_selected(building:Building)
+
 signal on_unit_move_issued(unit: Unit, target_position: Vector3)
 signal on_unit_move_canceled(unit: Unit, target_position: Vector3)
 signal on_destination_reached(unit: Unit, target_position: Vector3)
