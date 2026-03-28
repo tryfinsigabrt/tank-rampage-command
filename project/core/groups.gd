@@ -81,7 +81,15 @@ static func set_scene_root_flag(start:Node, flag:StringName) -> bool:
 	return false
 
 static func get_scene_root(start:Node) -> Node:
-	var node:Node = start
+	if not start:
+		return null
+	
+	var owner:Node = start.owner
+	# Prefer user owner of the scene hierachy
+	if owner:
+		return owner
+			
+	var node:Node = start.get_parent()
 	while node:
 		if node.scene_file_path:
 			return node

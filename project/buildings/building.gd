@@ -22,7 +22,7 @@ var team:int:
 		team = value
 		if team_component:
 			team_component.team = team
-	
+
 func _ready() -> void:
 	_aabb = Collisions.calculate_aabb(self)
 	team_component.team = team
@@ -32,7 +32,7 @@ func _ready() -> void:
 	if team_component:
 		team_component.update_render.connect(_update_render)
 	assert(health_stat, "%s: HealthStat not set!" % name)
-	
+
 #region Abstract/Hook methods
 
 @abstract

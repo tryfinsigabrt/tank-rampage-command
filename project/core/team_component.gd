@@ -36,7 +36,13 @@ func _ready() -> void:
 			push_error("%s: No team_asset set and no appropriate default could be found" % name)
 			
 	refresh_team_layers.call_deferred()
+
+func _enter_tree() -> void:
+	Components.add_component(Components.Team, self)
 	
+func _exit_tree() -> void:
+	Components.remove_component(Components.Team, self)
+		
 func refresh_team_layers() -> void:
 	if team_asset:
 		Collisions.apply_team_collision_layer(team_asset, team)

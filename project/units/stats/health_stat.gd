@@ -49,7 +49,7 @@ func on_damage(damage_params:DamageParameters) -> void:
 ## In all cases a signal will be connected for when the node is considered "dead"
 ## The return result can be used as a guard for warning logging if a HealthStat was expected
 static func connect_died_signal(node: Node, callback:Callable) -> bool:
-	var health_stat:HealthStat = Groups.get_child_with_type(node, HealthStat)
+	var health_stat:HealthStat = Components.get_component(Components.Health, node)
 	if health_stat:
 		callback = callback.unbind(1)
 		if not health_stat.died.is_connected(callback):
@@ -61,6 +61,12 @@ static func connect_died_signal(node: Node, callback:Callable) -> bool:
 
 	node.tree_exited.connect(callback)
 	return false
+	
+func _enter_tree() -> void:
+	Components.add_component(Components.Health, self)
+	
+func _exit_tree() -> void:
+	Components.remove_component(Components.Health, self)
 	
 func _ready() -> void:
 	if _health <= 0.0:

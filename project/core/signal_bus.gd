@@ -45,7 +45,7 @@ func register_building(building:Node3D) -> void:
 	_register_asset(building)
 
 func _register_asset(asset:Node3D) -> void:
-	var health_comp:HealthStat = Groups.get_child_with_type(asset, HealthStat)
+	var health_comp:HealthStat = Components.get_component(Components.Health, asset)
 	if health_comp:
 		health_comp.died.connect(func(damage_params: DamageParameters) -> void:
 			on_team_asset_destroyed.emit(asset, damage_params)
@@ -65,7 +65,7 @@ func register_unit(unit:Unit) -> void:
 		on_unit_damaged.emit(unit, damage_params)
 		on_team_asset_damaged.emit(unit,damage_params)
 	)
-	var health_stat:HealthStat = Groups.get_children_with_type(unit, HealthStat, true).front()
+	var health_stat:HealthStat = Components.get_component(Components.Health, unit)
 	if health_stat:
 		health_stat.health_changed.connect(func(previous_health: float, current_health: float) -> void:
 			on_unit_health_changed.emit(unit, previous_health, current_health)

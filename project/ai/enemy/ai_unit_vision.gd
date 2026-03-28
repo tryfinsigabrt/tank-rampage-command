@@ -15,7 +15,7 @@ func _ready() -> void:
 		push_error("%s: Unit vision not added to a team asset hierarchy: " % name)
 		queue_free()
 		return
-	_team_component = node.get("team_component") as TeamComponent
+	_team_component = Components.get_component(Components.Team, node)
 	if not _team_component:
 		push_error("%s: Unit vision asset %s has no team_component getter!" % [name, node.name])
 		queue_free()
