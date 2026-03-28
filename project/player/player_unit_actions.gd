@@ -153,12 +153,11 @@ func _handle_attack(event: InputEvent) -> void:
 			order_manager.attack(selected)
 
 func _handle_unit_select(event: InputEvent) -> void:
+	# Selecting individual unit clears previous selection
+	selection_manager.clear()
 	var new_unit:Unit = node_picker.pick_unit(event)
 	if new_unit and new_unit.is_visible_to(team):
 		selection_manager.add(new_unit)
-	else:
-		print_debug("%s: Clear Selection" % name)
-		selection_manager.clear()
 	
 func _on_visibility_changed() -> void:
 	enabled = visible
