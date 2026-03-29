@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dwkvxfs4bso5h"]
+
+[ext_resource type="Texture2D" uid="uid://ds048deuh5dco" path="res://particles/particle-crescent.png" id="3_d218c"]
+
+[sub_resource type="Curve" id="Curve_0i3p6"]
+_data = [Vector2(0.020725384, 0), 0.0, 8.40309, 0, 0, Vector2(0.253886, 0.8876405), -0.6099016, -0.6099016, 0, 0, Vector2(1, 0), 0.07289207, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_d218c"]
+curve = SubResource("Curve_0i3p6")
+
+[sub_resource type="Curve" id="Curve_4ge12"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.27702704, 0.764045), 0.0, 0.0, 0, 0, Vector2(0.5472973, 0.94382024), 0.25983134, 0.25983134, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0i3p6"]
+curve = SubResource("Curve_4ge12")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ylk6w"]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 5.25
+direction = Vector3(0, 1, 0)
+spread = 70.412
+initial_velocity_min = 1.0
+initial_velocity_max = 30.0
+scale_min = 4.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_0i3p6")
+scale_over_velocity_max = 35.23
+alpha_curve = SubResource("CurveTexture_d218c")
+hue_variation_min = -0.050000023
+hue_variation_max = 0.09999997
+turbulence_enabled = true
+turbulence_noise_strength = 0.05
+turbulence_noise_scale = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rjfi"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(4.8687005, 1.7390554, 0.3004432, 1)
+albedo_texture = ExtResource("3_d218c")
+billboard_mode = 1
+billboard_keep_scale = true
+grow_amount = 3.31
+distance_fade_max_distance = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_28ymd"]
+material = SubResource("StandardMaterial3D_7rjfi")
+size = Vector2(2, 2)
+
+[node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1923439105]
+emitting = false
+amount = 6
+lifetime = 0.7
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.85
+randomness = 0.18
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ylk6w")
+draw_pass_1 = SubResource("QuadMesh_28ymd")
