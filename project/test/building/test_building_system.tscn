@@ -147,7 +147,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
 team = 1
 
 [node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("13_dk5yy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.2, 0, 167.90001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.3, 0, 167.90001)
 team = 1
 
 [node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_23ivt")]
