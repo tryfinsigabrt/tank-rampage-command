@@ -71,7 +71,7 @@ default_spawn_location = NodePath("../../BuildLocation")
 supported_types = ExtResource("7_dsl00")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1027968314]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.1)
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

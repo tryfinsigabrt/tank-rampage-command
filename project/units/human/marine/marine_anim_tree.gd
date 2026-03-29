@@ -44,10 +44,16 @@ var idle:bool:
 		return not running and not shooting
 
 func _on_screen() -> void:
+	if not animation_tree:
+		return
+		
 	animation_tree.active = true
 	state_tick.start()
 
 func _off_screen() -> void:
+	if not animation_tree:
+		return
+		
 	animation_tree.active = false
 	state_tick.stop()
 

@@ -72,7 +72,7 @@ team_asset = NodePath("../..")
 vision = 100.0
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1766799834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

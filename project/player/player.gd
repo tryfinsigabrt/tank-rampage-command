@@ -25,5 +25,23 @@ func _ready() -> void:
 func _on_match_ready() -> void:
 	# Ensure idle action added
 	for unit in player_team.units:
-		unit.get_or_add_actions()
+		_init_unit(unit)
 	
+	# Initialize other units that come in after match starts
+	# TODO: Maybe the match team should fire a signal for assets added 
+	# to the team instead of filtering from global
+	SignalBus.on_team_asset_added.connect(_on_team_asset_added)
+
+func _init_unit(unit:Unit) -> void:
+	unit.get_or_add_actions()
+	
+func _on_team_asset_added(asset:Node3D) -> void:
+	var team_comp:TeamComponent = Components.get_component(Components.Team, asset)
+	if not team_comp:
+		return
+	
+	if not team_comp.is_on_team(player_team.team):
+		return
+	
+	if asset is Unit:
+		_init_unit(asset)

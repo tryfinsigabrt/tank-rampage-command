@@ -16,6 +16,18 @@ func _ready() -> void:
 	if not camera:
 		_pick_camera.call_deferred()
 
+func project_to_ground(in_position:Vector3) -> Vector3:
+	var from:Vector3 = in_position + Vector3.UP * 1000.0
+	var to:Vector3 = in_position + Vector3.DOWN * 1000.0
+	
+	var result: Dictionary = _ray_cast(from, to, Collisions.CompositeMasks.ground)
+	if not result:
+		push_warning("%s: Could not find ground for position:%s" % [name, in_position])
+		return in_position
+	
+	var ground:Vector3 = result["position"]
+	return Vector3(in_position.x, ground.y, in_position.z)
+
 func pick_ground(event: InputEvent) -> Dictionary:
 	return pick_node(event, Collisions.CompositeMasks.ground)
 	
@@ -99,6 +111,9 @@ func pick_position(screen_position:Vector2, collision_mask:int) -> Dictionary:
 	var from := camera.project_ray_origin(screen_position)
 	var to := from + camera.project_ray_normal(screen_position) * ray_cast_distance  # Long ray
 
+	return _ray_cast(from, to, collision_mask)
+	
+func _ray_cast(from: Vector3, to: Vector3, collision_mask:int) -> Dictionary:
 	var space_state := get_world_3d().direct_space_state
 	
 	var ray_params := PhysicsRayQueryParameters3D.new()
@@ -106,7 +121,7 @@ func pick_position(screen_position:Vector2, collision_mask:int) -> Dictionary:
 	ray_params.from = from
 	ray_params.to = to
 	
-	return space_state.intersect_ray(ray_params)
+	return space_state.intersect_ray(ray_params)	
 	
 func _pick_camera() -> void:
 	camera = get_viewport().get_camera_3d()
