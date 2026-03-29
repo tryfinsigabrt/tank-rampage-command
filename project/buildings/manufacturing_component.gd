@@ -89,4 +89,4 @@ func _on_build_timer_timeout() -> void:
 	
 	# Schedule next if not empty
 	if _build_queue:
-		_schedule_timer_for(_build_queue.front())
+		_schedule_timer_for(_build_queue.front().resource)
