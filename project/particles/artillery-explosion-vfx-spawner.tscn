@@ -52,8 +52,8 @@ material = SubResource("StandardMaterial3D_7rjfi")
 size = Vector2(2, 2)
 
 [sub_resource type="Curve" id="Curve_d218c"]
-_data = [Vector2(0, 0.5393259), 0.0, 4.879212, 0, 0, Vector2(0.253886, 0.9662922), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.981745, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0.61797756), 0.0, 4.879212, 0, 0, Vector2(0.12953368, 0.8876405), -2.4783306, -2.4783306, 0, 0, Vector2(0.40932646, 0.078651786), -0.3497651, -0.3497651, 0, 0, Vector2(0.99998, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.981745, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="CurveTexture" id="CurveTexture_ylk6w"]
 curve = SubResource("Curve_d218c")
@@ -96,7 +96,7 @@ alpha_curve = SubResource("CurveTexture_ylk6w")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28ymd"]
 transparency = 1
-albedo_color = Color(1, 1, 1, 0.23137255)
+vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("3_ylk6w")
 billboard_mode = 3
 billboard_keep_scale = true
@@ -109,7 +109,6 @@ material = SubResource("StandardMaterial3D_28ymd")
 
 [node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
 script = ExtResource("1_0i3p6")
-remove_delay = 7.0
 
 [node name="Orange shockwave" type="GPUParticles3D" parent="." unique_id=1923439105]
 emitting = false
@@ -136,3 +135,6 @@ randomness = 0.7
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_a7qb1")
 draw_pass_1 = SubResource("QuadMesh_4x87k")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1256292002]
+transform = Transform3D(1, 0, 0, 0, 0.937604, 0.3477049, 0, -0.3477049, 0.937604, 0, 3.1792831, 11.002132)

@@ -1,5 +1,5 @@
 extends Node
-@export var remove_delay: float = 2.0
+@export var remove_delay: float = 7.0
 
 func _ready() -> void:
 	for child in get_children():
