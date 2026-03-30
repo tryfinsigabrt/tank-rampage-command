@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgfv4xcfck5t3" path="res://particles/emit_then_self_remove.gd" id="1_0i3p6"]
 [ext_resource type="Texture2D" uid="uid://ds048deuh5dco" path="res://particles/particle-crescent.png" id="3_d218c"]
+[ext_resource type="Texture2D" uid="uid://0y1nc6wpuck0" path="res://particles/darksmoke.png" id="3_ylk6w"]
 
 [sub_resource type="Curve" id="Curve_0i3p6"]
 _data = [Vector2(0.020725384, 0), 0.0, 8.40309, 0, 0, Vector2(0.253886, 0.8876405), -0.6099016, -0.6099016, 0, 0, Vector2(1, 0), 0.07289207, 0.0, 0, 0]
@@ -50,17 +51,41 @@ distance_fade_max_distance = 0.0
 material = SubResource("StandardMaterial3D_7rjfi")
 size = Vector2(2, 2)
 
-[node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
-script = ExtResource("1_0i3p6")
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7rjfi"]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1923439105]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28ymd"]
+transparency = 1
+blend_mode = 3
+albedo_texture = ExtResource("3_ylk6w")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4x87k"]
+material = SubResource("StandardMaterial3D_28ymd")
+
+[node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
+visible = false
+script = ExtResource("1_0i3p6")
+remove_delay = 3.5
+
+[node name="Orange shockwave" type="GPUParticles3D" parent="." unique_id=1923439105]
 emitting = false
 amount = 6
 lifetime = 0.7
-one_shot = true
 speed_scale = 1.5
 explosiveness = 0.85
 randomness = 0.18
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_ylk6w")
 draw_pass_1 = SubResource("QuadMesh_28ymd")
+
+[node name="Black lingering smoke" type="GPUParticles3D" parent="." unique_id=403553191]
+amount = 6
+lifetime = 0.7
+speed_scale = 1.5
+explosiveness = 0.85
+randomness = 0.18
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_7rjfi")
+draw_pass_1 = SubResource("QuadMesh_4x87k")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1325523403]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.641571)
