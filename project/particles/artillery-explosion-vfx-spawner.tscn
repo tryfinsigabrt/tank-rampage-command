@@ -135,6 +135,3 @@ randomness = 0.7
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_a7qb1")
 draw_pass_1 = SubResource("QuadMesh_4x87k")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1256292002]
-transform = Transform3D(1, 0, 0, 0, 0.937604, 0.3477049, 0, -0.3477049, 0.937604, 0, 3.1792831, 11.002132)
