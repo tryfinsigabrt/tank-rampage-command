@@ -23,7 +23,7 @@ func configure_spawn(bounds:Vector2, bounds_dir:Vector2) -> void:
 	spawn_location_finder.bounds = bounds
 	spawn_location_finder.bounds_dir = bounds_dir
 		
-func spawn(scene:PackedScene, at:Vector3, force:bool = false) -> Unit:
+func spawn(scene:PackedScene, at:Vector3, unit_name:String="", force:bool = false) -> Unit:
 	var unit:Unit = scene.instantiate() as Unit
 	if not unit:
 		push_error("%s: Could not spawn scene=%s as Unit" % [name, scene])
@@ -31,6 +31,8 @@ func spawn(scene:PackedScene, at:Vector3, force:bool = false) -> Unit:
 	
 	if _match_team:
 		unit.team = _match_team.team
+		if unit_name:
+			unit.name = unit_name
 	_container.add_child(unit)
 	
 	var open_position:Vector3 = spawn_location_finder.find_viable_spawn_grid_location(at, unit)
