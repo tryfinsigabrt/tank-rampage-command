@@ -4,6 +4,9 @@ class_name NodePicker extends Node3D
 var ray_cast_distance:float = 10000
 
 @export
+var project_ground_max_dist:float = 100.0
+
+@export
 var box_select_min_height:float = 20.0
 
 @export
@@ -18,12 +21,12 @@ func _ready() -> void:
 
 func project_to_ground(in_position:Vector3) -> Vector3:
 	var from:Vector3 = in_position + Vector3.UP * 1000.0
-	var to:Vector3 = in_position + Vector3.DOWN * 1000.0
+	var to:Vector3 = in_position + Vector3.DOWN * project_ground_max_dist
 	
 	var result: Dictionary = _ray_cast(from, to, Collisions.CompositeMasks.ground)
 	if not result:
 		push_warning("%s: Could not find ground for position:%s" % [name, in_position])
-		return in_position
+		return Vector3.INF
 	
 	var ground:Vector3 = result["position"]
 	return Vector3(in_position.x, ground.y, in_position.z)

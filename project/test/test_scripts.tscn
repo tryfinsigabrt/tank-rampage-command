@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://pukrmfywg4bq"]
+
+[sub_resource type="GDScript" id="GDScript_wpi8h"]
+script/source = "extends Node
+
+func _ready() -> void:
+	var x := Vector3.INF
+	if x == Vector3.INF:
+		print(\"Sentinel check works!\")
+	else:
+		print(\"Sentinel check broken!\")
+"
+
+[node name="TestScripts" type="Node" unique_id=1658582478]
+script = SubResource("GDScript_wpi8h")

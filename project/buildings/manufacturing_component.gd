@@ -1,7 +1,14 @@
 class_name ManufacturingComponent extends Node
 
+## List of spawn locations. If there is a collision at the location, then it will expand out 
+## by the spawn_bounds size and if not viable then loops through remaining spawn locations before
+## just falling back to the original location and trying to spawn despite a detected collision.
+
 @export
-var default_spawn_location:Node3D
+var default_spawn_locations:Array[Node3D]
+
+@export
+var spawn_bounds:Vector2 = Vector2(100.0, 100.0)
 
 @export
 var supported_types:ManufacturingTypes
@@ -42,9 +49,11 @@ func _ready() -> void:
 			if type:
 				_indexed_types[type] = construction
 	
-	if not default_spawn_location:
-		assert(false, "%s: default_spawn_location node not set!" % name)
-		default_spawn_location = Groups.get_parent_with_type(self, Node3D)
+	if not default_spawn_locations:
+		assert(false, "%s: default_spawn_locations not set!" % name)
+		default_spawn_locations = [Groups.get_parent_with_type(self, Node3D)]
+	
+	unit_spawner.spawn_location_finder.bounds = spawn_bounds
 	
 func can_build(type: ConstructionResource.Type) -> bool:
 	# TODO: Check resource limits
@@ -72,7 +81,17 @@ func _do_spawn(resource:ConstructionResource) -> Node3D:
 	
 	await queue_elm.latch
 	
-	return unit_spawner.spawn(resource.team_asset, default_spawn_location.global_position)
+	# Second time around force the spawn	
+	for i in 2:
+		for spawn_region in default_spawn_locations:
+			var spawn_location:Vector3 = spawn_region.global_position
+			var spawn_dir:Vector3 = -spawn_region.global_basis.z
+			var spawn_dir2:Vector2 = Vector2(spawn_dir.x, spawn_dir.z)
+			unit_spawner.configure_spawn(spawn_bounds, spawn_dir2)
+			var unit := unit_spawner.spawn(resource.team_asset, spawn_location, i > 0)
+			if unit:
+				return unit
+	return null
 
 func _schedule_timer_for(resource:ConstructionResource) -> void:
 	build_timer.wait_time = resource.time

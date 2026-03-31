@@ -66,8 +66,8 @@ unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 100.0
 
-[node name="ManufacturingComponent" parent="Components" unique_id=696475781 node_paths=PackedStringArray("default_spawn_location") instance=ExtResource("6_l3mmg")]
-default_spawn_location = NodePath("../../BuildLocation")
+[node name="ManufacturingComponent" parent="Components" unique_id=696475781 node_paths=PackedStringArray("default_spawn_locations") instance=ExtResource("6_l3mmg")]
+default_spawn_locations = [NodePath("../../BuildLocation")]
 supported_types = ExtResource("7_dsl00")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1027968314]

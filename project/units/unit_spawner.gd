@@ -3,6 +3,9 @@ class_name UnitSpawner extends Node
 @export
 var node_picker:NodePicker
 
+@export
+var spawn_location_finder:SpawnLocationFinder
+
 var _match_team:MatchTeam
 
 var _container:Node
@@ -14,19 +17,36 @@ func _ready() -> void:
 		push_error("%s: UnitSpawner has no MatchTeam parent!" % name)
 		_container = self
 	assert(node_picker, "%s: Node Picker not set!" % name)
-	
-func spawn(scene:PackedScene, at:Vector3) -> Unit:
+	assert(spawn_location_finder, "%s: Spawn Location Finder not set!" % name)
+
+func configure_spawn(bounds:Vector2, bounds_dir:Vector2) -> void:
+	spawn_location_finder.bounds = bounds
+	spawn_location_finder.bounds_dir = bounds_dir
+		
+func spawn(scene:PackedScene, at:Vector3, force:bool = false) -> Unit:
 	var unit:Unit = scene.instantiate() as Unit
 	if not unit:
 		push_error("%s: Could not spawn scene=%s as Unit" % [name, scene])
 		return null
 	
-	# TODO: Find open spot to spawn - could use node_picker
 	if _match_team:
 		unit.team = _match_team.team
 	_container.add_child(unit)
 	
-	var spawn_position:Vector3 = node_picker.project_to_ground(at)
+	var open_position:Vector3 = spawn_location_finder.find_viable_spawn_grid_location(at, unit)
+	if open_position == Vector3.INF:
+		if force:
+			open_position = at
+		else:
+			return null
+			
+	var spawn_position:Vector3 = node_picker.project_to_ground(open_position)
+	if spawn_position == Vector3.INF:
+		if force:
+			spawn_position = open_position
+		else:
+			return null
+			
 	unit.global_position = spawn_position
 
 	print_debug("%s: Spawned unit=%s for team=%d at %s -> %s" \

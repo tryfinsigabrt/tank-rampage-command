@@ -88,3 +88,12 @@ func contains(point:Vector3) -> bool:
 	
 	var sphere:BoundingSphere = inscribed_sphere if type == Type.SPHERE_INSCRIBED else circumscribed_sphere
 	return sphere.contains(point)
+
+func to_rect() -> Rect2:
+	return aabb_to_grid_rect(aabb)
+	
+static func aabb_to_grid_rect(bounds:AABB) -> Rect2:
+	var pos:Vector3 = bounds.position
+	var size:Vector3 = bounds.size
+	
+	return Rect2(Vector2(pos.x, pos.z), Vector2(size.x, size.z))
