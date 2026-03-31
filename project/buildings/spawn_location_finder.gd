@@ -11,8 +11,11 @@ var bounds_dir:Vector2 = Vector2.UP
 @export
 var y_extent:float = 500.0
 
-@export_range(0.0, 1e9, 0.01, "or_greater")
-var extent_safety_factor:float = 0.1
+@export_range(0.0, 10.0, 0.01)
+var extent_safety_factor:float = 0.2
+
+const MIN_INCR_ANGLE:float = deg_to_rad(1.0)
+const MAX_INCR_ANGLE:float = deg_to_rad(15.0)
 
 @export_flags_3d_physics
 var collision_mask:int = Collisions.CompositeMasks.any_asset
@@ -39,24 +42,34 @@ func find_viable_spawn_grid_location(in_pos:Vector3, spawned:Unit) -> Vector3:
 	
 	var dir_norm:Vector2 = bounds_dir.normalized()
 	var forward_angle:float = dir_norm.angle()
+	# We stay on the same side as the direction so total angle is 180d
 	var min_angle:float = forward_angle - PI * 0.5
 	var unit_extent:float = unit_extents.length() * (1.0 + extent_safety_factor)
 	
 	# Perpendicular chord of circle bisector - half chord length and half angle forms right triangle
 	# d is the unit bounds extent and r is how far out in increments of unit_extent
 	# theta = 2 * asin(d * 0.5 / r)
-	# But we want to go above and below so use theta/2
-	var half_extent:float = unit_extent * 2.0
+	var half_extent:float = unit_extent * 0.5
 	
 	for i in range(1, count + 1):
-		var radius: float = unit_extent * (i + 1)
-		var delta_angle:float = asin(half_extent / radius)
+		var radius: float = unit_extent * i
+		var delta_angle:float = 2.0 * asin(half_extent / radius)
 		var increments:int = floori(PI / delta_angle)
+		var rem:float = fmod(PI, delta_angle)
+		
+		# If there is a small crossing over direction line, allow it
+		if rem >= 0.5:
+			var rem_angle:float = rem * delta_angle
+			if rem_angle > MIN_INCR_ANGLE and rem_angle < MAX_INCR_ANGLE:
+				increments += 1
+			
 		var angle:float = min_angle
+		
 		for j in increments:
 			var test_pos:Vector2 = pos + Vector2.from_angle(angle) * radius
 			var test_bounds:Rect2 = Rect2(test_pos, unit_extents)
 			var open:bool = true
+			
 			for bound in occupied_bounds:
 				if bound.intersects(test_bounds):
 					open = false
@@ -64,6 +77,7 @@ func find_viable_spawn_grid_location(in_pos:Vector3, spawned:Unit) -> Vector3:
 			if open:
 				return Vector3(test_pos.x, in_pos.y, test_pos.y)
 			angle += delta_angle	
+			
 	return Vector3.INF
 
 func sweep_grid_bounds(pos: Vector3) -> Array[Rect2]:
