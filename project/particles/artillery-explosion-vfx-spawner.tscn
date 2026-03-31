@@ -51,13 +51,6 @@ distance_fade_max_distance = 0.0
 material = SubResource("StandardMaterial3D_7rjfi")
 size = Vector2(2, 2)
 
-[sub_resource type="Curve" id="Curve_d218c"]
-_data = [Vector2(0, 0.61797756), 0.0, 4.879212, 0, 0, Vector2(0.12953368, 0.8876405), -2.4783306, -2.4783306, 0, 0, Vector2(0.40932646, 0.078651786), -0.3497651, -0.3497651, 0, 0, Vector2(0.99998, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.981745, 0.0, 0, 0]
-point_count = 6
-
-[sub_resource type="CurveTexture" id="CurveTexture_ylk6w"]
-curve = SubResource("Curve_d218c")
-
 [sub_resource type="Curve" id="Curve_7rjfi"]
 _limits = [-5.0, 5.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.50259066, 0.84269667), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -66,15 +59,20 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_28ymd"]
 curve = SubResource("Curve_7rjfi")
 
+[sub_resource type="Gradient" id="Gradient_d218c"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ylk6w"]
+gradient = SubResource("Gradient_d218c")
+
 [sub_resource type="Curve" id="Curve_4x87k"]
-_data = [Vector2(0, 0.37078655), 0.0, 0.0, 0, 0, Vector2(0.16062176, 0.7191012), 1.177207, 1.177207, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.37078655), 0.0, 0.0, 0, 0, Vector2(0.031088084, 0.764045), 0.7951309, 0.7951309, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_pota8"]
 curve = SubResource("Curve_4x87k")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a7qb1"]
-lifetime_randomness = 0.5
 particle_flag_rotate_y = true
 emission_shape = 3
 emission_box_extents = Vector3(4, 2, 4)
@@ -92,7 +90,7 @@ scale_min = 15.0
 scale_max = 35.0
 scale_curve = SubResource("CurveTexture_pota8")
 color = Color(1, 1, 1, 0.11372549)
-alpha_curve = SubResource("CurveTexture_ylk6w")
+color_ramp = SubResource("GradientTexture1D_ylk6w")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28ymd"]
 transparency = 1
@@ -109,6 +107,7 @@ material = SubResource("StandardMaterial3D_28ymd")
 
 [node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
 script = ExtResource("1_0i3p6")
+remove_delay = 20.0
 
 [node name="Orange shockwave" type="GPUParticles3D" parent="." unique_id=1923439105]
 emitting = false
@@ -125,11 +124,10 @@ draw_pass_1 = SubResource("QuadMesh_28ymd")
 [node name="Black lingering smoke" type="GPUParticles3D" parent="." unique_id=403553191]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3310795, -0.79651356, -1.7943022)
 emitting = false
-amount = 25
-amount_ratio = 0.7
-lifetime = 3.0
+amount = 30
+amount_ratio = 0.85
+lifetime = 10.0
 one_shot = true
-speed_scale = 0.1
 explosiveness = 1.0
 randomness = 0.7
 fixed_fps = 60
