@@ -88,7 +88,7 @@ func _on_asset_added(asset:Node3D) -> void:
 
 func _spend_resources(asset:Node3D) -> void:
 	# Asset costs handled by manufacturing component unless predeployed
-	if asset.get_meta(IS_PREDEPLOYED_KEY):
+	if asset.has_meta(IS_PREDEPLOYED_KEY):
 		var cost: ConstructionResource = _get_resource_for(asset)
 		if cost:
 			cost.spend_personnel_only(resources)

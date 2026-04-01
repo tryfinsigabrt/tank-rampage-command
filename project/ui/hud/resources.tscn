@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://b267c78yllwfx"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3pf0r"]
+[ext_resource type="Script" uid="uid://dkmwdsmumgog" path="res://ui/hud/resources.gd" id="1_d83mv"]
+[ext_resource type="LabelSettings" uid="uid://cf661umj1xrq4" path="res://ui/theme/hud_resources_label_settings.tres" id="3_6p217"]
+
+[node name="Resources" type="VBoxContainer" unique_id=993976760]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3pf0r")
+script = ExtResource("1_d83mv")
+
+[node name="PersonelRow" type="HBoxContainer" parent="." unique_id=1159404161]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PersonelRow" unique_id=1901700101]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Pers:"
+label_settings = ExtResource("3_6p217")
+
+[node name="PersonnelValue" type="Label" parent="PersonelRow" unique_id=1398597137]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10/20"
+label_settings = ExtResource("3_6p217")
+
+[node name="ScrapRow" type="HBoxContainer" parent="." unique_id=2008403556]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrapRow" unique_id=1963042507]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Scrap:"
+label_settings = ExtResource("3_6p217")
+
+[node name="ScrapValue" type="Label" parent="ScrapRow" unique_id=319128694]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10000"
+label_settings = ExtResource("3_6p217")

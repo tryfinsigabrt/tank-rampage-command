@@ -187,7 +187,8 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999833, 109)
 team = 1
 
-[node name="EnemyTeam" type="Node3D" parent="World" unique_id=1456193152]
+[node name="EnemyTeam" parent="World" unique_id=721944802 instance=ExtResource("4_n0toe")]
+team = 2
 
 [node name="CommandCenter" parent="World/EnemyTeam" unique_id=1674660700 instance=ExtResource("9_ysk38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -125.037636)

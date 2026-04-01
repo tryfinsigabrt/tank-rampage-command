@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cr2ajl674ao7d" path="res://player/camera_centering.gd" id="4_yw30f"]
 [ext_resource type="Curve" uid="uid://bu7wlq8ibo4ik" path="res://player/focus_area_zoom_curve.tres" id="5_qjkh3"]
 
-[node name="Player" type="Node3D" unique_id=686890281]
+[node name="Player" type="Node3D" unique_id=686890281 groups=["Player"]]
 script = ExtResource("1_g1dw6")
 
 [node name="RTSCamera" parent="." unique_id=2011851028 instance=ExtResource("2_yw30f")]

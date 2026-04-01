@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c13btm25dkrpo"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_4d6w6"]
+[ext_resource type="Script" uid="uid://vdoi2x7i44vm" path="res://ui/hud/hud.gd" id="1_rbyyf"]
+[ext_resource type="PackedScene" uid="uid://b267c78yllwfx" path="res://ui/hud/resources.tscn" id="3_e0nub"]
+
+[node name="Hud" type="MarginContainer" unique_id=1903012534]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4d6w6")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_rbyyf")
+metadata/_custom_type_script = "uid://vdoi2x7i44vm"
+
+[node name="ResourcesContainer" type="HBoxContainer" parent="." unique_id=1866024107]
+layout_mode = 2
+alignment = 2
+
+[node name="Resources" parent="ResourcesContainer" unique_id=993976760 instance=ExtResource("3_e0nub")]
+layout_mode = 2

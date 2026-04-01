@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://hkol5jvbf4mb" path="res://match/match_team.gd" id="1_sgnxb"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_0lp77"]
 [ext_resource type="Resource" uid="uid://loyeyapypmqe" path="res://conf/costs/human/marine_cost.tres" id="3_bw36e"]
-[ext_resource type="Resource" uid="uid://c0js7vjcgp2at" path="res://conf/costs/human/tank_cost.tres" id="4_oegd4"]
-[ext_resource type="Resource" uid="uid://c15yy2yxbmpuf" path="res://conf/costs/human/artillery_cost.tres" id="5_1p2pn"]
+[ext_resource type="Resource" uid="uid://c0js7vjcgp2at" path="res://conf/costs/human/artillery_cost.tres" id="5_1p2pn"]
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="6_1p2pn"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="7_hvcr5"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="8_oigsi"]
@@ -13,7 +12,7 @@
 script = ExtResource("1_sgnxb")
 default_costs = Dictionary[int, ExtResource("2_0lp77")]({
 1: ExtResource("3_bw36e"),
-2: ExtResource("4_oegd4"),
+2: ExtResource("5_1p2pn"),
 3: ExtResource("5_1p2pn"),
 4: ExtResource("6_1p2pn"),
 5: ExtResource("7_hvcr5"),

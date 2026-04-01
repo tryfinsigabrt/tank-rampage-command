@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dv7safpx7wdvf" path="res://player/box_select.gd" id="5_xlsxy"]
 [ext_resource type="Script" uid="uid://d0di5ddhbt3gu" path="res://player/building_manufacturing_actions.gd" id="7_6cxnj"]
 
-[node name="PlayerUnitActions" type="Node3D" unique_id=518831115 groups=["Player"]]
+[node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_ygm0o")
 
 [node name="NodePicker" type="Node3D" parent="." unique_id=830610886]
