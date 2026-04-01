@@ -10,9 +10,9 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			service.tick_service(actor, blackboard)
 	
 	# Run the actual behavior tree branch
-	var child = get_child(0)
+	var child: BeehaveNode = get_child(0)
 	if child:
-		var result = child.tick(actor, blackboard)
+		var result := child.tick(actor, blackboard)
 		if result == RUNNING:
 			running_child = child
 		return result

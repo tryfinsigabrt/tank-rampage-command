@@ -3,10 +3,18 @@ class_name MatchTeam extends Node3D
 @export
 var team:int
 
+@export
+var resources:TeamResources
+
+@export
+var default_costs:Dictionary[ConstructionResource.Type, ConstructionResource]
+
 @onready var asset_container: Node3D = $Assets
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}
+
+const IS_PREDEPLOYED_KEY:StringName = "Predeployed"
 
 var units:Array[Unit]:
 	get: return _units.values()
@@ -18,12 +26,17 @@ var active:bool:
 	get: return _units or _buildings
 
 func _ready() -> void:
+	if not resources:
+		resources = TeamResources.new()
+	resources.initialize()
+	
 	var starting_units:Array[Node] = Groups.get_children_in_group(self, Groups.Unit)
 	for node in starting_units:
 		var unit:Unit = node as Unit
 		if not unit:
 			push_warning("%s: Found node=%s labeled in group 'Unit' but is not a Unit type" % [name, node.name])
 			continue
+		unit.set_meta(IS_PREDEPLOYED_KEY, true)
 		_add_unit(unit)
 		
 	var starting_buildings:Array[Node] = Groups.get_children_in_group(self, Groups.Building)
@@ -32,6 +45,7 @@ func _ready() -> void:
 		if not building:
 			push_warning("%s: Found node=%s labeled in group 'Building' but is not a Building type" % [name, node.name])
 			continue
+		building.set_meta(IS_PREDEPLOYED_KEY, true)
 		_add_building(building)
 		
 	await get_tree().process_frame
@@ -44,11 +58,16 @@ func _add_unit(unit:Unit) -> void:
 	unit.team = team
 	HealthStat.connect_died_signal(unit, _on_unit_destroyed.bind(unit))
 	_units[unit.get_instance_id()] = unit
-		
+	
+	_spend_resources(unit)
+	
 func _add_building(building:Building) -> void:
 	building.team = team
 	HealthStat.connect_died_signal(building, _on_building_destroyed.bind(building))
 	_buildings[building.get_instance_id()] = building
+	
+	_spend_resources(building)
+
 		
 func _on_asset_added(asset:Node3D) -> void:
 	if not asset.is_in_group(Groups.TeamAsset):
@@ -65,13 +84,37 @@ func _on_asset_added(asset:Node3D) -> void:
 	if asset is Unit:
 		_add_unit(asset)
 	elif asset is Building:
-		_add_unit(asset)
+		_add_building(asset)
+
+func _spend_resources(asset:Node3D) -> void:
+	# Asset costs handled by manufacturing component unless predeployed
+	if asset.get_meta(IS_PREDEPLOYED_KEY):
+		var cost: ConstructionResource = _get_resource_for(asset)
+		if cost:
+			cost.spend_personnel_only(resources)
+			cost.assign_to(asset)
+		else:
+			push_warning("%s: No default cost resource found for %s" % [name, asset.name])
 		
+func _get_resource_for(asset: Node3D) -> ConstructionResource:
+	for type in default_costs:
+		var resource:ConstructionResource = default_costs[type]
+		if asset.scene_file_path == resource.team_asset.resource_path:
+			return resource
+	return null
+	
+
 func _on_unit_destroyed(unit:Unit) -> void:
 	print_debug("%s: unit=%s destroyed" % [name, unit.name])
 	
 	if not _units.erase(unit.get_instance_id()):
 		return
+	
+	var cost:ConstructionResource = ConstructionResource.get_assigned_resource(unit)
+	if cost:
+		cost.refund_personnel(resources)
+	else:
+		push_warning("%s: unit=%s had no construction cost binding!" % [name, unit.name])	
 	
 	@warning_ignore("missing_await")
 	_check_defeated()

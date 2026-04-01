@@ -21,6 +21,7 @@ var max_queue:int = 5
 
 var _indexed_types:Dictionary[ConstructionResource.Type, ConstructionResource]
 var _spawn_counts:Dictionary[ConstructionResource.Type,int]
+var _match_team:MatchTeam
 
 class BuildQueueElement:
 	var latch:Signal
@@ -56,9 +57,19 @@ func _ready() -> void:
 	
 	unit_spawner.spawn_location_finder.bounds = spawn_bounds
 	
+	_match_team = Groups.get_parent_with_type(self, MatchTeam)
+	
+	if not _match_team:
+		push_error("%s: ManufacturingComponent has no MatchTeam parent!" % name)
+	
 func can_build(type: ConstructionResource.Type) -> bool:
-	# TODO: Check resource limits
-	return type in _indexed_types
+	var resource: ConstructionResource = _indexed_types.get(type)
+	if not resource:
+		return false
+	if not _match_team:
+		return true
+	
+	return resource.can_build(_match_team.resources)
 	
 func build(type: ConstructionResource.Type) -> Node3D:
 	var resource:ConstructionResource = _indexed_types.get(type)
@@ -67,6 +78,10 @@ func build(type: ConstructionResource.Type) -> Node3D:
 		return null
 	
 	var unit := 	await _do_spawn(resource)
+	if unit and _match_team:
+		resource.spend(_match_team.resources)
+		resource.assign_to(unit)
+		
 	return unit
 
 func _do_spawn(resource:ConstructionResource) -> Node3D:

@@ -29,6 +29,8 @@ enum Classification
 	Structure
 }
 
+const ASSET_META_KEY:StringName = &"ConstructionResource"
+
 @export
 var team_asset:PackedScene
 
@@ -37,6 +39,9 @@ var type:Type
 
 @export_range(1, 1e9, 1, "or_greater")
 var cost:int = 10
+
+@export_range(0, 1e9, 1, "or_greater")
+var personnel:int = 0
 
 @export_range(0.1, 1e9, 0.1, "or_greater")
 var time:float = 1.0
@@ -53,5 +58,42 @@ var classification:Classification:
 			_:
 				return Classification.None
 
+func can_build(resources:TeamResources) -> bool:
+	if not resources:
+		return true
+		
+	var scrap := resources.scrap
+	var pers := resources.personnel
+	
+	return scrap.count >= cost and pers.remaining >= personnel
+
+func spend(resources:TeamResources) -> void:
+	if not resources:
+		return
+	
+	resources.scrap.count -= cost
+	resources.personnel.count += personnel
+
+func spend_personnel_only(resources:TeamResources) -> void:
+	if not resources:
+		return
+	resources.personnel.count += personnel
+
+func assign_to(asset:Node3D) -> void:
+	asset.set_meta(ASSET_META_KEY, self)
+
+static func is_assigned_resource(asset:Node3D) -> bool:
+	return asset.has_meta(ASSET_META_KEY)
+	
+static func get_assigned_resource(asset:Node3D) -> ConstructionResource:
+	return asset.get_meta(ASSET_META_KEY) as ConstructionResource \
+		if asset.has_meta(ASSET_META_KEY) else null
+	 
+func refund_personnel(resources:TeamResources) -> void:
+	if not resources:
+		return
+	
+	resources.personnel.count -= personnel
+		
 func _to_string() -> String:
 	return "type=%s; team_asset=%s" % [type, team_asset.resource_path]

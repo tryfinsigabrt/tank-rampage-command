@@ -2,8 +2,11 @@
 
 [ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_qh2o8"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_a8mtp"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="5_crfp1"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_l0gy4"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_t7t8w"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="6_yuq8o"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="7_0hdnv"]
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="7_s3lbt"]
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="8_v8vfu"]
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="9_evcur"]
@@ -35,6 +38,22 @@ agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
 size = Vector3(600, 100, 525)
+
+[sub_resource type="Resource" id="Resource_jtih4"]
+script = ExtResource("5_crfp1")
+cap = 100
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_ytr8p"]
+script = ExtResource("6_yuq8o")
+count = 20000
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_ur5xo"]
+script = ExtResource("7_0hdnv")
+scrap = SubResource("Resource_ytr8p")
+personnel = SubResource("Resource_jtih4")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [node name="TestBuildingSystem" type="Node3D" unique_id=1293608661]
 
@@ -68,6 +87,7 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_t7t8w")]
 team = 1
+resources = SubResource("Resource_ur5xo")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("7_s3lbt")]
 player_team = NodePath("..")

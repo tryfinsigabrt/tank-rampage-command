@@ -8,5 +8,6 @@ script = ExtResource("1_kgnja")
 team_asset = ExtResource("2_kgnja")
 type = 3
 cost = 100
+personnel = 2
 time = 15.0
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"
