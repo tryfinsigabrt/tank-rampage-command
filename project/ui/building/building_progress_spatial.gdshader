@@ -13,10 +13,12 @@ void fragment() {
 	if(UV.y >= progress) {
 		float grayscale = (1.0 - darkness) * (original_color.r + original_color.g + original_color.b) / 3.;
 		ALBEDO = vec3(grayscale);
-		ALPHA = original_color.a * opacity;
+		// TODO: Commenting out as alpha blending does not work with current FOW post-process shader
+		// Node won't render at all
+		//ALPHA = original_color.a * opacity;
 	}
 	else {
 		ALBEDO = original_color.rgb * (1.0 - completed_darkness);
-		ALPHA = original_color.a;
+		//ALPHA = original_color.a;
 	}
 }
