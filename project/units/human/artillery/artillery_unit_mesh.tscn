@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://bu1se6fo8n113" path="res://units/human/artillery/ArtilleryUnitMaterialLight.tres" id="2_cc450"]
 [ext_resource type="Material" uid="uid://via4hw8ls0bl" path="res://units/human/artillery/ArtilleryUnitMaterialDark.tres" id="2_hjbie"]
 [ext_resource type="Material" uid="uid://5r7o71ik1i3p" path="res://units/human/artillery/ArtilleryUnitMaterialBase.tres" id="3_70pqe"]
-[ext_resource type="PackedScene" uid="uid://ur265hexlgj5" path="res://props/marine-torso-only.tscn" id="5_70pqe"]
+[ext_resource type="PackedScene" uid="uid://ur265hexlgj5" path="res://units/human/artillery/marine-torso-only.tscn" id="5_70pqe"]
 
 [node name="ArtilleryUnitMesh" unique_id=1589237280 instance=ExtResource("1_4yg38")]
 
