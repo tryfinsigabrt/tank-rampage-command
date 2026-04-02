@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cdbrn3u4xinau"]
+
+[ext_resource type="Script" uid="uid://cwxvqm7tk652v" path="res://test/ui/preview/icon_preview.gd" id="1_nah6a"]
+[ext_resource type="PackedScene" uid="uid://ddgct30jgqcly" path="res://units/human/artillery/artillery_unit_mesh.tscn" id="2_b1so8"]
+[ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="3_3jdjo"]
+[ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="4_avmad"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_nah6a")
+
+[sub_resource type="Environment" id="Environment_b1so8"]
+background_mode = 1
+background_color = Color(0.6, 0.6, 0.6, 1)
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
+
+[node name="IconPreview" type="Node3D" unique_id=173473094]
+script = ExtResource("1_nah6a")
+
+[node name="Environment" type="Node3D" parent="." unique_id=1275247552]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=422818942]
+environment = SubResource("Environment_b1so8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1815060160]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+sky_mode = 1
+
+[node name="IconRoot" type="Node3D" parent="." unique_id=1976526118]
+unique_name_in_owner = true
+
+[node name="artillery" parent="IconRoot" unique_id=1589237280 instance=ExtResource("2_b1so8")]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/artillery" unique_id=1483127345]
+transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364821, 0, -0.1736482, 0.9848077, 0, 3, 10)
+top_level = true
+fov = 50.0
+
+[node name="tank" parent="IconRoot" unique_id=260396010 instance=ExtResource("3_3jdjo")]
+transform = Transform3D(-0.9715077, 0, 0.23700765, 0, 1, 0, -0.23700765, 0, -0.9715077, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="IconRoot/tank" unique_id=1236855170]
+transform = Transform3D(1, 0, 0, 0, 0.95266145, 0.30403307, 0, -0.30403307, 0.95266145, -0.475, 3.479, 7.965)
+top_level = true
+fov = 50.0
+
+[node name="marine" parent="IconRoot" unique_id=326298032 instance=ExtResource("4_avmad")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/marine" unique_id=1682211232]
+transform = Transform3D(1, 0, 0, 0, 0.88701075, 0.46174857, 0, -0.46174857, 0.88701075, 0, 6.41, 5.155)
+top_level = true
+fov = 81.0
+
+[node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
+unique_name_in_owner = true
+size = Vector2i(128, 128)
+render_target_clear_mode = 1
+render_target_update_mode = 4

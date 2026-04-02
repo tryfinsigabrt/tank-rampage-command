@@ -35,6 +35,9 @@ const ASSET_META_KEY:StringName = &"ConstructionResource"
 var team_asset:PackedScene
 
 @export
+var icon:Texture2D
+
+@export
 var type:Type
 
 @export_range(1, 1e9, 1, "or_greater")
