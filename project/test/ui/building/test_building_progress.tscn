@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c6lxecxr8gcp5"]
+
+[ext_resource type="Shader" uid="uid://dtuxflq0cwxgj" path="res://ui/building/building_progress.gdshader" id="1_ww0c2"]
+[ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="2_wxlgs"]
+
+[sub_resource type="GDScript" id="GDScript_nd4kc"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qttcq"]
+shader = ExtResource("1_ww0c2")
+shader_parameter/progress = 0.999999977648
+shader_parameter/darkness = 0.5999999865888
+shader_parameter/opacity = 0.999999977648
+
+[node name="TestBuildingProgress" type="Node2D" unique_id=998872181]
+script = SubResource("GDScript_nd4kc")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1259186408]
+offset_right = 1146.0
+offset_bottom = 655.0
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer" unique_id=87075648]
+material = SubResource("ShaderMaterial_qttcq")
+layout_mode = 2
+texture = ExtResource("2_wxlgs")
