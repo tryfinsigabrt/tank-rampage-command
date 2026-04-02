@@ -5,6 +5,8 @@ signal update_render(in_render:bool)
 @export
 var team_asset:Node3D
 
+## Use 0 for a "neutral" state for team component
+## Neutrality used for control points when not controlled by anyone
 @export
 var team:int:
 	set(value):
@@ -47,7 +49,7 @@ func refresh_team_layers() -> void:
 	if team_asset:
 		Collisions.apply_team_collision_layer(team_asset, team)
 		Visibility.apply_team_collision_layer(team_asset, team)
-		
+			
 	if GameManager.fog_of_war:
 		set_visible_to(team, true)
 	else:
@@ -61,7 +63,7 @@ func is_on_team(in_team:int) -> bool:
 	return team == in_team
 
 static func to_team_mask(in_team:int) -> int:
-	return in_team << (in_team - 1)
+	return 1 << (in_team - 1) if in_team > 0 else 0
 	
 func is_visible_to(in_team:int) -> bool:
 	return team_visibility_mask & to_team_mask(in_team)
@@ -81,7 +83,7 @@ func is_ally_team(in_team:int) -> bool:
 	return is_on_team(in_team)
 	
 func is_enemy(team_component:TeamComponent) -> bool:
-	return team_component and not is_ally(team_component)
+	return team_component and is_enemy_team(team_component.team)
 	
 func is_enemy_team(in_team:int) -> bool:
-	return not is_ally_team(in_team)
+	return in_team > 0 and not is_ally_team(in_team)
