@@ -2,9 +2,24 @@
 
 [ext_resource type="Shader" uid="uid://dtuxflq0cwxgj" path="res://ui/building/building_progress.gdshader" id="1_ww0c2"]
 [ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="2_wxlgs"]
+[ext_resource type="Shader" uid="uid://d0m1baxpm1nx2" path="res://ui/building/building_progress_spatial.gdshader" id="3_qttcq"]
+[ext_resource type="Texture2D" uid="uid://c0ygktypdd4bj" path="res://ui/building/icons/tank.png" id="4_l20j6"]
 
 [sub_resource type="GDScript" id="GDScript_nd4kc"]
 script/source = "extends Node2D
+
+@onready var sprite: Sprite3D = %Sprite1
+
+@export
+var build_time:float = 5.0
+
+var _time:float = 0.0
+
+func _process(delta: float) -> void:
+	_time = wrapf(_time + delta, 0.0, build_time)
+	var progress := _time / build_time
+	
+	sprite.set_instance_shader_parameter(&\"progress\", progress)
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qttcq"]
@@ -12,6 +27,28 @@ shader = ExtResource("1_ww0c2")
 shader_parameter/progress = 0.999999977648
 shader_parameter/darkness = 0.5999999865888
 shader_parameter/opacity = 0.999999977648
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l20j6"]
+render_priority = 0
+shader = ExtResource("3_qttcq")
+shader_parameter/darkness = 0.5999999865888
+shader_parameter/completed_darkness = 0.1999999955296
+shader_parameter/opacity = 0.999999977648
+shader_parameter/image = ExtResource("4_l20j6")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_l20j6"]
+size = Vector2(32, 32)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l20j6"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_l20j6")
+
+[sub_resource type="Environment" id="Environment_qqfot"]
+background_mode = 1
+background_color = Color(0.6, 0.6, 0.6, 1)
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
 
 [node name="TestBuildingProgress" type="Node2D" unique_id=998872181]
 script = SubResource("GDScript_nd4kc")
@@ -24,3 +61,25 @@ offset_bottom = 655.0
 material = SubResource("ShaderMaterial_qttcq")
 layout_mode = 2
 texture = ExtResource("2_wxlgs")
+
+[node name="BuildingProgress3D" type="Node3D" parent="." unique_id=595619844]
+
+[node name="Sprite1" type="Sprite3D" parent="BuildingProgress3D" unique_id=1407992222]
+unique_name_in_owner = true
+material_override = SubResource("ShaderMaterial_l20j6")
+cast_shadow = 0
+billboard = 2
+transparent = false
+texture = SubResource("PlaceholderTexture2D_l20j6")
+
+[node name="Camera3D" type="Camera3D" parent="BuildingProgress3D" unique_id=305012498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62421715, 1.865602)
+
+[node name="Environment" type="Node3D" parent="BuildingProgress3D" unique_id=1873216384]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="BuildingProgress3D/Environment" unique_id=949819333]
+environment = SubResource("Environment_qqfot")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BuildingProgress3D/Environment" unique_id=494100917]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+sky_mode = 1

@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://bdqsil8a3nxtv"]
+
+[ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="1_q5jor"]
+[ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="2_you0i"]
+[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="3_bnvfk"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="4_kjpqf"]
+[ext_resource type="Resource" uid="uid://loyeyapypmqe" path="res://conf/costs/human/marine_cost.tres" id="5_8lei6"]
+[ext_resource type="Resource" uid="uid://c0js7vjcgp2at" path="res://conf/costs/human/tank_cost.tres" id="7_5a12q"]
+[ext_resource type="Resource" uid="uid://c15yy2yxbmpuf" path="res://conf/costs/human/artillery_cost.tres" id="7_bnvfk"]
+
+[sub_resource type="GDScript" id="GDScript_uwsin"]
+script/source = "extends Node3D
+
+@onready var build_queue_display: BuildQueue = $BuildQueueDisplay
+
+# Needed for build queue signals but we will trigger manually for testing
+@onready var manufacturing_component: ManufacturingComponent = $ManufacturingComponent
+@onready var build_timer: Timer = $BuildTimer
+
+var _construction_resources:Array[ConstructionResource]
+
+@export
+var max_queue_depth:int = 5
+
+@export
+var build_count:int = 9
+
+var _queued_count:int = 0
+var _finished_count:int = 0
+
+func _ready() -> void:
+	_construction_resources.resize(build_count)
+	
+	var population := manufacturing_component.supported_types.types
+	
+	for i in _construction_resources.size():
+		_construction_resources[i] = population.pick_random()
+	
+	build_timer.start()
+
+func _on_build_timer_timeout() -> void:
+	if _queued_count > 0:
+		var completed_resource := _construction_resources[_finished_count]
+		manufacturing_component.build_completed.emit(completed_resource, null)
+		_finished_count += 1
+		if _finished_count < build_count:
+			var next_build := _construction_resources[_finished_count]
+			_start_build(next_build)
+			
+			if _queued_count < build_count:
+				var queued_build := _construction_resources[_queued_count]
+				_queued_count += 1
+				manufacturing_component.build_queued.emit(queued_build)
+	# First scheduling
+	else:
+		var initial_queue_count := mini(build_count, max_queue_depth)
+		for i in initial_queue_count:
+			var resource: ConstructionResource = _construction_resources[i]
+			manufacturing_component.build_queued.emit(resource)
+			_queued_count += 1
+		if initial_queue_count:
+			var first_resource := _construction_resources[0]
+			_start_build(first_resource)
+			
+func _start_build(resource:ConstructionResource) -> void:
+	manufacturing_component.build_started.emit(resource)
+	build_timer.wait_time = resource.time
+	build_timer.start()
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q5jor"]
+
+[sub_resource type="Sky" id="Sky_you0i"]
+sky_material = SubResource("ProceduralSkyMaterial_q5jor")
+
+[sub_resource type="Environment" id="Environment_uwsin"]
+background_mode = 1
+background_color = Color(0.6, 0.6, 0.6, 1)
+sky = SubResource("Sky_you0i")
+ambient_light_source = 3
+
+[sub_resource type="Resource" id="Resource_q7g3q"]
+script = ExtResource("3_bnvfk")
+types = Array[ExtResource("4_kjpqf")]([ExtResource("5_8lei6"), ExtResource("7_5a12q"), ExtResource("7_bnvfk")])
+metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
+
+[node name="TestBuildQueueDisplay" type="Node3D" unique_id=578373117]
+script = SubResource("GDScript_uwsin")
+
+[node name="BuildQueueDisplay" parent="." unique_id=567288776 node_paths=PackedStringArray("manufacturing_component") instance=ExtResource("1_q5jor")]
+manufacturing_component = NodePath("../ManufacturingComponent")
+sprite_size = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=558260444]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9833803, 0.62421715, 2.0443895)
+
+[node name="Environment" type="Node3D" parent="." unique_id=745249551]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1038473723]
+environment = SubResource("Environment_uwsin")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1333422516]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+sky_mode = 1
+
+[node name="ManufacturingComponent" parent="." unique_id=696475781 node_paths=PackedStringArray("default_spawn_locations") instance=ExtResource("2_you0i")]
+default_spawn_locations = [NodePath("..")]
+supported_types = SubResource("Resource_q7g3q")
+
+[node name="BuildTimer" type="Timer" parent="." unique_id=2095141937]
+one_shot = true
+
+[connection signal="timeout" from="BuildTimer" to="." method="_on_build_timer_timeout"]

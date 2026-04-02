@@ -7,24 +7,27 @@
 render_priority = 0
 shader = ExtResource("2_krbdc")
 shader_parameter/darkness = 0.5999999865888
+shader_parameter/completed_darkness = 0.1999999955296
 shader_parameter/opacity = 1.0
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_hkgnc"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tmjj3"]
+size = Vector2(128, 128)
 
 [node name="BuildQueueDisplay" type="Node3D" unique_id=567288776]
 script = ExtResource("1_tmjj3")
+sprite_size = 0.5
 
 [node name="SpriteContainer" type="Node3D" parent="." unique_id=2087914131]
 unique_name_in_owner = true
 
-[node name="Sprite1" type="Sprite3D" parent="SpriteContainer" unique_id=482258155]
+[node name="Sprite01" type="Sprite3D" parent="SpriteContainer" unique_id=482258155]
 unique_name_in_owner = true
 visible = false
 material_override = SubResource("ShaderMaterial_y6boh")
 cast_shadow = 0
 billboard = 2
 transparent = false
-texture = SubResource("CanvasTexture_hkgnc")
+texture = SubResource("PlaceholderTexture2D_tmjj3")
 
 [node name="DisplayTick" type="Timer" parent="." unique_id=1639179312]
 unique_name_in_owner = true

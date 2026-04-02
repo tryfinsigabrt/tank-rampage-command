@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://dt4byhu2g71qa" path="res://buildings/command_center/command_center_attributes.tres" id="2_dui3b"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
+[ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_66u6u"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 
@@ -44,6 +45,11 @@ top_level = true
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("3_qtphr")]
 transform = Transform3D(5, 0, 3.1786513e-07, 0, 5, 0, -3.1786513e-07, 0, 5, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="BuildQueueDisplay" parent="UI" unique_id=567288776 node_paths=PackedStringArray("manufacturing_component") instance=ExtResource("5_66u6u")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5.4420795, -6.03854, 4.757617e-07)
+manufacturing_component = NodePath("../../Components/ManufacturingComponent")
+sprite_size = 3.0
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1066758169]
 shape = SubResource("SphereShape3D_4ejy1")

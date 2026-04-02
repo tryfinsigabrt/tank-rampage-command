@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c0js7vjcgp2at"]
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c15yy2yxbmpuf"]
 
-[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_a3fwc"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_nhinn"]
 [ext_resource type="Texture2D" uid="uid://yvkaao4a1o8n" path="res://ui/building/icons/artillery.png" id="1_p82x0"]
-[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="2_a3fwc"]
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="3_xrfof"]
 
 [resource]
-script = ExtResource("1_a3fwc")
-team_asset = ExtResource("2_a3fwc")
+script = ExtResource("1_nhinn")
+team_asset = ExtResource("3_xrfof")
 icon = ExtResource("1_p82x0")
 type = 3
-cost = 100
+cost = 75
 personnel = 3
 time = 15.0
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"
