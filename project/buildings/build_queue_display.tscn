@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c8j2tvpinb33h"]
+
+[ext_resource type="Script" uid="uid://6vldkb2d4ned" path="res://buildings/build_queue_display.gd" id="1_tmjj3"]
+[ext_resource type="Shader" uid="uid://d0m1baxpm1nx2" path="res://ui/building/building_progress_spatial.gdshader" id="2_krbdc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6boh"]
+render_priority = 0
+shader = ExtResource("2_krbdc")
+shader_parameter/darkness = 0.5999999865888
+shader_parameter/opacity = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_hkgnc"]
+
+[node name="BuildQueueDisplay" type="Node3D" unique_id=567288776]
+script = ExtResource("1_tmjj3")
+
+[node name="SpriteContainer" type="Node3D" parent="." unique_id=2087914131]
+unique_name_in_owner = true
+
+[node name="Sprite1" type="Sprite3D" parent="SpriteContainer" unique_id=482258155]
+unique_name_in_owner = true
+visible = false
+material_override = SubResource("ShaderMaterial_y6boh")
+cast_shadow = 0
+billboard = 2
+transparent = false
+texture = SubResource("CanvasTexture_hkgnc")
+
+[node name="DisplayTick" type="Timer" parent="." unique_id=1639179312]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[connection signal="timeout" from="DisplayTick" to="." method="_tick"]

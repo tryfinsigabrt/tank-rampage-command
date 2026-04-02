@@ -1,5 +1,9 @@
 class_name ManufacturingComponent extends Node
 
+signal build_queued(resource:ConstructionResource)
+signal build_started(resource:ConstructionResource)
+signal build_completed(resouce:ConstructionResource, node:Node3D)
+
 ## List of spawn locations. If there is a collision at the location, then it will expand out 
 ## by the spawn_bounds size and if not viable then loops through remaining spawn locations before
 ## just falling back to the original location and trying to spawn despite a detected collision.
@@ -77,7 +81,7 @@ func build(type: ConstructionResource.Type) -> Node3D:
 		push_warning("%s: Type=%s cannot be built by this component!" % [name, type])
 		return null
 	
-	var unit := 	await _do_spawn(resource)
+	var unit := await _do_spawn(resource)
 	if unit and _match_team:
 		resource.spend(_match_team.resources)
 		resource.assign_to(unit)
@@ -92,6 +96,8 @@ func _do_spawn(resource:ConstructionResource) -> Node3D:
 		
 	var queue_elm := BuildQueueElement.new(resource)
 	_build_queue.push_back(queue_elm)
+	build_queued.emit(resource)
+	
 	if build_timer.is_stopped():
 		_schedule_timer_for(resource)
 	
@@ -108,7 +114,11 @@ func _do_spawn(resource:ConstructionResource) -> Node3D:
 			unit_spawner.configure_spawn(spawn_bounds, spawn_dir2)
 			var unit := unit_spawner.spawn(resource.team_asset, spawn_location, unit_name, i > 0)
 			if unit:
+				build_completed.emit(resource, unit)
 				return unit
+				
+	# TODO: Canceling?
+	build_completed.emit(resource, null)
 	return null
 
 func _create_unit_name(type: ConstructionResource.Type) -> String:
@@ -121,6 +131,8 @@ func _create_unit_name(type: ConstructionResource.Type) -> String:
 func _schedule_timer_for(resource:ConstructionResource) -> void:
 	build_timer.wait_time = resource.time
 	build_timer.start()
+	
+	build_started.emit(resource)
 
 func _on_build_timer_timeout() -> void:
 	var queue_elm: BuildQueueElement = _build_queue.pop_front()
