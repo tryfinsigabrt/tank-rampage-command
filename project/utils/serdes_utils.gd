@@ -13,7 +13,7 @@ static func read_file_as_string(file_path:String) -> String:
 		print_debug("read_file_as_string: %s does not exist" % file_path)
 		return ""
 
-	var file = FileAccess.open(file_path, FileAccess.READ)
+	var file := FileAccess.open(file_path, FileAccess.READ)
 	var contents:String = ""
 	if file:
 		contents = file.get_as_text()
@@ -23,7 +23,7 @@ static func read_file_as_string(file_path:String) -> String:
 	return contents
 
 static func write_file_as_string(file_path:String, contents: String) -> void:
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_string(contents)
 		file.flush()
@@ -43,7 +43,7 @@ static func deserialize_from_json_string(contents: String) -> Variant:
 	return JSON.to_native(raw_json, false)
 
 static func write_file_as_properties(file_path:String, contents: Dictionary[String,String]) -> void:
-	var file = FileAccess.open(file_path, FileAccess.WRITE)
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		for key in contents:
 			var value:String = contents[key]
@@ -62,7 +62,7 @@ static func read_file_as_properties(file_path:String) -> Dictionary[String,Strin
 		print_debug("read_file_as_properties: %s does not exist" % file_path)
 		return properties
 
-	var file = FileAccess.open(file_path, FileAccess.READ)
+	var file := FileAccess.open(file_path, FileAccess.READ)
 	if file:
 		while not file.eof_reached():
 			var line:String = file.get_line()
