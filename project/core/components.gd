@@ -21,8 +21,14 @@ static func remove_component(name:StringName, comp:Node) -> void:
 		return
 	
 	root.remove_meta(name)
-	
-static func get_component(name:StringName, node:Node) -> Node:
+
+static func has_component(name:StringName, node:Node) -> bool:
+	return node.has_meta(name)
+		
+static func get_component(name:StringName, node:Node, required:bool = true) -> Node:
+	if not required and not has_component(name, node):
+		return null
+		
 	var comp:Node = node.get_meta(name)
 	assert(comp, "Could not find component %s on node=%s" % [name, node.name])
 	return comp

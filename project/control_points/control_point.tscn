@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://tgbgf0gnros4"]
+
+[ext_resource type="Script" uid="uid://cqxx8kinn6nh1" path="res://control_points/control_point.gd" id="1_lu8dd"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="2_bhy6q"]
+[ext_resource type="Material" uid="uid://lmdcf6pw85fh" path="res://control_points/owned_material.tres" id="3_42e4k"]
+[ext_resource type="Material" uid="uid://c8vmoekkru7yo" path="res://control_points/neutral_material.tres" id="3_r5et2"]
+[ext_resource type="Material" uid="uid://b516pgaldsxqs" path="res://control_points/enemy_material.tres" id="4_wh27p"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bhy6q"]
+radius = 30.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r5et2"]
+top_radius = 30.0
+bottom_radius = 30.0
+height = 0.1
+
+[node name="ControlPoint" type="Node3D" unique_id=588474072 groups=["ControlPoint", "Interactable", "TeamAsset"]]
+script = ExtResource("1_lu8dd")
+neutral_material = ExtResource("3_r5et2")
+owned_material = ExtResource("3_42e4k")
+enemy_material = ExtResource("4_wh27p")
+
+[node name="Components" type="Node" parent="." unique_id=1574540664]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("2_bhy6q")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[node name="ControlBounds" type="Area3D" parent="." unique_id=1124531281]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ControlBounds" unique_id=810993642]
+shape = SubResource("SphereShape3D_bhy6q")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=265258387]
+unique_name_in_owner = true
+
+[node name="Mesh" type="MeshInstance3D" parent="VisualRoot" unique_id=476081747]
+material_override = ExtResource("3_r5et2")
+mesh = SubResource("CylinderMesh_r5et2")
+
+[node name="CaptureTimer" type="Timer" parent="." unique_id=953709451]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="body_entered" from="ControlBounds" to="." method="_on_control_bounds_body_entered"]
+[connection signal="body_exited" from="ControlBounds" to="." method="_on_control_bounds_body_exited"]
+[connection signal="timeout" from="CaptureTimer" to="." method="_on_capture_timer_timeout"]

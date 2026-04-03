@@ -42,8 +42,8 @@ var queue_depth:int:
 	get:
 		return _build_queue.size()
 	
-static func get_component(node: Node) -> ManufacturingComponent:
-	return Components.get_component(Components.Manufacturing, node) as ManufacturingComponent
+static func get_component(node: Node, required:bool = true) -> ManufacturingComponent:
+	return Components.get_component(Components.Manufacturing, node, required) as ManufacturingComponent
 		
 func _enter_tree() -> void:
 	Components.add_component(Components.Manufacturing, self)

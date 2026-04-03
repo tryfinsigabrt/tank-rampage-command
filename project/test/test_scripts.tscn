@@ -9,6 +9,10 @@ func _ready() -> void:
 		print(\"Sentinel check works!\")
 	else:
 		print(\"Sentinel check broken!\")
+	
+	print(\"1 << 0: %d\" % (1 << 0))
+	print(\"2 << 1: %d\" % (2 << 1))
+	print(\"3 << 2: %d\" % (3 << 2))
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

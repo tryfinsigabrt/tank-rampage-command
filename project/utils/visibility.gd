@@ -22,7 +22,7 @@ static func apply_team_collision_layer(root: Node, team: int, recursive:bool = t
 	if not is_instance_valid(root):
 		return
 		
-	var team_mask:int = Layers.team_masks.get(team, -1)
+	var team_mask:int = Layers.team_masks.get(team, -1) if team > 0 else 0
 	if team_mask < 0:
 		push_warning("Visibility: Invalid team=%d; root=%s" % [team, StringUtils.safe_name(root)])
 		return

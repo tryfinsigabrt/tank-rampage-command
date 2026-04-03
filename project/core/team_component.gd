@@ -29,8 +29,8 @@ var render:bool = true:
 		
 var team_visibility_mask:int
 
-static func get_component(node: Node) -> TeamComponent:
-	return Components.get_component(Components.Team, node) as TeamComponent
+static func get_component(node: Node, required:bool = true) -> TeamComponent:
+	return Components.get_component(Components.Team, node, required) as TeamComponent
 
 func _ready() -> void:
 	if not team_asset:
@@ -90,3 +90,6 @@ func is_enemy(team_component:TeamComponent) -> bool:
 	
 func is_enemy_team(in_team:int) -> bool:
 	return in_team > 0 and not is_ally_team(in_team)
+
+func is_neutral() -> bool:
+	return team <= 0

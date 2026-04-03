@@ -31,6 +31,9 @@ signal on_team_asset_added(asset:Node3D)
 signal on_team_asset_destroyed(asset:Node3D, damage_parameters:DamageParameters)
 signal on_team_asset_damaged(asset:Node3D, damage_parameters:DamageParameters)
 
+signal on_control_point_captured(new_owning_team:int, control_point:Node3D)
+signal on_control_point_neutralized(previous_owning_team:int, control_point:Node3D)
+
 signal match_ready(match_obj:Match)
 signal match_ended(match_obj:Match)
 signal match_team_ready(match_team:MatchTeam)
@@ -44,11 +47,15 @@ signal on_utility_calculation_complete(id:StringName, team:int)
 
 @warning_ignore_restore("unused_signal")
 
+func register_control_point(control_point:ControlPoint) -> void:
+	_register_asset(control_point)
+	# TODO: Need to trigger team asset added/destroyed when gain or lose ownership
+	
 func register_building(building:Node3D) -> void:
 	_register_asset(building)
 
 func _register_asset(asset:Node3D) -> void:
-	var health_comp:HealthStat = Components.get_component(Components.Health, asset)
+	var health_comp:HealthStat = Components.get_component(Components.Health, asset, false)
 	if health_comp:
 		health_comp.died.connect(func(damage_params: DamageParameters) -> void:
 			on_team_asset_destroyed.emit(asset, damage_params)
