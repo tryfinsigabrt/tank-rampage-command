@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_0eq1c"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_g78jr"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="20_vg6ha"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="21_ics4g"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="21_iy5mb"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_n7a4c"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_necj0"]
@@ -58,7 +59,6 @@ transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 
 
 [node name="ControlPoint" parent="World" unique_id=588474072 instance=ExtResource("2_bwm2d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7, 0.1, -6.5)
-capture_time = 10.0
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=2066909013]
 navigation_mesh = SubResource("NavigationMesh_nsiie")
@@ -313,6 +313,8 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3.9
 
 [node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("31_wrslt")]
 layout_mode = 2
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("21_ics4g")]
 
 [editable path="World/Enemies/EnemyTank03"]
 [editable path="World/Enemies/EnemyTank03/Body"]
