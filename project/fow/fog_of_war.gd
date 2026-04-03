@@ -58,6 +58,7 @@ func _enter_tree() -> void:
 		
 	SignalBus.on_team_asset_added.connect(_on_asset_added)
 	SignalBus.on_team_asset_destroyed.connect(_on_asset_destroyed.unbind(1))
+	SignalBus.on_team_asset_changed_teams.connect(_on_asset_changed_teams)
 	
 # Use process for smoother tick rate
 func _process(delta: float) -> void:
@@ -188,13 +189,29 @@ func _on_asset_added(asset:Node3D) -> void:
 	if not team_component or not team_component.is_on_team(_player_team):
 		return
 		
+	_add_dissolver(asset)
+
+func _add_dissolver(asset:Node3D) -> void:
 	_registered_dissolver_nodes[asset.get_instance_id()] = asset
 	_nodes_dirty = true
-
+	
 func _on_asset_destroyed(asset:Node3D) -> void:
 	var team_component := TeamComponent.get_component(asset)
 	if not team_component or not team_component.is_on_team(_player_team):
 		return
 		
+	_remove_dissolver(asset)
+
+func _remove_dissolver(asset:Node3D) -> void:
 	_registered_dissolver_nodes.erase(asset.get_instance_id())
 	_nodes_dirty = true
+	
+func _on_asset_changed_teams(asset:Node3D, prev_team:int, new_team:int) -> void:
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component:
+		return
+		
+	if prev_team == _player_team:
+		_remove_dissolver(asset)
+	elif new_team == _player_team:
+		_add_dissolver(asset)

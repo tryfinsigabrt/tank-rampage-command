@@ -10,10 +10,13 @@ var team_asset:Node3D
 @export
 var team:int:
 	set(value):
-		if value == team:
+		var prev_team := team
+		if value == prev_team:
 			return
 		team = value
 		if is_node_ready():
+			if team_asset:
+				SignalBus.on_team_asset_changed_teams.emit(team_asset, prev_team, value)
 			refresh_team_layers()
 			
 			

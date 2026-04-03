@@ -31,6 +31,8 @@ signal on_team_asset_added(asset:Node3D)
 signal on_team_asset_destroyed(asset:Node3D, damage_parameters:DamageParameters)
 signal on_team_asset_damaged(asset:Node3D, damage_parameters:DamageParameters)
 
+signal on_team_asset_changed_teams(asset:Node3D, previous_team:int, new_team:int)
+
 signal on_control_point_captured(new_owning_team:int, control_point:ControlPoint)
 signal on_control_point_neutralized(previous_owning_team:int, control_point:ControlPoint)
 

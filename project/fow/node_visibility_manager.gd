@@ -18,7 +18,8 @@ var _accum_delta:float
 func _enter_tree() -> void:
 	SignalBus.on_team_asset_added.connect(_on_team_asset_added)
 	SignalBus.on_team_asset_destroyed.connect(_on_team_asset_destroyed.unbind(1))
-
+	SignalBus.on_team_asset_changed_teams.connect(_on_team_asset_changed_teams)
+	
 func _ready() -> void:
 	if not fog_of_war:
 		push_error("%s: Fog of War node not set" % name)
@@ -91,13 +92,34 @@ func _on_team_asset_added(asset:Node3D) -> void:
 	if not team_component or team_component.is_on_team(fog_of_war.player_team):
 		return
 		
-	_registered_visibility_nodes[asset.get_instance_id()] = asset
-	_nodes_dirty = true
+	_add_to_visibility_check(asset)
+
 
 func _on_team_asset_destroyed(asset:Node3D) -> void:
 	var team_component := TeamComponent.get_component(asset)
 	if not team_component or team_component.is_on_team(fog_of_war.player_team):
 		return
 		
+	_remove_from_visibility_check(asset)
+	
+func _on_team_asset_changed_teams(asset:Node3D, prev_team:int, new_team:int) -> void:
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component:
+		return
+	
+	var player_team:int = fog_of_war.player_team
+	# We only check visibility for assets not on the player team
+	# When the team ownership of an asset changes then we need to re-check
+	
+	if prev_team == player_team:
+		_add_to_visibility_check(asset)
+	elif new_team == player_team:
+		_remove_from_visibility_check(asset)
+
+func _add_to_visibility_check(asset:Node3D) -> void:
+	_registered_visibility_nodes[asset.get_instance_id()] = asset
+	_nodes_dirty = true
+
+func _remove_from_visibility_check(asset:Node3D) -> void:
 	_registered_visibility_nodes.erase(asset.get_instance_id())
 	_nodes_dirty = true
