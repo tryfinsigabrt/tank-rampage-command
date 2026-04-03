@@ -5,7 +5,7 @@ const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
 @warning_ignore("unused_signal")
 signal initialized
 
-signal enemy_visibility_changed(unit:Unit, unit_is_visible:bool)
+signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 
 var team:int
 
@@ -52,7 +52,7 @@ func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:
 		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
-		ai_unit_vision.enemy_visibility_changed.connect(_on_enemy_visibility_changed)
+		ai_unit_vision.asset_visibility_changed.connect(_on_asset_visibility_changed)
 		asset.add_child(ai_unit_vision)
 		
 func has_asset_id(id:int) -> bool:
@@ -98,5 +98,5 @@ func get_average_position() -> Vector3:
 		position = position / cnt
 	return position
 	
-func _on_enemy_visibility_changed(unit:Unit, unit_is_visible:bool) -> void:
-	enemy_visibility_changed.emit(unit, unit_is_visible)
+func _on_asset_visibility_changed(asset:Node3D, in_is_visible:bool) -> void:
+	asset_visibility_changed.emit(asset, in_is_visible)

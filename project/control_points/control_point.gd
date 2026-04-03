@@ -20,7 +20,6 @@ var capture_time:float = 10.0
 @onready var mesh: MeshInstance3D = $VisualRoot/Mesh
 @onready var visual_root: Node3D = %VisualRoot
 
-
 var _units_by_team:Dictionary[int, PackedInt64Array] = {}
 
 var owned_team:int:
