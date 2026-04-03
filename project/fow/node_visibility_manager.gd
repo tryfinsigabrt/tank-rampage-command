@@ -87,14 +87,16 @@ func _update() -> void:
 			team_component.set_visible_to(fog_of_war.player_team, visible)
 	
 func _on_team_asset_added(asset:Node3D) -> void:
-	if asset.team_component.is_on_team(fog_of_war.player_team):
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component or team_component.is_on_team(fog_of_war.player_team):
 		return
 		
 	_registered_visibility_nodes[asset.get_instance_id()] = asset
 	_nodes_dirty = true
 
 func _on_team_asset_destroyed(asset:Node3D) -> void:
-	if asset.team_component.is_on_team(fog_of_war.player_team):
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component or team_component.is_on_team(fog_of_war.player_team):
 		return
 		
 	_registered_visibility_nodes.erase(asset.get_instance_id())

@@ -72,11 +72,12 @@ func add_exception_for_layer_and_group(in_body: Node, layer:int, group:StringNam
 				rigid_body_node.add_collision_exception_with(in_body)
 			nodes.append_array(node.get_children())
 
+## Applies the team collision mask. If 0 then it clears out the team mask
 func apply_team_collision_layer(root: Node, team: int, recursive:bool = true) -> void:
 	if not is_instance_valid(root):
 		return
 		
-	var team_mask:int = Layers.team_masks.get(team, -1)
+	var team_mask:int = Layers.team_masks.get(team, -1) if team > 0 else 0
 	if team_mask < 0:
 		push_warning("Collisions: Invalid team=%d; root=%s" % [team, StringUtils.safe_name(root)])
 		return

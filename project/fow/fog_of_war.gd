@@ -56,8 +56,8 @@ func _enter_tree() -> void:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
 		
-	SignalBus.on_unit_added.connect(_on_unit_added)
-	SignalBus.on_unit_killed.connect(_on_unit_killed.unbind(1))
+	SignalBus.on_team_asset_added.connect(_on_asset_added)
+	SignalBus.on_team_asset_destroyed.connect(_on_asset_destroyed.unbind(1))
 	
 # Use process for smoother tick rate
 func _process(delta: float) -> void:
@@ -183,15 +183,18 @@ func _get_player_team() -> int:
 		return -1
 	return match_team.team
 		
-func _on_unit_added(unit:Unit) -> void:
-	if not unit.is_on_team(_player_team):
-		return
-	_registered_dissolver_nodes[unit.get_instance_id()] = unit
-	_nodes_dirty = true
-
-func _on_unit_killed(unit:Unit) -> void:
-	if not unit.is_on_team(_player_team):
+func _on_asset_added(asset:Node3D) -> void:
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component or not team_component.is_on_team(_player_team):
 		return
 		
-	_registered_dissolver_nodes.erase(unit.get_instance_id())
+	_registered_dissolver_nodes[asset.get_instance_id()] = asset
+	_nodes_dirty = true
+
+func _on_asset_destroyed(asset:Node3D) -> void:
+	var team_component := TeamComponent.get_component(asset)
+	if not team_component or not team_component.is_on_team(_player_team):
+		return
+		
+	_registered_dissolver_nodes.erase(asset.get_instance_id())
 	_nodes_dirty = true

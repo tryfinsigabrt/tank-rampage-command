@@ -41,6 +41,9 @@ var _build_queue: Array[BuildQueueElement]
 var queue_depth:int:
 	get:
 		return _build_queue.size()
+	
+static func get_component(node: Node) -> ManufacturingComponent:
+	return Components.get_component(Components.Manufacturing, node) as ManufacturingComponent
 		
 func _enter_tree() -> void:
 	Components.add_component(Components.Manufacturing, self)

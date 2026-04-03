@@ -29,6 +29,9 @@ var render:bool = true:
 		
 var team_visibility_mask:int
 
+static func get_component(node: Node) -> TeamComponent:
+	return Components.get_component(Components.Team, node) as TeamComponent
+
 func _ready() -> void:
 	if not team_asset:
 		team_asset = Groups.get_scene_root(self)

@@ -1,25 +1,22 @@
-[gd_scene format=3 uid="uid://bkjeshq02f0cx"]
+[gd_scene format=3 uid="uid://y2qbomcyss7"]
 
-[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_0hdnv"]
-[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_qh2o8"]
-[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_a8mtp"]
-[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="5_crfp1"]
-[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_l0gy4"]
-[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_t7t8w"]
-[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="6_yuq8o"]
-[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="7_0hdnv"]
-[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="7_s3lbt"]
-[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="8_v8vfu"]
-[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="9_evcur"]
-[ext_resource type="Resource" uid="uid://diiaihg7d7x4j" path="res://units/human/marine/teams/marine_green_team.tres" id="10_ypw8f"]
-[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="11_ktu02"]
-[ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="12_51tpp"]
-[ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_dk5yy"]
-[ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_23ivt"]
-[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="19_yuq8o"]
-[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
-[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
-[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="31_yemwc"]
+[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_p7kbk"]
+[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_ef3a4"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_f5mv5"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="4_ds4rm"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="5_xdjvm"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="6_5dsv7"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="7_ri61v"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="8_gucq1"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="9_pr22u"]
+[ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="14_788a4"]
+[ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="15_ht3sm"]
+[ext_resource type="PackedScene" uid="uid://cl75y4etufctb" path="res://fow/fog_of_war_debug_overlay.tscn" id="16_68ohm"]
+[ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="16_tb8db"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="17_w5quv"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="18_vuf6b"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="19_nuyo8"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="20_dlpwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -42,24 +39,24 @@ agent_max_slope = 60.0
 size = Vector3(600, 100, 525)
 
 [sub_resource type="Resource" id="Resource_jtih4"]
-script = ExtResource("5_crfp1")
+script = ExtResource("6_5dsv7")
 cap = 100
 metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
 
 [sub_resource type="Resource" id="Resource_ytr8p"]
-script = ExtResource("6_yuq8o")
+script = ExtResource("7_ri61v")
 count = 20000
 metadata/_custom_type_script = "uid://wjqvneg6aev5"
 
 [sub_resource type="Resource" id="Resource_ur5xo"]
-script = ExtResource("7_0hdnv")
+script = ExtResource("8_gucq1")
 scrap = SubResource("Resource_ytr8p")
 personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
-[node name="TestBuildingSystem" type="Node3D" unique_id=1293608661]
+[node name="TestFogOfWarBuildings" type="Node3D" unique_id=1293608661]
 
-[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_0hdnv")]
+[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_p7kbk")]
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
@@ -76,113 +73,48 @@ navigation_mesh = SubResource("NavigationMesh_nsiie")
 
 [node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-material_override = ExtResource("2_qh2o8")
+material_override = ExtResource("2_ef3a4")
 use_collision = true
 size = Vector3(1000, 1, 1000)
 
-[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("4_a8mtp")]
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("3_f5mv5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
 shape = SubResource("BoxShape3D_mushl")
 debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
-[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_l0gy4")]
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("4_ds4rm")]
 
-[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_t7t8w")]
+[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("5_xdjvm")]
 team = 1
 resources = SubResource("Resource_ur5xo")
 
-[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("7_s3lbt")]
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("9_pr22u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7, 0, 205.1)
 player_team = NodePath("..")
 
-[node name="PlayerTank" parent="World/Match/PlayerTeam/Player" unique_id=1709231356 instance=ExtResource("8_v8vfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999952, 94)
-team = 1
-
-[node name="PlayerTank2" parent="World/Match/PlayerTeam/Player" unique_id=1000018207 instance=ExtResource("8_v8vfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999952, 94)
-team = 1
-
-[node name="PlayerTank3" parent="World/Match/PlayerTeam/Player" unique_id=6855099 instance=ExtResource("8_v8vfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999952, 108)
-team = 1
-
-[node name="PlayerTank4" parent="World/Match/PlayerTeam/Player" unique_id=271356045 instance=ExtResource("8_v8vfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, -0.049999952, 109)
-team = 1
-
-[node name="HumanMarineUnit" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.01600027, 117.5)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit2" parent="World/Match/PlayerTeam/Player" unique_id=1170540234 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3999991, 0.01600027, 117.50001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit3" parent="World/Match/PlayerTeam/Player" unique_id=1510439215 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.499999, 0.01600027, 117.50001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit4" parent="World/Match/PlayerTeam/Player" unique_id=1621918237 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.799999, 0.01600027, 117.50001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit5" parent="World/Match/PlayerTeam/Player" unique_id=1519198501 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.499999, 0.01600027, 117.50001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit6" parent="World/Match/PlayerTeam/Player" unique_id=536295561 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.599999, 0.01600027, 121.00001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit7" parent="World/Match/PlayerTeam/Player" unique_id=333691351 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.299999, 0.01600027, 121.00001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit8" parent="World/Match/PlayerTeam/Player" unique_id=869668768 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8999991, 0.01600027, 121.00001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit9" parent="World/Match/PlayerTeam/Player" unique_id=1645239917 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.799999, 0.01600027, 121.00001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanMarineUnit10" parent="World/Match/PlayerTeam/Player" unique_id=605256512 instance=ExtResource("9_evcur")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.200001, 0.01600027, 121.00001)
-team_resource = ExtResource("10_ypw8f")
-team = 1
-
-[node name="HumanArtilleryUnit01" parent="World/Match/PlayerTeam/Player" unique_id=1517178385 instance=ExtResource("11_ktu02")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.019559026, 131.40001)
-team = 1
-
-[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("12_51tpp")]
+[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("14_788a4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
 team = 1
 
-[node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("13_dk5yy")]
+[node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("15_ht3sm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.3, 0, 167.90001)
 team = 1
 
-[node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_23ivt")]
+[node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("16_tb8db")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
 team = 1
 
-[node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("28_asrh3")]
+[node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("17_w5quv")]
 
-[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("30_bbhc4")]
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("18_vuf6b")]
 
-[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("31_yemwc")]
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("19_nuyo8")]
 layout_mode = 2
 
-[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("19_yuq8o")]
+[node name="FogOfWarDebugOverlay" parent="DebugHud" unique_id=1922484708 node_paths=PackedStringArray("fog_of_war") instance=ExtResource("16_68ohm")]
+layout_mode = 2
+fog_of_war = NodePath("../../FogOfWar")
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("20_dlpwl")]

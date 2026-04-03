@@ -26,6 +26,9 @@ var health: float:
 	
 var health_fraction:float:
 	get: return health / max_health
+	
+static func get_component(node: Node) -> HealthStat:
+	return Components.get_component(Components.Health, node) as HealthStat
 		
 func on_damage(damage_params:DamageParameters) -> void:
 	var orig_health := health
