@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dcgyjnoa8fu23" path="res://fow/node_visibility_manager.gd" id="5_0b8ue"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5w83h"]
-render_priority = 127
+render_priority = 126
 shader = ExtResource("4_3yecg")
 shader_parameter/fow_range_min = 0.01
 shader_parameter/fow_range_max = 0.99

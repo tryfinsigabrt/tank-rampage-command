@@ -79,6 +79,7 @@ func _process(delta: float) -> void:
 func _ready() -> void:
 	if not enable:
 		node_visibility_manager.enable = false
+		post_process_quad.visible = false
 		return
 		
 	_player_team = _get_player_team()
