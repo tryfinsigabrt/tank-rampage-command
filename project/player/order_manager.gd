@@ -18,6 +18,9 @@ func move(position:Vector3) -> void:
 		var pos := positions_dict[unit.get_instance_id()]
 		action.move(pos)
 		
+	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Move)
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Move)
+	
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(position, 5.0, Color.YELLOW, 3.0)
 		
@@ -33,7 +36,10 @@ func move_and_attack(position:Vector3) -> void:
 		var pos := positions_dict[unit.get_instance_id()]
 
 		unit_actions.move_and_attack(pos)
-		
+	
+	selection_manager.unit_order_dispatched(UnitBlackboard.Action.MoveAndAttack)
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.MoveAndAttack)
+	
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(position, 5.0, Color.ORANGE, 3.0)
 
@@ -51,6 +57,9 @@ func attack(to_attack:Node3D) -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack(to_attack)
 
+	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Attack)
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
+
 func attack_position(position:Vector3) -> bool:
 	var units := selection_manager.get_selected_units_on_team()
 	if not units:
@@ -66,4 +75,7 @@ func attack_position(position:Vector3) -> bool:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack_position(position)
 	
+	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Attack)
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
+
 	return true

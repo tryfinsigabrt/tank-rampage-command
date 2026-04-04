@@ -5,6 +5,9 @@ var team:int
 var _selected_units:PackedInt64Array = []
 var _selected_buildings:PackedInt64Array = []
 
+@export
+var _asset_selection_effect:AssetSelectionEffect
+
 var any:bool:
 	get: return not _selected_units.is_empty() or not _selected_buildings.is_empty()
 	
@@ -57,6 +60,10 @@ var all_selected:Array[Node3D]:
 		_get_selection(_selected_buildings, all)
 		
 		return all
+			
+func _ready() -> void:
+	if not _asset_selection_effect:
+		push_warning("%s: Asset Selection Effect not set - no selection rendering will occur!" % name)
 		
 func _get_selection(id_list:PackedInt64Array, selection: Array) -> void:
 	var existing_size:int = selection.size()
@@ -166,13 +173,9 @@ func add(asset:Node3D) -> bool:
 	if not team_component or not team_component.is_visible_to(team):
 		return false
 	print_debug("%s: Selected asset=%s on team=%d; our_team=%d" % [name, asset.name, team_component.team, team])
-	if OS.is_debug_build():
-		var radius:float = Bounds.new(asset.get_bounds(), asset.bounds_type).radius if asset.has_method("get_bounds") else 5.0
-		
-		DebugDraw3D.draw_sphere(
-			asset.global_position, radius * 1.1
-			,Color.GREEN if team_component.is_on_team(team) else Color.BLUE_VIOLET
-			, 3.0)
+	
+	if _asset_selection_effect:
+		_asset_selection_effect.toggle_selection(asset, true)
 	
 	if asset is Unit:
 		return _add_unit(asset)
@@ -182,6 +185,10 @@ func add(asset:Node3D) -> bool:
 	assert(false, "asset=%s is not a supported type!" % [asset.name])		
 	return false
 
+func unit_order_dispatched(_order:StringName) -> void:
+	for unit in selected_units:
+		_asset_selection_effect.toggle_selection(unit, false)
+		
 func _add_unit(unit:Unit) -> bool:
 	var id:int = unit.get_instance_id()
 	if not id in _selected_units:
@@ -212,6 +219,9 @@ func remove(unit:Unit) -> bool:
 	return erased
 
 func _do_deselect(asset:Node3D) -> void:
+	if _asset_selection_effect:
+		_asset_selection_effect.toggle_selection(asset, false)
+		
 	if asset is Unit:
 		print_debug("%s: De-select unit=%s" % [name, asset.name])
 		SignalBus.on_unit_deselected.emit(asset)

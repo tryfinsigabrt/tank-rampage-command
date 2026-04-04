@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dngxy6j5mtmup"]
+
+[ext_resource type="Script" uid="uid://co1yq2sax7raf" path="res://player/selection_effect.gd" id="1_t3nul"]
+[ext_resource type="Material" uid="uid://bkroqqig33ljh" path="res://player/selection_outline_overlay_material.tres" id="2_qxf6u"]
+
+[node name="AssetSelectionEffect" type="Node" unique_id=1646816583]
+script = ExtResource("1_t3nul")
+outline_material = ExtResource("2_qxf6u")
+metadata/_custom_type_script = "uid://co1yq2sax7raf"
