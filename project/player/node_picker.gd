@@ -35,7 +35,7 @@ func pick_ground(event: InputEvent) -> Dictionary:
 	return pick_node(event, Collisions.CompositeMasks.ground)
 	
 func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
-	if screen_area.has_area():
+	if not screen_area.has_area():
 		return [] as Array[Unit]
 		
 	var collision_mask:int = Collisions.CompositeMasks.ground
