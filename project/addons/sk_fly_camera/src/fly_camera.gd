@@ -106,6 +106,8 @@ enum MouseButton {
 ## The camera's movement speed.
 @export var fly_speed := 20.0
 
+@export var min_fly_speed := 0.1
+
 ## The camera's acceleration.
 ## [br][br]
 ## For simplicity, this also doubles as friction.
@@ -212,7 +214,7 @@ func _physics_process(delta: float) -> void:
 		if _is_cam_action_pressed(_ACTION_BACKWARD): dir += aim[2]
 		if _is_cam_action_pressed(_ACTION_LEFT):     dir -= aim[0]
 		if _is_cam_action_pressed(_ACTION_RIGHT):    dir += aim[0]
-		if _is_cam_action_pressed(_ACTION_FASTER):   spd *= speed_factor
+		if _is_cam_action_pressed(_ACTION_FASTER):   spd = maxf(spd * speed_factor, min_fly_speed)
 		if _is_cam_action_pressed(_ACTION_SLOWER):   spd /= speed_factor
 
 	dir = dir.normalized()

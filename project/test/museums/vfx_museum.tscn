@@ -54,7 +54,7 @@ platform_on_leave = 2
 script = ExtResource("2_24ide")
 activation_mode = 1
 keep_key_controls = false
-fly_speed = 0.001
+fly_speed = 10.0
 speed_factor = 10
 use_default_controls = true
 
@@ -64,3 +64,10 @@ use_default_controls = true
 repeat_delay = 5.0
 wait_for_free = false
 vfx_scene = ExtResource("4_24ide")
+
+[node name="Props" type="Node3D" parent="." unique_id=1393340467]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Props" unique_id=1088310410]
+radius = 1.0
+radial_segments = 36
+rings = 36
