@@ -145,17 +145,17 @@ func set_selection(asset: Node3D) -> void:
 static func _select_compare(first:Object, second:Object) -> bool:
 	return first.get_instance_id() < second.get_instance_id()
 		
-func set_selection_multiple(units: Array[Unit]) -> void:
-	if not units:
+func set_selection_multiple(new_selection: Array) -> void:
+	if not new_selection:
 		return
 	
-	var existing:Dictionary[int, Unit] = {}
-	var new:Dictionary[int, Unit] = {}
+	var existing:Dictionary[int, Node3D] = {}
+	var new:Dictionary[int, Node3D] = {}
 	
-	for unit in selected_units:
-		existing[unit.get_instance_id()] = unit
-	for unit in units:
-		new[unit.get_instance_id()] = unit
+	for asset in all_selected:
+		existing[asset.get_instance_id()] = asset
+	for asset:Node3D in new_selection:
+		new[asset.get_instance_id()] = asset
 	
 	# First remove those not in the new list
 	for id in existing:
@@ -209,13 +209,20 @@ func remove_all(assets:Array) -> void:
 	for asset:Node3D in assets:
 		remove(asset)
 		
-func remove(unit:Unit) -> bool:
-	if not unit:
+func remove(asset:Node3D) -> bool:
+	if not asset:
 		return false
-	var id:int = unit.get_instance_id()
-	var erased:bool = _selected_units.erase(id)
+		
+	var erased:bool
+	if asset is Unit:
+		erased = _selected_units.erase(asset.get_instance_id())
+	elif asset is Building:
+		erased = _selected_buildings.erase(asset.get_instance_id())
+	else:
+		return false
+	
 	if erased:
-		_do_deselect(unit)
+		_do_deselect(asset)
 	return erased
 
 func _do_deselect(asset:Node3D) -> void:
@@ -229,19 +236,22 @@ func _do_deselect(asset:Node3D) -> void:
 		print_debug("%s: De-select building=%s" % [name, asset.name])
 		SignalBus.on_building_deselected.emit(asset)
 	
-func has(unit:Unit) -> bool:
-	if not unit:
+func has(asset:Node3D) -> bool:
+	if not asset:
 		return false
-	var id:int = unit.get_instance_id()
-	return id in _selected_units
+	if asset is Unit:
+		return asset.get_instance_id() in _selected_units
+	elif asset is Building:
+		return asset.get_instance_id() in _selected_buildings
+	return false
 	
 ## Adds if not present and removes otherwise
-func toggle(unit:Unit) -> void:
-	if has(unit):
-		remove(unit)
+func toggle(asset:Node3D) -> void:
+	if has(asset):
+		remove(asset)
 	else:
-		add(unit)
+		add(asset)
 	
-func toggle_all(units: Array[Unit]) -> void:
-	for unit in units:
-		toggle(unit)
+func toggle_all(assets: Array) -> void:
+	for asset:Node3D in assets:
+		toggle(asset)

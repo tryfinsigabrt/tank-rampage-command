@@ -61,7 +61,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("unit_select", false, true):
 		_handle_select(event)
 	elif event.is_action_pressed("unit_multi_toggle_select", false, true):
-		_handle_toggle_unit(event)
+		_handle_toggle_asset(event)
 	elif event.is_action_pressed("unit_type_select", false, true):
 		_handle_select_all_of_type(event)
 	elif event.is_action_pressed("unit_select_all", false, true):
@@ -72,22 +72,31 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("unit_move_to"):
 		_handle_context_action(event)
 	
-func _handle_toggle_unit(event: InputEvent) -> void:
-	var unit := node_picker.pick_unit(event)
-	if unit:
-		selection_manager.toggle(unit)
+func _handle_toggle_asset(event: InputEvent) -> void:
+	var team_asset:Node3D = node_picker.pick_team_asset(event)
+	if not team_asset:
+		return
+		
+	var team_component:TeamComponent = TeamComponent.get_component(team_asset)
+	if team_component and team_component.is_visible_to(team):
+		selection_manager.toggle(team_asset)
 
 func _handle_select_all_of_type(event: InputEvent) -> void:
+	# Also currently only works on units and not buildings
 	var unit := node_picker.pick_unit(event)
 	if not unit:
 		return
 	selection_manager.set_selection_multiple(unit.get_all_units_same_team_and_class())
 
 func _handle_select_all(event: InputEvent) -> void:
+	# Only select army and not buildings and only player's team
 	var unit := node_picker.pick_unit(event)
 	if not unit:
 		return
-	selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
+		
+	var team_component:TeamComponent =  TeamComponent.get_component(unit)
+	if team_component and team_component.is_on_team(team):
+		selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
 		
 func _handle_context_action(event: InputEvent) -> void:
 	var selected:Node3D = node_picker.pick_team_asset(event)
@@ -160,7 +169,7 @@ func _handle_asset_select(event: InputEvent) -> void:
 	if not team_asset:
 		return
 		
-	var team_component:TeamComponent = Components.get_component(Components.Team, team_asset)
+	var team_component:TeamComponent = TeamComponent.get_component(team_asset)
 	if team_component and team_component.is_visible_to(team):
 		selection_manager.add(team_asset)
 	
@@ -168,6 +177,7 @@ func _on_visibility_changed() -> void:
 	enabled = visible
 
 func _on_box_select_units(screen_selection:Rect2) -> void:
+	# Box select only should select units
 	var selected_units:Array[Unit] = node_picker.pick_unit_screen_area(screen_selection)
 	if selected_units:
 		selection_manager.set_selection_multiple(selected_units)
