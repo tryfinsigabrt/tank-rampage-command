@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b1dewdvg6vojr"]
+
+[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://test/museums/museum_ground_material.tres" id="1_h70ab"]
+[ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="2_24ide"]
+[ext_resource type="PackedScene" uid="uid://cidyx3ws41l3p" path="res://test/museums/vfx_demo.tscn" id="3_bgbxl"]
+[ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/artillery-explosion-vfx-spawner.tscn" id="4_24ide"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnysw"]
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0.36367378, 0.46128422, 0.3642056, 1)
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_fdxvd"]
+sky_material = SubResource("ProceduralSkyMaterial_nnysw")
+radiance_size = 2
+
+[sub_resource type="Environment" id="Environment_bgbxl"]
+background_mode = 2
+sky = SubResource("Sky_fdxvd")
+ambient_light_source = 2
+ambient_light_color = Color(0.3180198, 0.31801978, 0.31801975, 1)
+tonemap_mode = 4
+ssao_enabled = true
+glow_enabled = true
+fog_light_energy = 0.5
+fog_sun_scatter = 1.0
+fog_density = 0.002
+fog_height = 12.0
+fog_height_density = -0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_24ide"]
+material = ExtResource("1_h70ab")
+size = Vector2(200, 200)
+
+[node name="VfxMuseum" type="Node3D" unique_id=1709927751]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1240264645]
+transform = Transform3D(-0.4508776, 0.30820826, -0.83768547, 0, 0.938493, 0.3452982, 0.89258575, 0.15568723, -0.42314547, 0, 0, 0)
+light_color = Color(0.7866393, 0.687221, 0.4915517, 1)
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_max_distance = 75.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=793798733]
+environment = SubResource("Environment_bgbxl")
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1412996630]
+mesh = SubResource("PlaneMesh_24ide")
+
+[node name="FlyCamera" type="CharacterBody3D" parent="." unique_id=1220833839]
+transform = Transform3D(0.49999997, -0.86602545, 0, 0.86602545, 0.49999997, 0, 0, 0, 1, 0, 5.2, 16.5)
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("2_24ide")
+activation_mode = 1
+keep_key_controls = false
+fly_speed = 0.001
+speed_factor = 10
+use_default_controls = true
+
+[node name="Effects" type="Node3D" parent="." unique_id=3210770]
+
+[node name="ArtilleryExplosion" parent="Effects" unique_id=233500041 instance=ExtResource("3_bgbxl")]
+repeat_delay = 5.0
+wait_for_free = false
+vfx_scene = ExtResource("4_24ide")

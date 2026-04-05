@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cidyx3ws41l3p"]
+
+[ext_resource type="Script" uid="uid://b0nwqv2b6ekc2" path="res://test/museums/vfx_demo.gd" id="1_x24wv"]
+
+[node name="VfxDemo" type="Node3D" unique_id=233500041]
+script = ExtResource("1_x24wv")
+
+[node name="Timer" type="Timer" parent="." unique_id=705643691]
+one_shot = true
+
+[node name="Spawned" type="Node3D" parent="." unique_id=996591688]

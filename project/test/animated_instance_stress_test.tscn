@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dw5uw7kcxqvnt" path="res://test/animated_instance_stress_test.gd" id="1_r2g7t"]
 [ext_resource type="PackedScene" uid="uid://467gmcjxbokb" path="res://units/human/marine/anim-examples/run.tscn" id="2_603ws"]
-[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://props/museum_ground_material.tres" id="2_ck8ha"]
+[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://test/museums/museum_ground_material.tres" id="2_ck8ha"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ck8ha"]
 sky_top_color = Color(0.7789294, 0.5165509, 0.31880924, 1)

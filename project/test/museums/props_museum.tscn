@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dnybtwmdla40v"]
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_0lcq6"]
-[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://props/museum_ground_material.tres" id="1_domqp"]
+[ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://test/museums/museum_ground_material.tres" id="1_domqp"]
 [ext_resource type="PackedScene" uid="uid://b6a7acabed2cy" path="res://props/sandbags/straight_sandbag_barrier.tscn" id="1_rnl7t"]
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="2_0lcq6"]
 [ext_resource type="PackedScene" uid="uid://dxrr43foe4bms" path="res://props/tankspikes/large_tank-spike-with-netting.tscn" id="3_bhxhu"]
