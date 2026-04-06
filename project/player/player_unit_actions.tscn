@@ -4,11 +4,16 @@
 [ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="2_m750r"]
 [ext_resource type="Script" uid="uid://xiohmvrpkwct" path="res://player/selection_manager.gd" id="3_wse6d"]
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="4_mr66j"]
-[ext_resource type="PackedScene" uid="uid://dngxy6j5mtmup" path="res://player/asset_selection_effect.tscn" id="4_t0obs"]
+[ext_resource type="PackedScene" uid="uid://dngxy6j5mtmup" path="res://player/effects/asset_selection_effect.tscn" id="4_t0obs"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="5_cg506"]
 [ext_resource type="Script" uid="uid://dv7safpx7wdvf" path="res://player/box_select.gd" id="5_xlsxy"]
 [ext_resource type="Script" uid="uid://d0di5ddhbt3gu" path="res://player/building_manufacturing_actions.gd" id="7_6cxnj"]
-[ext_resource type="Script" uid="uid://bberh5ses37m" path="res://player/box_render.gd" id="8_aah3u"]
+[ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="7_7itmn"]
+[ext_resource type="Script" uid="uid://bberh5ses37m" path="res://player/effects/box_render.gd" id="8_aah3u"]
+[ext_resource type="PackedScene" uid="uid://15e16r8qmv1v" path="res://player/effects/ground_action_indicator.tscn" id="8_fun1w"]
+[ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="9_lil68"]
+[ext_resource type="Material" uid="uid://cbnit7meja5e7" path="res://player/effects/attack_move_material.tres" id="10_hu7x2"]
+[ext_resource type="Material" uid="uid://c6u711v5oxba0" path="res://player/effects/attack_position_material.tres" id="11_i84qe"]
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_ygm0o")
@@ -22,14 +27,36 @@ _asset_selection_effect = NodePath("AssetSelectionEffect")
 
 [node name="AssetSelectionEffect" parent="SelectionManager" unique_id=1646816583 instance=ExtResource("4_t0obs")]
 
-[node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution")]
+[node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution", "target_asset_selection_effect", "move_to_effect", "attack_move_effect", "attack_position_effect")]
 script = ExtResource("4_mr66j")
 selection_manager = NodePath("../SelectionManager")
 position_distribution = NodePath("PositionDistributor")
+target_asset_selection_effect = NodePath("Effects/TargetAssetSelectionEffect")
+move_to_effect = NodePath("Effects/MoveToIndicator")
+attack_move_effect = NodePath("Effects/AttackMoveIndicator")
+attack_position_effect = NodePath("Effects/AttackPositionIndicator")
 
 [node name="PositionDistributor" type="Node" parent="OrderManager" unique_id=61436976]
 script = ExtResource("5_cg506")
 max_group_separation = 75.0
+
+[node name="Effects" type="Node" parent="OrderManager" unique_id=1560686010]
+
+[node name="TargetAssetSelectionEffect" parent="OrderManager/Effects" unique_id=1551921191 instance=ExtResource("4_t0obs")]
+outline_material = ExtResource("7_7itmn")
+auto_disable_delay = 3.0
+
+[node name="MoveToIndicator" parent="OrderManager/Effects" unique_id=1424207464 instance=ExtResource("8_fun1w")]
+visible = false
+material = ExtResource("9_lil68")
+
+[node name="AttackMoveIndicator" parent="OrderManager/Effects" unique_id=61669513 instance=ExtResource("8_fun1w")]
+visible = false
+material = ExtResource("10_hu7x2")
+
+[node name="AttackPositionIndicator" parent="OrderManager/Effects" unique_id=643014957 instance=ExtResource("8_fun1w")]
+visible = false
+material = ExtResource("11_i84qe")
 
 [node name="BoxSelect" type="Node" parent="." unique_id=1579712261 node_paths=PackedStringArray("node_picker")]
 script = ExtResource("5_xlsxy")

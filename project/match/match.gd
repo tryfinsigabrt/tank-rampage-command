@@ -43,6 +43,7 @@ func _ready() -> void:
 		if _player_team < 0 and Groups.has_ancestor(player_node, team):
 			print_debug("%s: Found player team: %d -> %s" % [name, team.team, team.name])
 			_player_team = team.team
+			team.is_player_team = true
 				
 	_active_teams.assign(_match_teams)
 	_wait_for_ready()
@@ -53,6 +54,8 @@ func _is_player_team(match_team:MatchTeam) -> bool:
 	
 func _wait_for_ready() -> void:
 	var counter:PackedInt32Array = [0]
+	# Using an array of size 1 so we can self-reference the callable to disconnect after
+	# all teams have notified match_team_ready
 	var connection:Array[Callable] = []
 	connection.push_back(func(match_team:MatchTeam) -> void:
 		if match_team.team in _match_teams:

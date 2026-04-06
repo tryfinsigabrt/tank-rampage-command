@@ -14,4 +14,3 @@ static func set_overlay_material(root:Node, new_material:Material, expected_curr
 	
 	for node:GeometryInstance3D in all_nodes:
 		node.material_overlay = new_material
-	

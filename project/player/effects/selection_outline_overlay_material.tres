@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bkroqqig33ljh"]
 
-[ext_resource type="Shader" uid="uid://chjoaw75i7t3a" path="res://player/selection_outline_overlay.gdshader" id="1_31t40"]
+[ext_resource type="Shader" uid="uid://chjoaw75i7t3a" path="res://player/effects/selection_outline_overlay.gdshader" id="1_31t40"]
 
 [resource]
 render_priority = 127

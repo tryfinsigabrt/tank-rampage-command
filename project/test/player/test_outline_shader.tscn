@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cspbf6qp4556r"]
 
-[ext_resource type="Material" uid="uid://bkroqqig33ljh" path="res://player/selection_outline_overlay_material.tres" id="1_6twwb"]
+[ext_resource type="Material" uid="uid://bkroqqig33ljh" path="res://player/effects/selection_outline_overlay_material.tres" id="1_6twwb"]
 [ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="1_tqpne"]
 [ext_resource type="PackedScene" uid="uid://dvn60hgaapy6y" path="res://player/rts_camera.tscn" id="2_5xqft"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="3_5m188"]

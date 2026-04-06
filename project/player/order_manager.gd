@@ -6,6 +6,18 @@ var selection_manager:SelectionManager
 @export
 var position_distribution:PositionDistributor
 
+@export
+var target_asset_selection_effect:AssetSelectionEffect
+
+@export
+var move_to_effect:GroundActionIndicator
+
+@export
+var attack_move_effect:GroundActionIndicator
+
+@export
+var attack_position_effect:GroundActionIndicator
+
 func move(position:Vector3) -> void:
 	var units := selection_manager.get_selected_units_on_team()
 	if not units:
@@ -18,11 +30,12 @@ func move(position:Vector3) -> void:
 		var pos := positions_dict[unit.get_instance_id()]
 		action.move(pos)
 		
-	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Move)
+	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Move)
 	
-	if OS.is_debug_build():
-		DebugDraw3D.draw_sphere(position, 5.0, Color.YELLOW, 3.0)
+	move_to_effect.display_at(position)
+	#if OS.is_debug_build():
+	#	DebugDraw3D.draw_sphere(position, 5.0, Color.YELLOW, 3.0)
 		
 func move_and_attack(position:Vector3) -> void:
 	var units := selection_manager.get_selected_units_on_team()
@@ -37,11 +50,12 @@ func move_and_attack(position:Vector3) -> void:
 
 		unit_actions.move_and_attack(pos)
 	
-	selection_manager.unit_order_dispatched(UnitBlackboard.Action.MoveAndAttack)
+	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.MoveAndAttack)
 	
-	if OS.is_debug_build():
-		DebugDraw3D.draw_sphere(position, 5.0, Color.ORANGE, 3.0)
+	attack_move_effect.display_at(position)
+	#if OS.is_debug_build():
+		#DebugDraw3D.draw_sphere(position, 5.0, Color.ORANGE, 3.0)
 
 func attack(to_attack:Node3D) -> void:
 	var units := selection_manager.get_selected_units_on_team()
@@ -57,8 +71,10 @@ func attack(to_attack:Node3D) -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack(to_attack)
 
-	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Attack)
+	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
+	
+	target_asset_selection_effect.toggle_selection(to_attack, true)
 
 func attack_position(position:Vector3) -> bool:
 	var units := selection_manager.get_selected_units_on_team()
@@ -75,7 +91,9 @@ func attack_position(position:Vector3) -> bool:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack_position(position)
 	
-	selection_manager.unit_order_dispatched(UnitBlackboard.Action.Attack)
+	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
 
+	attack_position_effect.display_at(position)
+	
 	return true

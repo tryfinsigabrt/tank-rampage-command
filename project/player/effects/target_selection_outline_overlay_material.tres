@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://g3f32qmgfuu0"]
+
+[ext_resource type="Shader" uid="uid://chjoaw75i7t3a" path="res://player/effects/selection_outline_overlay.gdshader" id="1_fpyxj"]
+
+[resource]
+render_priority = 127
+shader = ExtResource("1_fpyxj")
+shader_parameter/outline_size = 0.1
+shader_parameter/outline_color = Color(0.84, 0.084000014, 0.084000014, 1)

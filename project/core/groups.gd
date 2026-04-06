@@ -36,7 +36,7 @@ static func get_parent_with_type(leaf: Node, type: Variant) -> Node:
 	return get_parent_matching(leaf, func(node: Node) -> bool: return is_instance_of(node, type) )
 
 static func has_ancestor(leaf: Node, ancestor: Node) -> bool:
-	return get_parent_matching(leaf, func(node: Node) -> bool: return node == ancestor) != null
+	return ancestor.is_ancestor_of(leaf)
 	
 static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
 	var node:Node = leaf

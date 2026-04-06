@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://15e16r8qmv1v"]
+
+[ext_resource type="Script" uid="uid://bibosv6m6jjc7" path="res://player/effects/ground_action_indicator.gd" id="1_s253p"]
+[ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="2_s0sno"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s253p"]
+material = ExtResource("2_s0sno")
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.1
+
+[node name="GroundActionIndicator" type="Node3D" unique_id=1424207464]
+script = ExtResource("1_s253p")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=468868762]
+unique_name_in_owner = true
+mesh = SubResource("CylinderMesh_s253p")
+
+[node name="DisplayTimer" type="Timer" parent="." unique_id=1116397927]
+unique_name_in_owner = true
+one_shot = true

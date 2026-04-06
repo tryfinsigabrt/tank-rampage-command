@@ -59,7 +59,7 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 		_attack_action.move_into_range = AttackAction.MoveBehavior.ALWAYS \
 			if weapon.prefer_close_shots else AttackAction.MoveBehavior.IF_OUT_RANGE
 		
-	if OS.is_debug_build():
+	if OS.is_debug_build() and not GameManager.is_owned_by_player(self):
 		var pos:Vector3 = _targeted_node.global_position if _targeted_node else _targeted_position
 		DebugDraw3D.draw_sphere(pos, 10.0, Color.RED, 3.0)
 	

@@ -3,6 +3,8 @@ class_name MatchTeam extends Node3D
 @export
 var team:int
 
+var is_player_team:bool
+
 @export
 var resources:TeamResources:
 	set(value):
