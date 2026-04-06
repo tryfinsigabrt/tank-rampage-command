@@ -33,6 +33,7 @@ func move(position:Vector3) -> void:
 	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Move)
 	
+	_reset_effects()
 	move_to_effect.display_at(position)
 	#if OS.is_debug_build():
 	#	DebugDraw3D.draw_sphere(position, 5.0, Color.YELLOW, 3.0)
@@ -53,6 +54,7 @@ func move_and_attack(position:Vector3) -> void:
 	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.MoveAndAttack)
 	
+	_reset_effects()
 	attack_move_effect.display_at(position)
 	#if OS.is_debug_build():
 		#DebugDraw3D.draw_sphere(position, 5.0, Color.ORANGE, 3.0)
@@ -74,8 +76,15 @@ func attack(to_attack:Node3D) -> void:
 	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
 	
+	_reset_effects()
 	target_asset_selection_effect.toggle_selection(to_attack, true)
 
+func _reset_effects() -> void:
+	move_to_effect.hide()
+	attack_move_effect.hide()
+	attack_position_effect.hide()
+	target_asset_selection_effect.disable_all()
+	
 func attack_position(position:Vector3) -> bool:
 	var units := selection_manager.get_selected_units_on_team()
 	if not units:
@@ -94,6 +103,7 @@ func attack_position(position:Vector3) -> bool:
 	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
 
+	_reset_effects()
 	attack_position_effect.display_at(position)
 	
 	return true

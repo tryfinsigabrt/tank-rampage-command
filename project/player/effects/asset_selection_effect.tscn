@@ -7,3 +7,5 @@
 script = ExtResource("1_t3nul")
 outline_material = ExtResource("2_qxf6u")
 metadata/_custom_type_script = "uid://co1yq2sax7raf"
+
+[node name="Timers" type="Node" parent="." unique_id=1918545890]
