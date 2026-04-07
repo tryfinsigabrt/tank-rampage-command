@@ -79,6 +79,20 @@ func attack(to_attack:Node3D) -> void:
 	_reset_effects()
 	target_asset_selection_effect.toggle_selection(to_attack, true)
 
+func stop() -> void:
+	var units := selection_manager.get_selected_units_on_team()
+	if not units:
+		return
+	
+	for unit in units:
+		var unit_actions := unit.get_or_add_actions()
+		unit_actions.stop()
+		
+	selection_manager.unit_order_dispatched()
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Stop)
+	
+	_reset_effects()
+		
 func _reset_effects() -> void:
 	move_to_effect.hide()
 	attack_move_effect.hide()

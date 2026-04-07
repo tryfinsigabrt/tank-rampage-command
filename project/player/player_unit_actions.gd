@@ -13,7 +13,9 @@ enum Mode
 {
 	NONE,
 	MOVE,
-	ATTACK
+	ATTACK,
+	STOP,
+	HOLD
 }
 
 var _mode:Mode = Mode.NONE
@@ -46,6 +48,12 @@ func _check_for_mode(event: InputEvent) -> bool:
 	elif event.is_action_pressed("unit_mode_move"):
 		if _mode != Mode.MOVE:
 			_mode = Mode.MOVE
+			get_viewport().set_input_as_handled()
+			return true
+	elif event.is_action_pressed("unit_mode_stop"):
+		if _mode != Mode.STOP:
+			_mode = Mode.STOP
+			_handle_stop(event)
 			get_viewport().set_input_as_handled()
 			return true
 	return false
@@ -128,6 +136,7 @@ func _handle_select(event: InputEvent) -> void:
 		Mode.NONE: _handle_asset_select(event)
 		Mode.ATTACK: _handle_attack(event)
 		Mode.MOVE: _handle_move_to(event)
+		Mode.STOP: _handle_stop(event)
 		_ : pass
 	
 	# Clear mode after action taken
@@ -135,6 +144,11 @@ func _handle_select(event: InputEvent) -> void:
 
 func _handle_move_to(event: InputEvent) -> void:
 	_move_to(event)
+	
+	_mode = Mode.NONE
+	
+func _handle_stop(_event: InputEvent) -> void:
+	order_manager.stop()
 	
 	_mode = Mode.NONE
 	

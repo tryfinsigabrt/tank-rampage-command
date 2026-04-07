@@ -5,7 +5,7 @@ class Action:
 	const Attack:StringName = &"attack"
 	const Follow:StringName = &"follow"
 	const MoveAndAttack:StringName = &"move_and_attack"
-
+	const Stop:StringName = &"stop"
 
 class Keys:
 	const TargetPosition:StringName = &"target_position"

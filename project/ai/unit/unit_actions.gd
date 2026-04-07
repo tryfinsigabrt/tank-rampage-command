@@ -108,6 +108,10 @@ func move_and_attack(target_position:Vector3) -> void:
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
 
+func stop() -> void:
+	_clear_all_actions()
+	print_debug("%s(%s): Stop command ordered" % [name, StringUtils.safe_name(unit)])
+
 func _new_action() -> void:
 	_command_counter += 1
 	_clear_all_actions()

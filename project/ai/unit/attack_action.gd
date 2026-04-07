@@ -27,6 +27,7 @@ var _node_was_targeted:bool
 
 var targeted_location:Vector3
 var move_into_range:MoveBehavior = MoveBehavior.ALWAYS
+var _range_move_target:Vector3 = Vector3.INF
 
 # TODO: This will vary per unit so should get the min fire interval from the controlled unit
 # and maybe this will be a multiplier on top of that
@@ -82,7 +83,19 @@ func _ready() -> void:
 var firing:bool:
 	get: return not _fire_timer.is_stopped()
 	
+func _exit_tree() -> void:
+	if SignalBus.on_destination_reached.is_connected(_move_finished):
+		SignalBus.on_destination_reached.disconnect(_move_finished)
+	if SignalBus.on_unit_move_canceled.is_connected(_move_finished):
+		SignalBus.on_unit_move_canceled.disconnect(_move_finished)
+		
+	# Cancel active move if it's not complete
+	if is_instance_valid(controlled_unit) and _range_move_target != Vector3.INF:
+		SignalBus.on_unit_move_canceled.emit(controlled_unit, _range_move_target)
+		
 func _move_into_attack_range() -> void:
+	_range_move_target = Vector3.INF
+	
 	if move_into_range == MoveBehavior.NEVER:
 		return
 		
@@ -94,8 +107,8 @@ func _move_into_attack_range() -> void:
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
 		var ideal_dist:float = fire_range.x * 2.0 if fire_range.x / fire_range.y < 0.1 else fire_range.x + 1.0
-		var move_target:Vector3 = attack_position - attack_dir * ideal_dist
-		SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
+		_range_move_target = attack_position - attack_dir * ideal_dist
+		_move_to_ranged_target()
 	
 	# Out of range could be too close or too far away
 	elif move_into_range == MoveBehavior.IF_OUT_RANGE:
@@ -112,9 +125,22 @@ func _move_into_attack_range() -> void:
 			var bounds_size := controlled_unit.get_global_bounds().size
 			var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
 			diff += signf(diff) * buffer
-			var move_target:Vector3 = my_position + attack_dir * diff
-			SignalBus.on_unit_move_issued.emit(controlled_unit, move_target)
+			_range_move_target = my_position + attack_dir * diff
+			_move_to_ranged_target()
 
+func _move_to_ranged_target() -> void:
+	if not SignalBus.on_destination_reached.is_connected(_move_finished):
+		SignalBus.on_destination_reached.connect(_move_finished)
+	if not SignalBus.on_unit_move_canceled.is_connected(_move_finished):
+		SignalBus.on_unit_move_canceled.connect(_move_finished)
+		
+	SignalBus.on_unit_move_issued.emit(controlled_unit, _range_move_target)
+
+func _move_finished(in_unit:Unit, _in_target_position:Vector3) -> void:
+	if in_unit != controlled_unit:
+		return
+	_range_move_target = Vector3.INF
+	
 func _process(delta: float) -> void:
 	if not is_valid():
 		queue_free()
