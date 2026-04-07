@@ -19,7 +19,6 @@
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="16_575d2"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="17_q4yjv"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="18_lkwmk"]
-[ext_resource type="PackedScene" uid="uid://dvr8xr3q18rl8" path="res://ui/MiniMap/MiniMap.tscn" id="19_ahvu0"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="19_w6fx3"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="20_83iv7"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="20_ibbv5"]
@@ -28,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_xxlqf"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="22_83iv7"]
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="22_saqa1"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="25_qxacn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
 
@@ -989,7 +989,7 @@ size = Vector3(100, 100, 100)
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("20_83iv7")]
 
-[node name="MiniMap" parent="." unique_id=1355849070 instance=ExtResource("19_ahvu0")]
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("25_qxacn")]
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("21_xxlqf")]
 visible = false

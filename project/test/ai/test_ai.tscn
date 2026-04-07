@@ -32,6 +32,7 @@
 [ext_resource type="Resource" uid="uid://cf1nyflh37tln" path="res://units/human/marine/teams/marine_yellow_team.tres" id="22_oenpu"]
 [ext_resource type="Resource" uid="uid://biw7s13xuvaoy" path="res://units/human/marine/teams/marine_red_team.tres" id="23_hsvrm"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="24_oenpu"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="33_bvix3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -408,6 +409,8 @@ layout_mode = 2
 
 [node name="UtilityAiDebugHud" parent="DebugHud" unique_id=1352376986 instance=ExtResource("20_ij0eg")]
 layout_mode = 2
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("33_bvix3")]
 
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]

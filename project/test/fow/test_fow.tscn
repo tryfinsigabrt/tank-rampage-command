@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cl75y4etufctb" path="res://fow/fog_of_war_debug_overlay.tscn" id="9_ct22n"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="9_cwula"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="9_ysk38"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="12_e7ile"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -199,5 +200,7 @@ team = 2
 [node name="FogOfWarDebugOverlay" parent="DebugHud" unique_id=1104952790 node_paths=PackedStringArray("fog_of_war") instance=ExtResource("9_ct22n")]
 layout_mode = 2
 fog_of_war = NodePath("../../FogOfWar")
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("12_e7ile")]
 
 [editable path="World/PlayerTeam/Player"]

@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_4d6w6"]
 [ext_resource type="Script" uid="uid://vdoi2x7i44vm" path="res://ui/hud/hud.gd" id="1_rbyyf"]
 [ext_resource type="PackedScene" uid="uid://b267c78yllwfx" path="res://ui/hud/resources.tscn" id="3_e0nub"]
+[ext_resource type="PackedScene" uid="uid://dvr8xr3q18rl8" path="res://ui/MiniMap/MiniMap.tscn" id="4_w75iv"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534]
 anchors_preset = 15
@@ -23,4 +24,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="Resources" parent="ResourcesContainer" unique_id=993976760 instance=ExtResource("3_e0nub")]
+layout_mode = 2
+
+[node name="MiniMap" parent="." unique_id=944229518 instance=ExtResource("4_w75iv")]
 layout_mode = 2
