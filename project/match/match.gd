@@ -40,7 +40,7 @@ func _ready() -> void:
 			push_warning("%s: node=%s is in group 'MatchTeam' but not a MatchTeam type" % [name, node.name])
 			continue
 		_match_teams[team.team] = team
-		if _player_team < 0 and Groups.has_ancestor(player_node, team):
+		if player_node and _player_team < 0 and Groups.has_ancestor(player_node, team):
 			print_debug("%s: Found player team: %d -> %s" % [name, team.team, team.name])
 			_player_team = team.team
 			team.is_player_team = true

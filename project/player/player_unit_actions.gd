@@ -56,6 +56,12 @@ func _check_for_mode(event: InputEvent) -> bool:
 			_handle_stop(event)
 			get_viewport().set_input_as_handled()
 			return true
+	elif event.is_action_pressed("unit_mode_hold"):
+		if _mode != Mode.HOLD:
+			_mode = Mode.HOLD
+			_handle_hold(event)
+			get_viewport().set_input_as_handled()
+			return true
 	return false
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -136,7 +142,6 @@ func _handle_select(event: InputEvent) -> void:
 		Mode.NONE: _handle_asset_select(event)
 		Mode.ATTACK: _handle_attack(event)
 		Mode.MOVE: _handle_move_to(event)
-		Mode.STOP: _handle_stop(event)
 		_ : pass
 	
 	# Clear mode after action taken
@@ -149,6 +154,11 @@ func _handle_move_to(event: InputEvent) -> void:
 	
 func _handle_stop(_event: InputEvent) -> void:
 	order_manager.stop()
+	
+	_mode = Mode.NONE
+	
+func _handle_hold(_event: InputEvent) -> void:
+	order_manager.hold()
 	
 	_mode = Mode.NONE
 	

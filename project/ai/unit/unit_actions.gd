@@ -49,6 +49,7 @@ func _update_tree_state() -> void:
 
 func move(target_position:Vector3) -> void:
 	_new_action()
+	_clear_hold()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
@@ -62,6 +63,10 @@ func move(target_position:Vector3) -> void:
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
 func attack(enemy:Node3D) -> void:
+	_clear_hold()
+	_do_attack(enemy)
+	
+func _do_attack(enemy:Node3D) -> void:
 	assert(enemy and enemy.is_in_group(Groups.TeamAsset), "%s: %s attaack %s - not a TeamAsset!" % [name, unit.name, StringUtils.safe_name(enemy)])
 	_new_action()
 	
@@ -78,6 +83,7 @@ func attack(enemy:Node3D) -> void:
 
 func attack_position(target_position:Vector3) -> void:
 	_new_action()
+	_clear_hold()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
@@ -92,6 +98,7 @@ func attack_position(target_position:Vector3) -> void:
 	
 func move_and_attack(target_position:Vector3) -> void:
 	_new_action()
+	_clear_hold()
 	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.MoveAndAttack)
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
@@ -110,22 +117,30 @@ func follow(_friendly:Unit) -> void:
 
 func stop() -> void:
 	_clear_all_actions()
+	_clear_hold()
 	print_debug("%s(%s): Stop command ordered" % [name, StringUtils.safe_name(unit)])
+
+func hold() -> void:
+	_clear_all_actions()
+	blackboard.is_hold = true
+	
+	print_debug("%s(%s): Hold command ordered" % [name, StringUtils.safe_name(unit)])
 
 func _new_action() -> void:
 	_command_counter += 1
 	_clear_all_actions()
 	
 func _clear_all_actions() -> void:
+	
 	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
-
+	
 func is_attacking() -> bool:
 	return blackboard.is_attacking
 	
 func get_attack_target() -> Unit:
-	return blackboard.target_unit if is_attacking() else null
+	return blackboard.target_node if is_attacking() else null
 	
 func is_moving() -> bool:
 	return unit and unit.is_moving
@@ -134,4 +149,8 @@ func is_idle() -> bool:
 	return _command_counter <= 0
 
 func _on_idle_state_threat_selected(threat: Node3D) -> void:
-	attack(threat)
+	# Don't clear hold
+	_do_attack(threat)
+	
+func _clear_hold() -> void:
+	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.HoldIssued)

@@ -25,19 +25,21 @@ func after_run(_actor: Node, blackboard: Blackboard) -> void:
 	if current_position.is_equal_approx(_targeted_position):
 		blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	
-func before_run(actor: Node, blackboard: Blackboard) -> void:
-	super.before_run(actor, blackboard)
+func before_run(actor: Node, in_blackboard: Blackboard) -> void:
+	super.before_run(actor, in_blackboard)
+	
+	var blackboard:UnitBlackboard = in_blackboard as UnitBlackboard
 	
 	_finished = 0
 	var valid:bool = false
 	
 	_unit = actor as Unit
 	if _unit:
-		_targeted_node = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Node3D
+		_targeted_node = blackboard.target_node
 		if _targeted_node:
 			valid = true
-		elif blackboard.has_value(UnitBlackboard.Keys.TargetPosition):
-			_targeted_position = blackboard.get_value(UnitBlackboard.Keys.TargetPosition)
+		elif blackboard.has_target_position:
+			_targeted_position = blackboard.target_position
 			valid = true
 		
 	if not valid:
@@ -54,11 +56,22 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	
 	# Determine if we should prefer getting close or only move if out of range
 	# Some weapons like the artillery shells prefer to stay at a distance
+	# If a hold command is issued then never move
+	var move_behavior:AttackAction.MoveBehavior
 	var weapon:Weapon = _unit.weapon
-	if weapon:
-		_attack_action.move_into_range = AttackAction.MoveBehavior.ALWAYS \
-			if weapon.prefer_close_shots else AttackAction.MoveBehavior.IF_OUT_RANGE
+
+	if blackboard.is_hold:
+		move_behavior = AttackAction.MoveBehavior.NEVER
+	elif weapon:
+		if weapon.prefer_close_shots:
+			move_behavior = AttackAction.MoveBehavior.ALWAYS
+		else:
+			move_behavior = AttackAction.MoveBehavior.IF_OUT_RANGE
+	else:
+		move_behavior = AttackAction.MoveBehavior.ALWAYS
 		
+	_attack_action.move_into_range = move_behavior
+	
 	if OS.is_debug_build() and not GameManager.is_owned_by_player(self):
 		var pos:Vector3 = _targeted_node.global_position if _targeted_node else _targeted_position
 		DebugDraw3D.draw_sphere(pos, 10.0, Color.RED, 3.0)

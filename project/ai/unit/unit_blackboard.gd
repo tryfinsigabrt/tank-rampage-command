@@ -6,11 +6,13 @@ class Action:
 	const Follow:StringName = &"follow"
 	const MoveAndAttack:StringName = &"move_and_attack"
 	const Stop:StringName = &"stop"
+	const Hold:StringName = &"hold"
 
 class Keys:
 	const TargetPosition:StringName = &"target_position"
 	const Action:StringName = &"action"
 	const TargetNode:StringName = &"target_node"
+	const HoldIssued:StringName = &"hold"
 
 var current_action:StringName:
 	get:
@@ -18,13 +20,17 @@ var current_action:StringName:
 	set(value):
 		set_value(Keys,Action, value)
 
+var has_target_position:bool:
+	get:
+		return has_value(Keys.TargetPosition)
+		
 var target_position:Vector3:
 	get:
 		return get_value(Keys.TargetPosition, Vector3.ZERO)
 	set(value):
 		set_value(Keys.TargetPosition, value)
 
-var target_unit:Unit:
+var target_node:Node3D:
 	get:
 		return get_value(Keys.TargetNode)
 	set(value):
@@ -34,3 +40,8 @@ var is_attacking:bool:
 	get:
 		return current_action == Action.Attack
 		
+var is_hold:bool:
+	get:
+		return get_value(Keys.HoldIssued, false)
+	set(value):
+		set_value(Keys.HoldIssued, value)
