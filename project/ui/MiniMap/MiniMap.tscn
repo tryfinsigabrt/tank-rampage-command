@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://buipewqcv0puf" path="res://ui/MiniMap/mini_map.gd" id="1_3x50y"]
 [ext_resource type="Texture2D" uid="uid://ctjkpefu42cxt" path="res://ui/MiniMap/MiniMapBezel.png" id="1_tuy02"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_tm8bl"]
 
 [node name="MiniMap" type="SubViewportContainer" unique_id=944229518]
 top_level = true
@@ -28,3 +29,8 @@ current = true
 position = Vector2(128, 128)
 scale = Vector2(2, 2)
 texture = ExtResource("1_tuy02")
+
+[node name="LocationPicker" type="Node3D" parent="." unique_id=1400949337 node_paths=PackedStringArray("camera")]
+unique_name_in_owner = true
+script = ExtResource("3_tm8bl")
+camera = NodePath("../MiniMapViewport/MiniMapCamera")

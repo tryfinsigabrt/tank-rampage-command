@@ -1,9 +1,9 @@
 class_name MiniMap extends SubViewportContainer
 
 @onready var _mini_map_viewport: SubViewport = $MiniMapViewport
+@onready var location_picker: NodePicker = %LocationPicker
 
 var _camera:RTSCamera
-var _world_aabb:AABB
 
 func _ready() -> void:
 	var player:Player = get_tree().get_first_node_in_group(Groups.Player) as Player
@@ -17,37 +17,27 @@ func _ready() -> void:
 		set_process_input(false)
 		return
 		
-	var world_boundaries:WorldBoundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries)
-	if world_boundaries:
-		_world_aabb = world_boundaries.bounds
-	else:
-		push_warning("%s: No world boundaries in scene - falling back to static 1000x1000x1000 world size" % name)
-		_world_aabb = AABB(Vector3.ZERO, Vector3(500.0,500.0,500.0))
-		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mini_map_navigate"):
-		_move_camera_to_cursor()
+		# Capture local mouse position
+		var local_pos := get_local_mouse_position()
+		if not Rect2(Vector2.ZERO, size).has_point(local_pos):
+			return
 
-func _move_camera_to_cursor() -> void:	
-	var minimap_pos:Vector2 = _mini_map_viewport.get_mouse_position()
-	var world_pos:Vector3 = _get_world_position_from_minimap_pos(minimap_pos)
+		_move_camera_to_cursor(local_pos)
+
+func _move_camera_to_cursor(local_pos:Vector2) -> void:
+	var scale_factor := 	Vector2(_mini_map_viewport.size) / size
+	var viewport_pos := local_pos * scale_factor
 	
-	print_debug("%s: Minimap position: %s -> %s" % [name, minimap_pos, world_pos])
+	var result:Dictionary = location_picker.pick_position(viewport_pos, Collisions.CompositeMasks.ground)
+	if not result:
+		return
+	
+	var world_pos:Vector3 = result["position"]
+	# Maintain existing y offset
+	world_pos.y = _camera.global_position.y
+	
+	print_debug("%s: Minimap position: %s -> %s" % [name, viewport_pos, world_pos])
 	
 	_camera.global_position = world_pos
-	
-func _get_world_position_from_minimap_pos(pos:Vector2) -> Vector3:
-	# Retain same y coordinate on camera
-	var y_coord:float = _camera.global_position.y
-	
-	var viewport_size:Vector2 = _mini_map_viewport.size
-	var uv:Vector2 = (pos / viewport_size).clampf(0.0, 1.0)
-	
-	var world_size:Vector3 = _world_aabb.size
-	var world_offset:Vector3 = _world_aabb.position
-	
-	return Vector3(
-		world_offset.x + world_size.x * uv.x,
-		y_coord,
-		world_offset.z + world_size.z * uv.y
-	)
