@@ -58,7 +58,7 @@ func recenter() -> void:
 	var camera_position:Vector3 = camera_reference_start - avg_orientation * ideal_distance_from_closest_focus
 	print_debug("%s: Focusing camera on %s" % [name, camera_position])
 	
-	camera.global_position = camera_position
+	camera.move_to(camera_position)
 	# Align rotation along the avg_orientation
 	var forward:Vector3 = -avg_orientation
 	var right := Vector3.UP.cross(forward).normalized()

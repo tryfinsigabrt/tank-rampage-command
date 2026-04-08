@@ -35,9 +35,7 @@ func _move_camera_to_cursor(local_pos:Vector2) -> void:
 		return
 	
 	var world_pos:Vector3 = result["position"]
-	# Maintain existing y offset
-	world_pos.y = _camera.global_position.y
 	
 	print_debug("%s: Minimap position: %s -> %s" % [name, viewport_pos, world_pos])
 	
-	_camera.global_position = world_pos
+	_camera.move_to(world_pos)

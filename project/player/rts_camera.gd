@@ -93,6 +93,22 @@ func zoom_camera(delta:float) -> void:
 		
 #endregion
 
+#region public
+
+func move_to(global_planar_pos:Vector3) -> void:
+	var new_global_pos := Vector3(
+		global_planar_pos.x,
+		global_position.y,
+		global_planar_pos.z
+	)
+	
+	global_position = new_global_pos
+	
+	# Reset camera boom offset
+	camera_boom.position = Vector3.ZERO
+	
+#endregion
+
 #region overrides
 func _ready() -> void:
 	_setup_camera()
