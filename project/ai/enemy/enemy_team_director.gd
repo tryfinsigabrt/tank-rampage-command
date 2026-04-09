@@ -56,4 +56,12 @@ func _init_blackboard() -> void:
 	blackboard.team_info = team_units
 	blackboard.enemy_teams_info = enemy_teams
 	blackboard.team = team
+	blackboard.match_team = _find_match()
 	blackboard.focus_position = team_units.get_average_position()
+
+func _find_match() -> MatchTeam:
+	for node:Node in get_tree().get_nodes_in_group(Groups.MatchTeam):
+		var match_team:MatchTeam = node as MatchTeam
+		if match_team and match_team.team == team:
+			return match_team
+	return null

@@ -5,6 +5,9 @@ var team:int
 
 var is_player_team:bool
 
+signal match_team_ready
+var is_match_ready:bool
+
 @export
 var resources:TeamResources:
 	set(value):
@@ -54,13 +57,16 @@ func _ready() -> void:
 		_add_building(building)
 		
 	await get_tree().process_frame
-	SignalBus.match_team_ready.emit(self)
 	
 	team_resources.team = team
 	team_resources.initialize()
 	
 	# Add new units and buildings as they are built
 	SignalBus.on_team_asset_added.connect(_on_asset_added)
+	
+	SignalBus.match_team_ready.emit(self)
+	match_team_ready.emit()
+	is_match_ready = true
 
 func _add_unit(unit:Unit) -> void:
 	unit.team = team

@@ -14,6 +14,7 @@ class Keys:
 	const team_info:String = &"team_info"
 	const focus_position:StringName = &"focus_position"
 	const team:StringName = &"team"
+	const match_team:StringName = &"match_team"
 	const attack_priorities:StringName = &"attack_priorities"
 	const avoidance_enemies:String = &"avoidance_enemies"
 	# TODO: Should probably group these by the unit action to make it more extensible and less brittle
@@ -92,6 +93,16 @@ var team:int:
 		return get_value(Keys.team, 0)
 	set(value):
 		set_value(Keys.team, value)
+
+signal match_team_set		
+var match_team:MatchTeam:
+	get:
+		var value: MatchTeam = get_value(Keys.match_team)
+		assert(value, "%s: Match Team is null!" % name)
+		return value
+	set(value):
+		set_value(Keys.match_team, value)
+		match_team_set.emit(value)
 	
 var focus_position:Vector3:
 	get:

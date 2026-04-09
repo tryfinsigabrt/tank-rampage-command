@@ -97,6 +97,18 @@ func refund_personnel(resources:TeamResources) -> void:
 		return
 	
 	resources.personnel.count -= personnel
-		
+
+func refund_cost(resources:TeamResources) -> void:
+	if not resources:
+		return
+	
+	# Only buildings and structures refunded at 50% (rounded down) cost
+	if type < Type.CommandCenter:
+		push_warning("Attempted to refund non-refundable type %s" % [EnumUtils.enum_to_string(Type, type)])
+		return
+	
+	@warning_ignore("integer_division")
+	resources.scrap.count += cost / 2
+	
 func _to_string() -> String:
 	return "type=%s; team_asset=%s" % [type, team_asset.resource_path]

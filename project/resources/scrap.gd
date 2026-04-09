@@ -17,7 +17,8 @@ var cap:int = 100000:
 var count:int = 5000:
 	set(value):
 		var prev_value := count
-		count = clampi(value, 0, cap)
+		# If already over the max don't clamp down
+		count = clampi(value, 0, maxi(prev_value, cap))
 		
 		if count != prev_value:
 			count_changed.emit(prev_value, count)

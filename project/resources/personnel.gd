@@ -20,7 +20,8 @@ var cap:int = 10:
 var count:int:
 	set(value):
 		var prev_value := count
-		count = clampi(value, 0, cap)
+		# If already over the max don't clamp down
+		count = clampi(value, 0, maxi(prev_value, cap))
 		
 		if prev_value != count:
 			count_changed.emit(prev_value, count)

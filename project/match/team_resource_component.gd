@@ -35,6 +35,13 @@ func refund_unit_cost(unit:Unit) -> void:
 	else:
 		push_warning("%s: unit=%s had no construction cost binding!" % [name, unit.name])	
 	
+func refund_building_cost(building:Building) -> void:
+	var cost:ConstructionResource = ConstructionResource.get_assigned_resource(building)
+	if cost:
+		cost.refund_cost(resources)
+	else:
+		push_warning("%s: building=%s has no construction cost binding!" % [name, building.name])
+
 func _on_control_point_captured(new_owning_team:int, control_point:ControlPoint) -> void:
 	if new_owning_team != team:
 		return
