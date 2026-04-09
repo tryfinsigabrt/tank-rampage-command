@@ -4,13 +4,13 @@ var resources:TeamResources
 var team:int
 
 @export
-var default_costs:Dictionary[ConstructionResource.Type, ConstructionResource]
+var default_costs:Array[ConstructionResource]
 
 func _get_resource_for(asset: Node3D) -> ConstructionResource:
-	for type in default_costs:
-		var resource:ConstructionResource = default_costs[type]
+	for resource in default_costs:
 		if asset.scene_file_path == resource.team_asset.resource_path:
 			return resource
+			
 	return null
 	
 func initialize() -> void:

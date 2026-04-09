@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_0lp77"]
 [ext_resource type="Script" uid="uid://chm3x5h7wcqb5" path="res://match/team_resource_component.gd" id="2_7gk12"]
 [ext_resource type="Resource" uid="uid://loyeyapypmqe" path="res://conf/costs/human/marine_cost.tres" id="3_bw36e"]
+[ext_resource type="Resource" uid="uid://c7o20tq4j3vd1" path="res://conf/costs/ai/ai_tank_cost.tres" id="4_oigsi"]
 [ext_resource type="Resource" uid="uid://c0js7vjcgp2at" path="res://conf/costs/human/tank_cost.tres" id="5_1p2pn"]
 [ext_resource type="Resource" uid="uid://c15yy2yxbmpuf" path="res://conf/costs/human/artillery_cost.tres" id="5_hvcr5"]
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="6_1p2pn"]
@@ -18,12 +19,5 @@ script = ExtResource("1_sgnxb")
 [node name="TeamResourceComponent" type="Node" parent="." unique_id=895429135]
 unique_name_in_owner = true
 script = ExtResource("2_7gk12")
-default_costs = Dictionary[int, ExtResource("2_0lp77")]({
-1: ExtResource("3_bw36e"),
-2: ExtResource("5_1p2pn"),
-3: ExtResource("5_hvcr5"),
-4: ExtResource("6_1p2pn"),
-5: ExtResource("7_hvcr5"),
-6: ExtResource("8_oigsi")
-})
+default_costs = Array[ExtResource("2_0lp77")]([ExtResource("4_oigsi"), ExtResource("5_hvcr5"), ExtResource("7_hvcr5"), ExtResource("6_1p2pn"), ExtResource("8_oigsi"), ExtResource("3_bw36e"), ExtResource("5_1p2pn")])
 metadata/_custom_type_script = "uid://chm3x5h7wcqb5"

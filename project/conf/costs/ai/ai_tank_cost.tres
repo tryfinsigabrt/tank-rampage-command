@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c7o20tq4j3vd1"]
+
+[ext_resource type="Texture2D" uid="uid://c0ygktypdd4bj" path="res://ui/building/icons/tank.png" id="1_xdq5e"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_w0fff"]
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="3_af8lg"]
+
+[resource]
+script = ExtResource("2_w0fff")
+team_asset = ExtResource("3_af8lg")
+icon = ExtResource("1_xdq5e")
+type = 2
+cost = 25
+personnel = 2
+time = 10.0
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

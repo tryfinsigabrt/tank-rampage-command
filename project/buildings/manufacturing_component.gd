@@ -91,6 +91,8 @@ func build(type: ConstructionResource.Type) -> Node3D:
 	var unit := await _do_spawn(resource)
 	if _match_team:
 		if unit:
+			# Now count against army size
+			resource.spend_personnel_only(_match_team.resources)
 			resource.assign_to(unit)
 		else:
 			resource.refund_fully(_match_team.resources)

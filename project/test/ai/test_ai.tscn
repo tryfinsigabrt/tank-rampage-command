@@ -13,10 +13,13 @@
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="5_1edn6"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="6_45w8c"]
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="6_mushl"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="7_4pd8j"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="7_yp0w5"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="8_r4ybk"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="8_wygtg"]
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="9_81ogd"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="9_62175"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="9_ynl2i"]
 [ext_resource type="Resource" uid="uid://diiaihg7d7x4j" path="res://units/human/marine/teams/marine_green_team.tres" id="10_yagaj"]
 [ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="11_hsvrm"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="12_20ymc"]
@@ -53,6 +56,36 @@ agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
 size = Vector3(600, 100, 525)
+
+[sub_resource type="Resource" id="Resource_dy05a"]
+script = ExtResource("7_4pd8j")
+cap = 30
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_7l2ia"]
+script = ExtResource("8_r4ybk")
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_q4a86"]
+script = ExtResource("9_ynl2i")
+scrap = SubResource("Resource_7l2ia")
+personnel = SubResource("Resource_dy05a")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[sub_resource type="Resource" id="Resource_37ytp"]
+script = ExtResource("7_4pd8j")
+cap = 30
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_2gujw"]
+script = ExtResource("8_r4ybk")
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_8m8hx"]
+script = ExtResource("9_ynl2i")
+scrap = SubResource("Resource_2gujw")
+personnel = SubResource("Resource_37ytp")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
 
@@ -188,6 +221,7 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("2_ev4ck")]
 team = 1
+resources = SubResource("Resource_q4a86")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("6_mushl")]
 player_team = NodePath("..")
@@ -278,6 +312,7 @@ team = 1
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
 team = 2
+resources = SubResource("Resource_8m8hx")
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("14_43cal")]
 team = 2

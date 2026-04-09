@@ -6,6 +6,9 @@ var team:int
 var is_player_team:bool
 
 signal match_team_ready
+signal units_changed
+signal buildings_changed
+
 var is_match_ready:bool
 
 @export
@@ -75,12 +78,16 @@ func _add_unit(unit:Unit) -> void:
 	
 	team_resources.spend_resources(unit)
 	
+	units_changed.emit()
+	
 func _add_building(building:Building) -> void:
 	building.team = team
 	HealthStat.connect_died_signal(building, _on_building_destroyed.bind(building))
 	_buildings[building.get_instance_id()] = building
 	
 	team_resources.spend_resources(building)
+	
+	buildings_changed.emit()
 	
 func _on_asset_added(asset:Node3D) -> void:
 	if not asset.is_in_group(Groups.TeamAsset):
@@ -107,6 +114,8 @@ func _on_unit_destroyed(unit:Unit) -> void:
 	
 	team_resources.refund_unit_cost(unit)
 	
+	units_changed.emit()
+	
 	@warning_ignore("missing_await")
 	_check_defeated()
 	
@@ -116,6 +125,7 @@ func _on_building_destroyed(building:Building) -> void:
 	if not _buildings.erase(building.get_instance_id()):
 		return
 
+	buildings_changed.emit()
 	@warning_ignore("missing_await")
 	_check_defeated()
 
