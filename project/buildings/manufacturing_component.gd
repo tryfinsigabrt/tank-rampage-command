@@ -84,11 +84,17 @@ func build(type: ConstructionResource.Type) -> Node3D:
 		push_warning("%s: Type=%s cannot be built by this component!" % [name, type])
 		return null
 	
-	var unit := await _do_spawn(resource)
-	if unit and _match_team:
+	# Spend resources immediately
+	if _match_team:
 		resource.spend(_match_team.resources)
-		resource.assign_to(unit)
 		
+	var unit := await _do_spawn(resource)
+	if _match_team:
+		if unit:
+			resource.assign_to(unit)
+		else:
+			resource.refund_fully(_match_team.resources)
+			
 	return unit
 
 func _do_spawn(resource:ConstructionResource) -> Node3D:

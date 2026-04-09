@@ -77,6 +77,14 @@ func spend(resources:TeamResources) -> void:
 	resources.scrap.count -= cost
 	resources.personnel.count += personnel
 
+## This is only to be used if canceling before could be built or if the asset couldn't be spawned
+func refund_fully(resources:TeamResources) -> void:
+	if not resources:
+		return
+	
+	resources.scrap.count += cost
+	resources.personnel.count -= personnel
+	
 func spend_personnel_only(resources:TeamResources) -> void:
 	if not resources:
 		return
