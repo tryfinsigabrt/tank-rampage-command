@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://cqhor3n7y7yu4"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_d7p6m"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_dq7yk"]
+
+[resource]
+script = ExtResource("2_dq7yk")
+name = &"build_artillery"
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

@@ -41,6 +41,10 @@ var _build_queue: Array[BuildQueueElement]
 var queue_depth:int:
 	get:
 		return _build_queue.size()
+
+var available_build_slots:int:
+	get:
+		return max_queue - queue_depth
 	
 static func get_component(node: Node, required:bool = true) -> ManufacturingComponent:
 	return Components.get_component(Components.Manufacturing, node, required) as ManufacturingComponent
