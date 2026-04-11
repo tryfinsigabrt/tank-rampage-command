@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bilhxkjktotjc"]
+
+[ext_resource type="PackedScene" uid="uid://dnxrftysfq6gw" path="res://props/tree/tree_1.glb" id="1_dax3d"]
+
+[node name="Collection" unique_id=37383721 instance=ExtResource("1_dax3d")]
+
+[node name="Branch201" parent="." index="1" unique_id=1638701008]
+visible = false

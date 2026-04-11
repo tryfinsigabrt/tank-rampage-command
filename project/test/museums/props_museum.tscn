@@ -12,6 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://cks42gqhiqm4p" path="res://units/human/marine/anim-examples/death.tscn" id="7_x71tn"]
 [ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="7_y20a5"]
 [ext_resource type="PackedScene" uid="uid://7roqomga0wta" path="res://units/human/marine/anim-examples/death_nonlooping.tscn" id="8_a6r2u"]
+[ext_resource type="PackedScene" uid="uid://bilhxkjktotjc" path="res://props/tree/tree_1.tscn" id="13_ghh3f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
+material = ExtResource("1_domqp")
+size = Vector2(200, 200)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ko5u"]
 ground_bottom_color = Color(0, 0, 0, 1)
@@ -99,10 +104,6 @@ _data = {
 &"beauty": SubResource("Animation_y20a5")
 }
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
-material = ExtResource("1_domqp")
-size = Vector2(200, 200)
-
 [node name="Museum" type="Node3D" unique_id=144309689]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1150270377]
@@ -111,6 +112,9 @@ light_color = Color(0.7866393, 0.687221, 0.4915517, 1)
 light_angular_distance = 0.5
 shadow_enabled = true
 directional_shadow_max_distance = 75.0
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1067294858]
+mesh = SubResource("PlaneMesh_fdxvd")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=589963304]
 environment = SubResource("Environment_domqp")
@@ -139,9 +143,6 @@ fov = 45.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BeautyCam" unique_id=464215799]
 libraries/ = SubResource("AnimationLibrary_8ko5u")
 autoplay = &"beauty"
-
-[node name="Ground" type="MeshInstance3D" parent="." unique_id=1067294858]
-mesh = SubResource("PlaneMesh_fdxvd")
 
 [node name="Lights" type="Node3D" parent="." unique_id=520846783]
 
@@ -189,6 +190,13 @@ light_energy = 12.0
 light_size = 0.1
 spot_range = 16.0
 spot_angle = 60.0
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Lights/Left" unique_id=1024044279]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -27.828053, 20.036518, 1.3975067)
+light_energy = 16.0
+light_size = 0.01
+spot_range = 16.0
+spot_angle = 30.83
 
 [node name="Center" type="Node3D" parent="Lights" unique_id=365840609]
 
@@ -577,3 +585,6 @@ transform = Transform3D(1, 0, -2.9802322e-08, 0, 1, 0, 2.9802322e-08, 0, 1, 9.38
 
 [node name="barbed-wire" parent="." unique_id=491837801 instance=ExtResource("7_y20a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -10.058941, 0, -7.3918996)
+
+[node name="Tree1" parent="." unique_id=550298312 instance=ExtResource("13_ghh3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.100506, 0, 0)
