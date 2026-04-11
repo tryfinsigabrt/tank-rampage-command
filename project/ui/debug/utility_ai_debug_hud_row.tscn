@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://e46da2eeki8p" path="res://ui/debug/utility_ai_debug_hud_row.gd" id="1_6magq"]
 [ext_resource type="PackedScene" uid="uid://ca73gd216yul1" path="res://ui/debug/utility_ai_entry.tscn" id="2_idcys"]
 [ext_resource type="Script" uid="uid://bdo30g3xy82jw" path="res://ui/debug/utility_threat_handler.gd" id="3_v4xwj"]
+[ext_resource type="Script" uid="uid://hv32qygg1u11" path="res://ui/debug/utility_build_handler.gd" id="4_v4xwj"]
 
 [node name="UtilityAiDebugHudRow" type="VBoxContainer" unique_id=2118001837]
 anchors_preset = 15
@@ -22,3 +23,9 @@ layout_mode = 2
 
 [node name="Handler" type="Node" parent="UnitThreatUtility" unique_id=1401487736]
 script = ExtResource("3_v4xwj")
+
+[node name="BuildUtility" parent="." unique_id=387132042 instance=ExtResource("2_idcys")]
+layout_mode = 2
+
+[node name="Handler" type="Node" parent="BuildUtility" unique_id=1763538878]
+script = ExtResource("4_v4xwj")
