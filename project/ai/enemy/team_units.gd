@@ -5,6 +5,8 @@ const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
 @warning_ignore("unused_signal")
 signal initialized
 
+signal new_asset_built(asset:Node3D)
+
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 
 var team:int
@@ -48,6 +50,10 @@ func _add_asset(asset:Node3D, group: StringName) -> void:
 	if not HealthStat.connect_died_signal(asset, _on_asset_destroyed.bind(asset, group)):
 		push_warning("%s: asset=%s in group=%s has no HealthStat! Falling back to when asset exits tree" % [name, asset.name, group])
 	
+	# Only notify if asset was built
+	if not asset.has_meta(MatchTeam.IS_PREDEPLOYED_KEY):
+		new_asset_built.emit(asset)
+		
 func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:

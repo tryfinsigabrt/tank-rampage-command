@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://8r04bbeb5fpq"]
 
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_0lrjf"]
+[ext_resource type="Resource" uid="uid://mixlhotxidnd" path="res://buildings/barracks/barracks_attributes.tres" id="1_nk5as"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="2_0lrjf"]
 
 [resource]
@@ -9,4 +10,5 @@ team_asset = ExtResource("2_0lrjf")
 type = 5
 cost = 250
 time = 30.0
+attributes = ExtResource("1_nk5as")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

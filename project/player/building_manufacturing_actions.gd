@@ -41,7 +41,7 @@ func _dispatch_viable_build_order(type: ConstructionResource.Type) -> void:
 			manufacturing_components.push_back(comp)
 	
 	manufacturing_components.sort_custom(func(a:ManufacturingComponent, b:ManufacturingComponent) -> bool:
-		return a.queue_depth < b.queue_depth
+		return a.available_build_slots > b.available_build_slots
 	)
 	
 	for comp in manufacturing_components:

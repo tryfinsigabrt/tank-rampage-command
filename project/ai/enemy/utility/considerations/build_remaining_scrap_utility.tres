@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://ho4kj80rfhkm"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_2ff1d"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_e1ww5"]
+
+[sub_resource type="Curve" id="Curve_64hs6"]
+_data = [Vector2(0, 0.15171637), 0.0, 0.86689466, 1, 1, Vector2(0.1, 0.23840584), 0.86689466, 1.2644521, 1, 1, Vector2(0.2, 0.36485106), 1.2644521, 1.730318, 1, 1, Vector2(0.3, 0.53788286), 1.730318, 2.1719851, 1, 1, Vector2(0.4, 0.75508136), 2.1719851, 2.4491866, 1, 1, Vector2(0.5, 1), 2.4491866, 0.0, 1, 1, Vector2(0.6, 1), 0.0, 0.0, 1, 1, Vector2(0.7, 1), 0.0, 0.0, 1, 1, Vector2(0.8, 1), 0.0, 0.0, 1, 1, Vector2(0.9, 1), 0.0, 0.0, 1, 1, Vector2(1, 1), 0.0, 0.0, 1, 1]
+point_count = 11
+script = ExtResource("1_2ff1d")
+curve_type = 3
+exponent = 5
+slope = 2
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("2_e1ww5")
+input_key = "remaining_scrap"
+response_curve = SubResource("Curve_64hs6")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

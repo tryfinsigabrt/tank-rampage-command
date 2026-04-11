@@ -41,3 +41,14 @@ func _on_command_scheduled(unit:Unit, _command:StringName, _args:Dictionary[Stri
 func _is_on_our_team(unit:Unit) -> bool:
 	var team_units:TeamUnits = blackboard.team_info
 	return unit.is_on_team(team_units.team)
+
+func _on_team_units_new_asset_built(asset: Node3D) -> void:
+	var unit:Unit = asset as Unit
+	if not unit:
+		return
+		
+	# Mark as idle initially
+	var idle_units:Array[Unit] = blackboard.idle_units
+	idle_units.push_back(unit)
+	blackboard.idle_units = idle_units
+	_evaluate_priorities()	

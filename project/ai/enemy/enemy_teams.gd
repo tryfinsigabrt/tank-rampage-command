@@ -40,3 +40,20 @@ func get_all_visible_ids(ids:PackedInt64Array, team_id:int = -1) -> void:
 func mark_all_not_visible() -> void:
 	for team:EnemyTeamUnits in _teams.values():
 		team.mark_all_not_visible()
+
+
+#region Iterable
+		
+func _iter_init(iter: Array) -> bool:
+	if not _teams:
+		return false
+	iter[0] = Iterator.new(_teams.values())
+	return true
+
+func _iter_next(iter: Array) -> bool:
+	var itr:Iterator = iter[0]
+	return itr.increment()
+	
+func _iter_get(iter: Variant) -> Variant:
+	return iter.get_value()
+#endregion

@@ -46,6 +46,10 @@ var available_build_slots:int:
 	get:
 		return max_queue - queue_depth
 	
+var has_free_slot:bool:
+	get:
+		return available_build_slots > 0
+		
 static func get_component(node: Node, required:bool = true) -> ManufacturingComponent:
 	return Components.get_component(Components.Manufacturing, node, required) as ManufacturingComponent
 		
@@ -73,9 +77,14 @@ func _ready() -> void:
 	if not _match_team:
 		push_error("%s: ManufacturingComponent has no MatchTeam parent!" % name)
 	
+func get_build_metadata(type: ConstructionResource.Type) -> ConstructionResource:
+	return _indexed_types.get(type)
+	
 func can_build(type: ConstructionResource.Type) -> bool:
 	var resource: ConstructionResource = _indexed_types.get(type)
 	if not resource:
+		return false
+	if not has_free_slot:
 		return false
 	if not _match_team:
 		return true

@@ -6,6 +6,7 @@ class_name BuildPrioritizer extends Node
 
 var _team_resources:TeamResources 
 var _match_team:MatchTeam
+var _building:bool
 
 func _ready() -> void:
 	var match_team:MatchTeam = await blackboard.match_team_set
@@ -43,6 +44,10 @@ func _on_personnel_count_changed(_prev_value:int, _new_value:int) -> void:
 		_on_resources_available()
 
 func _on_resources_available() -> void:
+	if _building:
+		return
+		
+	_building = true
 	var available_personnel:int = _team_resources.personnel.remaining
 	var available_scrap:int = _team_resources.scrap.count
 	
@@ -56,3 +61,4 @@ func _on_resources_available() -> void:
 		
 	print_debug("%s: Queued %d build commands" % [name, build_count])
 	decision_loop_timer.start()
+	_building = false

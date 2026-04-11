@@ -1,8 +1,11 @@
 class_name BuildUtilityContext
 	
-var attributes:TeamAssetAttributes
 var construction:ConstructionResource
 
+var attributes:TeamAssetAttributes:
+	get:
+		return construction.attributes
+		
 ## Relative strength of this asset
 var strength:float:
 	get:
@@ -35,9 +38,9 @@ var personnel:int:
 	get:
 		return construction.personnel
 
-var remaining_scrap:int:
+var remaining_scrap:float:
 	get:
-		return available_scrap - cost
+		return float(available_scrap - cost) / available_scrap if available_scrap > 0 else 0.0
 
 var remaining_personnel:int:
 	get:

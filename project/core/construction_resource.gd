@@ -49,6 +49,9 @@ var personnel:int = 0
 @export_range(0.1, 1e9, 0.1, "or_greater")
 var time:float = 1.0
 
+@export
+var attributes:TeamAssetAttributes
+
 var classification:Classification:
 	get:
 		match type:
@@ -61,6 +64,18 @@ var classification:Classification:
 			_:
 				return Classification.None
 
+
+static func type_from_unit_class(unit_class:Unit.UnitClass) -> Type:
+	match unit_class:
+		Unit.UnitClass.Tank:
+			return Type.Tank
+		Unit.UnitClass.Soldier:
+			return Type.Marine
+		Unit.UnitClass.Artillery:
+			return Type.Artillery
+		_:
+			return Type.None
+			
 func can_build(resources:TeamResources) -> bool:
 	if not resources:
 		return true

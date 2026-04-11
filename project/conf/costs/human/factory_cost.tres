@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://nhj1mgwdfgje"]
 
+[ext_resource type="Resource" uid="uid://citp4cdneveca" path="res://buildings/factory/factory_attributes.tres" id="1_g7eod"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_q27nu"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="2_q27nu"]
 
@@ -9,4 +10,5 @@ team_asset = ExtResource("2_q27nu")
 type = 6
 cost = 400
 time = 45.0
+attributes = ExtResource("1_g7eod")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

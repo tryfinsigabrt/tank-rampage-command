@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_7txwx"]
 [ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="1_lstxx"]
+[ext_resource type="Resource" uid="uid://cot016647asn5" path="res://units/human/marine/marine_attributes.tres" id="1_toccx"]
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="2_lstxx"]
 
 [resource]
@@ -12,4 +13,5 @@ type = 1
 cost = 5
 personnel = 1
 time = 5.0
+attributes = ExtResource("1_toccx")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

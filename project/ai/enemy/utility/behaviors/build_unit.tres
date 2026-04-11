@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://c3bxk8yll8q70"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_3d108"]
+[ext_resource type="Resource" uid="uid://b7t0mfj3ajgd1" path="res://ai/enemy/utility/considerations/build_strength_utility.tres" id="2_xinam"]
+[ext_resource type="Resource" uid="uid://dwaptnbnng7v7" path="res://ai/enemy/utility/considerations/build_speed_utility.tres" id="3_hicqw"]
+[ext_resource type="Resource" uid="uid://dqia4ap3w1qnk" path="res://ai/enemy/utility/considerations/build_army_fraction_utility.tres" id="4_7ma7f"]
+[ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="5_2nj08"]
+[ext_resource type="Resource" uid="uid://bpetevhvw43ov" path="res://ai/enemy/utility/considerations/build_remaining_personnel.tres" id="6_e0esi"]
+[ext_resource type="Resource" uid="uid://cejow134wlkiu" path="res://ai/enemy/utility/considerations/build_enemy_delta.tres" id="7_jbu7f"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="8_xjcoa"]
+
+[resource]
+script = ExtResource("8_xjcoa")
+name = &"build_unit"
+aggregation = 1
+considerations = Array[ExtResource("1_3d108")]([ExtResource("2_xinam"), ExtResource("3_hicqw"), ExtResource("4_7ma7f"), ExtResource("5_2nj08"), ExtResource("6_e0esi"), ExtResource("7_jbu7f")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

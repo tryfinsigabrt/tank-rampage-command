@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_kgnja"]
 [ext_resource type="Texture2D" uid="uid://c0ygktypdd4bj" path="res://ui/building/icons/tank.png" id="1_t4on1"]
+[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="1_uxnmw"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="2_kgnja"]
 
 [resource]
@@ -12,4 +13,5 @@ type = 2
 cost = 25
 personnel = 2
 time = 10.0
+attributes = ExtResource("1_uxnmw")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

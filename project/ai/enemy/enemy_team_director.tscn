@@ -24,9 +24,7 @@
 [ext_resource type="Script" uid="uid://b00rmknae476u" path="res://ai/enemy/build_prioritizer.gd" id="22_1exag"]
 [ext_resource type="Script" uid="uid://c084fyvws44hy" path="res://ai/enemy/build_utility_calculator.gd" id="23_wflob"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="24_iv7ch"]
-[ext_resource type="Resource" uid="uid://cqhor3n7y7yu4" path="res://ai/enemy/utility/behaviors/build_artilleries.tres" id="25_f1xs6"]
-[ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_marines.tres" id="26_ex0vg"]
-[ext_resource type="Resource" uid="uid://3ryb4mj2ccfd" path="res://ai/enemy/utility/behaviors/build_tanks.tres" id="27_7kqb1"]
+[ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_unit.tres" id="26_ex0vg"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -129,11 +127,12 @@ script = ExtResource("22_1exag")
 script = ExtResource("23_wflob")
 behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 1: ExtResource("26_ex0vg"),
-2: ExtResource("27_7kqb1"),
-3: ExtResource("25_f1xs6")
+2: ExtResource("26_ex0vg"),
+3: ExtResource("26_ex0vg")
 })
 
 [node name="DecisionLoopTimer" type="Timer" parent="GlobalServices/BuildPrioritizer" unique_id=1643035029]
+autostart = true
 
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
@@ -145,5 +144,6 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
 [connection signal="initialized" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_initialized" flags=18]
+[connection signal="new_asset_built" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_new_asset_built"]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]

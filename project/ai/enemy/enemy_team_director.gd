@@ -12,6 +12,23 @@ func _ready() -> void:
 	_discover_units_and_teams()
 	_init_blackboard()
 	
+	SignalBus.on_team_asset_added.connect(_on_asset_added)
+
+func _on_asset_added(asset:Node3D) -> void:
+	# Already accounted for on initial discovery
+	if asset.has_meta(MatchTeam.IS_PREDEPLOYED_KEY):
+		return
+	var team_component:TeamComponent = TeamComponent.get_component(asset)
+	if not team_component or not team_component.is_on_team(team):
+		return
+	
+	if asset.is_in_group(Groups.Unit):
+		team_units.add_unit(asset)
+	elif asset.is_in_group(Groups.Building):
+		team_units.add_building(asset)
+	elif asset.is_in_group(Groups.Structure):
+		team_units.add_structure(asset)
+	
 func _discover_units_and_teams() -> void:
 	team_units.team = team
 
@@ -46,6 +63,7 @@ func _add_assets(group: StringName, type: Variant, enemy_team_ids:PackedInt32Arr
 			continue
 			
 		if team_component.is_on_team(team):
+			asset.set_meta(MatchTeam.IS_PREDEPLOYED_KEY, true)
 			team_units_adder.call(asset)
 		# We may not be able to see the asset yet but at least create the team
 		elif not team_component.team in enemy_team_ids:

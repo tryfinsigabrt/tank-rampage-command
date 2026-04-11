@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://dqia4ap3w1qnk"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_lu2pl"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_2npby"]
+
+[sub_resource type="Curve" id="Curve_g4ony"]
+_data = [Vector2(0, 0.9999999), 0.0, -2.187012, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_lu2pl")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("2_2npby")
+input_key = "army_fraction"
+response_curve = SubResource("Curve_g4ony")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
