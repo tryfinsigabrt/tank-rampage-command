@@ -5,8 +5,8 @@
 
 [sub_resource type="Curve" id="Curve_y46ui"]
 _limits = [0.0, 1.0, 0.0, 10.0]
-_data = [Vector2(0.016731724, 0.0039098263), 0.0, 0.0, 0, 0, Vector2(9.944228, 0.99756813), 0.15394682, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0.09751874), 0.0, 0.0, 0, 0, Vector2(4.994571, 0.50310165), 0.15018119, 0.15018119, 0, 0, Vector2(9.869707, 0.99525636), 0.019187817, 0.0, 0, 0]
+point_count = 3
 script = ExtResource("1_y46ui")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
 

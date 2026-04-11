@@ -16,3 +16,7 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Utility AI"
 uppercase = true
+
+[node name="TeamContainer" type="HBoxContainer" parent="Container" unique_id=626642050]
+unique_name_in_owner = true
+layout_mode = 2

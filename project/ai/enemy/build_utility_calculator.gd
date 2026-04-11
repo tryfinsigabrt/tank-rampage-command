@@ -105,6 +105,7 @@ func next_build() -> bool:
 				return false
 			
 			var utility_context:BuildUtilityContext = BuildUtilityContext.new()
+			utility_context.id = candidate.get_instance_id()
 			utility_context.army_fraction = float(team_distributions.get(type, 0)) / total_units if total_units > 0 else 0.0
 			utility_context.construction = candidate.get_build_metadata(type)
 			utility_context.available_personnel = available_personnel
@@ -125,8 +126,9 @@ func next_build() -> bool:
 	var best_option := UtilityAI.choose_highest(_viable_options)
 	
 	SignalBus.on_utility_calculation.emit(name, blackboard.team, _viable_options, best_option)
-	SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
-	return best_option.action.call()
+	var success:bool = best_option.action.call()
+	if not success:
+		SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
-	# TODO: Add debug hud for insight into the build utility - mirroring unit action by emitting a signal
+	return success

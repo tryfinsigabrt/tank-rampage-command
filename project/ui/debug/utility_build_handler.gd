@@ -6,11 +6,12 @@ var _build_counts_by_type:Dictionary[ConstructionResource.Type, int]
 var _army_counts_by_type:Dictionary[ConstructionResource.Type, int]
 var _match_team:MatchTeam
 var _values:PackedStringArray
+var _rendered_components:PackedInt64Array
 
 func supports(utility_node_name:StringName) -> bool:
 	return utility_node_name == BUILDING_CALCULATOR_ID
 
-func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], chosen_option:UtilityAIOption) -> void:
+func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], chosen_option:UtilityAIOption) -> Variant:
 	if not _match_team:
 		var team_nodes: Array[Node] = get_tree().get_nodes_in_group(Groups.MatchTeam)
 		for node in team_nodes:
@@ -22,7 +23,17 @@ func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], ch
 	var context:BuildUtilityContext = chosen_option.context
 	var type:ConstructionResource.Type = context.construction.type
 	_build_counts_by_type[type] = _build_counts_by_type.get(type, 0) + 1
-
+	
+	var id:int = context.id
+	#var clear:bool = id in _rendered_components
+	var clear:bool = _rendered_components.size() > 5
+	if clear:
+		_rendered_components.clear()
+		_index = 1
+		
+	_rendered_components.push_back(id)
+	return clear
+	
 func option_action_to_string(option:UtilityAIOption) -> String:
 	var context:BuildUtilityContext = option.context
 	return EnumUtils.enum_to_string(ConstructionResource.Type, context.construction.type)
