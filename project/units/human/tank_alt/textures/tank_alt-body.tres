@@ -1,6 +1,16 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bb48u0k46q7ti"]
 
 [ext_resource type="Texture2D" uid="uid://4tfrk1m5rkmo" path="res://units/human/tank_alt/textures/heroTank_diffuse.png" id="1_o0gxm"]
+[ext_resource type="Texture2D" uid="uid://cxjxr7tnx36na" path="res://units/human/tank_alt/mesh/textures/Body AO.png" id="2_mliev"]
+[ext_resource type="Texture2D" uid="uid://btb7n3hhlc3j3" path="res://units/human/tank_alt/textures/Metalic-heroTank_rough.png" id="2_qqlmg"]
+[ext_resource type="Texture2D" uid="uid://ptl04xvhm6n4" path="res://units/human/tank_alt/textures/NormalMap.png" id="3_mliev"]
 
 [resource]
 albedo_texture = ExtResource("1_o0gxm")
+metallic = 1.0
+metallic_texture = ExtResource("2_qqlmg")
+roughness_texture = ExtResource("2_qqlmg")
+normal_enabled = true
+normal_texture = ExtResource("3_mliev")
+ao_enabled = true
+ao_texture = ExtResource("2_mliev")
