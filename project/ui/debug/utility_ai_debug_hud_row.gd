@@ -5,13 +5,14 @@ const SEPARATOR:String = "==================="
 var team:int
 
 @onready var _label: Label = $Label
+@onready var utility_container: HBoxContainer = $UtilityContainer
 
 var _utilities: Array[UtilityAIEntry]
 
 func _ready() -> void:
 	_label.text = "TEAM %d\n%s" % [team, SEPARATOR]
 	
-	for child in get_children():
+	for child in utility_container.get_children():
 		var utility:UtilityAIEntry = child as UtilityAIEntry
 		if not utility:
 			continue

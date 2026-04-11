@@ -1,7 +1,7 @@
 class_name BuildUtilityContext
-	
-var construction:ConstructionResource
 
+var id:int
+var construction:ConstructionResource
 var attributes:TeamAssetAttributes:
 	get:
 		return construction.attributes

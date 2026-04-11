@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve" id="Curve_0kpa1"]
 _limits = [0.0, 1.0, 0.0, 5.0]
-_data = [Vector2(0.0060827285, 0), 0.0, 0.0, 0, 0, Vector2(2, 0.75), 0.1443274, 0.1443274, 0, 0, Vector2(4, 0.9), 0.12068105, 0.12068105, 0, 0, Vector2(5, 1), 0.0, 0.12068105, 0, 0]
+_data = [Vector2(0, 0.09827924), 0.0, 0.0, 0, 0, Vector2(1.9978285, 0.74502826), 0.1351949, 0.1351949, 0, 0, Vector2(3.8165038, 0.9039409), 0.08595063, 0.08595063, 0, 0, Vector2(5, 1), 0.050870877, 0.12068105, 0, 0]
 point_count = 4
 script = ExtResource("1_g8fba")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"

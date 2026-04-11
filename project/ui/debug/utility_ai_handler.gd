@@ -4,8 +4,8 @@ class_name UtilityAIHandler extends Node
 @abstract
 func supports(utility_node_name:StringName) -> bool
 
-func start(_team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], _chosen_option:UtilityAIOption) -> void:
-	pass
+func start(_team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], _chosen_option:UtilityAIOption) -> Variant:
+	return null
 
 @abstract
 func option_action_to_string(option:UtilityAIOption) -> String

@@ -18,14 +18,17 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.33266664, 0.089999974, 1)
 theme_override_font_sizes/font_size = 20
 
-[node name="UnitThreatUtility" parent="." unique_id=1819281678 instance=ExtResource("2_idcys")]
+[node name="UtilityContainer" type="HBoxContainer" parent="." unique_id=386380383]
 layout_mode = 2
 
-[node name="Handler" type="Node" parent="UnitThreatUtility" unique_id=1401487736]
+[node name="UnitThreatUtility" parent="UtilityContainer" unique_id=1819281678 instance=ExtResource("2_idcys")]
+layout_mode = 2
+
+[node name="Handler" type="Node" parent="UtilityContainer/UnitThreatUtility" unique_id=1401487736]
 script = ExtResource("3_v4xwj")
 
-[node name="BuildUtility" parent="." unique_id=387132042 instance=ExtResource("2_idcys")]
+[node name="BuildUtility" parent="UtilityContainer" unique_id=387132042 instance=ExtResource("2_idcys")]
 layout_mode = 2
 
-[node name="Handler" type="Node" parent="BuildUtility" unique_id=1763538878]
+[node name="Handler" type="Node" parent="UtilityContainer/BuildUtility" unique_id=1763538878]
 script = ExtResource("4_v4xwj")

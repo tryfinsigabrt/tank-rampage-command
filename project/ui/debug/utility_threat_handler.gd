@@ -12,10 +12,12 @@ var _scores:Dictionary[UtilityAIOption, float]
 func supports(utility_node_name:StringName) -> bool:
 	return utility_node_name == UTILITY_CALCULATOR_ID
 	
-func start(_team:int, index:int, scores: Dictionary[UtilityAIOption, float], chosen_option:UtilityAIOption) -> void:
+func start(_team:int, index:int, scores: Dictionary[UtilityAIOption, float], chosen_option:UtilityAIOption) -> Variant:
 	_index = index
 	_scores = scores
 	_chosen_option = chosen_option
+	
+	return null
 	
 func option_action_to_string(option:UtilityAIOption) -> String:
 	return option.action

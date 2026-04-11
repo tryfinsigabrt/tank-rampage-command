@@ -2,7 +2,7 @@ extends MarginContainer
 
 const UTILITY_AI_DEBUG_HUD_ROW:PackedScene = preload("uid://xcjp6t74larb")
 
-@onready var container: VBoxContainer = $Container
+@onready var team_container: HBoxContainer = %TeamContainer
 
 var _rows:Dictionary[int, UtilityAIDebugHudRow]
 
@@ -51,5 +51,5 @@ func _on_match_ready(match_object:Match) -> void:
 		var team_id:int = team.team
 		var row:UtilityAIDebugHudRow = UTILITY_AI_DEBUG_HUD_ROW.instantiate()
 		row.team = team_id
-		container.add_child(row)
+		team_container.add_child(row)
 		_rows[team_id] = row
