@@ -123,6 +123,10 @@ func next_build() -> bool:
 	# based on a base or "resource cluster" radius
 	
 	var best_option := UtilityAI.choose_highest(_viable_options)
+	
+	SignalBus.on_utility_calculation.emit(name, blackboard.team, _viable_options, best_option)
+	SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
+	
 	return best_option.action.call()
 	
 	# TODO: Add debug hud for insight into the build utility - mirroring unit action by emitting a signal
