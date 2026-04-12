@@ -11,8 +11,8 @@ func _ready() -> void:
 		fog_of_war = true
 		
 func is_owned_by_player(node: Node) -> bool:
-	var match_obj:Match = get_tree().get_first_node_in_group(Groups.Match)
-	return match_obj and match_obj.is_ancestor_of(node)
+	var player_team:MatchTeam = get_player_team()
+	return player_team and player_team.is_ancestor_of(node)
 
 func get_player_team() -> MatchTeam:
 	var match_obj:Match = get_tree().get_first_node_in_group(Groups.Match)
