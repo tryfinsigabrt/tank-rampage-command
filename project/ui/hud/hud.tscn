@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b267c78yllwfx" path="res://ui/hud/resources.tscn" id="3_e0nub"]
 [ext_resource type="PackedScene" uid="uid://dvr8xr3q18rl8" path="res://ui/MiniMap/MiniMap.tscn" id="4_w75iv"]
 
-[node name="Hud" type="MarginContainer" unique_id=1903012534]
+[node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

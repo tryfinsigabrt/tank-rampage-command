@@ -13,7 +13,7 @@ shader_parameter/opacity = 1.0
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tmjj3"]
 size = Vector2(128, 128)
 
-[node name="BuildQueueDisplay" type="Node3D" unique_id=567288776]
+[node name="BuildQueueDisplay" type="Node3D" unique_id=567288776 groups=["TeamVisible", "UI"]]
 script = ExtResource("1_tmjj3")
 sprite_size = 0.5
 

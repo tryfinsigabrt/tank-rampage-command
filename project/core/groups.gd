@@ -21,6 +21,8 @@ const GameResource:StringName = &"GameResource"
 const TeamAsset:StringName = &"TeamAsset"
 
 const ControlPoint:StringName = &"ControlPoint"
+const UI:StringName = &"UI"
+const TeamVisible:StringName = &"TeamVisible"
 
 @warning_ignore_restore("shadowed_global_identifier")
 

@@ -60,6 +60,9 @@ Building="A team asset that can build other things or gather resources like a co
 GameResource="A resource in the game such as scrap"
 TeamAsset="A unit, building, or structure assigned to a team"
 ControlPoint="Control Point to capture on map that increases personnel cap"
+UI="in-game UI like health bars and building indicators"
+HUD=""
+TeamVisible="Only visible to the current player team"
 
 [input]
 

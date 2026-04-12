@@ -48,6 +48,7 @@ func _ready() -> void:
 			push_warning("%s: Found node=%s labeled in group 'Unit' but is not a Unit type" % [name, node.name])
 			continue
 		unit.set_meta(IS_PREDEPLOYED_KEY, true)
+		_disable_non_player_predeployed_visible_nodes(unit)
 		_add_unit(unit)
 		
 	var starting_buildings:Array[Node] = Groups.get_children_in_group(self, Groups.Building)
@@ -57,6 +58,7 @@ func _ready() -> void:
 			push_warning("%s: Found node=%s labeled in group 'Building' but is not a Building type" % [name, node.name])
 			continue
 		building.set_meta(IS_PREDEPLOYED_KEY, true)
+		_disable_non_player_predeployed_visible_nodes(building)
 		_add_building(building)
 		
 	await get_tree().process_frame
@@ -97,7 +99,9 @@ func _on_asset_added(asset:Node3D) -> void:
 	if not team_component:
 		push_warning("%s: _on_asset_added - asset=%s has no TeamComponent" % [name, asset.name])
 		return
-		
+	
+	if not is_player_team:
+		_disable_non_player_visible_nodes(asset)	
 	if not team_component.is_on_team(team):
 		return
 		
@@ -105,6 +109,17 @@ func _on_asset_added(asset:Node3D) -> void:
 		_add_unit(asset)
 	elif asset is Building:
 		_add_building(asset)
+
+func _disable_non_player_predeployed_visible_nodes(asset:Node3D) -> void:
+	# Have to take the slow path as the player team may not be set yet
+	if GameManager.is_owned_by_player(asset):
+		return
+	_disable_non_player_visible_nodes(asset)
+	
+func _disable_non_player_visible_nodes(asset:Node3D) -> void:
+	# Free any team-visible only nodes like the BuildQueueDisplay
+	for node in Groups.get_children_in_group(asset, Groups.TeamVisible):
+		node.queue_free()
 
 func _on_unit_destroyed(unit:Unit) -> void:
 	print_debug("%s: unit=%s destroyed" % [name, unit.name])
