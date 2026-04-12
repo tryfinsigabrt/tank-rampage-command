@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jgik01cx55v5"
-path.s3tc="res://.godot/imported/factory_corrugated_metal.jpg-78510bd583774774d9af422003fd1e19.s3tc.ctex"
+uid="uid://c1myxwtk2b1ax"
+path.s3tc="res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "6afcb67d69b12e6e1629ce2090b0d2fa"
+}
 
 [deps]
 
-source_file="res://buildings/factory/factory_corrugated_metal.jpg"
-dest_files=["res://.godot/imported/factory_corrugated_metal.jpg-78510bd583774774d9af422003fd1e19.s3tc.ctex"]
+source_file="res://buildings/barracks/barracks_brick_wall.jpg"
+dest_files=["res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.s3tc.ctex"]
 
 [params]
 

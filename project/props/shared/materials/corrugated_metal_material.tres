@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ckuqt1hixyau"]
+
+[ext_resource type="Texture2D" uid="uid://jgik01cx55v5" path="res://props/shared/materials/corrugated_metal.jpg" id="1_apvuq"]
+[ext_resource type="Texture2D" uid="uid://cc5xu1udhy54y" path="res://props/shared/materials/corrugated_metal_normal.jpg" id="2_cq1bb"]
+
+[resource]
+albedo_texture = ExtResource("1_apvuq")
+metallic_specular = 0.75
+normal_enabled = true
+normal_texture = ExtResource("2_cq1bb")
+uv1_scale = Vector3(16, 4, 4)

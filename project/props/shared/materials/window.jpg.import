@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://byjm8y2piuvvr"
-path.s3tc="res://.godot/imported/factory_windows.jpg-7d783bd35f90794e718099db84ddeb24.s3tc.ctex"
+path.s3tc="res://.godot/imported/window.jpg-f7fe7661051163b320d9bca83fc70974.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://buildings/factory/factory_windows.jpg"
-dest_files=["res://.godot/imported/factory_windows.jpg-7d783bd35f90794e718099db84ddeb24.s3tc.ctex"]
+source_file="res://props/shared/materials/window.jpg"
+dest_files=["res://.godot/imported/window.jpg-f7fe7661051163b320d9bca83fc70974.s3tc.ctex"]
 
 [params]
 

@@ -166,12 +166,12 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.019559026, 131.40001)
 team = 1
 
-[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("12_51tpp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
-team = 1
-
 [node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("13_dk5yy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.3, 0, 167.90001)
+team = 1
+
+[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("12_51tpp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
 team = 1
 
 [node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_23ivt")]

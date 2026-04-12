@@ -5,13 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_n1581"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_41wx6"]
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_3h0kb"]
-[ext_resource type="Material" uid="uid://da6rnnawm0pi1" path="res://buildings/factory/factory_wall_material.tres" id="5_4cn2g"]
+[ext_resource type="Material" uid="uid://da6rnnawm0pi1" path="res://props/shared/materials/brick_wall_material.tres" id="5_4cn2g"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_16k4d"]
-[ext_resource type="Material" uid="uid://ckuqt1hixyau" path="res://buildings/factory/factory_corrugated_metal_material.tres" id="5_k8o3l"]
+[ext_resource type="Material" uid="uid://ckuqt1hixyau" path="res://props/shared/materials/corrugated_metal_material.tres" id="5_k8o3l"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_l3mmg"]
-[ext_resource type="Material" uid="uid://iiasmd44uw7v" path="res://buildings/factory/factory_windows_material.tres" id="6_ptm6w"]
+[ext_resource type="Material" uid="uid://iiasmd44uw7v" path="res://props/shared/materials/window_material.tres" id="6_ptm6w"]
 [ext_resource type="Resource" uid="uid://dxda8l74lu5jt" path="res://buildings/factory/factory_manufacturing.tres" id="7_dsl00"]
-[ext_resource type="Material" uid="uid://dplcs3t88fab7" path="res://buildings/factory/factory_trim_material.tres" id="7_ptm6w"]
+[ext_resource type="Material" uid="uid://dplcs3t88fab7" path="res://props/shared/materials/trim_material.tres" id="7_ptm6w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(16, 12, 16)
