@@ -181,6 +181,9 @@ func add(asset:Node3D) -> bool:
 		return _add_unit(asset)
 	if asset is Building:
 		return _add_building(asset)
+	if asset is DefensiveStructure:
+		# TODO: handle adding structure to selection or just skip
+		return false
 		
 	assert(false, "asset=%s is not a supported type!" % [asset.name])		
 	return false

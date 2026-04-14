@@ -55,9 +55,12 @@ func register_control_point(control_point:ControlPoint) -> void:
 	_register_asset(control_point)
 	# TODO: Need to trigger team asset added/destroyed when gain or lose ownership
 	
-func register_building(building:Node3D) -> void:
+func register_building(building:Building) -> void:
 	_register_asset(building)
 
+func register_structure(structure:DefensiveStructure) -> void:
+	_register_asset(structure)
+	
 func _register_asset(asset:Node3D) -> void:
 	var health_comp:HealthStat = Components.get_component(Components.Health, asset, false)
 	if health_comp:

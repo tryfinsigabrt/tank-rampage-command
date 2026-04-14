@@ -17,6 +17,10 @@ class Layers:
 	## A pickup resource like scrap
 	const resource:int = 1 << 7
 	
+	## Mechanized vs non-mechanized units for specific obstacle filtering
+	const infantry:int = 1 << 8
+	const vehicle:int = 1 << 9
+	
 	const team_1:int = 1 << 28
 	const team_2:int = 1 << 29
 	# Reserving 30 and 31 if we have 4 total teams

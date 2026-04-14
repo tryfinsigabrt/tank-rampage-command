@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dciuecqknn77y"]
+
+[ext_resource type="Script" uid="uid://cb0xiublnarlr" path="res://structures/sandbags/sandbags_structure.gd" id="1_05wro"]
+[ext_resource type="Resource" uid="uid://fnbnm56lxmod" path="res://structures/sandbags/sandbags_asset.tres" id="2_1w3ps"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_rix2a"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_j7to3"]
+[ext_resource type="PackedScene" uid="uid://b6a7acabed2cy" path="res://props/sandbags/straight_sandbag_barrier.tscn" id="5_f6dac"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_3w0nt"]
+[ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="6_lon2h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g7uy2"]
+size = Vector3(8.5, 1.75, 2)
+
+[node name="Sandbags" type="StaticBody3D" unique_id=605498753 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
+collision_layer = 64
+collision_mask = 256
+script = ExtResource("1_05wro")
+health_stat = NodePath("Stats/HealthStat")
+team_component = NodePath("Components/TeamComponent")
+attributes = ExtResource("2_1w3ps")
+metadata/_custom_type_script = "uid://iowc3oc6s36j"
+
+[node name="Stats" type="Node" parent="." unique_id=2122628280]
+
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("3_rix2a")]
+unique_name_in_owner = true
+max_health = 200.0
+
+[node name="UI" type="Node3D" parent="." unique_id=1292899281]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.11, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_j7to3")]
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=466703260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_g7uy2")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=2115307770]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="straight-sandbag-barrier3" parent="VisualRoot" unique_id=1083993994 instance=ExtResource("5_f6dac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26005346, 0.1, 3.8486626)
+
+[node name="barbed-wire" parent="VisualRoot" unique_id=491837801 instance=ExtResource("6_lon2h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.04105892, -0.2, -4.1918993)
+
+[node name="barbed-wire2" parent="VisualRoot" unique_id=8225709 instance=ExtResource("6_lon2h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.04105892, -0.2, -2.3918993)
+
+[node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=380436546]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.11, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[node name="Components" type="Node" parent="." unique_id=1242336824]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("6_3w0nt")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[connection signal="died" from="Stats/HealthStat" to="." method="_die"]
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
