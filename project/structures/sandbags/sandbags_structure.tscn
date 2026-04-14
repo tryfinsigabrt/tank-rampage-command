@@ -13,7 +13,7 @@ size = Vector3(8.5, 1.75, 2)
 
 [node name="Sandbags" type="StaticBody3D" unique_id=605498753 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
 collision_layer = 64
-collision_mask = 256
+collision_mask = 0
 script = ExtResource("1_05wro")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")

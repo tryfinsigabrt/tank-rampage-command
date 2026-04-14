@@ -11,8 +11,8 @@ class Layers:
 	
 	## Building like a CommandCenter or Baracks (see also Groups)
 	const building:int = 1 << 5
-	## A defensive structure like a turret, tank spikes, or wall (see also Groups)
-	const structure:int = 1 << 6
+	## A defensive structure that blocks infantry
+	const structure_infantry:int = 1 << 6
 	
 	## A pickup resource like scrap
 	const resource:int = 1 << 7
@@ -20,6 +20,9 @@ class Layers:
 	## Mechanized vs non-mechanized units for specific obstacle filtering
 	const infantry:int = 1 << 8
 	const vehicle:int = 1 << 9
+	
+	## A structure that blocks behicles
+	const structure_vehicle = 1 << 10
 	
 	const team_1:int = 1 << 28
 	const team_2:int = 1 << 29
@@ -35,7 +38,8 @@ class CompositeMasks:
 	const world:int = Layers.world_static | Layers.terrain | Layers.world_dynamic
 	const visibility: int = world | Layers.unit
 	const ground: int = Layers.world_static | Layers.terrain
-	const team_asset:int = Layers.unit | Layers.building | Layers.structure
+	const structure:int = Layers.structure_infantry | Layers.structure_vehicle
+	const team_asset:int = Layers.unit | Layers.building | structure
 	const damageable_team_asset:int = team_asset
 	
 	const all_teams:int = Layers.team_1 | Layers.team_2

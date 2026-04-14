@@ -258,10 +258,11 @@ mini_map_navigate={
 3d_physics/layer_4="world_dynamic"
 3d_physics/layer_5="world_boundaries"
 3d_physics/layer_6="building"
-3d_physics/layer_7="structure"
+3d_physics/layer_7="structure_infantry"
 3d_physics/layer_8="resource"
 3d_physics/layer_9="infantry"
 3d_physics/layer_10="vehicle"
+3d_physics/layer_11="structure_vehicle"
 3d_physics/layer_29="team_1"
 3d_physics/layer_30="team_2"
 

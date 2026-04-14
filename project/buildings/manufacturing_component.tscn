@@ -20,6 +20,7 @@ script = ExtResource("3_2qmdl")
 
 [node name="SpawnLocationFinder" type="Node3D" parent="UnitSpawner" unique_id=1681796248]
 script = ExtResource("4_tnq23")
+collision_mask = 805307492
 
 [node name="BuildTimer" type="Timer" parent="." unique_id=792010527]
 unique_name_in_owner = true
