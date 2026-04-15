@@ -23,7 +23,7 @@ is_hemisphere = true
 
 [node name="CommandCenter" type="StaticBody3D" unique_id=1674660700 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
-collision_mask = 4
+collision_mask = 0
 script = ExtResource("1_03wp0")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")

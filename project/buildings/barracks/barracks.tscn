@@ -15,7 +15,7 @@ size = Vector3(10, 4, 10)
 
 [node name="Barracks" type="StaticBody3D" unique_id=404914555 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
-collision_mask = 4
+collision_mask = 0
 script = ExtResource("1_cjl84")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")
