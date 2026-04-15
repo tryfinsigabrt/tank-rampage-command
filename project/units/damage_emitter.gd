@@ -38,8 +38,14 @@ func _exit_tree() -> void:
 	if _sweep_shape:
 		PhysicsServer3D.free_rid(_sweep_shape)
 		_sweep_shape = RID()
-	
-func damage(incident_damage_params:DamageParameters) -> void:
+
+## Cause damage from the given incident point and an optional damage_filter that can filter out swept colliders
+## By default all colliders matching the sweep mask are included	
+func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Callable()) -> void:
+	if not damage_filter:
+		damage_filter = func(_collider:Node3D) -> bool:
+			return true
+			
 	# Calculate initial damage point
 	var initial_target:Node3D = incident_damage_params.target_object
 	var hit_position:Vector3 = incident_damage_params.contact_point
@@ -66,7 +72,7 @@ func damage(incident_damage_params:DamageParameters) -> void:
 				if(!is_instance_valid(collider)):
 					push_warning("weapon(" + name + " damage overlapped with non-Node3D" +  result["collider"].name)
 					continue
-				if not collider in processed_nodes:
+				if damage_filter.call(collider) and not collider in processed_nodes:
 					var damageable_nodes:Array[Node] = _get_damageables(collider)
 					processed_nodes[collider] = damageable_nodes
 					if damage_reporting_type == DamageReportingType.Damageable_Only and not damageable_nodes:
@@ -100,8 +106,8 @@ func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]
 	
 	# Exclude our units
 	var to_exclude:Array[RID] = [incident_damage_params.target_rid]
-	if not incident_damage_params.source_damage_allowed and incident_damage_params.source_unit:
-		to_exclude.push_back(incident_damage_params.source_unit.get_rid())
+	if not incident_damage_params.source_damage_allowed and incident_damage_params.source_owner:
+		to_exclude.push_back(incident_damage_params.source_owner.get_rid())
 		
 	params.exclude = to_exclude
 	

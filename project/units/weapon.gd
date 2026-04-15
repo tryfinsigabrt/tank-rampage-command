@@ -288,9 +288,9 @@ func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionar
 	
 	damage_params.damage_mask = damage_mask
 	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
-	damage_params.source_weapon = self
+	damage_params.source = self
 	damage_params.source_damage_allowed = allow_source_damage
-	damage_params.source_unit = _unit
+	damage_params.source_owner = _unit
 	
 	return damage_params	
 	

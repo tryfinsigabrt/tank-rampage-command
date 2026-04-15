@@ -29,7 +29,18 @@ var health_fraction:float:
 
 static func get_component(node: Node, required:bool = true) -> HealthStat:
 	return Components.get_component(Components.Health, node, required) as HealthStat
-		
+
+func die() -> void:
+	var damage:DamageParameters = DamageParameters.new()
+	var source:Node3D = Groups.get_scene_root(self)
+	
+	damage.source = source
+	damage.source_owner = source
+	damage.target_object = source
+	damage.damage = health
+	
+	on_damage(damage)
+			
 func on_damage(damage_params:DamageParameters) -> void:
 	var orig_health := health
 	health = health - damage_params.damage

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TeamAssetAttributes" format=3 uid="uid://dcyi8nxjyjbs4"]
+
+[ext_resource type="Script" uid="uid://d0xjpcjnalcme" path="res://core/team_asset_attributes.gd" id="1_1hppw"]
+
+[resource]
+script = ExtResource("1_1hppw")
+attack_priority = 5
+metadata/_custom_type_script = "uid://d0xjpcjnalcme"

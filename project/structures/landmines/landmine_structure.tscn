@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cymly4bxhw47c"]
+
+[ext_resource type="Script" uid="uid://bhgxglnljp17g" path="res://structures/landmines/landmines.gd" id="1_dnqhm"]
+[ext_resource type="Resource" uid="uid://dcyi8nxjyjbs4" path="res://structures/landmines/landmines_asset.tres" id="2_xalgg"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_w3dsi"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_jjdnp"]
+[ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="5_dnqhm"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_16a2b"]
+[ext_resource type="Script" uid="uid://iphg6vi47imw" path="res://units/damage_emitter.gd" id="7_xalgg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dnqhm"]
+radius = 1.5
+
+[node name="Landmine" type="StaticBody3D" unique_id=2013739816 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_dnqhm")
+health_stat = NodePath("Stats/HealthStat")
+team_component = NodePath("Components/TeamComponent")
+attributes = ExtResource("2_xalgg")
+metadata/_custom_type_script = "uid://bhgxglnljp17g"
+
+[node name="Stats" type="Node" parent="." unique_id=2122628280]
+
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("3_w3dsi")]
+unique_name_in_owner = true
+max_health = 25.0
+
+[node name="UI" type="Node3D" parent="." unique_id=1292899281]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_jjdnp")]
+transform = Transform3D(0.5, 0, 3.1786513e-08, 0, 0.5, 0, -3.1786513e-08, 0, 0.5, 0, 0, 0)
+health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=466703260]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99999994, 0)
+shape = SubResource("SphereShape3D_dnqhm")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=2115307770]
+
+[node name="landmine" parent="VisualRoot" unique_id=1356064904 instance=ExtResource("5_dnqhm")]
+
+[node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=380436546]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[node name="Components" type="Node" parent="." unique_id=1242336824]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("6_16a2b")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[node name="DamageEmitter" type="Node" parent="." unique_id=944665689]
+unique_name_in_owner = true
+script = ExtResource("7_xalgg")
+damage_falloff_type = 0
+min_falloff_distance = 1.0
+max_falloff_distance = 1.0
+min_damage = 100.0
+max_damage = 100.0
+
+[node name="TriggerArea" type="Area3D" parent="." unique_id=930894120]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99999994, 0)
+collision_layer = 1088
+collision_mask = 4
+
+[node name="AreaCollision" type="CollisionShape3D" parent="TriggerArea" unique_id=1765328389]
+unique_name_in_owner = true
+
+[connection signal="died" from="Stats/HealthStat" to="." method="_die"]
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]

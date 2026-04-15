@@ -13,9 +13,9 @@ var target_collider_id:int
 ## Input parameter that is a multiplier for the final damage clamped between min and max
 var damage_multiplier:float = 1.0
 
-var source_weapon:Weapon
+var source:Node3D
 
-var source_unit:Unit
+var source_owner:Node3D
 
 var damage:float
 
@@ -28,8 +28,8 @@ var source_damage_allowed:bool
 
 func _to_string() -> String:
 	return "target=%s; weapon=%s; source=%s; damage=%f; contact=%s; normal=%s; is_direct=%s" % \
-	 [StringUtils.safe_name(target_object), StringUtils.safe_name(source_weapon),
-	 source_unit, damage, contact_point, contact_normal, is_direct_hit]
+	 [StringUtils.safe_name(target_object), StringUtils.safe_name(source),
+	 source_owner, damage, contact_point, contact_normal, is_direct_hit]
 	
 func duplicate() -> DamageParameters:
 	var result := _duplicate_from_prototype()
@@ -48,8 +48,8 @@ func _duplicate_from_prototype() -> DamageParameters:
 	result.damage_mask = damage_mask
 	result.source_damage_allowed = source_damage_allowed
 	result.damage_multiplier = damage_multiplier
-	result.source_weapon = source_weapon
-	result.source_unit = source_unit
+	result.source = source
+	result.source_owner = source_owner
 	
 	return result
 	
