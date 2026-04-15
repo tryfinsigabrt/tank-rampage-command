@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmhjx2v6n28vj"
+uid="uid://q8bivkwwd1i3"
 path.s3tc="res://.godot/imported/tree_1_tree_1_bark_albedo.png-adcce6553072473c4caa11688e4c8f90.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7a5c657965dc6fc593da306568d838f5"
+"md5": "d1c726ad91b189d3db496256ac3a22d8"
 }
 
 [deps]
