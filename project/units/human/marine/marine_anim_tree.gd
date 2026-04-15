@@ -14,7 +14,6 @@ enum State
 var idle_animation_velocity_threshold:float = 0.001
 
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var state_machine:AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 @onready var state_tick: Timer = $StateTick
 
 var _unit:HumanMarineUnit
@@ -31,17 +30,27 @@ var dead:bool:
 
 var running:bool:
 	get:
-		if shooting:
-			return false
 		return _horizontal_speed_sq >= idle_animation_velocity_threshold
 
 var shooting:bool:
 	get:
 		return _unit.is_shooting
 
+var not_shooting:bool:
+	get:
+		return not shooting
+
 var idle:bool:
 	get:
 		return not running and not shooting
+
+var standing_shooting:bool:
+	get:
+		return shooting and not running
+
+var running_shooting:bool:
+	get:
+		return shooting and running
 
 func _on_screen() -> void:
 	if not animation_tree:
