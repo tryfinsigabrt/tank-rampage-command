@@ -35,9 +35,8 @@ unique_name_in_owner = true
 polygon = PackedVector2Array()
 material = SubResource("StandardMaterial3D_0d56a")
 
-[node name="MiningTimer" type="Timer" parent="." unique_id=1640767623]
+[node name="MiningTimers" type="Node" parent="." unique_id=1817918814]
 unique_name_in_owner = true
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
 [connection signal="body_exited" from="TriggerArea" to="." method="_on_trigger_area_body_exited"]
-[connection signal="timeout" from="MiningTimer" to="." method="_on_mining_timer_timeout"]

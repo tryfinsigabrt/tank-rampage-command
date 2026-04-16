@@ -5,7 +5,7 @@ const PATH_ROTATION_DEG:Vector3 = Vector3(90.0, 0.0, 0.0)
 
 @onready var trigger_collision: CollisionPolygon3D = %TriggerCollision
 @onready var trigger_visual: CSGPolygon3D = %TriggerVisual
-@onready var mining_timer: Timer = %MiningTimer
+@onready var mining_timers: Node = %MiningTimers
 
 ## How far additionally to extend the path above and below the path points
 @export_range(0.0, 1e9, 0.1, "or_greater")
@@ -21,7 +21,7 @@ var scrap_mining_interval:float = 5.0
 var scrap_per_interval:int = 50
 
 var remaining_scrap:int
-var _command_center_ids:PackedInt64Array
+var _mining_timers_by_command_center:Dictionary[int,Timer]
 
 func _ready() -> void:
 	var point_count:int = curve.point_count
@@ -29,7 +29,6 @@ func _ready() -> void:
 		push_error("%s: No path points defined!" % name)
 		return
 	
-	mining_timer.wait_time = scrap_mining_interval
 	remaining_scrap = total_scrap
 	
 	var projected_points:PackedVector2Array
@@ -70,11 +69,9 @@ func _on_trigger_area_body_entered(body: Node3D) -> void:
 		return
 	
 	print_debug("%s: Command Center: %s entered scrap field" % [name, command_center.name])
-	_command_center_ids.push_back(command_center.get_instance_id())
 	
-	# Start timer if it isn't already running and there is scrap left
-	if mining_timer.is_stopped() and remaining_scrap > 0:
-		mining_timer.start()
+	if remaining_scrap > 0:
+		_register_timer_for(command_center)
 		
 
 func _on_trigger_area_body_exited(body: Node3D) -> void:
@@ -83,53 +80,59 @@ func _on_trigger_area_body_exited(body: Node3D) -> void:
 		return
 	
 	print_debug("%s: Command Center: %s left scrap field" % [name, command_center.name])
-	_command_center_ids.erase(command_center.get_instance_id())
 	
-	if _command_center_ids.is_empty():
-		mining_timer.stop()
+	_deregister_timer_for(command_center.get_instance_id())
 		
-func _on_mining_timer_timeout() -> void:
-	var exhausted:bool = false
+func _register_timer_for(command_center:CommandCenter) -> void:
+	var id:int = command_center.get_instance_id()
 	
-	var command_centers:Array[CommandCenter]
-	var invalid_ids:PackedInt64Array
+	var timer:Timer = Timer.new()
+	timer.name = "%d-%s-MiningTimer" % [command_center.team, command_center.name]
+	# TODO: If support upgrades then the base interval adjusted by the mining rate upgrade
+	timer.wait_time = scrap_mining_interval
+	timer.autostart = true
+	timer.timeout.connect(_on_mining_timer_timeout.bind(id))
 	
-	command_centers.resize(_command_center_ids.size())
-	var count:int = 0
+	mining_timers.add_child(timer)
 	
-	for id in _command_center_ids:
-		var command_center:CommandCenter = instance_from_id(id) as CommandCenter
-		if command_center:
-			command_centers[count] = command_center
-			count += 1
-		else:
-			invalid_ids.push_back(id)
-	
-	if invalid_ids:
-		command_centers.resize(count)
-		for invalid_id in range(invalid_ids.size() - 1, -1, -1):
-			_command_center_ids.erase(invalid_id)
-			
-	if not command_centers:
-		mining_timer.stop()
+func _deregister_timer_for(command_center_id:int) -> void:
+	var timer:Timer = _mining_timers_by_command_center.get(command_center_id)
+	if not timer:
 		return
 		
-	for command_center in command_centers:
-		var mined_scrap:int = mini(scrap_per_interval, remaining_scrap)
-		if mined_scrap > 0:
-			print_debug("%s: command_center=%s mined %d scrap" % [name, command_center.name, mined_scrap])
-			SignalBus.on_scrap_field_mined.emit(self, command_center, mined_scrap)
-			remaining_scrap -= mined_scrap
-		else:
-			print("%s: Resource field exhausted!" % name)
-			exhausted = true
-			break
+	timer.queue_free()
+	_mining_timers_by_command_center.erase(command_center_id)
 	
-	if exhausted:
-		mining_timer.stop()
-		# Also disable the area
-		trigger_collision.disabled = true
-		trigger_visual.visible = false
+func _remove_all_timers() -> void:
+	for timer:Timer in _mining_timers_by_command_center.values():
+		timer.queue_free()
 		
-		for command_center in command_centers:
+	_mining_timers_by_command_center.clear()
+	
+func _on_mining_timer_timeout(command_center_id:int) -> void:
+	var command_center:CommandCenter = instance_from_id(command_center_id) as CommandCenter
+	if not command_center:
+		_deregister_timer_for(command_center_id)
+		return
+		
+	# TODO: Adjust the base mining interval and/or scrap amount if support command center upgrades
+	var mined_scrap:int = mini(scrap_per_interval, remaining_scrap)
+	if mined_scrap > 0:
+		print_debug("%s: command_center=%s mined %d scrap" % [name, command_center.name, mined_scrap])
+		SignalBus.on_scrap_field_mined.emit(self, command_center, mined_scrap)
+		remaining_scrap -= mined_scrap
+	else:
+		print("%s: Resource field exhausted!" % name)
+		_resources_exhausted()
+
+func _resources_exhausted() -> void:
+	for command_center_id in _mining_timers_by_command_center:
+		var command_center:CommandCenter = instance_from_id(command_center_id) as CommandCenter
+		if command_center:
 			SignalBus.on_scrap_field_mined.emit(self, command_center)
+			
+	# Also disable the area
+	trigger_collision.disabled = true
+	trigger_visual.visible = false
+	
+	_remove_all_timers()
