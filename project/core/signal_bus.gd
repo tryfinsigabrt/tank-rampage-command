@@ -49,6 +49,9 @@ signal on_left_world_boundaries(world_boundaries: WorldBoundaries, body: Node3D)
 signal on_utility_calculation(id:StringName, team:int, options:Array[UtilityAIOption], chosen_option:UtilityAIOption)
 signal on_utility_calculation_complete(id:StringName, team:int)
 
+signal on_scrap_field_exhausted(field:ScrapField, command_center:CommandCenter)
+signal on_scrap_field_mined(field:ScrapField, command_center:CommandCenter, count:int)
+
 @warning_ignore_restore("unused_signal")
 
 func register_control_point(control_point:ControlPoint) -> void:

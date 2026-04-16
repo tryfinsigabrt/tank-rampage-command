@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="12_51tpp"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_dk5yy"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_23ivt"]
+[ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="18_jtih4"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="19_yuq8o"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
@@ -56,6 +57,14 @@ script = ExtResource("7_0hdnv")
 scrap = SubResource("Resource_ytr8p")
 personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[sub_resource type="Curve3D" id="Curve3D_jtih4"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.2992783, 0, -9.671661, 0, 0, 0, 0, 0, 0, -15.399086, 0, -28.161499, 0, 0, 0, 0, 0, 0, -39.824768, 0, -33.346832, 0, 0, 0, 0, 0, 0, -68.275894, 0, -27.206299, 0, 0, 0, 0, 0, 0, -73.870605, 0, -1.8254242, 0, 0, 0, 0, 0, 0, -54.28913, 0, 31.94751, 0, 0, 0, 0, 0, 0, -9.463234, 0, 30.71939),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
 
 [node name="TestBuildingSystem" type="Node3D" unique_id=1293608661]
 
@@ -179,6 +188,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
 team = 1
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("28_asrh3")]
+
+[node name="ScrapField" parent="World" unique_id=1314478789 instance=ExtResource("18_jtih4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.335, 0, 177.175)
+curve = SubResource("Curve3D_jtih4")
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("30_bbhc4")]
 

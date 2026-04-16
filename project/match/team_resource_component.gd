@@ -16,6 +16,7 @@ func _get_resource_for(asset: Node3D) -> ConstructionResource:
 func initialize() -> void:
 	SignalBus.on_control_point_captured.connect(_on_control_point_captured)
 	SignalBus.on_control_point_neutralized.connect(_on_control_point_neutralized)
+	SignalBus.on_scrap_field_mined.connect(_on_scrap_field_mined)
 		
 func spend_resources(asset:Node3D) -> void:
 	# Asset costs handled by manufacturing component unless predeployed
@@ -65,3 +66,10 @@ func _on_control_point_neutralized(prev_owning_team:int, control_point:ControlPo
 	[name, team, control_point.name, pers.cap, pers.cap - cap_bonus])
 	
 	pers.cap -= cap_bonus
+
+func _on_scrap_field_mined(_field:ScrapField, command_center:CommandCenter, count:int) -> void:
+	if command_center.team != team:
+		return
+	
+	var scrap:ScrapResource = resources.scrap
+	scrap.count += count

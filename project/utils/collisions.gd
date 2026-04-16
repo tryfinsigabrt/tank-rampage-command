@@ -22,7 +22,10 @@ class Layers:
 	const vehicle:int = 1 << 9
 	
 	## A structure that blocks behicles
-	const structure_vehicle = 1 << 10
+	const structure_vehicle:int = 1 << 10
+	
+	# A generic boundary like a scrap field
+	const boundary:int = 1 << 11
 	
 	const team_1:int = 1 << 28
 	const team_2:int = 1 << 29
