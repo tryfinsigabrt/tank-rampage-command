@@ -17,6 +17,7 @@ func initialize() -> void:
 	SignalBus.on_control_point_captured.connect(_on_control_point_captured)
 	SignalBus.on_control_point_neutralized.connect(_on_control_point_neutralized)
 	SignalBus.on_scrap_field_mined.connect(_on_scrap_field_mined)
+	SignalBus.on_scrap_collected.connect(_on_scrap_collected)
 		
 func spend_resources(asset:Node3D) -> void:
 	# Asset costs handled by manufacturing component unless predeployed
@@ -73,3 +74,15 @@ func _on_scrap_field_mined(_field:ScrapField, command_center:CommandCenter, coun
 	
 	var scrap:ScrapResource = resources.scrap
 	scrap.count += count
+
+func _on_scrap_collected(scrap:ScrapToken, unit:Unit) -> void:
+	if not unit.is_on_team(team):
+		return
+	
+	# Only award scrap if it is part of an enemy team - otherwise we are denying the scrap to the other team
+	if unit.is_enemy_team(scrap.originating_team):
+		print_debug("%s: Team %d collected %d scrap from team %d" % [name, team, scrap.scrap, scrap.originating_team])
+		resources.scrap.count += scrap.scrap
+	else:
+		print_debug("%s: Team %d denied %d scrap from other teams" % [name, team, scrap.scrap])
+	

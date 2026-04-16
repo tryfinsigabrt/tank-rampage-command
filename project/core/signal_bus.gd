@@ -52,6 +52,8 @@ signal on_utility_calculation_complete(id:StringName, team:int)
 signal on_scrap_field_exhausted(field:ScrapField, command_center:CommandCenter)
 signal on_scrap_field_mined(field:ScrapField, command_center:CommandCenter, count:int)
 
+signal on_scrap_collected(token:ScrapToken, unit:Unit)
+
 @warning_ignore_restore("unused_signal")
 
 func register_control_point(control_point:ControlPoint) -> void:

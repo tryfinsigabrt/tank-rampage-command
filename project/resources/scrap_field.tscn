@@ -13,7 +13,7 @@ point_count = 5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d56a"]
 render_priority = 127
 transparency = 1
-albedo_color = Color(1, 0.69200003, 0.33999997, 0.6431373)
+albedo_color = Color(0.5, 0.875, 1, 0.39215687)
 
 [node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource"]]
 curve = SubResource("Curve3D_qdmk6")
