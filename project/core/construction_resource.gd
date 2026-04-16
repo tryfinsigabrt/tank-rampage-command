@@ -43,6 +43,9 @@ var type:Type
 @export_range(1, 1e9, 1, "or_greater")
 var cost:int = 10
 
+@export_range(0.0, 1.0, 0.05)
+var scrap_fraction:float
+
 @export_range(0, 1e9, 1, "or_greater")
 var personnel:int = 0
 
@@ -65,6 +68,10 @@ var classification:Classification:
 				return Classification.None
 
 
+var scrap_value:int:
+	get:
+		return roundi(cost * scrap_fraction)
+		
 static func type_from_unit_class(unit_class:Unit.UnitClass) -> Type:
 	match unit_class:
 		Unit.UnitClass.Tank:

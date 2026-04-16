@@ -11,6 +11,7 @@ team_asset = ExtResource("2_lstxx")
 icon = ExtResource("1_lstxx")
 type = 1
 cost = 5
+scrap_fraction = 0.6
 personnel = 1
 time = 5.0
 attributes = ExtResource("1_toccx")

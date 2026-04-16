@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://cwnbatyg51nvp"]
 
 [ext_resource type="Script" uid="uid://cw5lle6ti8dv0" path="res://match/match.gd" id="1_qvbg2"]
+[ext_resource type="Script" uid="uid://bbaumgmcm2qkp" path="res://match/scrap_token_spawner.gd" id="2_bfv77"]
+[ext_resource type="PackedScene" uid="uid://bxxopcco6kl1o" path="res://resources/scrap_token.tscn" id="3_610r7"]
 
 [node name="Match" type="Node3D" unique_id=1741120106 groups=["Match"]]
 script = ExtResource("1_qvbg2")
+
+[node name="ScrapTokenSpawner" type="Node" parent="." unique_id=1741513612 node_paths=PackedStringArray("_match")]
+script = ExtResource("2_bfv77")
+scrap_token_scene = ExtResource("3_610r7")
+_match = NodePath("..")

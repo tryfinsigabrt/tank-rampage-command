@@ -6,7 +6,7 @@ var team:int
 @export
 var default_costs:Array[ConstructionResource]
 
-func _get_resource_for(asset: Node3D) -> ConstructionResource:
+func get_resource_for(asset: Node3D) -> ConstructionResource:
 	for resource in default_costs:
 		if asset.scene_file_path == resource.team_asset.resource_path:
 			return resource
@@ -22,7 +22,7 @@ func initialize() -> void:
 func spend_resources(asset:Node3D) -> void:
 	# Asset costs handled by manufacturing component unless predeployed
 	if asset.has_meta(MatchTeam.IS_PREDEPLOYED_KEY):
-		var cost: ConstructionResource = _get_resource_for(asset)
+		var cost: ConstructionResource = get_resource_for(asset)
 		if cost:
 			cost.spend_personnel_only(resources)
 			cost.assign_to(asset)
