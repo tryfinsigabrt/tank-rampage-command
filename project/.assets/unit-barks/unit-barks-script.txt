@@ -1,0 +1,55 @@
+Unit Barks
+
+selection:
+	roger
+	yes
+	ready for orders
+	where to?
+	ready
+	waiting for orders
+	what's our objective?
+	unit selected
+
+movement:
+	moving
+	acknowledged
+	on our way
+	destination received
+	rolling out
+	repositioning
+	moving to destination
+	going there now
+	moving out
+	advancing
+	changing position
+		
+
+attack:
+	attacking
+	advancing on the enemy
+	target acquired
+	on the attack
+	engaging the enemy
+	going in hot
+	advancing
+	engaging
+	target received
+	
+
+
+
+TODO:
+
+taking damage:
+	under attack!
+	taking damage
+	we've been hit
+	we're under attack
+	taking fire
+
+on being destroyed:
+	unit lost
+	we can't take any more
+	critical damage
+	we need backup!
+	nooooo!
