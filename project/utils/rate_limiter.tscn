@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://grm003i7dfiu"]
+
+[ext_resource type="Script" uid="uid://bl6m5y3ue48kp" path="res://utils/rate_limiter.gd" id="1_6lm4a"]
+
+[node name="RateLimiter" type="Node" unique_id=1514069712]
+script = ExtResource("1_6lm4a")
+
+[node name="Timer" type="Timer" parent="." unique_id=1302862500]
+one_shot = true

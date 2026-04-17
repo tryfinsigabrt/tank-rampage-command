@@ -6,11 +6,14 @@
 
 [node name="AiUnitVision" type="Area3D" unique_id=1398532128]
 collision_layer = 0
-collision_mask = 228
+collision_mask = 1252
+input_ray_pickable = false
+monitorable = false
 script = ExtResource("1_4rjyc")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=281523214]
 shape = SubResource("SphereShape3D_ajf7l")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

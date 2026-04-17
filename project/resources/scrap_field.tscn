@@ -22,8 +22,9 @@ path_depth = 3.0
 metadata/_custom_type_script = "uid://b1xr0pwiw65au"
 
 [node name="TriggerArea" type="Area3D" parent="." unique_id=1348559940]
-collision_layer = 2048
+collision_layer = 128
 collision_mask = 32
+input_ray_pickable = false
 
 [node name="TriggerCollision" type="CollisionPolygon3D" parent="TriggerArea" unique_id=766409287]
 unique_name_in_owner = true

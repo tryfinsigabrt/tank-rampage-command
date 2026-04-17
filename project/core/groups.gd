@@ -83,7 +83,7 @@ static func set_scene_root_flag(start:Node, flag:StringName) -> bool:
 		node.set_meta(flag, true)
 		return true
 	return false
-
+	
 static func get_scene_root(start:Node) -> Node:
 	if not start:
 		return null
@@ -92,11 +92,9 @@ static func get_scene_root(start:Node) -> Node:
 	# Prefer user owner of the scene hierachy
 	if owner:
 		return owner
-			
-	var node:Node = start.get_parent()
-	while node:
-		if node.scene_file_path:
-			return node
-		node = node.get_parent()
-	
-	return null
+	# If owner is null it is already the root
+	return start
+
+static func get_scene_root_if_in_group(start:Node, group:StringName) -> Node:
+	var root:Node = get_scene_root(start)
+	return root if root and root.is_in_group(group) else null

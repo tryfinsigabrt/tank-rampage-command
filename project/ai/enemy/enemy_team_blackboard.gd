@@ -8,6 +8,8 @@ signal on_attacking_priorities_changed
 signal on_avoidance_enemies_changed
 signal on_idle_units_changed
 signal on_exploring_units_changed
+
+signal match_team_set
  
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
@@ -22,6 +24,7 @@ class Keys:
 	const idle_units:StringName = &"idle_units"
 	const exploring_units:StringName = &"exploring_units"
 	const explore_heading_bias:StringName = &"explore_heading_bias"
+	const active_resources:StringName = &"active_resources"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -94,7 +97,6 @@ var team:int:
 	set(value):
 		set_value(Keys.team, value)
 
-signal match_team_set		
 var match_team:MatchTeam:
 	get:
 		var value: MatchTeam = get_value(Keys.match_team)
@@ -119,3 +121,11 @@ var explore_heading_bias:Dictionary[int,Vector3]:
 var visible_enemy_count:int:
 	get:
 		return attack_priorities.size() + avoidance_enemies.size()
+		
+var active_resources:PackedInt64Array:
+	get:
+		if not has_value(Keys.active_resources):
+			active_resources = PackedInt64Array()
+		return get_value(Keys.active_resources)
+	set(value):
+		set_value(Keys.active_resources, value)

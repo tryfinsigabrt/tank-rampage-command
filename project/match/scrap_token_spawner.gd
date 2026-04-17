@@ -21,6 +21,7 @@ func _on_unit_killed(unit:Unit) -> void:
 		return
 	
 	var scrap_token:ScrapToken = scrap_token_scene.instantiate()
+	scrap_token.name = "ScrapToken-%d-%s" % [unit.team, unit.name]
 	scrap_token.originating_team = unit.team
 	scrap_token.scrap = scrap_value
 	

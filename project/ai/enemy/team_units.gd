@@ -8,6 +8,7 @@ signal initialized
 signal new_asset_built(asset:Node3D)
 
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
+signal resource_discovered(resource:Node3D)
 
 var team:int
 
@@ -58,7 +59,10 @@ func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:
 		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
+		
 		ai_unit_vision.asset_visibility_changed.connect(_on_asset_visibility_changed)
+		ai_unit_vision.resource_discovered.connect(_on_resource_discovered)
+		
 		asset.add_child(ai_unit_vision)
 		
 func has_asset_id(id:int) -> bool:
@@ -106,3 +110,6 @@ func get_average_position() -> Vector3:
 	
 func _on_asset_visibility_changed(asset:Node3D, in_is_visible:bool) -> void:
 	asset_visibility_changed.emit(asset, in_is_visible)
+
+func _on_resource_discovered(resource:Node3D) -> void:
+	resource_discovered.emit(resource)

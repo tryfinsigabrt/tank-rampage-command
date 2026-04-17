@@ -27,6 +27,11 @@ func _ready() -> void:
 		_unit_utilities[option.action] = [] as Array[Unit]
 
 func assess_threats() -> void:
+	# TODO: Add an option to collect the resource which takes into account the threats
+	# This will be set as a resource collecting priority on the blackboard and be a separate action that
+	# results in a move to the token position
+	
+	# or possibly this is a separate action
 	# Reset the timer so that it cools down when called externally
 	threat_eval_tick.start()
 	

@@ -5,6 +5,7 @@
 [node name="WorldBoundaries" type="Area3D" unique_id=1367598819 groups=["WorldBoundaries"]]
 collision_layer = 16
 collision_mask = 4
+input_ray_pickable = false
 script = ExtResource("1_hwskm")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
