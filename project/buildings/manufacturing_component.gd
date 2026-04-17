@@ -57,8 +57,15 @@ func _enter_tree() -> void:
 	Components.add_component(Components.Manufacturing, self)
 
 func _exit_tree() -> void:
+	_refund_build_queue()
 	Components.remove_component(Components.Manufacturing, self)
-	
+
+func _refund_build_queue() -> void:
+	# Refund any queued up units that haven't spawned
+	if _match_team:
+		for element in _build_queue:
+			element.resource.refund_fully(_match_team.resources)
+			
 func _ready() -> void:
 	if supported_types:
 		for construction in supported_types.types:
