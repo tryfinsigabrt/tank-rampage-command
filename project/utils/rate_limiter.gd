@@ -8,6 +8,7 @@ var _interval:float = 0.1
 @onready var _timer: Timer = $Timer
 
 var _waiting:bool = false
+var _start_frame:int
 
 func _ready() -> void:
 	_timer.wait_time = _interval
@@ -15,13 +16,18 @@ func _ready() -> void:
 ## Asynchronously returns true if the action should be permitted and false otherwise
 func limit() -> bool:
 	if _timer.is_stopped():
-		_timer.start()
+		_start_timer()
 		return true
-	# If another event comes in during the timer fire it at the end
-	elif not _waiting:
+	# If another event comes in during the timer fire it at the end unless it happened in same frame
+	elif not _waiting and GameManager.game_timer.frame > _start_frame:
 		_waiting = true
 		await _timer.timeout
 		_waiting = false
-		_timer.start()
+		
+		_start_timer()
 		return true
 	return false
+
+func _start_timer() -> void:
+	_timer.start()
+	_start_frame = GameManager.game_timer.frame
