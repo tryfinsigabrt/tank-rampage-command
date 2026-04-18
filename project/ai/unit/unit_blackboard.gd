@@ -11,6 +11,7 @@ class Action:
 class Keys:
 	const TargetPosition:StringName = &"target_position"
 	const Action:StringName = &"action"
+	const ActionId:StringName = &"action_id"
 	const TargetNode:StringName = &"target_node"
 	const HoldIssued:StringName = &"hold"
 
@@ -20,6 +21,12 @@ var current_action:StringName:
 	set(value):
 		set_value(Keys,Action, value)
 
+var action_id:int:
+	get:
+		return get_value(Keys.ActionId, 0)
+	set(value):
+		set_value(Keys.ActionId, value)
+		
 var has_target_position:bool:
 	get:
 		return has_value(Keys.TargetPosition)

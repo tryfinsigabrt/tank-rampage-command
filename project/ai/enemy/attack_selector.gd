@@ -17,7 +17,7 @@ var _tmp_units:Array[Unit]
 
 
 func _ready() -> void:
-	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
+	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(2))
 
 func _execute() -> void:
 	var currently_attacking:Dictionary[int, int] = blackboard.currently_attacking

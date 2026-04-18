@@ -93,7 +93,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 			result = FAILURE
 			
 	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
+		SignalBus.on_unit_command_finished.emit(_unit, my_action, action_id, _get_action_args())
 	return result
 	
 func _should_continue_running(blackboard: Blackboard) -> bool:

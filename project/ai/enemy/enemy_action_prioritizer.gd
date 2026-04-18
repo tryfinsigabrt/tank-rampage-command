@@ -28,7 +28,7 @@ func _evaluate_priorities() -> void:
 	for threat_context in utility_calculator.all_threat_contexts:
 		distilled_threats.push_back(EnemyThreatContext.from_unit_threat_context(threat_context))
 	
-func _on_command_finished(unit:Unit, _command:StringName, _args:Dictionary[StringName, Variant]) -> void:
+func _on_command_finished(unit:Unit, _command:StringName, _command_id:int, _args:Dictionary[StringName, Variant]) -> void:
 	if not _is_on_our_team(unit):
 		return
 	
@@ -42,7 +42,7 @@ func _on_command_finished(unit:Unit, _command:StringName, _args:Dictionary[Strin
 		@warning_ignore("missing_await")
 		_evaluate_priorities()
 
-func _on_command_scheduled(unit:Unit, _command:StringName, _args:Dictionary[StringName, Variant]) -> void:
+func _on_command_scheduled(unit:Unit, _command:StringName, _command_id:int, _args:Dictionary[StringName, Variant]) -> void:
 	if not _is_on_our_team(unit):
 		return
 		
@@ -78,8 +78,11 @@ func _on_resource_discovered(resource: Node3D) -> void:
 	resources.push_back(resource_id)
 	
 	# Re-evaluate after the resource is collected or disappears
+	var assigned_resources: PackedInt64Array = blackboard.assigned_resources
+	
 	resource.tree_exited.connect(func() -> void:
 		resources.erase(resource_id)
+		assigned_resources.erase(resource_id)
 		blackboard.on_available_resources_changed.emit()
 	)
 

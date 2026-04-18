@@ -34,7 +34,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 		result = _check_running_state(blackboard)
 		
 	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action, _get_action_args())
+		SignalBus.on_unit_command_finished.emit(_unit, my_action, action_id, _get_action_args())
 	return result
 
 func _on_destination_reached(unit:Unit, target:Vector3) -> void:

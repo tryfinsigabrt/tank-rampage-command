@@ -28,6 +28,7 @@ class Keys:
 	const exploring_units:StringName = &"exploring_units"
 	const explore_heading_bias:StringName = &"explore_heading_bias"
 	const active_resources:StringName = &"active_resources"
+	const assigned_resources:StringName = &"assigned_resources"
 	const threats:StringName = &"threats"
 	const resource_calculation_cache:StringName = &"resource_calc_cache"
 	
@@ -150,3 +151,11 @@ var resource_calculation_cache:Dictionary[int, Dictionary]:
 		return get_value(Keys.resource_calculation_cache)
 	set(value):
 		set_value(Keys.resource_calculation_cache, value)
+		
+var assigned_resources:PackedInt64Array:
+	get:
+		if not has_value(Keys.assigned_resources):
+			assigned_resources = PackedInt64Array()
+		return get_value(Keys.assigned_resources)
+	set(value):
+		set_value(Keys.assigned_resources, value)

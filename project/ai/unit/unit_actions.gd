@@ -1,5 +1,7 @@
 class_name UnitActions extends Node3D
 
+signal command_finished(command_id:int)
+
 @onready var behavior_tree: BeehaveTree = $BeehaveTree
 @onready var blackboard: UnitBlackboard = $Blackboard
 @onready var idle_state: IdleUnitState = $IdleState
@@ -8,6 +10,12 @@ class_name UnitActions extends Node3D
 var unit:Unit
 
 var _command_counter:int
+
+var _command_id:int
+
+var last_command_id:int:
+	get:
+		return _command_id
 
 @export
 var enabled:bool:
@@ -28,7 +36,7 @@ func _ready() -> void:
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 	_update_tree_state()
 		
-func _on_command_finished(in_unit: Unit, command:StringName) -> void:
+func _on_command_finished(in_unit: Unit, command:StringName, command_id:int) -> void:
 	if in_unit != unit:
 		return
 		
@@ -40,7 +48,8 @@ func _on_command_finished(in_unit: Unit, command:StringName) -> void:
 		_command_counter = 0
 	
 	print_debug("%s(%s): %s command finished" % [name, StringUtils.safe_name(in_unit), command])
-	
+	command_finished.emit(command_id)
+
 func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
 	
@@ -56,7 +65,7 @@ func move(target_position:Vector3) -> void:
 	
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, _command_id, {
 		&"position" : target_position
 	} as Dictionary[StringName, Variant])
 	
@@ -75,7 +84,7 @@ func _do_attack(enemy:Node3D) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, {
 		&"target_node": enemy
 	} as Dictionary[StringName, Variant])
 	
@@ -90,7 +99,7 @@ func attack_position(target_position:Vector3) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, {
 		&"target_position": target_position
 	} as Dictionary[StringName, Variant])
 	
@@ -105,7 +114,7 @@ func move_and_attack(target_position:Vector3) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack, _command_id, {
 		&"position": target_position
 	} as Dictionary[StringName, Variant])
 	
@@ -128,7 +137,10 @@ func hold() -> void:
 
 func _new_action() -> void:
 	_command_counter += 1
+	_command_id += 1
 	_clear_all_actions()
+	
+	blackboard.action_id = _command_counter
 	
 func _clear_all_actions() -> void:
 	

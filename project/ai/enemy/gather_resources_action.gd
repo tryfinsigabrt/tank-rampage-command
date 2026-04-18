@@ -20,6 +20,19 @@ class ScrapContext:
 	var resource: ScrapToken
 	var score:float
 
+class ScoreResult:
+	var score: float
+	var resource: ScrapToken
+	var unit: Unit
+	
+	func _init(in_score:float, in_resource:ScrapToken, in_unit:Unit) -> void:
+		self.score = in_score
+		self.resource = in_resource
+		self.unit = in_unit
+		
+	static func create(in_unit: Unit, context: ScrapContext) -> ScoreResult:
+		return ScoreResult.new(context.score, context.resource, in_unit)
+	
 func _ready() -> void:
 	SignalBus.on_unit_killed.connect(_on_unit_killed.unbind(1))
 	SignalBus.on_scrap_collected.connect(_on_scrap_collected.unbind(2))
@@ -40,7 +53,7 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
 	if not idle_units:
 		return SUCCESS
 		
-	var resources: Array[ScrapContext] = _get_resources(blackboard.active_resources)
+	var resources: Array[ScrapContext] = _get_resources(blackboard)
 	if not resources:
 		return SUCCESS
 		
@@ -52,27 +65,91 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
 	
 	var threat_contexts := blackboard.threats
 	
+	var score_results: Array[ScoreResult]
+	# Preallocate maximum required storage
+	score_results.resize(idle_units.size() * resources.size())
+	var count:int = 0
+		
 	for unit in idle_units:
 		if not is_instance_valid(unit):
 			continue
 			
 		for context in resources:
 			_update_scrap_context(unit, context, threat_contexts)
-		resources.sort_custom(func(a:ScrapContext, b:ScrapContext) -> bool:
-			return a.score < b.score
-		)
-		var selected_context:ScrapContext = resources.back()
-		if selected_context.score >= min_resource_score:
-			# Move to collect resource
-			resources.pop_back()
-			unit.get_or_add_actions().move_and_attack(selected_context.resource.global_position)
+		
+		# Collect results and score all together to avoid a "unit greedy" algorithm
+		# that will find a local maximum
+		for context in resources:
+			# Only add if above the threshold
+			if context.score >= min_resource_score:
+				score_results[count] = ScoreResult.create(unit, context)
+				count += 1
+		
+	score_results.resize(count)
+	score_results.sort_custom(func(a:ScoreResult, b:ScoreResult) -> bool:
+		return a.score > b.score
+	)
+		
+	var used_ids:Dictionary[int,bool]
+	var selected_count:int = 0
+	var max_resources:int = resources.size()
+	var max_units:int = idle_units.size()
+	# TODO: Send multiple units to a resource if it requires an "escort" due to the threat
+
+	#print("%s: SELECTED RESOURCE SCORE - START *****************************************" % name)
+	for best_resource_pairing in score_results:
+		# Make sure we haven't already used the unit or the resource
+		var unit:Unit = best_resource_pairing.unit
+		var unit_id:int = unit.get_instance_id()
+		
+		var resource:ScrapToken = best_resource_pairing.resource
+		var resource_id:int = resource.get_instance_id()
+		
+		if unit_id not in used_ids and resource_id not in used_ids:
+			#print("%s: SELECTED RESOURCE SCORE - %s -> %s=%.1f" % [name, unit.name, resource.name, best_resource_pairing.score])
+			used_ids[unit_id] = true
+			used_ids[resource_id] = true
+			selected_count += 1
 			
-		if not resources:
-			break
-	# Prioritize and decide whether to move idle units with move and attack to a resource
-	# Send multiple units to a resource if it requires an "escort" due to the 	
+			unit.get_or_add_actions().move_and_attack(resource.global_position)
+			_track_unit_resource_connection(blackboard, unit, resource)
+			
+			#Exhausted assignments
+			if selected_count == max_resources or selected_count == max_units:
+				break
+	#print("%s: SELECTED RESOURCE SCORE - END *****************************************" % name)
+	
 	return SUCCESS
 
+func _track_unit_resource_connection(blackboard:EnemyTeamBlackboard, unit:Unit, resource:ScrapToken) -> void:
+	# When command finished then free active resource assignment
+	# This prevents the next tick assigning a different unit to the new resource because it forgot it was already assigned
+	var holders: Array[Callable]
+	holders.resize(2)
+	
+	var unit_id:int = unit.get_instance_id()
+	var unit_actions := unit.get_or_add_actions()
+	var command_id:int = unit_actions.last_command_id
+	var resource_id:int = resource.get_instance_id()
+	
+	blackboard.assigned_resources.push_back(resource_id)
+	
+	holders[0] = func(id: int) -> void:
+		if id == command_id:
+			blackboard.assigned_resources.erase(resource_id)
+			unit_actions.command_finished.disconnect(holders[0])
+			var active_unit:Unit = instance_from_id(unit_id) as Unit
+			if active_unit:
+				active_unit.died.disconnect(holders[1])
+	
+	# Unit died before the resource could be collected
+	holders[1] = func() -> void:
+		blackboard.assigned_resources.erase(resource_id)
+			
+	# Assigned resources also removed in the main enemy action prioritizer tree_exited signal for the resource
+	unit_actions.command_finished.connect(holders[0])
+	unit.died.connect(holders[1])
+			
 func _clean_cache() -> void:
 	for unit_id:int in _cache.keys():
 		if is_instance_id_valid(unit_id):
@@ -131,12 +208,18 @@ func _update_scrap_context(unit: Unit, context: ScrapContext, threats: Array[Ene
 	scrap_cache.score = score
 	scrap_cache.time = _time
 	
-func _get_resources(resource_ids:PackedInt64Array) -> Array[ScrapContext]:
+func _get_resources(blackboard:EnemyTeamBlackboard) -> Array[ScrapContext]:
+	
+	var active_resources:PackedInt64Array = blackboard.active_resources
+	var assigned_resources:PackedInt64Array = blackboard.assigned_resources
+	
 	var resources:Array[ScrapContext]
-	resources.resize(resource_ids.size())
+	resources.resize(active_resources.size())
 	
 	var count:int = 0
-	for id in resource_ids:
+	for id in active_resources:
+		if id in assigned_resources:
+			continue
 		var resource:ScrapToken = instance_from_id(id) as ScrapToken
 		if resource:
 			var ctx:ScrapContext = ScrapContext.new()
