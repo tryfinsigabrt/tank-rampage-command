@@ -137,7 +137,10 @@ func _track_unit_resource_connection(blackboard:EnemyTeamBlackboard, unit:Unit, 
 	holders[0] = func(id: int) -> void:
 		if id == command_id:
 			blackboard.assigned_resources.erase(resource_id)
-			unit_actions.command_finished.disconnect(holders[0])
+			
+			var cb := holders[0]
+			if unit_actions.command_finished.is_connected(cb):
+				unit_actions.command_finished.disconnect(cb)
 			var active_unit:Unit = instance_from_id(unit_id) as Unit
 			if active_unit:
 				active_unit.died.disconnect(holders[1])
@@ -145,6 +148,9 @@ func _track_unit_resource_connection(blackboard:EnemyTeamBlackboard, unit:Unit, 
 	# Unit died before the resource could be collected
 	holders[1] = func() -> void:
 		blackboard.assigned_resources.erase(resource_id)
+		var other_cb := holders[0]
+		if unit_actions.command_finished.is_connected(other_cb):
+			unit_actions.command_finished.disconnect(other_cb)
 			
 	# Assigned resources also removed in the main enemy action prioritizer tree_exited signal for the resource
 	unit_actions.command_finished.connect(holders[0])
