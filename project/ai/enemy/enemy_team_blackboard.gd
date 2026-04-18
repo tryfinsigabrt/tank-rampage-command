@@ -25,6 +25,7 @@ class Keys:
 	const exploring_units:StringName = &"exploring_units"
 	const explore_heading_bias:StringName = &"explore_heading_bias"
 	const active_resources:StringName = &"active_resources"
+	const threats:StringName = &"threats"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -129,3 +130,11 @@ var active_resources:PackedInt64Array:
 		return get_value(Keys.active_resources)
 	set(value):
 		set_value(Keys.active_resources, value)
+
+var threats:Array[EnemyThreatContext]:
+	get:
+		if not has_value(Keys.threats):
+			threats = [] as Array[EnemyThreatContext]
+		return get_value(Keys.threats)
+	set(value):
+		set_value(Keys.threats, value)

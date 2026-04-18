@@ -2,6 +2,7 @@ class_name UtilityCalculator extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var threat_eval_tick: Timer = $Tick
+@onready var rate_limiter: RateLimiter = $RateLimiter
 
 const ATTACK_BEHAVIOR:UtilityAIBehavior = preload("uid://78xpbsfwlfdd")
 const FLEE_BEHAVIOR:UtilityAIBehavior = preload("uid://budmbddpy0ywh")
@@ -14,6 +15,7 @@ const IGNORE_BEHAVIOR_KEY:StringName = &"ignore"
 var _all_options:Array[UtilityAIOption]
 
 var _unit_utilities:Dictionary[StringName, Array]
+var all_threat_contexts:Array[UnitThreatContext]
 
 func _ready() -> void:
 	_all_options = [
@@ -27,12 +29,18 @@ func _ready() -> void:
 		_unit_utilities[option.action] = [] as Array[Unit]
 
 func assess_threats() -> void:
+	var should_reassess:bool = await rate_limiter.limit()
+	if not should_reassess:
+		return
+		
 	# TODO: Add an option to collect the resource which takes into account the threats
 	# This will be set as a resource collecting priority on the blackboard and be a separate action that
 	# results in a move to the token position
 	
 	# or possibly this is a separate action
 	# Reset the timer so that it cools down when called externally
+	all_threat_contexts.clear()
+
 	threat_eval_tick.start()
 	
 	var enemy_teams: EnemyTeams  = blackboard.enemy_teams_info
@@ -43,6 +51,8 @@ func assess_threats() -> void:
 	var options := _all_options.duplicate()
 	for team:EnemyTeamUnits in enemy_teams.all_teams():
 		var contexts : Array[UnitThreatContext] = team.get_visible_threat_contexts(our_units)
+		all_threat_contexts.append_array(contexts)
+		
 		for context in contexts:
 			for option:UtilityAIOption in options:
 				option.context = context
@@ -68,10 +78,10 @@ func assess_threats() -> void:
 func _reset_unit_utilities() -> void:
 	for key in _unit_utilities:
 		_unit_utilities[key].clear()
-
-
+	
 func _tick() -> void:
 	# Only re-evaluate if there are any visible threats
 	if not blackboard.visible_enemy_count:
 		return
-	assess_threats()	
+		
+	await assess_threats()

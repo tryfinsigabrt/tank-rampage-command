@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cyromgd13fprn" path="res://ai/enemy/attack_units.gd" id="7_ibxiw"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="7_mmd2m"]
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
+[ext_resource type="Script" uid="uid://b5x0berv06k01" path="res://ai/enemy/gather_resources_action.gd" id="9_f1xs6"]
 [ext_resource type="Script" uid="uid://vknekppxwdeb" path="res://ai/enemy/flee_avoidance_calculator.gd" id="10_qhh88"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="13_n57he"]
@@ -63,10 +64,18 @@ metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 script = ExtResource("7_ibxiw")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
+[node name="GatherResources" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=954972948]
+script = ExtResource("9_f1xs6")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
 [node name="ExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=971392095 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
 move_radius = Vector2(100, 250)
 world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="GatherResources" type="Node" parent="BeehaveTree/Root" unique_id=691352695]
+script = ExtResource("9_f1xs6")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
@@ -108,14 +117,14 @@ script = ExtResource("14_slh46")
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=350127888]
 wait_time = 5.0
 
+[node name="RateLimiter" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=1514069712 instance=ExtResource("20_6t3uo")]
+
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")
 
 [node name="FleeAvoidanceCalculator" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=963685399]
 script = ExtResource("10_qhh88")
 threat_magnitude_v_distance = ExtResource("19_slh46")
-
-[node name="RateLimiter" parent="GlobalServices/EnemyActionPrioritizer" unique_id=1514069712 instance=ExtResource("20_6t3uo")]
 
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")

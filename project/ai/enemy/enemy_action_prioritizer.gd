@@ -2,7 +2,6 @@ extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var utility_calculator: UtilityCalculator = $UtilityCalculator
-@onready var rate_limiter: RateLimiter = $RateLimiter
 
 func _ready() -> void:
 	SignalBus.on_unit_command_scheduled.connect(_on_command_scheduled)
@@ -17,9 +16,14 @@ func _on_unit_visibility_changed() -> void:
 	_evaluate_priorities()
 	
 func _evaluate_priorities() -> void:
-	var should_reassess:bool = await rate_limiter.limit()
-	if should_reassess:
-		utility_calculator.assess_threats()
+	await utility_calculator.assess_threats()
+	
+	#Recalculate distilled threat clusters
+	var distilled_threats := blackboard.threats
+	distilled_threats.clear()
+	
+	for threat_context in utility_calculator.all_threat_contexts:
+		distilled_threats.push_back(EnemyThreatContext.from_unit_threat_context(threat_context))
 	
 func _on_command_finished(unit:Unit, _command:StringName, _args:Dictionary[StringName, Variant]) -> void:
 	if not _is_on_our_team(unit):
@@ -73,9 +77,4 @@ func _on_resource_discovered(resource: Node3D) -> void:
 	# Re-evaluate after the resource is collected or disappears
 	resource.tree_exited.connect(func() -> void:
 		resources.erase(resource_id)
-		@warning_ignore("missing_await")
-		_evaluate_priorities()
 	)
-	
-	@warning_ignore("missing_await")
-	_evaluate_priorities()
