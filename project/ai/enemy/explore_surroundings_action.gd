@@ -22,6 +22,10 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
 	var heading_bias_dict: Dictionary[int, Vector3] = blackboard.explore_heading_bias
 	
 	for unit in blackboard.idle_units:
+		# TODO: Shouldn't have to do this - the monitor should be taking care of this but it's not working properly as still 
+		# encounter "previously freed" - another approach would be to convert idle_units to just PackedInt64Array
+		if not is_instance_valid(unit):
+			continue
 		var heading_bias:Vector3 = heading_bias_dict.get(unit.get_instance_id(), Vector3.ZERO)
 		_select_move_target(unit, heading_bias)
 					

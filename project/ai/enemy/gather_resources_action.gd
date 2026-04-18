@@ -148,7 +148,7 @@ func _track_unit_resource_connection(blackboard:EnemyTeamBlackboard, unit:Unit, 
 			
 	# Assigned resources also removed in the main enemy action prioritizer tree_exited signal for the resource
 	unit_actions.command_finished.connect(holders[0])
-	unit.died.connect(holders[1])
+	unit.died.connect(holders[1].unbind(1), CONNECT_ONE_SHOT)
 			
 func _clean_cache() -> void:
 	for unit_id:int in _cache.keys():

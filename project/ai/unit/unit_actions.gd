@@ -140,7 +140,7 @@ func _new_action() -> void:
 	_command_id += 1
 	_clear_all_actions()
 	
-	blackboard.action_id = _command_counter
+	blackboard.action_id = _command_id
 	
 func _clear_all_actions() -> void:
 	
