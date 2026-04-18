@@ -24,6 +24,7 @@
 [ext_resource type="Curve" uid="uid://dv3ooxfgwsayx" path="res://ai/enemy/flee_threat_v_distance.tres" id="19_slh46"]
 [ext_resource type="PackedScene" uid="uid://grm003i7dfiu" path="res://utils/rate_limiter.tscn" id="20_6t3uo"]
 [ext_resource type="Script" uid="uid://b00rmknae476u" path="res://ai/enemy/build_prioritizer.gd" id="22_1exag"]
+[ext_resource type="Script" uid="uid://cw76e5jw8s3jp" path="res://ai/enemy/control_point_prioritizer.gd" id="22_f1xs6"]
 [ext_resource type="Script" uid="uid://c084fyvws44hy" path="res://ai/enemy/build_utility_calculator.gd" id="23_wflob"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="24_iv7ch"]
 [ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_unit.tres" id="26_ex0vg"]
@@ -126,6 +127,15 @@ script = ExtResource("14_mmd2m")
 script = ExtResource("10_qhh88")
 threat_magnitude_v_distance = ExtResource("19_slh46")
 
+[node name="ControlPointPrioritizer" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=417113861]
+script = ExtResource("22_f1xs6")
+
+[node name="RateLimiter" parent="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" unique_id=557803187 instance=ExtResource("20_6t3uo")]
+_interval = 1.0
+
+[node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" unique_id=1444085412]
+wait_time = 10.0
+
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
 
@@ -152,11 +162,14 @@ autostart = true
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_units_changed"]
 [connection signal="on_avoidance_enemies_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/FleeAvoidanceCalculator" method="_on_avoidance_enemies_changed"]
 [connection signal="on_avoidance_enemies_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_avoidance_enemies_changed"]
+[connection signal="on_control_point_discovered" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_on_blackboard_on_control_point_discovered"]
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
+[connection signal="control_point_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_control_point_discovered"]
 [connection signal="initialized" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_initialized" flags=18]
 [connection signal="new_asset_built" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_new_asset_built"]
 [connection signal="resource_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_resource_discovered"]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]
+[connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer/Tick" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_evaluate_priorities"]

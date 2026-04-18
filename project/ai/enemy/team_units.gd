@@ -9,6 +9,7 @@ signal new_asset_built(asset:Node3D)
 
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 signal resource_discovered(resource:Node3D)
+signal control_point_discovered(control_point:ControlPoint)
 
 var team:int
 
@@ -62,6 +63,7 @@ func _init_asset(asset:Node3D) -> void:
 		
 		ai_unit_vision.asset_visibility_changed.connect(_on_asset_visibility_changed)
 		ai_unit_vision.resource_discovered.connect(_on_resource_discovered)
+		ai_unit_vision.control_point_discovered.connect(_on_control_point_discovered)
 		
 		asset.add_child(ai_unit_vision)
 		
@@ -113,3 +115,6 @@ func _on_asset_visibility_changed(asset:Node3D, in_is_visible:bool) -> void:
 
 func _on_resource_discovered(resource:Node3D) -> void:
 	resource_discovered.emit(resource)
+
+func _on_control_point_discovered(control_point:ControlPoint) -> void:
+	control_point_discovered.emit(control_point)

@@ -4,10 +4,11 @@ class_name AiUnitVision extends Area3D
 
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 signal resource_discovered(resource:Node3D)
+signal control_point_discovered(control_point:ControlPoint)
 
 var _team_component:TeamComponent
 var _vision_counts:Dictionary[int,int] = {}
-var _discovered_resources:Dictionary[int, bool] = {}
+var _discovered_objects:Dictionary[int, bool] = {}
 
 @onready var collision: CollisionShape3D = $Collision
 
@@ -60,15 +61,31 @@ func _update_visibility(body: Node3D, diff:int) -> void:
 		team_asset.team_component.set_visible_to(_team_component.team, false)
 		asset_visibility_changed.emit(team_asset, false)
 
-# Look for resources
 func _on_area_entered(area: Area3D) -> void:
 	var resource:Node3D = Groups.get_scene_root_if_in_group(area, Groups.GameResource)
-	if not resource:
+	if resource:
+		_process_resource(resource)
 		return
+	var control_point:ControlPoint = Groups.get_scene_root_if_in_group(area, Groups.ControlPoint) as ControlPoint
+	if control_point:
+		_process_control_point(control_point)
+		return
+
+func _process_resource(resource:Node3D) -> void:
 	var resource_id:int = resource.get_instance_id()
-	if resource_id in _discovered_resources:
+	if resource_id in _discovered_objects:
 		return
 		
-	_discovered_resources[resource_id] = true
+	_discovered_objects[resource_id] = true
 	print_debug("%s: discovered resource=%s" % [name, resource.name])
 	resource_discovered.emit(resource)
+
+func _process_control_point(control_point:ControlPoint) -> void:
+	var control_point_id:int = control_point.get_instance_id()
+	if control_point_id in _discovered_objects:
+		return
+		
+	_discovered_objects[control_point_id] = true
+	
+	print_debug("%s: discovered control_point=%s" % [name, control_point.name])
+	control_point_discovered.emit(control_point)

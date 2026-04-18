@@ -263,6 +263,7 @@ mini_map_navigate={
 3d_physics/layer_9="infantry"
 3d_physics/layer_10="vehicle"
 3d_physics/layer_11="structure_vehicle"
+3d_physics/layer_12="control_point"
 3d_physics/layer_29="team_1"
 3d_physics/layer_30="team_2"
 

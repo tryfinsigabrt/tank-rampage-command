@@ -27,6 +27,9 @@ class Layers:
 	# A generic boundary like a scrap field
 	const boundary:int = 1 << 11
 	
+	# A control point
+	const control_point:int = 1 << 12
+	
 	const team_1:int = 1 << 28
 	const team_2:int = 1 << 29
 	# Reserving 30 and 31 if we have 4 total teams
@@ -39,7 +42,7 @@ class Layers:
 class CompositeMasks:
 	const all: int = 0xFFFFFFFF
 	const world:int = Layers.world_static | Layers.terrain | Layers.world_dynamic
-	const visibility: int = world | Layers.unit
+	const visibility: int = world | team_asset
 	const ground: int = Layers.world_static | Layers.terrain
 	const structure:int = Layers.structure_infantry | Layers.structure_vehicle
 	const team_asset:int = Layers.unit | Layers.building | structure

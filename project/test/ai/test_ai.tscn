@@ -35,6 +35,7 @@
 [ext_resource type="Resource" uid="uid://cf1nyflh37tln" path="res://units/human/marine/teams/marine_yellow_team.tres" id="22_oenpu"]
 [ext_resource type="Resource" uid="uid://biw7s13xuvaoy" path="res://units/human/marine/teams/marine_red_team.tres" id="23_hsvrm"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="24_oenpu"]
+[ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="32_r4ybk"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="33_bvix3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
@@ -56,7 +57,7 @@ agent_radius = 3.0
 agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
-size = Vector3(600, 100, 525)
+size = Vector3(800, 100, 800)
 
 [sub_resource type="Resource" id="Resource_dy05a"]
 script = ExtResource("7_4pd8j")
@@ -230,6 +231,7 @@ size = Vector3(10, 100, 1000)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.60321, 0, -108.74072)
 shape = SubResource("BoxShape3D_mushl")
 debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
@@ -450,6 +452,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.2, 0, -85.8)
 team = 2
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
+
+[node name="ControlPoints" type="Node3D" parent="World" unique_id=1999364292]
+
+[node name="ControlPoint" parent="World/ControlPoints" unique_id=588474072 instance=ExtResource("32_r4ybk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.712845, 0.049996186, 9.573647)
+
+[node name="ControlPoint2" parent="World/ControlPoints" unique_id=591924798 instance=ExtResource("32_r4ybk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.27373, 0.049996186, 9.573647)
+
+[node name="ControlPoint3" parent="World/ControlPoints" unique_id=823860537 instance=ExtResource("32_r4ybk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 121.27373, 0.049996186, -199.7544)
+
+[node name="ControlPoint4" parent="World/ControlPoints" unique_id=1395362214 instance=ExtResource("32_r4ybk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -262.96005, 0.049996186, 111.45361)
+
+[node name="ControlPoint5" parent="World/ControlPoints" unique_id=1116214033 instance=ExtResource("32_r4ybk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.55914)
 
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
 

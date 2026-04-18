@@ -12,6 +12,9 @@ signal on_exploring_units_changed
 @warning_ignore("unused_signal")
 signal on_available_resources_changed
 
+@warning_ignore("unused_signal")
+signal on_control_point_discovered(control_point:ControlPoint)
+
 signal match_team_set
  
 class Keys:
@@ -31,6 +34,8 @@ class Keys:
 	const assigned_resources:StringName = &"assigned_resources"
 	const threats:StringName = &"threats"
 	const resource_calculation_cache:StringName = &"resource_calc_cache"
+	const control_points:StringName = &"control_points"
+	const control_point_priorities:StringName = &"control_point_priorities"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -159,3 +164,19 @@ var assigned_resources:PackedInt64Array:
 		return get_value(Keys.assigned_resources)
 	set(value):
 		set_value(Keys.assigned_resources, value)
+
+var control_points:Array[ControlPoint]:
+	get:
+		if not has_value(Keys.control_points):
+			control_points = [] as Array[ControlPoint]
+		return get_value(Keys.control_points)
+	set(value):
+		set_value(Keys.control_points, value)
+
+var control_point_priorities:Array[ControlPoint]:
+	get:
+		if not has_value(Keys.control_point_priorities):
+			control_point_priorities = [] as Array[ControlPoint]
+		return get_value(Keys.control_point_priorities)
+	set(value):
+		set_value(Keys.control_point_priorities, value)

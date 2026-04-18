@@ -899,7 +899,7 @@ height = 8.0
 
 [node name="HumanTankAlt" type="CharacterBody3D" unique_id=260396010 groups=["Interactable", "TeamAsset", "Unit", "UnitClassTank"]]
 collision_layer = 516
-collision_mask = 1215
+collision_mask = 1087
 script = ExtResource("1_w7n8l")
 unit_class = 1
 attributes = ExtResource("2_g0ku4")

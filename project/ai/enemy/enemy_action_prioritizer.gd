@@ -87,3 +87,11 @@ func _on_resource_discovered(resource: Node3D) -> void:
 	)
 
 	blackboard.on_available_resources_changed.emit()
+	
+func _on_control_point_discovered(control_point: ControlPoint) -> void:
+	var known_control_points := blackboard.control_points
+	if control_point in known_control_points:
+		return
+		
+	known_control_points.push_back(control_point)
+	blackboard.on_control_point_discovered.emit(control_point)
