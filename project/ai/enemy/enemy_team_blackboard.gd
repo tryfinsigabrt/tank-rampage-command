@@ -9,6 +9,9 @@ signal on_avoidance_enemies_changed
 signal on_idle_units_changed
 signal on_exploring_units_changed
 
+@warning_ignore("unused_signal")
+signal on_available_resources_changed
+
 signal match_team_set
  
 class Keys:
@@ -26,6 +29,7 @@ class Keys:
 	const explore_heading_bias:StringName = &"explore_heading_bias"
 	const active_resources:StringName = &"active_resources"
 	const threats:StringName = &"threats"
+	const resource_calculation_cache:StringName = &"resource_calc_cache"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -138,3 +142,11 @@ var threats:Array[EnemyThreatContext]:
 		return get_value(Keys.threats)
 	set(value):
 		set_value(Keys.threats, value)
+
+var resource_calculation_cache:Dictionary[int, Dictionary]:
+	get:
+		if not has_value(Keys.resource_calculation_cache):
+			resource_calculation_cache = {} as Dictionary[int, Dictionary]
+		return get_value(Keys.resource_calculation_cache)
+	set(value):
+		set_value(Keys.resource_calculation_cache, value)

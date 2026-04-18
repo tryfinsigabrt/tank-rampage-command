@@ -87,6 +87,8 @@ func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int,
 		
 func _refresh_monitors(source: Array[Unit], id_list:PackedInt64Array, receiver:Callable) -> void:
 	for unit in source:
+		if not is_instance_valid(unit):
+			continue
 		var unit_id:int = unit.get_instance_id()
 		# Cannot use is_connected since we are binding a new callable that will always be unique
 		# and easier to just track the ids
@@ -99,8 +101,14 @@ func _refresh_monitors(source: Array[Unit], id_list:PackedInt64Array, receiver:C
 	
 func _set_monitored_units(source:Array[Unit], id_list:PackedInt64Array) -> void:
 	id_list.resize(source.size())
+	
+	var count:int = 0
 	for i in source.size():
-		id_list[i] = source[i].get_instance_id()
+		var unit:Unit = source[i]
+		if is_instance_valid(unit):
+			id_list[count] = unit.get_instance_id()
+			count += 1
+	id_list.resize(count)
 		
 func _refresh_dictionary_keys_monitors(source: Dictionary, id_list:PackedInt64Array, receiver:Callable) -> void:
 	for unit_id:int in source:

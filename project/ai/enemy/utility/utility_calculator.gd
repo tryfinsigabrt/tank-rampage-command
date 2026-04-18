@@ -28,11 +28,13 @@ func _ready() -> void:
 	for option in _all_options:
 		_unit_utilities[option.action] = [] as Array[Unit]
 
-func assess_threats() -> void:
+func assess_threats() -> bool:
 	var should_reassess:bool = await rate_limiter.limit()
 	if not should_reassess:
-		return
-		
+		#print("EVALUATE(RATE LIMIT) at %.1f" % [GameManager.game_timer.time_seconds])
+		return false
+	#print("EVALUATE(EXEC) at %.1f" % [GameManager.game_timer.time_seconds])
+
 	# TODO: Add an option to collect the resource which takes into account the threats
 	# This will be set as a resource collecting priority on the blackboard and be a separate action that
 	# results in a move to the token position
@@ -74,6 +76,8 @@ func assess_threats() -> void:
 	blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]).duplicate()
 		
 	_reset_unit_utilities()
+	
+	return true
 
 func _reset_unit_utilities() -> void:
 	for key in _unit_utilities:

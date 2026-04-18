@@ -16,8 +16,11 @@ func _on_unit_visibility_changed() -> void:
 	_evaluate_priorities()
 	
 func _evaluate_priorities() -> void:
-	await utility_calculator.assess_threats()
-	
+	#print("EVALUATED at %.1f" % [GameManager.game_timer.time_seconds])
+	var assessed:bool = await utility_calculator.assess_threats()
+	if not assessed:
+		return
+		
 	#Recalculate distilled threat clusters
 	var distilled_threats := blackboard.threats
 	distilled_threats.clear()
@@ -77,4 +80,7 @@ func _on_resource_discovered(resource: Node3D) -> void:
 	# Re-evaluate after the resource is collected or disappears
 	resource.tree_exited.connect(func() -> void:
 		resources.erase(resource_id)
+		blackboard.on_available_resources_changed.emit()
 	)
+
+	blackboard.on_available_resources_changed.emit()

@@ -76,6 +76,8 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="GatherResources" type="Node" parent="BeehaveTree/Root" unique_id=691352695]
 script = ExtResource("9_f1xs6")
+min_resource_score = null
+resource_cache_duration = null
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
