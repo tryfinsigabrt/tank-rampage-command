@@ -43,3 +43,6 @@ static func get_random_point_in_sphere(radius:float) -> Vector3:
 	var z := r * sintheta * sin(phi)
 	
 	return Vector3(x, y, z)
+
+static func grid_vector(vec:Vector3) -> Vector2:
+	return Vector2(vec.x, vec.z)

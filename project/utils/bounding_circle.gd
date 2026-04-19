@@ -8,6 +8,9 @@ var radius:float:
 	get:
 		return radius
 	
+static func from_sphere(bounding_sphere: BoundingSphere) -> BoundingCircle:
+	return BoundingCircle.new(MathUtils.grid_vector(bounding_sphere.center), bounding_sphere.radius)
+	
 func _init(in_center:Vector2, in_radius: float) -> void:
 	replace_with(in_center, in_radius)
 	
@@ -30,3 +33,25 @@ func closest_point_to(point:Vector2) -> Vector2:
 	
 	var point_dir:Vector2 = center.direction_to(point)
 	return center + point_dir * radius
+
+func overlaps(other: BoundingCircle) -> bool:
+	if not other:
+		return false
+		
+	var center_dist: float = center.distance_to(other.center)
+	var radial_sum:float = radius + other.radius
+	
+	return radial_sum <= center_dist
+
+func ray_intersects(ray_origin:Vector2, ray_direction: Vector2) -> bool:
+	var to_center:Vector2 = center - ray_origin
+	var center_alignment:float = to_center.dot(ray_direction)
+	
+	# Ray points away from sphere:
+	if center_alignment < 0.0:
+		return false
+		
+	var dist_sq:float = to_center.length_squared() - center_alignment * center_alignment
+	var radius_sq:float = radius * radius
+	
+	return dist_sq <= radius_sq

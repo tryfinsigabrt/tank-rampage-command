@@ -6,7 +6,7 @@ var count:int
 
 static func from_unit_threat_context(unit_threat_context:UnitThreatContext) -> EnemyThreatContext:	
 	var enemy_cluster := unit_threat_context.threat_cluster
-	var cluster_bounds:BoundingCircle = BoundingCircle.new(enemy_cluster.center, enemy_cluster.size)
+	var cluster_bounds:BoundingCircle = enemy_cluster.to_bounds()
 		
 	var ctx := EnemyThreatContext.new()
 	ctx.bounds = cluster_bounds

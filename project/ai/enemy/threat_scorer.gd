@@ -96,14 +96,14 @@ func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[U
 		var friendly_cluster_strength:float = friendly_cluster_strengths[friendly_cluster_index]
 		if friendly_cluster_strength == 0.0:
 			for unit in unit_clusters[friendly_cluster_index].units:
-				friendly_cluster_strength += calculate_strength(unit)
+				friendly_cluster_strength += unit.strength()
 			friendly_cluster_strengths[friendly_cluster_index] = friendly_cluster_strength
 			
 		var min_dist:float = sqrt(min_dist_sq)
 		
 		var threat_strength:float = 0.0
 		for threat in threat_cluster.units:
-			threat_strength += calculate_strength(threat)
+			threat_strength += threat.strength()
 			
 		var context: UnitThreatContext = UnitThreatContext.new()
 		
@@ -116,10 +116,3 @@ func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[U
 		contexts.push_back(context)
 	
 	return contexts
-
-func calculate_strength(unit:Unit) -> float:
-	var strength:float = unit.attributes.strength
-	var health_stat:HealthStat = unit.health
-	if health_stat:
-		strength *= unit.health.health_fraction
-	return strength

@@ -75,7 +75,7 @@ func get_visible_threat_contexts(our_units:Array[Unit]) -> Array[UnitThreatConte
 	var threats:Array[Unit]
 	for unit_id in assets:
 		var unit_data:UnitData = assets[unit_id]
-		# TODO: Currently threat clusters only consider assets and not any asset
+		# TODO: Currently threat clusters only consider units and not any asset
 		if unit_data.valid and unit_data.visible and unit_data.asset is Unit:
 			threats.push_back(unit_data.asset)
 	

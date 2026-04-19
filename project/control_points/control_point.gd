@@ -37,6 +37,18 @@ func get_bounds() -> AABB:
 ## Gets the AABB representing the bounds of the structure in global space
 func get_global_bounds() -> AABB:
 	return global_transform * _aabb
+	
+func get_units_by_team(team:int, out_units:Array[Unit] = []) -> Array[Unit]:
+	if not team in _units_by_team:
+		return out_units
+	
+	var unit_ids: PackedInt64Array = _units_by_team[team]
+	for id in unit_ids:
+		var unit:Unit = instance_from_id(id)
+		if unit:
+			out_units.push_back(unit)
+	
+	return out_units
 		
 func _ready() -> void:
 	capture_timer.wait_time = capture_time

@@ -29,3 +29,25 @@ func closest_point_to(point:Vector3) -> Vector3:
 	
 	var point_dir:Vector3 = center.direction_to(point)
 	return center + point_dir * radius
+
+func overlaps(other: BoundingSphere) -> bool:
+	if not other:
+		return false
+		
+	var center_dist: float = center.distance_to(other.center)
+	var radial_sum:float = radius + other.radius
+	
+	return radial_sum <= center_dist
+
+func ray_intersects(ray_origin:Vector3, ray_direction: Vector3) -> bool:
+	var to_center:Vector3 = center - ray_origin
+	var center_alignment:float = to_center.dot(ray_direction)
+	
+	# Ray points away from sphere:
+	if center_alignment < 0.0:
+		return false
+		
+	var dist_sq:float = to_center.length_squared() - center_alignment * center_alignment
+	var radius_sq:float = radius * radius
+	
+	return dist_sq <= radius_sq

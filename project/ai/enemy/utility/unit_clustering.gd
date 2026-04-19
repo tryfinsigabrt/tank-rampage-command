@@ -8,6 +8,9 @@ class UnitCluster:
 	var size:float = 1.0
 	var center:Vector2
 	
+	func to_bounds() -> BoundingCircle:
+		return BoundingCircle.new(center, size)
+	
 	func _init(unit:Unit, pos:Vector2) -> void:
 		units.push_back(unit)
 		center = pos

@@ -245,3 +245,9 @@ var global_up:Vector3:
 var up:Vector3:
 	get:
 		return _orientation_basis().basis.y
+		
+func strength() -> float:
+	var total_strength:float = attributes.strength
+	if health:
+		total_strength *= health.health_fraction
+	return total_strength
