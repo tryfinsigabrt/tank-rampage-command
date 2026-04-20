@@ -33,7 +33,7 @@ var has_target_position:bool:
 		
 var target_position:Vector3:
 	get:
-		return get_value(Keys.TargetPosition, Vector3.ZERO)
+		return get_value(Keys.TargetPosition, Vector3.INF)
 	set(value):
 		set_value(Keys.TargetPosition, value)
 

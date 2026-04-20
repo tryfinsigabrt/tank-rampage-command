@@ -60,8 +60,8 @@ func move(target_position:Vector3) -> void:
 	_new_action()
 	_clear_hold()
 	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Move)
+	blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 	
 	enabled = true
 	
@@ -79,8 +79,8 @@ func _do_attack(enemy:Node3D) -> void:
 	assert(enemy and enemy.is_in_group(Groups.TeamAsset), "%s: %s attaack %s - not a TeamAsset!" % [name, unit.name, StringUtils.safe_name(enemy)])
 	_new_action()
 	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetNode, enemy)
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
+	blackboard.set_value(UnitBlackboard.Keys.TargetNode, enemy)
 
 	enabled = true
 	
@@ -94,8 +94,8 @@ func attack_position(target_position:Vector3) -> void:
 	_new_action()
 	_clear_hold()
 	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Attack)
+	blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 
 	enabled = true
 	
@@ -109,8 +109,8 @@ func move_and_attack(target_position:Vector3) -> void:
 	_new_action()
 	_clear_hold()
 	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.MoveAndAttack)
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.MoveAndAttack)
+	blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target_position)
 
 	enabled = true
 	
@@ -143,10 +143,9 @@ func _new_action() -> void:
 	blackboard.action_id = _command_id
 	
 func _clear_all_actions() -> void:
-	
-	behavior_tree.blackboard.set_value(UnitBlackboard.Keys.Action, "")
-	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
-	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
+	blackboard.set_value(UnitBlackboard.Keys.Action, "")
+	blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
+	blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
 	
 func is_attacking() -> bool:
 	return blackboard.is_attacking
@@ -159,10 +158,13 @@ func is_moving() -> bool:
 
 func is_idle() -> bool:
 	return _command_counter <= 0
+	
+func is_hold() -> bool:
+	return blackboard.is_hold
 
 func _on_idle_state_threat_selected(threat: Node3D) -> void:
 	# Don't clear hold
 	_do_attack(threat)
 	
 func _clear_hold() -> void:
-	behavior_tree.blackboard.erase_value(UnitBlackboard.Keys.HoldIssued)
+	blackboard.erase_value(UnitBlackboard.Keys.HoldIssued)

@@ -29,6 +29,13 @@ var capturing_team:int
 
 var player_team:int
 
+var neutral:bool:
+	get:
+		return team_component.is_neutral()
+var owned:bool:
+	get:
+		return not neutral
+		
 # TODO: Add the bounds and AABB functionality to a component called BoundsComponent!
 ## Gets an AABB representing the bounds of the structure in local space
 func get_bounds() -> AABB:
@@ -112,10 +119,10 @@ func _capture_or_resume(team:int) -> void:
 		if capturing_team == team:
 			if capture_timer.paused:
 				_resume_capture()
-		elif team_component.is_neutral() or team_component.is_enemy_team(team):
+		elif neutral or team_component.is_enemy_team(team):
 			# Changing capturing teams
 			_capture(team)
-	elif team_component.is_neutral() or team_component.is_enemy_team(team):
+	elif neutral or team_component.is_enemy_team(team):
 		_capture(team)
 		
 func _capture(new_capturing_team:int) -> void:
@@ -164,7 +171,7 @@ func _stop_capture() -> void:
 	
 func _on_capture_timer_timeout() -> void:
 	print_debug("%s: Capture timer completed" % [name])
-	if team_component.is_neutral():
+	if neutral:
 		team_component.team = capturing_team
 		capturing_team = 0
 		var new_owner:int = owned_team

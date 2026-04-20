@@ -33,11 +33,41 @@ class ControlPointContext:
 	var assist_context: Array[AssistContext]
 	var positive_units:int
 	
-var _known_control_points: Array[ControlPoint]
-var _assigned_units_by_control_point: Dictionary[int, PackedInt64Array]
+enum ControlPointState
+{
+	NEUTRAL,
+	OURS,
+	THEIRS
+}
+	
+class ControlPointData:
+	var control_point:ControlPoint
+	var state:ControlPointState
+	var last_update:float
+	var team:int
+	
+	func _init(in_team:int, in_control_point:ControlPoint) -> void:
+		control_point = in_control_point
+		team = in_team
+		update_state()
+	
+	func update_state() -> void:
+		if control_point.neutral:
+			state = ControlPointState.NEUTRAL
+		elif control_point.team_component.is_ally_team(team):
+			state = ControlPointState.OURS
+		else:
+			state = ControlPointState.THEIRS
+		
+		last_update = GameManager.game_timer.time_seconds
+	
+var _control_point_info:Dictionary[int, ControlPointData]
+#var _assigned_units_by_control_point: Dictionary[int, PackedInt64Array]
 
 func _on_blackboard_on_control_point_discovered(control_point: ControlPoint) -> void:
-	_known_control_points.push_back(control_point)
+	var cpd := ControlPointData.new(blackboard.team, control_point)
+	_control_point_info[control_point.get_instance_id()] = cpd
+	
 	tick.start()
 	await _evaluate_priorities()
 
@@ -45,7 +75,7 @@ func _evaluate_priorities() -> void:
 	var process := await rate_limiter.limit()
 	if not process:
 		return
-	print_debug("%s: Evaluate Priorities" % name)
+	print_debug("%s: Evaluate Priorities" % name)	
 	
 	var threats: Array[EnemyThreatContext] = blackboard.threats
 	
@@ -61,8 +91,14 @@ func _evaluate_priorities() -> void:
 	
 	var score_sum:float = 0.0
 	
-	for control_point in _known_control_points:
-		var context := score_control_point(control_point, threats)
+	for id in _control_point_info:
+		var control_point_data: ControlPointData = _control_point_info[id]
+		# FIXME: State update should be based on whether control point is currently visible to our team
+		control_point_data.update_state()
+
+		var control_point := control_point_data.control_point
+		
+		var context := score_control_point(control_point_data, threats)
 		cp_contexts.push_back(context)
 		
 		var assist_context := context.assist_context
@@ -74,26 +110,27 @@ func _evaluate_priorities() -> void:
 			score_sum += score
 			prioritized_cps.push_back(context)
 		
-		print("%s: CONTROL POINT SCORE=%.1f: Top_unit=%.1f" % [name, score, \
+		print("%s: CONTROL POINT %s SCORE=%.1f: Top_unit=%.1f" % [name, control_point.name, score, \
 			assist_context.front().score if not assist_context.is_empty() else 0.0])
 	
 	prioritized_cps.sort_custom(func(a:ControlPointContext, b:ControlPointContext) -> bool:
 		return a.score > b.score
 	)
 	
-	# Initial dumb strategy - take up to max units mitigated by how many available units and ones we want to capture
-	for control_point in prioritized_cps:
-		var score_weight:float = control_point.score / score_sum
-		var max_units:int = min(max_units_per_control_point, control_point.positive_units, floori(
+	# Initial simple strategy - take up to max units mitigated by how many available units and ones we want to capture
+	for control_point_ctx in prioritized_cps:
+		var score_weight:float = control_point_ctx.score / score_sum
+		var max_units:int = min(max_units_per_control_point, control_point_ctx.positive_units, floori(
 			available_units.size() * score_weight))
 		if max_units == 0:
 			continue
 			
-		var bounds := control_point.bounds
-		var cp_pos := control_point.control_point.global_position
+		var control_point := control_point_ctx.control_point
+		var bounds := control_point_ctx.bounds
+		var cp_pos := control_point.global_position
 		
 		var count:int = 0
-		for context in control_point.assist_context:
+		for context in control_point_ctx.assist_context:
 			var unit := context.unit
 			var unit_id:int = unit.get_instance_id()
 			if not unit_id in available_units:
@@ -101,20 +138,28 @@ func _evaluate_priorities() -> void:
 			
 			var unit_pos:Vector3 = unit.global_position
 			var unit_pos2: Vector2 = MathUtils.grid_vector(unit_pos)
+			
+			var actions := unit.get_or_add_actions()
 			if bounds.contains(unit_pos2):
-				unit.get_or_add_actions().hold()
+				if not actions.is_hold():
+					actions.hold()
 			else:
-				unit.get_or_add_actions().move_and_attack(cp_pos)
+				var unit_blackboard := actions.blackboard
+				if unit_blackboard.current_action != UnitBlackboard.Action.MoveAndAttack or \
+					not unit_blackboard.target_position.is_equal_approx(cp_pos):
+					actions.move_and_attack(cp_pos)
 			
 			count += 1
 			available_units.erase(unit_id)
 			if count == max_units:
 				break
-			
+		print("%s: CONTROL POINT %s: %d units dispatched" % [name, control_point.name, count])	
 	
-func score_control_point(control_point: ControlPoint, threats: Array[EnemyThreatContext]) -> ControlPointContext:
+func score_control_point(control_point_data: ControlPointData, threats: Array[EnemyThreatContext]) -> ControlPointContext:
 	var score:float = 0.0
 	var our_team:int = blackboard.team
+	var control_point: ControlPoint = control_point_data.control_point
+	var known_state := control_point_data.state
 	
 	# Owned or capturing bonuses
 	if control_point.owned_team == our_team:
@@ -122,13 +167,18 @@ func score_control_point(control_point: ControlPoint, threats: Array[EnemyThreat
 		if control_point.is_being_captured():
 			score += 25.0
 		elif control_point.is_constested():
-			score += 10.0
+			score += 15.0
 	elif control_point.capturing_team == our_team:
 		score += 3.0
 		if control_point.is_being_captured():
 			score += 25.0
 		elif control_point.is_constested():
-			score += 7.0
+			score += 12.0
+	elif known_state == ControlPointState.NEUTRAL:
+		score += 4.0
+	# Penalty if known to be enemy occupied and we are not currently capturing as need a stronger attacking force
+	elif known_state == ControlPointState.THEIRS:
+		score -= 6.0
 		
 	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_CIRCUMSCRIBED)
 	var control_bounds_influence: BoundingCircle = BoundingCircle.from_sphere(control_bounds.circumscribed_sphere)
