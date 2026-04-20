@@ -67,12 +67,16 @@ func _ready() -> void:
 	SignalBus.register_control_point(self)
 	
 func _assign_ownership_material(team:int) -> void:
+	var material:Material
+	
 	if team <= 0:
-		mesh.material_overlay = neutral_material
+		material = neutral_material
 	elif player_team > 0 and player_team != team:
-		mesh.material_overlay = enemy_material
+		material = enemy_material
 	else:
-		mesh.material_overlay = owned_material
+		material = owned_material
+		
+	mesh.material_override = material
 	
 func _on_control_bounds_body_entered(body: Node3D) -> void:
 	var unit:Unit = body as Unit
@@ -92,10 +96,7 @@ func _on_control_bounds_body_entered(body: Node3D) -> void:
 		return
 		
 	if not is_constested():
-		if not is_being_captured() or team_component.is_enemy_team(team):
-			_capture(team)
-		elif capture_timer.paused:
-			_resume_capture()
+		_capture_or_resume(team)
 	elif is_being_captured():
 		_contested_capture()
 
@@ -105,7 +106,18 @@ func _contested_capture() -> void:
 
 func _resume_capture() -> void:
 	capture_timer.paused = false
-	
+
+func _capture_or_resume(team:int) -> void:
+	if is_being_captured():
+		if capturing_team == team:
+			if capture_timer.paused:
+				_resume_capture()
+		elif team_component.is_neutral() or team_component.is_enemy_team(team):
+			# Changing capturing teams
+			_capture(team)
+	elif team_component.is_neutral() or team_component.is_enemy_team(team):
+		_capture(team)
+		
 func _capture(new_capturing_team:int) -> void:
 	print_debug("%s: Begin capture for team %d" % [name, new_capturing_team])
 	capturing_team = new_capturing_team
@@ -142,11 +154,7 @@ func _on_control_bounds_body_exited(body: Node3D) -> void:
 		
 	if _units_by_team.size() == 1 and was_contested:
 		var new_team:int = _units_by_team.keys().front()
-		if team_component.is_enemy_team(new_team):
-			if capture_timer.paused:
-				_resume_capture()
-			else:
-				_capture(new_team)
+		_capture_or_resume(new_team)
 		
 func _stop_capture() -> void:
 	print_debug("%s: team %d stopped capturing" % [name, capturing_team])
