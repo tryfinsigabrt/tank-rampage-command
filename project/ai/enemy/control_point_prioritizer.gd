@@ -45,6 +45,7 @@ class ControlPointData:
 	var state:ControlPointState
 	var last_update:float
 	var team:int
+	var visible:bool
 	
 	func _init(in_team:int, in_control_point:ControlPoint) -> void:
 		control_point = in_control_point
@@ -64,13 +65,18 @@ class ControlPointData:
 var _control_point_info:Dictionary[int, ControlPointData]
 #var _assigned_units_by_control_point: Dictionary[int, PackedInt64Array]
 
-func _on_blackboard_on_control_point_discovered(control_point: ControlPoint) -> void:
-	var cpd := ControlPointData.new(blackboard.team, control_point)
-	_control_point_info[control_point.get_instance_id()] = cpd
-	
+func _on_control_point_visibility_changed(control_point: ControlPoint, in_is_visible: bool) -> void:		
+	var id:int = control_point.get_instance_id()
+	var existing:bool = id in _control_point_info
+	if in_is_visible and not existing:
+		_control_point_info[id] = ControlPointData.new(blackboard.team, control_point)
+	elif existing:
+		var cpd: ControlPointData = _control_point_info[id]
+		cpd.visible = in_is_visible
+		
 	tick.start()
 	await _evaluate_priorities()
-
+	
 func _evaluate_priorities() -> void:
 	var process := await rate_limiter.limit()
 	if not process:
@@ -93,8 +99,8 @@ func _evaluate_priorities() -> void:
 	
 	for id in _control_point_info:
 		var control_point_data: ControlPointData = _control_point_info[id]
-		# FIXME: State update should be based on whether control point is currently visible to our team
-		control_point_data.update_state()
+		if control_point_data.visible:
+			control_point_data.update_state()
 
 		var control_point := control_point_data.control_point
 		

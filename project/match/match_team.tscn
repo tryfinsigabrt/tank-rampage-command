@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="6_1p2pn"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="7_hvcr5"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="8_oigsi"]
+[ext_resource type="Script" uid="uid://cht5ed6trcmrq" path="res://match/team_visibility_component.gd" id="11_wgr8h"]
 
 [node name="MatchTeam" type="Node3D" unique_id=1256450270 groups=["MatchTeam"]]
 script = ExtResource("1_sgnxb")
@@ -22,3 +23,7 @@ unique_name_in_owner = true
 script = ExtResource("2_7gk12")
 default_costs = Array[ExtResource("2_0lp77")]([ExtResource("4_oigsi"), ExtResource("5_hvcr5"), ExtResource("7_hvcr5"), ExtResource("6_1p2pn"), ExtResource("8_oigsi"), ExtResource("3_bw36e"), ExtResource("5_1p2pn")])
 metadata/_custom_type_script = "uid://chm3x5h7wcqb5"
+
+[node name="TeamVisibilityComponent" type="Node" parent="." unique_id=82410305]
+unique_name_in_owner = true
+script = ExtResource("11_wgr8h")

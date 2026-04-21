@@ -2,13 +2,8 @@
 ## This is only added if fow enabled
 class_name AiUnitVision extends Area3D
 
-signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
-signal resource_discovered(resource:Node3D)
-signal control_point_discovered(control_point:ControlPoint)
-
 var _team_component:TeamComponent
-var _vision_counts:Dictionary[int,int] = {}
-var _discovered_objects:Dictionary[int, bool] = {}
+var _team_visibility_component:TeamVisibilityComponent
 
 @onready var collision: CollisionShape3D = $Collision
 
@@ -24,6 +19,15 @@ func _ready() -> void:
 		queue_free()
 		return
 	
+	var match_obj:MatchTeam = GameManager.find_match_team(node)
+	if not match_obj:
+		push_error("%s: Unit vision asset %s is not part of a match team!" % [name, node.name])
+		queue_free()
+		return
+		
+	await NodeUtils.ensure_ready(match_obj)
+	_team_visibility_component = match_obj.team_visibility_component
+	
 	# Set radius to unit vision radius
 	collision.shape.radius = _team_component.vision
 	
@@ -34,58 +38,30 @@ func _ready() -> void:
 	collision_mask = mask
 
 func _on_body_entered(body: Node3D) -> void:
-	_update_visibility(body, 1)
+	_update_visibility(body, true)
 	
 func _on_body_exited(body: Node3D) -> void:
-	_update_visibility(body, -1)
+	_update_visibility(body, false)
 
-func _update_visibility(body: Node3D, diff:int) -> void:
+func _update_visibility(body: Node3D, in_visible:bool) -> void:
 	var team_asset:Node3D = body as Node3D if body.is_in_group(Groups.TeamAsset) else null
 	if not team_asset:
 		return
-		
-	var id:int = team_asset.get_instance_id()
-	var updated_count:int = _vision_counts.get(id, 0) + diff
-	if updated_count > 0:
-		_vision_counts[id] = updated_count
-		# Newly visible
-		if updated_count == 1:
-			print_debug("%s: body=%s is visible to %s" % [name, body.name, StringUtils.safe_name(Groups.get_scene_root(_team_component))])
-			team_asset.team_component.set_visible_to(_team_component.team, true)
-			
-			asset_visibility_changed.emit(team_asset, true)
-	else:
-		_vision_counts.erase(id)
-		print_debug("%s: body=%s no longer visible to %s" % [name, body.name, StringUtils.safe_name(Groups.get_scene_root(_team_component))])
-		
-		team_asset.team_component.set_visible_to(_team_component.team, false)
-		asset_visibility_changed.emit(team_asset, false)
+	
+	_team_visibility_component.mark_object_visibility(team_asset, in_visible)	
 
 func _on_area_entered(area: Area3D) -> void:
+	_on_area_visibility(area, true)
+
+func _on_area_exited(area: Area3D) -> void:
+	_on_area_visibility(area, false)
+	
+func _on_area_visibility(area: Area3D, in_visible:bool) -> void:
 	var resource:Node3D = Groups.get_scene_root_if_in_group(area, Groups.GameResource)
 	if resource:
-		_process_resource(resource)
+		_team_visibility_component.mark_object_visibility(resource, in_visible)
 		return
 	var control_point:ControlPoint = Groups.get_scene_root_if_in_group(area, Groups.ControlPoint) as ControlPoint
 	if control_point:
-		_process_control_point(control_point)
+		_team_visibility_component.mark_object_visibility(control_point, in_visible)
 		return
-
-func _process_resource(resource:Node3D) -> void:
-	var resource_id:int = resource.get_instance_id()
-	if resource_id in _discovered_objects:
-		return
-		
-	_discovered_objects[resource_id] = true
-	print_debug("%s: discovered resource=%s" % [name, resource.name])
-	resource_discovered.emit(resource)
-
-func _process_control_point(control_point:ControlPoint) -> void:
-	var control_point_id:int = control_point.get_instance_id()
-	if control_point_id in _discovered_objects:
-		return
-		
-	_discovered_objects[control_point_id] = true
-	
-	print_debug("%s: discovered control_point=%s" % [name, control_point.name])
-	control_point_discovered.emit(control_point)

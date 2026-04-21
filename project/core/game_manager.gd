@@ -32,3 +32,28 @@ func get_player_team() -> MatchTeam:
 		
 	player_team = Groups.get_parent_in_group(player, Groups.MatchTeam)
 	return player_team
+
+func find_match_team_by_id(team:int) -> MatchTeam:
+	for match_team:MatchTeam in get_tree().get_nodes_in_group(Groups.MatchTeam):
+		if match_team.team == team:
+			return match_team
+	return null
+	
+func find_match_team(node: Node) -> MatchTeam:
+	var teams: Array[Node] = get_tree().get_nodes_in_group(Groups.MatchTeam)
+	var team_component:TeamComponent = TeamComponent.get_component(node, false)
+	
+	var finder:Callable
+	if team_component:
+		var team:int = team_component.team
+		finder = func(match_team:MatchTeam) -> bool:
+			return match_team.team == team
+	else:
+		finder = func(match_team:MatchTeam) -> bool:
+			return match_team.is_ancestor_of(node)
+	
+	for match_team:MatchTeam in teams:
+		if finder.call(match_team):
+			return match_team
+			
+	return null

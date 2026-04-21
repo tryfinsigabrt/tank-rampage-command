@@ -10,6 +10,7 @@ signal new_asset_built(asset:Node3D)
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 signal resource_discovered(resource:Node3D)
 signal control_point_discovered(control_point:ControlPoint)
+signal control_point_visibility_changed(control_point:ControlPoint, in_is_visible:bool)
 
 var team:int
 
@@ -55,16 +56,24 @@ func _add_asset(asset:Node3D, group: StringName) -> void:
 	# Only notify if asset was built
 	if not asset.has_meta(MatchTeam.IS_PREDEPLOYED_KEY):
 		new_asset_built.emit(asset)
+	
+func initialize() -> void:
+	var match_team:MatchTeam = GameManager.find_match_team_by_id(team)
+	if match_team:
+		await NodeUtils.ensure_ready(match_team)
 		
+		var team_visibility_component:TeamVisibilityComponent = match_team.team_visibility_component
+		team_visibility_component.discovered.connect(_on_discovered)
+		team_visibility_component.visibility_changed.connect(_on_visibility_changed)
+		
+	else:
+		push_error("%s: No match team found!" % [name])
+	initialized.emit()
+			
 func _init_asset(asset:Node3D) -> void:
 	# If we have fog of war, we need to add the AI unit vision so that enemy visibility is updated
 	if GameManager.fog_of_war:
 		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
-		
-		ai_unit_vision.asset_visibility_changed.connect(_on_asset_visibility_changed)
-		ai_unit_vision.resource_discovered.connect(_on_resource_discovered)
-		ai_unit_vision.control_point_discovered.connect(_on_control_point_discovered)
-		
 		asset.add_child(ai_unit_vision)
 		
 func has_asset_id(id:int) -> bool:
@@ -110,11 +119,15 @@ func get_average_position() -> Vector3:
 		position = position / cnt
 	return position
 	
-func _on_asset_visibility_changed(asset:Node3D, in_is_visible:bool) -> void:
-	asset_visibility_changed.emit(asset, in_is_visible)
-
-func _on_resource_discovered(resource:Node3D) -> void:
-	resource_discovered.emit(resource)
-
-func _on_control_point_discovered(control_point:ControlPoint) -> void:
-	control_point_discovered.emit(control_point)
+func _on_discovered(object:Node3D) -> void:
+	if object.is_in_group(Groups.GameResource):
+		resource_discovered.emit(object)
+	elif object is ControlPoint:
+		control_point_discovered.emit(object)
+		
+func _on_visibility_changed(object:Node3D, in_is_visible:bool) -> void:
+	if object.is_in_group(Groups.TeamAsset):
+		asset_visibility_changed.emit(object, in_is_visible)
+	# Control Point is a TeamAsset as well
+	if object is ControlPoint:
+		control_point_visibility_changed.emit(object, in_is_visible)

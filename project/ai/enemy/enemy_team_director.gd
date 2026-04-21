@@ -9,7 +9,7 @@ class_name EnemyTeamDirector extends Node3D
 var team:int
 
 func _ready() -> void:
-	_discover_units_and_teams()
+	await _discover_units_and_teams()
 	_init_blackboard()
 	
 	SignalBus.on_team_asset_added.connect(_on_asset_added)
@@ -46,7 +46,7 @@ func _discover_units_and_teams() -> void:
 		team_units.add_structure(structure)
 	)
 			
-	team_units.initialized.emit()
+	await team_units.initialize()
 
 func _add_assets(group: StringName, type: Variant, enemy_team_ids:PackedInt32Array, team_units_adder:Callable) -> void:
 	var nodes:Array[Node] = get_tree().get_nodes_in_group(group)
@@ -74,12 +74,5 @@ func _init_blackboard() -> void:
 	blackboard.team_info = team_units
 	blackboard.enemy_teams_info = enemy_teams
 	blackboard.team = team
-	blackboard.match_team = _find_match()
+	blackboard.match_team = GameManager.find_match_team_by_id(team)
 	blackboard.focus_position = team_units.get_average_position()
-
-func _find_match() -> MatchTeam:
-	for node:Node in get_tree().get_nodes_in_group(Groups.MatchTeam):
-		var match_team:MatchTeam = node as MatchTeam
-		if match_team and match_team.team == team:
-			return match_team
-	return null

@@ -20,6 +20,7 @@ var resources:TeamResources:
 
 @onready var asset_container: Node3D = $Assets
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
+@onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}
@@ -36,6 +37,8 @@ var active:bool:
 	get: return _units or _buildings
 
 func _ready() -> void:
+	team_visibility_component.team = team
+	
 	if not resources:
 		resources = TeamResources.new()
 	resources.initialize()
