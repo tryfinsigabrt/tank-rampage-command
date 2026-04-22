@@ -46,6 +46,14 @@ func _calculate_inscribed_radius() -> float:
 func _calculate_circumscribed_radius() -> float:
 	# Pythagorean distance of the half extents or half the full extents (size)
 	return aabb.size.length() * 0.5
+	
+static func calculate_inscribed_radius_2d(in_aabb:AABB) -> float:
+	var grid_vector:Vector2 = MathUtils.grid_vector(in_aabb.size)
+	return minf(grid_vector.x, grid_vector.y) * 0.5
+
+static func calculate_circumscribed_radius_2d(in_aabb:AABB) -> float:
+	var grid_vector:Vector2 = MathUtils.grid_vector(in_aabb.size)
+	return grid_vector.length() * 0.5
 
 func replace_with(in_aabb:AABB) -> void:
 	if in_aabb.is_equal_approx(aabb):

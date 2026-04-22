@@ -11,6 +11,13 @@ var radius:float:
 static func from_sphere(bounding_sphere: BoundingSphere) -> BoundingCircle:
 	return BoundingCircle.new(MathUtils.grid_vector(bounding_sphere.center), bounding_sphere.radius)
 	
+static func from_bounds(bounds:Bounds, is_circumscribed:bool) -> BoundingCircle:
+	return from_aabb(bounds.aabb, is_circumscribed)
+	
+static func from_aabb(aabb:AABB, is_circumscribed:bool) -> BoundingCircle:
+	var circle_radius:float = Bounds.calculate_circumscribed_radius_2d(aabb) if is_circumscribed else Bounds.calculate_inscribed_radius_2d(aabb)
+	return BoundingCircle.new(MathUtils.grid_vector(aabb.get_center()), circle_radius)
+	
 func _init(in_center:Vector2, in_radius: float) -> void:
 	replace_with(in_center, in_radius)
 	
