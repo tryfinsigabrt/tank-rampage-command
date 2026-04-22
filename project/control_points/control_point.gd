@@ -19,6 +19,7 @@ var capture_time:float = 10.0
 @onready var team_component: TeamComponent = %TeamComponent
 @onready var mesh: MeshInstance3D = $VisualRoot/Mesh
 @onready var visual_root: Node3D = %VisualRoot
+@onready var control_bounds: Area3D = $ControlBounds
 
 var _units_by_team:Dictionary[int, PackedInt64Array] = {}
 
@@ -68,7 +69,7 @@ func _ready() -> void:
 		
 	_assign_ownership_material(team_component.team)
 
-	_aabb = Collisions.calculate_aabb(self)
+	_aabb = Collisions.calculate_aabb(control_bounds)
 	team_component.update_render.connect(_update_render)
 	
 	SignalBus.register_control_point(self)
