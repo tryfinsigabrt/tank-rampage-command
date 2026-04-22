@@ -168,6 +168,7 @@ func _process(delta: float) -> void:
 		_fire_and_schedule()
 	elif not in_range and fire_timer_running:
 		_fire_timer.stop()
+		controlled_unit.shoot_intent_toggled.emit(false)
 		
 func _aim() -> void:
 	var target:Vector3 = _get_target_position()
@@ -248,6 +249,8 @@ func is_valid() -> bool:
 
 func _fire_and_schedule() -> void:
 	await _fire()
+	
+	controlled_unit.shoot_intent_toggled.emit(true)
 	_fire_timer.start()
 	
 func _on_fire() -> void:

@@ -139,6 +139,10 @@ func _move_unit(velocity:Vector3) -> void:
 func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 	if unit != _unit:
 		return
+		
+	# Only cancel if target position matches current target
+	if not target_position.is_equal_approx(current_target):
+		return
 	
 	print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
 	_stop_navigation()

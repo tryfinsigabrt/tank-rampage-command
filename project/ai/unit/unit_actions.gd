@@ -9,6 +9,9 @@ signal command_finished(command_id:int)
 @export
 var unit:Unit
 
+var _unit_nav:GameUnitNavigation
+var _initial_stuck_detection:bool
+
 var _command_counter:int
 
 var _command_id:int
@@ -32,6 +35,12 @@ func _ready() -> void:
 		
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
+	
+	_unit_nav = Groups.get_child_with_type(unit, GameUnitNavigation)
+	if _unit_nav:
+		_initial_stuck_detection = _unit_nav.enable_stuck_detection
+	
+	unit.shoot_intent_toggled.connect(_on_shoot_intent_toggled)
 	
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 	_update_tree_state()
@@ -90,6 +99,15 @@ func _do_attack(enemy:Node3D) -> void:
 	
 	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
 
+# Stuck detection needs to be turned off during attacks as units often stationary
+func _on_shoot_intent_toggled(shooting:bool) -> void:
+	_toggle_stuck_detection(not shooting)
+	
+func _toggle_stuck_detection(enable:bool) -> void:
+	if not _unit_nav:
+		return
+	_unit_nav.enable_stuck_detection = _initial_stuck_detection if enable else false
+	
 func attack_position(target_position:Vector3) -> void:
 	_new_action()
 	_clear_hold()
