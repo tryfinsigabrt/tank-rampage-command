@@ -965,6 +965,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1338673)
 [node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireLocation" unique_id=413668482 instance=ExtResource("7_hs18c")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4342368e-07, 0.28172088, -1.6485891)
+shoot_vfx_size = 1
 damage_v_distance = ExtResource("8_af5uv")
 accuracy_v_velocity_alignment = ExtResource("9_vl57v")
 

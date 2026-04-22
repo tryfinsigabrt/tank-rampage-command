@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dv3n8d6uqtxik"]
+[gd_scene format=3 uid="uid://bhlg84cydy6dk"]
 
 [ext_resource type="Script" uid="uid://f7brv4lq5heo" path="res://particles/shoot_vfx.gd" id="1_lkgnw"]
 
@@ -24,9 +24,8 @@ emission_energy_multiplier = 2.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6t25l"]
 material = SubResource("StandardMaterial3D_6t25l")
-top_radius = 0.4
+top_radius = 0.1
 bottom_radius = 0.0
-height = 8.0
 radial_segments = 6
 rings = 1
 
@@ -49,15 +48,15 @@ emission_energy_multiplier = 6.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_7mcgn"]
 material = SubResource("StandardMaterial3D_lkgnw")
-radius = 1.2
-height = 1.2
+radius = 0.3
+height = 0.3
 radial_segments = 8
 rings = 4
 
-[node name="ShootVfx" type="Node3D" unique_id=520817831]
+[node name="ShootVfx" type="Node3D" unique_id=1531094564]
 script = ExtResource("1_lkgnw")
 
-[node name="Projectile" type="GPUParticles3D" parent="." unique_id=2004218813]
+[node name="Projectile" type="GPUParticles3D" parent="." unique_id=758067375]
 emitting = false
 amount = 1
 lifetime = 0.2
@@ -66,7 +65,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_6t25l")
 draw_pass_1 = SubResource("CylinderMesh_6t25l")
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." unique_id=865586622]
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." unique_id=462812903]
 emitting = false
 amount = 1
 lifetime = 0.3

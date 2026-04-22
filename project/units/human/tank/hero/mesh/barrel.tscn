@@ -14,7 +14,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021162987, 2.4240916, 1.706
 [node name="Mesh" parent="Pivot" unique_id=27560926 instance=ExtResource("1_bk8ov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021162987, -2.4240916, -1.7063181)
 
-[node name="Gun" parent="Pivot/Mesh" index="0"]
+[node name="Gun" parent="Pivot/Mesh" index="0" unique_id=1051853831]
 material_override = ExtResource("2_6oftd")
 
 [node name="FireLocation" type="Marker3D" parent="Pivot" unique_id=104605609]
@@ -23,5 +23,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1338673)
 
 [node name="Weapon" parent="Pivot/FireLocation" unique_id=413668482 instance=ExtResource("4_ndtj3")]
 unique_name_in_owner = true
+shoot_vfx_size = 1
 
 [editable path="Pivot/Mesh"]

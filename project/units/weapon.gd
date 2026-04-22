@@ -23,7 +23,15 @@ enum TraceType
 @onready var hit_emitter: CPUParticles3D = $HitEmitter
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
 @onready var fire_state_timer: Timer = $FireStateTimer
-@onready var shoot_vfx: ShootVfx = $ShootVfx
+@onready var shoot_vfx_container: Node3D = $ShootVfxContainer
+
+@export var shoot_vfx_size: ShootVfx.SizePreset = ShootVfx.SizePreset.SMALL
+
+const SHOOT_VFX_SCENES := {
+	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot_vfx_small.tscn"),
+	ShootVfx.SizePreset.MEDIUM: preload("res://particles/shoot_vfx_medium.tscn"),
+	ShootVfx.SizePreset.LARGE: preload("res://particles/shoot_vfx_large.tscn"),
+}
 
 @export
 var min_distance:float = 10.0
@@ -69,6 +77,7 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 var _unit:Unit
 var _fire_pending:bool
 var _mask_requires_refresh:bool
+var _shoot_vfx: ShootVfx
 
 ## Target that the weapon is trying to hit
 ## Not used for Standard fire mode. Used for Drop and launch
@@ -106,6 +115,8 @@ func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)
 	if not _unit:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
+
+	_spawn_shoot_vfx()
 	
 	fire_state_timer.wait_time = cooldown_time_range.y * 2.0
 	_mask_requires_refresh = not friendly_fire
@@ -128,7 +139,8 @@ func fire() -> void:
 	_fire_pending = false
 
 	_orient_shoot_vfx()
-	shoot_vfx.shoot()
+	if is_instance_valid(_shoot_vfx):
+		_shoot_vfx.shoot()
 	
 	_set_cooldown()
 	
@@ -258,15 +270,33 @@ func _set_timer(timer:Timer, time: float) -> void:
 
 
 func _orient_shoot_vfx() -> void:
-	if not is_instance_valid(shoot_vfx):
+	if not is_instance_valid(_shoot_vfx):
 		return
 
-	shoot_vfx.orient(
+	_shoot_vfx.orient(
 		_unit.get_fire_global_position(),
 		_unit.get_fire_global_right(),
 		_unit.get_fire_global_up(),
 		_unit.get_fire_global_forward(),
 	)
+
+
+func _spawn_shoot_vfx() -> void:
+	if not is_instance_valid(shoot_vfx_container):
+		return
+
+	for child in shoot_vfx_container.get_children():
+		child.queue_free()
+
+	var shoot_vfx_scene: PackedScene = SHOOT_VFX_SCENES.get(shoot_vfx_size)
+	if shoot_vfx_scene == null:
+		return
+
+	_shoot_vfx = shoot_vfx_scene.instantiate() as ShootVfx
+	if _shoot_vfx == null:
+		return
+
+	shoot_vfx_container.add_child(_shoot_vfx)
 	
 func _on_fire_state_timer_timeout() -> void:
 	firing_state_changed.emit(false)

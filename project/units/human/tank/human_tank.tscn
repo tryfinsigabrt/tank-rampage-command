@@ -49,6 +49,7 @@ material_override = ExtResource("3_irgey")
 unique_name_in_owner = true
 
 [node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireLocation" parent_id_path=PackedInt32Array(1198725874, 104605609) index="0" unique_id=413668482]
+shoot_vfx_size = 1
 damage_v_distance = ExtResource("7_qtx04")
 accuracy_v_velocity_alignment = ExtResource("8_v2578")
 

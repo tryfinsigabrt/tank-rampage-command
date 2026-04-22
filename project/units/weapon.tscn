@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://kvgc1bommrqm" path="res://units/weapon.gd" id="1_jedj3"]
 [ext_resource type="Material" uid="uid://bvwc34m4rdpyy" path="res://units/weapon_hit_material.tres" id="3_pljod"]
 [ext_resource type="Script" uid="uid://iphg6vi47imw" path="res://units/damage_emitter.gd" id="4_5bddv"]
-[ext_resource type="PackedScene" uid="uid://dv3n8d6uqtxik" path="res://particles/shoot_vfx.tscn" id="5_dpasv"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5bddv"]
 material = ExtResource("3_pljod")
@@ -66,7 +65,6 @@ max_damage = 250.0
 [node name="FireStateTimer" type="Timer" parent="." unique_id=1486939867]
 one_shot = true
 
-[node name="ShootVfx" parent="." unique_id=520817831 instance=ExtResource("5_dpasv")]
-transform = Transform3D(0.983292, 0, 0, 0, 0.9998947, 0, 0, 0, 0.9957873, 0, 0, 0)
+[node name="ShootVfxContainer" type="Node3D" parent="."]
 
 [connection signal="timeout" from="FireStateTimer" to="." method="_on_fire_state_timer_timeout"]

@@ -277,6 +277,7 @@ transform = Transform3D(-0.9999991, 0, -8.742277e-08, 0, 0.9999999, 0, 8.74227e-
 [node name="Weapon" parent="FirePosition" unique_id=107617315 instance=ExtResource("3_5cd41")]
 unique_name_in_owner = true
 transform = Transform3D(1, -1.9790605e-09, -3.7252903e-09, 1.8626451e-09, 1, -3.7252903e-09, -3.7252903e-09, -3.7252903e-09, 1, 0, 0, 0)
+shoot_vfx_size = 0
 min_distance = 1.0
 max_distance_range = Vector2(75, 100)
 cooldown_time_range = Vector2(0.1, 0.2)

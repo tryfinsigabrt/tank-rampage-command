@@ -123,6 +123,7 @@ gizmo_extents = 2.62
 
 [node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
+shoot_vfx_size = 2
 min_distance = 200.0
 max_distance_range = Vector2(800, 1000)
 cooldown_time_range = Vector2(5, 6)
