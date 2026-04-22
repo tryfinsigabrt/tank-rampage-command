@@ -171,7 +171,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9, 0, 29.5)
 team = 1
 
 [node name="EnemyTeam" parent="World/Match" unique_id=563949230 instance=ExtResource("4_wrqjo")]
-visible = false
 team = 2
 
 [node name="Enemies" type="Node3D" parent="World/Match/EnemyTeam" unique_id=1702973220]

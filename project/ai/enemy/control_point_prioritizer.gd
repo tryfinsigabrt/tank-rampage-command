@@ -186,8 +186,8 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	elif known_state == ControlPointState.THEIRS:
 		score -= 6.0
 		
-	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_CIRCUMSCRIBED)
-	var control_bounds_influence: BoundingCircle = BoundingCircle.from_sphere(control_bounds.circumscribed_sphere)
+	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_INSCRIBED)
+	var control_bounds_influence: BoundingCircle = BoundingCircle.from_sphere(control_bounds.inscribed_sphere)
 	control_bounds_influence.radius = control_point_influence_radius
 	
 	var threat_strength:float = 0.0
@@ -250,6 +250,6 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	cp_context.score = score
 	cp_context.threat_strength = threat_strength
 	cp_context.positive_units = positive_units
-	cp_context.bounds = BoundingCircle.from_sphere(control_bounds.circumscribed_sphere)
+	cp_context.bounds = BoundingCircle.from_sphere(control_bounds.inscribed_sphere)
 	
 	return cp_context
