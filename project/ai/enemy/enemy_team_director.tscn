@@ -75,14 +75,18 @@ move_radius = Vector2(100, 250)
 world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="GatherResources" type="Node" parent="BeehaveTree/Root" unique_id=691352695]
+[node name="Explore" type="Node" parent="BeehaveTree/Root" unique_id=839203828]
+script = ExtResource("5_4dbsd")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="GatherResources" type="Node" parent="BeehaveTree/Root/Explore" unique_id=691352695]
 script = ExtResource("9_f1xs6")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
+[node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root/Explore" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
 move_radius = Vector2(100, 400)
-world_boundaries_checker = NodePath("../../../GlobalServices/WorldBoundariesChecker")
+world_boundaries_checker = NodePath("../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="GlobalServices" type="Node" parent="." unique_id=2044532583]
