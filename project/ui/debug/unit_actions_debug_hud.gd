@@ -55,19 +55,22 @@ func _exit_tree() -> void:
 	SignalBus.on_unit_deselected.disconnect(_on_unit_deselected)
 
 func _on_unit_selected(unit:Unit) -> void:
-	if not unit.is_on_team(team):
+	if not _is_relevant(unit):
 		return
 	
 	_selected_units.push_back(unit.get_instance_id())
 	
 func _on_unit_deselected(unit:Unit) -> void:
-	if not unit.is_on_team(team):
+	if not _is_relevant(unit):
 		return
 	
 	_selected_units.erase(unit.get_instance_id())
 	
+func _is_relevant(unit:Unit) -> bool:
+	return unit.is_on_team(team) and unit.is_visible_in_tree()
+	
 func _on_unit_move(unit:Unit, target:Vector3) -> void:
-	if not unit.is_on_team(team):
+	if not _is_relevant(unit):
 		return
 	
 	var unit_id:int = unit.get_instance_id()
@@ -80,7 +83,7 @@ func _on_unit_move(unit:Unit, target:Vector3) -> void:
 	unit_state.move_target = target
 		
 func _on_unit_added(unit:Unit) -> void:
-	if not unit.is_on_team(team):
+	if not _is_relevant(unit):
 		return
 		
 	var state := UnitState.new()
@@ -91,7 +94,7 @@ func _on_unit_added(unit:Unit) -> void:
 	_unit_state_dict[unit.get_instance_id()] = state
 
 func _on_command(unit:Unit, command:StringName, command_id:int, args:Dictionary[StringName,Variant], state:StringName) -> void:
-	if not unit.is_on_team(team):
+	if not _is_relevant(unit):
 		return
 		
 	var unit_id:int = unit.get_instance_id()

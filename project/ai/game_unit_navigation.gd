@@ -53,13 +53,14 @@ func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
 	
 func move_to(target:Vector3) -> void:
 	if LogUtils.verbose:
-		print_debug("%s: move_to - target=%s" % [name, target])
+		print_debug("%s: move_to - unit=%s; target=%s" % [name, _unit.name, target])
 	
 	_current_target_position = target
 	navigation_agent_3d.target_position = target
 	
+	_target_reached = false
+
 	if not _is_at_target(target):
-		_target_reached = false
 		stuck_detector.goal_position = target
 		
 		set_enabled(true)
@@ -69,6 +70,8 @@ func move_to(target:Vector3) -> void:
 func set_enabled(in_enabled:bool) -> void:
 	set_physics_process(in_enabled)
 	set_process(in_enabled)
+	
+	print_debug("%s: Navigation toggled - %s to %s" % [name, _unit.name, in_enabled])
 	
 	if in_enabled:
 		if avoidance_enabled:
