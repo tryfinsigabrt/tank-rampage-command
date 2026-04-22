@@ -1,19 +1,9 @@
 [gd_scene format=3 uid="uid://b8nxs1p4lvu0t"]
 
 [ext_resource type="Script" uid="uid://kvgc1bommrqm" path="res://units/weapon.gd" id="1_jedj3"]
-[ext_resource type="Material" uid="uid://se2b8wovedow" path="res://units/weapon_fire_material.tres" id="2_aqau3"]
 [ext_resource type="Material" uid="uid://bvwc34m4rdpyy" path="res://units/weapon_hit_material.tres" id="3_pljod"]
 [ext_resource type="Script" uid="uid://iphg6vi47imw" path="res://units/damage_emitter.gd" id="4_5bddv"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_aqau3"]
-material = ExtResource("2_aqau3")
-radius = 1.0
-height = 2.0
-
-[sub_resource type="Gradient" id="Gradient_aqau3"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0.015810277, 0.5810277)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+[ext_resource type="PackedScene" uid="uid://dv3n8d6uqtxik" path="res://particles/shoot_vfx.tscn" id="5_dpasv"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5bddv"]
 material = ExtResource("3_pljod")
@@ -36,24 +26,6 @@ one_shot = true
 
 [node name="ImpactTimer" type="Timer" parent="." unique_id=296058106]
 one_shot = true
-
-[node name="FireEmitter" type="CPUParticles3D" parent="." unique_id=1538926003]
-cast_shadow = 0
-emitting = false
-amount = 1
-lifetime = 0.5
-one_shot = true
-explosiveness = 0.1
-randomness = 0.2
-lifetime_randomness = 0.2
-mesh = SubResource("SphereMesh_aqau3")
-direction = Vector3(0, 0, 1)
-spread = 20.0
-gravity = Vector3(0, 0, 0)
-color = Color(0.9463554, 0.22539788, 0.10773837, 1)
-color_ramp = SubResource("Gradient_aqau3")
-hue_variation_min = -0.2
-hue_variation_max = 0.2
 
 [node name="HitEmitter" type="CPUParticles3D" parent="." unique_id=1900967698]
 cast_shadow = 0
@@ -93,5 +65,8 @@ max_damage = 250.0
 
 [node name="FireStateTimer" type="Timer" parent="." unique_id=1486939867]
 one_shot = true
+
+[node name="ShootVfx" parent="." unique_id=520817831 instance=ExtResource("5_dpasv")]
+transform = Transform3D(0.983292, 0, 0, 0, 0.9998947, 0, 0, 0, 0.9957873, 0, 0, 0)
 
 [connection signal="timeout" from="FireStateTimer" to="." method="_on_fire_state_timer_timeout"]

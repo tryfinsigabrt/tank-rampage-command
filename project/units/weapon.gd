@@ -20,10 +20,10 @@ enum TraceType
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
-@onready var fire_emitter: CPUParticles3D = $FireEmitter
 @onready var hit_emitter: CPUParticles3D = $HitEmitter
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
 @onready var fire_state_timer: Timer = $FireStateTimer
+@onready var shoot_vfx: ShootVfx = $ShootVfx
 
 @export
 var min_distance:float = 10.0
@@ -127,7 +127,8 @@ func fire() -> void:
 	await _cooldown()
 	_fire_pending = false
 
-	fire_emitter.restart()
+	_orient_shoot_vfx()
+	shoot_vfx.shoot()
 	
 	_set_cooldown()
 	
@@ -254,6 +255,18 @@ func _randv(min_max: Vector2) -> float:
 func _set_timer(timer:Timer, time: float) -> void:
 	timer.wait_time = maxf(0.01, time)
 	timer.start()
+
+
+func _orient_shoot_vfx() -> void:
+	if not is_instance_valid(shoot_vfx):
+		return
+
+	shoot_vfx.orient(
+		_unit.get_fire_global_position(),
+		_unit.get_fire_global_right(),
+		_unit.get_fire_global_up(),
+		_unit.get_fire_global_forward(),
+	)
 	
 func _on_fire_state_timer_timeout() -> void:
 	firing_state_changed.emit(false)
