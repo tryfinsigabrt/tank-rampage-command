@@ -107,7 +107,9 @@ func drag_pan_camera(delta:float) -> void:
 	if not _drag_panning or _drag_pan_delta.is_zero_approx():
 		return
 
-	var drag := _drag_pan_delta * camera_drag_pan_speed / maxf(delta, 0.001)
+	var zoom_ratio := inverse_lerp(camera_zoom_range.x, camera_zoom_range.y, _camera_total_zoom)
+	var adjusted_drag_pan_speed := lerpf(camera_drag_pan_speed * 0.25, camera_drag_pan_speed, zoom_ratio)
+	var drag := _drag_pan_delta * adjusted_drag_pan_speed / maxf(delta, 0.001)
 	_camera_target_movement_velocity += Vector3(-drag.x, 0.0, -drag.y)
 	_drag_pan_delta = Vector2.ZERO
 		
