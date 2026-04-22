@@ -22,15 +22,20 @@ class_name RTSCamera extends Node3D
 ## Pixels to trigger pan on screen edge
 @export var camera_pan_margin_pixels:float = 5.0
 @export var camera_pan_speed:Vector2 = Vector2(20.0, 100.0)
+@export var camera_drag_pan_speed:float = 0.25
+@export var camera_movement_smoothing:float = 12.0
 @export var camera_rotation_speed:float = 1.0
 @export var camera_zoom_speed:float = 100
 @export var camera_zoom_mouse_multiplier:int = 5
 @export var camera_zoom_range:Vector2 = Vector2(10.0, 300.0)
 
 var _camera_movement_velocity:Vector3 = Vector3.ZERO
+var _camera_target_movement_velocity:Vector3 = Vector3.ZERO
 var _camera_current_zoom_speed:float = 0.0
 var _camera_total_zoom:float = 0.0
 var _mouse_zoom:int = 0
+var _drag_panning:bool = false
+var _drag_pan_delta:Vector2 = Vector2.ZERO
 
 var zoom:float:
 	set(value):
@@ -59,23 +64,29 @@ func make_camera_current() -> void:
 	capture_mouse(true)
 	
 func pan_camera(delta:float) -> void:
-	if not is_mouse_captured():
+
+	if not is_mouse_captured() or _drag_panning:
 		return
 		
 	var viewport := get_viewport()
 	var viewport_size:Vector2 = viewport.get_visible_rect().size
+	var adjusted_camera_move_speed:float = remap(
+		_camera_total_zoom,
+		camera_zoom_range.x, camera_zoom_range.y,
+		camera_pan_speed.x, camera_pan_speed.y
+	)
 	
 	var mouse_pos:Vector2 = viewport.get_mouse_position()
 	
 	if Input.is_action_pressed("camera_move_left") or mouse_pos.x < camera_pan_margin_pixels:
-		_camera_movement_velocity.x = -delta
+		_camera_target_movement_velocity.x = -adjusted_camera_move_speed
 	elif Input.is_action_pressed("camera_move_right") or mouse_pos.x > viewport_size.x - camera_pan_margin_pixels:
-		_camera_movement_velocity.x = delta
+		_camera_target_movement_velocity.x = adjusted_camera_move_speed
 		
 	if Input.is_action_pressed("camera_move_forward") or mouse_pos.y < camera_pan_margin_pixels:
-		_camera_movement_velocity.z = -delta
+		_camera_target_movement_velocity.z = -adjusted_camera_move_speed
 	elif Input.is_action_pressed("camera_move_backward") or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
-		_camera_movement_velocity.z = delta
+		_camera_target_movement_velocity.z = adjusted_camera_move_speed
 
 func rotate_camera(delta:float) -> void:
 	if Input.is_action_pressed("camera_rotate_right"):
@@ -90,6 +101,15 @@ func zoom_camera(delta:float) -> void:
 		_camera_current_zoom_speed += camera_zoom_speed * delta
 	elif _mouse_zoom: # Mouse wheel events not captured in _process
 		_camera_current_zoom_speed += _mouse_zoom * camera_zoom_speed * delta
+
+
+func drag_pan_camera(delta:float) -> void:
+	if not _drag_panning or _drag_pan_delta.is_zero_approx():
+		return
+
+	var drag := _drag_pan_delta * camera_drag_pan_speed / maxf(delta, 0.001)
+	_camera_target_movement_velocity += Vector3(-drag.x, 0.0, -drag.y)
+	_drag_pan_delta = Vector2.ZERO
 		
 #endregion
 
@@ -118,12 +138,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("camera_primary_button"):
 		capture_mouse(true)
+
+	_camera_target_movement_velocity = Vector3.ZERO
 		
 	pan_camera(delta)
+	drag_pan_camera(delta)
 	rotate_camera(delta)
 	zoom_camera(delta)
 	
-	_apply_movement_velocity()
+	_apply_movement_velocity(delta)
 	_apply_zoom_velocity()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -135,6 +158,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			_mouse_zoom = -camera_zoom_mouse_multiplier
 		elif event.is_action("camera_zoom_out"):
 			_mouse_zoom = camera_zoom_mouse_multiplier
+		elif event.is_action_pressed("camera_drag_pan"):
+			_drag_panning = true
+			_drag_pan_delta = Vector2.ZERO
+		elif event.is_action_released("camera_drag_pan"):
+			_drag_panning = false
+			_drag_pan_delta = Vector2.ZERO
+	elif event is InputEventMouseMotion and _drag_panning:
+		_drag_pan_delta += event.relative
 	
 #endregion
 
@@ -152,19 +183,14 @@ func _setup_camera() -> void:
 	camera.fov = fov
 	camera.translate_object_local(Vector3(0.0, 0.0, pos_z))
 	
-func _apply_movement_velocity() -> void:
-	if not _camera_movement_velocity:
+func _apply_movement_velocity(delta: float) -> void:
+	var weight := 1.0 - exp(-camera_movement_smoothing * delta)
+	_camera_movement_velocity = _camera_movement_velocity.lerp(_camera_target_movement_velocity, weight)
+
+	if _camera_movement_velocity.is_zero_approx():
 		return
-	
-	var adjusted_camera_move_speed:float = remap(
-		_camera_total_zoom, 
-		camera_zoom_range.x, camera_zoom_range.y,
-		camera_pan_speed.x, camera_pan_speed.y
-	)
-		
-	_camera_movement_velocity *= adjusted_camera_move_speed
-	camera_boom.translate_object_local(_camera_movement_velocity)
-	_camera_movement_velocity = Vector3.ZERO
+
+	camera_boom.translate_object_local(_camera_movement_velocity * delta)
 
 func _apply_zoom_velocity() -> void:
 	if is_zero_approx(_camera_current_zoom_speed):
