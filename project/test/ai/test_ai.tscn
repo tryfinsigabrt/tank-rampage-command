@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="24_oenpu"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="32_r4ybk"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="33_bvix3"]
+[ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="37_ynl2i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -478,6 +479,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.
 layout_mode = 2
 
 [node name="UtilityAiDebugHud" parent="DebugHud" unique_id=1352376986 instance=ExtResource("20_ij0eg")]
+visible = false
+layout_mode = 2
+
+[node name="UnitActionsDebugHud" parent="DebugHud" unique_id=442782189 instance=ExtResource("37_ynl2i")]
 layout_mode = 2
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("33_bvix3")]
