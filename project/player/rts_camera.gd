@@ -63,7 +63,7 @@ func make_camera_current() -> void:
 	camera.make_current()
 	capture_mouse(true)
 	
-func pan_camera(delta:float) -> void:
+func pan_camera(_delta:float) -> void:
 
 	if not is_mouse_captured() or _drag_panning:
 		return
