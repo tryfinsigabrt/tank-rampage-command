@@ -34,19 +34,19 @@ attributes = ExtResource("2_l52bp")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 
-[node name="BodyMain" parent="Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="Body/Mesh" index="0"]
 material_override = ExtResource("4_4csg3")
 
 [node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_irgey")
 
 [node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]
 unique_name_in_owner = true
 
-[node name="FireLocation" parent="Body/Turret/Barrel/Pivot" parent_id_path=PackedInt32Array(1198725874, 1174948464) index="1" unique_id=104605609]
+[node name="FireOrigin" parent="Body/Turret/Barrel/Pivot" parent_id_path=PackedInt32Array(1198725874, 1174948464) index="1" unique_id=104605609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.253356)
 
 [node name="WheelsRight" parent="Body" unique_id=433920229 instance=ExtResource("15_bakst")]
@@ -86,7 +86,6 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("13_ih5ua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
