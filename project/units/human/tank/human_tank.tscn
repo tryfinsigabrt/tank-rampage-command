@@ -4,8 +4,6 @@
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_l52bp"]
 [ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="3_irgey"]
 [ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="4_4csg3"]
-[ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="7_qtx04"]
-[ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="8_v2578"]
 [ext_resource type="PackedScene" uid="uid://bkefu1383smlp" path="res://units/human/tank/hero/mesh/body.tscn" id="10_v2578"]
 [ext_resource type="PackedScene" uid="uid://baiqwcwaqg702" path="res://units/human/tank/hero/mesh/turret.tscn" id="11_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="11_s68el"]
@@ -34,23 +32,22 @@ attributes = ExtResource("2_l52bp")
 
 [node name="Body" parent="." unique_id=1516550406 instance=ExtResource("10_v2578")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 
-[node name="BodyMain" parent="Body/Mesh" index="0"]
+[node name="BodyMain" parent="Body/Mesh" index="0" unique_id=237451480]
 material_override = ExtResource("4_4csg3")
 
 [node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="Body/Turret/Mesh" index="0" unique_id=1969060419]
 material_override = ExtResource("3_irgey")
 
 [node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]
 unique_name_in_owner = true
 
-[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireLocation" parent_id_path=PackedInt32Array(1198725874, 104605609) index="0" unique_id=413668482]
-damage_v_distance = ExtResource("7_qtx04")
-accuracy_v_velocity_alignment = ExtResource("8_v2578")
+[node name="FireLocation" parent="Body/Turret/Barrel/Pivot" parent_id_path=PackedInt32Array(1198725874, 1174948464) index="1" unique_id=104605609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.253356)
 
 [node name="WheelsRight" parent="Body" unique_id=433920229 instance=ExtResource("15_bakst")]
 
@@ -61,7 +58,7 @@ accuracy_v_velocity_alignment = ExtResource("8_v2578")
 [node name="TrackLeft" parent="Body/WheelsLeft" unique_id=1143058301 instance=ExtResource("13_th8qc")]
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.6500001, -0.1)
 shape = SubResource("CapsuleShape3D_83yeg")
 
 [node name="GameUnitNavigation" parent="." unique_id=1689817134 instance=ExtResource("11_s68el")]
@@ -85,15 +82,15 @@ vision = 200.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1673194704]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("13_ih5ua")]
-transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false

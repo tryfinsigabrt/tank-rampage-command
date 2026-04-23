@@ -1,7 +1,7 @@
 class_name TankBarrel extends Node3D
 
 @onready var pivot: Marker3D = $Pivot
-@onready var fire_location: Marker3D = %FireLocation
+@onready var fire_location: Marker3D = %FireOrigin
 @onready var weapon: Weapon = %Weapon
 
 @export_range(0.0, 90.0, 0.01)

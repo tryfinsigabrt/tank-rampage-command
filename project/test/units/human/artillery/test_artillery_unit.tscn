@@ -85,7 +85,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9241276, 0, -0.25313568)
 team = 1
 
 [node name="UI" parent="World/Match/PlayerTeam/Player/Artillery" index="4" unique_id=1745454053]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.9241276, 5.5, -0.25313568)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.9241276, 5.5, -0.25313568)
 
 [node name="Weapon" parent="World/Match/PlayerTeam/Player/Artillery/WeaponTrace" parent_id_path=PackedInt32Array(1517178385, 37322823) index="0" unique_id=107617315]
 min_distance = 50.0
@@ -108,7 +108,7 @@ material_override = ExtResource("8_3npu7")
 material_override = ExtResource("9_rl586")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="5" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5.5, -67.3)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 7, 5.5, -67.3)
 
 [node name="EnemyTank02" parent="World/Match/EnemyTeam/Enemies" unique_id=295616966 instance=ExtResource("7_w10yo")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 54.8, 0, -65.9)
@@ -121,7 +121,7 @@ material_override = ExtResource("10_308ec")
 material_override = ExtResource("11_wj0es")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="5" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 54.8, 5.5, -65.9)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 54.8, 5.5, -65.9)
 
 [node name="EnemyTank03" parent="World/Match/EnemyTeam/Enemies" unique_id=260396010 instance=ExtResource("7_w10yo")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
@@ -134,10 +134,10 @@ material_override = ExtResource("12_o6aet")
 material_override = ExtResource("13_ux3hc")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="5" unique_id=1673194704]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33, 5.5, -67)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -33, 5.5, -67)
 
 [node name="CommandCenter" parent="World/Match/EnemyTeam" unique_id=1674660700 instance=ExtResource("7_bkddm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, -7.6293945e-06, -117.99118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, 0, -117.99118)
 team = 2
 
 [node name="Barracks" parent="World/Match/EnemyTeam" unique_id=404914555 instance=ExtResource("15_44c18")]
@@ -145,7 +145,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.539406, 0, -91.049255)
 team = 2
 
 [node name="Factory" parent="World/Match/EnemyTeam" unique_id=1143212309 instance=ExtResource("16_t2ffh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.695923, 7.6293945e-06, -93.38885)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.695923, 0, -93.38885)
 team = 2
 
 [node name="DamageVisualization" type="Node3D" parent="World" unique_id=601634826]

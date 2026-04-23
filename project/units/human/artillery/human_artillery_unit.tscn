@@ -45,10 +45,10 @@ metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.50287104, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.50287104, 0)
 
 [node name="ArtilleryUnitMesh" parent="VisualRoot" unique_id=1589237280 instance=ExtResource("3_3sucs")]
-transform = Transform3D(-3.496911e-07, 0, -8, 0, 8, 0, 8, 0, -3.496911e-07, 1.6, -0.50287104, 1.3987645e-07)
+transform = Transform3D(0, 0, -8, 0, 8, 0, 8, 0, 0, 1.6, -0.50287104, 0)
 visible = false
 
 [node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
@@ -66,16 +66,17 @@ mesh = SubResource("BoxMesh_gicbj")
 skeleton = NodePath("../..")
 
 [node name="Barrel" type="MeshInstance3D" parent="VisualRoot/TurretPivot/Turret" unique_id=1927654748]
-transform = Transform3D(1, 0, 0, 0, -4.3713953e-08, -1, 0, 1, -4.3713953e-08, 0, 0.23499513, 2.5143373)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.23499513, 2.5143373)
 material_override = ExtResource("3_85mja")
 mesh = SubResource("CylinderMesh_y2wif")
 
-[node name="BarrelFirePosition" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/Barrel" unique_id=1775582211]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3200483, 0.000829339)
+[node name="FireOrigin" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/Barrel" unique_id=1775582211]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.3200483, 0.000829339)
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=302611610]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.4804411, 0)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.4804411, 0)
 shape = SubResource("CapsuleShape3D_y2wif")
 
 [node name="GameUnitNavigation" parent="." unique_id=1412332106 instance=ExtResource("2_y2wif")]
@@ -104,15 +105,15 @@ vision = 300.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1745454053]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_pf3cn")]
-transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1455461980]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
@@ -124,6 +125,7 @@ gizmo_extents = 2.62
 [node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
+shoot_vfx_origin_path = NodePath("%FireOrigin")
 min_distance = 200.0
 max_distance_range = Vector2(800, 1000)
 cooldown_time_range = Vector2(5, 6)
@@ -133,7 +135,7 @@ max_spread_angle = 16.0
 friendly_fire = true
 allow_source_damage = true
 type = 2
-launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/Barrel/BarrelFirePosition")
+launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/Barrel/FireOrigin")
 target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
 

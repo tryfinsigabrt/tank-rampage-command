@@ -26,6 +26,8 @@ enum TraceType
 @onready var shoot_vfx_container: Node3D = $ShootVfxContainer
 
 @export var shoot_vfx_size: ShootVfx.SizePreset = ShootVfx.SizePreset.SMALL
+@export var shoot_vfx_origin_path: NodePath
+@export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
 
 const SHOOT_VFX_SCENES := {
 	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot_vfx_small.tscn"),
@@ -78,6 +80,7 @@ var _unit:Unit
 var _fire_pending:bool
 var _mask_requires_refresh:bool
 var _shoot_vfx: ShootVfx
+var _shoot_vfx_origin_node: Node3D
 
 ## Target that the weapon is trying to hit
 ## Not used for Standard fire mode. Used for Drop and launch
@@ -115,6 +118,9 @@ func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)
 	if not _unit:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
+	_shoot_vfx_origin_node = get_node_or_null(shoot_vfx_origin_path) as Node3D
+	if _shoot_vfx_origin_node == null:
+		_shoot_vfx_origin_node = self
 
 	_spawn_shoot_vfx()
 	
@@ -273,12 +279,16 @@ func _orient_shoot_vfx() -> void:
 	if not is_instance_valid(_shoot_vfx):
 		return
 
+	var vfx_origin := _shoot_vfx_origin_node if is_instance_valid(_shoot_vfx_origin_node) else self
 	_shoot_vfx.orient(
-		_unit.get_fire_global_position(),
-		_unit.get_fire_global_right(),
-		_unit.get_fire_global_up(),
-		_unit.get_fire_global_forward(),
+		vfx_origin.global_position,
+		vfx_origin.global_basis.x,
+		vfx_origin.global_basis.y,
+		-vfx_origin.global_basis.z,
 	)
+	_shoot_vfx.rotate_object_local(Vector3.RIGHT, deg_to_rad(shoot_vfx_rotation_offset_degrees.x))
+	_shoot_vfx.rotate_object_local(Vector3.UP, deg_to_rad(shoot_vfx_rotation_offset_degrees.y))
+	_shoot_vfx.rotate_object_local(Vector3.BACK, deg_to_rad(shoot_vfx_rotation_offset_degrees.z))
 
 
 func _spawn_shoot_vfx() -> void:

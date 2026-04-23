@@ -908,11 +908,11 @@ attributes = ExtResource("2_g0ku4")
 
 [node name="Body" type="Node3D" parent="." unique_id=1516550406]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 script = ExtResource("3_xjs78")
 
 [node name="Chasis" type="MeshInstance3D" parent="Body" unique_id=742718749]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_qxixh")
 skeleton = NodePath("")
@@ -928,7 +928,7 @@ unique_name_in_owner = true
 script = ExtResource("7_g0ku4")
 
 [node name="Turret" type="MeshInstance3D" parent="Body/Turret" unique_id=1300884229]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 0, -0.02771391, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02771391, 0)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_uhos7")
 skeleton = NodePath("")
@@ -947,7 +947,7 @@ script = ExtResource("6_pba8h")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021162987, 2.4240916, 1.7063181)
 
 [node name="Barrel" type="MeshInstance3D" parent="Body/Turret/Barrel/Pivot" unique_id=785805460]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -0.008484899, 0.2557764, -0.34853637)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.008484899, 0.2557764, -0.34853637)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_cpbfh")
 skeleton = NodePath("")
@@ -958,21 +958,23 @@ metadata/extras = {
 "yp_decal": {}
 }
 
-[node name="FireLocation" type="Marker3D" parent="Body/Turret/Barrel/Pivot" unique_id=104605609]
+[node name="FireOrigin" type="Marker3D" parent="Body/Turret/Barrel/Pivot" unique_id=104605609]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1338673)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24786615, 3.4372122)
 
-[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireLocation" unique_id=413668482 instance=ExtResource("7_hs18c")]
+[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" unique_id=413668482 instance=ExtResource("7_hs18c")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4342368e-07, 0.28172088, -1.6485891)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28172088, -1.6485891)
 shoot_vfx_size = 1
+shoot_vfx_origin_path = NodePath("%FireOrigin")
+shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
 damage_v_distance = ExtResource("8_af5uv")
 accuracy_v_velocity_alignment = ExtResource("9_vl57v")
 
 [node name="Tracks_L" type="Node3D" parent="Body" unique_id=1852854159]
 
 [node name="Wheel_Sprocket_Front_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=90524729]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8434591, 0.7906536, 2.6817086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8434591, 0.7906536, 2.6817086)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_sj5ux")
 skeleton = NodePath("")
@@ -984,7 +986,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F1_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=496051347]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8428208, 0.5410646, 1.9542636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8428208, 0.5410646, 1.9542636)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_7lg3k")
 skeleton = NodePath("")
@@ -996,7 +998,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B1_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=510202788]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8295029, 0.5410646, 1.3729117)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8295029, 0.5410646, 1.3729117)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_e5658")
 skeleton = NodePath("")
@@ -1008,7 +1010,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F2_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=1328168648]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8428208, 0.5410646, 0.81830806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8428208, 0.5410646, 0.81830806)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_v6tn6")
 skeleton = NodePath("")
@@ -1020,7 +1022,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B2_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=258153772]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.829503, 0.5410646, 0.2585521)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.829503, 0.5410646, 0.2585521)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_2jffg")
 skeleton = NodePath("")
@@ -1032,7 +1034,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F3_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=1743005742]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8428209, 0.5410646, -0.30037054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8428209, 0.5410646, -0.30037054)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_dwxal")
 skeleton = NodePath("")
@@ -1044,7 +1046,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B3_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=2060434798]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8295032, 0.5410646, -0.8687652)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8295032, 0.5410646, -0.8687652)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_chc6n")
 skeleton = NodePath("")
@@ -1056,7 +1058,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F4_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=1432641822]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.842821, 0.5410646, -1.4276876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.842821, 0.5410646, -1.4276876)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_xpml4")
 skeleton = NodePath("")
@@ -1068,7 +1070,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B4_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=215656801]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8295032, 0.5410646, -1.9831245)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8295032, 0.5410646, -1.9831245)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_5noxu")
 skeleton = NodePath("")
@@ -1080,7 +1082,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Sprocket_Back_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=2110949133]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.8356696, 0.6437721, -2.6968122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8356696, 0.6437721, -2.6968122)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_6ykmu")
 skeleton = NodePath("")
@@ -1092,7 +1094,7 @@ metadata/extras = {
 }
 
 [node name="Treads_L" type="MeshInstance3D" parent="Body/Tracks_L" unique_id=1101908898]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.3204384e-09, 0, -0.015104055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.015104055)
 material_override = ExtResource("11_g0ku4")
 mesh = SubResource("ArrayMesh_vkwfo")
 skeleton = NodePath("")
@@ -1106,7 +1108,7 @@ metadata/extras = {
 [node name="Tracks_R" type="Node3D" parent="Body" unique_id=214001828]
 
 [node name="Wheel_Sprocket_Front_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=7831294]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8434591, 0.7906536, 2.6817086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8434591, 0.7906536, 2.6817086)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_ng3bx")
 skeleton = NodePath("")
@@ -1118,7 +1120,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F1_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=1190615916]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.842821, 0.5410646, 1.9542638)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.842821, 0.5410646, 1.9542638)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_h7pgl")
 skeleton = NodePath("")
@@ -1130,7 +1132,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B1_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=919484181]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8295032, 0.5410646, 1.3729115)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8295032, 0.5410646, 1.3729115)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_jvvr8")
 skeleton = NodePath("")
@@ -1142,7 +1144,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F2_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=652021776]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.842821, 0.5410646, 0.8183082)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.842821, 0.5410646, 0.8183082)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_exk7i")
 skeleton = NodePath("")
@@ -1154,7 +1156,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B2_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=874137452]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.829503, 0.5410646, 0.25855204)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.829503, 0.5410646, 0.25855204)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_kqoyt")
 skeleton = NodePath("")
@@ -1166,7 +1168,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F3_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=805734233]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8428209, 0.5410646, -0.3003706)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8428209, 0.5410646, -0.3003706)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_4msij")
 skeleton = NodePath("")
@@ -1178,7 +1180,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B3_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=1474456749]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8295029, 0.5410646, -0.86876506)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8295029, 0.5410646, -0.86876506)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_4pkvt")
 skeleton = NodePath("")
@@ -1190,7 +1192,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_F4_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=1722329896]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8428208, 0.5410646, -1.4276879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8428208, 0.5410646, -1.4276879)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_6av55")
 skeleton = NodePath("")
@@ -1202,7 +1204,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Road_B4_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=1887383688]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8295029, 0.5410646, -1.9831247)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8295029, 0.5410646, -1.9831247)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_4ry77")
 skeleton = NodePath("")
@@ -1214,7 +1216,7 @@ metadata/extras = {
 }
 
 [node name="Wheel_Sprocket_Back_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=601547878]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, -1.8356696, 0.6437721, -2.6968126)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8356696, 0.6437721, -2.6968126)
 material_override = ExtResource("4_pba8h")
 mesh = SubResource("ArrayMesh_s8es8")
 skeleton = NodePath("")
@@ -1226,7 +1228,7 @@ metadata/extras = {
 }
 
 [node name="Treads_R" type="MeshInstance3D" parent="Body/Tracks_R" unique_id=301285253]
-transform = Transform3D(1, 0, 2.3841858e-07, 0, 1, 0, -2.3841858e-07, 0, 1, 1.3204384e-09, 0, -0.015104055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.015104055)
 material_override = ExtResource("11_g0ku4")
 mesh = SubResource("ArrayMesh_x47rg")
 skeleton = NodePath("")
@@ -1238,7 +1240,7 @@ metadata/extras = {
 }
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.6500001, -0.1)
 shape = SubResource("CapsuleShape3D_83yeg")
 
 [node name="GameUnitNavigation" parent="." unique_id=1689817134 instance=ExtResource("14_iy5t7")]
@@ -1262,15 +1264,15 @@ vision = 200.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1673194704]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("16_v4h76")]
-transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false

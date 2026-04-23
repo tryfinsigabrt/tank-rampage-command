@@ -251,7 +251,7 @@ func get_fire_global_right() -> Vector3:
 
 func get_fire_global_up() -> Vector3:
 	return _get_fire_alignment_basis().y
-	
+
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
 

@@ -147,52 +147,52 @@ metadata/_custom_type_script = "uid://dmxo7e0xpu1oc"
 
 [node name="VisualRoot" parent="." unique_id=326298032 instance=ExtResource("2_o1v4s")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 
-[node name="Skeleton3D" parent="VisualRoot/Armature" parent_id_path=PackedInt32Array(326298032, 1247306590) index="0" unique_id=1149681073]
-bones/1/position = Vector3(-0.00040932372, 1.3862321, -0.002053157)
-bones/1/rotation = Quaternion(-0.7071274, -0.0062882775, 0.70704865, -0.0037118138)
-bones/2/rotation = Quaternion(-0.019469827, -0.04864354, -0.031068994, 0.998143)
-bones/3/rotation = Quaternion(0.16570306, 0.0010838455, 0.034089327, 0.9855858)
-bones/4/rotation = Quaternion(-0.042851023, 0.013606898, 0.034816105, 0.9983819)
-bones/5/rotation = Quaternion(0.19373778, -0.0010779756, -0.039856818, 0.98024285)
-bones/6/rotation = Quaternion(-0.7071413, -0.0010547925, 0.7070707, -0.0010550848)
-bones/7/rotation = Quaternion(-0.0014628563, -3.9376773e-05, -0.060409386, 0.9981727)
-bones/8/rotation = Quaternion(-2.033585e-05, -0.00019233182, -0.051694196, 0.998663)
-bones/9/rotation = Quaternion(7.5549964e-05, -0.03950812, 0.0764336, 0.9962917)
-bones/10/position = Vector3(0.3564681, -0.4391148, -0.22004056)
-bones/10/rotation = Quaternion(-0.8496887, 0.27198872, 0.426167, 0.1497761)
-bones/11/rotation = Quaternion(0.92084146, 4.2072262e-08, -3.0439128e-07, -0.38993734)
-bones/12/position = Vector3(-0.008646376, 0.036874946, -0.80674833)
-bones/13/position = Vector3(0.34131265, -0.2947121, 0.24477005)
-bones/13/rotation = Quaternion(-0.24621285, 0.5918969, 0.47644013, -0.6016994)
-bones/14/rotation = Quaternion(0.92084134, -3.964607e-08, 3.2615335e-07, -0.38993743)
-bones/15/position = Vector3(0.0112485625, 0.048706863, 0.8067119)
-bones/16/rotation = Quaternion(0.9640146, 0.22860847, -0.10806785, -0.08207021)
-bones/17/rotation = Quaternion(-0.35329416, 6.778977e-08, -4.5923142e-07, 0.93551224)
-bones/18/rotation = Quaternion(-0.14033213, 0.20768988, 0.9327169, -0.25925088)
-bones/19/rotation = Quaternion(-0.6543551, -7.213293e-09, 8.8464503e-07, 0.7561875)
-bones/20/position = Vector3(-0.06922177, 0.12243419, -0.15120693)
-bones/20/rotation = Quaternion(-0.47788766, 0.5236298, 0.51176673, 0.48531437)
-bones/21/position = Vector3(-0.0001659091, -0.59694445, 0.56723905)
-bones/21/rotation = Quaternion(-0.0018071446, -4.0216136e-11, 0.9999984, 1.676665e-14)
-bones/22/rotation = Quaternion(0.9986992, -5.5403307e-05, 0.004699384, -0.050772827)
+[node name="Skeleton3D" parent="VisualRoot/Armature" parent_id_path=PackedInt32Array(326298032, 1777870370) index="0" unique_id=1282650798]
+bones/1/position = Vector3(-0.00062255934, 1.3752636, 0.04222597)
+bones/1/rotation = Quaternion(-0.732222, 0.055820476, 0.6760559, -0.06069026)
+bones/2/rotation = Quaternion(-0.097799696, -0.12458435, -0.18264152, 0.9703381)
+bones/3/rotation = Quaternion(0.27478287, 0.0010555418, 0.056529798, 0.9598426)
+bones/4/rotation = Quaternion(-0.010935062, -0.044509366, -0.09926681, 0.9940048)
+bones/5/rotation = Quaternion(0.11370442, -0.0010922615, -0.023391915, 0.9932387)
+bones/6/rotation = Quaternion(-0.7041941, 0.04467788, 0.7071906, 0.04467758)
+bones/7/rotation = Quaternion(0.018167423, 0.00048930326, -0.060399488, 0.9980089)
+bones/8/rotation = Quaternion(-0.00055685703, -0.0052670455, -0.021395009, 0.9997572)
+bones/9/rotation = Quaternion(-0.0045022336, 0.050636597, -0.010178256, 0.9986552)
+bones/10/position = Vector3(0.3432715, -0.43277946, -0.1704945)
+bones/10/rotation = Quaternion(-0.6508283, 0.58651304, 0.4445039, 0.18665825)
+bones/11/rotation = Quaternion(0.92084146, 0, 0, -0.38993734)
+bones/12/position = Vector3(0.05332721, -0.13561167, -0.77494824)
+bones/13/position = Vector3(0.3638582, -0.342377, 0.2710449)
+bones/13/rotation = Quaternion(-0.19152239, 0.597243, 0.523616, -0.5765815)
+bones/14/rotation = Quaternion(0.92084134, 0, 0, -0.38993743)
+bones/15/position = Vector3(-0.08890022, -0.041891914, 0.7632078)
+bones/16/rotation = Quaternion(0.96760625, 0.2150781, -0.12065045, -0.05406675)
+bones/17/rotation = Quaternion(-0.37693885, 0, 0, 0.92623824)
+bones/18/rotation = Quaternion(-0.2537694, 0.15401411, 0.9273871, -0.22767094)
+bones/19/rotation = Quaternion(-0.56322837, 0, 0, 0.82630134)
+bones/20/position = Vector3(-0.037639793, 0.12182212, -0.15120645)
+bones/20/rotation = Quaternion(-0.4351532, 0.5596101, 0.5486668, 0.44321907)
+bones/21/position = Vector3(-0.08041668, -0.5898846, 0.56837857)
+bones/21/rotation = Quaternion(-0.0018071446, 0, 0.9999984, 0)
+bones/22/rotation = Quaternion(0.9986992, 0, 0.004699384, -0.050772827)
 bones/23/position = Vector3(-0.052321754, 0.12542512, 0.15083085)
-bones/23/rotation = Quaternion(-0.49564943, 0.50327617, 0.49461755, 0.5063579)
-bones/24/position = Vector3(-0.0024650132, -0.5971834, 0.5672428)
-bones/24/rotation = Quaternion(0.0018070347, -8.9667634e-11, 0.9999984, -9.047822e-16)
-bones/25/rotation = Quaternion(0.9986992, 5.539771e-05, -0.0046992735, -0.05077285)
-bones/26/position = Vector3(2.0913596, 1.9671465, 0.22925329)
+bones/23/rotation = Quaternion(-0.5065797, 0.49227458, 0.48346275, 0.517017)
+bones/24/position = Vector3(0.0057132775, -0.60199594, 0.57025224)
+bones/24/rotation = Quaternion(0.0018070347, 0, 0.9999984, 0)
+bones/25/rotation = Quaternion(0.9986992, 0, -0.0046992735, -0.05077285)
+bones/26/position = Vector3(2.0699997, 1.5749345, -0.07200711)
 
 [node name="BoneAttachment3D" parent="VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
-transform = Transform3D(-0.47830576, 0.7261702, -0.4938626, -0.8476622, -0.52875125, 0.043490425, -0.22954887, 0.43943018, 0.8684518, -0.24572967, 1.3646405, 0.27690148)
+transform = Transform3D(-0.45723596, 0.7127865, -0.5318557, -0.8071102, -0.58373815, -0.08844656, -0.373508, 0.38882515, 0.8422034, -0.33045378, 1.303241, 0.272196)
 
 [node name="MuzzleLocation" type="RemoteTransform3D" parent="VisualRoot/Armature/Skeleton3D/BoneAttachment3D/GunPropLocal" parent_id_path=PackedInt32Array(326298032, 384279234) index="0" unique_id=495197613]
 transform = Transform3D(0.99672437, 0.073958814, -0.03272811, -0.07831732, 0.98362195, -0.16233988, 0.020185467, 0.16437146, 0.98619264, 0.011340886, 0.18397665, 0.90391624)
-remote_path = NodePath("../../../../../../FirePosition/Weapon/FireEmitter")
+remote_path = NodePath("../../../../../../FireOrigin/Weapon/FireEmitter")
 update_scale = false
 
-[node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=1694333748]
+[node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=1825861487]
 libraries/human_marine_anims = ExtResource("6_u1d32")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
@@ -232,15 +232,15 @@ team_asset = NodePath("../..")
 
 [node name="UI" type="Node3D" parent="." unique_id=534065075]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 3, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("5_ijg8w")]
-transform = Transform3D(0.5, 0, 6.3573026e-08, 0, 1, 0, -3.1786513e-08, 0, 1, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1095216469]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3, 0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 3, 0)
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
@@ -270,13 +270,15 @@ aabb = AABB(-1, -1.0986328, -1, 2, 2.25, 2)
 [node name="StateTick" type="Timer" parent="MarineAnimation" unique_id=1701951076]
 wait_time = 0.05
 
-[node name="FirePosition" type="Marker3D" parent="." unique_id=1719011979]
+[node name="FireOrigin" type="Marker3D" parent="." unique_id=1719011979]
 unique_name_in_owner = true
-transform = Transform3D(-0.9999991, 0, -8.742277e-08, 0, 0.9999999, 0, 8.74227e-08, 0, -0.99999994, 0.47178695, 1.8308499, -1.1636717)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.47178695, 1.8308499, -1.1636717)
 
-[node name="Weapon" parent="FirePosition" unique_id=107617315 instance=ExtResource("3_5cd41")]
+[node name="Weapon" parent="FireOrigin" unique_id=107617315 instance=ExtResource("3_5cd41")]
 unique_name_in_owner = true
-transform = Transform3D(1, -1.9790605e-09, -3.7252903e-09, 1.8626451e-09, 1, -3.7252903e-09, -3.7252903e-09, -3.7252903e-09, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shoot_vfx_origin_path = NodePath("%FireOrigin")
+shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
 min_distance = 1.0
 max_distance_range = Vector2(75, 100)
 cooldown_time_range = Vector2(0.1, 0.2)
@@ -284,7 +286,7 @@ damage_v_distance = ExtResource("4_h2q4u")
 accuracy_v_velocity_alignment = ExtResource("5_mtu0e")
 max_spread_angle = 16.0
 
-[node name="DamageEmitter" parent="FirePosition/Weapon" index="3" unique_id=1547374086]
+[node name="DamageEmitter" parent="FireOrigin/Weapon" index="3" unique_id=1547374086]
 damage_falloff_type = 0
 min_damage = 2.0
 max_damage = 10.0
@@ -295,8 +297,8 @@ max_damage = 10.0
 [connection signal="screen_entered" from="MarineAnimation/VisibleOnScreenNotifier3D" to="MarineAnimation" method="_on_screen"]
 [connection signal="screen_exited" from="MarineAnimation/VisibleOnScreenNotifier3D" to="MarineAnimation" method="_off_screen"]
 [connection signal="timeout" from="MarineAnimation/StateTick" to="MarineAnimation" method="_on_state_tick_timeout"]
-[connection signal="firing_state_changed" from="FirePosition/Weapon" to="." method="_on_weapon_firing_state_changed"]
+[connection signal="firing_state_changed" from="FireOrigin/Weapon" to="." method="_on_weapon_firing_state_changed"]
 
 [editable path="VisualRoot"]
 [editable path="GameUnitNavigation"]
-[editable path="FirePosition/Weapon"]
+[editable path="FireOrigin/Weapon"]
