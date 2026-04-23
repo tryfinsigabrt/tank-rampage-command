@@ -13,6 +13,9 @@ var world_boundaries_checker:WorldBoundariesChecker
 const MAX_ATTEMPTS:int = 8
 	
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	if not world_boundaries_checker:
 		push_warning("%s: WorldBoundariesChecker not set - no bounds testing on move targets!" % name)
 		

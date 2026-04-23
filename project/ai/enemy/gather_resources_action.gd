@@ -34,6 +34,9 @@ class ScoreResult:
 		return ScoreResult.new(context.score, context.resource, in_unit)
 	
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	SignalBus.on_unit_killed.connect(_on_unit_killed.unbind(1))
 	SignalBus.on_scrap_collected.connect(_on_scrap_collected.unbind(2))
 	
