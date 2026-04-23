@@ -7,7 +7,15 @@ var action_id:int
 func before_run(actor: Node, blackboard: Blackboard) -> void:
 	my_action = blackboard.get_value(UnitBlackboard.Keys.Action)
 	action_id = blackboard.get_value(UnitBlackboard.Keys.ActionId)
+	
+	#print_debug("%s: CLEANUP %s - command %d -> %s BEFORE RUN" % [name, actor.name, action_id, my_action])
+
 	SignalBus.on_unit_command_started.emit(actor as Unit, my_action, action_id, _get_action_args())
+	
+#func interrupt(actor: Node, blackboard: Blackboard) -> void:
+	#super.interrupt(actor, blackboard)
+	#print_debug("%s: CLEANUP %s - command %d -> %s interrupted" % [name, actor.name, action_id, my_action])
+	#
 	
 func _check_running_state(blackboard: Blackboard) -> int:
 	# TODO: Maybe consider using the ActionId as the comparison instead of the name as then it is clearly a new order

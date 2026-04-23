@@ -22,6 +22,8 @@ const attack_action_scene = preload("uid://cwj8iaowhbop5")
 const scanner_scene = preload("uid://8rwv0t451365")
 
 func after_run(actor: Node, _blackboard: Blackboard) -> void:
+	#print_debug("%s: CLEANUP %s - command %d -> %s AFTER RUN" % [name, actor.name, action_id, my_action])
+
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
 		_attack_action = null
@@ -109,6 +111,8 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 		result = _check_running_state(blackboard)
 		
 	if result != RUNNING:
+		#print_debug("%s: CLEANUP %s - command %d -> %s FINAL TICK" % [name, _actor.name, action_id, my_action])
+
 		SignalBus.on_unit_command_finished.emit(_unit, my_action, action_id, _get_action_args())
 	return result
 
