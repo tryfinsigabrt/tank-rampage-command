@@ -9,11 +9,8 @@ class_name HumanTank extends Unit
 @onready var ui: Node3D = %UI
 @onready var _team_comp: TeamComponent = %TeamComponent
 
-@export_range(0.0, 90.0, 0.01)
-var turret_aim_tolerance_deg:float = 1.0
-
 @export_range(0.0, 1.0, 0.001)
-var turret_aim_tolerance:float = 0.1
+var turret_aim_tolerance:float = 0.02
 
 @export_range(0.0, 1.0, 0.001)
 var pitch_tolerance:float = 0.01
@@ -64,10 +61,8 @@ func aim_at(world_location:Vector3) -> void:
 	var projected_aim_dir_turret:Vector2 = Vector2(aim_direction.x, aim_direction.z)
 	
 	#Check if we are almost there
-	#var angle:float = rad_to_deg(aim_dir_turret.angle_to(forward_vector))
-	#if absf(angle) > turret_aim_tolerance_deg:
-	if projected_aim_dir_turret.length() > turret_aim_tolerance:
-		var rotation_dir:float = -projected_forward_vector.cross(projected_aim_dir_turret)
+	var rotation_dir:float = -projected_forward_vector.cross(projected_aim_dir_turret)
+	if absf(rotation_dir) > turret_aim_tolerance:
 		turret.rotate_turret(rotation_dir)
 	
 	var aim_pitch:float = aim_direction.y
