@@ -157,15 +157,16 @@ collision_mask = 13
 size = Vector3(10, 500, 1000)
 
 [node name="Enemies" type="Node3D" parent="World" unique_id=1702973220]
+visible = false
 
 [node name="EnemyTank01" parent="World/Enemies" unique_id=1223720870 instance=ExtResource("1_0g124")]
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
 team = 2
 
-[node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="World/Enemies/EnemyTank01/Body/Mesh" index="0"]
 material_override = ExtResource("2_7hbj1")
 
-[node name="Turret" parent="World/Enemies/EnemyTank01/Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="World/Enemies/EnemyTank01/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("3_y6dha")
 
 [node name="UI" parent="World/Enemies/EnemyTank01" index="5" unique_id=1673194704]
@@ -175,10 +176,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 42, 0, -33)
 team = 2
 
-[node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="World/Enemies/EnemyTank02/Body/Mesh" index="0"]
 material_override = ExtResource("4_weikl")
 
-[node name="Turret" parent="World/Enemies/EnemyTank02/Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="World/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("5_ojclk")
 
 [node name="UI" parent="World/Enemies/EnemyTank02" index="5" unique_id=1673194704]
@@ -188,10 +189,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
 team = 2
 
-[node name="BodyMain" parent="World/Enemies/EnemyTank03/Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="World/Enemies/EnemyTank03/Body/Mesh" index="0"]
 material_override = ExtResource("6_ojclk")
 
-[node name="Turret" parent="World/Enemies/EnemyTank03/Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="World/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("7_g60nt")
 
 [node name="UI" parent="World/Enemies/EnemyTank03" index="5" unique_id=1673194704]
@@ -201,10 +202,10 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33,
 transform = Transform3D(0.25881916, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881916, -66, 0, 27)
 team = 2
 
-[node name="BodyMain" parent="World/Enemies/EnemyTank04/Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="World/Enemies/EnemyTank04/Body/Mesh" index="0"]
 material_override = ExtResource("8_dvi1i")
 
-[node name="Turret" parent="World/Enemies/EnemyTank04/Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="World/Enemies/EnemyTank04/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("9_yoo7s")
 
 [node name="UI" parent="World/Enemies/EnemyTank04" index="5" unique_id=1673194704]
@@ -225,10 +226,12 @@ player_team = NodePath("..")
 
 [node name="PlayerTank3" parent="World/PlayerTeam/Player" unique_id=6855099 instance=ExtResource("1_0g124")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -0.049999833, 36)
+visible = false
 team = 1
 
 [node name="PlayerTank4" parent="World/PlayerTeam/Player" unique_id=271356045 instance=ExtResource("1_0g124")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 37)
+visible = false
 team = 1
 
 [node name="PlayerTank1" parent="World/PlayerTeam/Player" unique_id=921018103 instance=ExtResource("13_47qfk")]
@@ -237,6 +240,7 @@ team = 1
 
 [node name="PlayerTank2" parent="World/PlayerTeam/Player" unique_id=1885523197 instance=ExtResource("13_47qfk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -0.049999833, 22)
+visible = false
 team = 1
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("16_k6pp6")]

@@ -11,7 +11,9 @@ var _attack_action:AttackAction
 
 const attack_action_scene = preload("uid://cwj8iaowhbop5")
 
-func after_run(_actor: Node, blackboard: Blackboard) -> void:
+func _cleanup(actor: Node, blackboard: UnitBlackboard) -> void:
+	super._cleanup(actor, blackboard)
+	
 	if is_instance_valid(_attack_action):
 		_attack_action.queue_free()
 		_attack_action = null
@@ -24,7 +26,7 @@ func after_run(_actor: Node, blackboard: Blackboard) -> void:
 		blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
 	if current_position.is_equal_approx(_targeted_position):
 		blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
-	
+		
 func before_run(actor: Node, in_blackboard: Blackboard) -> void:
 	super.before_run(actor, in_blackboard)
 	
@@ -91,9 +93,7 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 			result = SUCCESS
 		_:
 			result = FAILURE
-			
-	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action, action_id, _get_action_args())
+	
 	return result
 	
 func _should_continue_running(blackboard: Blackboard) -> bool:

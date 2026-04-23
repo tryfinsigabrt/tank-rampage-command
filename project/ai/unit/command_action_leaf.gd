@@ -4,6 +4,8 @@ class_name CommandActionLeaf extends ActionLeaf
 var my_action:StringName
 var action_id:int
 
+var _cleanup_record := CircularBuffer.new(10)
+
 func before_run(actor: Node, blackboard: Blackboard) -> void:
 	my_action = blackboard.get_value(UnitBlackboard.Keys.Action)
 	action_id = blackboard.get_value(UnitBlackboard.Keys.ActionId)
@@ -12,10 +14,22 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 
 	SignalBus.on_unit_command_started.emit(actor as Unit, my_action, action_id, _get_action_args())
 	
-#func interrupt(actor: Node, blackboard: Blackboard) -> void:
-	#super.interrupt(actor, blackboard)
+func interrupt(actor: Node, blackboard: Blackboard) -> void:
+	super.interrupt(actor, blackboard)
 	#print_debug("%s: CLEANUP %s - command %d -> %s interrupted" % [name, actor.name, action_id, my_action])
 	#
+	_check_and_do_cleanup(actor, blackboard)
+	
+func after_run(actor: Node, blackboard: Blackboard) -> void:
+	_check_and_do_cleanup(actor, blackboard)
+	
+func _check_and_do_cleanup(actor: Node, blackboard: UnitBlackboard) -> void:
+	if not _cleanup_record.contains(action_id):
+		_cleanup_record.add(action_id)
+		_cleanup(actor, blackboard)
+
+func _cleanup(actor: Node, _blackboard: UnitBlackboard) -> void:
+	SignalBus.on_unit_command_finished.emit(actor as Unit, my_action, action_id, _get_action_args())
 	
 func _check_running_state(blackboard: Blackboard) -> int:
 	# TODO: Maybe consider using the ActionId as the comparison instead of the name as then it is clearly a new order

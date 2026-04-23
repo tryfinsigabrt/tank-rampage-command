@@ -5,7 +5,8 @@ var _unit:Unit
 var _target_position:Vector3 = Vector3.INF
 var _finished:bool = false
 
-func after_run(actor: Node, _blackboard: Blackboard) -> void:
+func _cleanup(actor: Node, blackboard: UnitBlackboard) -> void:
+	super._cleanup(actor, blackboard)
 	if not _finished:
 		SignalBus.on_unit_move_canceled.emit(actor as Unit, _target_position)
 		_target_position = Vector3.INF
@@ -33,8 +34,6 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 	else:
 		result = _check_running_state(blackboard)
 		
-	if result != RUNNING:
-		SignalBus.on_unit_command_finished.emit(_unit, my_action, action_id, _get_action_args())
 	return result
 
 func _on_destination_reached(unit:Unit, target:Vector3) -> void:
