@@ -137,10 +137,7 @@ launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/Barrel/BarrelF
 target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
 
-[node name="FireEmitter" parent="WeaponTrace/Weapon" index="2" unique_id=1538926003]
-transform = Transform3D(0.28420797, 0.5476899, 0.7861805, 0.09616502, 0.79979753, -0.5921817, -0.94846493, 0.24520706, 0.17553756, 1.1919403, -0.7724378, -0.6406897)
-
-[node name="DamageEmitter" parent="WeaponTrace/Weapon" index="4" unique_id=1547374086]
+[node name="DamageEmitter" parent="WeaponTrace/Weapon" index="3" unique_id=1547374086]
 damage_falloff_type = 2
 min_damage = 10.0
 max_damage = 1000.0
