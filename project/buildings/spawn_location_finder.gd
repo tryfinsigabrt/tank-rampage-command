@@ -29,7 +29,7 @@ func _exit_tree() -> void:
 		PhysicsServer3D.free_rid(_shape_rid)
 
 ## Returns a viable spawn grid location
-func find_viable_spawn_grid_location(in_pos:Vector3, spawned:Unit) -> Vector3:
+func find_viable_spawn_grid_location(in_pos:Vector3, spawned:Node3D) -> Vector3:
 	var occupied_bounds: Array[Rect2] = sweep_grid_bounds(in_pos)
 	if not occupied_bounds:
 		return in_pos

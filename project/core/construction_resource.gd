@@ -55,6 +55,9 @@ var time:float = 1.0
 @export
 var attributes:TeamAssetAttributes
 
+@export
+var placement_spawner_resource:NodePlacementSpawnerResource
+
 var classification:Classification:
 	get:
 		match type:

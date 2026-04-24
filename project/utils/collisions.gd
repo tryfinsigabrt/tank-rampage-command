@@ -171,3 +171,22 @@ func calculate_aabb(node: Node, type:AABBCalculationType = AABBCalculationType.C
 
 func is_supported_collision_type(node: Node) -> bool:
 	return node is CollisionShape3D or node is CollisionPolygon3D
+	
+func get_collisions_nodes(node: Node, type: AABBCalculationType = AABBCalculationType.CHILDREN) -> Array[Node]:
+	var matching_nodes:Array[Node]
+	if type != AABBCalculationType.CHILDREN and is_supported_collision_type(node):
+		matching_nodes.push_back(node)
+	
+	if type == AABBCalculationType.SELF:
+		return matching_nodes
+			
+	var nodes:Array[Node] = node.get_children()
+	var recursive:bool = type == AABBCalculationType.RECURSIVE
+	
+	while nodes:
+		var child:Node = nodes.pop_back()
+		if is_supported_collision_type(child):
+			matching_nodes.push_back(child)
+		if recursive:
+			nodes.append_array(child.get_children())
+	return matching_nodes

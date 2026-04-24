@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dp6iwccvur6ku"]
+
+[ext_resource type="Script" uid="uid://bmdmv42l7j5we" path="res://core/placement/node_placement_spawner.gd" id="1_oatbp"]
+[ext_resource type="PackedScene" uid="uid://dngxy6j5mtmup" path="res://player/effects/asset_selection_effect.tscn" id="2_d1yh0"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_0nv0h"]
+[ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="4_vxufq"]
+
+[node name="NodePlacementSpawner" type="Node" unique_id=1124422741]
+script = ExtResource("1_oatbp")
+metadata/_custom_type_script = "uid://bmdmv42l7j5we"
+
+[node name="AssetContainer" type="Node3D" parent="." unique_id=795127185]
+
+[node name="GroundPicker" type="Node3D" parent="." unique_id=560227309]
+script = ExtResource("3_0nv0h")
+
+[node name="Effects" type="Node" parent="." unique_id=1247668105]
+
+[node name="ViablePlacementEffect" parent="Effects" unique_id=1646816583 instance=ExtResource("2_d1yh0")]
+unique_name_in_owner = true
+
+[node name="NotViablePlacementEffect" parent="Effects" unique_id=1286543406 instance=ExtResource("2_d1yh0")]
+unique_name_in_owner = true
+outline_material = ExtResource("4_vxufq")
