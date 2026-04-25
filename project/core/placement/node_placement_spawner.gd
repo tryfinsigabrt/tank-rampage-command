@@ -198,7 +198,7 @@ func _test_position_for_collisions(pos: Vector3) -> bool:
 		return true
 		
 	var params := PhysicsShapeQueryParameters3D.new()
-	params.collide_with_areas = false
+	params.collide_with_areas = true
 	params.collide_with_bodies = true
 	params.collision_mask = resource.collision_mask
 	params.margin = Collisions.default_collision_margin
