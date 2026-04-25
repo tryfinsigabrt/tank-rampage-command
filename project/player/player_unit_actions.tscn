@@ -91,11 +91,15 @@ selection_manager = NodePath("../SelectionManager")
 
 [node name="BuildingCreateAction" type="Node" parent="." unique_id=667114620 node_paths=PackedStringArray("node_picker", "selection_manager")]
 script = ExtResource("15_gnjf6")
-node_picker = NodePath("../NodePicker")
+node_picker = NodePath("GroundPicker")
 selection_manager = NodePath("../SelectionManager")
 
 [node name="BuildingManufacturing" parent="BuildingCreateAction" unique_id=397080948 instance=ExtResource("16_3q252")]
 supported_types = SubResource("Resource_mkbv6")
+
+[node name="GroundPicker" type="Node3D" parent="BuildingCreateAction" unique_id=1520157363]
+script = ExtResource("2_m750r")
+ground_mask = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]

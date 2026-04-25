@@ -77,11 +77,13 @@ func _move_spawner() -> bool:
 		return true
 		
 	_last_mouse_position = mouse_position
-	var result: Dictionary = node_picker.pick_position(mouse_position, Collisions.CompositeMasks.ground)
+	var result: Dictionary = node_picker.pick_position(mouse_position)
 	if not result:
 		return false
 		
 	var position:Vector3 = result["position"]
-	_current_placement_spawner.move_to(position, true)
+	# Trying to optimize with true causes spurious collision issues
+	# Most likely from angled camera
+	_current_placement_spawner.move_to(position, false)
 	
 	return true

@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_lawxi"]
 script = ExtResource("2_0tr7y")
 to_spawn = ExtResource("2_0lrjf")
-collision_mask = 3172
+collision_mask = 3173
 metadata/_custom_type_script = "uid://rchprl2i3qgf"
 
 [resource]

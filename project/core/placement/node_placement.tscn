@@ -14,6 +14,7 @@ metadata/_custom_type_script = "uid://bmdmv42l7j5we"
 
 [node name="GroundPicker" type="Node3D" parent="." unique_id=560227309]
 script = ExtResource("3_0nv0h")
+ground_mask = 2
 
 [node name="Effects" type="Node" parent="." unique_id=1247668105]
 

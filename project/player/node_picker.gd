@@ -9,6 +9,9 @@ var project_ground_max_dist:float = 100.0
 @export
 var box_select_min_height:float = 20.0
 
+@export_flags_3d_physics
+var ground_mask:int = Collisions.CompositeMasks.ground
+
 @export
 var camera:Camera3D
 
@@ -23,7 +26,7 @@ func project_to_ground(in_position:Vector3) -> Vector3:
 	var from:Vector3 = in_position + Vector3.UP * 1000.0
 	var to:Vector3 = in_position + Vector3.DOWN * project_ground_max_dist
 	
-	var result: Dictionary = _ray_cast(from, to, Collisions.CompositeMasks.ground)
+	var result: Dictionary = _ray_cast(from, to, ground_mask)
 	if not result:
 		push_warning("%s: Could not find ground for position:%s" % [name, in_position])
 		return Vector3.INF
@@ -32,21 +35,20 @@ func project_to_ground(in_position:Vector3) -> Vector3:
 	return Vector3(in_position.x, ground.y, in_position.z)
 
 func pick_ground(event: InputEvent) -> Dictionary:
-	return pick_node(event, Collisions.CompositeMasks.ground)
+	return pick_node(event, ground_mask)
 	
 func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
 	if not screen_area.has_area():
 		return [] as Array[Unit]
 		
-	var collision_mask:int = Collisions.CompositeMasks.ground
-	var result := pick_position(screen_area.position, collision_mask)
+	var result := pick_position(screen_area.position, ground_mask)
 	if not result:
 		return [] as Array[Unit]
 	
 	var bounds:AABB
 	bounds.position = result["position"]
 	
-	result = pick_position(screen_area.end, collision_mask)
+	result = pick_position(screen_area.end, ground_mask)
 	if not result:
 		return [] as Array[Unit]
 	
@@ -107,10 +109,10 @@ func pick_team_asset(event: InputEvent) -> Node3D:
 	var clicked_object: Node = result.collider
 	return Groups.get_parent_in_group(clicked_object, Groups.TeamAsset)
 	
-func pick_node(event: InputEvent, collision_mask:int) -> Dictionary:
+func pick_node(event: InputEvent, collision_mask:int = ground_mask) -> Dictionary:
 	return pick_position(event.position, collision_mask)
 
-func pick_position(screen_position:Vector2, collision_mask:int) -> Dictionary:
+func pick_position(screen_position:Vector2, collision_mask:int = ground_mask) -> Dictionary:
 	var from := camera.project_ray_origin(screen_position)
 	var to := from + camera.project_ray_normal(screen_position) * ray_cast_distance  # Long ray
 
