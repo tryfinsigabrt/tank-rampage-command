@@ -102,12 +102,13 @@ func _on_asset_added(asset:Node3D) -> void:
 	if not team_component:
 		push_warning("%s: _on_asset_added - asset=%s has no TeamComponent" % [name, asset.name])
 		return
-	
-	if not is_player_team:
-		_disable_non_player_visible_nodes(asset)	
+
 	if not team_component.is_on_team(team):
 		return
-		
+
+	if not is_player_team:
+		_disable_non_player_visible_nodes(asset)	
+				
 	if asset is Unit:
 		_add_unit(asset)
 	elif asset is Building:

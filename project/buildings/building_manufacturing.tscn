@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://b788aluto08ag"]
 
 [ext_resource type="Script" uid="uid://dukly0jxbrmyn" path="res://buildings/building_manufacturing.gd" id="1_bvjto"]
+[ext_resource type="PackedScene" uid="uid://dp6iwccvur6ku" path="res://core/placement/node_placement.tscn" id="2_6h2hh"]
 
 [node name="BuildingManufacturing" type="Node" unique_id=397080948]
 script = ExtResource("1_bvjto")
+node_placement_spawner_scene = ExtResource("2_6h2hh")
 metadata/_custom_type_script = "uid://dukly0jxbrmyn"

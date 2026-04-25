@@ -14,6 +14,18 @@
 [ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="9_lil68"]
 [ext_resource type="Material" uid="uid://cbnit7meja5e7" path="res://player/effects/attack_move_material.tres" id="10_hu7x2"]
 [ext_resource type="Material" uid="uid://c6u711v5oxba0" path="res://player/effects/attack_position_material.tres" id="11_i84qe"]
+[ext_resource type="Script" uid="uid://dnvi7f6hefgij" path="res://player/player_node_placer.gd" id="15_gnjf6"]
+[ext_resource type="PackedScene" uid="uid://b788aluto08ag" path="res://buildings/building_manufacturing.tscn" id="16_3q252"]
+[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="17_6ck2i"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="18_e8hef"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="19_pa1cc"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="20_mgecy"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_7nrp4"]
+
+[sub_resource type="Resource" id="Resource_mkbv6"]
+script = ExtResource("17_6ck2i")
+types = Array[ExtResource("18_e8hef")]([ExtResource("19_pa1cc"), ExtResource("20_mgecy"), ExtResource("21_7nrp4")])
+metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
 
 [node name="PlayerUnitActions" type="Node3D" unique_id=518831115]
 script = ExtResource("1_ygm0o")
@@ -76,6 +88,14 @@ outline_width = 2.0
 [node name="BuildingManufacturingActions" type="Node" parent="." unique_id=2042305144 node_paths=PackedStringArray("selection_manager")]
 script = ExtResource("7_6cxnj")
 selection_manager = NodePath("../SelectionManager")
+
+[node name="BuildingCreateAction" type="Node" parent="." unique_id=667114620 node_paths=PackedStringArray("node_picker", "selection_manager")]
+script = ExtResource("15_gnjf6")
+node_picker = NodePath("../NodePicker")
+selection_manager = NodePath("../SelectionManager")
+
+[node name="BuildingManufacturing" parent="BuildingCreateAction" unique_id=397080948 instance=ExtResource("16_3q252")]
+supported_types = SubResource("Resource_mkbv6")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]

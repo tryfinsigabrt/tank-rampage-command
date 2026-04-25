@@ -11,6 +11,9 @@ var _asset_selection_effect:AssetSelectionEffect
 var any:bool:
 	get: return not _selected_units.is_empty() or not _selected_buildings.is_empty()
 	
+var any_same_team:bool:
+	get: return any_units_same_team or any_buildings_same_team
+	
 var any_units:bool:
 	get: return not _selected_units.is_empty()
 	

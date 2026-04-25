@@ -1,5 +1,7 @@
 class_name NodePlacementSpawner extends Node3D
 
+signal on_spawn(asset:Node3D)
+
 @export
 var resource:NodePlacementSpawnerResource
 
@@ -44,6 +46,9 @@ func _ready() -> void:
 		return
 		
 	_ghost_asset = resource.to_spawn.instantiate() as StaticBody3D
+	_ghost_asset.collision_mask = 0
+	_ghost_asset.collision_layer = 0
+	
 	if not _ghost_asset:
 		push_error("%s: Could not spawn scene=%s as StaticBody3D!" % [name, resource.to_spawn.resource_path])
 		return
@@ -62,6 +67,7 @@ func activate() -> void:
 		
 	_ghost_asset.visible = true
 	_can_spawn = false
+	_update_effects()
 	
 func deactivate() -> void:
 	if not _ghost_asset.visible:
@@ -70,14 +76,15 @@ func deactivate() -> void:
 	_ghost_asset.visible = false
 	_can_spawn = false
 	
-func move_to(pos:Vector3) -> void:
+func move_to(pos:Vector3, is_grounded:bool = false) -> void:
 	# Initially translate ghost in xz plane
 	var curr_ghost := _ghost_asset.global_position
 	curr_ghost.x = pos.x
 	curr_ghost.z = pos.z
 	_ghost_asset.global_position = curr_ghost
 	
-	_update_eligibility(pos)
+	_update_eligibility(pos, is_grounded)
+	_update_effects()
 	
 func spawn(asset_name:StringName="") -> Node3D:
 	if not _can_spawn:
@@ -86,16 +93,15 @@ func spawn(asset_name:StringName="") -> Node3D:
 	var asset:Node3D = resource.to_spawn.instantiate()
 	if asset_name:
 		asset.name = asset_name
+		
 	place(asset)
+	
 	return asset
 
 ##Instead of spawning, attempts to place the given asset
 func place(asset:StaticBody3D) -> bool:
 	if not _can_spawn:
 		return false
-		
-	asset.global_rotation_degrees = _spawn_rotation_euler
-	asset.global_position = _spawn_position
 	
 	var existing_parent:Node = asset.get_parent()
 	if existing_parent:
@@ -113,18 +119,28 @@ func place(asset:StaticBody3D) -> bool:
 				team_component.team = match_team.team
 	else:
 		asset_container.add_child(asset)
+	
+	asset.global_rotation_degrees = _spawn_rotation_euler
+	asset.global_position = _spawn_position
+	
+	on_spawn.emit(asset)
 		
 	deactivate()
 	return true
 	
-func _update_eligibility(pos:Vector3) -> void:
-	var ground_position:Vector3 = ground_picker.project_to_ground(pos)
-	if ground_position == Vector3.INF:
-		_can_spawn = false
-		return
+func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
+	var ground_position:Vector3
+	if is_grounded:
+		_can_spawn = true
+		ground_position = pos
+	else:
+		ground_position = ground_picker.project_to_ground(pos)
+		if ground_position == Vector3.INF:
+			_can_spawn = false
+			return
 	# Move ghost to be above the current ground position
-	_ghost_asset.global_position.y = ground_position.y + above_ground_height
-		
+	_ghost_asset.global_position = Vector3(ground_position.x, ground_position.y + above_ground_height, ground_position.z)
+	
 	_can_spawn = _test_position_for_collisions(ground_position)
 	if not _can_spawn:
 		return
@@ -135,6 +151,17 @@ func _update_eligibility(pos:Vector3) -> void:
 		
 	_spawn_position = ground_position
 
+func _update_effects() -> void:
+	if not _ghost_asset.is_visible_in_tree():
+		return
+		
+	if _can_spawn:	
+		not_viable_placement_effect.toggle_selection(_ghost_asset, false)
+		viable_placement_effect.toggle_selection(_ghost_asset, true)
+	else:
+		viable_placement_effect.toggle_selection(_ghost_asset, false)
+		not_viable_placement_effect.toggle_selection(_ghost_asset, true)
+			
 func _is_viable_ground(_pos:Vector3) -> bool:
 	# TODO: Test slope and make sure ground is available on all points
 	# Also make sure not outside world bounds
@@ -151,7 +178,7 @@ func _find_collision_shape() -> void:
 	if not collision:
 		push_warning("%s: Asset=%s does not have a CollisionShape3D - found %s" % [name, _ghost_asset.scene_file_path, collision_nodes])
 		return
-	_collision_shape = collision.polygon
+	_collision_shape = collision.shape
 		
 func _test_position_for_collisions(pos: Vector3) -> bool:
 	if not _collision_shape:
@@ -160,8 +187,8 @@ func _test_position_for_collisions(pos: Vector3) -> bool:
 	var params := PhysicsShapeQueryParameters3D.new()
 	params.collide_with_areas = false
 	params.collide_with_bodies = true
-	params.collision_mask = _ghost_asset.collision_mask
-	params.margin = resource.collision_mask
+	params.collision_mask = resource.collision_mask
+	params.margin = Collisions.default_collision_margin
 	params.transform = Transform3D(Basis.IDENTITY, pos)
 	params.shape = _collision_shape
 	

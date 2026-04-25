@@ -5,8 +5,9 @@
 [ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_0nv0h"]
 [ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="4_vxufq"]
 
-[node name="NodePlacementSpawner" type="Node" unique_id=1124422741]
+[node name="NodePlacementSpawner" type="Node3D" unique_id=1695809537]
 script = ExtResource("1_oatbp")
+above_ground_height = 0.0
 metadata/_custom_type_script = "uid://bmdmv42l7j5we"
 
 [node name="AssetContainer" type="Node3D" parent="." unique_id=795127185]
