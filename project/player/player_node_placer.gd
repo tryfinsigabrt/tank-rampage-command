@@ -9,6 +9,7 @@ var selection_manager:SelectionManager
 @onready var building_manufacturing: BuildingManufacturing = $BuildingManufacturing
 
 var _current_placement_spawner:NodePlacementSpawner
+var _last_mouse_position:Vector2
 
 func _ready() -> void:
 	set_process(false)
@@ -45,6 +46,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	# Set initial position
 	_current_placement_spawner.activate()
+	_last_mouse_position = Vector2.INF
 	if not _move_spawner():
 		var camera := get_viewport().get_camera_3d()
 		if camera:
@@ -70,7 +72,11 @@ func _process(_delta: float) -> void:
 func _move_spawner() -> bool:
 	var mouse_position:Vector2 = get_viewport().get_mouse_position()
 	# Project to world and then move the placement spawner
-	
+	# Skip if haven't moved
+	if mouse_position.is_equal_approx(_last_mouse_position):
+		return true
+		
+	_last_mouse_position = mouse_position
 	var result: Dictionary = node_picker.pick_position(mouse_position, Collisions.CompositeMasks.ground)
 	if not result:
 		return false

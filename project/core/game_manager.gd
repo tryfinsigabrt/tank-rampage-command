@@ -5,11 +5,26 @@ extends Node
 
 var fog_of_war:bool
 
+var fog_of_war_node:FogOfWar:
+	get:
+		return fog_of_war_node if is_instance_valid(fog_of_war_node) else null
+
 func _ready() -> void:
-	var node:FogOfWar = get_tree().get_first_node_in_group(Groups.FogOfWar) as FogOfWar
-	if node and node.enable:
+	reset_world_state()
+	scene_manager.scene_changed.connect(reset_world_state.unbind(1))
+
+func reset_world_state() -> void:
+	game_timer.reset()
+	
+	fog_of_war_node = _get_fog_of_war()
+	if fog_of_war_node and fog_of_war_node.enable:
 		fog_of_war = true
+	else:
+		fog_of_war = false
 		
+func _get_fog_of_war() -> FogOfWar:
+	return get_tree().get_first_node_in_group(Groups.FogOfWar) as FogOfWar	
+	
 func is_owned_by_player(node: Node) -> bool:
 	var player_team:MatchTeam = get_player_team()
 	return player_team and player_team.is_ancestor_of(node)

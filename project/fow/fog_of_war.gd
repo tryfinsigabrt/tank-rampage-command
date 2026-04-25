@@ -19,6 +19,9 @@ var explored_area_modulation:float = 0.3
 
 @onready var node_visibility_manager: NodeVisibilityManager = $NodeVisibilityManager
 
+const FOW_VISIBLE_CHANNEL:int = 0
+const FOW_EXPLORED_CHANNEL:int = 1
+
 var _player_team:int = -1
 
 var _registered_dissolver_nodes: Dictionary[int, Node3D] = {}
@@ -126,6 +129,9 @@ func project_position(pos:Vector3) -> Vector2:
 	
 	return viewport_pos
 
+func is_node_visible(node: Node3D, visible_threshold:float = node_visibility_manager.visible_channel_threshold, channel:int = FOW_VISIBLE_CHANNEL, require_all:bool = false) -> bool:
+	return node_visibility_manager.is_node_visible(node, PackedVector3Array(), visible_threshold, channel, require_all)
+	
 func get_fow_value(pos:Vector3) -> Color:
 	# Read the value of the texture on explored_area_viewport converting pos to the image pixel coordinates (inverse of project_position)
 	var viewport_pos:Vector2 = project_position(pos)

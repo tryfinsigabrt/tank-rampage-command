@@ -11,6 +11,9 @@ var match_team:MatchTeam
 @export
 var above_ground_height:float = 50.0
 
+@export
+var fow_visibility_threshold:float = 0.1
+
 @onready var asset_container: Node3D = $AssetContainer
 
 # Will project the "corners" of the object to ground and then sample to see the slope
@@ -48,7 +51,7 @@ func _ready() -> void:
 	_ghost_asset = resource.to_spawn.instantiate() as StaticBody3D
 	_ghost_asset.collision_mask = 0
 	_ghost_asset.collision_layer = 0
-	
+
 	if not _ghost_asset:
 		push_error("%s: Could not spawn scene=%s as StaticBody3D!" % [name, resource.to_spawn.resource_path])
 		return
@@ -143,6 +146,16 @@ func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 	
 	_can_spawn = _test_position_for_collisions(ground_position)
 	if not _can_spawn:
+		return
+		
+	if _world_boundaries and not _world_boundaries.contains_body(_ghost_asset):
+		_can_spawn = false
+		return
+		
+	# Check visibility if in fow
+	var fow := GameManager.fog_of_war_node
+	if fow and GameManager.fog_of_war and not fow.is_node_visible(_ghost_asset, fow_visibility_threshold, FogOfWar.FOW_VISIBLE_CHANNEL, true):
+		_can_spawn = false
 		return
 		
 	_can_spawn = _is_viable_ground(ground_position)

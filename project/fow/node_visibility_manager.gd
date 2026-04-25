@@ -58,34 +58,45 @@ func _process(delta: float) -> void:
 	
 func _update() -> void:
 	var points_to_check: PackedVector3Array
-	points_to_check.resize(4)
-	
+		
 	for node in _cached_nodes:
 		if is_instance_valid(node) and node.is_in_group(Groups.TeamAsset):
-			# For units check center point and for other types check bounding box
-			var cnt:int = 0
-			if node.is_in_group(Groups.Unit):
-				points_to_check[0] = node.global_position
-				cnt = 1
-			else:
-				var bounds:AABB = node.get_global_bounds()
-				
-				cnt = 4
-				points_to_check[0] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_LEFT)
-				points_to_check[1] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_RIGHT)
-				points_to_check[2] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_LEFT)
-				points_to_check[3] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_RIGHT)
-
-			var visible:bool = false
-			for i in cnt:		
-				var fow_color:Color = fog_of_war.get_fow_value(points_to_check[i])
-				if fow_color.r >= visible_channel_threshold:
-					visible = true
-					break
+			var visible:bool = is_node_visible(node, points_to_check)
 			
 			var team_component: TeamComponent = node.team_component
 			team_component.render = visible
 			team_component.set_visible_to(fog_of_war.player_team, visible)
+
+func is_node_visible(node: Node3D, points_to_check: PackedVector3Array = PackedVector3Array(), visible_threshold:float = visible_channel_threshold, channel:int = FogOfWar.FOW_VISIBLE_CHANNEL, require_all:bool = false) -> bool:
+	if not points_to_check:
+		points_to_check.resize(4)
+		
+	# For units check center point and for other types check bounding box as long as get_global_bounds defined
+	var cnt:int = 0
+	if node.is_in_group(Groups.Unit) or not node.has_method("get_global_bounds"):
+		points_to_check[0] = node.global_position
+		cnt = 1
+	else:
+		var bounds:AABB = node.get_global_bounds()
+		
+		cnt = 4
+		points_to_check[0] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_LEFT)
+		points_to_check[1] = bounds.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_RIGHT)
+		points_to_check[2] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_LEFT)
+		points_to_check[3] = bounds.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_RIGHT)
+
+	var visible:bool = false
+	
+	for i in cnt:		
+		var fow_color:Color = fog_of_war.get_fow_value(points_to_check[i])
+		#print("FOW(%s-%d): %f" % [node.name, i, fow_color[channel]])
+		visible = fow_color[channel] >= visible_threshold
+		if visible and not require_all:
+			return true
+		elif not visible and require_all:
+			return false
+			
+	return visible
 	
 func _on_team_asset_added(asset:Node3D) -> void:
 	var team_component := TeamComponent.get_component(asset)

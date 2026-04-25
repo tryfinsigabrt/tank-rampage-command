@@ -15,6 +15,7 @@ func set_source(timer:Timer) -> void:
 	
 func reset() -> void:
 	_time_seconds = 0.0
+	_frame_count = 0
 	_source = null
 
 func set_enabled(enabled:bool) -> void:
