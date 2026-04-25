@@ -23,6 +23,7 @@ var fow_visibility_threshold:float = 0.1
 
 var _can_spawn:bool = false
 var _ghost_asset:StaticBody3D
+var _asset_aabb:AABB
 
 var _spawn_rotation_euler:Vector3
 var _spawn_position:Vector3
@@ -63,6 +64,8 @@ func _ready() -> void:
 	_world_boundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
 	
 	_find_collision_shape()
+	
+	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
 		
 func activate() -> void:
 	if _ghost_asset.visible:
@@ -175,11 +178,60 @@ func _update_effects() -> void:
 		viable_placement_effect.toggle_selection(_ghost_asset, false)
 		not_viable_placement_effect.toggle_selection(_ghost_asset, true)
 			
-func _is_viable_ground(_pos:Vector3) -> bool:
-	# TODO: Test slope and make sure ground is available on all points
-	# Also make sure not outside world bounds
+func _is_viable_ground(pos:Vector3) -> bool:
+	# TODO: Would need to combine this with any existing yaw rotation requested by user in the 
 	_spawn_rotation_euler = Vector3.ZERO
+	if not _asset_aabb.has_volume():
+		return true
+	
+	# Move so centered on requested position
+	_asset_aabb.position = pos - _asset_aabb.size * 0.5
+	
+	# Use the bottom points
+	var planar_points:PackedVector3Array = [	
+		_asset_aabb.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_LEFT),
+		_asset_aabb.get_endpoint(Collisions.AABBCorner.FRONT_BOTTOM_RIGHT),
+		_asset_aabb.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_LEFT),
+		_asset_aabb.get_endpoint(Collisions.AABBCorner.BACK_BOTTOM_RIGHT)
+	]
+	
+	# Check the ground offset at the given points
+	for i in planar_points.size():
+		var point:Vector3 = planar_points[i]
+		var grounded_point:Vector3 = ground_picker.project_to_ground(point)
+		if grounded_point == Vector3.INF:
+			return false
+		planar_points[i] = grounded_point
+	
+	var ground_normal := _get_avg_normal(planar_points)
+	
+	var angle_to_up := absf(rad_to_deg(ground_normal.angle_to(Vector3.UP)))
+	if angle_to_up > resource.max_slope_angle_deg:
+		return false
+		
+	_spawn_rotation_euler = _get_alignment_quaternion(_ghost_asset.global_transform, ground_normal).get_euler()
+	
 	return true
+	
+func _get_avg_normal(planar_points:PackedVector3Array) -> Vector3:
+	# Diagonal 1: Front Left to Back Right
+	var diag1 := planar_points[3] - planar_points[0]
+	# Diagonal 2: Front Right to Back Left
+	var diag2 := planar_points[2] - planar_points[1]
+
+	# This cross product averages the 'twist' of the terrain
+	# Make sure it points up
+	var ground_normal := diag2.cross(diag1).normalized()
+	
+	if ground_normal.y < 0:
+		ground_normal = -ground_normal
+		
+	return ground_normal
+	
+static func _get_alignment_quaternion(current_transform: Transform3D, target_normal: Vector3) -> Quaternion:
+	var current_up := current_transform.basis.y
+	# Find the shortest rotation from current UP to ground NORMAL
+	return Quaternion(current_up, target_normal)
 	
 func _find_collision_shape() -> void:
 	var collision_nodes := Collisions.get_collisions_nodes(_ghost_asset)
