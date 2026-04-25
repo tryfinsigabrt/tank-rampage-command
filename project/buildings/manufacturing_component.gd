@@ -9,6 +9,9 @@ signal build_completed(resouce:ConstructionResource, node:Node3D)
 ## just falling back to the original location and trying to spawn despite a detected collision.
 
 @export
+var asset_spawner: AssetSpawner
+
+@export
 var default_spawn_locations:Array[Node3D]
 
 @export
@@ -20,7 +23,6 @@ var supported_types:ManufacturingTypes
 @export_range(0, 1e9, 1, "or_greater")
 var max_queue:int = 5
 
-@onready var unit_spawner: UnitSpawner = %UnitSpawner
 @onready var build_timer: Timer = %BuildTimer
 
 var _indexed_types:Dictionary[ConstructionResource.Type, ConstructionResource]
@@ -67,6 +69,7 @@ func _refund_build_queue() -> void:
 			element.resource.refund_fully(_match_team.resources)
 			
 func _ready() -> void:
+	assert(asset_spawner, "asset_spawner not set!")
 	if supported_types:
 		for construction in supported_types.types:
 			var type := construction.type
@@ -76,9 +79,7 @@ func _ready() -> void:
 	if not default_spawn_locations:
 		assert(false, "%s: default_spawn_locations not set!" % name)
 		default_spawn_locations = [Groups.get_parent_with_type(self, Node3D)]
-	
-	unit_spawner.spawn_location_finder.bounds = spawn_bounds
-	
+		
 	_match_team = Groups.get_parent_with_type(self, MatchTeam)
 	
 	if not _match_team:
@@ -134,25 +135,15 @@ func _do_spawn(resource:ConstructionResource) -> Node3D:
 	
 	await queue_elm.latch
 	
-	# Second time around force the spawn	
-	var unit_name:String = _create_unit_name(resource.type)
+	var asset_name:String = _create_asset_name(resource.type)
 	
-	for i in 2:
-		for spawn_region in default_spawn_locations:
-			var spawn_location:Vector3 = spawn_region.global_position
-			var spawn_dir:Vector3 = -spawn_region.global_basis.z
-			var spawn_dir2:Vector2 = Vector2(spawn_dir.x, spawn_dir.z)
-			unit_spawner.configure_spawn(spawn_bounds, spawn_dir2)
-			var unit := unit_spawner.spawn(resource.team_asset, spawn_location, unit_name, i > 0)
-			if unit:
-				build_completed.emit(resource, unit)
-				return unit
-				
 	# TODO: Canceling?
-	build_completed.emit(resource, null)
-	return null
+	var asset:Node3D = asset_spawner.spawn(resource, asset_name)
+	build_completed.emit(resource, asset)
+	
+	return asset
 
-func _create_unit_name(type: ConstructionResource.Type) -> String:
+func _create_asset_name(type: ConstructionResource.Type) -> String:
 	var cnt:int = _spawn_counts.get(type, 0)
 	_spawn_counts[type] = cnt + 1
 	

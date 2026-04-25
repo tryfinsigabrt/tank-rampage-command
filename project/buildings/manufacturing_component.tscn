@@ -1,25 +1,10 @@
 [gd_scene format=3 uid="uid://ck7rycacmi8bm"]
 
 [ext_resource type="Script" uid="uid://c3vn0m2h5256y" path="res://buildings/manufacturing_component.gd" id="1_p20rb"]
-[ext_resource type="Script" uid="uid://bek2jbfdahqfo" path="res://units/unit_spawner.gd" id="2_spnf3"]
-[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_2qmdl"]
-[ext_resource type="Script" uid="uid://dknm04cwj8vmq" path="res://buildings/spawn_location_finder.gd" id="4_tnq23"]
 
 [node name="ManufacturingComponent" type="Node" unique_id=696475781]
 script = ExtResource("1_p20rb")
 metadata/_custom_type_script = "uid://c3vn0m2h5256y"
-
-[node name="UnitSpawner" type="Node" parent="." unique_id=1871113501 node_paths=PackedStringArray("node_picker", "spawn_location_finder")]
-unique_name_in_owner = true
-script = ExtResource("2_spnf3")
-node_picker = NodePath("NodePicker")
-spawn_location_finder = NodePath("SpawnLocationFinder")
-
-[node name="NodePicker" type="Node3D" parent="UnitSpawner" unique_id=1117338502]
-script = ExtResource("3_2qmdl")
-
-[node name="SpawnLocationFinder" type="Node3D" parent="UnitSpawner" unique_id=1681796248]
-script = ExtResource("4_tnq23")
 
 [node name="BuildTimer" type="Timer" parent="." unique_id=792010527]
 unique_name_in_owner = true

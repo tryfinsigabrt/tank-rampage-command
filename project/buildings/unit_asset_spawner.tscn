@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cyr6us06o3fw2"]
+
+[ext_resource type="Script" uid="uid://e3ddjj60bg8i" path="res://buildings/unit_asset_spawner.gd" id="1_5pj8r"]
+[ext_resource type="Script" uid="uid://bek2jbfdahqfo" path="res://units/unit_spawner.gd" id="2_2lj8c"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_g2abb"]
+[ext_resource type="Script" uid="uid://dknm04cwj8vmq" path="res://buildings/spawn_location_finder.gd" id="4_nnuql"]
+
+[node name="UnitAssetSpawner" type="Node" unique_id=2146488411]
+script = ExtResource("1_5pj8r")
+metadata/_custom_type_script = "uid://e3ddjj60bg8i"
+
+[node name="UnitSpawner" type="Node" parent="." unique_id=1268044381 node_paths=PackedStringArray("node_picker", "spawn_location_finder")]
+unique_name_in_owner = true
+script = ExtResource("2_2lj8c")
+node_picker = NodePath("NodePicker")
+spawn_location_finder = NodePath("SpawnLocationFinder")
+
+[node name="NodePicker" type="Node3D" parent="UnitSpawner" unique_id=1822712089]
+script = ExtResource("3_g2abb")
+
+[node name="SpawnLocationFinder" type="Node3D" parent="UnitSpawner" unique_id=779225288]
+script = ExtResource("4_nnuql")

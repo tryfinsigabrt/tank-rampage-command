@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b788aluto08ag"]
+
+[ext_resource type="Script" uid="uid://dukly0jxbrmyn" path="res://buildings/building_manufacturing.gd" id="1_bvjto"]
+
+[node name="BuildingManufacturing" type="Node" unique_id=397080948]
+script = ExtResource("1_bvjto")
+metadata/_custom_type_script = "uid://dukly0jxbrmyn"

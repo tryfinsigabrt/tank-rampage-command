@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_66u6u"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
+[ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_u5dv5"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
@@ -72,9 +73,12 @@ unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
 
-[node name="ManufacturingComponent" parent="Components" unique_id=878942946 node_paths=PackedStringArray("default_spawn_locations") instance=ExtResource("6_hinyq")]
+[node name="ManufacturingComponent" parent="Components" unique_id=878942946 node_paths=PackedStringArray("asset_spawner", "default_spawn_locations") instance=ExtResource("6_hinyq")]
+asset_spawner = NodePath("UnitAssetSpawner")
 default_spawn_locations = [NodePath("../../BuildLocation")]
 supported_types = ExtResource("7_jfsyt")
+
+[node name="UnitAssetSpawner" parent="Components/ManufacturingComponent" unique_id=2146488411 instance=ExtResource("9_u5dv5")]
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1933568097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)

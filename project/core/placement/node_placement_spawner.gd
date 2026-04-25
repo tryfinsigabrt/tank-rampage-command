@@ -1,7 +1,7 @@
 class_name NodePlacementSpawner extends Node3D
 
 @export
-var resource:NodePlacementResource
+var resource:NodePlacementSpawnerResource
 
 @export
 var match_team:MatchTeam
@@ -71,8 +71,13 @@ func deactivate() -> void:
 	_can_spawn = false
 	
 func move_to(pos:Vector3) -> void:
-	position = pos
-	_update_eligibility()
+	# Initially translate ghost in xz plane
+	var curr_ghost := _ghost_asset.global_position
+	curr_ghost.x = pos.x
+	curr_ghost.z = pos.z
+	_ghost_asset.global_position = curr_ghost
+	
+	_update_eligibility(pos)
 	
 func spawn(asset_name:StringName="") -> Node3D:
 	if not _can_spawn:
@@ -81,10 +86,21 @@ func spawn(asset_name:StringName="") -> Node3D:
 	var asset:Node3D = resource.to_spawn.instantiate()
 	if asset_name:
 		asset.name = asset_name
+	place(asset)
+	return asset
+
+##Instead of spawning, attempts to place the given asset
+func place(asset:StaticBody3D) -> bool:
+	if not _can_spawn:
+		return false
 		
 	asset.global_rotation_degrees = _spawn_rotation_euler
 	asset.global_position = _spawn_position
 	
+	var existing_parent:Node = asset.get_parent()
+	if existing_parent:
+		existing_parent.remove_child(asset)
+			
 	if match_team:
 		var team_assigned:bool = false
 		if "team" in asset:
@@ -99,13 +115,15 @@ func spawn(asset_name:StringName="") -> Node3D:
 		asset_container.add_child(asset)
 		
 	deactivate()
-	return asset
-
-func _update_eligibility() -> void:
-	var ground_position:Vector3 = ground_picker.project_to_ground(position)
+	return true
+	
+func _update_eligibility(pos:Vector3) -> void:
+	var ground_position:Vector3 = ground_picker.project_to_ground(pos)
 	if ground_position == Vector3.INF:
 		_can_spawn = false
 		return
+	# Move ghost to be above the current ground position
+	_ghost_asset.global_position.y = ground_position.y + above_ground_height
 		
 	_can_spawn = _test_position_for_collisions(ground_position)
 	if not _can_spawn:
@@ -117,7 +135,7 @@ func _update_eligibility() -> void:
 		
 	_spawn_position = ground_position
 
-func _is_viable_ground(pos:Vector3) -> bool:
+func _is_viable_ground(_pos:Vector3) -> bool:
 	# TODO: Test slope and make sure ground is available on all points
 	# Also make sure not outside world bounds
 	_spawn_rotation_euler = Vector3.ZERO
