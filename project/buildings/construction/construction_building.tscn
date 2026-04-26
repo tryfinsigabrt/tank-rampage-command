@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bhqvo02xg14ia"]
+
+[ext_resource type="Script" uid="uid://fth5w0cd60of" path="res://buildings/construction/construction_building.gd" id="1_72ynn"]
+[ext_resource type="PackedScene" uid="uid://vcmg5a8ggm00" path="res://buildings/construction/build_progress_bar.tscn" id="2_3ndg4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jrsao"]
+render_priority = 127
+transparency = 1
+albedo_color = Color(0.63100004, 1, 0.45999998, 0.5882353)
+
+[node name="ConstructionBuilding" type="Node3D" unique_id=863073583]
+script = ExtResource("1_72ynn")
+material = SubResource("StandardMaterial3D_jrsao")
+
+[node name="BuildTimer" type="Timer" parent="." unique_id=490739878]
+one_shot = true
+
+[node name="ProgressBarTimer" type="Timer" parent="." unique_id=1561761212]
+wait_time = 0.2
+
+[node name="BuildProgressBar" parent="." unique_id=1520694492 instance=ExtResource("2_3ndg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[connection signal="timeout" from="BuildTimer" to="." method="_building_complete"]
+[connection signal="timeout" from="ProgressBarTimer" to="." method="_update_progress"]

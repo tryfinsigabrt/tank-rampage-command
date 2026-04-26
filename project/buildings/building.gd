@@ -20,6 +20,12 @@ var attributes:TeamAssetAttributes
 var bounds_type: Bounds.Type = Bounds.Type.AABB
 
 @export
+var visual_root:Node3D
+
+@export
+var ui_root:Node3D
+
+@export
 var team:int:
 	set(value):
 		team = value
@@ -39,9 +45,10 @@ func _ready() -> void:
 
 #region Abstract/Hook methods
 
-@abstract
-func _do_update_render(in_visible:bool) -> void
-
+func _do_update_render(in_visible:bool) -> void:
+	visual_root.visible = in_visible
+	ui_root.visible = in_visible
+	
 #endregion
 
 ## Gets an AABB representing the bounds of the structure in local space
@@ -63,3 +70,4 @@ func _update_render(in_visible: bool) -> void:
 		_changed_to_visible = true
 		
 	_do_update_render(in_visible)
+	

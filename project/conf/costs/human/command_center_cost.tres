@@ -2,6 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://dt4byhu2g71qa" path="res://buildings/command_center/command_center_attributes.tres" id="1_c0cge"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_om3vm"]
+[ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_4sx7e"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="2_ccxxr"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="2_om3vm"]
 
@@ -19,4 +20,5 @@ cost = 1000
 time = 60.0
 attributes = ExtResource("1_c0cge")
 placement_spawner_resource = SubResource("Resource_4sx7e")
+construction_scene = ExtResource("2_4sx7e")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

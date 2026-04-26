@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://vcmg5a8ggm00"]
+
+[ext_resource type="Script" uid="uid://gbm671hd80d8" path="res://buildings/construction/build_progress_bar.gd" id="1_u4lrk"]
+[ext_resource type="Shader" uid="uid://cbru204mqb4dl" path="res://units/ui/health_bar.gdshader" id="1_yncx7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4lrk"]
+render_priority = 0
+shader = ExtResource("1_yncx7")
+shader_parameter/health_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0.3499999, 1, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bn6ya"]
+size = Vector2(500, 25)
+
+[node name="BuildProgressBar" type="Node3D" unique_id=1520694492]
+script = ExtResource("1_u4lrk")
+
+[node name="Sprite" type="Sprite3D" parent="." unique_id=2127957142]
+material_override = SubResource("ShaderMaterial_u4lrk")
+cast_shadow = 0
+billboard = 2
+transparent = false
+texture = SubResource("PlaceholderTexture2D_bn6ya")

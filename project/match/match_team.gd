@@ -76,6 +76,20 @@ func _ready() -> void:
 	match_team_ready.emit()
 	is_match_ready = true
 
+func assign_to_team(asset:Node3D) -> bool:
+	var team_assigned:bool = false
+	if "team" in asset:
+		asset.team = team
+		team_assigned = true
+	add_child(asset)
+	if not team_assigned:
+		var team_component:TeamComponent = TeamComponent.get_component(asset, false)
+		if team_component:
+			team_component.team = team
+			team_assigned = true
+	
+	return team_assigned
+	
 func _add_unit(unit:Unit) -> void:
 	unit.team = team
 	HealthStat.connect_died_signal(unit, _on_unit_destroyed.bind(unit))

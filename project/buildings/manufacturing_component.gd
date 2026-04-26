@@ -29,6 +29,9 @@ var _indexed_types:Dictionary[ConstructionResource.Type, ConstructionResource]
 var _spawn_counts:Dictionary[ConstructionResource.Type,int]
 var _match_team:MatchTeam
 
+## Toggle activation - only affects new builds - used for a building that is "under construction"
+var active:bool = true
+
 class BuildQueueElement:
 	var latch:Signal
 	var resource:ConstructionResource
@@ -89,6 +92,9 @@ func get_build_metadata(type: ConstructionResource.Type) -> ConstructionResource
 	return _indexed_types.get(type)
 	
 func can_build(type: ConstructionResource.Type) -> bool:
+	if not active:
+		return false
+		
 	var resource: ConstructionResource = _indexed_types.get(type)
 	if not resource:
 		return false
@@ -100,6 +106,9 @@ func can_build(type: ConstructionResource.Type) -> bool:
 	return resource.can_build(_match_team.resources)
 	
 func build(type: ConstructionResource.Type) -> Node3D:
+	if not can_build(type):
+		return null
+		
 	var resource:ConstructionResource = _indexed_types.get(type)
 	if not resource:
 		push_warning("%s: Type=%s cannot be built by this component!" % [name, type])

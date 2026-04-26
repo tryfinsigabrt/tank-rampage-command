@@ -61,6 +61,17 @@ func create(type: ConstructionResource.Type) -> NodePlacementSpawner:
 		if resources:
 			resource.spend_personnel_only(resources)
 		resource.assign_to(asset)
+		
+		var construction_scene:PackedScene = resource.construction_scene
+		if construction_scene:
+			var construction_node := construction_scene.instantiate()
+			# TODO: Refactor ConstructionBuilding to a component
+			var construction_building: ConstructionBuilding = Groups.get_child_with_type(construction_node, ConstructionBuilding)
+			if construction_building:
+				construction_building.resource = resource
+			
+			asset.add_child(construction_node)
+			
 		spawn_count[0] += 1
 	)
 	

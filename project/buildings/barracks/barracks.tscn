@@ -14,7 +14,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(10, 4, 10)
 
-[node name="Barracks" type="StaticBody3D" unique_id=404914555 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component") groups=["Building", "Interactable", "TeamAsset"]]
+[node name="Barracks" type="StaticBody3D" unique_id=404914555 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component", "visual_root", "ui_root") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_cjl84")
@@ -22,6 +22,8 @@ health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")
 manufacturing_component = NodePath("Components/ManufacturingComponent")
 attributes = ExtResource("2_daxdf")
+visual_root = NodePath("VisualRoot")
+ui_root = NodePath("UI")
 metadata/_custom_type_script = "uid://bo5e5h0c35be3"
 
 [node name="Stats" type="Node" parent="." unique_id=1200901811]
@@ -66,8 +68,7 @@ asset_spawner = NodePath("UnitAssetSpawner")
 default_spawn_locations = [NodePath("../../BuildLocation")]
 supported_types = ExtResource("6_niq1p")
 
-[node name="UnitAssetSpawner" parent="Components/ManufacturingComponent" unique_id=2146488411 node_paths=PackedStringArray("manufacturing_component") instance=ExtResource("9_q7pe4")]
-manufacturing_component = NodePath("..")
+[node name="UnitAssetSpawner" parent="Components/ManufacturingComponent" unique_id=2146488411 instance=ExtResource("9_q7pe4")]
 
 [node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("3_daxdf")]
 unique_name_in_owner = true

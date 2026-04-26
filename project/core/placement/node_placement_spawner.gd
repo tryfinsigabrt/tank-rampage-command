@@ -114,15 +114,7 @@ func place(asset:StaticBody3D) -> bool:
 		existing_parent.remove_child(asset)
 			
 	if match_team:
-		var team_assigned:bool = false
-		if "team" in asset:
-			asset.team = match_team.team
-			team_assigned = true
-		match_team.add_child(asset)
-		if not team_assigned:
-			var team_component:TeamComponent = TeamComponent.get_component(asset, false)
-			if team_component:
-				team_component.team = match_team.team
+		match_team.assign_to_team(asset)
 	else:
 		asset_container.add_child(asset)
 	

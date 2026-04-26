@@ -112,30 +112,41 @@ func get_aabb_from_collision(collision:Node) -> AABB:
 	
 	if collision_shape and collision_shape.shape:
 		var shape:Shape3D = collision_shape.shape
-		if shape is BoxShape3D:
-			bounds = bounds.expand(shape.size)
-			bounds = bounds.expand(-shape.size)
-		elif shape is SphereShape3D:
-			bounds = bounds.expand(Vector3.ONE * shape.radius)
-			bounds = bounds.expand(-Vector3.ONE * shape.radius)
-		elif shape is CapsuleShape3D:
-			var extent:Vector3 = Vector3(shape.radius, shape.height, shape.radius) * 0.5
-			bounds = bounds.expand(extent)
-			bounds = bounds.expand(-extent)
-		else:
-			push_warning("%s: Unsupported shape %s" % [name, collision_shape])
+		bounds = get_aabb_from_shape(shape)
 		bounds = collision_shape.transform * bounds
 		
 	elif not collision_shape:
 		var collision_poly:CollisionPolygon3D = collision as CollisionPolygon3D
 		if collision_poly:
-			var points:PackedVector2Array = collision_poly.polygon
-			for point in points:
-				var point_3d:Vector3 = Vector3(point.x, collision_poly.depth, point.y)
-				bounds = bounds.expand(point_3d)
-			bounds = collision_poly.transform * bounds
+			bounds = get_aabb_from_colision_polygon(collision_poly)
 	return bounds
 
+func get_aabb_from_shape(shape:Shape3D) -> AABB:
+	var bounds:AABB
+	if shape is BoxShape3D:
+		bounds = bounds.expand(shape.size)
+		bounds = bounds.expand(-shape.size)
+	elif shape is SphereShape3D:
+		bounds = bounds.expand(Vector3.ONE * shape.radius)
+		bounds = bounds.expand(-Vector3.ONE * shape.radius)
+	elif shape is CapsuleShape3D:
+		var extent:Vector3 = Vector3(shape.radius, shape.height, shape.radius) * 0.5
+		bounds = bounds.expand(extent)
+		bounds = bounds.expand(-extent)
+	else:
+		push_warning("%s: Unsupported shape %s" % [name, shape])
+		
+	return bounds
+	
+func get_aabb_from_colision_polygon(collision_poly: CollisionPolygon3D) -> AABB:
+	var points:PackedVector2Array = collision_poly.polygon
+	var bounds:AABB
+	for point in points:
+		var point_3d:Vector3 = Vector3(point.x, collision_poly.depth, point.y)
+		bounds = bounds.expand(point_3d)
+	bounds = collision_poly.transform * bounds
+	return bounds
+	
 ## Controls how the calculation is done for AABB
 enum AABBCalculationType
 {

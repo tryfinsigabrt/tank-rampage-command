@@ -58,6 +58,9 @@ var attributes:TeamAssetAttributes
 @export
 var placement_spawner_resource:NodePlacementSpawnerResource
 
+@export
+var construction_scene:PackedScene
+
 var classification:Classification:
 	get:
 		match type:
