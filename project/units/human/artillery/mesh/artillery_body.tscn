@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://e1qrmcca65mr"]
+
+[ext_resource type="PackedScene" uid="uid://bchbk33mcc426" path="res://units/human/artillery/mesh/artillery_body.glb" id="1_5tslx"]
+[ext_resource type="Material" uid="uid://5r7o71ik1i3p" path="res://units/human/artillery/ArtilleryUnitMaterialBase.tres" id="2_5tslx"]
+[ext_resource type="Material" uid="uid://via4hw8ls0bl" path="res://units/human/artillery/ArtilleryUnitMaterialDark.tres" id="2_k2d2x"]
+[ext_resource type="Material" uid="uid://bu1se6fo8n113" path="res://units/human/artillery/ArtilleryUnitMaterialLight.tres" id="4_hvgai"]
+
+[node name="artillery_body" unique_id=832701472 instance=ExtResource("1_5tslx")]
+
+[node name="FrontArmour" parent="." index="0" unique_id=1017633795]
+surface_material_override/0 = ExtResource("2_5tslx")
+
+[node name="TopStorage" parent="." index="1" unique_id=1181951891]
+surface_material_override/0 = ExtResource("2_5tslx")
+
+[node name="TreadCover" parent="." index="2" unique_id=895933813]
+surface_material_override/0 = ExtResource("2_5tslx")
+
+[node name="TreadsOutside" parent="." index="3" unique_id=1235880440]
+surface_material_override/0 = ExtResource("2_k2d2x")
+
+[node name="Wheel" parent="." index="4" unique_id=1865249026]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__10_" parent="." index="5" unique_id=1417851096]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__1_" parent="." index="6" unique_id=628682417]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__2_" parent="." index="7" unique_id=212813908]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__3_" parent="." index="8" unique_id=1169088478]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__4_" parent="." index="9" unique_id=1179315213]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__5_" parent="." index="10" unique_id=1120371473]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__6_" parent="." index="11" unique_id=630215048]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__7_" parent="." index="12" unique_id=1657819477]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__8_" parent="." index="13" unique_id=850501300]
+surface_material_override/0 = ExtResource("4_hvgai")
+
+[node name="Wheel__9_" parent="." index="14" unique_id=1689422705]
+surface_material_override/0 = ExtResource("4_hvgai")

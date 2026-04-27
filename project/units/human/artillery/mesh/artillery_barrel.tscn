@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cfyr3dyfblnea"]
+
+[ext_resource type="PackedScene" uid="uid://4cd4h3chncay" path="res://units/human/artillery/mesh/artillery_barrel.glb" id="1_ktwgn"]
+[ext_resource type="Material" uid="uid://bu1se6fo8n113" path="res://units/human/artillery/ArtilleryUnitMaterialLight.tres" id="2_68vbq"]
+[ext_resource type="Material" uid="uid://5r7o71ik1i3p" path="res://units/human/artillery/ArtilleryUnitMaterialBase.tres" id="3_kc12r"]
+
+[node name="artillery_barrel" unique_id=1296765349 instance=ExtResource("1_ktwgn")]
+
+[node name="BarrelBase" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="0" unique_id=1320233590]
+surface_material_override/0 = ExtResource("2_68vbq")
+
+[node name="BarrelBody" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="1" unique_id=955531907]
+surface_material_override/0 = ExtResource("3_kc12r")
+
+[node name="BarrelEnd" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="2" unique_id=827074121]
+surface_material_override/0 = ExtResource("2_68vbq")

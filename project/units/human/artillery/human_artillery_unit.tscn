@@ -2,30 +2,17 @@
 
 [ext_resource type="Script" uid="uid://dh3bjijh1ah1k" path="res://units/human/artillery/human_artillery_unit.gd" id="1_trmn4"]
 [ext_resource type="Curve" uid="uid://cvg2hrk6qr7st" path="res://units/human/artillery/rotation_angle_v_distance.tres" id="2_jjc22"]
-[ext_resource type="Material" uid="uid://c3oa68bd41fvs" path="res://units/human/artillery/body_material.tres" id="2_pf3cn"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="2_y2wif"]
-[ext_resource type="PackedScene" uid="uid://ddgct30jgqcly" path="res://units/human/artillery/artillery_unit_mesh.tscn" id="3_3sucs"]
-[ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="3_85mja"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_gicbj"]
 [ext_resource type="Resource" uid="uid://c5r1ij6toia2e" path="res://units/human/artillery/artillery_attributes.tres" id="3_v88ec"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_pf3cn"]
 [ext_resource type="Curve" uid="uid://1mpejxlhr1yc" path="res://units/human/artillery/fire_time_v_dist.tres" id="6_uf7ra"]
 [ext_resource type="Curve" uid="uid://dty847jrkxj8w" path="res://units/human/artillery/radius_v_distance.tres" id="7_jjc22"]
+[ext_resource type="PackedScene" uid="uid://f4ka8qxu2x53" path="res://units/human/artillery/mesh/artillery_turret.tscn" id="7_r54cm"]
 [ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="7_uf7ra"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="8_1vsbj"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_y2wif"]
-size = Vector3(2.8, 1, 6.5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gicbj"]
-size = Vector3(1.5, 1.5, 2.5)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_y2wif"]
-top_radius = 0.195
-bottom_radius = 0.195
-height = 2.5
-radial_segments = 16
-rings = 1
+[ext_resource type="PackedScene" uid="uid://e1qrmcca65mr" path="res://units/human/artillery/mesh/artillery_body.tscn" id="8_a7cds"]
+[ext_resource type="PackedScene" uid="uid://cfyr3dyfblnea" path="res://units/human/artillery/mesh/artillery_barrel.tscn" id="8_pxuev"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -37,7 +24,7 @@ collision_mask = 1215
 script = ExtResource("1_trmn4")
 rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
 turret_rotation_node = NodePath("VisualRoot/TurretPivot")
-barrel_pitch_node = NodePath("VisualRoot/TurretPivot")
+barrel_pitch_node = NodePath("VisualRoot/TurretPivot/Turret/BarrelPivotNode")
 movement_speed = 5.0
 unit_class = 2
 attributes = ExtResource("3_v88ec")
@@ -45,34 +32,27 @@ metadata/_custom_type_script = "uid://dh3bjijh1ah1k"
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=826194630]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.50287104, 0)
-
-[node name="ArtilleryUnitMesh" parent="VisualRoot" unique_id=1589237280 instance=ExtResource("3_3sucs")]
-transform = Transform3D(0, 0, -8, 0, 8, 0, 8, 0, 0, 1.6, -0.50287104, 0)
-visible = false
-
-[node name="Body" type="MeshInstance3D" parent="VisualRoot" unique_id=833796819]
-material_override = ExtResource("2_pf3cn")
-mesh = SubResource("BoxMesh_y2wif")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50287104, 0)
 
 [node name="TurretPivot" type="Marker3D" parent="VisualRoot" unique_id=1543570858]
-transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0, -1.3484317)
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, -1.4861871e-07, 2.8999996, 1.4515679)
 gizmo_extents = 1.0
 
-[node name="Turret" type="MeshInstance3D" parent="VisualRoot/TurretPivot" unique_id=480676280]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7562999, 1.2554424)
-material_override = ExtResource("2_pf3cn")
-mesh = SubResource("BoxMesh_gicbj")
-skeleton = NodePath("../..")
+[node name="Turret" parent="VisualRoot/TurretPivot" unique_id=1112570591 instance=ExtResource("7_r54cm")]
+transform = Transform3D(-7.999999, 0, -6.9938216e-07, 0, 7.9999995, 0, 6.9938216e-07, 0, -7.999999, -0.04351709, -2.9004376, -0.7729691)
 
-[node name="Barrel" type="MeshInstance3D" parent="VisualRoot/TurretPivot/Turret" unique_id=1927654748]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.23499513, 2.5143373)
-material_override = ExtResource("3_85mja")
-mesh = SubResource("CylinderMesh_y2wif")
+[node name="BarrelPivotNode" type="Marker3D" parent="VisualRoot/TurretPivot/Turret" unique_id=989786672]
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 1, 0, -7.1054274e-15, 0, 1, -3.4201227e-15, 0.2939507, -0.23133948)
 
-[node name="FireOrigin" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/Barrel" unique_id=1775582211]
+[node name="Barrel" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode" unique_id=1296765349 instance=ExtResource("8_pxuev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1086245e-15, -0.23797213, 0.34721738)
+
+[node name="FireOrigin" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel" unique_id=1775582211]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.3200483, 0.000829339)
+transform = Transform3D(-0.12500001, 0, -1.0927847e-08, 0, 0.125, 0, 1.0927848e-08, 0, -0.125, -0.014263812, 0.87683225, 0.40354744)
+
+[node name="ArtilleryBody" parent="VisualRoot" unique_id=832701472 instance=ExtResource("8_a7cds")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=302611610]
 unique_name_in_owner = true
@@ -109,7 +89,6 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 top_level = true
 
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("4_pf3cn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1455461980]
@@ -125,7 +104,7 @@ gizmo_extents = 2.62
 [node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
-shoot_vfx_origin_path = NodePath("%FireOrigin")
+shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
 min_distance = 200.0
 max_distance_range = Vector2(800, 1000)
 cooldown_time_range = Vector2(5, 6)
@@ -135,7 +114,7 @@ max_spread_angle = 16.0
 friendly_fire = true
 allow_source_damage = true
 type = 2
-launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/Barrel/FireOrigin")
+launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
 target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
 
