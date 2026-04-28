@@ -110,7 +110,6 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var target_rotation_euler:Vector3 = target_transform.basis.get_euler()
 	var target_yaw:float = target_rotation_euler.y
 	var yaw_diff:float = angle_difference(current_yaw, target_yaw)
-	var final_yaw := current_yaw + yaw_diff
 	var yaw_diff_mag:float = absf(yaw_diff)
 	var change_yaw:bool =  yaw_diff_mag >= 0.01
 	
@@ -136,16 +135,13 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	# First rotate yaw if it needs to change and then pitch
 	if change_yaw:
 		var yaw_duration: float = yaw_diff_mag / deg_to_rad(aim_turning_speed_degrees)
-		#var target_yaw_rotation_euler:Vector3 = Vector3(current_rotation.x, final_yaw, current_rotation.z)
-		#tween.tween_property(turret_rotation_node, "global_rotation", target_yaw_rotation_euler, yaw_duration)
-		var start_yaw: float = current_yaw
-		var end_yaw: float = current_yaw + yaw_diff
-		
+		var final_yaw := current_yaw + yaw_diff
+
 		# Using tween method as lerp_angle is more resilient to wrap around problems than tweening the euler rotation
 		# since we only modify yaw here
 		tween.tween_method(
 			func(weight: float) -> void:
-				var yaw := lerp_angle(start_yaw, end_yaw, weight)
+				var yaw := lerp_angle(current_yaw, final_yaw, weight)
 				var new_rotation := turret_rotation_node.global_rotation
 				new_rotation.y = yaw
 				turret_rotation_node.global_rotation = new_rotation,
@@ -153,29 +149,23 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 			1.0,
 			yaw_duration
 		)
+		
 	if change_pitch:
-		# Convert desired local pitch to a full global euler target.
-		# global_basis = parent_global_basis * local_basis, so:
-		# global_euler = (parent_basis * Basis.from_euler(desired_local)).get_euler()
-		var parent_basis: Basis = barrel_pitch_node.get_parent().global_transform.basis
-		
-		# Determine the barrel's local rotation state after the yaw tween completes
-		var post_yaw_local:Vector3
-		if barrel_pitch_node == turret_rotation_node and change_yaw:
-			# Yaw tween will set global_rotation to (current_x, target_yaw, current_z).
-			# Reverse that into local space to get the post-yaw local euler.
-			var post_yaw_global_basis := Basis.from_euler(
-				Vector3(current_rotation.x, final_yaw, current_rotation.z))
-			post_yaw_local = (parent_basis.inverse() * post_yaw_global_basis).get_euler()
-		else:
-			post_yaw_local = barrel_pitch_node.rotation
-		
-		# Replace only the pitch component, then convert back to global
-		var desired_local := Vector3(target_pitch_angle, post_yaw_local.y, post_yaw_local.z)
-		var target_pitch_rotation_euler:Vector3 = (parent_basis * Basis.from_euler(desired_local)).get_euler()
 		var pitch_duration: float = pitch_angle_delta_mag / deg_to_rad(aiming_speed_degrees)
-		
-		tween.tween_property(barrel_pitch_node, "global_rotation", target_pitch_rotation_euler, pitch_duration)
+		var end_pitch:float = current_pitch_angle + pitch_angle_delta
+
+		# Using tween method as lerp_angle is more resilient to wrap around problems than tweening the euler rotation
+		# since we only modify pitch here
+		tween.tween_method(
+			func(weight: float) -> void:
+				var pitch := lerp_angle(current_pitch_angle, end_pitch, weight)
+				var new_rotation := barrel_pitch_node.rotation
+				new_rotation.x = pitch
+				barrel_pitch_node.rotation = new_rotation,
+			0.0,
+			1.0,
+			pitch_duration
+		)
 	
 	_aim_at_tween = tween
 	
