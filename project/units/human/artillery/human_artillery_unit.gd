@@ -113,8 +113,8 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var yaw_diff_mag:float = absf(yaw_diff)
 	var change_yaw:bool =  yaw_diff_mag >= 0.01
 	
-	print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f" % \
-	 [name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw))])
+	#print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f" % \
+	 #[name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw))])
 	# Calculate duration (Time = Angular Distance / Speed)
 	if not change_pitch and not change_yaw:
 		return 
