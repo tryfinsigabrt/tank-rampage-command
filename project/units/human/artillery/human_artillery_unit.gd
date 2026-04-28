@@ -13,6 +13,10 @@ var aim_turning_speed_degrees: float = 90.0
 @export
 var rotation_angle_v_distance_fraction:Curve
 
+## Set to true if mesh +Z faces the target instead of -Z
+@export
+var use_model_front:bool = false
+
 @onready var collision: CollisionShape3D = %Collision
 @onready var visual_root: Node3D = %VisualRoot
 @onready var health_stat: HealthStat = %HealthStat
@@ -90,7 +94,8 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 
 	# Pitch
 	var current_pitch_rotation:Vector3 = barrel_pitch_node.rotation
-	var pitch_angle_delta:float = angle_difference(current_pitch_rotation.x, target_pitch_angle)
+	var current_pitch_angle:float = current_pitch_rotation.x
+	var pitch_angle_delta:float = angle_difference(current_pitch_angle, target_pitch_angle)
 	var pitch_angle_delta_mag:float = absf(pitch_angle_delta)
 	var change_pitch:bool = pitch_angle_delta_mag >= 0.01
 	
@@ -101,7 +106,7 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	# use_model_front=true orients +Z toward the target instead of -Z,
 	# which is needed because the VisualRoot 180° Y flip makes the barrel's
 	# forward direction map to +Z in TurretPivot's local frame.
-	var target_transform: Transform3D = turret_rotation_transform.looking_at(world_location, Vector3.UP, true)
+	var target_transform: Transform3D = turret_rotation_transform.looking_at(world_location, Vector3.UP, use_model_front)
 	var target_rotation_euler:Vector3 = target_transform.basis.get_euler()
 	var target_yaw:float = target_rotation_euler.y
 	var yaw_diff:float = angle_difference(current_yaw, target_yaw)
@@ -109,6 +114,8 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var yaw_diff_mag:float = absf(yaw_diff)
 	var change_yaw:bool =  yaw_diff_mag >= 0.01
 	
+	print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f" % \
+	 [name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw))])
 	# Calculate duration (Time = Angular Distance / Speed)
 	if not change_pitch and not change_yaw:
 		return 
@@ -241,7 +248,8 @@ func _get_fire_alignment_basis() -> Basis:
 	# Recompute up so the basis is orthonormal
 	var fire_up := fire_right.cross(fire_forward).normalized()
 
-	return Basis(fire_right, fire_up, -fire_forward)
+	var basis_forward:Vector3 = fire_forward if not use_model_front else -fire_forward
+	return Basis(fire_right, fire_up, basis_forward)
 
 func get_fire_global_forward() -> Vector3:
 	return -_get_fire_alignment_basis().z
