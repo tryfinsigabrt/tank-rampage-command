@@ -23,6 +23,9 @@ var rotation_angle_v_distance_fraction:Curve
 @export
 var use_model_front:bool = false
 
+@export
+var move_aim_reset_delay_seconds:float = 60.0
+
 @onready var collision: CollisionShape3D = %Collision
 @onready var visual_root: Node3D = %VisualRoot
 @onready var health_stat: HealthStat = %HealthStat
@@ -45,6 +48,7 @@ var _delta_aim_threshold_rads:float
 var _aim_at_tween:Tween
 var _yaw_reset_tween:Tween
 var _rotate_aim_tween:Tween
+var _last_aim_request_time:float = 0
 
 func _ready() -> void:
 	super._ready()
@@ -93,6 +97,8 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	move_and_slide()
 
 func aim_at(world_location:Vector3) -> void:
+	_last_aim_request_time = GameManager.game_timer.time_seconds
+
 	# Avoid jitter
 	var pos:Vector3 = global_position
 	if world_location.distance_squared_to(_last_aim_target) < pos_dist_sq_reaim_threshold and \
@@ -123,21 +129,23 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var change_pitch:bool = pitch_angle_delta_mag >= _delta_aim_threshold_rads
 	
 	#Yaw
-	var turret_rotation_transform:Transform3D = turret_rotation_node.global_transform
-	var current_rotation:Vector3 = turret_rotation_transform.basis.get_euler()
-	var current_yaw:float = current_rotation.y
-	# use_model_front=true orients +Z toward the target instead of -Z,
-	# which is needed because the VisualRoot 180° Y flip makes the barrel's
-	# forward direction map to +Z in TurretPivot's local frame.
-	var target_transform: Transform3D = turret_rotation_transform.looking_at(world_location, Vector3.UP, use_model_front)
-	var target_rotation_euler:Vector3 = target_transform.basis.get_euler()
-	var target_yaw:float = target_rotation_euler.y
-	var yaw_diff:float = angle_difference(current_yaw, target_yaw)
-	var yaw_diff_mag:float = absf(yaw_diff)
-	var change_yaw:bool =  yaw_diff_mag >= _delta_aim_threshold_rads
+	var turret_parent := turret_rotation_node.get_parent() as Node3D
+	var current_yaw:float = turret_rotation_node.rotation.y
+	var target_yaw:float = current_yaw
+	var yaw_diff:float = 0.0
+	var yaw_diff_mag:float = 0.0
+	var change_yaw:bool = false
+	var to_target_local:Vector3 = turret_parent.to_local(world_location) - turret_rotation_node.position
+	to_target_local.y = 0.0
+	if not to_target_local.is_zero_approx():
+		var forward_local:Vector3 = Vector3.BACK if use_model_front else Vector3.FORWARD
+		target_yaw = forward_local.signed_angle_to(to_target_local.normalized(), Vector3.UP)
+		yaw_diff = angle_difference(current_yaw, target_yaw)
+		yaw_diff_mag = absf(yaw_diff)
+		change_yaw = yaw_diff_mag >= _delta_aim_threshold_rads
 	
-	print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f - Pos=%s - Target=%s" % \
-	 [name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw)), global_position, world_location])
+	#print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f - Pos=%s - Target=%s" % \
+	# [name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw)), global_position, world_location])
 	
 	# Calculate duration (Time = Angular Distance / Speed)
 	if not change_pitch and not change_yaw:
@@ -159,16 +167,16 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	# First rotate yaw if it needs to change and then pitch
 	if change_yaw:
 		var yaw_duration: float = yaw_diff_mag / deg_to_rad(aim_turning_speed_degrees)
-		var final_yaw := current_yaw + yaw_diff
+		var final_yaw := target_yaw
 
 		# Using tween method as lerp_angle is more resilient to wrap around problems than tweening the euler rotation
 		# since we only modify yaw here
 		tween.tween_method(
 			func(weight: float) -> void:
 				var yaw := lerp_angle(current_yaw, final_yaw, weight)
-				var new_rotation := turret_rotation_node.global_rotation
+				var new_rotation := turret_rotation_node.rotation
 				new_rotation.y = yaw
-				turret_rotation_node.global_rotation = new_rotation,
+				turret_rotation_node.rotation = new_rotation,
 			0.0,
 			1.0,
 			yaw_duration
@@ -221,6 +229,9 @@ func _rotate_body_at(world_location:Vector3) -> void:
 	_rotate_aim_tween = tween
 	
 func _reset_turret_yaw() -> void:
+	if _is_recently_aiming():
+		return
+
 	# Already resetting the yaw, let it finish
 	if is_instance_valid(_yaw_reset_tween) and _yaw_reset_tween.is_running():
 		return
@@ -244,6 +255,9 @@ func _reset_turret_yaw() -> void:
 	var target_rotation: Vector3 = Vector3(current_rotation.x, 0.0, current_rotation.z)
 	tween.tween_property(turret_rotation_node, "rotation", target_rotation, duration)
 	_yaw_reset_tween = tween
+
+func _is_recently_aiming() -> bool:
+	return GameManager.game_timer.time_seconds - _last_aim_request_time <= move_aim_reset_delay_seconds
 		
 func shoot() -> void:
 	await _weapon.fire()
