@@ -38,6 +38,7 @@ turbulence_noise_strength = 0.05
 turbulence_noise_scale = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rjfi"]
+render_priority = 127
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(4.8687005, 1.7390554, 0.3004432, 1)
@@ -93,6 +94,7 @@ color = Color(1, 1, 1, 0.11372549)
 color_ramp = SubResource("GradientTexture1D_ylk6w")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28ymd"]
+render_priority = 127
 transparency = 1
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("3_ylk6w")
