@@ -12,6 +12,9 @@ var aim_turning_speed_degrees: float = 90.0
 @export
 var delta_aim_threshold_degrees:float = 1.0
 
+@export
+var pos_dist_sq_reaim_threshold:float = 1.0
+
 ## Rotation angle to put on turret vs the max firing distance fraction
 @export
 var rotation_angle_v_distance_fraction:Curve
@@ -34,6 +37,9 @@ var turret_rotation_node:Node3D
 
 @export
 var barrel_pitch_node:Node3D
+
+var _last_aim_target:Vector3 = Vector3.INF
+var _last_aim_pos:Vector3 = Vector3.INF
 
 var _delta_aim_threshold_rads:float
 var _aim_at_tween:Tween
@@ -87,10 +93,18 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	move_and_slide()
 
 func aim_at(world_location:Vector3) -> void:
+	# Avoid jitter
+	var pos:Vector3 = global_position
+	if world_location.distance_squared_to(_last_aim_target) < pos_dist_sq_reaim_threshold and \
+		pos.distance_squared_to(_last_aim_pos) < pos_dist_sq_reaim_threshold:
+			return
+	
+	_last_aim_target = world_location
+	_last_aim_pos = pos
+	
 	weapon.fire_target = world_location
 	
 	_rotate_gun_at(world_location)
-	#_rotate_body_at(world_location)
 
 func _rotate_gun_at(world_location:Vector3) -> void:
 	# Aim degrees based on distance fraction of maximum for aiming
@@ -122,8 +136,9 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var yaw_diff_mag:float = absf(yaw_diff)
 	var change_yaw:bool =  yaw_diff_mag >= _delta_aim_threshold_rads
 	
-	#print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f" % \
-	 #[name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw))])
+	print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f - Pos=%s - Target=%s" % \
+	 [name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw)), global_position, world_location])
+	
 	# Calculate duration (Time = Angular Distance / Speed)
 	if not change_pitch and not change_yaw:
 		return 
