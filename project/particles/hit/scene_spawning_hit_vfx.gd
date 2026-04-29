@@ -11,8 +11,9 @@ func start(params:DamageParameters) -> void:
 	if not vfx_scene:
 		return
 	
-	var instance:Node = vfx_scene.instantiate()
-	if instance is Node3D:
-		instance.global_position = params.contact_point
-	
+	var instance:Node = vfx_scene.instantiate()	
 	add_child(instance)
+	
+	if instance is Node3D:
+		# Need to set position after putting node in tree
+		instance.global_position = params.contact_point

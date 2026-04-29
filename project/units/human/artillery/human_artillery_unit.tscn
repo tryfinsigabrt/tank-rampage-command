@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="8_1vsbj"]
 [ext_resource type="PackedScene" uid="uid://e1qrmcca65mr" path="res://units/human/artillery/mesh/artillery_body.tscn" id="8_a7cds"]
 [ext_resource type="PackedScene" uid="uid://cfyr3dyfblnea" path="res://units/human/artillery/mesh/artillery_barrel.tscn" id="8_pxuev"]
+[ext_resource type="Script" uid="uid://bmim3nx5ckc8q" path="res://particles/hit/scene_spawning_hit_vfx.gd" id="12_v88ec"]
+[ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/artillery-explosion-vfx-spawner.tscn" id="13_v0tda"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -101,10 +103,11 @@ update_scale = false
 unique_name_in_owner = true
 gizmo_extents = 2.62
 
-[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("launch_trace_node") instance=ExtResource("7_uf7ra")]
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("hit_vfx", "launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
 shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
+hit_vfx = NodePath("HitVfx")
 min_distance = 200.0
 max_distance_range = Vector2(800, 1000)
 cooldown_time_range = Vector2(5, 6)
@@ -118,10 +121,15 @@ launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNod
 target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
 
-[node name="DamageEmitter" parent="WeaponTrace/Weapon" index="3" unique_id=1547374086]
+[node name="DamageEmitter" parent="WeaponTrace/Weapon" index="2" unique_id=1547374086]
 damage_falloff_type = 2
 min_damage = 10.0
 max_damage = 1000.0
+
+[node name="HitVfx" type="Node3D" parent="WeaponTrace/Weapon" unique_id=614208391]
+script = ExtResource("12_v88ec")
+vfx_scene = ExtResource("13_v0tda")
+metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
