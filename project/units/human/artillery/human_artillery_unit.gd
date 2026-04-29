@@ -9,6 +9,9 @@ var aiming_speed_degrees:float = 20.0
 @export
 var aim_turning_speed_degrees: float = 90.0
 
+@export
+var delta_aim_threshold_degrees:float = 1.0
+
 ## Rotation angle to put on turret vs the max firing distance fraction
 @export
 var rotation_angle_v_distance_fraction:Curve
@@ -32,10 +35,16 @@ var turret_rotation_node:Node3D
 @export
 var barrel_pitch_node:Node3D
 
+var _delta_aim_threshold_rads:float
 var _aim_at_tween:Tween
 var _yaw_reset_tween:Tween
 var _rotate_aim_tween:Tween
 
+func _ready() -> void:
+	super._ready()
+	
+	_delta_aim_threshold_rads = deg_to_rad(delta_aim_threshold_degrees) if delta_aim_threshold_degrees > 0 else 0.0
+	
 func _is_alive() -> bool:
 	return health_stat.is_alive
 	
@@ -97,7 +106,7 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var current_pitch_angle:float = current_pitch_rotation.x
 	var pitch_angle_delta:float = angle_difference(current_pitch_angle, target_pitch_angle)
 	var pitch_angle_delta_mag:float = absf(pitch_angle_delta)
-	var change_pitch:bool = pitch_angle_delta_mag >= 0.01
+	var change_pitch:bool = pitch_angle_delta_mag >= _delta_aim_threshold_rads
 	
 	#Yaw
 	var turret_rotation_transform:Transform3D = turret_rotation_node.global_transform
@@ -111,7 +120,7 @@ func _rotate_gun_at(world_location:Vector3) -> void:
 	var target_yaw:float = target_rotation_euler.y
 	var yaw_diff:float = angle_difference(current_yaw, target_yaw)
 	var yaw_diff_mag:float = absf(yaw_diff)
-	var change_yaw:bool =  yaw_diff_mag >= 0.01
+	var change_yaw:bool =  yaw_diff_mag >= _delta_aim_threshold_rads
 	
 	#print("%s: Pitch: %.1f -> %1.f - Yaw: %.1f -> %1.f" % \
 	 #[name, rad_to_deg(current_pitch_angle), rad_to_deg(target_pitch_angle),  rad_to_deg(current_yaw), rad_to_deg((target_yaw))])
