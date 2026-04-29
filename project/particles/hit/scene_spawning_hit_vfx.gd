@@ -1,0 +1,18 @@
+class_name SceneSpawningHitVfx extends HitVfx
+
+@export
+var vfx_scene:PackedScene
+
+
+func _ready() -> void:
+	assert(vfx_scene, "Vfx Scene not set!")
+
+func start(params:DamageParameters) -> void:
+	if not vfx_scene:
+		return
+	
+	var instance:Node = vfx_scene.instantiate()
+	if instance is Node3D:
+		instance.global_position = params.contact_point
+	
+	add_child(instance)

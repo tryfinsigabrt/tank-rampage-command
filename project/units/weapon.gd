@@ -18,9 +18,10 @@ enum TraceType
 	Launch
 }
 
+const DEFAULT_HIT_VFX_SCENE:PackedScene = preload("uid://ydirx1srogti")
+
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
-@onready var hit_emitter: CPUParticles3D = $HitEmitter
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
 @onready var fire_state_timer: Timer = $FireStateTimer
 @onready var shoot_vfx_container: Node3D = $ShootVfxContainer
@@ -28,6 +29,8 @@ enum TraceType
 @export var shoot_vfx_size: ShootVfx.SizePreset = ShootVfx.SizePreset.SMALL
 @export var shoot_vfx_origin_path: NodePath
 @export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
+
+@export var hit_vfx:HitVfx
 
 const SHOOT_VFX_SCENES := {
 	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot_vfx_small.tscn"),
@@ -118,6 +121,11 @@ func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)
 	if not _unit:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
+	
+	if not hit_vfx:
+		hit_vfx = DEFAULT_HIT_VFX_SCENE.instantiate()
+		add_child(hit_vfx)
+	
 	_shoot_vfx_origin_node = get_node_or_null(shoot_vfx_origin_path) as Node3D
 	if _shoot_vfx_origin_node == null:
 		_shoot_vfx_origin_node = self
@@ -230,9 +238,7 @@ func _hit_scan() -> void:
 		
 	damage_emitter.damage(damage_params)
 	
-	var hit_or_end:Vector3 = result["hit_or_end"]
-	hit_emitter.global_position = hit_or_end
-	hit_emitter.restart()
+	hit_vfx.start(damage_params)
 
 func _check_hit(query: PhysicsRayQueryParameters3D, out_result:Dictionary) -> bool:
 	var space := get_world_3d().direct_space_state
