@@ -129,6 +129,9 @@ max_damage = 1000.0
 [node name="HitVfx" type="Node3D" parent="WeaponTrace/Weapon" unique_id=614208391]
 script = ExtResource("12_v88ec")
 vfx_scene = ExtResource("13_v0tda")
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_radius": 50.0
+})
 metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
