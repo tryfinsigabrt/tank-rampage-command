@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MarineTeam" format=3 uid="uid://diiaihg7d7x4j"]
+[gd_resource type="Resource" script_class="MarineTeamResource" format=3 uid="uid://diiaihg7d7x4j"]
 
 [ext_resource type="Material" uid="uid://flukfkel53cq" path="res://units/human/marine/material/marine_green.tres" id="1_0h4bn"]
 [ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="2_tdhaj"]
