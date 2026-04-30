@@ -1,5 +1,7 @@
 class_name SpawnLocationFinder extends Node3D
 
+const MAX_SWEEP_RESULTS:int = 100
+
 var _shape_rid:RID
 
 @export
@@ -97,7 +99,7 @@ func sweep_grid_bounds(pos: Vector3) -> Array[Rect2]:
 	params.shape_rid = _shape_rid
 	
 	var space_state := get_viewport().world_3d.direct_space_state
-	var results: Array[Dictionary] = space_state.intersect_shape(params)
+	var results: Array[Dictionary] = space_state.intersect_shape(params, MAX_SWEEP_RESULTS)
 	
 	var occupied_bounds:Array[Rect2]
 	

@@ -1,5 +1,8 @@
 class_name DamageEmitter extends Node
 
+# Increase from default of 32 for large area sweeps
+const SWEEP_RESULT_COUNT:int = 256
+
 enum DamageFalloffType
 {
 	Constant,
@@ -75,9 +78,7 @@ func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Ca
 				if damage_filter.call(collider) and not collider in processed_nodes:
 					var damageable_nodes:Array[Node] = _get_damageables(collider)
 					processed_nodes[collider] = damageable_nodes
-					if damage_reporting_type == DamageReportingType.Damageable_Only and not damageable_nodes:
-						amount = 0.0
-					else:
+					if damage_reporting_type != DamageReportingType.Damageable_Only or damageable_nodes:
 						var contact_position:Vector3
 						if damage_reporting_type == DamageReportingType.All_Precise or damageable_nodes:
 							contact_position = _get_contact_position(collider, hit_position)
@@ -85,11 +86,11 @@ func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Ca
 							contact_position = collider.global_position
 							
 						amount = _calculate_damage(collider, contact_position, hit_position)
-					if amount > 0:
-						var damage_result:DamageParameters = DamageParameters.from_shape_intersect(result, incident_damage_params)
-						if damage_result:
-							damage_result.damage = amount
-							results.push_back(damage_result)
+						if amount > 0:
+							var damage_result:DamageParameters = DamageParameters.from_shape_intersect(result, incident_damage_params)
+							if damage_result:
+								damage_result.damage = amount
+								results.push_back(damage_result)
 						
 	if LogUtils.verbose:
 		print_debug("%s: damage: nodes impacted=%d; incident_damage_params=%s" % [name, results.size(), incident_damage_params])
@@ -116,7 +117,7 @@ func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]
 	
 	var space_state := get_viewport().world_3d.direct_space_state
 	
-	return space_state.intersect_shape(params)
+	return space_state.intersect_shape(params, SWEEP_RESULT_COUNT)
 	
 func emit_damage(damage_params:DamageParameters, damageable_children: Array[Node]) -> void:
 	if LogUtils.verbose:

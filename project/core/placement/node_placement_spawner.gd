@@ -250,6 +250,6 @@ func _test_position_for_collisions(pos: Vector3) -> bool:
 	params.shape = _collision_shape
 	
 	var space_state := get_world_3d().direct_space_state
-	var results: Array[Dictionary] = space_state.intersect_shape(params)
+	var results: Array[Dictionary] = space_state.intersect_shape(params, 1)
 	
 	return not results

@@ -1,6 +1,6 @@
 class_name UnitSweeper extends Node
 
-const max_unit_result_count:int = 256
+const MAX_ASSET_RESULT_COUNT:int = 256
 
 @export
 var vision_radius:float = 100.0
@@ -37,7 +37,7 @@ func sweep_assets(center:Vector3, exclude:Array, team:int) -> Array[Node3D]:
 	params.shape_rid = _enemy_sweep_rid
 	
 	var space_state := get_viewport().world_3d.direct_space_state
-	var results: Array[Dictionary] = space_state.intersect_shape(params)
+	var results: Array[Dictionary] = space_state.intersect_shape(params, MAX_ASSET_RESULT_COUNT)
 	var assets:Array[Node3D]
 	
 	for result in results:

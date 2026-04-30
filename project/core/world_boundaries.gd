@@ -1,5 +1,7 @@
 class_name WorldBoundaries extends Area3D
 
+const MAX_POINT_INTERSECT_RESULTS:int = 256
+
 # TODO: Keeping objects corralled will be much easier if entering the area means out of bounds instead of leaving
 # since then the edge of the object will trigger it rather than the whole object leaving. 
 # So all these events would be inverted
@@ -81,7 +83,7 @@ func contains_point(point:Vector3) -> bool:
 	query.collision_mask = collision_layer
 
 	# perform the query
-	var results := space_state.intersect_point(query)
+	var results := space_state.intersect_point(query, MAX_POINT_INTERSECT_RESULTS)
 
 	for r in results:
 		if r.collider == self:
