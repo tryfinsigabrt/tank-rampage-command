@@ -2,21 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b1xr0pwiw65au" path="res://resources/scrap_field.gd" id="1_0d56a"]
 
-[sub_resource type="Curve3D" id="Curve3D_qdmk6"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -4.269249, 0.4015236, -0.7776489, 0, 0, 0, 0, 0, 0, -23.725391, -32.714996, 29.219604, 0, 0, 0, 0, 0, 0, -80.98329, -21.562683, 13.25444, 0, 0, 0, 0, 0, 0, -73.96874, 13.709686, -19.955154, 0, 0, 0, 0, 0, 0, -13.4616165, 27.455551, -27.588516),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d56a"]
 render_priority = 127
 transparency = 1
 albedo_color = Color(0.5, 0.875, 1, 0.39215687)
 
 [node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource"]]
-curve = SubResource("Curve3D_qdmk6")
 script = ExtResource("1_0d56a")
 path_depth = 3.0
 metadata/_custom_type_script = "uid://b1xr0pwiw65au"
