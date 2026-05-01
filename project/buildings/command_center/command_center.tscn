@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="3_dui3b"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_qtphr"]
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_66u6u"]
+[ext_resource type="PackedScene" uid="uid://c5gw7nav87313" path="res://buildings/command_center/CommandCenter.fbx" id="6_4uqvn"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_u5dv5"]
@@ -59,7 +60,11 @@ shape = SubResource("SphereShape3D_4ejy1")
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=1922179023]
 
+[node name="CommandCenter" parent="VisualRoot" unique_id=26042040 instance=ExtResource("6_4uqvn")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+
 [node name="Mesh" type="MeshInstance3D" parent="VisualRoot" unique_id=521204587]
+visible = false
 mesh = SubResource("SphereMesh_qtphr")
 
 [node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=121004541]
