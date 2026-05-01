@@ -42,9 +42,36 @@ func _ready() -> void:
 		team_component.update_render.connect(_update_render)
 	assert(health_stat, "%s: HealthStat not set!" % name)
 	assert(manufacturing_component, "%s: ManufacturingComponent not set!" % name)
+	
+var global_forward:Vector3:
+	get:
+		return -_orientation_basis().global_basis.z
 
+var forward:Vector3:
+	get:
+		return -_orientation_basis().basis.z
+		
+var global_right:Vector3:
+	get:
+		return _orientation_basis().global_basis.x
+
+var right:Vector3:
+	get:
+		return _orientation_basis().basis.x
+		
+var global_up:Vector3:
+	get:
+		return _orientation_basis().global_basis.y
+		
+var up:Vector3:
+	get:
+		return _orientation_basis().basis.y
+		
 #region Abstract/Hook methods
 
+func _orientation_basis() -> Node3D:
+	return self
+	
 func _do_update_render(in_visible:bool) -> void:
 	visual_root.visible = in_visible
 	ui_root.visible = in_visible

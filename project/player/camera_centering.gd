@@ -22,22 +22,28 @@ func _on_match_ready() -> void:
 	recenter()
 
 func recenter() -> void:
-	# Get all our units and then determine the average orientation
-	var units:Array[Unit] = player_team.units
-	if not units:
+	# Get all our assets and then determine the average orientation
+	var assets:Array[Node3D]
+	assets.append_array(player_team.units)
+	
+	# if there are no units then center on buildings
+	if not assets:
+		assets.append_array(player_team.buildings)
+	
+	if not assets:
 		print_debug("%s: No units - skipping recentering" % name)
 		return
 	
 	var avg_orientation:Vector3 = Vector3.ZERO
-	for unit in units:
-		avg_orientation += unit.global_forward
+	for asset in assets:
+		avg_orientation += asset.global_forward
 	
-	avg_orientation /= units.size()
+	avg_orientation /= assets.size()
 	avg_orientation = avg_orientation.normalized()
 	
 	var bounds:AABB
-	for unit in units:
-		bounds = bounds.expand(unit.global_position)
+	for asset in assets:
+		bounds = bounds.expand(asset.global_position)
 	
 	if not bounds.has_volume():
 		var current_size:Vector3 = bounds.size
