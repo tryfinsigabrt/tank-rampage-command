@@ -124,13 +124,14 @@ func get_aabb_from_collision(collision:Node) -> AABB:
 func get_aabb_from_shape(shape:Shape3D) -> AABB:
 	var bounds:AABB
 	if shape is BoxShape3D:
-		bounds = bounds.expand(shape.size)
-		bounds = bounds.expand(-shape.size)
+		var half_size:Vector3 = shape.size * 0.5
+		bounds = bounds.expand(half_size)
+		bounds = bounds.expand(-half_size)
 	elif shape is SphereShape3D:
 		bounds = bounds.expand(Vector3.ONE * shape.radius)
 		bounds = bounds.expand(-Vector3.ONE * shape.radius)
 	elif shape is CapsuleShape3D:
-		var extent:Vector3 = Vector3(shape.radius, shape.height, shape.radius) * 0.5
+		var extent:Vector3 = Vector3(shape.radius, shape.height * 0.5, shape.radius)
 		bounds = bounds.expand(extent)
 		bounds = bounds.expand(-extent)
 	else:
