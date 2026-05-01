@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ugonc2k2mtvb"]
+
+[ext_resource type="PackedScene" uid="uid://cujtet8smvwqv" path="res://props/tree/tree_1_merged.glb" id="1_oc2dg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oc2dg"]
+size = Vector3(5.3, 16.1, 1)
+
+[node name="tree_1_merged" unique_id=1653079436 instance=ExtResource("1_oc2dg")]
+
+[node name="Collision" type="CollisionShape3D" parent="." index="1" unique_id=1892450163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30999994, 7.1499996, 0)
+shape = SubResource("BoxShape3D_oc2dg")

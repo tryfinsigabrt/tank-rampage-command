@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://rb050gn7wft4"]
+
+[ext_resource type="Texture2D" uid="uid://o26qwcfqi8df" path="res://props/tree/tree_1_tree_1_branch.png" id="1_sjmwq"]
+
+[resource]
+resource_name = "Branch"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_sjmwq")
+texture_repeat = false

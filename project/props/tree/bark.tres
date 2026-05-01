@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cevebv6c3n0a4"]
+
+[ext_resource type="Texture2D" uid="uid://q8bivkwwd1i3" path="res://props/tree/tree_1_tree_1_bark_albedo.png" id="1_3hsly"]
+
+[resource]
+resource_name = "TreeBark"
+cull_mode = 2
+albedo_texture = ExtResource("1_3hsly")
+roughness = 0.5
