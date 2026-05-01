@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 const default_collision_margin: float = 0.001
