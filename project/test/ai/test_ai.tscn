@@ -442,7 +442,7 @@ team_resource = ExtResource("21_bjm80")
 team = 2
 
 [node name="EnemyCommandCenter" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=785510445 instance=ExtResource("12_20ymc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7000003, 12, -116)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7000003, -0.047468185, -116)
 team = 2
 
 [node name="EnemyFactory" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=917319318 instance=ExtResource("14_bvix3")]
