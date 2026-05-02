@@ -6,6 +6,7 @@ var _target_reached:bool = true
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var stuck_detector: StuckDetector = $StuckDetector
+@onready var simple_navigation: SimpleNavigation = $SimpleNavigation
 
 @export
 var distance_threshold:float = 4.0
@@ -21,6 +22,9 @@ var avoidance_enabled:bool = true
 
 @export
 var enable_stuck_detection:bool = true
+
+@export
+var enable_simple_nav_fallback:bool = true
 
 ## Minimum size of x or z component of move velocity to actually issue move
 ## Avoids flip flopping when components are small
@@ -44,6 +48,8 @@ func _ready() -> void:
 	SignalBus.on_unit_move_canceled.connect(_on_unit_move_canceled)
 	
 	stuck_detector.unit = _unit
+	simple_navigation.unit = _unit
+	
 	set_enabled(false)
 
 func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
@@ -62,6 +68,8 @@ func move_to(target:Vector3) -> void:
 
 	if not _is_at_target(target):
 		stuck_detector.goal_position = target
+		simple_navigation.goal_location = target
+		simple_navigation.stop()
 		
 		set_enabled(true)
 	else:
@@ -81,14 +89,23 @@ func set_enabled(in_enabled:bool) -> void:
 	else:
 		stuck_detector.reset()
 		navigation_agent_3d.avoidance_enabled = false
+		simple_navigation.stop()
 
 func _is_at_target(next_position: Vector3) -> bool:
 	var current_position := _unit.global_position
 	return next_position.distance_squared_to(current_position) <= distance_threshold * distance_threshold
 
 func _physics_process(delta: float) -> void:
-	var next_position := navigation_agent_3d.get_next_path_position()
+	var next_position:Vector3
+	if simple_navigation.active:
+		simple_navigation.tick(delta)
+		next_position = simple_navigation.next_position
+	else:
+		next_position = navigation_agent_3d.get_next_path_position()
+		
+	_on_tick_next_target(delta, next_position)
 	
+func _on_tick_next_target(delta:float, next_position:Vector3) -> void:	
 	#print_debug("%s: NEXT POSITION=%s" % [name, next_position])
 	
 	if _is_at_target(next_position):
@@ -99,10 +116,13 @@ func _physics_process(delta: float) -> void:
 	var current_position := _unit.global_position
 	
 	if enable_stuck_detection and not stuck_detector.sample(delta, current_position, next_position):
-		# Complete move if detect are stuck
-		_emit_target_reached()
+		# Complete move if detect are stuck after trying simple strategy
+		if not enable_simple_nav_fallback or simple_navigation.active:
+			_emit_target_reached()
+		else:
+			_start_simple_nav()
 		return
-	
+		
 	var velocity:Vector3 = next_position - current_position
 	# Ignore y component and renormalize
 	velocity = _get_sanitized_velocity(velocity)
@@ -115,6 +135,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		_move_unit(velocity)
 
+func _start_simple_nav() -> void:
+	navigation_agent_3d.avoidance_enabled = false
+	simple_navigation.goal_location = current_target
+	
+	stuck_detector.reset()
+	stuck_detector.goal_position = current_target
+	
+	simple_navigation.start()
+	
 func _move_unit(velocity:Vector3) -> void:
 	var grid_velocity:Vector2 = Vector2(velocity.x, velocity.z)
 	if not enabled or grid_velocity.is_zero_approx():

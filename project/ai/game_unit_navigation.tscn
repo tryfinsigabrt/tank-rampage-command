@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bv1k7e1a16o8b" path="res://ai/game_unit_navigation.gd" id="1_nose6"]
 [ext_resource type="Script" uid="uid://c6icrem34p4cp" path="res://ai/stuck_detector.gd" id="2_p2f7o"]
+[ext_resource type="Script" uid="uid://cu23ltnrj7uyq" path="res://ai/simple_navigation.gd" id="3_rywok"]
 
 [node name="GameUnitNavigation" type="Node3D" unique_id=1412332106]
 script = ExtResource("1_nose6")
@@ -13,6 +14,9 @@ debug_enabled = true
 
 [node name="StuckDetector" type="Node" parent="." unique_id=126114714]
 script = ExtResource("2_p2f7o")
+
+[node name="SimpleNavigation" type="Node" parent="." unique_id=99106818]
+script = ExtResource("3_rywok")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
