@@ -17,6 +17,10 @@ var mesh_instance:MeshInstance3D
 
 var _building:Building
 
+# FOW vision increases slowly as the asset builds
+var _final_vision:float
+var _start_vision:float
+
 const BUILD_PROGRESS_BAR:PackedScene = preload("uid://vcmg5a8ggm00")
 
 func _ready() -> void:
@@ -52,6 +56,13 @@ func _exit_tree() -> void:
 		
 func _start_building() -> void:
 	print_debug("%s: Begin construction of %s - %.1fs" % [name, _building.name, resource.time])
+	
+	var aabb:AABB = _building.get_bounds()
+	# Circumscribed radius
+	_final_vision = _building.team_component.vision
+	_start_vision = minf(MathUtils.grid_vector(aabb.size).length(), _final_vision)
+
+	_building.team_component.vision = _start_vision
 	
 	for child in _building.visual_root.get_children():
 		child.visible = false
@@ -127,8 +138,13 @@ func _building_complete() -> void:
 	for child in _building.visual_root.get_children():
 		child.visible = true
 		
+	_building.team_component.vision = _final_vision
 	_building.manufacturing_component.active = true
 	queue_free()
 
 func _update_progress() -> void:
-	progress_bar.set_progress(build_timer.time_left / build_timer.wait_time)
+	var progress:float = 1.0 - build_timer.time_left / build_timer.wait_time
+	progress_bar.set_progress(progress)
+	
+	# Slowly increase the vision to full amount as it builds
+	_building.team_component.vision = lerpf(_start_vision, _final_vision, progress)

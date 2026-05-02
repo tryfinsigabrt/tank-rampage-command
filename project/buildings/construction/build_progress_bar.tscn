@@ -6,8 +6,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4lrk"]
 render_priority = 0
 shader = ExtResource("1_yncx7")
-shader_parameter/health_color = Color(0, 0, 0, 1)
-shader_parameter/bg_color = Color(0, 0.3499999, 1, 1)
+shader_parameter/health_color = Color(0, 0.3499999, 1, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bn6ya"]
 size = Vector2(500, 25)
