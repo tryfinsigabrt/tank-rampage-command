@@ -11,14 +11,17 @@ func _ready() -> void:
 	if not player:
 		push_warning("%s: No player node in scene - camera positioning not available" % name)
 		set_process_input(false)
-		set_process(false)
 		return
 	_camera = player.camera
 	if not _camera:
 		push_warning("%s: MiniMap must be positioned at the bottom of the scene tree!" % name)
 		set_process_input(false)
-		set_process(false)
 		return
+	
+		# Initially set from current
+	_camera_updated(~0)
+	
+	_camera.camera_changed.connect(_camera_updated)
 		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("mini_map_navigate"):
@@ -43,7 +46,10 @@ func _move_camera_to_cursor(local_pos:Vector2) -> void:
 	
 	_camera.move_to(world_pos)
 
-func _process(_delta: float) -> void:
+func _camera_updated(flags:int) -> void:
+	if not (flags & RTSCamera.YAW_UPDATED):
+		return
+		
 	# Match camera rotation yaw to rts camera yaw
 	var new_rotation:Vector3 = _mini_map_camera.rotation
 	new_rotation.y = _camera.rotation.y

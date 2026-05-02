@@ -11,8 +11,6 @@ func _enter_tree() -> void:
 	_original_rotation = rotation
 	
 func _ready() -> void:
-	set_process(false)
-
 	var player:Player = get_tree().get_first_node_in_group(Groups.Player) as Player
 	if not player:
 		push_warning("%s: No player node in scene - camera positioning not available" % name)
@@ -21,11 +19,15 @@ func _ready() -> void:
 	await NodeUtils.ensure_ready(player)	
 	_camera = player.camera
 	if _camera:
-		set_process(true)
+		_camera.camera_changed.connect(_camera_changed)
+		_camera_changed(~0)
 	else:
 		push_error("%s: Could not get RTSCamera from player!" % name)
 		
-func _process(_delta: float) -> void:
+func _camera_changed(flags:int) -> void:
+	if not (flags & RTSCamera.YAW_UPDATED):
+		return
+		
 	# Match camera rotation yaw to rts camera yaw
 	var new_rotation:Vector3 = global_rotation + _original_rotation
 	new_rotation.y = _camera.rotation.y

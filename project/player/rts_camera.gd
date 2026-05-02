@@ -1,5 +1,11 @@
 class_name RTSCamera extends Node3D
 
+const YAW_UPDATED:int = 1
+const POSITION_UPDATED:int = 1 << 1
+const ZOOM_UPDATED:int = 1 << 2
+
+signal camera_changed(flags:int)
+
 # Zoom done on the camera
 @onready var camera: Camera3D = %Camera
 # Camera "boom"/rig is for translation
@@ -37,6 +43,8 @@ var _mouse_zoom:int = 0
 var _drag_panning:bool = false
 var _drag_pan_delta:Vector2 = Vector2.ZERO
 
+var _change_flags:int
+
 var zoom:float:
 	set(value):
 		# Reset so input value is absolute zoom
@@ -64,7 +72,6 @@ func make_camera_current() -> void:
 	capture_mouse(true)
 	
 func pan_camera(_delta:float) -> void:
-
 	if not is_mouse_captured() or _drag_panning:
 		return
 		
@@ -89,10 +96,17 @@ func pan_camera(_delta:float) -> void:
 		_camera_target_movement_velocity.z = adjusted_camera_move_speed
 
 func rotate_camera(delta:float) -> void:
+	var updated:bool = false
 	if Input.is_action_pressed("camera_rotate_right"):
 		global_rotation.y -= camera_rotation_speed * delta
+		updated = true
 	if Input.is_action_pressed("camera_rotate_left"):
 		global_rotation.y += camera_rotation_speed * delta
+		updated = not updated
+		
+	if updated:
+		_change_flags |= YAW_UPDATED
+
 	
 func zoom_camera(delta:float) -> void:
 	if Input.is_action_pressed("camera_zoom_in"):
@@ -129,6 +143,9 @@ func move_to(global_planar_pos:Vector3) -> void:
 	# Reset camera boom offset
 	camera_boom.position = Vector3.ZERO
 	
+	# Just set all flags for safety
+	camera_changed.emit(~0)
+	
 #endregion
 
 #region overrides
@@ -138,6 +155,8 @@ func _ready() -> void:
 		make_camera_current()
 	
 func _process(delta: float) -> void:
+	_change_flags = 0
+	
 	if Input.is_action_just_pressed("camera_primary_button"):
 		capture_mouse(true)
 
@@ -150,6 +169,9 @@ func _process(delta: float) -> void:
 	
 	_apply_movement_velocity(delta)
 	_apply_zoom_velocity()
+	
+	if _change_flags:
+		camera_changed.emit(_change_flags)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_released("pause"):
@@ -193,6 +215,8 @@ func _apply_movement_velocity(delta: float) -> void:
 		return
 
 	camera_boom.translate_object_local(_camera_movement_velocity * delta)
+	
+	_change_flags |= POSITION_UPDATED
 
 func _apply_zoom_velocity() -> void:
 	if is_zero_approx(_camera_current_zoom_speed):
@@ -205,5 +229,7 @@ func _apply_zoom_velocity() -> void:
 		
 	_camera_current_zoom_speed = 0.0
 	_mouse_zoom = 0
+	
+	_change_flags |= ZOOM_UPDATED
 
 #endregion

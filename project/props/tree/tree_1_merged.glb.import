@@ -46,7 +46,7 @@ _subresources={
 },
 "TreeBark": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://props/tree/TreeBark.tres",
+"use_external/fallback_path": "res://props/tree/bark.tres",
 "use_external/path": "uid://cevebv6c3n0a4"
 }
 }
