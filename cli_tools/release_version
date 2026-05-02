@@ -1,0 +1,22 @@
+#!/bin/bash
+
+version=$1
+
+if [ -z "$version" ]; then
+   echo "Argument is version in [major].[minor].[revision] format"
+   exit 1
+fi
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+project_dir="${script_dir}/../project"
+project_file="${project_dir}/project.godot"
+
+#config/version
+perl -pi -e "s/\d+\.\d+\.\d+/${version}/" $project_file
+
+git add $project_file
+git commit -m "Releasing version ${version}"
+git tag -a "${version}" -m "version ${version}"
+
+git push origin
+git push origin "${version}"

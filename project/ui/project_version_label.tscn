@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bh4m2d75hvtc3"]
+
+[ext_resource type="Script" uid="uid://bqs7qlvfqwst" path="res://ui/project_version_label.gd" id="1_642v7"]
+
+[node name="ProjectVersionLabel" type="Label" unique_id=434954575]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Version: 1.0.0"
+script = ExtResource("1_642v7")
