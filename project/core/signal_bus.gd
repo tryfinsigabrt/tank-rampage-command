@@ -54,6 +54,8 @@ signal on_scrap_field_mined(field:ScrapField, command_center:CommandCenter, coun
 
 signal on_scrap_collected(token:ScrapToken, unit:Unit)
 
+signal on_fow_node_visibility_changed(node:Node3D, visibility:bool)
+
 @warning_ignore_restore("unused_signal")
 
 func register_control_point(control_point:ControlPoint) -> void:

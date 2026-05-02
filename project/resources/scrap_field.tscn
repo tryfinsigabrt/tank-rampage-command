@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cj2pwp7gvetlm"]
 
 [ext_resource type="Script" uid="uid://b1xr0pwiw65au" path="res://resources/scrap_field.gd" id="1_0d56a"]
+[ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="2_robsx"]
+[ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="3_es4kr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d56a"]
 render_priority = 127
@@ -29,6 +31,15 @@ material = SubResource("StandardMaterial3D_0d56a")
 
 [node name="MiningTimers" type="Node" parent="." unique_id=1817918814]
 unique_name_in_owner = true
+
+[node name="Components" type="Node" parent="." unique_id=644016219]
+
+[node name="FOWVisibilityComponent" type="Node" parent="Components" unique_id=1244414758 node_paths=PackedStringArray("root")]
+script = ExtResource("2_robsx")
+root = NodePath("../..")
+
+[node name="FOWVisibilityToggler" type="Node" parent="Components/FOWVisibilityComponent" unique_id=2056828883]
+script = ExtResource("3_es4kr")
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
 [connection signal="body_exited" from="TriggerArea" to="." method="_on_trigger_area_body_exited"]

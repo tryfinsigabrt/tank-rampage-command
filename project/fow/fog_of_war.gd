@@ -1,5 +1,8 @@
 class_name FogOfWar extends Node
 
+@warning_ignore("unused_signal")
+signal fow_visibility_updated
+
 @export
 var visibility_tick_rate:float = 0.19
 

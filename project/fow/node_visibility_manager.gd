@@ -56,6 +56,8 @@ func _process(delta: float) -> void:
 	_update()
 	_accum_delta = 0.0
 	
+	fog_of_war.fow_visibility_updated.emit()
+	
 func _update() -> void:
 	var points_to_check: PackedVector3Array
 		

@@ -22,7 +22,17 @@ var scrap_per_interval:int = 50
 
 var remaining_scrap:int
 var _mining_timers_by_command_center:Dictionary[int,Timer]
+var _aabb:AABB
 
+# TODO: Should have a bounds component for these things
+## Gets an AABB representing the bounds of the node in local space
+func get_bounds() -> AABB:
+	return _aabb
+
+## Gets the AABB representing the bounds of the node in global space
+func get_global_bounds() -> AABB:
+	return global_transform * _aabb
+	
 func _ready() -> void:
 	var point_count:int = curve.point_count
 	if not point_count:
@@ -62,6 +72,8 @@ func _update_polygons(points: PackedVector2Array, height_extent:Vector2) -> void
 	trigger_visual.polygon = points
 	trigger_visual.position = poly_pos
 	trigger_visual.depth = height
+	
+	_aabb = Collisions.get_aabb_from_colision_polygon(trigger_collision)
 	
 func _on_trigger_area_body_entered(body: Node3D) -> void:
 	var command_center:CommandCenter = body as CommandCenter

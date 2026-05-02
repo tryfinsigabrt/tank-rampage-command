@@ -217,6 +217,10 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.335, 0, 177.175)
 curve = SubResource("Curve3D_jtih4")
 
+[node name="ScrapField2" parent="World" unique_id=785074363 instance=ExtResource("18_jtih4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.335, 0, -76.925)
+curve = SubResource("Curve3D_jtih4")
+
 [node name="ScrapPickups" type="Node3D" parent="World" unique_id=2065443998]
 
 [node name="ScrapToken" parent="World/ScrapPickups" unique_id=1362841421 instance=ExtResource("19_ytr8p")]
