@@ -208,7 +208,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
 team = 1
 
 [node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_23ivt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 185.8)
 team = 1
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("28_asrh3")]
