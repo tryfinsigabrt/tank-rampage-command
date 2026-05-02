@@ -11,11 +11,13 @@ func _ready() -> void:
 	if not player:
 		push_warning("%s: No player node in scene - camera positioning not available" % name)
 		set_process_input(false)
+		set_process(false)
 		return
 	_camera = player.camera
 	if not _camera:
 		push_warning("%s: MiniMap must be positioned at the bottom of the scene tree!" % name)
 		set_process_input(false)
+		set_process(false)
 		return
 		
 func _input(event: InputEvent) -> void:
