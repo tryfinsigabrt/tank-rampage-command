@@ -2,6 +2,7 @@ class_name MiniMap extends SubViewportContainer
 
 @onready var _mini_map_viewport: SubViewport = $MiniMapViewport
 @onready var location_picker: NodePicker = %LocationPicker
+@onready var _mini_map_camera: Camera3D = %MiniMapCamera
 
 var _camera:RTSCamera
 
@@ -39,3 +40,11 @@ func _move_camera_to_cursor(local_pos:Vector2) -> void:
 	print_debug("%s: Minimap position: %s -> %s" % [name, viewport_pos, world_pos])
 	
 	_camera.move_to(world_pos)
+
+func _process(_delta: float) -> void:
+	# Match camera rotation yaw to rts camera yaw
+	var new_rotation:Vector3 = _mini_map_camera.rotation
+	new_rotation.y = _camera.rotation.y
+	
+	_mini_map_camera.rotation = new_rotation
+	
