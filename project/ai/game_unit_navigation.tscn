@@ -20,3 +20,4 @@ script = ExtResource("3_rywok")
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="on_destination_reached" from="SimpleNavigation" to="." method="_on_simple_navigation_destination_reached"]

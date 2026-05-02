@@ -51,6 +51,11 @@ var _current_target_time:float = 0.0
 var _unit_half_height:float
 
 func start() -> void:
+	if not is_instance_valid(unit):
+		unit = null
+		push_error("%s: Unit is not valid or is null" % name)
+		return
+		
 	if not _ray_cast_params:
 		_init_ray_cast_params()
 		_unit_half_height = unit.get_bounds().size.y * 0.5
@@ -58,10 +63,10 @@ func start() -> void:
 	active = true
 	_current_heading = Vector3.INF
 	_target_distance = 0.0
+	_current_target_time = 0.0
 	_next_target = Vector3.INF
 	_current_position = Vector3.INF
 	_total_elapsed_time = 0.0
-	_current_target_time = 0.0
 	_prev_raycast_index = -1
 
 func stop() -> void:
@@ -87,7 +92,6 @@ func tick(delta: float) -> void:
 		
 	if _should_choose_new_target():
 		_choose_next_target()
-	
 		
 func _should_choose_new_target() -> bool:
 	return _current_target_time >= raycast_timeout or _target_distance >= raycast_distance
@@ -125,13 +129,16 @@ func _choose_next_target() -> void:
 		headings[0] = ideal_heading
 		
 		var angle_step:float = deg_to_rad(raycast_delta_angle_deg)
-		var angle_delta:float = 0.0
+		var angle:float = 0.0
+		
 		for i in range(1, _ray_count):
-			angle_delta += angle_step
-			var angle:float = angle_delta
+			# Alternate on sides of the direct heading
+			angle = -angle
 			# Angle is negative about ideal vector for evens
 			if i % 2 == 0:
-				angle = -angle
+				angle -= angle_step
+			else:
+				angle += angle_step
 				
 			var heading:Vector3 = ideal_heading.rotated(unit_up, angle)
 			var target:Vector3 = cast_position + heading * raycast_distance
@@ -143,10 +150,10 @@ func _choose_next_target() -> void:
 				break
 			headings[i] = new_heading
 		
-	# Pick one at random
+	# Pick one at random if none are viable
 	if chosen_index == -1:
 		chosen_index = randi_range(0, headings.size() - 1)
-		chosen_angle = ceil(chosen_index / 2.0) * deg_to_rad(raycast_delta_angle_deg) if chosen_index > 0 else 0.0
+		chosen_angle = ceilf(chosen_index / 2.0) * deg_to_rad(raycast_delta_angle_deg) if chosen_index > 0 else 0.0
 		if chosen_angle > 0 and chosen_index % 2 == 0:
 			chosen_angle = -chosen_angle
 			
@@ -161,7 +168,6 @@ func _choose_next_target() -> void:
 		on_heading_changed.emit(new_heading, chosen_angle)
 	
 	on_next_heading.emit(new_heading, chosen_angle)
-	
 	
 func _init_ray_cast_params() -> void:
 	_ray_count = floori(raycast_cone_angle_deg / raycast_delta_angle_deg) + 1

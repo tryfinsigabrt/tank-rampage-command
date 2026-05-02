@@ -213,3 +213,6 @@ func _get_sanitized_velocity(input:Vector3) -> Vector3:
 	return input
 	
 #endregion
+
+func _on_simple_navigation_destination_reached() -> void:
+	_emit_target_reached()
