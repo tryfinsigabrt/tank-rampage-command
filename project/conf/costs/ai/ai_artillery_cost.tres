@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://cs3jagxdxmhym"]
+
+[ext_resource type="Resource" uid="uid://c5r1ij6toia2e" path="res://units/human/artillery/artillery_attributes.tres" id="1_j1180"]
+[ext_resource type="Texture2D" uid="uid://yvkaao4a1o8n" path="res://ui/building/icons/artillery.png" id="2_pdewv"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="3_6eatr"]
+[ext_resource type="PackedScene" uid="uid://bklp362b1wxax" path="res://units/ai/artillery/ai_artillery_unit.tscn" id="4_fcerh"]
+
+[resource]
+script = ExtResource("3_6eatr")
+team_asset = ExtResource("4_fcerh")
+icon = ExtResource("2_pdewv")
+type = 3
+cost = 75
+scrap_fraction = 0.75
+personnel = 3
+time = 15.0
+attributes = ExtResource("1_j1180")
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

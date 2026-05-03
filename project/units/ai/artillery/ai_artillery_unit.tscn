@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bklp362b1wxax"]
+
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="1_bk6as"]
+[ext_resource type="Material" uid="uid://cf8s84w8vav8e" path="res://units/ai/artillery/ai_artillery_base.tres" id="2_04x7m"]
+[ext_resource type="Material" uid="uid://rx6bk05esv8e" path="res://units/ai/artillery/ai_artillery_dark.tres" id="3_8dfaq"]
+[ext_resource type="Material" uid="uid://e1x11ebf5jc6" path="res://units/ai/artillery/ai_artillery_light.tres" id="4_l2mj7"]
+[ext_resource type="Material" uid="uid://cppbqfnncmwad" path="res://units/human/marine/material/marine_red.tres" id="5_xx754"]
+
+[node name="HumanArtilleryUnit" unique_id=1517178385 instance=ExtResource("1_bk6as")]
+
+[node name="BackPiston" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="0" unique_id=1208946536]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="BackPiston__1_" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="1" unique_id=2072097190]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="BackSupport" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="2" unique_id=1473058552]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="BackSupport__1_" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="3" unique_id=1318459383]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="CenterMotor" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="4" unique_id=975501735]
+surface_material_override/0 = ExtResource("3_8dfaq")
+
+[node name="FrontPiston" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="5" unique_id=735023299]
+surface_material_override/0 = ExtResource("3_8dfaq")
+
+[node name="FrontPiston__1_" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="6" unique_id=1232541972]
+surface_material_override/0 = ExtResource("3_8dfaq")
+
+[node name="GunnerPanel" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="7" unique_id=591539292]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="BaseMarine" parent="VisualRoot/TurretPivot/Turret/GunnerPanel/marine/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1112570591, 216610260, 1012015045) index="0" unique_id=528268255]
+surface_material_override/0 = ExtResource("5_xx754")
+
+[node name="GunnerSeat" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="8" unique_id=772479311]
+surface_material_override/0 = ExtResource("3_8dfaq")
+
+[node name="TurretBase" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="9" unique_id=1546889396]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="TurretRotation" parent="VisualRoot/TurretPivot/Turret" parent_id_path=PackedInt32Array(1112570591) index="10" unique_id=1493251737]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="BarrelBase" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/Barrel" parent_id_path=PackedInt32Array(1296765349, 784809788) index="0" unique_id=54886835]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="BarrelBody" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/Barrel" parent_id_path=PackedInt32Array(1296765349, 784809788) index="1" unique_id=1427160273]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="BarrelEnd" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/Barrel" parent_id_path=PackedInt32Array(1296765349, 784809788) index="2" unique_id=1246353029]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="FrontArmour" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="0" unique_id=1017633795]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="TopStorage" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="1" unique_id=1181951891]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="TreadCover" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="2" unique_id=895933813]
+surface_material_override/0 = ExtResource("2_04x7m")
+
+[node name="TreadsOutside" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="3" unique_id=1235880440]
+surface_material_override/0 = ExtResource("3_8dfaq")
+
+[node name="Wheel" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="4" unique_id=1865249026]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__10_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="5" unique_id=1417851096]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__1_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="6" unique_id=628682417]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__2_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="7" unique_id=212813908]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__3_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="8" unique_id=1169088478]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__4_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="9" unique_id=1179315213]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__5_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="10" unique_id=1120371473]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__6_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="11" unique_id=630215048]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__7_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="12" unique_id=1657819477]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__8_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="13" unique_id=850501300]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[node name="Wheel__9_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="14" unique_id=1689422705]
+surface_material_override/0 = ExtResource("4_l2mj7")
+
+[editable path="VisualRoot/TurretPivot/Turret"]
+[editable path="VisualRoot/TurretPivot/Turret/GunnerPanel/marine"]
+[editable path="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel"]
+[editable path="VisualRoot/ArtilleryBody"]
+[editable path="GameUnitNavigation"]
+[editable path="WeaponTrace/Weapon"]
