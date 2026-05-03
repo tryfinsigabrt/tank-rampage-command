@@ -18,8 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="14_0dscg"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="14_e1uv2"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="14_xxlqf"]
-[ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="16_e1uv2"]
-[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="17_kjb5g"]
 [ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="16_xs5x8"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="20_83iv7"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
@@ -169,16 +167,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.39996, 0, 336.2)
 team = 2
 
 [node name="Barracks2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=546428630 instance=ExtResource("11_dayn7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.100006, 8.8, 327.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.100006, 1.3000002, 327.1)
 team = 2
 
 [node name="Factory2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1281012641 instance=ExtResource("12_0dscg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.800026, 2.8999999, 286.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.800026, 1.2999998, 286.9)
 team = 2
-
-[node name="EnemyTank" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=558153698 instance=ExtResource("16_e1uv2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 268.4377, 2.154255, -12.271114)
-attributes = ExtResource("17_kjb5g")
 
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=1178106579]
 
