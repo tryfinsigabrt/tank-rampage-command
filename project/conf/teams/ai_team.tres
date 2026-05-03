@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MatchTeamConfig" format=3 uid="uid://bnaoamn82ui40"]
+
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_x6ce4"]
+[ext_resource type="Resource" uid="uid://c7o20tq4j3vd1" path="res://conf/costs/ai/ai_tank_cost.tres" id="2_x6ce4"]
+[ext_resource type="Resource" uid="uid://c15yy2yxbmpuf" path="res://conf/costs/human/artillery_cost.tres" id="3_8lsjk"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="4_5ejx3"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="5_ritgf"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="6_ut7ra"]
+[ext_resource type="Resource" uid="uid://dp0r4g2njcjq7" path="res://conf/costs/ai/ai_marine_cost.tres" id="7_x6ce4"]
+[ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="8_v7ap7"]
+
+[resource]
+script = ExtResource("8_v7ap7")
+construction = Array[ExtResource("1_x6ce4")]([ExtResource("2_x6ce4"), ExtResource("3_8lsjk"), ExtResource("4_5ejx3"), ExtResource("5_ritgf"), ExtResource("6_ut7ra"), ExtResource("7_x6ce4")])
+metadata/_custom_type_script = "uid://xt576yq3qny0"

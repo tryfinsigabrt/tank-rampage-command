@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="7_0dscg"]
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="7_dxn8j"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="8_xxlqf"]
+[ext_resource type="Resource" uid="uid://ch6qcxh47bv1p" path="res://conf/teams/player_team.tres" id="9_kjb5g"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="10_dxn8j"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="11_dayn7"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="12_0dscg"]
@@ -19,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="14_xxlqf"]
 [ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="16_e1uv2"]
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="17_kjb5g"]
+[ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="16_xs5x8"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="20_83iv7"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_xxlqf"]
@@ -108,6 +110,7 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("8_xxlqf")]
 team = 1
+config = ExtResource("9_kjb5g")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("7_dxn8j")]
 player_team = NodePath("..")
@@ -156,6 +159,7 @@ team = 1
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1767445690 instance=ExtResource("8_xxlqf")]
 team = 2
+config = ExtResource("16_xs5x8")
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("12_kjb5g")]
 team = 2

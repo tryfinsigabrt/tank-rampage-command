@@ -16,7 +16,7 @@ func spawn(resource:ConstructionResource, asset_name:StringName = "") -> Node3D:
 			var spawn_dir:Vector3 = -spawn_region.global_basis.z
 			var spawn_dir2:Vector2 = Vector2(spawn_dir.x, spawn_dir.z)
 			unit_spawner.configure_spawn(_manufacturing_component.spawn_bounds, spawn_dir2)
-			var unit := unit_spawner.spawn(resource.team_asset, spawn_location, asset_name, i > 0)
+			var unit := unit_spawner.spawn(resource, spawn_location, asset_name, i > 0)
 			if unit:
 				return unit
 	return null

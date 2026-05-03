@@ -73,11 +73,6 @@ func _refund_build_queue() -> void:
 			
 func _ready() -> void:
 	assert(asset_spawner, "asset_spawner not set!")
-	if supported_types:
-		for construction in supported_types.types:
-			var type := construction.type
-			if type:
-				_indexed_types[type] = construction
 	
 	if not default_spawn_locations:
 		assert(false, "%s: default_spawn_locations not set!" % name)
@@ -87,7 +82,22 @@ func _ready() -> void:
 	
 	if not _match_team:
 		push_error("%s: ManufacturingComponent has no MatchTeam parent!" % name)
-	
+		
+	if supported_types:
+		var resource_retriever:Callable
+		if _match_team:
+			await _match_team.wait_for_ready()
+			resource_retriever = func(default_resource:ConstructionResource) -> ConstructionResource:
+				return _match_team.team_resources.get_construction_resource(default_resource.type, default_resource)
+		else:
+			resource_retriever = func(default_resource:ConstructionResource) -> ConstructionResource:
+				return default_resource
+		
+		for construction in supported_types.types:
+			var type := construction.type
+			if type:
+				_indexed_types[type] = resource_retriever.call(construction)
+				
 func get_build_metadata(type: ConstructionResource.Type) -> ConstructionResource:
 	return _indexed_types.get(type)
 	
