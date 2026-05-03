@@ -18,6 +18,9 @@ var resources:TeamResources:
 		if is_node_ready():
 			team_resources.resources = resources
 
+@export
+var config:MatchTeamConfig
+
 @onready var asset_container: Node3D = $Assets
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
 @onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent
@@ -40,8 +43,11 @@ func _ready() -> void:
 	team_visibility_component.team = team
 	
 	if not resources:
-		resources = TeamResources.new()
+		resources = TeamResources.new()		
 	resources.initialize()
+	
+	if config and config.construction:
+		team_resources.default_costs = config.construction
 	team_resources.resources = resources
 	
 	var starting_units:Array[Node] = Groups.get_children_in_group(self, Groups.Unit)
@@ -76,6 +82,11 @@ func _ready() -> void:
 	match_team_ready.emit()
 	is_match_ready = true
 
+func wait_for_ready() -> void:
+	if is_match_ready:
+		return
+	await match_team_ready
+	
 func assign_to_team(asset:Node3D) -> bool:
 	var team_assigned:bool = false
 	if "team" in asset:

@@ -53,6 +53,13 @@ var unit_class_group:StringName:
 var attributes:TeamAssetAttributes
 
 @export
+var team_resource:MarineTeamResource:
+	set(value):
+		team_resource = value
+		if is_node_ready():
+			_set_visual_overrides(value)
+		
+@export
 var bounds_type: Bounds.Type = Bounds.Type.AABB
 		
 var is_moving:bool:
@@ -99,6 +106,10 @@ func _update_render(in_render:bool) -> void
 @abstract
 func _get_team_component() -> TeamComponent
 
+@warning_ignore("unused_parameter")
+func _set_visual_overrides(overrides:AssetVisualTeamResource) -> void:
+	pass
+	
 func kill() -> void:
 	var _health := health
 	if not _health:

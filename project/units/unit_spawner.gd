@@ -23,7 +23,8 @@ func configure_spawn(bounds:Vector2, bounds_dir:Vector2) -> void:
 	spawn_location_finder.bounds = bounds
 	spawn_location_finder.bounds_dir = bounds_dir
 		
-func spawn(scene:PackedScene, at:Vector3, unit_name:String="", force:bool = false) -> Unit:
+func spawn(resource:ConstructionResource, at:Vector3, unit_name:String="", force:bool = false) -> Unit:
+	var scene:PackedScene = resource.team_asset
 	var unit:Unit = scene.instantiate() as Unit
 	if not unit:
 		push_error("%s: Could not spawn scene=%s as Unit" % [name, scene])
@@ -33,6 +34,8 @@ func spawn(scene:PackedScene, at:Vector3, unit_name:String="", force:bool = fals
 		unit.team = _match_team.team
 		if unit_name:
 			unit.name = unit_name
+	
+	_configure_unit(unit, resource)
 	_container.add_child(unit)
 	
 	var open_position:Vector3 = spawn_location_finder.find_viable_spawn_grid_location(at, unit)
@@ -55,3 +58,9 @@ func spawn(scene:PackedScene, at:Vector3, unit_name:String="", force:bool = fals
 		% [name, unit.name, unit.team, at, unit.global_position])
 		
 	return unit
+
+func _configure_unit(unit:Unit, resource:ConstructionResource) -> void:
+	if resource.attributes:
+		unit.attributes = resource.attributes
+	if resource.visual_overrides:
+		unit.team_resource = resource.visual_overrides

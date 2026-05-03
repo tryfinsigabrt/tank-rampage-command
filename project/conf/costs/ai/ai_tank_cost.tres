@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c7o20tq4j3vd1"]
 
+[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="1_on0yc"]
 [ext_resource type="Texture2D" uid="uid://c0ygktypdd4bj" path="res://ui/building/icons/tank.png" id="1_xdq5e"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_w0fff"]
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="3_af8lg"]
@@ -13,4 +14,5 @@ cost = 25
 scrap_fraction = 0.4
 personnel = 2
 time = 10.0
+attributes = ExtResource("1_on0yc")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

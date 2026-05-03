@@ -61,6 +61,9 @@ var placement_spawner_resource:NodePlacementSpawnerResource
 @export
 var construction_scene:PackedScene
 
+@export
+var visual_overrides:AssetVisualTeamResource
+
 var classification:Classification:
 	get:
 		match type:
