@@ -4,9 +4,12 @@
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_nel6y"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="3_4m458"]
 [ext_resource type="Script" uid="uid://bvtrnnjd2rn7u" path="res://units/human/tank/hero/mesh/body.gd" id="4_qxocs"]
+[ext_resource type="Material" uid="uid://745i788v8vyq" path="res://units/human/tank/tank01_body_material.tres" id="5_latdr"]
+[ext_resource type="Material" uid="uid://h16symhq6i3u" path="res://units/human/tank/tank01_turret_material.tres" id="7_e2vrp"]
 [ext_resource type="Script" uid="uid://crt7kympli7e" path="res://units/human/tank/hero/mesh/turret.gd" id="7_nk7xd"]
 [ext_resource type="Script" uid="uid://bho5adjuh805c" path="res://units/human/tank/hero/mesh/barrel.gd" id="8_4bu6n"]
 [ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="9_dls12"]
+[ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="9_fceur"]
 [ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="10_yngfg"]
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="11_crfb0"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="13_dh08n"]
@@ -447,6 +450,7 @@ script = ExtResource("4_qxocs")
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ndl1c")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("5_latdr")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 7.09963
@@ -457,6 +461,7 @@ metadata/extras = {
 [node name="Track Guards_Back" type="MeshInstance3D" parent="Body/Chassis" unique_id=1916270001]
 mesh = SubResource("ArrayMesh_whegk")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("5_latdr")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 12.604433059692385
@@ -467,6 +472,7 @@ metadata/extras = {
 [node name="Track Guards_Back_001" type="MeshInstance3D" parent="Body/Chassis" unique_id=2055586487]
 mesh = SubResource("ArrayMesh_8qjlx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("5_latdr")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 24.29746
@@ -477,6 +483,7 @@ metadata/extras = {
 [node name="Track Guards_Front" type="MeshInstance3D" parent="Body/Chassis" unique_id=1336508274]
 mesh = SubResource("ArrayMesh_4xpw4")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("5_latdr")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 12.604433059692385
@@ -487,6 +494,7 @@ metadata/extras = {
 [node name="Track Guards_Front_001" type="MeshInstance3D" parent="Body/Chassis" unique_id=1947368855]
 mesh = SubResource("ArrayMesh_2s668")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("5_latdr")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 24.29746
@@ -502,6 +510,7 @@ script = ExtResource("7_nk7xd")
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 1.9072003, -0.8229859)
 mesh = SubResource("ArrayMesh_0a3kb")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_e2vrp")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 12.146709
@@ -520,6 +529,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021162987, 2.4240916, 1.706
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, -0.021162987, 0.19708419, -2.3175135)
 mesh = SubResource("ArrayMesh_7q1yh")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("9_fceur")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 7.017508
@@ -546,6 +556,7 @@ accuracy_v_velocity_alignment = ExtResource("11_crfb0")
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_hwcm3")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("9_fceur")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 9.41
@@ -557,6 +568,7 @@ metadata/extras = {
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_n4niy")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("9_fceur")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 9.409998893737791
@@ -570,6 +582,7 @@ metadata/extras = {
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_6uyp4")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("9_fceur")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 18.82
@@ -581,6 +594,7 @@ metadata/extras = {
 transform = Transform3D(1, 0, 3.2584137e-07, 0, 1, 0, -3.2584137e-07, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_oexko")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("9_fceur")
 metadata/extras = {
 "scatter5": {
 "estimated_square_area": 18.819997787475582
