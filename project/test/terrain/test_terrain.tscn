@@ -108,12 +108,10 @@ navigation_mesh = ExtResource("2_nm2cs")
 data_directory = "res://test/terrain/data"
 material = ExtResource("1_a4auo")
 assets = ExtResource("2_dsixg")
-show_grid = true
 collision_mode = 3
 collision_layer = 2
 collision_mask = 15
 displacement_sharpness = 0.5
-show_region_grid = true
 top_level = true
 metadata/_edit_lock_ = true
 

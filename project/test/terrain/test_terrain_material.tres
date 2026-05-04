@@ -13,4 +13,3 @@ _shader_parameters = {
 &"shader_uniforms::general": null,
 &"shader_uniforms::mipmaps": null
 }
-show_region_grid = true
