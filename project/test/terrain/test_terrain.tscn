@@ -62,6 +62,30 @@ _data = {
 }
 point_count = 10
 
+[sub_resource type="Curve3D" id="Curve3D_y10a1"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 27.960083, -4.514188, 8.017822, 0, 0, 0, 0, 0, 0, -69.18799, -0.44331157, -6.474243, 0, 0, 0, 0, 0, 0, -93.53517, 0.4092709, 57.099194, 0, 0, 0, 0, 0, 0, -16.271637, 0.48592377, 52.589355),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_575d2"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 27.960052, 0.8858123, 8.017822, 0, 0, 0, 0, 0, 0, -69.18799, -0.24331157, -6.474243, 0, 0, 0, 0, 0, 0, -93.53519, -0.59072876, 57.099182, 0, 0, 0, 0, 0, 0, -16.271637, 0.48592377, 52.589355),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_q4yjv"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 27.960022, 0.8858123, 8.017822, 0, 0, 0, 0, 0, 0, -69.18799, 0.056688443, -6.474243, 0, 0, 0, 0, 0, 0, -93.53519, -0.59072876, 57.099182, 0, 0, 0, 0, 0, 0, -16.271667, 0.18592376, 52.589355),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
 [node name="TerrainTest" type="Node3D" unique_id=1177153595]
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_dayn7")]
@@ -465,6 +489,18 @@ curve = SubResource("Curve3D_0dscg")
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=483475266 instance=ExtResource("14_0dscg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.39996, 0, 336.2)
 curve = SubResource("Curve3D_xxlqf")
+
+[node name="ScrapField3" parent="World/Match/Resources" unique_id=1334640966 instance=ExtResource("14_0dscg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -568.14, 0, 656.525)
+curve = SubResource("Curve3D_y10a1")
+
+[node name="ScrapField4" parent="World/Match/Resources" unique_id=2000048727 instance=ExtResource("14_0dscg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 489.96, 0, 553.62494)
+curve = SubResource("Curve3D_575d2")
+
+[node name="ScrapField5" parent="World/Match/Resources" unique_id=2083474228 instance=ExtResource("14_0dscg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 765.56, 0, -441.875)
+curve = SubResource("Curve3D_q4yjv")
 
 [node name="LoopingMatch" parent="World" unique_id=1151452462 instance=ExtResource("21_8fumc")]
 
