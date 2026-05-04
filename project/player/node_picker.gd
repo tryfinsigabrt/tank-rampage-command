@@ -9,6 +9,9 @@ var project_ground_max_dist:float = 100.0
 @export
 var box_select_min_height:float = 20.0
 
+@export
+var box_select_2d_height:float = 1000.0
+
 @export_flags_3d_physics
 var ground_mask:int = Collisions.CompositeMasks.ground
 
@@ -53,6 +56,18 @@ func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
 		return [] as Array[Unit]
 	
 	bounds.end = result["position"]
+	
+	# Expand the bounds since may select on uneven terrain
+	# and project the y position down
+	var pos:Vector3 = bounds.position
+	var end:Vector3 = bounds.end
+	var min_y:float = minf(pos.y, end.y)
+	pos.y = min_y
+	bounds.position = pos
+	
+	var new_size:Vector3 = bounds.size
+	new_size.y = box_select_2d_height
+	bounds.size = new_size
 		
 	return pick_unit_world_bounds(bounds)
 
