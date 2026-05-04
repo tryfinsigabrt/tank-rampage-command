@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="tank-rampage-command"
 config/version="0.0.0"
-run/main_scene="uid://y2gjgrbqtl7n"
+run/main_scene="uid://c15qtg2d1emrk"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,7 @@ Collisions="*res://utils/collisions.gd"
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 DebugMenu="*uid://cggqb75a8w8r"
+SceneManager="*uid://dt8dxbkfxeyg0"
 GameManager="*uid://3t5i7ypkifpd"
 
 [debug]

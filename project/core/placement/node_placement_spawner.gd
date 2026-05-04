@@ -148,7 +148,7 @@ func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 		return
 		
 	# Check visibility if in fow
-	var fow := GameManager.fog_of_war_node
+	var fow: FogOfWar = GameManager.fog_of_war_node
 	if fow and GameManager.fog_of_war and not fow.is_node_visible(_ghost_asset, fow_visibility_threshold, FogOfWar.FOW_VISIBLE_CHANNEL, true):
 		_can_spawn = false
 		return

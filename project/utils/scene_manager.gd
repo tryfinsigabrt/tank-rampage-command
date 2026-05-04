@@ -1,10 +1,16 @@
-class_name SceneManager extends Node
+extends Node
+
+const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
+const GAME_SCENE:PackedScene = preload("uid://y2gjgrbqtl7n")
 
 signal scene_changed(new_scene:Node)
 
 func main_menu() -> void:
-	push_error("Not yet implemented")
+	await switch_scene(MAIN_MENU_SCENE)
 
+func new_game() -> void:
+	await switch_scene(GAME_SCENE)
+	
 func pause_game(paused:bool) -> void:
 	get_tree().paused = paused
 	SignalBus.pause_game.emit(paused)
