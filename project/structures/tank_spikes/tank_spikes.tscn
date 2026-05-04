@@ -17,7 +17,6 @@ script = ExtResource("1_2bc18")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")
 attributes = ExtResource("2_0yxgm")
-bounds_type = null
 team = null
 metadata/_custom_type_script = "uid://iowc3oc6s36j"
 
