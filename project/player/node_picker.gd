@@ -61,8 +61,8 @@ func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
 	# and project the y position down
 	var pos:Vector3 = bounds.position
 	var end:Vector3 = bounds.end
-	var min_y:float = minf(pos.y, end.y)
-	pos.y = min_y
+	var avg_y:float = (pos.y + end.y) * 0.5
+	pos.y = avg_y - box_select_2d_height * 0.5
 	bounds.position = pos
 	
 	var new_size:Vector3 = bounds.size
