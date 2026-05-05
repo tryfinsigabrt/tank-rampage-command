@@ -39,35 +39,59 @@ func project_to_ground(in_position:Vector3) -> Vector3:
 
 func pick_ground(event: InputEvent) -> Dictionary:
 	return pick_node(event, ground_mask)
-	
+
+## Under perspective skew need to test all 4 corners of the quad and expand the AABB to fill
+func _screen_rect_to_ground_aabb(screen_area: Rect2) -> AABB:
+	var corners: PackedVector2Array = [
+		screen_area.position,
+		Vector2(screen_area.end.x, screen_area.position.y),
+		screen_area.end,
+		Vector2(screen_area.position.x, screen_area.end.y),
+	]
+
+	var min_x := INF
+	var max_x := -INF
+	var min_y := INF
+	var max_y := -INF
+	var min_z := INF
+	var max_z := -INF
+
+	for corner in corners:
+		var hit := pick_position(corner, ground_mask)
+		if not hit:
+			return AABB()
+
+		var p: Vector3 = hit["position"]
+		min_x = minf(min_x, p.x)
+		max_x = maxf(max_x, p.x)
+		min_y = minf(min_y, p.y)
+		max_y = maxf(max_y, p.y)
+		min_z = minf(min_z, p.z)
+		max_z = maxf(max_z, p.z)
+
+	# Expand the bounds since may select on uneven terrain
+	# and project the y position down
+	var pos := Vector3(min_x, min_y - box_select_2d_height * 0.5, min_z)
+	var size := Vector3(
+		max_x - min_x,
+		(max_y - min_y) + box_select_2d_height,
+		max_z - min_z
+	)
+
+	var bounds := AABB(pos, size)
+	# Sometimes the size is negative and so need to take abs
+	bounds = bounds.abs()
+	return bounds
+		
 func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
 	if not screen_area.has_area():
 		return [] as Array[Unit]
-		
-	var result := pick_position(screen_area.position, ground_mask)
-	if not result:
+
+	var bounds:AABB = _screen_rect_to_ground_aabb(screen_area)
+	if not bounds.has_volume():
 		return [] as Array[Unit]
 	
-	var bounds:AABB
-	bounds.position = result["position"]
-	
-	result = pick_position(screen_area.end, ground_mask)
-	if not result:
-		return [] as Array[Unit]
-	
-	bounds.end = result["position"]
-	
-	# Expand the bounds since may select on uneven terrain
-	# and project the y position down
-	var pos:Vector3 = bounds.position
-	var end:Vector3 = bounds.end
-	var avg_y:float = (pos.y + end.y) * 0.5
-	pos.y = avg_y - box_select_2d_height * 0.5
-	bounds.position = pos
-	
-	var new_size:Vector3 = bounds.size
-	new_size.y = box_select_2d_height
-	bounds.size = new_size
+	#DebugDraw3D.draw_aabb(bounds, Color.BLUE, 3.0)
 		
 	return pick_unit_world_bounds(bounds)
 
@@ -145,4 +169,4 @@ func _ray_cast(from: Vector3, to: Vector3, collision_mask:int) -> Dictionary:
 	
 func _pick_camera() -> void:
 	camera = get_viewport().get_camera_3d()
-	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, camera])
+	print_debug("%s: Defaulting to use current viewport camera: %s" % [name, StringUtils.safe_name(camera)])
