@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="16_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/ui_remote_transform.gd" id="17_3jpjq"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -89,12 +89,15 @@ top_level = true
 [node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("13_ih5ua")]
 health_stat = NodePath("../../Stats/HealthStat")
 
+[node name="CameraYawTracker" type="Node" parent="UI" unique_id=1431253981 node_paths=PackedStringArray("target_node")]
+script = ExtResource("17_3jpjq")
+target_node = NodePath("..")
+
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
-script = ExtResource("17_3jpjq")
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_jjdnp"]
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="5_dnqhm"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_16a2b"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/ui_remote_transform.gd" id="6_tjriq"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="6_tjriq"]
 [ext_resource type="Script" uid="uid://iphg6vi47imw" path="res://units/damage_emitter.gd" id="7_xalgg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dnqhm"]
@@ -36,6 +36,10 @@ top_level = true
 transform = Transform3D(0.5, 0, 3.1786513e-08, 0, 0.5, 0, -3.1786513e-08, 0, 0.5, 0, 0, 0)
 health_stat = NodePath("../../Stats/HealthStat")
 
+[node name="CameraYawTracker" type="Node" parent="UI" unique_id=1226036893 node_paths=PackedStringArray("target_node")]
+script = ExtResource("6_tjriq")
+target_node = NodePath("..")
+
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=466703260]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99999994, 0)
@@ -50,7 +54,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
-script = ExtResource("6_tjriq")
 
 [node name="Components" type="Node" parent="." unique_id=1242336824]
 

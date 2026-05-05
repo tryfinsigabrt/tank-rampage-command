@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_66u6u"]
 [ext_resource type="PackedScene" uid="uid://c5gw7nav87313" path="res://buildings/command_center/CommandCenter.fbx" id="6_4uqvn"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/ui_remote_transform.gd" id="7_eox5s"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_eox5s"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_u5dv5"]
 
@@ -56,6 +56,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.957922, -6.03854, 4.75761
 manufacturing_component = NodePath("../../Components/ManufacturingComponent")
 sprite_size = 3.0
 
+[node name="CameraYawTracker" type="Node" parent="UI" unique_id=1630275509 node_paths=PackedStringArray("target_node")]
+script = ExtResource("7_eox5s")
+target_node = NodePath("..")
+
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1066758169]
 shape = SubResource("SphereShape3D_4ejy1")
 
@@ -73,7 +77,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 3
 remote_path = NodePath("../UI")
 update_rotation = false
 update_scale = false
-script = ExtResource("7_eox5s")
 
 [node name="Components" type="Node" parent="." unique_id=908056470]
 

@@ -1,19 +1,19 @@
-class_name UIRemoteTransform extends RemoteTransform3D
+class_name CameraYawTracker extends Node
+
+@export
+var target_node:Node3D
 
 var _camera:RTSCamera
-
-var _original_rotation:Vector3
-
-func _enter_tree() -> void:
-	update_position = true
-	update_rotation = true
-	update_scale = false
-	_original_rotation = rotation
 	
 func _ready() -> void:
+	assert(target_node, "%s: Target node not set" % name)
+	if not target_node:
+		queue_free()
+		
 	var player:Player = get_tree().get_first_node_in_group(Groups.Player) as Player
 	if not player:
-		push_warning("%s: No player node in scene - camera positioning not available" % name)
+		push_error("%s: No player node in scene - camera positioning not available" % name)
+		queue_free()
 		return
 	
 	await NodeUtils.ensure_ready(player)	
@@ -29,7 +29,7 @@ func _camera_changed(flags:int) -> void:
 		return
 		
 	# Match camera rotation yaw to rts camera yaw
-	var new_rotation:Vector3 = global_rotation + _original_rotation
-	new_rotation.y = _camera.rotation.y
+	var new_rotation:Vector3 = target_node.global_rotation
+	new_rotation.y = _camera.global_rotation.y
 	
-	global_rotation = new_rotation
+	target_node.global_rotation = new_rotation
