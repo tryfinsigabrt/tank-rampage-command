@@ -12,6 +12,9 @@ var box_select_min_height:float = 20.0
 @export
 var box_select_2d_height:float = 1000.0
 
+@export
+var box_select_incomplete_aabb_min_axis:float = 5.0
+
 @export_flags_3d_physics
 var ground_mask:int = Collisions.CompositeMasks.ground
 
@@ -56,12 +59,20 @@ func _screen_rect_to_ground_aabb(screen_area: Rect2) -> AABB:
 	var min_z := INF
 	var max_z := -INF
 
+	var point_count:int = 0
+	var first_point:Vector3 = Vector3.INF
+
 	for corner in corners:
 		var hit := pick_position(corner, ground_mask)
 		if not hit:
-			return AABB()
+			continue
+
+		point_count += 1
 
 		var p: Vector3 = hit["position"]
+		if point_count == 1:
+			first_point = p
+
 		min_x = minf(min_x, p.x)
 		max_x = maxf(max_x, p.x)
 		min_y = minf(min_y, p.y)
@@ -69,10 +80,58 @@ func _screen_rect_to_ground_aabb(screen_area: Rect2) -> AABB:
 		min_z = minf(min_z, p.z)
 		max_z = maxf(max_z, p.z)
 
+	var pos:Vector3
+	var size:Vector3
+
+ 	# Ensure a valid bounds is formed.
+	# If we have a single valid corner hit, combine it with the screen-center hit
+	# so the fallback stays anchored to the dragged area.
+	if point_count == 0:
+		var center_hit := pick_position(screen_area.get_center(), ground_mask)
+		if not center_hit:
+			return AABB()
+
+		var p:Vector3 = center_hit["position"]
+		pos = Vector3(
+			p.x - box_select_incomplete_aabb_min_axis * 0.5,
+			p.y - box_select_2d_height * 0.5,
+			p.z - box_select_incomplete_aabb_min_axis * 0.5
+		)
+		size = Vector3(
+			box_select_incomplete_aabb_min_axis,
+			box_select_2d_height,
+			box_select_incomplete_aabb_min_axis
+		)
+		return AABB(pos, size)
+
+	if point_count == 1:
+		var center_hit := pick_position(screen_area.get_center(), ground_mask)
+		if center_hit:
+			var center_point:Vector3 = center_hit["position"]
+			min_x = minf(first_point.x, center_point.x)
+			max_x = maxf(first_point.x, center_point.x)
+			min_y = minf(first_point.y, center_point.y)
+			max_y = maxf(first_point.y, center_point.y)
+			min_z = minf(first_point.z, center_point.z)
+			max_z = maxf(first_point.z, center_point.z)
+			point_count = 2
+		else:
+			pos = Vector3(
+				first_point.x - box_select_incomplete_aabb_min_axis * 0.5,
+				first_point.y - box_select_2d_height * 0.5,
+				first_point.z - box_select_incomplete_aabb_min_axis * 0.5
+			)
+			size = Vector3(
+				box_select_incomplete_aabb_min_axis,
+				box_select_2d_height,
+				box_select_incomplete_aabb_min_axis
+			)
+			return AABB(pos, size)
+		
 	# Expand the bounds since may select on uneven terrain
 	# and project the y position down
-	var pos := Vector3(min_x, min_y - box_select_2d_height * 0.5, min_z)
-	var size := Vector3(
+	pos = Vector3(min_x, min_y - box_select_2d_height * 0.5, min_z)
+	size = Vector3(
 		max_x - min_x,
 		(max_y - min_y) + box_select_2d_height,
 		max_z - min_z
@@ -81,6 +140,20 @@ func _screen_rect_to_ground_aabb(screen_area: Rect2) -> AABB:
 	var bounds := AABB(pos, size)
 	# Sometimes the size is negative and so need to take abs
 	bounds = bounds.abs()
+	
+	# Ensure a minimum xz footprint in incomplete selection.
+	# Keep the footprint centered on the valid hit extents so the fallback
+	# does not bias selection toward +x / +z.
+	if point_count < 4:
+		var center:Vector3 = bounds.get_center()
+		size = bounds.size
+		size.x = maxf(size.x, box_select_incomplete_aabb_min_axis)
+		size.z = maxf(size.z, box_select_incomplete_aabb_min_axis)
+
+		bounds.position.x = center.x - size.x * 0.5
+		bounds.position.z = center.z - size.z * 0.5
+		bounds.size = size
+		
 	return bounds
 		
 func pick_unit_screen_area(screen_area:Rect2) -> Array[Unit]:
