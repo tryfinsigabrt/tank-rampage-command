@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python cli_tools/asset_audit.py project/$1
