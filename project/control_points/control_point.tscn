@@ -2,23 +2,18 @@
 
 [ext_resource type="Script" uid="uid://cqxx8kinn6nh1" path="res://control_points/control_point.gd" id="1_lu8dd"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="2_bhy6q"]
-[ext_resource type="Material" uid="uid://lmdcf6pw85fh" path="res://control_points/owned_material.tres" id="3_42e4k"]
-[ext_resource type="Material" uid="uid://c8vmoekkru7yo" path="res://control_points/neutral_material.tres" id="3_r5et2"]
-[ext_resource type="Material" uid="uid://b516pgaldsxqs" path="res://control_points/enemy_material.tres" id="4_wh27p"]
+[ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="3_42e4k"]
+[ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="4_wh27p"]
+[ext_resource type="Texture2D" uid="uid://nbobjr6oi0s2" path="res://control_points/control_point.png" id="6_wh27p"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bhy6q"]
 radius = 30.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_r5et2"]
-top_radius = 30.0
-bottom_radius = 30.0
-height = 0.1
-
 [node name="ControlPoint" type="Node3D" unique_id=588474072 groups=["ControlPoint", "Interactable", "TeamAsset"]]
 script = ExtResource("1_lu8dd")
-neutral_material = ExtResource("3_r5et2")
-owned_material = ExtResource("3_42e4k")
-enemy_material = ExtResource("4_wh27p")
+neutral_color = Color(0.41960785, 0.41960785, 0.41960785, 1)
+owned_color = Color(0.09600002, 0.3983999, 0.96, 1)
+enemy_color = Color(0.80034965, 0, 0.14920738, 1)
 
 [node name="Components" type="Node" parent="." unique_id=1574540664]
 
@@ -26,6 +21,13 @@ enemy_material = ExtResource("4_wh27p")
 unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
+
+[node name="FOWVisibilityComponent" type="Node" parent="Components" unique_id=587735579 node_paths=PackedStringArray("root")]
+script = ExtResource("3_42e4k")
+root = NodePath("../..")
+
+[node name="FOWVisibilityToggler" type="Node" parent="Components/FOWVisibilityComponent" unique_id=1332115049]
+script = ExtResource("4_wh27p")
 
 [node name="ControlBounds" type="Area3D" parent="." unique_id=1124531281]
 collision_layer = 2048
@@ -37,9 +39,14 @@ shape = SubResource("SphereShape3D_bhy6q")
 [node name="VisualRoot" type="Node3D" parent="." unique_id=265258387]
 unique_name_in_owner = true
 
-[node name="Mesh" type="MeshInstance3D" parent="VisualRoot" unique_id=476081747]
-material_override = ExtResource("3_r5et2")
-mesh = SubResource("CylinderMesh_r5et2")
+[node name="Sprite" type="Sprite3D" parent="VisualRoot" unique_id=1296261971]
+transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0.01, 0)
+cast_shadow = 0
+pixel_size = 0.1171875
+axis = 1
+double_sided = false
+render_priority = 127
+texture = ExtResource("6_wh27p")
 
 [node name="CaptureTimer" type="Timer" parent="." unique_id=953709451]
 unique_name_in_owner = true

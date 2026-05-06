@@ -4,20 +4,20 @@ var _aabb:AABB
 var _changed_to_visible:bool
 
 @export
-var neutral_material:Material
+var neutral_color:Color
 
 @export
-var owned_material:Material
+var owned_color:Color
 
 @export
-var enemy_material:Material
+var enemy_color:Color
 
 @export
 var capture_time:float = 10.0
 
 @onready var capture_timer: Timer = %CaptureTimer
 @onready var team_component: TeamComponent = %TeamComponent
-@onready var mesh: MeshInstance3D = $VisualRoot/Mesh
+@onready var sprite: Sprite3D = $VisualRoot/Sprite
 @onready var visual_root: Node3D = %VisualRoot
 @onready var control_bounds: Area3D = $ControlBounds
 
@@ -75,16 +75,16 @@ func _ready() -> void:
 	SignalBus.register_control_point(self)
 	
 func _assign_ownership_material(team:int) -> void:
-	var material:Material
+	var color:Color
 	
 	if team <= 0:
-		material = neutral_material
+		color = neutral_color
 	elif player_team > 0 and player_team != team:
-		material = enemy_material
+		color = enemy_color
 	else:
-		material = owned_material
+		color = owned_color
 		
-	mesh.material_override = material
+	sprite.modulate = color
 	
 func _on_control_bounds_body_entered(body: Node3D) -> void:
 	var unit:Unit = body as Unit
