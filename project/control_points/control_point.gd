@@ -98,7 +98,8 @@ func _on_control_bounds_body_entered(body: Node3D) -> void:
 	team_units.push_back(id)
 	_units_by_team[team] = team_units
 	
-	print_debug("%s: Unit %s on team %d entered control point" % [name, unit.name, team])
+	if LogUtils.verbose:
+		print_debug("%s: Unit %s on team %d entered control point" % [name, unit.name, team])
 	
 	if team_component.is_ally_team(team):
 		return
@@ -144,7 +145,9 @@ func _on_control_bounds_body_exited(body: Node3D) -> void:
 		return
 
 	var team:int = unit.team
-	print_debug("%s: Unit %s on team %d exited control point" % [name, unit.name, team])
+
+	if LogUtils.verbose:
+		print_debug("%s: Unit %s on team %d exited control point" % [name, unit.name, team])
 
 	var team_units:PackedInt64Array = _units_by_team[team]
 	var id:int = unit.get_instance_id()
@@ -171,7 +174,9 @@ func _stop_capture() -> void:
 	capturing_team = 0
 	
 func _on_capture_timer_timeout() -> void:
-	print_debug("%s: Capture timer completed" % [name])
+	if LogUtils.debug:
+		print_debug("%s: Capture timer completed" % [name])
+		
 	if neutral:
 		team_component.team = capturing_team
 		capturing_team = 0

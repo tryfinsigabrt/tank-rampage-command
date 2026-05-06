@@ -85,11 +85,11 @@ func _on_scrap_collected(scrap:ScrapToken, unit:Unit) -> void:
 	if not unit.is_on_team(team):
 		return
 	
-	# Only award scrap if it is part of an enemy team - otherwise we are denying the scrap to the other team
-	if unit.is_enemy_team(scrap.originating_team):
-		print_debug("%s: Team %d collected %d scrap from team %d" % [name, team, scrap.scrap, scrap.originating_team])
-	else:
-		print_debug("%s: Team %d denied %d scrap from other teams" % [name, team, scrap.scrap])
+	if LogUtils.debug:
+		if unit.is_enemy_team(scrap.originating_team):
+			print_debug("%s: Team %d collected %d scrap from team %d" % [name, team, scrap.scrap, scrap.originating_team])
+		else:
+			print_debug("%s: Team %d denied %d scrap from other teams" % [name, team, scrap.scrap])
 	
 	# Denying your own scrap won't read well on battlefield unless use different colors so for now just always award
 	resources.scrap.count += scrap.scrap

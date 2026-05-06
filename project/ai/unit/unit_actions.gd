@@ -56,7 +56,8 @@ func _on_command_finished(in_unit: Unit, command:StringName, command_id:int) -> 
 		enabled = false
 		_command_counter = 0
 	
-	print_debug("%s(%s): %s command finished" % [name, StringUtils.safe_name(in_unit), command])
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command finished" % [name, StringUtils.safe_name(in_unit), command])
 	command_finished.emit(command_id)
 
 func _update_tree_state() -> void:
@@ -78,7 +79,8 @@ func move(target_position:Vector3) -> void:
 		&"position" : target_position
 	} as Dictionary[StringName, Variant])
 	
-	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
 	
 func attack(enemy:Node3D) -> void:
 	_clear_hold()
@@ -97,7 +99,8 @@ func _do_attack(enemy:Node3D) -> void:
 		&"target_node": enemy
 	} as Dictionary[StringName, Variant])
 	
-	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
 
 # Stuck detection needs to be turned off during attacks as units often stationary
 func _on_shoot_intent_toggled(shooting:bool) -> void:
@@ -121,7 +124,8 @@ func attack_position(target_position:Vector3) -> void:
 		&"target_position": target_position
 	} as Dictionary[StringName, Variant])
 	
-	print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, target_position])
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, target_position])
 	
 func move_and_attack(target_position:Vector3) -> void:
 	_new_action()
@@ -136,8 +140,9 @@ func move_and_attack(target_position:Vector3) -> void:
 		&"position": target_position
 	} as Dictionary[StringName, Variant])
 	
-	print_debug("%s(%s): %s command ordered -> %s" % \
-		[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % \
+			[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
 	
 func follow(_friendly:Unit) -> void:
 	push_error("Not implemented")
@@ -145,13 +150,16 @@ func follow(_friendly:Unit) -> void:
 func stop() -> void:
 	_clear_all_actions()
 	_clear_hold()
-	print_debug("%s(%s): Stop command ordered" % [name, StringUtils.safe_name(unit)])
+
+	if LogUtils.debug:
+		print_debug("%s(%s): Stop command ordered" % [name, StringUtils.safe_name(unit)])
 
 func hold() -> void:
 	_clear_all_actions()
 	blackboard.is_hold = true
 	
-	print_debug("%s(%s): Hold command ordered" % [name, StringUtils.safe_name(unit)])
+	if LogUtils.debug:
+		print_debug("%s(%s): Hold command ordered" % [name, StringUtils.safe_name(unit)])
 
 func _new_action() -> void:
 	_command_counter += 1

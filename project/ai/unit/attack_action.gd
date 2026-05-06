@@ -91,7 +91,8 @@ func _exit_tree() -> void:
 		
 	# Cancel active move if it's not complete
 	if is_instance_valid(controlled_unit) and _range_move_target != Vector3.INF:
-		print_debug("%s: %s cancel target move to %s" % [name, controlled_unit.name, _range_move_target])
+		if LogUtils.debug:
+			print_debug("%s: %s cancel target move to %s" % [name, controlled_unit.name, _range_move_target])
 		SignalBus.on_unit_move_canceled.emit(controlled_unit, _range_move_target)
 		
 func _move_into_attack_range() -> void:

@@ -53,7 +53,8 @@ func update(options:Array[UtilityAIOption], chosen_option: UtilityAIOption) -> v
 	_lines.push_back(SEPARATOR)
 	text = "\n".join(_lines)
 	
-	print_debug("%s: %s" % [name, text])
+	if LogUtils.debug:
+		print_debug("%s: %s" % [name, text])
 	
 	_handler.finish()
 		

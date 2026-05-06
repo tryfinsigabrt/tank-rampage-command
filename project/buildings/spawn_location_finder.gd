@@ -111,7 +111,8 @@ func sweep_grid_bounds(pos: Vector3) -> Array[Rect2]:
 		var aabb:AABB = _get_aabb(asset)
 		occupied_bounds.push_back(Bounds.aabb_to_grid_rect(aabb))
 	
-	print_debug("%s: sweep_grid_bounds(%s) -> %s" % [name, pos, occupied_bounds])		
+	if LogUtils.verbose:
+		print_debug("%s: sweep_grid_bounds(%s) -> %s" % [name, pos, occupied_bounds])		
 	return occupied_bounds
 
 static func _get_aabb(asset: Node3D) -> AABB:

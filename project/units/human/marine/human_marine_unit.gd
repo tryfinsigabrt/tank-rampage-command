@@ -148,7 +148,8 @@ func _die(damage_params: DamageParameters) -> void:
 	queue_free()
 	
 func _on_health_changed(previous_health: float, current_health: float) -> void:
-	print_debug("%s: health_changed: %f -> %f" % [name, previous_health, current_health])
+	if LogUtils.verbose:
+		print_debug("%s: health_changed: %f -> %f" % [name, previous_health, current_health])
 
 func _took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)

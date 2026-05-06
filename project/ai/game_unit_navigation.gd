@@ -79,7 +79,8 @@ func set_enabled(in_enabled:bool) -> void:
 	set_physics_process(in_enabled)
 	set_process(in_enabled)
 	
-	print_debug("%s: Navigation toggled - %s to %s" % [name, _unit.name, in_enabled])
+	if LogUtils.verbose:
+		print_debug("%s: Navigation toggled - %s to %s" % [name, _unit.name, in_enabled])
 	
 	if in_enabled:
 		if avoidance_enabled:
@@ -176,7 +177,8 @@ func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 	if not target_position.is_equal_approx(current_target):
 		return
 	
-	print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
+	if LogUtils.verbose:
+		print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
 	_stop_navigation()
 	
 func _on_navigation_agent_3d_navigation_finished() -> void:

@@ -28,7 +28,9 @@ func mark_object_visibility(object:Node3D, in_visible:bool) -> void:
 		_vision_counts[id] = updated_count
 		# Newly visible
 		if updated_count == 1:
-			print_debug("%s: object=%s is visible to team %d" % [name, object.name, team])
+			if LogUtils.verbose:
+				print_debug("%s: object=%s is visible to team %d" % [name, object.name, team])
+				
 			visibility_changed.emit(object, true)
 			
 			var team_component:TeamComponent = TeamComponent.get_component(object, false)
@@ -36,7 +38,10 @@ func mark_object_visibility(object:Node3D, in_visible:bool) -> void:
 				team_component.set_visible_to(team, true)
 	else:
 		_vision_counts.erase(id)
-		print_debug("%s: object=%s no longer visible to team %d" % [name, object.name, team])
+
+		if LogUtils.verbose:
+			print_debug("%s: object=%s no longer visible to team %d" % [name, object.name, team])
+
 		visibility_changed.emit(object, false)
 		
 		var team_component:TeamComponent = TeamComponent.get_component(object, false)
