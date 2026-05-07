@@ -360,7 +360,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.100006, 1.3000002, 327.1)
 team = 2
 
 [node name="Factory2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1281012641 instance=ExtResource("12_0dscg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.800026, 1.2999998, 286.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.10003, -1.4000001, 290.8)
 team = 2
 
 [node name="Structures2" type="Node3D" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=380385280]
