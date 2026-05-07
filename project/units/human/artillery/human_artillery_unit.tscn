@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="8_1vsbj"]
 [ext_resource type="PackedScene" uid="uid://e1qrmcca65mr" path="res://units/human/artillery/mesh/artillery_body.tscn" id="8_a7cds"]
 [ext_resource type="PackedScene" uid="uid://cfyr3dyfblnea" path="res://units/human/artillery/mesh/artillery_barrel.tscn" id="8_pxuev"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="11_a7cds"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="11_a7cds"]
 [ext_resource type="Script" uid="uid://bmim3nx5ckc8q" path="res://particles/hit/scene_spawning_hit_vfx.gd" id="12_v88ec"]
 [ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/artillery-explosion-vfx-spawner.tscn" id="13_v0tda"]
 

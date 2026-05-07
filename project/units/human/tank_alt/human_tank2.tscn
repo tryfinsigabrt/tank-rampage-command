@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="14_iy5t7"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="15_gbvby"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="16_v4h76"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_w7n8l"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="17_w7n8l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tifhs"]
 resource_name = "Body"

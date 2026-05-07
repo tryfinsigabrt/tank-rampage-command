@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_1eg5j"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="5_pqpta"]
 [ext_resource type="Resource" uid="uid://oyq1yod3vfoi" path="res://buildings/barracks/barracks_manufacturing.tres" id="6_niq1p"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_ushoi"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="7_ushoi"]
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_q7pe4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]

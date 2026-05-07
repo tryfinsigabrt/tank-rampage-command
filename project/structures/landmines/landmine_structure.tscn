@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="4_jjdnp"]
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="5_dnqhm"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_16a2b"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="6_tjriq"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="6_tjriq"]
 [ext_resource type="Script" uid="uid://iphg6vi47imw" path="res://units/damage_emitter.gd" id="7_xalgg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dnqhm"]

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b6a7acabed2cy" path="res://props/sandbags/straight_sandbag_barrier.tscn" id="5_f6dac"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_3w0nt"]
 [ext_resource type="PackedScene" uid="uid://b8tsw5fhpqkq3" path="res://props/barbed-wire/barbed_wire.tscn" id="6_lon2h"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_lon2h"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="7_lon2h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7uy2"]
 size = Vector3(8.5, 1.75, 2)

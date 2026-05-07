@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_66u6u"]
 [ext_resource type="PackedScene" uid="uid://c5gw7nav87313" path="res://buildings/command_center/CommandCenter.fbx" id="6_4uqvn"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_hinyq"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_eox5s"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="7_eox5s"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_u5dv5"]
 

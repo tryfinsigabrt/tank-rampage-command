@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="16_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
-[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
+[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
