@@ -10,7 +10,6 @@ var manufacturing_component:ManufacturingComponent
 @export
 var sprite_size:float = 1.0
 
-var _material_by_type:Dictionary[ConstructionResource.Type, ShaderMaterial] = {}
 var _prototype_material:ShaderMaterial
 var _queue_count:int
 
@@ -79,23 +78,20 @@ func _create_sprite(resource:ConstructionResource) -> void:
 		
 		_sprites.push_back(new_sprite)
 		sprite_container.add_child(new_sprite)
-		
-	var material:ShaderMaterial = _material_by_type.get(resource.type)
-	if not material:
-		material = _prototype_material.duplicate()
-		_material_by_type[resource.type] = material
-	
+
+	var material:ShaderMaterial = _prototype_material.duplicate()
 	new_sprite.material_override = material
 	new_sprite.visible = true
 	material.set_shader_parameter(&"image", resource.icon)
-	
-	# Instance uniforms are set on the geometry instance itself rather than the ShaderMaterial
-	new_sprite.set_instance_shader_parameter(&"progress", 0.0)
+	material.set_shader_parameter(&"progress", 0.0)
 		
 func _tick() -> void:
 	var current_time:float = GameManager.game_timer.time_seconds
 	var progress:float = (current_time - _build_start_time ) / _active_build_resource.time
 	var active_sprite: Sprite3D = _sprites.front()
+	var active_material := active_sprite.material_override as ShaderMaterial
+	if not active_material:
+		return
 	
 	#print("ACTIVE_SPRITE:%s(%d):%f" % [active_sprite.name, _queue_count, progress])
-	active_sprite.set_instance_shader_parameter(&"progress", progress)
+	active_material.set_shader_parameter(&"progress", progress)

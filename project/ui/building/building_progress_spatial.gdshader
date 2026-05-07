@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled, diffuse_lambert, depth_draw_opaque;
 
-instance uniform float progress:hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float progress:hint_range(0.0, 1.0, 0.01) = 0.0;
 uniform float darkness:hint_range(0.0, 1.0, 0.01) = 0.0;
 uniform float completed_darkness:hint_range(0.0, 1.0, 0.01) = 0.0;
 uniform float opacity:hint_range(0.0, 1.0, 0.01) = 1.0;
