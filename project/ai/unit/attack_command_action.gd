@@ -19,7 +19,7 @@ func _cleanup(actor: Node, blackboard: UnitBlackboard) -> void:
 		_attack_action = null
 		
 	# Erase current target if it is invalid or if was the current target since there is no new target
-	var current_target:Unit = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Unit
+	var current_target:Node3D = blackboard.get_value(UnitBlackboard.Keys.TargetNode) as Node3D
 	var current_position:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition, -Vector3.INF)
 	
 	if not is_instance_valid(current_target) or current_target == _targeted_node:
