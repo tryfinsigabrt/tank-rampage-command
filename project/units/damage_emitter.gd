@@ -134,10 +134,10 @@ func _calculate_damage(_target: Node3D, contact_position:Vector3, damage_center:
 
 func _calculate_point_damage(impact_point: Vector3, pos:Vector3) -> float:
 	var dist := (pos - impact_point).length()
-	if dist >= max_falloff_distance:
-		return 0.0
 	if dist <= min_falloff_distance:
 		return max_damage
+	if dist >= max_falloff_distance:
+		return 0.0
 	
 	match damage_falloff_type:
 		DamageFalloffType.Constant:

@@ -16,6 +16,8 @@ one_shot = true
 
 [node name="DamageEmitter" type="Node" parent="." unique_id=1547374086]
 script = ExtResource("4_5bddv")
+min_falloff_distance = 0.0
+max_falloff_distance = 4.0
 max_damage = 250.0
 
 [node name="FireStateTimer" type="Timer" parent="." unique_id=1486939867]
