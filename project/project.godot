@@ -302,3 +302,6 @@ cancel_ghost_building={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_ticks_per_second.web=30
+common/max_physics_steps_per_frame.web=4
+common/physics_interpolation.web=true
