@@ -27,7 +27,6 @@ Collisions="*res://utils/collisions.gd"
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 DebugMenu="*uid://cggqb75a8w8r"
-SceneManager="*uid://dt8dxbkfxeyg0"
 GameManager="*uid://3t5i7ypkifpd"
 
 [debug]

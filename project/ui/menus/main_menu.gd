@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _on_play_pressed() -> void:
 	_disable_buttons()
-	await SceneManager.new_game()
+	await GameManager.scene_manager.new_game()
 
 func _on_quit_pressed() -> void:
 	_disable_buttons()

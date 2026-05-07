@@ -3,17 +3,32 @@ extends Node
 @onready var game_timer: GameTimer = %GameTimer
 @onready var scene_manager: SceneManager = %SceneManager
 
-var fog_of_war:bool
+# If called before data refreshed then just query dynamically
+var _scene_ready:bool
+
+var fog_of_war:bool:
+	get:
+		if _scene_ready:
+			return fog_of_war
+			
+		var fow_node := fog_of_war_node
+		return fow_node.enable if is_instance_valid(fow_node) else false 
 
 var fog_of_war_node:FogOfWar:
 	get:
-		return fog_of_war_node if is_instance_valid(fog_of_war_node) else null
+		var fow_node: FogOfWar = fog_of_war_node if _scene_ready else _get_fog_of_war()
+		return fow_node if is_instance_valid(fow_node) else null
 
 func _ready() -> void:
 	reset_world_state()
+	#scene_manager.scene_entering.connect(reset_world_state.unbind(1))
+	scene_manager.scene_leaving.connect((func() -> void:
+		_scene_ready = false
+	).unbind(1))
 	scene_manager.scene_changed.connect(reset_world_state.unbind(1))
 
 func reset_world_state() -> void:
+	_scene_ready = true
 	game_timer.reset()
 	
 	fog_of_war_node = _get_fog_of_war()

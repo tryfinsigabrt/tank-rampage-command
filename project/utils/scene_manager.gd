@@ -1,9 +1,11 @@
-extends Node
+class_name SceneManager extends Node
 
 const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
 const GAME_SCENE:PackedScene = preload("uid://y2gjgrbqtl7n")
 
 signal scene_changed(new_scene:Node)
+signal scene_leaving(old_scene:Node)
+signal scene_entering(new_scene:Node)
 
 func main_menu() -> void:
 	await switch_scene(MAIN_MENU_SCENE)
@@ -35,6 +37,7 @@ func switch_scene_file(scene_file:String, configurator:Callable = Callable()) ->
 func _switch_scene(scene_loader:Callable) -> void:    
 	var root := get_tree().root
 	var root_current_scene := root.get_child(root.get_child_count() - 1)
+	scene_leaving.emit(root_current_scene)
 	print_debug("%s: Freeing current root scene=%s" % [name, root_current_scene.scene_file_path])
 	root_current_scene.queue_free()
 
@@ -46,6 +49,7 @@ func _switch_scene(scene_loader:Callable) -> void:
 	
 	var current_scene:Node = scene_loader.call()
 	
+	scene_entering.emit(current_scene)
 	# Somehow get_tree().current_scene is null inside _ready of the loaded scene
 	# even if we do get_tree().current_scene = current_scene before
 	# So instead set the current_scene on SceneManager and have it manage the current_scene rather than the tree root
