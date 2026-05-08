@@ -37,6 +37,10 @@ var _explored_area_material:ShaderMaterial
 var _world_aabb:AABB
 var _projected_size:Vector2
 
+# Calling Texture2D.get_image is expensive so we need to cache the results and only 
+# refresh it once when it changes
+var _fow_image:Image
+
 var player_team:int:
 	get:
 		return _player_team
@@ -80,7 +84,11 @@ func _process(delta: float) -> void:
 		return
 	
 	visible_multi_mesh_instance.update(_cached_nodes)
-	_accum_delta = 0.0
+	_accum_delta = 0.
+	
+	await RenderingServer.frame_post_draw
+	#Invalidate the fow cache
+	_fow_image = null
 	
 func _ready() -> void:
 	if not enable:
@@ -138,12 +146,8 @@ func is_node_visible(node: Node3D, visible_threshold:float = node_visibility_man
 func get_fow_value(pos:Vector3) -> Color:
 	# Read the value of the texture on explored_area_viewport converting pos to the image pixel coordinates (inverse of project_position)
 	var viewport_pos:Vector2 = project_position(pos)
-	
-	var fow_texture:ViewportTexture = explored_area_viewport.get_texture()
-	if not fow_texture:
-		return Color.BLACK
 
-	var image:Image = fow_texture.get_image()
+	var image:Image = _get_or_refresh_fow_image()
 	if not image or image.is_empty():
 		return Color.BLACK
 
@@ -156,6 +160,16 @@ func get_fow_value(pos:Vector3) -> Color:
 	pixel.y = clampi(pixel.y, 0, image_size.y - 1)
 
 	return image.get_pixelv(pixel)
+
+func _get_or_refresh_fow_image() -> Image:
+	if _fow_image:
+		return _fow_image
+		
+	var fow_texture:ViewportTexture = explored_area_viewport.get_texture()
+	if not fow_texture:
+		return null
+	_fow_image = fow_texture.get_image()
+	return _fow_image
 	
 func _clear_explored() -> void:
 	explored_area_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
