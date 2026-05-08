@@ -26,7 +26,11 @@ var count:int:
 		
 		if prev_value != count:
 			if count > prev_value:
-				reserved_count = maxi(count, reserved_count)
+				if reserved_count <= cap:
+					reserved_count = maxi(count, reserved_count)
+				# Clamp down to current count
+				else:
+					reserved_count = count
 			else:
 				# Free up reserved by decrease in count
 				reserved_count -= prev_value - count
