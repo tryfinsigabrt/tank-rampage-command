@@ -20,7 +20,7 @@ func _ready() -> void:
 	_camera = player.camera
 	if _camera:
 		_camera.camera_changed.connect(_camera_changed)
-		_camera_changed(~0)
+		_camera_changed.call_deferred(~0)
 	else:
 		push_error("%s: Could not get RTSCamera from player!" % name)
 		
