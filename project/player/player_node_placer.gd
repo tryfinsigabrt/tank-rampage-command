@@ -6,10 +6,14 @@ var node_picker: NodePicker
 @export
 var selection_manager:SelectionManager
 
+@export
+var stationary_refresh_interval:float = 0.2
+
 @onready var building_manufacturing: BuildingManufacturing = $BuildingManufacturing
 
 var _current_placement_spawner:NodePlacementSpawner
 var _last_mouse_position:Vector2
+var _last_mouse_dt:float
 
 func _ready() -> void:
 	set_process(false)
@@ -62,20 +66,22 @@ func _remove_spawner() -> void:
 	_current_placement_spawner = null
 	set_process(false)
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	# This shouldn't happen as we disable process when there is no active spawner
 	if not _current_placement_spawner:
 		return
 		
-	_move_spawner()
+	_move_spawner(delta)
 
-func _move_spawner() -> bool:
+func _move_spawner(delta:float = 0.0) -> bool:
+	_last_mouse_dt += delta	
 	var mouse_position:Vector2 = get_viewport().get_mouse_position()
 	# Project to world and then move the placement spawner
-	# Skip if haven't moved
-	if mouse_position.is_equal_approx(_last_mouse_position):
+	# Skip if haven't moved recently - need to refresh occassionally as FOW is changing
+	if _last_mouse_dt < stationary_refresh_interval and mouse_position.is_equal_approx(_last_mouse_position):
 		return true
-		
+	
+	_last_mouse_dt = 0.0
 	_last_mouse_position = mouse_position
 	var result: Dictionary = node_picker.pick_position(mouse_position)
 	if not result:

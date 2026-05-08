@@ -89,10 +89,24 @@ func move_to(pos:Vector3, is_grounded:bool = false) -> void:
 	curr_ghost.z = pos.z
 	_ghost_asset.global_position = curr_ghost
 	
+	_update_state(pos, is_grounded)
+
+func _update_state(pos:Vector3, is_grounded:bool) -> void:
 	_update_eligibility(pos, is_grounded)
 	_update_effects()
 	
+func _refresh_state() -> void:
+	var pos:Vector3 = _ghost_asset.global_position
+	pos.y -= above_ground_height
+	
+	_update_state(pos, false)
+	
 func spawn(asset_name:StringName="") -> Node3D:
+	if not _ghost_asset.visible:
+		push_error("%s: Attempted to spawn asset=%s:%s when inactive!" % [name, asset_name, _ghost_asset.name])
+		return null
+		
+	_refresh_state()
 	if not _can_spawn:
 		return null
 	
