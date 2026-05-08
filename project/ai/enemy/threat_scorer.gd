@@ -53,9 +53,13 @@ func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:
 	for entry in matches:
 		entry.score = entry.score / max_score
 	matches.sort_custom(func(a:UnitScore, b:UnitScore) -> bool:
+		# First compare by priority, ordering lower score first and then by score with highest first
 		if a.priority < b.priority:
 			return true
-		return a.score > b.score)
+		if a.priority > b.priority:
+			return false
+		return a.score > b.score
+	)
 	
 	var remove_index_start:int = -1
 	for i in range(matches.size() - 1, -1, -1):
