@@ -156,6 +156,9 @@ func fire() -> void:
 	if is_instance_valid(_shoot_vfx):
 		_shoot_vfx.shoot()
 	
+	if is_instance_valid($ShootSfx):
+		$ShootSfx.play()
+	
 	_set_cooldown()
 	
 	await _delay_impact()
