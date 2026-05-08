@@ -30,6 +30,8 @@ const DEFAULT_HIT_VFX_SCENE:PackedScene = preload("uid://ydirx1srogti")
 @export var shoot_vfx_origin_path: NodePath
 @export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
 
+@export var shoot_sfx:Node
+
 @export var hit_vfx:HitVfx
 
 const SHOOT_VFX_SCENES := {
@@ -156,8 +158,8 @@ func fire() -> void:
 	if is_instance_valid(_shoot_vfx):
 		_shoot_vfx.shoot()
 	
-	if is_instance_valid($ShootSfx):
-		$ShootSfx.play()
+	if shoot_sfx:
+		shoot_sfx.play()
 	
 	_set_cooldown()
 	
