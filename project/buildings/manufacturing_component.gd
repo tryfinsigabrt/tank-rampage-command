@@ -68,8 +68,11 @@ func _exit_tree() -> void:
 func _refund_build_queue() -> void:
 	# Refund any queued up units that haven't spawned
 	if _match_team:
+		var team_resource := _match_team.resources
 		for element in _build_queue:
-			element.resource.refund_fully(_match_team.resources)
+			var resource := element.resource
+			resource.refund_fully(team_resource)
+			resource.dequeue_personnel(team_resource)
 			
 func _ready() -> void:
 	assert(asset_spawner, "asset_spawner not set!")
@@ -127,9 +130,11 @@ func build(type: ConstructionResource.Type) -> Node3D:
 	# Spend resources immediately
 	if _match_team:
 		resource.spend(_match_team.resources)
+		resource.queue_personnel(_match_team.resources)
 		
 	var unit := await _do_spawn(resource)
 	if _match_team:
+		resource.dequeue_personnel(_match_team.resources)
 		if unit:
 			# Now count against army size
 			resource.spend_personnel_only(_match_team.resources)

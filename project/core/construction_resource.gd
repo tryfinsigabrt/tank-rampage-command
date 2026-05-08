@@ -106,15 +106,24 @@ func spend(resources:TeamResources) -> void:
 		return
 	
 	resources.scrap.count -= cost
-	resources.personnel.reserved_count += personnel
 
+func queue_personnel(resources:TeamResources) -> void:
+	if not resources:
+		return
+	
+	resources.personnel.queued_count += personnel
+	
+func dequeue_personnel(resources:TeamResources) -> void:
+	if not resources:
+		return
+	resources.personnel.queued_count -= personnel
+	
 ## This is only to be used if canceling before could be built or if the asset couldn't be spawned
 func refund_fully(resources:TeamResources) -> void:
 	if not resources:
 		return
 	
 	resources.scrap.count += cost
-	resources.personnel.reserved_count -= personnel
 	
 func spend_personnel_only(resources:TeamResources) -> void:
 	if not resources:
