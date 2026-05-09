@@ -16,14 +16,17 @@ collision_mask = 4
 script = ExtResource("1_wsmsk")
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=813290594]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3457139, 0)
 
 [node name="TopCrystal" type="MeshInstance3D" parent="VisualRoot" unique_id=313440076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5069592, 0)
+cast_shadow = 0
 mesh = SubResource("PrismMesh_wsmsk")
 
 [node name="BottomCrystal" type="MeshInstance3D" parent="VisualRoot" unique_id=1830333989]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -1.4312712, -3.6560685e-08)
+cast_shadow = 0
 mesh = SubResource("PrismMesh_wsmsk")
 
 [node name="Overlap" type="CollisionShape3D" parent="." unique_id=666467928]

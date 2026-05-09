@@ -10,7 +10,14 @@ var scrap:int
 @export
 var lifetime:float = 30.0
 
+@export
+var rotation_speed_deg:float = 180.0
+
+@onready 
+var _visual_root: Node3D = %VisualRoot
+
 func _ready() -> void:
+	_spin_token()
 	if lifetime > 0:
 		var timer:Timer = Timer.new()
 		timer.name = "LifetimeTimer"
@@ -20,6 +27,12 @@ func _ready() -> void:
 		timer.timeout.connect(delete)
 		add_child(timer)
 
+func _spin_token() -> void:
+	var tween := _visual_root.create_tween()
+	tween.set_loops()
+	tween.tween_property(_visual_root, "rotation_degrees:y",
+		 rotation.y + rotation_speed_deg, 1.0).as_relative()
+	
 func _on_body_entered(body: Node3D) -> void:
 	var unit:Unit = body as Unit
 	if not unit:
