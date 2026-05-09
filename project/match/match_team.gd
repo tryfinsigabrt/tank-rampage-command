@@ -43,7 +43,10 @@ func _ready() -> void:
 	team_visibility_component.team = team
 	
 	if not resources:
-		resources = TeamResources.new()		
+		resources = TeamResources.new()
+	# Need to duplicate as these resources are modified during gameplay
+	else:
+		resources = resources.duplicate_deep()
 	resources.initialize()
 	
 	if config and config.construction:
