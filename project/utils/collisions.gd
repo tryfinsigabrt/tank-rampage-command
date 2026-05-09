@@ -177,7 +177,11 @@ func calculate_aabb(node: Node, type:AABBCalculationType = AABBCalculationType.C
 	while nodes:
 		var child:Node = nodes.pop_back()
 		if is_supported_collision_type(child):
-			bounds = bounds.merge(get_aabb_from_collision(child))
+			var child_bounds:AABB = get_aabb_from_collision(child)
+			if bounds:
+				bounds = bounds.merge(child_bounds)
+			else:
+				bounds = child_bounds
 		if recursive:
 			nodes.append_array(child.get_children())
 	return bounds

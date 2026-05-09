@@ -17,8 +17,7 @@ var bounds:AABB:
 		return _bounds
 		
 func _ready() -> void:
-	for child in get_children():
-		_bounds = _bounds.merge(Collisions.get_aabb_from_collision(child))
+	_bounds = Collisions.calculate_aabb(self)
 	_bounds = transform * _bounds
 	# Convert bounds to world space
 	print_debug("%s: World boundaries AABB=%s" % [name, _bounds])

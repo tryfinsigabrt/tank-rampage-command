@@ -43,16 +43,26 @@ func recenter() -> void:
 	
 	var bounds:AABB
 	for asset in assets:
-		bounds = bounds.expand(asset.global_position)
+		var asset_bounds:AABB = asset.get_global_bounds()
+		if bounds:
+			bounds = bounds.merge(asset_bounds)
+		else:
+			bounds = asset_bounds
 	
 	if not bounds.has_volume():
 		var current_size:Vector3 = bounds.size
 		bounds.size = Vector3(maxf(current_size.x, 0.01), maxf(current_size.y, 0.01), maxf(current_size.z, 0.01))
 	# Find initial camera reference point
 	var center:Vector3 = bounds.get_center()
-	var ray_start:Vector3 = center - avg_orientation * 100000
+	var ray_start:Vector3 = center - avg_orientation * 1000
 	
-	var result:Variant = bounds.intersects_ray(ray_start, avg_orientation)
+	# Make volume larger for ray cast
+	var ray_cast_bounds := AABB(bounds)
+	var new_size:Vector3 = ray_cast_bounds.size
+	new_size.y += 200.0
+	ray_cast_bounds.size = new_size
+	
+	var result:Variant = ray_cast_bounds.intersects_ray(ray_start, avg_orientation)
 	var camera_reference_start:Vector3 
 	
 	if not result:
