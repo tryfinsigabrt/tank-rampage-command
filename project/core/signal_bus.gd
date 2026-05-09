@@ -4,7 +4,7 @@ extends Node
 
 signal on_paused(paused:bool)
 
-signal on_unit_deselected(unit:Unit)
+signal on_unit_deselected(unit: Unit)
 signal on_unit_selected(unit: Unit)
 
 signal on_building_deselected(building:Building)

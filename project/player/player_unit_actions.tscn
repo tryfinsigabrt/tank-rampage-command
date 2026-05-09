@@ -14,6 +14,8 @@
 [ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="9_lil68"]
 [ext_resource type="Material" uid="uid://cbnit7meja5e7" path="res://player/effects/attack_move_material.tres" id="10_hu7x2"]
 [ext_resource type="Material" uid="uid://c6u711v5oxba0" path="res://player/effects/attack_position_material.tres" id="11_i84qe"]
+[ext_resource type="Script" uid="uid://r5vi23q5py4e" path="res://player/order_barks.gd" id="12_6ck2i"]
+[ext_resource type="AudioStream" uid="uid://djl1g5wfsd05p" path="res://sounds/unit-barks/bark_attack.tres" id="13_e8hef"]
 [ext_resource type="Script" uid="uid://dnvi7f6hefgij" path="res://player/player_node_placer.gd" id="15_gnjf6"]
 [ext_resource type="PackedScene" uid="uid://b788aluto08ag" path="res://buildings/building_manufacturing.tscn" id="16_3q252"]
 [ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="17_6ck2i"]
@@ -21,6 +23,8 @@
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="19_pa1cc"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="20_mgecy"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_7nrp4"]
+[ext_resource type="AudioStream" uid="uid://bxjvb57wf3jmr" path="res://sounds/unit-barks/bark_move.tres" id="24_pa1cc"]
+[ext_resource type="AudioStream" uid="uid://dariah7ax57cw" path="res://sounds/unit-barks/bark_selection.tres" id="25_mgecy"]
 
 [sub_resource type="Resource" id="Resource_mkbv6"]
 script = ExtResource("17_6ck2i")
@@ -100,6 +104,27 @@ supported_types = SubResource("Resource_mkbv6")
 [node name="GroundPicker" type="Node3D" parent="BuildingCreateAction" unique_id=1520157363]
 script = ExtResource("2_m750r")
 ground_mask = 2
+
+[node name="UnitBarks" type="Node" parent="." unique_id=420836898 node_paths=PackedStringArray("_order_barks", "_selection_barks")]
+script = ExtResource("12_6ck2i")
+_order_barks = {
+&"attack": NodePath("Attack"),
+&"move": NodePath("Move"),
+&"move_and_attack": NodePath("Move")
+}
+_selection_barks = NodePath("Selection")
+
+[node name="Attack" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1380215223]
+stream = ExtResource("13_e8hef")
+bus = &"Voice"
+
+[node name="Move" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1833688392]
+stream = ExtResource("24_pa1cc")
+bus = &"Voice"
+
+[node name="Selection" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1387073430]
+stream = ExtResource("25_mgecy")
+bus = &"Voice"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]

@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dariah7ax57cw"]
+
+[ext_resource type="AudioStream" uid="uid://cf6cw1luyvrng" path="res://sounds/unit-barks/bark-selection-a.wav" id="1_bdun2"]
+[ext_resource type="AudioStream" uid="uid://q06o8u1yijqp" path="res://sounds/unit-barks/bark-selection-b.wav" id="2_rvk8c"]
+[ext_resource type="AudioStream" uid="uid://okrwn6a8m8t0" path="res://sounds/unit-barks/bark-selection-c.wav" id="3_pop8t"]
+[ext_resource type="AudioStream" uid="uid://t2pprfwdy6o4" path="res://sounds/unit-barks/bark-selection-d.wav" id="4_yt5nk"]
+[ext_resource type="AudioStream" uid="uid://bagaiv1k3yqid" path="res://sounds/unit-barks/bark-selection-e.wav" id="5_o4ucg"]
+[ext_resource type="AudioStream" uid="uid://cvfyassxu4eco" path="res://sounds/unit-barks/bark-selection-f.wav" id="6_mpbqj"]
+[ext_resource type="AudioStream" uid="uid://digxnumodu70l" path="res://sounds/unit-barks/bark-selection-g.wav" id="7_j6qrh"]
+[ext_resource type="AudioStream" uid="uid://dy4fgybanx3f5" path="res://sounds/unit-barks/bark-selection-h.wav" id="8_nbd8j"]
+
+[resource]
+random_pitch = 1.0293022
+random_volume_offset_db = 2.0
+streams_count = 8
+stream_0/stream = ExtResource("1_bdun2")
+stream_1/stream = ExtResource("2_rvk8c")
+stream_2/stream = ExtResource("3_pop8t")
+stream_3/stream = ExtResource("4_yt5nk")
+stream_4/stream = ExtResource("5_o4ucg")
+stream_5/stream = ExtResource("6_mpbqj")
+stream_6/stream = ExtResource("7_j6qrh")
+stream_7/stream = ExtResource("8_nbd8j")
