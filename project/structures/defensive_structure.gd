@@ -17,6 +17,9 @@ var attributes:TeamAssetAttributes
 var bounds_type: Bounds.Type = Bounds.Type.AABB
 
 @export
+var ignore_collision_same_team:bool
+
+@export
 var team:int:
 	set(value):
 		team = value

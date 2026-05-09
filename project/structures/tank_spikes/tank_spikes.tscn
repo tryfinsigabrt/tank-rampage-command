@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_g7uy2"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_o2xd8"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="5_6ywqw"]
-[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="5_g7uy2"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="5_g7uy2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7uy2"]
 size = Vector3(2.25, 2, 2.25)
@@ -18,6 +18,7 @@ script = ExtResource("1_2bc18")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")
 attributes = ExtResource("2_0yxgm")
+ignore_collision_same_team = true
 team = null
 metadata/_custom_type_script = "uid://iowc3oc6s36j"
 
