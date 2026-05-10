@@ -1,6 +1,6 @@
 extends Control
 
-@onready var pause_container: VBoxContainer = %PauseContainer
+@onready var content_container: VBoxContainer = %ContentContainer
 @onready var resume: Button = %Resume
 @onready var quit: Button = %Quit
 
@@ -31,7 +31,7 @@ func _on_quit_pressed() -> void:
 
 func _disable_buttons() -> void:
 	@warning_ignore("missing_await")
-	UIUtils.disable_all_buttons(pause_container, 20.0)
+	UIUtils.disable_all_buttons(content_container, 20.0)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
