@@ -16,7 +16,7 @@ func _on_play_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	_disable_buttons()
-	get_tree().quit()
+	GameManager.scene_manager.quit()
 
 func _disable_buttons() -> void:
 	@warning_ignore("missing_await")

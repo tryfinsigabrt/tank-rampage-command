@@ -2,6 +2,7 @@
 
 [ext_resource type="Terrain3DMaterial" uid="uid://x7mxifjc6k7h" path="res://test/terrain/test_terrain_material.tres" id="1_a4auo"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_dayn7"]
+[ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_q4yjv"]
 [ext_resource type="Terrain3DAssets" uid="uid://bcofwilflqk15" path="res://test/terrain/test_terrain_assets.tres" id="2_dsixg"]
 [ext_resource type="NavigationMesh" uid="uid://ecbf3m4x73w3" path="res://test/terrain/test_terrain_nav.res" id="2_nm2cs"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="5_575d2"]
@@ -88,6 +89,11 @@ _data = {
 point_count = 4
 
 [node name="TerrainTest" type="Node3D" unique_id=1177153595]
+
+[node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=673063236]
+layer = 10
+
+[node name="PauseMenu" parent="PauseMenuLayer" unique_id=315174667 instance=ExtResource("1_q4yjv")]
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_dayn7")]
 explored_area_modulation = 0.5

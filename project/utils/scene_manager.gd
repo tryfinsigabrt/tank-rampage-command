@@ -7,15 +7,28 @@ signal scene_changed(new_scene:Node)
 signal scene_leaving(old_scene:Node)
 signal scene_entering(new_scene:Node)
 
+var paused:bool:
+	get: return get_tree().paused
+	
 func main_menu() -> void:
 	await switch_scene(MAIN_MENU_SCENE)
 
 func new_game() -> void:
 	await switch_scene(GAME_SCENE)
 	
-func pause_game(paused:bool) -> void:
-	get_tree().paused = paused
-	SignalBus.pause_game.emit(paused)
+func quit() -> void:
+	get_tree().quit()
+	
+func toggle_pause() -> void:
+	pause_game(not paused)
+	
+func pause_game(in_paused:bool) -> void:
+	var currently_paused:bool = paused
+	if currently_paused == in_paused:
+		return
+		
+	get_tree().paused = in_paused
+	SignalBus.on_paused.emit(in_paused)
 	
 func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void:
 	await _switch_scene(func()->Node: 

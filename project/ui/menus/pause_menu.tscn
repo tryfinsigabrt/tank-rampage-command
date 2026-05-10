@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cw0hkpwye3afk"]
+
+[ext_resource type="Script" uid="uid://dg22a6i2gpmla" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w225i"]
+
+[node name="PauseMenu" type="Control" unique_id=315174667]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_w225i")
+script = ExtResource("1_hv7dm")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=238170877]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PauseContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1225616701]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Resume" type="Button" parent="MarginContainer/PauseContainer" unique_id=1563831412]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="Quit" type="Button" parent="MarginContainer/PauseContainer" unique_id=549256535]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/PauseContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/PauseContainer/Quit" to="." method="_on_quit_pressed"]
