@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://bnqhpy3uvhqdh"]
+
+[ext_resource type="Script" uid="uid://3psy7pwt3jxj" path="res://player/player_team_actions.gd" id="1_v1jom"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="2_wipxo"]
+[ext_resource type="Script" uid="uid://xiohmvrpkwct" path="res://player/selection_manager.gd" id="3_f65hl"]
+[ext_resource type="PackedScene" uid="uid://dngxy6j5mtmup" path="res://player/effects/asset_selection_effect.tscn" id="4_momtr"]
+[ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="5_1k0rd"]
+[ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="6_632wb"]
+[ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="7_rsxwl"]
+[ext_resource type="PackedScene" uid="uid://15e16r8qmv1v" path="res://player/effects/ground_action_indicator.tscn" id="8_ow4pb"]
+[ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="9_wo08e"]
+[ext_resource type="Material" uid="uid://cbnit7meja5e7" path="res://player/effects/attack_move_material.tres" id="10_yvfcl"]
+[ext_resource type="Material" uid="uid://c6u711v5oxba0" path="res://player/effects/attack_position_material.tres" id="11_uft7k"]
+[ext_resource type="Script" uid="uid://dv7safpx7wdvf" path="res://player/box_select.gd" id="12_ahw3k"]
+[ext_resource type="Script" uid="uid://bberh5ses37m" path="res://player/effects/box_render.gd" id="13_nkdgy"]
+[ext_resource type="Script" uid="uid://d0di5ddhbt3gu" path="res://player/building_manufacturing_actions.gd" id="14_uwcuh"]
+[ext_resource type="Script" uid="uid://dnvi7f6hefgij" path="res://player/player_node_placer.gd" id="15_lafsi"]
+[ext_resource type="PackedScene" uid="uid://b788aluto08ag" path="res://buildings/building_manufacturing.tscn" id="16_5vowf"]
+[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="17_wj3pl"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="18_1ejb4"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="19_2r2h7"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="20_hbot4"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_118rc"]
+[ext_resource type="Script" uid="uid://r5vi23q5py4e" path="res://player/order_barks.gd" id="22_2fhkc"]
+[ext_resource type="AudioStream" uid="uid://djl1g5wfsd05p" path="res://sounds/unit-barks/bark_attack.tres" id="23_i53q6"]
+[ext_resource type="AudioStream" uid="uid://bxjvb57wf3jmr" path="res://sounds/unit-barks/bark_move.tres" id="24_4vvwb"]
+[ext_resource type="AudioStream" uid="uid://dariah7ax57cw" path="res://sounds/unit-barks/bark_selection.tres" id="25_fjrpl"]
+
+[sub_resource type="Resource" id="Resource_mkbv6"]
+script = ExtResource("17_wj3pl")
+types = Array[ExtResource("18_1ejb4")]([ExtResource("19_2r2h7"), ExtResource("20_hbot4"), ExtResource("21_118rc")])
+metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
+
+[node name="PlayerTeamActions" type="Node3D" unique_id=518831115]
+script = ExtResource("1_v1jom")
+
+[node name="NodePicker" type="Node3D" parent="." unique_id=830610886]
+script = ExtResource("2_wipxo")
+
+[node name="SelectionManager" type="Node" parent="." unique_id=1203779906 node_paths=PackedStringArray("_asset_selection_effect")]
+script = ExtResource("3_f65hl")
+_asset_selection_effect = NodePath("AssetSelectionEffect")
+
+[node name="AssetSelectionEffect" parent="SelectionManager" unique_id=1646816583 instance=ExtResource("4_momtr")]
+
+[node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution", "target_asset_selection_effect", "move_to_effect", "attack_move_effect", "attack_position_effect")]
+script = ExtResource("5_1k0rd")
+selection_manager = NodePath("../SelectionManager")
+position_distribution = NodePath("PositionDistributor")
+target_asset_selection_effect = NodePath("Effects/TargetAssetSelectionEffect")
+move_to_effect = NodePath("Effects/MoveToIndicator")
+attack_move_effect = NodePath("Effects/AttackMoveIndicator")
+attack_position_effect = NodePath("Effects/AttackPositionIndicator")
+
+[node name="PositionDistributor" type="Node" parent="OrderManager" unique_id=61436976]
+script = ExtResource("6_632wb")
+max_group_separation = 75.0
+
+[node name="Effects" type="Node" parent="OrderManager" unique_id=1560686010]
+
+[node name="TargetAssetSelectionEffect" parent="OrderManager/Effects" unique_id=1551921191 instance=ExtResource("4_momtr")]
+outline_material = ExtResource("7_rsxwl")
+auto_disable_delay = 3.0
+
+[node name="MoveToIndicator" parent="OrderManager/Effects" unique_id=1424207464 instance=ExtResource("8_ow4pb")]
+visible = false
+material = ExtResource("9_wo08e")
+
+[node name="AttackMoveIndicator" parent="OrderManager/Effects" unique_id=61669513 instance=ExtResource("8_ow4pb")]
+visible = false
+material = ExtResource("10_yvfcl")
+
+[node name="AttackPositionIndicator" parent="OrderManager/Effects" unique_id=643014957 instance=ExtResource("8_ow4pb")]
+visible = false
+material = ExtResource("11_uft7k")
+
+[node name="BoxSelect" type="Node" parent="." unique_id=1579712261 node_paths=PackedStringArray("node_picker")]
+script = ExtResource("12_ahw3k")
+node_picker = NodePath("../NodePicker")
+action_name = &"unit_select"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="BoxSelect" unique_id=958063740]
+layer = 127
+
+[node name="BoxRender" type="Node2D" parent="BoxSelect/CanvasLayer" unique_id=1623218199]
+unique_name_in_owner = true
+visible = false
+top_level = true
+script = ExtResource("13_nkdgy")
+outline_width = 2.0
+
+[node name="BuildingManufacturingActions" type="Node" parent="." unique_id=2042305144 node_paths=PackedStringArray("selection_manager")]
+script = ExtResource("14_uwcuh")
+selection_manager = NodePath("../SelectionManager")
+
+[node name="BuildingCreateAction" type="Node" parent="." unique_id=667114620 node_paths=PackedStringArray("node_picker", "selection_manager")]
+script = ExtResource("15_lafsi")
+node_picker = NodePath("GroundPicker")
+selection_manager = NodePath("../SelectionManager")
+
+[node name="BuildingManufacturing" parent="BuildingCreateAction" unique_id=397080948 instance=ExtResource("16_5vowf")]
+supported_types = SubResource("Resource_mkbv6")
+
+[node name="GroundPicker" type="Node3D" parent="BuildingCreateAction" unique_id=1520157363]
+script = ExtResource("2_wipxo")
+ground_mask = 2
+
+[node name="UnitBarks" type="Node" parent="." unique_id=420836898 node_paths=PackedStringArray("_order_barks", "_selection_barks")]
+script = ExtResource("22_2fhkc")
+_order_barks = {
+&"attack": NodePath("Attack"),
+&"move": NodePath("Move"),
+&"move_and_attack": NodePath("Move")
+}
+_selection_barks = NodePath("Selection")
+
+[node name="Attack" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1380215223]
+stream = ExtResource("23_i53q6")
+bus = &"Voice"
+
+[node name="Move" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1833688392]
+stream = ExtResource("24_4vvwb")
+bus = &"Voice"
+
+[node name="Selection" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1387073430]
+stream = ExtResource("25_fjrpl")
+bus = &"Voice"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]

@@ -6,7 +6,7 @@ class_name Player extends Node3D
 @export
 var player_team:MatchTeam
 
-@onready var player_unit_actions: PlayerUnitActions = $PlayerUnitActions
+@onready var player_unit_actions: PlayerTeamActions = $PlayerTeamActions
 
 func _ready() -> void:
 	if not player_team:

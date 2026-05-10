@@ -1,4 +1,4 @@
-class_name PlayerUnitActions extends Node3D
+class_name PlayerTeamActions extends Node3D
 
 @export
 var team:int:

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_7v57y"]
 [ext_resource type="Script" uid="uid://cgyw25b1uhekp" path="res://test/units/human/tank/human_tank_actions_controller.gd" id="1_px2s1"]
-[ext_resource type="PackedScene" uid="uid://bnqhpy3uvhqdh" path="res://player/player_unit_actions.tscn" id="2_px2s1"]
+[ext_resource type="PackedScene" uid="uid://bnqhpy3uvhqdh" path="res://player/player_team_actions.tscn" id="2_px2s1"]
 [ext_resource type="PackedScene" uid="uid://b6athfiajv0em" path="res://player/follow_camera.tscn" id="4_vlmyw"]
 
 [node name="HumanTankActionsController" type="Node3D" unique_id=456611770]
