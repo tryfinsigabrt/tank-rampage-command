@@ -7,7 +7,10 @@ signal queued_count_changed(old_value:int, new_value:int)
 @export_range(1,1e9,1, "or_greater")
 var control_point_cap_bonus:int = 10
 
-@export_range(1,1e9,1, "or_greater")
+@export_range(0,1e9,1, "or_greater")
+var command_center_bonus:int = 10
+
+@export_range(0,1e9,1, "or_greater")
 var cap:int = 10:
 	set(value):
 		var prev_value := cap
@@ -21,8 +24,7 @@ var cap:int = 10:
 var count:int:
 	set(value):
 		var prev_value := count
-		# If already over the max don't clamp down
-		count = clampi(value, 0, maxi(prev_value, cap))
+		count = maxi(0, value)
 		
 		if prev_value != count:
 			count_changed.emit(prev_value, count)
