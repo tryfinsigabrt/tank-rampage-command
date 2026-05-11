@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://86b6ejinpq81"]
+
+[ext_resource type="Script" uid="uid://dv4o7kr65svtw" path="res://core/attacked_tracker_component.gd" id="1_b64vi"]
+
+[node name="AttackedTrackerComponent" type="Node" unique_id=354155251]
+script = ExtResource("1_b64vi")
