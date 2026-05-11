@@ -94,7 +94,7 @@ static func get_scene_root(start:Node) -> Node:
 		return owner
 	# If owner is null it is already the root
 	return start
-
+	
 static func get_scene_root_if_in_group(start:Node, group:StringName) -> Node:
 	var root:Node = get_scene_root(start)
 	return root if root and root.is_in_group(group) else null

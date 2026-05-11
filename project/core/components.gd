@@ -4,18 +4,18 @@ const Health:StringName = &"HealthComponent"
 const Team:StringName = &"TeamComponent"
 const Manufacturing:StringName = &"ManufacturingComponent"
 
-static func add_component(name:StringName, comp:Node) -> void:
+static func add_component(name:StringName, comp:Node, custom_root:Node = null) -> void:
 	assert(comp)
-	var root:Node = Groups.get_scene_root(comp)
+	var root:Node = custom_root if custom_root else Groups.get_scene_root(comp)
 	if not root:
 		push_error("add_component: Could not set component %s:%s" % [name, comp.name])
 		return
 	
 	root.set_meta(name, comp)
 
-static func remove_component(name:StringName, comp:Node) -> void:
+static func remove_component(name:StringName, comp:Node, custom_root:Node = null) -> void:
 	assert(comp)
-	var root:Node = Groups.get_scene_root(comp)
+	var root:Node = custom_root if custom_root else Groups.get_scene_root(comp)
 	if not root:
 		push_error("add_component: Could not set component %s:%s" % [name, comp.name])
 		return
