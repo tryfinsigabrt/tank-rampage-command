@@ -20,6 +20,15 @@ var units:Array[Unit]:
 			if unit:
 				units.push_back(unit)
 		return _units
+
+var unit_ids:PackedInt64Array:
+	get:
+		var ids:PackedInt64Array
+		for id in _visible_objects:
+			var unit:Unit = instance_from_id(id) as Unit
+			if unit:
+				ids.push_back(id)
+		return ids
 		
 func _ready() -> void:
 	if not _team_asset_root:

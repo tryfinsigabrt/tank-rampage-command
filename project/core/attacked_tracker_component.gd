@@ -1,12 +1,38 @@
 class_name AttackedTrackerComponent extends Node
 
+@export
+var attack_decay_time:float = 10.0
+
 const ComponentName:StringName = &"AttackedTrackerComponent"
 
 var _team_asset_root:Node
 
 var _health_comp:HealthStat
 var _team_component:TeamComponent
+var _ai_vision:AiUnitVision
 
+var _attackers: Array[DamageParameters]
+
+func get_visible_attacker_units() -> Array[Unit]:
+	_expire_entries()
+	
+	var units:Array[Unit]
+	if not units:
+		return units
+
+	var check_visible:bool = GameManager.fog_of_war and is_instance_valid(_ai_vision)
+	var visible_units:PackedInt64Array
+	if check_visible:
+		visible_units = _ai_vision.unit_ids
+		
+	for entry in _attackers:
+		var unit:Unit = entry.source_owner as Unit
+		if not unit or (check_visible and unit.get_instance_id() not in visible_units):
+			continue
+		units.push_back(unit)
+		
+	return units
+		
 func _ready() -> void:
 	if not _team_asset_root:
 		push_error("%s: AttackerTrackerComponent not added to a team asset hierarchy: " % name)
@@ -22,11 +48,40 @@ func _ready() -> void:
 		push_error("%s:  AttackerTrackerComponent asset %s has no health stat!" % [name, _team_asset_root.name])
 		queue_free()
 		return
+		
 	_health_comp.took_damage.connect(_on_took_damaged)
+	# If AI Unit vision added and FOW then only list out known attackers that are visible
+	_ai_vision = AiUnitVision.get_component(_team_asset_root, false)
 	
-func _on_took_damaged(_damage_params:DamageParameters) -> void:
-	# TODO:
-	pass
+func _on_took_damaged(damage_params:DamageParameters) -> void:
+	_expire_entries()
+	
+	var source_owner: Unit = damage_params.source_owner as Unit
+	if not source_owner:
+		return
+		
+	for i in _attackers.size():
+		var entry:DamageParameters = _attackers[i]
+		# == is safe here as we already expired invalid entries
+		if entry.source_owner == source_owner:
+			_attackers[i] = damage_params
+			return
+	# No existing entry, push_back
+	_attackers.push_back(damage_params)		
+	
+func _expire_entries() -> void:
+	var now:float = GameManager.game_timer.time_seconds
+	
+	for i in range(_attackers.size() - 1, -1, -1):
+		var entry: DamageParameters = _attackers[i]
+		var valid:bool = true
+		if not is_instance_valid(entry.source_owner):
+			valid = false
+		elif now - entry.timestamp > attack_decay_time:
+			valid = false
+		
+		if not valid:
+			_attackers.remove_at(i)
 	
 #region Component Registration
 static func get_component(node: Node, required:bool = true) -> AttackedTrackerComponent:

@@ -1,6 +1,7 @@
 class_name TeamUnits extends Node
 
 const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
+const attacked_tracking_scene:PackedScene = preload("uid://86b6ejinpq81")
 
 @warning_ignore("unused_signal")
 signal initialized
@@ -39,6 +40,9 @@ func add_unit(unit:Unit) -> void:
 
 func add_building(building:Node3D) -> void:
 	_add_asset(building, Groups.Building)
+	
+	# Add attacked tracking
+	building.add_child(attacked_tracking_scene.instantiate())
 
 func add_structure(structure:Node3D) -> void:
 	_add_asset(structure, Groups.Structure)
@@ -75,7 +79,7 @@ func _init_asset(asset:Node3D) -> void:
 	if GameManager.fog_of_war:
 		var ai_unit_vision:AiUnitVision = ai_unit_vision_scene.instantiate()
 		asset.add_child(ai_unit_vision)
-		
+			
 func has_asset_id(id:int) -> bool:
 	return _assets.has(id)
 

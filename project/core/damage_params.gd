@@ -26,6 +26,8 @@ var contact_normal:Vector3
 var is_direct_hit:bool
 var source_damage_allowed:bool
 
+var timestamp:float = GameManager.game_timer.time_seconds
+
 func _to_string() -> String:
 	return "target=%s; weapon=%s; source=%s; damage=%f; contact=%s; normal=%s; is_direct=%s" % \
 	 [StringUtils.safe_name(target_object), StringUtils.safe_name(source),
@@ -50,7 +52,7 @@ func _duplicate_from_prototype() -> DamageParameters:
 	result.damage_multiplier = damage_multiplier
 	result.source = source
 	result.source_owner = source_owner
-	
+
 	return result
 	
 static func from_ray_intersect(results: Dictionary, prototype:DamageParameters = null) -> DamageParameters:
