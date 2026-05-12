@@ -12,6 +12,7 @@ signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 signal resource_discovered(resource:Node3D)
 signal control_point_discovered(control_point:ControlPoint)
 signal control_point_visibility_changed(control_point:ControlPoint, in_is_visible:bool)
+signal building_attack_status_changed(building:Building, under_attack:bool)
 
 var team:int
 
@@ -42,8 +43,10 @@ func add_building(building:Node3D) -> void:
 	_add_asset(building, Groups.Building)
 	
 	# Add attacked tracking
-	building.add_child(attacked_tracking_scene.instantiate())
-
+	var tracking_scene:AttackedTrackerComponent = attacked_tracking_scene.instantiate()
+	tracking_scene.attackers_changed.connect(_on_building_attack_status_changed.bind(building, tracking_scene))
+	building.add_child(tracking_scene)
+	
 func add_structure(structure:Node3D) -> void:
 	_add_asset(structure, Groups.Structure)
 	
@@ -135,3 +138,6 @@ func _on_visibility_changed(object:Node3D, in_is_visible:bool) -> void:
 	# Control Point is a TeamAsset as well
 	if object is ControlPoint:
 		control_point_visibility_changed.emit(object, in_is_visible)
+
+func _on_building_attack_status_changed(building:Building, tracker:AttackedTrackerComponent) -> void:
+	building_attack_status_changed.emit(building, tracker.under_attack)

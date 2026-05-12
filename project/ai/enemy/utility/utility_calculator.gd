@@ -71,6 +71,10 @@ func assess_threats() -> bool:
 			if action_units:
 				print_debug("%s: Team %d %s priorities(%d): %s" % [name, blackboard.team, action, action_units.size(), action_units])
 
+	# TODO: Sort so highest priority attack is first
+	# AttackSelector selects which unit to attack and currently uses simple distribution strategy but should be 
+	# weighted by priority to send multiple units to a location even if it means abandoning other attack targets
+	# We can do this with a weight on the data structure which now needs to be more than just Array[Unit]
 	# Need to duplicate so that signals fire
 	blackboard.attack_priorities = (_unit_utilities.get(ATTACK_BEHAVIOR_KEY) as Array[Unit]).duplicate()
 	blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]).duplicate()
@@ -85,6 +89,7 @@ func _reset_unit_utilities() -> void:
 	
 func _tick() -> void:
 	# Only re-evaluate if there are any visible threats
+	# Ideally if buildings are under attack and cannot see units we explore out in direction the attack is occuring
 	if not blackboard.visible_enemy_count:
 		return
 		

@@ -95,3 +95,14 @@ func _on_control_point_discovered(control_point: ControlPoint) -> void:
 		
 	known_control_points.push_back(control_point)
 	blackboard.on_control_point_discovered.emit(control_point)
+
+func _on_team_units_building_attack_status_changed(building: Building, under_attack: bool) -> void:
+	var current:Array[Building] = blackboard.buildings_under_attack
+	var in_current:bool = building in current
+	
+	if under_attack and not in_current:
+		current.push_back(building)
+		blackboard.on_buildings_under_attack_changed.emit()
+	elif not under_attack and in_current:
+		current.erase(building)
+		blackboard.on_buildings_under_attack_changed.emit()

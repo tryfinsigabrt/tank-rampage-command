@@ -1,5 +1,7 @@
 class_name AttackedTrackerComponent extends Node
 
+signal attackers_changed
+
 @export
 var attack_decay_time:float = 10.0
 
@@ -13,6 +15,24 @@ var _ai_vision:AiUnitVision
 
 var _attackers: Array[DamageParameters]
 
+var under_attack:bool:
+	get:
+		return not _attackers.is_empty()
+		
+## Returns Vector3.INF if no threats
+func get_threat_vector() -> Vector3:
+	_expire_entries()
+	
+	if not _attackers:
+		return Vector3.INF
+	
+	var sum:Vector3 = Vector3.ZERO
+	
+	for attacker in _attackers:
+		sum += attacker.contact_normal
+	
+	return sum.normalized()
+	
 func get_visible_attacker_units() -> Array[Unit]:
 	_expire_entries()
 	
@@ -67,11 +87,15 @@ func _on_took_damaged(damage_params:DamageParameters) -> void:
 			_attackers[i] = damage_params
 			return
 	# No existing entry, push_back
-	_attackers.push_back(damage_params)		
+	_attackers.push_back(damage_params)	
+	attackers_changed.emit()
 	
 func _expire_entries() -> void:
+	var orig_size:int = _attackers.size()
+	if not orig_size:
+		return
+		
 	var now:float = GameManager.game_timer.time_seconds
-	
 	for i in range(_attackers.size() - 1, -1, -1):
 		var entry: DamageParameters = _attackers[i]
 		var valid:bool = true
@@ -83,6 +107,9 @@ func _expire_entries() -> void:
 		if not valid:
 			_attackers.remove_at(i)
 	
+	if _attackers.size() != orig_size:
+		attackers_changed.emit.call_deferred()
+		
 #region Component Registration
 static func get_component(node: Node, required:bool = true) -> AttackedTrackerComponent:
 	return Components.get_component(ComponentName, node, required) as AttackedTrackerComponent
@@ -95,4 +122,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if _team_asset_root:
 		Components.remove_component(ComponentName, self, _team_asset_root)
+	if _attackers:
+		_attackers.clear()
+		attackers_changed.emit()
 #endregion

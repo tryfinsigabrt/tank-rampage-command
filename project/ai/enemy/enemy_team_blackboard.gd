@@ -10,6 +10,9 @@ signal on_idle_units_changed
 signal on_exploring_units_changed
 
 @warning_ignore("unused_signal")
+signal on_buildings_under_attack_changed
+
+@warning_ignore("unused_signal")
 signal on_available_resources_changed
 
 @warning_ignore("unused_signal")
@@ -36,6 +39,7 @@ class Keys:
 	const resource_calculation_cache:StringName = &"resource_calc_cache"
 	const control_points:StringName = &"control_points"
 	const control_point_priorities:StringName = &"control_point_priorities"
+	const buildings_under_attack:StringName = &"bldgs_under_attack"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -89,7 +93,18 @@ var exploring_units:Array[Unit]:
 		set_value(Keys.exploring_units, value)
 		if value != existing:
 			on_exploring_units_changed.emit()
-				
+
+var buildings_under_attack:Array[Building]:
+	get:
+		if has_value(Keys.buildings_under_attack):
+			return get_value(Keys.buildings_under_attack)
+		else:
+			var empty:Array[Building]
+			buildings_under_attack = empty
+			return empty
+	set(value):
+		set_value(Keys.buildings_under_attack, value)
+			
 var team_info:TeamUnits:
 	get:
 		return get_value(Keys.team_info)
