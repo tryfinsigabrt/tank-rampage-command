@@ -3,6 +3,7 @@ class_name UtilityCalculator extends Node
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var threat_eval_tick: Timer = $Tick
 @onready var rate_limiter: RateLimiter = $RateLimiter
+@onready var attack_prioritizer: AttackPrioritizer = $AttackPrioritizer
 
 const ATTACK_BEHAVIOR:UtilityAIBehavior = preload("uid://78xpbsfwlfdd")
 const FLEE_BEHAVIOR:UtilityAIBehavior = preload("uid://budmbddpy0ywh")
@@ -71,12 +72,9 @@ func assess_threats() -> bool:
 			if action_units:
 				print_debug("%s: Team %d %s priorities(%d): %s" % [name, blackboard.team, action, action_units.size(), action_units])
 
-	# TODO: Sort so highest priority attack is first
-	# AttackSelector selects which unit to attack and currently uses simple distribution strategy but should be 
-	# weighted by priority to send multiple units to a location even if it means abandoning other attack targets
-	# We can do this with a weight on the data structure which now needs to be more than just Array[Unit]
+	var units_to_attack:Array[Unit] = _unit_utilities.get(ATTACK_BEHAVIOR_KEY)
 	# Need to duplicate so that signals fire
-	blackboard.attack_priorities = (_unit_utilities.get(ATTACK_BEHAVIOR_KEY) as Array[Unit]).duplicate()
+	blackboard.attack_priorities = attack_prioritizer.prioritize_targets(units_to_attack)
 	blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]).duplicate()
 		
 	_reset_unit_utilities()

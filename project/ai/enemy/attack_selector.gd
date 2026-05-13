@@ -11,26 +11,28 @@ func _on_attacking_units_changed() -> void:
 
 # Mapping unit being attacked to who is attacking it
 var _currently_attacking_mapping:Dictionary[int,PackedInt64Array] = {}
-var _new_attacks:Array[Unit]
+var _new_attacks:Array[AttackPriority]
 var _attacker_pool:Array[Unit]
 var _tmp_units:Array[Unit]
-
 
 func _ready() -> void:
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(2))
 
 func _execute() -> void:
 	var currently_attacking:Dictionary[int, int] = blackboard.currently_attacking
-	var attack_priorities:Array[Unit] = blackboard.attack_priorities
+	var attack_priorities:Array[AttackPriority] = blackboard.attack_priorities
 		
 	# See if select new units to attack
 	_new_attacks.clear()
 	_attacker_pool.clear()
 	_tmp_units.clear()
-		
-	for unit in attack_priorities:
-		if not unit.get_instance_id() in _currently_attacking_mapping:
-			_new_attacks.push_back(unit)
+	
+	var total_weight:float = 0.0	
+	for priority in attack_priorities:
+		var unit:Unit = priority.unit
+		if unit.get_instance_id() not in _currently_attacking_mapping:
+			_new_attacks.push_back(priority)
+			total_weight += priority.weight
 	
 	if not _new_attacks:
 		return
@@ -42,10 +44,12 @@ func _execute() -> void:
 		# Nothing new to do - keep thrashing the enemy!
 		return
 
-	# TODO: Simple strategy
-	var units_per_enemy:int = ceili(float(_attacker_pool.size()) / _new_attacks.size())
+	var num_attackers:int = _attacker_pool.size()
 
-	for new_target in _new_attacks:
+	for new_priority in _new_attacks:
+		var new_target := new_priority.unit
+		var weight:float = new_priority.weight / total_weight
+		
 		# See who's available
 		var target_id:int = new_target.get_instance_id()
 		
@@ -56,13 +60,16 @@ func _execute() -> void:
 		var count:int = 0
 		
 		_tmp_units.clear()
+		
+		var units_per_target:int = ceili(num_attackers * weight)
+		
 		for attacker in _attacker_pool:
 			var available_unit_id:int = attacker.get_instance_id()
 			currently_attacking[available_unit_id] = target_id
 			attacker_list.push_back(available_unit_id)
 			count += 1
 			_tmp_units.push_back(attacker)
-			if count >= units_per_enemy:
+			if count >= units_per_target:
 				break
 			
 		# TODO: Technically the idle units will be updated once the command starts but that won't happen on this tick necessarily

@@ -56,9 +56,9 @@ var currently_attacking:Dictionary[int, int]:
 		#if value != existing:
 		on_attacking_units_changed.emit()
 		
-var attack_priorities:Array[Unit]:
+var attack_priorities:Array[AttackPriority]:
 	get:
-		return get_value(Keys.attack_priorities, [] as Array[Unit])
+		return get_value(Keys.attack_priorities, [] as Array[AttackPriority])
 	set(value):
 		var existing := attack_priorities
 		set_value(Keys.attack_priorities, value)

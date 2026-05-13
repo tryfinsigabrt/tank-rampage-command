@@ -19,7 +19,10 @@ func _on_blackboard_on_idle_units_changed() -> void:
 	_refresh_monitors(blackboard.idle_units, _monitored_idle, _on_idle_unit_destroyed)
 	
 func _on_attacking_priorities_changed() -> void:
-	_refresh_monitors(blackboard.attack_priorities, _monitored_attacking_priorities, _on_attacking_priority_unit_destroyed)
+	_refresh_monitors(blackboard.attack_priorities, _monitored_attacking_priorities, _on_attacking_priority_entry_destroyed,
+		func(value:AttackPriority) -> Unit:
+			return value.unit
+	)
 	
 func _on_attacking_units_changed() -> void:
 	_refresh_dictionary_monitors(blackboard.currently_attacking, _monitored_attacking, _on_attacking_unit_destroyed)
@@ -39,10 +42,19 @@ func _on_idle_unit_destroyed(unit:Unit) -> void:
 		blackboard.idle_units = updated
 	)
 	
-func _on_attacking_priority_unit_destroyed(unit:Unit) -> void:
-	_on_destroyed(unit, blackboard.attack_priorities, func(updated: Array[Unit]) -> void:
+func _on_attacking_priority_entry_destroyed(entry:AttackPriority) -> void:
+	var values := blackboard.attack_priorities
+	_on_destroyed(entry, values, func(updated: Array) -> void:
 		# Trigger signal
 		blackboard.attack_priorities = updated
+	,
+	func() -> int:
+		var unit:Unit = entry.unit
+		for i in values.size():
+			var value:AttackPriority = values[i]
+			if unit == value.unit:
+				return i
+		return -1
 	)
 	
 func _on_avoidance_enemy_destroyed(unit:Unit) -> void:
@@ -57,9 +69,14 @@ func _on_attacking_unit_destroyed(source_unit_id:int, target_unit_id:int, destro
 		blackboard.currently_attacking = updated
 	)
 	
-func _on_destroyed(unit:Unit, blackboard_value:Array[Unit], updater:Callable) -> void:
+func _on_destroyed(value:Variant, blackboard_value:Array, updater:Callable, blackboard_finder:Callable = Callable()) -> void:
 	var orig_size := blackboard_value.size()
-	blackboard_value.erase(unit)
+	if blackboard_finder:
+		var index:int = blackboard_finder.call()
+		if index != -1:
+			blackboard_value.remove_at(index)
+	else:
+		blackboard_value.erase(value)
 	if blackboard_value.size() != orig_size:
 		updater.call(blackboard_value)
 
@@ -85,26 +102,27 @@ func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int,
 	if blackboard_value.size() != orig_size:
 		updater.call(blackboard_value)
 		
-func _refresh_monitors(source: Array[Unit], id_list:PackedInt64Array, receiver:Callable) -> void:
-	for unit in source:
+func _refresh_monitors(source: Array, id_list:PackedInt64Array, receiver:Callable, unit_extractor:Callable = Callable()) -> void:
+	for value:Variant in source:
+		var unit:Unit = unit_extractor.call(value) if unit_extractor else value
 		if not is_instance_valid(unit):
 			continue
 		var unit_id:int = unit.get_instance_id()
 		# Cannot use is_connected since we are binding a new callable that will always be unique
 		# and easier to just track the ids
 		if not unit_id in id_list:
-			var callable:Callable = receiver.bind(unit).unbind(1)
+			var callable:Callable = receiver.bind(value).unbind(1)
 			if not unit.died.is_connected(callable):
 				unit.died.connect(callable)
 
-	_set_monitored_units(source, id_list)
+	_set_monitored_units(source, id_list, unit_extractor)
 	
-func _set_monitored_units(source:Array[Unit], id_list:PackedInt64Array) -> void:
+func _set_monitored_units(source:Array, id_list:PackedInt64Array, unit_extractor:Callable = Callable()) -> void:
 	id_list.resize(source.size())
 	
 	var count:int = 0
 	for i in source.size():
-		var unit:Unit = source[i]
+		var unit:Unit = unit_extractor.call(source[i]) if unit_extractor else source[i]
 		if is_instance_valid(unit):
 			id_list[count] = unit.get_instance_id()
 			count += 1

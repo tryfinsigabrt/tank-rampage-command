@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cjijciejb75gg" path="res://ai/enemy/attack_selector.gd" id="14_mmd2m"]
 [ext_resource type="Script" uid="uid://dlglnde4rwfti" path="res://ai/enemy/utility/utility_calculator.gd" id="14_slh46"]
 [ext_resource type="Script" uid="uid://cyiw3epu4jer6" path="res://ai/enemy/world_boundaries_checker.gd" id="16_vitsf"]
+[ext_resource type="Script" uid="uid://dlrjcinmau80v" path="res://ai/enemy/attack_prioritizer.gd" id="19_ex0vg"]
 [ext_resource type="Curve" uid="uid://dv3ooxfgwsayx" path="res://ai/enemy/flee_threat_v_distance.tres" id="19_slh46"]
 [ext_resource type="PackedScene" uid="uid://grm003i7dfiu" path="res://utils/rate_limiter.tscn" id="20_6t3uo"]
 [ext_resource type="Script" uid="uid://b00rmknae476u" path="res://ai/enemy/build_prioritizer.gd" id="22_1exag"]
@@ -123,6 +124,9 @@ script = ExtResource("14_slh46")
 wait_time = 5.0
 
 [node name="RateLimiter" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=1514069712 instance=ExtResource("20_6t3uo")]
+
+[node name="AttackPrioritizer" type="Node" parent="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" unique_id=2046153568]
+script = ExtResource("19_ex0vg")
 
 [node name="AttackSelector" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=859613293]
 script = ExtResource("14_mmd2m")
