@@ -4,3 +4,7 @@
 
 [node name="AttackedTrackerComponent" type="Node" unique_id=354155251]
 script = ExtResource("1_b64vi")
+
+[node name="ExpiredTimer" type="Timer" parent="." unique_id=761228290]
+
+[connection signal="timeout" from="ExpiredTimer" to="." method="_on_expired_timer_timeout"]
