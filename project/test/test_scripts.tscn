@@ -4,15 +4,12 @@
 script/source = "extends Node
 
 func _ready() -> void:
-	var x := Vector3.INF
-	if x == Vector3.INF:
-		print(\"Sentinel check works!\")
-	else:
-		print(\"Sentinel check broken!\")
+	var generic_array:Array[Node3D] = [Node3D.new()]
+	var building_array:Array[Building] = [CommandCenter.new()]
 	
-	print(\"1 << 0: %d\" % (1 << 0))
-	print(\"2 << 1: %d\" % (2 << 1))
-	print(\"3 << 2: %d\" % (3 << 2))
+	generic_array.append_array(building_array)
+	
+	print(generic_array)
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

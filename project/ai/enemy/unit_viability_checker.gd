@@ -104,6 +104,8 @@ func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int,
 		
 func _refresh_monitors(source: Array, id_list:PackedInt64Array, receiver:Callable, unit_extractor:Callable = Callable()) -> void:
 	for value:Variant in source:
+		if not is_instance_valid(value):
+			continue
 		var unit:Unit = unit_extractor.call(value) if unit_extractor else value
 		if not is_instance_valid(unit):
 			continue

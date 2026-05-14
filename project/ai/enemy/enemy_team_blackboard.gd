@@ -40,6 +40,7 @@ class Keys:
 	const control_points:StringName = &"control_points"
 	const control_point_priorities:StringName = &"control_point_priorities"
 	const buildings_under_attack:StringName = &"bldgs_under_attack"
+	const base_defend_units:StringName = &"base_defend_units"
 	
 var enemy_teams_info:EnemyTeams:
 	get:
@@ -47,6 +48,17 @@ var enemy_teams_info:EnemyTeams:
 	set(value):
 		set_value(Keys.enemy_teams_info, value)
 
+var base_defend_units:Dictionary[int,int]:
+	get:
+		if has_value(Keys.base_defend_units):
+			return get_value(Keys.base_defend_units)
+		else:
+			var empty: Dictionary[int,int]
+			base_defend_units = empty
+			return empty
+	set(value):
+		set_value(Keys.base_defend_units, value)
+		
 var currently_attacking:Dictionary[int, int]:
 	get:
 		return get_value(Keys.currently_attacking, {} as Dictionary[int, int])

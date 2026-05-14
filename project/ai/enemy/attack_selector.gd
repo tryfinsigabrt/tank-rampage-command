@@ -1,6 +1,7 @@
 extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
+@onready var base_defense: BaseDefense = $BaseDefense
 
 func _on_attacking_priorities_changed() -> void:
 	_execute()
@@ -38,12 +39,17 @@ func _execute() -> void:
 		return
 	
 	# Attacking prioritized over other actions, so not using idle here
-	_attacker_pool.append_array(blackboard.team_info.units)
+	var attack_pool_units := base_defense.reserve_defenders(blackboard.team_info.units)
+	for unit in attack_pool_units:
+		if unit.get_instance_id() not in currently_attacking:
+			_attacker_pool.push_back(unit)
 	
 	if not _attacker_pool:
 		# Nothing new to do - keep thrashing the enemy!
 		return
 
+	# TODO: Limit number of attackers based on active threats and reserve some units to defend base
+	# Select units to defend base and then have a separate action for that that runs after attack enemies
 	var num_attackers:int = _attacker_pool.size()
 
 	for new_priority in _new_attacks:

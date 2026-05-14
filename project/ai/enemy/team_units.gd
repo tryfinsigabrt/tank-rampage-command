@@ -21,7 +21,7 @@ var _asset_counts:Dictionary[StringName, int] = {}
 var _assets_dirty:Dictionary[StringName,bool] = {}
 
 var _unit_values: Array[Unit]
-var _building_values: Array[Node3D]
+var _building_values: Array[Building]
 var _structure_values: Array[Node3D]
 
 var assets_dict:Dictionary[int, Node3D]:
@@ -30,7 +30,7 @@ var assets_dict:Dictionary[int, Node3D]:
 var units:Array[Unit]:
 	get: return _get_assets_array(Groups.Unit, _unit_values)
 	
-var buildings: Array[Node3D]:
+var buildings: Array[Building]:
 	get: return _get_assets_array(Groups.Building, _building_values)
 
 var structures: Array[Node3D]:

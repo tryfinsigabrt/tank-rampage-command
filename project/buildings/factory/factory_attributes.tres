@@ -6,4 +6,5 @@
 script = ExtResource("1_ginew")
 strength = 0.0
 attack_priority = 25
+defense_strength = 5.0
 metadata/_custom_type_script = "uid://d0xjpcjnalcme"

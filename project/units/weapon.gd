@@ -119,6 +119,24 @@ var ideal_fire_range:Vector2:
 	get:
 		return Vector2(min_distance, max_distance_range.x)
 
+func is_in_range(target:Vector3) -> bool:
+	if not _unit:
+		return false
+		
+	var my_position:Vector3 = _unit.get_fire_global_position()
+	var dist_sq:float = target.distance_squared_to(my_position)
+	
+	return dist_sq >= ideal_fire_range.x * ideal_fire_range.x and dist_sq <= ideal_fire_range.y * ideal_fire_range.y
+
+func is_in_range_bounds(bounds:Bounds) -> bool:
+	if not _unit:
+		return false
+		
+	var my_position:Vector3 = _unit.get_fire_global_position()	
+	var dist:float = bounds.distance_to(my_position)
+	
+	return dist >= ideal_fire_range.x and dist <= ideal_fire_range.y
+	
 func _ready() -> void:
 	_unit = Groups.get_parent_in_group(self, Groups.Unit)
 	if not _unit:

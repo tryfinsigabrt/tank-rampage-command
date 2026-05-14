@@ -13,7 +13,16 @@ func _init(in_center:Vector3, in_radius: float) -> void:
 func replace_with(in_center:Vector3, in_radius: float) -> void:
 	self.center = in_center
 	self.radius = in_radius
-	
+
+func clone() -> BoundingSphere:
+	return BoundingSphere.new(center, radius)
+
+func expand(radius_increase:float) -> void:
+	self.radius += radius_increase
+
+func move_to(new_center:Vector3) -> void:
+	self.center = new_center
+				
 func distance_to(point:Vector3) -> float:
 	var center_dist:float = center.distance_to(point)
 	var dist:float = center_dist - radius

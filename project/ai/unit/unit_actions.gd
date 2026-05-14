@@ -179,6 +179,12 @@ func is_attacking() -> bool:
 func get_attack_target() -> Unit:
 	return blackboard.target_node if is_attacking() else null
 	
+func get_target_position() -> Vector3:
+	return blackboard.target_position if has_target_position() else Vector3.INF
+
+func has_target_position() -> bool:
+	return blackboard.has_target_position
+	
 func is_moving() -> bool:
 	return unit and unit.is_moving
 
