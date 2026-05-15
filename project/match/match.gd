@@ -3,8 +3,12 @@ class_name Match extends Node3D
 var _match_teams:Dictionary[int, MatchTeam] = {}
 var _active_teams:Dictionary[int, MatchTeam] = {}
 
+var _started:bool
 var _game_over:bool
 var _player_team:int = -1
+
+var started:bool:
+	get: return _started
 
 var teams:Array[MatchTeam]:
 	get: return _match_teams.values()
@@ -62,6 +66,7 @@ func _wait_for_ready() -> void:
 			counter[0] += 1
 			if counter[0] == _match_teams.size():
 				SignalBus.match_ready.emit(self)
+				_started = true
 				SignalBus.match_team_ready.disconnect(connection.front())
 	)
 	SignalBus.match_team_ready.connect(connection.front())

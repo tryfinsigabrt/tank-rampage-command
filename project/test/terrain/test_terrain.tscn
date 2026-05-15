@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="22_saqa1"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="25_qxacn"]
 [ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="29_y10a1"]
+[ext_resource type="PackedScene" uid="uid://dmbbahkolpx3t" path="res://ui/debug/enemy_team_director_debug_hud.tscn" id="30_lkwmk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
 
@@ -541,6 +542,9 @@ size = Vector3(100, 100, 100)
 visible = false
 
 [node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("22_83iv7")]
+layout_mode = 2
+
+[node name="EnemyTeamDirectorDebugHud" parent="DebugHud" unique_id=2076186544 instance=ExtResource("30_lkwmk")]
 layout_mode = 2
 
 [node name="UtilityAiDebugHud" parent="DebugHud" unique_id=2054487946 instance=ExtResource("22_saqa1")]

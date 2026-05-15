@@ -18,6 +18,9 @@ signal on_available_resources_changed
 @warning_ignore("unused_signal")
 signal on_control_point_discovered(control_point:ControlPoint)
 
+@warning_ignore("unused_signal")
+signal on_defense_units_updated
+
 signal match_team_set
  
 class Keys:

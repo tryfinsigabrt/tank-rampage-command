@@ -14,15 +14,19 @@ class Score:
 	
 func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 	var defenders:Dictionary[int,int] = blackboard.base_defend_units
-	_remove_invalid_entries(defenders)
+	var changed:bool = _remove_invalid_entries(defenders)
 	
 	var total_enemies:int = blackboard.visible_enemy_count
 	if total_enemies == 0:
+		if changed:
+			blackboard.on_defense_units_updated.emit()
 		return total_attackers
 
 	var all_buildings: Array[Building] = blackboard.team_info.buildings
 
 	if not total_attackers or not all_buildings:
+		if changed:
+			blackboard.on_defense_units_updated.emit()
 		return total_attackers
 	
 	_occupied_units.clear()	
@@ -106,6 +110,8 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 			return a.score > b.score	
 		)
 		
+		changed = true
+		
 		for i in cnt:
 			var score := unit_scores[i]
 			var unit := score.unit
@@ -119,6 +125,8 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 	# for All buildings
 	
 	if not defenders:
+		if changed:
+			blackboard.on_defense_units_updated.emit()
 		return total_attackers
 	
 	var final_attackers:Array[Unit]
@@ -126,13 +134,20 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 		if unit.get_instance_id() not in defenders:
 			final_attackers.push_back(unit)
 	
+	if changed:
+		blackboard.on_defense_units_updated.emit()
+		
 	return final_attackers
 
-func _remove_invalid_entries(defenders:Dictionary[int,int]) -> void:
+func _remove_invalid_entries(defenders:Dictionary[int,int]) -> bool:
+	var changed:bool = false
 	for defender_id:int in defenders.keys():
 		if not is_instance_id_valid(defender_id):
 			defenders.erase(defender_id)
+			changed = true
 			continue
 		var building_id:int = defenders[defender_id]
 		if not is_instance_id_valid(building_id):
 			defenders.erase(defender_id)
+			changed = true
+	return changed
