@@ -33,6 +33,14 @@ func get_bounds() -> AABB:
 func get_global_bounds() -> AABB:
 	return global_transform * _aabb
 	
+func get_mining_teams() -> PackedInt32Array:
+	var teams:PackedInt32Array
+	for command_center_id in _mining_timers_by_command_center:
+		var command_center:CommandCenter = instance_from_id(command_center_id) as CommandCenter
+		if command_center and command_center.team not in teams:
+			teams.push_back(command_center.team)
+	return teams
+	
 func _ready() -> void:
 	var point_count:int = curve.point_count
 	if not point_count:
@@ -84,7 +92,6 @@ func _on_trigger_area_body_entered(body: Node3D) -> void:
 	
 	if remaining_scrap > 0:
 		_register_timer_for(command_center)
-		
 
 func _on_trigger_area_body_exited(body: Node3D) -> void:
 	var command_center:CommandCenter = body as CommandCenter

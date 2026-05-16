@@ -124,7 +124,10 @@ func _set_monitored_units(source:Array, id_list:PackedInt64Array, unit_extractor
 	
 	var count:int = 0
 	for i in source.size():
-		var unit:Unit = unit_extractor.call(source[i]) if unit_extractor else source[i]
+		var value:Variant = source[i]
+		if not is_instance_valid(value):
+			continue
+		var unit:Unit = unit_extractor.call(source[i]) if unit_extractor else value
 		if is_instance_valid(unit):
 			id_list[count] = unit.get_instance_id()
 			count += 1

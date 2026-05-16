@@ -3,6 +3,17 @@
 [sub_resource type="GDScript" id="GDScript_wpi8h"]
 script/source = "extends Node
 
+class MyClass:
+	var value:int:
+		set(in_value):
+			value = in_value
+			print(\"Setter called!\")
+			another_value = in_value
+	var another_value:int
+	
+	func _init(in_value:int) -> void:
+		value = in_value
+		
 func _ready() -> void:
 	var generic_array:Array[Node3D] = [Node3D.new()]
 	var building_array:Array[Building] = [CommandCenter.new()]
@@ -10,6 +21,14 @@ func _ready() -> void:
 	generic_array.append_array(building_array)
 	
 	print(generic_array)
+	
+	var id_list:PackedInt32Array = [1]
+	var value:int = 1
+	print(not value in id_list)
+	print(value not in id_list)
+	
+	var inst := MyClass.new(1)
+	print(inst.another_value)
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

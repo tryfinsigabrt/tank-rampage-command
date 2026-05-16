@@ -14,7 +14,7 @@ func mark_object_visibility(object:Node3D, in_visible:bool) -> void:
 	
 	if in_visible:
 		diff = 1
-		if not id in _discovered_objects:
+		if id not in _discovered_objects:
 			_discovered_objects[id] = true
 			object.tree_exited.connect(func() -> void:
 				_discovered_objects.erase(id)

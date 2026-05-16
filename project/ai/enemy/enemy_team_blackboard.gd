@@ -16,6 +16,9 @@ signal on_buildings_under_attack_changed
 signal on_available_resources_changed
 
 @warning_ignore("unused_signal")
+signal on_available_scrap_fields_changed
+
+@warning_ignore("unused_signal")
 signal on_control_point_discovered(control_point:ControlPoint)
 
 @warning_ignore("unused_signal")
@@ -37,6 +40,7 @@ class Keys:
 	const exploring_units:StringName = &"exploring_units"
 	const explore_heading_bias:StringName = &"explore_heading_bias"
 	const active_resources:StringName = &"active_resources"
+	const active_scrap_fields:StringName = &"active_scrap_fields"
 	const assigned_resources:StringName = &"assigned_resources"
 	const threats:StringName = &"threats"
 	const resource_calculation_cache:StringName = &"resource_calc_cache"
@@ -45,6 +49,39 @@ class Keys:
 	const buildings_under_attack:StringName = &"bldgs_under_attack"
 	const base_defend_units:StringName = &"base_defend_units"
 	
+class ScrapFieldData:
+	var id:int
+	var visible:bool:
+		set(value):
+			visible = value
+			if value:
+				last_visible_time = GameManager.game_timer.time_seconds
+	var last_visible_time:float
+	var teams:PackedInt32Array
+	
+	## Assuming when initialize it is was freshly discovered and visible
+	func _init(scrap_field:ScrapField) -> void:
+		id = scrap_field.get_instance_id()
+		# Setters triggered in init, so this will set the first visible timestamp
+		visible = true
+		teams = scrap_field.get_mining_teams()
+	
+	func refresh_visible_data() -> void:
+		if not visible:
+			return
+		refresh_teams()
+		
+	func refresh_teams() -> void:
+		var field:ScrapField = 	instance_from_id(id)
+		if field:
+			teams = field.get_mining_teams()
+			
+	static func find_by_scrap_field_id(values:Array[ScrapFieldData], field_id:int) -> ScrapFieldData:
+		for data in values:
+			if data.id == field_id:
+				return data
+		return null
+		
 var enemy_teams_info:EnemyTeams:
 	get:
 		return get_value(Keys.enemy_teams_info)
@@ -171,6 +208,14 @@ var active_resources:PackedInt64Array:
 	set(value):
 		set_value(Keys.active_resources, value)
 
+var active_scrap_fields:Array[ScrapFieldData]:
+	get:
+		if not has_value(Keys.active_scrap_fields):
+			active_scrap_fields = []
+		return get_value(Keys.active_scrap_fields)
+	set(value):
+		set_value(Keys.active_scrap_fields, value)
+		
 var threats:Array[EnemyThreatContext]:
 	get:
 		if not has_value(Keys.threats):

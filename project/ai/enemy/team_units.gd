@@ -10,8 +10,13 @@ signal new_asset_built(asset:Node3D)
 
 signal asset_visibility_changed(asset:Node3D, in_is_visible:bool)
 signal resource_discovered(resource:Node3D)
+
+signal scrap_field_discovered(scrap_field:ScrapField)
+signal scrap_field_visibility_changed(scrap_field:ScrapField, in_is_visible:bool)
+
 signal control_point_discovered(control_point:ControlPoint)
 signal control_point_visibility_changed(control_point:ControlPoint, in_is_visible:bool)
+
 signal building_attack_status_changed(building:Building, under_attack:bool)
 
 var team:int
@@ -128,16 +133,22 @@ func get_average_position() -> Vector3:
 	
 func _on_discovered(object:Node3D) -> void:
 	if object.is_in_group(Groups.GameResource):
-		resource_discovered.emit(object)
+		if object is ScrapField:
+			scrap_field_discovered.emit(object)
+		else:
+			resource_discovered.emit(object)
 	elif object is ControlPoint:
 		control_point_discovered.emit(object)
 		
 func _on_visibility_changed(object:Node3D, in_is_visible:bool) -> void:
 	if object.is_in_group(Groups.TeamAsset):
 		asset_visibility_changed.emit(object, in_is_visible)
+		
 	# Control Point is a TeamAsset as well
 	if object is ControlPoint:
 		control_point_visibility_changed.emit(object, in_is_visible)
+	elif object is ScrapField:
+		scrap_field_visibility_changed.emit(object, in_is_visible)
 
 func _on_building_attack_status_changed(building:Building, tracker:AttackedTrackerComponent) -> void:
 	building_attack_status_changed.emit(building, tracker.under_attack)

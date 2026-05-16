@@ -68,12 +68,9 @@ func _on_team_units_new_asset_built(asset: Node3D) -> void:
 	blackboard.idle_units = idle_units
 	await _evaluate_priorities()	
 
-
 func _on_resource_discovered(resource: Node3D) -> void:
 	var resource_id:int = resource.get_instance_id()
 	var resources:PackedInt64Array = blackboard.active_resources
-	if resource_id in resources:
-		return
 		
 	resources.push_back(resource_id)
 	
@@ -90,8 +87,6 @@ func _on_resource_discovered(resource: Node3D) -> void:
 	
 func _on_control_point_discovered(control_point: ControlPoint) -> void:
 	var known_control_points := blackboard.control_points
-	if control_point in known_control_points:
-		return
 		
 	known_control_points.push_back(control_point)
 	blackboard.on_control_point_discovered.emit(control_point)

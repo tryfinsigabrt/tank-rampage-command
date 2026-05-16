@@ -218,7 +218,6 @@ func _update_scrap_context(unit: Unit, context: ScrapContext, threats: Array[Ene
 	scrap_cache.time = _time
 	
 func _get_resources(blackboard:EnemyTeamBlackboard) -> Array[ScrapContext]:
-	
 	var active_resources:PackedInt64Array = blackboard.active_resources
 	var assigned_resources:PackedInt64Array = blackboard.assigned_resources
 	
