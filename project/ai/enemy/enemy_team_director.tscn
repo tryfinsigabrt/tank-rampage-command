@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cn04rs3pd30tk" path="res://ai/enemy/explore_surroundings_action.gd" id="8_f2wvq"]
 [ext_resource type="Script" uid="uid://7ykvp2v7cno3" path="res://ai/enemy/defense_base.gd" id="9_4xohm"]
 [ext_resource type="Script" uid="uid://b5x0berv06k01" path="res://ai/enemy/gather_resources_action.gd" id="9_f1xs6"]
+[ext_resource type="Script" uid="uid://v6ryfw3uw568" path="res://ai/enemy/provide_assistance.gd" id="10_jnkmv"]
 [ext_resource type="Script" uid="uid://vknekppxwdeb" path="res://ai/enemy/flee_avoidance_calculator.gd" id="10_qhh88"]
 [ext_resource type="Script" uid="uid://c6xbkgikeoc1y" path="res://ai/enemy/unit_viability_checker.gd" id="13_4dbsd"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="13_n57he"]
@@ -74,6 +75,10 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("9_4xohm")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
+[node name="ProvideAssistance" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=1489697587]
+script = ExtResource("10_jnkmv")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
 [node name="GatherResources" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=954972948]
 script = ExtResource("9_f1xs6")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
@@ -94,6 +99,10 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="DefenseBase" type="Node" parent="BeehaveTree/Root/Explore" unique_id=213540078]
 script = ExtResource("9_4xohm")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ProvideAssistance" type="Node" parent="BeehaveTree/Root/Explore" unique_id=1271430354]
+script = ExtResource("10_jnkmv")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root/Explore" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]

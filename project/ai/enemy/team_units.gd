@@ -2,6 +2,7 @@ class_name TeamUnits extends Node
 
 const ai_unit_vision_scene:PackedScene = preload("uid://dg44egwlcoaq4")
 const attacked_tracking_scene:PackedScene = preload("uid://86b6ejinpq81")
+const ai_unit_directives:PackedScene = preload("uid://b3vm8ltgbvea6")
 
 @warning_ignore("unused_signal")
 signal initialized
@@ -43,6 +44,8 @@ var structures: Array[Node3D]:
 
 func add_unit(unit:Unit) -> void:
 	_add_asset(unit, Groups.Unit)
+	
+	unit.add_child(ai_unit_directives.instantiate())
 
 func add_building(building:Node3D) -> void:
 	_add_asset(building, Groups.Building)

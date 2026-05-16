@@ -25,6 +25,9 @@ signal on_control_point_discovered(control_point:ControlPoint)
 signal on_defense_units_updated
 
 signal match_team_set
+
+@warning_ignore("unused_signal")
+signal request_support_to_location(location:Vector3, strength:float)
  
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
@@ -48,6 +51,19 @@ class Keys:
 	const control_point_priorities:StringName = &"control_point_priorities"
 	const buildings_under_attack:StringName = &"bldgs_under_attack"
 	const base_defend_units:StringName = &"base_defend_units"
+	const request_assistance:StringName = &"request_assistance"
+	
+class AssistanceRequest:
+	var requesting_party_id:int
+	var location:Vector3
+	var priority:int
+	var strength:float
+	var min_duration:float
+	var timestamp:float:
+		get: return timestamp
+	
+	func _init() -> void:
+		timestamp = GameManager.game_timer.time_seconds
 	
 class ScrapFieldData:
 	var id:int
@@ -222,7 +238,15 @@ var active_scrap_fields:Array[ScrapFieldData]:
 		return get_value(Keys.active_scrap_fields)
 	set(value):
 		set_value(Keys.active_scrap_fields, value)
-		
+
+var assistance_requests:Array[AssistanceRequest]:
+	get:
+		if not has_value(Keys.request_assistance):
+			assistance_requests = []
+		return get_value(Keys.request_assistance)
+	set(value):
+		set_value(Keys.request_assistance, value)
+				
 var threats:Array[EnemyThreatContext]:
 	get:
 		if not has_value(Keys.threats):
