@@ -58,6 +58,12 @@ class ScrapFieldData:
 				last_visible_time = GameManager.game_timer.time_seconds
 	var last_visible_time:float
 	var teams:PackedInt32Array
+	var location:Vector3
+	var dist_sq_closest_base:float
+	
+	var open:bool:
+		get:
+			return not teams
 	
 	## Assuming when initialize it is was freshly discovered and visible
 	func _init(scrap_field:ScrapField) -> void:
@@ -65,6 +71,7 @@ class ScrapFieldData:
 		# Setters triggered in init, so this will set the first visible timestamp
 		visible = true
 		teams = scrap_field.get_mining_teams()
+		location = scrap_field.global_position
 	
 	func refresh_visible_data() -> void:
 		if not visible:
