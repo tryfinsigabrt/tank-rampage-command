@@ -89,7 +89,6 @@ script = SubResource("GDScript_uwsin")
 
 [node name="BuildQueueDisplay" parent="." unique_id=567288776 node_paths=PackedStringArray("manufacturing_component") instance=ExtResource("1_q5jor")]
 manufacturing_component = NodePath("../ManufacturingComponent")
-sprite_size = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=558260444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9833803, 0.62421715, 2.0443895)

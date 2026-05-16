@@ -4,6 +4,9 @@ signal build_queued(resource:ConstructionResource)
 signal build_started(resource:ConstructionResource)
 signal build_completed(resouce:ConstructionResource, node:Node3D)
 
+## Build can be canceled if it has been queued but hasn't yet started
+signal build_canceled(resouce:ConstructionResource, queue_position:int)
+
 ## List of spawn locations. If there is a collision at the location, then it will expand out 
 ## by the spawn_bounds size and if not viable then loops through remaining spawn locations before
 ## just falling back to the original location and trying to spawn despite a detected collision.
@@ -54,7 +57,15 @@ var available_build_slots:int:
 var has_free_slot:bool:
 	get:
 		return available_build_slots > 0
-		
+
+var can_be_canceled:bool:
+	get:
+		return queue_depth > 1
+
+var cancelable_builds:Array[BuildQueueElement]:
+	get:
+		return _build_queue.slice(1)
+				
 static func get_component(node: Node, required:bool = true) -> ManufacturingComponent:
 	return Components.get_component(Components.Manufacturing, node, required) as ManufacturingComponent
 		
@@ -144,6 +155,22 @@ func build(type: ConstructionResource.Type) -> Node3D:
 			
 	return unit
 
+## Cancel queued builds that haven't started yet
+func cancel_builds(items: Array[BuildQueueElement]) -> void:
+	if not items:
+		return
+		
+	for item in items:
+		var idx:int = _build_queue.find(item)
+		if idx == -1:
+			push_warning("%s: requested canceled item %s not found!" % [name, item.resource])
+			continue
+		elif idx == 0:
+			push_warning("%s: Cannot cancel the active element: %s!" % [name, item.resource])
+			continue
+		_build_queue.remove_at(idx)		
+		build_canceled.emit(item.resource, idx)
+		
 func _do_spawn(resource:ConstructionResource) -> Node3D:
 	# If queue depth too high then fail spawning
 	if _build_queue.size() >= max_queue:

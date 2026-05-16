@@ -32,7 +32,8 @@ func _ready() -> void:
 	manufacturing_component.build_queued.connect(_on_build_queued)
 	manufacturing_component.build_started.connect(_on_build_started)
 	manufacturing_component.build_completed.connect(_on_build_completed)
-	
+	manufacturing_component.build_canceled.connect(_on_build_canceled)
+
 	sprite.visible = false
 	sprite.pixel_size = sprite_size / sprite.texture.get_width()
 	_sprites = [sprite]
@@ -51,20 +52,33 @@ func _on_build_started(resource:ConstructionResource) -> void:
 	#print("STARTED: %d" % _queue_count)
 
 func _on_build_completed(_resource:ConstructionResource, _node:Node3D) -> void:
-	_queue_count -= 1
+	_remove_active()
+
+func _remove_active() -> void:
 	display_tick.stop()
 		
 	_active_build_resource = null
 	_build_start_time = -1.0
 	
+	_remove_at(0)
+	
+func _remove_at(index:int) -> void:
+	if index >= _queue_count:
+		return
+		
 	# Shift over all materials
-	for i in range(1, _queue_count + 1):
+	for i in range(index + 1, _queue_count):
 		_sprites[i - 1].material_override = _sprites[i].material_override
 		
+	_queue_count -= 1
 	_sprites[_queue_count].visible = false
 	
-	#print("COMPLETED: %d" % _queue_count)
-
+func _on_build_canceled(_resource:ConstructionResource, index:int) -> void:
+	if index == 0:
+		_remove_active()
+	else:
+		_remove_at(index)
+	
 func _create_sprite(resource:ConstructionResource) -> void:
 	var new_sprite:Sprite3D
 	if _queue_count <= _sprites.size():
