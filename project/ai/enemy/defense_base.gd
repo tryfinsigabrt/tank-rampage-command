@@ -33,7 +33,7 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 		return SUCCESS
 	
 	for id:int in _building_data.keys():
-		if is_instance_id_valid(id):
+		if not is_instance_id_valid(id):
 			_building_data.erase(id)
 		else:
 			var data:BuildingData = _building_data[id]
