@@ -8,7 +8,8 @@ func _ready() -> void:
 	await _initialize_personnel()
 	
 func _initialize_personnel() -> void:
-	if team_component:
+	# Will be neutral if this is a ghost asset
+	if team_component and not team_component.is_neutral():
 		var match_team:MatchTeam = GameManager.find_match_team_by_id(team_component.team)
 		if match_team:
 			await match_team.wait_for_ready()
