@@ -21,7 +21,10 @@ var fow_visibility_threshold:float = 0.1
 @onready var viable_placement_effect: AssetSelectionEffect = %ViablePlacementEffect
 @onready var not_viable_placement_effect: AssetSelectionEffect = %NotViablePlacementEffect
 
+var _active:bool = false
 var _can_spawn:bool = false
+var _is_player:bool
+
 var _ghost_asset:StaticBody3D
 var _asset_aabb:AABB
 
@@ -39,7 +42,7 @@ func _ready() -> void:
 	if not match_team:
 		match_team = GameManager.find_match_team(self)
 	if not match_team:
-		push_warning("%s: No match team found - will not be to assign spawned asset sto team")
+		push_warning("%s: No match team found - will not be to assign spawned asset to team or use for AI")
 		
 	if not resource:
 		assert("%s: No resource assigned" % name)
@@ -49,6 +52,7 @@ func _ready() -> void:
 		assert("%s: to_spawn not set on resource!" % name)
 		return
 		
+	_is_player = match_team.is_player_team if match_team else true
 	_ghost_asset = resource.to_spawn.instantiate() as StaticBody3D
 	_ghost_asset.collision_mask = 0
 	_ghost_asset.collision_layer = 0
@@ -68,17 +72,21 @@ func _ready() -> void:
 	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
 		
 func activate() -> void:
-	if _ghost_asset.visible:
+	if _active:
 		return
-		
-	_ghost_asset.visible = true
+	
+	_active = true
 	_can_spawn = false
-	_update_effects()
+	
+	if _is_player:
+		_ghost_asset.visible = true
+		_update_effects()
 	
 func deactivate() -> void:
-	if not _ghost_asset.visible:
+	if not _active:
 		return
 	
+	_active = false
 	_ghost_asset.visible = false
 	_can_spawn = false
 	
@@ -161,11 +169,12 @@ func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 		_can_spawn = false
 		return
 		
-	# Check visibility if in fow
-	var fow: FogOfWar = GameManager.fog_of_war_node
-	if fow and GameManager.fog_of_war and not fow.is_node_visible(_ghost_asset, fow_visibility_threshold, FogOfWar.FOW_VISIBLE_CHANNEL, true):
-		_can_spawn = false
-		return
+	# Check visibility if in fow and player team
+	if _is_player:
+		var fow: FogOfWar = GameManager.fog_of_war_node
+		if fow and GameManager.fog_of_war and not fow.is_node_visible(_ghost_asset, fow_visibility_threshold, FogOfWar.FOW_VISIBLE_CHANNEL, true):
+			_can_spawn = false
+			return
 		
 	_can_spawn = _is_viable_ground(ground_position)
 	if not _can_spawn:
@@ -185,7 +194,7 @@ func _update_effects() -> void:
 		not_viable_placement_effect.toggle_selection(_ghost_asset, true)
 			
 func _is_viable_ground(pos:Vector3) -> bool:
-	# TODO: Would need to combine this with any existing yaw rotation requested by user in the 
+	# TODO: Would need to combine this with any existing yaw rotation requested by user
 	_spawn_rotation_euler = Vector3.ZERO
 	if not _asset_aabb.has_volume():
 		return true
