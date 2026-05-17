@@ -77,7 +77,9 @@ func _process(_delta: float) -> void:
 			active_placement.latch.emit(spawned)
 		
 	for i in range(to_remove.size() - 1, -1, -1):
-		active_placements.erase(to_remove[i])
+		var placement := to_remove[i]
+		active_placements.erase(placement)
+		placement.spawner.queue_free()
 	
 	if to_remove:	
 		print_debug("%s: Removed %d active placements" % [name, to_remove.size()])
