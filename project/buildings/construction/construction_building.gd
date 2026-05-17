@@ -23,6 +23,8 @@ var _start_vision:float
 
 const BUILD_PROGRESS_BAR:PackedScene = preload("uid://vcmg5a8ggm00")
 
+var _visible_children:PackedInt64Array
+
 func _ready() -> void:
 	_building = get_parent() as Building
 	if not _building:
@@ -65,7 +67,9 @@ func _start_building() -> void:
 	_building.team_component.vision = _start_vision
 	
 	for child in _building.visual_root.get_children():
-		child.visible = false
+		if child.visible:
+			_visible_children.push_back(child.get_instance_id())
+			child.visible = false
 		
 	_building.manufacturing_component.active = false
 	
@@ -136,7 +140,8 @@ static func _create_default_shape() -> BoxShape3D:
 	
 func _building_complete() -> void:
 	for child in _building.visual_root.get_children():
-		child.visible = true
+		if child.get_instance_id() in _visible_children:
+			child.visible = true
 		
 	_building.team_component.vision = _final_vision
 	_building.manufacturing_component.active = true

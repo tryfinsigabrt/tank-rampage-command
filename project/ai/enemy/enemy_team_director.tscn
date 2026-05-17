@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="24_iv7ch"]
 [ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_unit.tres" id="26_ex0vg"]
 [ext_resource type="Script" uid="uid://uff6dkwlcyjk" path="res://ai/enemy/base_location_prioritizer.gd" id="27_tfuuw"]
+[ext_resource type="PackedScene" uid="uid://buoljkxn0anma" path="res://ai/enemy/enemy_building_create_action.tscn" id="35_74ntl"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -110,6 +111,11 @@ script = ExtResource("8_f2wvq")
 move_radius = Vector2(100, 400)
 world_boundaries_checker = NodePath("../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="EnemyBuildingCreateAction" parent="." unique_id=572821707 node_paths=PackedStringArray("blackboard") instance=ExtResource("35_74ntl")]
+blackboard = NodePath("../Blackboard")
+max_spawn_tries_per_frame = null
+spawn_timeout = null
 
 [node name="GlobalServices" type="Node" parent="." unique_id=2044532583]
 

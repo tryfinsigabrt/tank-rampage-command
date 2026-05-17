@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://buoljkxn0anma"]
+
+[ext_resource type="Script" uid="uid://cgyjot273cqtg" path="res://ai/enemy/enemy_building_create_action.gd" id="1_rhqxb"]
+[ext_resource type="PackedScene" uid="uid://b788aluto08ag" path="res://buildings/building_manufacturing.tscn" id="2_46s7g"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="2_nl6a2"]
+[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="3_2i74m"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="4_27v55"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="5_v6aiw"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="6_7ucp2"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="7_8p171"]
+
+[sub_resource type="Resource" id="Resource_cqif0"]
+script = ExtResource("3_2i74m")
+types = Array[ExtResource("4_27v55")]([ExtResource("5_v6aiw"), ExtResource("6_7ucp2"), ExtResource("7_8p171")])
+metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
+
+[node name="EnemyBuildingCreateAction" type="Node3D" unique_id=572821707]
+script = ExtResource("1_rhqxb")
+
+[node name="BuildingManufacturing" parent="." unique_id=397080948 instance=ExtResource("2_46s7g")]
+supported_types = SubResource("Resource_cqif0")
+
+[node name="GroundPicker" type="Node3D" parent="." unique_id=1741129058]
+script = ExtResource("2_nl6a2")
+ground_mask = 2
+
+[node name="PlacementContainer" type="Node3D" parent="." unique_id=638525118]

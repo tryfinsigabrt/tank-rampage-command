@@ -34,6 +34,9 @@ var _spawn_position:Vector3
 var _collision_shape:Resource
 var _world_boundaries:WorldBoundaries
 
+var asset_aabb:AABB:
+	get: return _asset_aabb
+	
 var can_spawn:bool:
 	get:
 		return _can_spawn
@@ -61,6 +64,7 @@ func _ready() -> void:
 		push_error("%s: Could not spawn scene=%s as StaticBody3D!" % [name, resource.to_spawn.resource_path])
 		return
 		
+	_active = false
 	_ghost_asset.visible = false
 	_ghost_asset.position = Vector3.UP * above_ground_height
 	asset_container.add_child(_ghost_asset)
@@ -110,7 +114,7 @@ func _refresh_state() -> void:
 	_update_state(pos, false)
 	
 func spawn(asset_name:StringName="") -> Node3D:
-	if not _ghost_asset.visible:
+	if not _active:
 		push_error("%s: Attempted to spawn asset=%s:%s when inactive!" % [name, asset_name, _ghost_asset.name])
 		return null
 		

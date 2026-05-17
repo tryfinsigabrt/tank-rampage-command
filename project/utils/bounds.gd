@@ -55,6 +55,12 @@ static func calculate_circumscribed_radius_2d(in_aabb:AABB) -> float:
 	var grid_vector:Vector2 = MathUtils.grid_vector(in_aabb.size)
 	return grid_vector.length() * 0.5
 
+static func create_circumscribed_sphere(in_aabb:AABB) -> BoundingSphere:
+	return Bounds.new(in_aabb,Bounds.Type.SPHERE_CIRCUMSCRIBED).circumscribed_sphere
+	
+static func create_inscribed_sphere(in_aabb:AABB) -> BoundingSphere:
+	return Bounds.new(in_aabb,Bounds.Type.SPHERE_INSCRIBED).inscribed_sphere
+	
 func replace_with(in_aabb:AABB) -> void:
 	if in_aabb.is_equal_approx(aabb):
 		return
