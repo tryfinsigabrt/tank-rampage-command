@@ -96,15 +96,7 @@ func next_build() -> bool:
 		# Don't filter out those that can build due to resource constraints as want AI to wait and accumulate resources if that's
 		# the right thing to build
 		if candidate.has_free_slot:
-			var behavior:UtilityAIBehavior = behaviors[type]
-			var action:Callable = func() -> bool:
-				if candidate.can_build(type):
-					@warning_ignore("missing_await")
-					candidate.build(type)
-					return true
-				return false
-			
-			var utility_context:BuildUtilityContext = BuildUtilityContext.new()
+			var utility_context:BuildUnitUtilityContext = BuildUnitUtilityContext.new()
 			utility_context.id = candidate.get_instance_id()
 			utility_context.army_fraction = float(team_distributions.get(type, 0)) / total_units if total_units > 0 else 0.0
 			utility_context.construction = candidate.get_build_metadata(type)
@@ -112,6 +104,14 @@ func next_build() -> bool:
 			utility_context.available_scrap = available_scrap
 			utility_context.enemy_delta = _enemy_unit_distributions.get(type, 0) - team_distributions.get(type, 0)
 			
+			var behavior:UtilityAIBehavior = behaviors[type]
+			var action:Callable = func() -> bool:
+				if candidate.can_build(type):
+					@warning_ignore("missing_await")
+					candidate.build(type)
+					return true
+				return false
+				
 			_viable_options.push_back(UtilityAIOption.new(behavior, utility_context, action))
 	
 	if not _viable_options:

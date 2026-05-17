@@ -79,7 +79,7 @@ func create(type: ConstructionResource.Type) -> NodePlacementSpawner:
 		placement_spawner.tree_exited.connect(func() -> void:
 			if spawn_count[0] == 0:
 				print_debug("%s: Placement Spawner=%s destroyed before asset spawned for resource=%s" % \
-				[name, placement_spawner.name, EnumUtils.enum_to_string(ConstructionResource.Type, type)])
+					[name, placement_spawner.name, EnumUtils.enum_to_string(ConstructionResource.Type, type)])
 				resource.refund_fully(resources)
 		)
 		

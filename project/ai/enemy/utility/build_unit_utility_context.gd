@@ -1,4 +1,4 @@
-class_name BuildUtilityContext
+class_name BuildUnitUtilityContext
 
 var id:int
 var construction:ConstructionResource
