@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://rrjsijy364ej"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_tdcsk"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_xyn5e"]
+
+[sub_resource type="Curve" id="Curve_11xro"]
+_limits = [0.0, 1.0, 0.0, 1000.0]
+_data = [Vector2(1e-05, 1), 0.0, -2.2814887e-05, 0, 0, Vector2(995.82654, 0.001047492), -0.002754056, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_tdcsk")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_xyn5e")
+input_key = "time_to_exhaustion"
+response_curve = SubResource("Curve_11xro")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

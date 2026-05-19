@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://660h7urih8ix"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_svsnk"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_c2xk1"]
+[ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="2_l6i3g"]
+[ext_resource type="Resource" uid="uid://n1jrhsuvw506" path="res://ai/enemy/utility/considerations/build_curr_unit_count.tres" id="3_l6i3g"]
+
+[resource]
+script = ExtResource("2_c2xk1")
+name = &"build_building"
+aggregation = 1
+considerations = Array[ExtResource("1_svsnk")]([ExtResource("2_l6i3g"), ExtResource("3_l6i3g")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

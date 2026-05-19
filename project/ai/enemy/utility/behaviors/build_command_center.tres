@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://nru8gyjh6huw"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_gf51e"]
+[ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="2_hvqv5"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_ru10b"]
+
+[resource]
+script = ExtResource("2_ru10b")
+name = &"build_command_center"
+aggregation = 1
+considerations = Array[ExtResource("1_gf51e")]([ExtResource("2_hvqv5")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"
