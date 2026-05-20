@@ -91,7 +91,16 @@ static func type_from_unit_class(unit_class:Unit.UnitClass) -> Type:
 			return Type.Artillery
 		_:
 			return Type.None
-			
+
+static func type_from_building(building:Building) -> Type:
+	if building is CommandCenter:
+		return Type.CommandCenter
+	if building is Barracks:
+		return Type.Barracks
+	if building is Factory:
+		return Type.Factory
+	return Type.None
+				
 func can_build(resources:TeamResources) -> bool:
 	if not resources:
 		return true

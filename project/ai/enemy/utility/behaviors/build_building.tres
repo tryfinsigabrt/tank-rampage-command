@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_svsnk"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_c2xk1"]
 [ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="2_l6i3g"]
-[ext_resource type="Resource" uid="uid://n1jrhsuvw506" path="res://ai/enemy/utility/considerations/build_curr_unit_count.tres" id="3_l6i3g"]
+[ext_resource type="Resource" uid="uid://n1jrhsuvw506" path="res://ai/enemy/utility/considerations/build_bldg_curr_unit_count.tres" id="3_8x11j"]
+[ext_resource type="Resource" uid="uid://dsov5likosdu3" path="res://ai/enemy/utility/considerations/build_bldg_avg_queue_depth.tres" id="4_hfc3c"]
+[ext_resource type="Resource" uid="uid://3jvfx3e8mrd5" path="res://ai/enemy/utility/considerations/build_bldg_curr_building_count.tres" id="5_pvfv8"]
 
 [resource]
 script = ExtResource("2_c2xk1")
 name = &"build_building"
 aggregation = 1
-considerations = Array[ExtResource("1_svsnk")]([ExtResource("2_l6i3g"), ExtResource("3_l6i3g")])
+considerations = Array[ExtResource("1_svsnk")]([ExtResource("2_l6i3g"), ExtResource("3_8x11j"), ExtResource("4_hfc3c"), ExtResource("5_pvfv8")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

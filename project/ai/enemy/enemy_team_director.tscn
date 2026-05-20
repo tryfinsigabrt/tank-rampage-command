@@ -35,6 +35,7 @@
 [ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_unit.tres" id="26_ex0vg"]
 [ext_resource type="Script" uid="uid://uff6dkwlcyjk" path="res://ai/enemy/base_location_prioritizer.gd" id="27_tfuuw"]
 [ext_resource type="PackedScene" uid="uid://buoljkxn0anma" path="res://ai/enemy/enemy_building_create_action.tscn" id="35_74ntl"]
+[ext_resource type="Script" uid="uid://0xi6ijvd3iqj" path="res://ai/enemy/building_location_finder.gd" id="36_k681l"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -192,8 +193,14 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 3: ExtResource("26_ex0vg")
 })
 
-[node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer" unique_id=1492349054]
+[node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")
+
+[node name="BuildingLocationFinder" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=663790473]
+script = ExtResource("36_k681l")
+building_cluster_max_distance = null
+vision_fow_fraction = null
+command_center_safety_margin = null
 
 [node name="DecisionLoopTimer" type="Timer" parent="GlobalServices/BuildPrioritizer" unique_id=1643035029]
 autostart = true
@@ -213,9 +220,10 @@ autostart = true
 [connection signal="control_point_visibility_changed" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_on_control_point_visibility_changed"]
 [connection signal="initialized" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_initialized" flags=18]
 [connection signal="new_asset_built" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_new_asset_built"]
+[connection signal="new_asset_built" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BuildingLocationFinder" method="_on_team_units_new_asset_built"]
 [connection signal="resource_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_resource_discovered"]
-[connection signal="scrap_field_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BaseLocationPrioritizer" method="_on_scrap_field_discovered"]
-[connection signal="scrap_field_visibility_changed" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BaseLocationPrioritizer" method="_on_scrap_field_visibility_changed"]
+[connection signal="scrap_field_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_scrap_field_discovered"]
+[connection signal="scrap_field_visibility_changed" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_scrap_field_visibility_changed"]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer/Tick" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_evaluate_priorities"]

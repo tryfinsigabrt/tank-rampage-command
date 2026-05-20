@@ -62,3 +62,29 @@ func ray_intersects(ray_origin:Vector2, ray_direction: Vector2) -> bool:
 	var radius_sq:float = radius * radius
 	
 	return dist_sq <= radius_sq
+
+func clone() -> BoundingCircle:
+	return BoundingCircle.new(center, radius)
+
+func union(other: BoundingCircle) -> BoundingCircle:
+	if not other:
+		return clone()
+
+	var delta: Vector2 = other.center - center
+	var dist: float = delta.length()
+
+	# Circles are concentric, pix largest radius
+	if is_zero_approx(dist):
+		return BoundingCircle.new(center, maxf(radius, other.radius))
+
+	# One circle fully contains the other, choose larger one
+	if radius >= dist + other.radius:
+		return clone()
+	if other.radius >= dist + radius:
+		return other.clone()
+
+	var direction: Vector2 = delta / dist
+	var new_radius: float = (dist + radius + other.radius) * 0.5
+	var new_center: Vector2 = center + direction * (new_radius - radius)
+
+	return BoundingCircle.new(new_center, new_radius)

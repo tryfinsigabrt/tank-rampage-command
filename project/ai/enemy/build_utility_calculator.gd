@@ -4,6 +4,9 @@ class_name BuildUtilityCalculator extends Node
 @onready var team_units: TeamUnits = %TeamUnits
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
 
+@onready var base_location_prioritizer: BaseLocationPrioritizer = $BaseLocationPrioritizer
+@onready var building_location_finder: BuildingLocationFinder = $BuildingLocationFinder
+
 @export
 var behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 

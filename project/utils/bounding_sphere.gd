@@ -60,3 +60,26 @@ func ray_intersects(ray_origin:Vector3, ray_direction: Vector3) -> bool:
 	var radius_sq:float = radius * radius
 	
 	return dist_sq <= radius_sq
+
+func union(other: BoundingSphere) -> BoundingSphere:
+	if not other:
+		return clone()
+
+	var delta: Vector3 = other.center - center
+	var dist: float = delta.length()
+
+	# Same center: choose the larger sphere.
+	if is_zero_approx(dist):
+		return BoundingSphere.new(center, maxf(radius, other.radius))
+
+	# One sphere fully contains the other.
+	if radius >= dist + other.radius:
+		return clone()
+	if other.radius >= dist + radius:
+		return other.clone()
+
+	var direction: Vector3 = delta / dist
+	var new_radius: float = (dist + radius + other.radius) * 0.5
+	var new_center: Vector3 = center + direction * (new_radius - radius)
+
+	return BoundingSphere.new(new_center, new_radius)

@@ -1,4 +1,4 @@
-extends Node
+class_name BaseLocationPrioritizer extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
@@ -71,4 +71,3 @@ func get_best_open_scrap_field() -> ScrapField:
 	)
 	
 	return candidate_scrap_fields.front()
-	

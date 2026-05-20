@@ -1,0 +1,66 @@
+## Copied from ClusterCircleing and made more generic
+class_name ClusterCircleCreator
+
+var max_cluster_size:float = 300.0
+
+func _init(in_max_cluster_size:float = 300.0) -> void:
+	max_cluster_size = in_max_cluster_size
+	
+func compute_clusters(objects:Array) -> Array[ClusterCircle]:
+	var clusters:Array[ClusterCircle]
+	if not objects:
+		return clusters
+	
+	# Might be better to sort for more deterministic cluster behavior
+	# or support reclustering but this is a good enough approx
+	var positions:PackedVector2Array
+	positions.resize(objects.size())
+	
+	var max_cluster_size_sq:float = max_cluster_size * max_cluster_size
+	
+	for i in objects.size():
+		var pos:Vector3 = objects[i].global_position
+		positions[i] = Vector2(pos.x, pos.z)
+	
+	# Can only be in one cluster
+	var used_positions:PackedInt32Array
+	used_positions.resize(objects.size())
+		
+	var num_objects:int = positions.size()
+	# Inserting in reverse
+	var used_index:int = num_objects
+	
+	for i in num_objects:
+		# Have to search from a starting position to avoid looking at placeholder data from resize (avoids realloc)
+		if used_positions.find(i, used_index) != -1:
+			continue
+			
+		var cluster:ClusterCircle = ClusterCircle.new(objects[i], positions[i])
+		clusters.push_back(cluster)
+		
+		# Insert from end
+		used_index -= 1
+		used_positions[used_index] = i
+		
+		if used_index == 0:
+			break
+			
+		for j in range(i + 1, num_objects):
+			if used_positions.find(j, used_index) != -1:
+				continue
+			var candidate_pos:Vector2 = positions[j]
+			var dist_sq:float = cluster.center.distance_squared_to(candidate_pos)
+			if dist_sq <= max_cluster_size_sq:
+				cluster.add(objects[j], candidate_pos)
+				used_index -= 1
+				used_positions[used_index] = j
+				if used_index == 0:
+					break
+		if used_index == 0:
+			break
+	
+	# We stored dist_sq so take square root at end					
+	for cluster in clusters:
+		cluster.size = sqrt(cluster.size)
+			
+	return clusters

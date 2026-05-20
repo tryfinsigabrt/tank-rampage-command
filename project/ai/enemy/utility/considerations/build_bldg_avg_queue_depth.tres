@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://dsov5likosdu3"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_shalh"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_wsom4"]
+
+[sub_resource type="Curve" id="Curve_pijsn"]
+_data = [Vector2(0, 0), 0.0, 2.9743328, 0, 0, Vector2(1, 0.99467444), 0.0, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_shalh")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_wsom4")
+input_key = "avg_queue_depth_fraction"
+response_curve = SubResource("Curve_pijsn")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

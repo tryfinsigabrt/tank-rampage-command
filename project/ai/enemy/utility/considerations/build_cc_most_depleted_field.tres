@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://516b8aptpbms"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_l12mx"]
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_o644g"]
+
+[sub_resource type="Curve" id="Curve_40dos"]
+_data = [Vector2(0, 0.0014339685), 0.0, 2.616417, 0, 0, Vector2(0.5, 0.75368714), 1.3342474, 1.3342474, 0, 0, Vector2(0.99820787, 1), 0.14017397, 0.0, 0, 0]
+point_count = 3
+script = ExtResource("1_o644g")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_l12mx")
+input_key = "most_depleted_field_fraction"
+response_curve = SubResource("Curve_40dos")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
