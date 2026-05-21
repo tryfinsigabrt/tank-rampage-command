@@ -8,6 +8,7 @@ class_name BuildUtilityCalculator extends Node
 @onready var building_location_finder: BuildingLocationFinder = $BuildingLocationFinder
 
 @onready var enemy_building_create_action: EnemyBuildingCreateAction = %EnemyBuildingCreateAction
+@onready var failed_building_cooldown_timer: Timer = $FailedBuildingCooldownTimer
 
 @export
 var behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
@@ -15,6 +16,13 @@ var behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 ## Temporary flag while the feature is still in development
 @export
 var allow_buildings:bool = false
+
+## Initial delay to build any buildings because the unit manufacturing doesn't come in right away
+@export
+var buildings_delay:float = 5.0
+
+@export
+var failed_building_cooldown_time:float = 10.0
 
 var _available_behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 
@@ -25,6 +33,9 @@ var _manufacturing_by_type: Dictionary[ConstructionResource.Type, Array]
 var _enemy_unit_distributions: Dictionary[ConstructionResource.Type, int]
 var _construction_resources_by_type: Dictionary[ConstructionResource.Type, ConstructionResource]
 
+func _ready() -> void:
+	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
+	
 func refresh() -> void:
 	_refresh_available_behaviors()
 	_refresh_enemy_data()
@@ -66,7 +77,7 @@ func _refresh_available_behaviors() -> void:
 						_available_behaviors[type] = behaviors[type]
 							
 					manufacturing_options.push_back(manufacturing_component)
-	if allow_buildings:
+	if allow_buildings and GameManager.game_timer.time_seconds > buildings_delay:
 		for type in behaviors:
 			var type_classification:ConstructionResource.Classification = ConstructionResource.classify_type(type)
 			if type_classification == ConstructionResource.Classification.Building:
@@ -147,6 +158,10 @@ func next_build() -> bool:
 		elif type_classification == ConstructionResource.Classification.Building:
 			if type not in _construction_resources_by_type:
 				continue
+			# Only allow a single outstanding placement task at one time
+			# Two buildings able to build on top of each other if done on the same frame as physics hasn't processed yet
+			if enemy_building_create_action.active_placements or not failed_building_cooldown_timer.is_stopped():
+				continue
 				
 			var is_command_center:bool = type == ConstructionResource.Type.CommandCenter
 			var viable_locations:Array[BoundingCircle]
@@ -165,9 +180,12 @@ func next_build() -> bool:
 				
 			if not viable_locations:
 				continue
-				
+			
+			var construction := _construction_resources_by_type[type]			
+			
 			utility_context = BuildBuildingUtilityContext.new()
-			utility_context.construction = _construction_resources_by_type[type]
+			utility_context.id = construction.get_instance_id()
+			utility_context.construction = construction
 			utility_context.available_scrap = available_scrap
 			utility_context.curr_unit_count = total_units
 			utility_context.target_location_bounds = viable_locations
@@ -177,10 +195,14 @@ func next_build() -> bool:
 				_add_command_center_building_context(utility_context)
 			else:
 				_add_non_command_center_building_context(type, utility_context)
+				
 			action = func() -> bool:
-				@warning_ignore("missing_await")
-				enemy_building_create_action.create(utility_context)
-				return true
+				if enemy_building_create_action.can_create(utility_context):
+					@warning_ignore("missing_await")
+					enemy_building_create_action.create(utility_context)
+					return true
+				return false
+				
 		if utility_context:
 			_viable_options.push_back(UtilityAIOption.new(behavior, utility_context, action))
 	# end - For every available behavior
@@ -232,7 +254,12 @@ func _add_non_command_center_building_context(type: ConstructionResource.Type, c
 				total_buildings += 1
 				total_queue_size += manufacturing_component.max_queue
 				total_in_progress += manufacturing_component.queue_depth
-				
+	
+	# for total buildings also consider those that are in progress of being built or placed
+	for placement in enemy_building_create_action.active_placements:
+		if placement.context.type == type:
+			total_buildings += 1
+			
 	context.avg_queue_depth_fraction = float(total_in_progress) / total_queue_size if total_queue_size > 0 else 0.0
 	context.curr_building_count = total_buildings
 
@@ -254,5 +281,13 @@ func _add_command_center_building_context(context: BuildBuildingUtilityContext) 
 		
 	context.most_depleted_field_fraction = most_depleted_field_fraction
 	context.time_to_exhaustion = time_to_exhaustion
+
+func _on_enemy_building_create_action_on_building_complete(context: BuildBuildingUtilityContext, building: Building) -> void:
+	if building or failed_building_cooldown_time <= 0:
+		return
 	
+	print_debug("%s: Failed to build %s - waiting %.1fs before attempting again" % [name, context.construction, failed_building_cooldown_time])
+	
+	failed_building_cooldown_timer.start()
+
 #endregion

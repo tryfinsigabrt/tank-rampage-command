@@ -20,7 +20,8 @@ func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], ch
 				_match_team = match_team
 				break
 	
-	var context:BuildUnitUtilityContext = chosen_option.context
+	# BuildUnitUtilityContext and BuildBuildingUtilityContext both have construction and id defined
+	var context:Variant = chosen_option.context
 	var type:ConstructionResource.Type = context.construction.type
 	_build_counts_by_type[type] = _build_counts_by_type.get(type, 0) + 1
 	
@@ -35,10 +36,11 @@ func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], ch
 	return clear
 	
 func option_action_to_string(option:UtilityAIOption) -> String:
-	var context:BuildUnitUtilityContext = option.context
+	# BuildUnitUtilityContext and BuildBuildingUtilityContext both have construction defined
+	var context:Variant = option.context
 	return EnumUtils.enum_to_string(ConstructionResource.Type, context.construction.type)
 
-func option_context_to_string(_option:UtilityAIOption) -> String:
+func option_context_to_string(_chosen_option:UtilityAIOption) -> String:
 	_values.clear()
 	_values.push_back("BUILT: ")
 	for type in _build_counts_by_type:

@@ -1,5 +1,6 @@
 class_name BuildBuildingUtilityContext
 
+var id:int
 var construction:ConstructionResource
 
 var available_scrap:int
@@ -31,3 +32,7 @@ var cost:int:
 var remaining_scrap:float:
 	get:
 		return float(available_scrap - cost) / available_scrap if available_scrap > 0 else 0.0
+
+var type:ConstructionResource.Type:
+	get:
+		return construction.type

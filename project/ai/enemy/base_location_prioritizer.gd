@@ -47,7 +47,7 @@ func get_best_open_scrap_field() -> ScrapField:
 			mined_scrap_fields.push_back(data)
 	
 	if not candidate_scrap_fields:
-		return null		
+		return null
 	
 	# Score best distance
 	# TODO: Consider buildings
@@ -70,4 +70,5 @@ func get_best_open_scrap_field() -> ScrapField:
 		return a.dist_sq_closest_base < b.dist_sq_closest_base
 	)
 	
-	return candidate_scrap_fields.front()
+	var best_id:int = candidate_scrap_fields.front().id
+	return instance_from_id(best_id)

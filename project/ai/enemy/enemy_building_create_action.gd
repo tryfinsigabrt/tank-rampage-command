@@ -1,5 +1,7 @@
 class_name EnemyBuildingCreateAction extends Node3D
 
+signal on_building_complete(context: BuildBuildingUtilityContext, building:Building)
+
 @export
 var blackboard:EnemyTeamBlackboard
 
@@ -50,6 +52,9 @@ var active_placements:Array[ActivePlacement]
 func _ready() -> void:
 	set_process(false)
 	
+func can_create(context: BuildBuildingUtilityContext) -> bool:
+	return building_manufacturing.can_create(context.construction.type)
+	
 func create(context: BuildBuildingUtilityContext) -> Building:
 	var construction_resource:ConstructionResource = context.construction
 	
@@ -57,6 +62,7 @@ func create(context: BuildBuildingUtilityContext) -> Building:
 
 	var spawner:NodePlacementSpawner = building_manufacturing.create(construction_resource.type)
 	if not spawner:
+		on_building_complete.emit(context, null)
 		return null
 	
 	placement_container.add_child(spawner)
@@ -67,7 +73,9 @@ func create(context: BuildBuildingUtilityContext) -> Building:
 
 	set_process(true)
 	
-	return await active_placement.latch
+	var result:Building = await active_placement.latch
+	on_building_complete.emit(context, result)
+	return result
 	
 func _process(_delta: float) -> void:
 	var curr_time:float = GameManager.game_timer.time_seconds
@@ -76,14 +84,14 @@ func _process(_delta: float) -> void:
 	for active_placement in active_placements:
 		# check for timeout
 		if active_placement.failed or curr_time - active_placement.start_time >= spawn_timeout:
-			push_warning("%s: Failed trying to spawn resource %s - reason: %s" % [name, active_placement.construction,
+			push_warning("%s: Failed trying to spawn resource %s - reason: %s" % [name, active_placement.context.construction,
 				"EXHAUSTED" if active_placement.failed else "TIMEOUT"])
 			to_remove.push_back(active_placement)
 			active_placement.latch.emit(null)
 			continue
 		var spawned := _try_spawn(active_placement)
 		if spawned:
-			print_debug("%s: Spawned %s -> %s" % [name, active_placement.construction, spawned.name])
+			print_debug("%s: Spawned %s -> %s at %s" % [name, active_placement.context.construction, spawned.name, spawned.global_position])
 			to_remove.push_back(active_placement)
 			active_placement.latch.emit(spawned)
 		
@@ -134,7 +142,12 @@ func _try_spawn(placement:ActivePlacement) -> Building:
 				var result:Building = spawner.spawn()
 				if result:
 					return result
-				angle += angle_inc
+				
+				# Rotation has no effect when starting at center	
+				if curr_test_radius > 0:
+					angle += angle_inc
+				else:
+					angle = TAU
 				placement.curr_test_angle = angle
 				count += 1
 				# Exhausted time slice

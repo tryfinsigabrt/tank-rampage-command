@@ -118,8 +118,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 [node name="EnemyBuildingCreateAction" parent="." unique_id=572821707 node_paths=PackedStringArray("blackboard") instance=ExtResource("35_74ntl")]
 unique_name_in_owner = true
 blackboard = NodePath("../Blackboard")
-max_spawn_tries_per_frame = null
-spawn_timeout = null
 
 [node name="GlobalServices" type="Node" parent="." unique_id=2044532583]
 
@@ -204,9 +202,9 @@ script = ExtResource("27_tfuuw")
 
 [node name="BuildingLocationFinder" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=663790473]
 script = ExtResource("36_k681l")
-building_cluster_max_distance = null
-vision_fow_fraction = null
-command_center_safety_margin = null
+
+[node name="FailedBuildingCooldownTimer" type="Timer" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=372435691]
+one_shot = true
 
 [node name="DecisionLoopTimer" type="Timer" parent="GlobalServices/BuildPrioritizer" unique_id=1643035029]
 autostart = true
@@ -221,6 +219,7 @@ autostart = true
 [connection signal="on_exploring_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_exploring_units_changed"]
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
+[connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" method="_on_enemy_building_create_action_on_building_complete"]
 [connection signal="building_attack_status_changed" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_building_attack_status_changed"]
 [connection signal="control_point_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_control_point_discovered"]
 [connection signal="control_point_visibility_changed" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_on_control_point_visibility_changed"]

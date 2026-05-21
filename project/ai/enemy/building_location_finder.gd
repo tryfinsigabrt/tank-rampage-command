@@ -89,10 +89,10 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 		# Radius will be cluster radius + min of object vision radius
 		var min_radius:float = INF
 		for building:Building in cluster.objects:
-			var vision:AiUnitVision = AiUnitVision.get_component(building, false)
+			var team_component:TeamComponent = TeamComponent.get_component(building)
 			var radius:float
-			if vision:
-				radius = vision.radius * vision_fow_fraction
+			if team_component:
+				radius = team_component.vision * vision_fow_fraction
 			else:
 				radius = default_build_radius
 			min_radius = minf(radius, min_radius)
