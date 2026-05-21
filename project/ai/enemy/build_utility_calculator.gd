@@ -7,8 +7,14 @@ class_name BuildUtilityCalculator extends Node
 @onready var base_location_prioritizer: BaseLocationPrioritizer = $BaseLocationPrioritizer
 @onready var building_location_finder: BuildingLocationFinder = $BuildingLocationFinder
 
+@onready var enemy_building_create_action: EnemyBuildingCreateAction = %EnemyBuildingCreateAction
+
 @export
 var behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
+
+## Temporary flag while the feature is still in development
+@export
+var allow_buildings:bool = false
 
 var _available_behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 
@@ -17,11 +23,28 @@ var match_team:MatchTeam
 var _viable_options: Array[UtilityAIOption]
 var _manufacturing_by_type: Dictionary[ConstructionResource.Type, Array]
 var _enemy_unit_distributions: Dictionary[ConstructionResource.Type, int]
+var _construction_resources_by_type: Dictionary[ConstructionResource.Type, ConstructionResource]
 
 func refresh() -> void:
 	_refresh_available_behaviors()
 	_refresh_enemy_data()
 	
+	# First obtain available behaviors where the mapping is relevant
+	_refresh_construction_resource_mappings()
+	
+func _refresh_construction_resource_mappings() -> void:
+	if not match_team:
+		return
+		
+	_construction_resources_by_type.clear()
+	
+	var team_resource_component:TeamResourceComponent = match_team.team_resources
+	
+	for type in _available_behaviors:
+		var construction_resource:ConstructionResource = team_resource_component.get_construction_resource(type)
+		if construction_resource:
+			_construction_resources_by_type[type] = construction_resource
+
 func _refresh_available_behaviors() -> void:
 	_manufacturing_by_type.clear()
 	_available_behaviors.clear()
@@ -41,8 +64,14 @@ func _refresh_available_behaviors() -> void:
 					# First time adding - also add behavior binding
 					if not manufacturing_options:
 						_available_behaviors[type] = behaviors[type]
+							
 					manufacturing_options.push_back(manufacturing_component)
-	
+	if allow_buildings:
+		for type in behaviors:
+			var type_classification:ConstructionResource.Classification = ConstructionResource.classify_type(type)
+			if type_classification == ConstructionResource.Classification.Building:
+				_available_behaviors[type] = behaviors[type]
+				
 func _refresh_enemy_data() -> void:
 	_enemy_unit_distributions.clear()
 	
@@ -88,34 +117,73 @@ func next_build() -> bool:
 	var available_scrap:int = scrap.count
 		
 	for type in _available_behaviors:
-		var manufacturing_options: Array[ManufacturingComponent] = _manufacturing_by_type.get(type, [] as Array[ManufacturingComponent])
-		if not manufacturing_options:
-			continue
-		manufacturing_options.sort_custom(func(a:ManufacturingComponent, b:ManufacturingComponent) -> bool:
-			return a.available_build_slots > b.available_build_slots
-			)
-		# picking candidate with most free slots and all other criteria would be the same so just check if best candidate can build
-		var candidate:ManufacturingComponent = manufacturing_options.front()
-		# Don't filter out those that can build due to resource constraints as want AI to wait and accumulate resources if that's
-		# the right thing to build
-		if candidate.has_free_slot:
-			var utility_context:BuildUnitUtilityContext = BuildUnitUtilityContext.new()
-			utility_context.id = candidate.get_instance_id()
-			utility_context.army_fraction = float(team_distributions.get(type, 0)) / total_units if total_units > 0 else 0.0
-			utility_context.construction = candidate.get_build_metadata(type)
-			utility_context.available_personnel = available_personnel
-			utility_context.available_scrap = available_scrap
-			utility_context.enemy_delta = _enemy_unit_distributions.get(type, 0) - team_distributions.get(type, 0)
-			
-			var behavior:UtilityAIBehavior = behaviors[type]
-			var action:Callable = func() -> bool:
-				if candidate.can_build(type):
-					@warning_ignore("missing_await")
-					candidate.build(type)
-					return true
-				return false
+		var behavior:UtilityAIBehavior = behaviors[type]
+		var utility_context:Variant = null
+		var action:Callable
+		
+		var type_classification:ConstructionResource.Classification = ConstructionResource.classify_type(type)
+		if type_classification == ConstructionResource.Classification.Unit:
+			# picking candidate with most free slots and all other criteria would be the same so just check if best candidate can build
+			var candidate:ManufacturingComponent = _get_best_unit_manufacturing_component(type)
+			if not candidate:
+				continue
+			# Don't filter out those that can build due to resource constraints as want AI to wait and accumulate resources if that's
+			# the right thing to build
+			if candidate.has_free_slot:
+				utility_context = BuildUnitUtilityContext.new()
+				utility_context.id = candidate.get_instance_id()
+				utility_context.army_fraction = float(team_distributions.get(type, 0)) / total_units if total_units > 0 else 0.0
+				utility_context.construction = candidate.get_build_metadata(type)
+				utility_context.available_personnel = available_personnel
+				utility_context.available_scrap = available_scrap
+				utility_context.enemy_delta = _enemy_unit_distributions.get(type, 0) - team_distributions.get(type, 0)
 				
+				action = func() -> bool:
+					if candidate.can_build(type):
+						@warning_ignore("missing_await")
+						candidate.build(type)
+						return true
+					return false
+		elif type_classification == ConstructionResource.Classification.Building:
+			if type not in _construction_resources_by_type:
+				continue
+				
+			var is_command_center:bool = type == ConstructionResource.Type.CommandCenter
+			var viable_locations:Array[BoundingCircle]
+			var best_scrap_field:ScrapField = null
+			
+			if is_command_center:
+				best_scrap_field = base_location_prioritizer.get_best_open_scrap_field()
+				if not best_scrap_field:
+					continue
+					
+				var location:BoundingCircle = building_location_finder.get_command_center_building_bounds(best_scrap_field)
+				if location:
+					viable_locations.push_back(location)
+			else:
+				viable_locations = building_location_finder.get_general_building_bounds(type)
+				
+			if not viable_locations:
+				continue
+				
+			utility_context = BuildBuildingUtilityContext.new()
+			utility_context.construction = _construction_resources_by_type[type]
+			utility_context.available_scrap = available_scrap
+			utility_context.curr_unit_count = total_units
+			utility_context.target_location_bounds = viable_locations
+			
+			# Command center-specific context
+			if is_command_center:
+				_add_command_center_building_context(utility_context)
+			else:
+				_add_non_command_center_building_context(type, utility_context)
+			action = func() -> bool:
+				@warning_ignore("missing_await")
+				enemy_building_create_action.create(utility_context)
+				return true
+		if utility_context:
 			_viable_options.push_back(UtilityAIOption.new(behavior, utility_context, action))
+	# end - For every available behavior
 	
 	if not _viable_options:
 		return false
@@ -135,3 +203,56 @@ func next_build() -> bool:
 		SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
 	return success
+
+#region Unit Manufacturing
+
+func _get_best_unit_manufacturing_component(type: ConstructionResource.Type) -> ManufacturingComponent:
+	var manufacturing_options: Array[ManufacturingComponent] = _manufacturing_by_type.get(type, [] as Array[ManufacturingComponent])
+	if not manufacturing_options:
+		return null
+	manufacturing_options.sort_custom(func(a:ManufacturingComponent, b:ManufacturingComponent) -> bool:
+		return a.available_build_slots > b.available_build_slots
+		)
+	return manufacturing_options.front()
+
+#endregion
+
+#region Building Manufacturing
+
+func _add_non_command_center_building_context(type: ConstructionResource.Type, context: BuildBuildingUtilityContext) -> void:
+	var total_in_progress:int = 0
+	var total_queue_size:int = 0
+	var total_buildings:int = 0
+	
+	for building in team_units.buildings:
+		var building_type := ConstructionResource.type_from_building(building)
+		if building_type == type:
+			var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
+			if manufacturing_component:
+				total_buildings += 1
+				total_queue_size += manufacturing_component.max_queue
+				total_in_progress += manufacturing_component.queue_depth
+				
+	context.avg_queue_depth_fraction = float(total_in_progress) / total_queue_size if total_queue_size > 0 else 0.0
+	context.curr_building_count = total_buildings
+
+func _add_command_center_building_context(context: BuildBuildingUtilityContext) -> void:
+	var scrap_fields_data:Array[EnemyTeamBlackboard.ScrapFieldData] = blackboard.active_scrap_fields
+	var team:int = match_team.team
+
+	var most_depleted_field_fraction:float = 0.0
+	var time_to_exhaustion:float = 0.0
+	
+	for scrap_field_data in scrap_fields_data:
+		if team not in scrap_field_data.teams:
+			continue
+		var field:ScrapField = instance_from_id(scrap_field_data.id)
+		if not field:
+			continue
+		most_depleted_field_fraction = maxf(most_depleted_field_fraction, 1.0 - field.remaining_fraction)
+		time_to_exhaustion = maxf(time_to_exhaustion, field.get_estimated_time_to_exhaustion())
+		
+	context.most_depleted_field_fraction = most_depleted_field_fraction
+	context.time_to_exhaustion = time_to_exhaustion
+	
+#endregion

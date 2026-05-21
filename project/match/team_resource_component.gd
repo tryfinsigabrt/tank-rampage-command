@@ -19,7 +19,7 @@ func initialize() -> void:
 	SignalBus.on_scrap_field_mined.connect(_on_scrap_field_mined)
 	SignalBus.on_scrap_collected.connect(_on_scrap_collected)
 	
-func get_construction_resource(type:ConstructionResource.Type, default:ConstructionResource) -> ConstructionResource:
+func get_construction_resource(type:ConstructionResource.Type, default:ConstructionResource = null) -> ConstructionResource:
 	for resource in default_costs:
 		if resource.type == type:
 			return resource

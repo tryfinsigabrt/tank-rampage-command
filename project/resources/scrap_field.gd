@@ -24,6 +24,14 @@ var remaining_scrap:int
 var _mining_timers_by_command_center:Dictionary[int,Timer]
 var _aabb:AABB
 
+var active:bool:
+	get:
+		return remaining_scrap > 0
+		
+var remaining_fraction:float:
+	get:
+		return float(remaining_scrap) / total_scrap
+	
 # TODO: Should have a bounds component for these things
 ## Gets an AABB representing the bounds of the node in local space
 func get_bounds() -> AABB:
@@ -40,6 +48,17 @@ func get_mining_teams() -> PackedInt32Array:
 		if command_center and command_center.team not in teams:
 			teams.push_back(command_center.team)
 	return teams
+	
+func get_estimated_time_to_exhaustion() -> float:
+	if not active:
+		return 0.0
+	
+	var miners:int = _mining_timers_by_command_center.size()
+	if not miners:
+		return INF
+		
+	var remaining_intervals:int = ceili(float(remaining_scrap) / (miners * scrap_per_interval))
+	return remaining_intervals * scrap_mining_interval 
 	
 func _ready() -> void:
 	var point_count:int = curve.point_count

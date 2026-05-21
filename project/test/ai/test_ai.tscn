@@ -478,13 +478,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.
 layout_mode = 2
 
 [node name="EnemyTeamDirectorDebugHud" parent="DebugHud" unique_id=2076186544 instance=ExtResource("37_7l2ia")]
-layout_mode = 2
-
-[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=1352376986 instance=ExtResource("20_ij0eg")]
 visible = false
 layout_mode = 2
 
+[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=1352376986 instance=ExtResource("20_ij0eg")]
+layout_mode = 2
+
 [node name="UnitActionsDebugHud" parent="DebugHud" unique_id=442782189 instance=ExtResource("37_ynl2i")]
+visible = false
 layout_mode = 2
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("33_bvix3")]

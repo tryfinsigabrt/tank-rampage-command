@@ -65,22 +65,23 @@ var construction_scene:PackedScene
 var visual_overrides:AssetVisualTeamResource
 
 var classification:Classification:
-	get:
-		match type:
-			1, 2, 3:
-				return Classification.Unit
-			4, 5, 6:
-				return Classification.Building
-			7, 8, 9, 10:
-				return Classification.Structure
-			_:
-				return Classification.None
-
+	get: return classify_type(type)
 
 var scrap_value:int:
 	get:
 		return roundi(cost * scrap_fraction)
-		
+
+static func classify_type(in_type:ConstructionResource.Type) -> Classification:
+	match in_type:
+		1, 2, 3:
+			return Classification.Unit
+		4, 5, 6:
+			return Classification.Building
+		7, 8, 9, 10:
+			return Classification.Structure
+		_:
+			return Classification.None
+			
 static func type_from_unit_class(unit_class:Unit.UnitClass) -> Type:
 	match unit_class:
 		Unit.UnitClass.Tank:
