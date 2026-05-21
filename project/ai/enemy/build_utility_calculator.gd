@@ -19,7 +19,7 @@ var allow_buildings:bool = false
 
 ## Initial delay to build any buildings because the unit manufacturing doesn't come in right away
 @export
-var buildings_delay:float = 5.0
+var buildings_delay:float = 3.0
 
 @export
 var failed_building_cooldown_time:float = 10.0
@@ -116,7 +116,7 @@ func next_build() -> bool:
 	var team_assets := team_units.assets_dict
 	var total_units:int = 0
 	for asset_id in team_assets:
-		var unit:Unit = team_assets[asset_id] as Unit if is_instance_valid(asset_id) else null
+		var unit:Unit = team_assets[asset_id] as Unit if is_instance_id_valid(asset_id) else null
 		if unit:
 			total_units += 1
 			_count_unit_by_type(unit, team_distributions)
@@ -260,7 +260,8 @@ func _add_non_command_center_building_context(type: ConstructionResource.Type, c
 		if placement.context.type == type:
 			total_buildings += 1
 			
-	context.avg_queue_depth_fraction = float(total_in_progress) / total_queue_size if total_queue_size > 0 else 0.0
+	# Set avg queue depth to 1.0 if no buildings to push towards building that building
+	context.avg_queue_depth_fraction = float(total_in_progress) / total_queue_size if total_queue_size > 0 else 1.0
 	context.curr_building_count = total_buildings
 
 func _add_command_center_building_context(context: BuildBuildingUtilityContext) -> void:
@@ -271,6 +272,7 @@ func _add_command_center_building_context(context: BuildBuildingUtilityContext) 
 	var time_to_exhaustion:float = 0.0
 	
 	for scrap_field_data in scrap_fields_data:
+		scrap_field_data.refresh_visible_data()
 		if team not in scrap_field_data.teams:
 			continue
 		var field:ScrapField = instance_from_id(scrap_field_data.id)

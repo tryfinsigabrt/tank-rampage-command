@@ -4,17 +4,17 @@ enum Type
 {
 	None,
 	
-	# Units
+	# Units [1,3]
 	Marine,
 	Tank,
 	Artillery,
 	
-	# Buildings
+	# Buildings [4,6]
 	CommandCenter,
 	Barracks,
 	Factory,
 	
-	# Structures
+	# Structures [7,10]
 	TankSpikes,
 	BarbedWire,
 	Mine,

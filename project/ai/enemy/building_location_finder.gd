@@ -100,6 +100,7 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 		build_bounds_array.push_back(build_bounds)
 		
 	return build_bounds_array
+	
 func _get_command_center_bounds() -> BoundingCircle:
 	# Both sides always start with a command center when building is enabled so just compute lazily from first instance
 	if _command_center_bounds:

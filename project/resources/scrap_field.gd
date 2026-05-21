@@ -109,7 +109,7 @@ func _on_trigger_area_body_entered(body: Node3D) -> void:
 	
 	print_debug("%s: Command Center: %s entered scrap field" % [name, command_center.name])
 	
-	if remaining_scrap > 0:
+	if active:
 		_register_timer_for(command_center)
 
 func _on_trigger_area_body_exited(body: Node3D) -> void:
@@ -124,6 +124,10 @@ func _on_trigger_area_body_exited(body: Node3D) -> void:
 func _register_timer_for(command_center:CommandCenter) -> void:
 	var id:int = command_center.get_instance_id()
 	
+	if id in _mining_timers_by_command_center:
+		push_warning("%s: Timer already registered for %s" % [name, command_center.name])
+		return
+		
 	var timer:Timer = Timer.new()
 	timer.name = "%d-%s-MiningTimer" % [command_center.team, command_center.name]
 	# TODO: If support upgrades then the base interval adjusted by the mining rate upgrade
@@ -132,6 +136,7 @@ func _register_timer_for(command_center:CommandCenter) -> void:
 	timer.timeout.connect(_on_mining_timer_timeout.bind(id))
 	
 	mining_timers.add_child(timer)
+	_mining_timers_by_command_center[id] = timer
 	
 func _deregister_timer_for(command_center_id:int) -> void:
 	var timer:Timer = _mining_timers_by_command_center.get(command_center_id)
