@@ -126,13 +126,13 @@ func _try_spawn(placement:ActivePlacement) -> Building:
 		placement.curr_bounds_index = i
 		
 		var curr_bounds:BoundingCircle = candidate_bounds[i]
-		var angle:float = placement.curr_test_angle
 		var center:Vector2 = curr_bounds.center
 		var placement_bounds_radius:float = curr_bounds.radius
 		
 		while placement.curr_test_radius <= placement_bounds_radius:
 			var curr_test_radius:float = placement.curr_test_radius
-			
+			var angle:float = placement.curr_test_angle
+
 			while angle < TAU:
 				var rotated := Vector2.from_angle(angle)
 				var target_grid_pos:Vector2 = rotated * curr_test_radius + center

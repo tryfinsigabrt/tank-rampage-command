@@ -95,7 +95,7 @@ func assign_to_team(asset:Node3D) -> bool:
 	if "team" in asset:
 		asset.team = team
 		team_assigned = true
-	add_child(asset)
+	asset_container.add_child(asset)
 	if not team_assigned:
 		var team_component:TeamComponent = TeamComponent.get_component(asset, false)
 		if team_component:

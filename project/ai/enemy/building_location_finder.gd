@@ -4,7 +4,7 @@ class_name BuildingLocationFinder extends Node
 var building_cluster_max_distance:float = 100.0
 
 @export
-var vision_fow_fraction:float = 0.7
+var vision_fow_fraction:float = 0.8
 
 @export
 var default_build_radius:float = 25.0
@@ -86,17 +86,25 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 	for cluster in _building_clusters:
 		var cluster_bounds:BoundingCircle = cluster.to_bounds()
 		var center:Vector2 = cluster_bounds.center
+		var cluster_radius:float = cluster_bounds.radius
+		
 		# Radius will be cluster radius + min of object vision radius
-		var min_radius:float = INF
+		var radius_incr:float = 0.0
 		for building:Building in cluster.objects:
 			var team_component:TeamComponent = TeamComponent.get_component(building)
-			var radius:float
+			var vision_radius:float
 			if team_component:
-				radius = team_component.vision * vision_fow_fraction
+				vision_radius = team_component.vision * vision_fow_fraction
 			else:
-				radius = default_build_radius
-			min_radius = minf(radius, min_radius)
-		var build_bounds:BoundingCircle = BoundingCircle.new(center, cluster_bounds.radius + min_radius)
+				vision_radius = default_build_radius
+			var building_pos:Vector3 = building.global_position
+			var center_dist:float = center.distance_to(Vector2(building_pos.x, building_pos.z))
+			# The cluster objects should be within the radius of the bounding circle
+			# So we are finding how close they are to the edge of the circle and then expanding out by the vision
+			# The vision doesn't extend all the way around the bounding circle but it's a simple approx
+			var expansion_dist:float = maxf(0.0, cluster_radius - center_dist) + vision_radius
+			radius_incr = maxf(radius_incr, expansion_dist)			
+		var build_bounds:BoundingCircle = BoundingCircle.new(center, cluster_radius + radius_incr)
 		build_bounds_array.push_back(build_bounds)
 		
 	return build_bounds_array
@@ -112,8 +120,3 @@ func _get_command_center_bounds() -> BoundingCircle:
 			_command_center_bounds = BoundingCircle.from_bounds(bounds, true if bounds.type == Bounds.Type.SPHERE_CIRCUMSCRIBED else false)
 			break
 	return _command_center_bounds
-
-func _on_team_units_new_asset_built(asset: Node3D) -> void:
-	if asset is not Building:
-		return
-	_update_building_clusters()
