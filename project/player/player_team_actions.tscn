@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://xiohmvrpkwct" path="res://player/selection_manager.gd" id="3_f65hl"]
 [ext_resource type="PackedScene" uid="uid://dngxy6j5mtmup" path="res://player/effects/asset_selection_effect.tscn" id="4_momtr"]
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="5_1k0rd"]
+[ext_resource type="Script" uid="uid://cl70rbq026hdr" path="res://player/group_manager.gd" id="5_wipxo"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="6_632wb"]
 [ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="7_rsxwl"]
 [ext_resource type="PackedScene" uid="uid://15e16r8qmv1v" path="res://player/effects/ground_action_indicator.tscn" id="8_ow4pb"]
@@ -42,6 +43,10 @@ script = ExtResource("3_f65hl")
 _asset_selection_effect = NodePath("AssetSelectionEffect")
 
 [node name="AssetSelectionEffect" parent="SelectionManager" unique_id=1646816583 instance=ExtResource("4_momtr")]
+
+[node name="GroupManager" type="Node" parent="SelectionManager" unique_id=1681393483 node_paths=PackedStringArray("selection_manager")]
+script = ExtResource("5_wipxo")
+selection_manager = NodePath("..")
 
 [node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution", "target_asset_selection_effect", "move_to_effect", "attack_move_effect", "attack_position_effect")]
 script = ExtResource("5_1k0rd")

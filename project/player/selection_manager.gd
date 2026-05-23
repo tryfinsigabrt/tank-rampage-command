@@ -28,8 +28,7 @@ var any_buildings_same_team:bool:
 			var building:Building = instance_from_id(id)
 			if not building:
 				continue
-			var team_component:TeamComponent = Components.get_component(Components.Team, building)	
-			if team_component and team_component.is_on_team(team):
+			if _is_on_same_team(building):
 				return true
 		return false
 		
@@ -46,54 +45,39 @@ var any_units_same_team:bool:
 var selected_units:Array[Unit]:
 	get:
 		var units:Array[Unit]
-		_get_selection(_selected_units, units)
+		NodeUtils.populate_instances(_selected_units, units)
 		return units
 
 var selected_buildings:Array[Building]:
 	get:
 		var buildings:Array[Building]
-		_get_selection(_selected_buildings, buildings)
+		NodeUtils.populate_instances(_selected_buildings, buildings)
 		return buildings
 		
 var all_selected:Array[Node3D]:
 	get:
 		var all:Array[Node3D]
 		
-		_get_selection(_selected_units, all)
-		_get_selection(_selected_buildings, all)
+		NodeUtils.populate_instances(_selected_units, all)
+		NodeUtils.populate_instances(_selected_buildings, all)
 		
 		return all
-			
+		
+var all_selected_same_team:Array[Node3D]:
+	get:
+		var all:Array[Node3D]
+		NodeUtils.populate_instances(_selected_units, all, _is_on_same_team)
+		NodeUtils.populate_instances(_selected_buildings, all, _is_on_same_team)
+		
+		return all
+
+func _is_on_same_team(node: Node3D) -> bool:
+	var team_component:TeamComponent = TeamComponent.get_component(node)
+	return team_component and team_component.is_on_team(team)
+	
 func _ready() -> void:
 	if not _asset_selection_effect:
 		push_warning("%s: Asset Selection Effect not set - no selection rendering will occur!" % name)
-		
-func _get_selection(id_list:PackedInt64Array, selection: Array) -> void:
-	var existing_size:int = selection.size()
-	selection.resize(existing_size + id_list.size())
-	var count:int = 0
-	
-	for id in id_list:
-		var value:Object = instance_from_id(id)
-		if value:
-			selection[count + existing_size] = value
-			count += 1
-			
-	var new_entries:int = selection.size() - existing_size
-	if count != new_entries:
-		var invalid_count:int = new_entries - count
-		print_debug("%s: Invalid instances selected - removing %d instances" % [name, invalid_count])
-		selection.resize(existing_size + count)
-		
-		# remove invalid
-		var removed_count:int = 0
-		for i in range(id_list.size() - 1, -1, -1):
-			var id:int = id_list[i]
-			if not is_instance_id_valid(id):
-				id_list.remove_at(i)
-				removed_count += 1
-				if removed_count == invalid_count:
-					break
 				
 func get_selected_units_on_team() -> Array[Unit]:
 	return _get_selected_on_team(selected_units, [] as Array[Unit])

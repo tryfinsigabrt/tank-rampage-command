@@ -350,9 +350,6 @@ config = ExtResource("19_q4a86")
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("14_43cal")]
 team = 2
 
-[node name="BuildUtilityCalculator" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/GlobalServices/BuildPrioritizer" parent_id_path=PackedInt32Array(20484500, 1129068084) index="0" unique_id=883994613]
-allow_buildings = true
-
 [node name="Enemies" type="Node3D" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1702973220]
 
 [node name="EnemyTank01" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1223720870 instance=ExtResource("1_h7ph6")]
