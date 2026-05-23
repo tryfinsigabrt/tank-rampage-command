@@ -1,4 +1,5 @@
 class_name BuildUtilityCalculator extends Node
+
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var team_units: TeamUnits = %TeamUnits
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
