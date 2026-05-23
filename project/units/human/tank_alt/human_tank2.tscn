@@ -968,6 +968,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28172088, -1.6485891)
 shoot_vfx_size = 1
 shoot_vfx_origin_path = NodePath("%FireOrigin")
 shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
+min_distance = 5.0
+max_distance_range = Vector2(100, 150)
 damage_v_distance = ExtResource("8_af5uv")
 accuracy_v_velocity_alignment = ExtResource("9_vl57v")
 

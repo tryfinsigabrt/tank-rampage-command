@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="14_o5wff"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="15_gcj7y"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="16_fqfsc"]
-[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="17_2xixw"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_2xixw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dnjt4"]
 resource_name = "Material"
@@ -547,6 +547,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28172088, -1.6485891)
 shoot_vfx_size = 1
 shoot_vfx_origin_path = NodePath("..")
 shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
+min_distance = 5.0
+max_distance_range = Vector2(100, 150)
 damage_v_distance = ExtResource("10_yngfg")
 accuracy_v_velocity_alignment = ExtResource("11_crfb0")
 

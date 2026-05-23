@@ -50,6 +50,10 @@ unique_name_in_owner = true
 [node name="FireOrigin" parent="Body/Turret/Barrel/Pivot" parent_id_path=PackedInt32Array(1198725874, 1174948464) index="1" unique_id=104605609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.253356)
 
+[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" index="0" unique_id=413668482]
+min_distance = 5.0
+max_distance_range = Vector2(100, 150)
+
 [node name="WheelsRight" parent="Body" unique_id=433920229 instance=ExtResource("15_bakst")]
 
 [node name="TrackRight" parent="Body/WheelsRight" unique_id=980590034 instance=ExtResource("14_o8pnh")]
