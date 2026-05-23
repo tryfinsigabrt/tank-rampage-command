@@ -51,6 +51,8 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 			building_data = _building_data[building_id]
 		else:
 			var building:Building = instance_from_id(building_id)
+			if not building:
+				continue
 			building_data = BuildingData.new(building, defense_radius)
 			_building_data[building_id] = building_data
 		
