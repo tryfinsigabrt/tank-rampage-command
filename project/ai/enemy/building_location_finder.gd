@@ -69,7 +69,10 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 	
 	for cluster in _building_clusters:
 		var buildings: Array = cluster.objects
-		for building:Building in buildings:
+		for object:Variant in buildings:
+			if not is_instance_valid(object):
+				continue
+			var building:Building = object
 			var building_type := ConstructionResource.type_from_building(building)
 			if building_type == type:
 				var cnt:int = cluster_counts.get(cluster, 0)
@@ -90,7 +93,13 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 		
 		# Radius will be cluster radius + min of object vision radius
 		var radius_incr:float = 0.0
-		for building:Building in cluster.objects:
+		var valid_count:int = 0
+		
+		for object:Variant in cluster.objects:
+			if not is_instance_valid(object):
+				continue
+			valid_count += 1
+			var building:Building = object
 			var team_component:TeamComponent = TeamComponent.get_component(building)
 			var vision_radius:float
 			if team_component:
@@ -103,9 +112,11 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 			# So we are finding how close they are to the edge of the circle and then expanding out by the vision
 			# The vision doesn't extend all the way around the bounding circle but it's a simple approx
 			var expansion_dist:float = maxf(0.0, cluster_radius - center_dist) + vision_radius
-			radius_incr = maxf(radius_incr, expansion_dist)			
-		var build_bounds:BoundingCircle = BoundingCircle.new(center, cluster_radius + radius_incr)
-		build_bounds_array.push_back(build_bounds)
+			radius_incr = maxf(radius_incr, expansion_dist)
+		
+		if valid_count > 0:
+			var build_bounds:BoundingCircle = BoundingCircle.new(center, cluster_radius + radius_incr)
+			build_bounds_array.push_back(build_bounds)
 		
 	return build_bounds_array
 	
