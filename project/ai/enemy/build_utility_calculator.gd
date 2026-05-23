@@ -1,5 +1,4 @@
 class_name BuildUtilityCalculator extends Node
-
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var team_units: TeamUnits = %TeamUnits
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
@@ -33,6 +32,10 @@ var _manufacturing_by_type: Dictionary[ConstructionResource.Type, Array]
 var _enemy_unit_distributions: Dictionary[ConstructionResource.Type, int]
 var _construction_resources_by_type: Dictionary[ConstructionResource.Type, ConstructionResource]
 
+var _building_stats_by_type:Dictionary[ConstructionResource.Type, BuildingStats]
+var _command_center_data:CommandCenterData
+var _can_build_buildings:bool
+
 func _ready() -> void:
 	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
 	
@@ -59,6 +62,7 @@ func _refresh_construction_resource_mappings() -> void:
 func _refresh_available_behaviors() -> void:
 	_manufacturing_by_type.clear()
 	_available_behaviors.clear()
+	_can_build_buildings = false
 	
 	# Map construction resource types to their supported manufacturing centers
 	for building in team_units.buildings:
@@ -82,7 +86,8 @@ func _refresh_available_behaviors() -> void:
 			var type_classification:ConstructionResource.Classification = ConstructionResource.classify_type(type)
 			if type_classification == ConstructionResource.Classification.Building:
 				_available_behaviors[type] = behaviors[type]
-				
+				_can_build_buildings = true
+			
 func _refresh_enemy_data() -> void:
 	_enemy_unit_distributions.clear()
 	
@@ -127,6 +132,11 @@ func next_build() -> bool:
 	var available_personnel:int = personnel.remaining
 	var available_scrap:int = scrap.count
 		
+	# Refresh on every build action since the stats are dependent on last build not just next cycle
+	if _can_build_buildings:
+		_refresh_non_command_center_building_stats()
+		_refresh_command_center_building_stats()
+	
 	for type in _available_behaviors:
 		var behavior:UtilityAIBehavior = behaviors[type]
 		var utility_context:Variant = null
@@ -240,31 +250,56 @@ func _get_best_unit_manufacturing_component(type: ConstructionResource.Type) -> 
 #endregion
 
 #region Building Manufacturing
+const _BUILDING_STATS_RESET_TIME:float = 120.0
 
-func _add_non_command_center_building_context(type: ConstructionResource.Type, context: BuildBuildingUtilityContext) -> void:
-	var total_in_progress:int = 0
-	var total_queue_size:int = 0
-	var total_buildings:int = 0
+class BuildingStats:
+	var total_in_progress:int
+	var total_queue_size:int
+	var total_buildings:int
+	var last_reset_time:float
 	
+	func new_record() -> void:
+		total_buildings = 0
+		
+		var time:float = GameManager.game_timer.time_seconds
+		if time - last_reset_time >= _BUILDING_STATS_RESET_TIME:
+			last_reset_time = time
+			total_in_progress = 0
+			total_queue_size = 0
+		
+	func get_queue_depth_fraction() -> float:
+		# Set avg queue depth to 1.0 if no buildings to push towards building that building
+		return float(total_in_progress) / total_queue_size if total_queue_size > 0 else 1.0
+	
+class CommandCenterData:
+	var most_depleted_field_fraction:float
+	var time_to_exhaustion:float
+	
+func _get_building_stats_record(type: ConstructionResource.Type) -> BuildingStats:
+	var stats:BuildingStats = _building_stats_by_type.get(type)
+	if not stats:
+		stats = BuildingStats.new()
+		_building_stats_by_type[type] = stats
+	return stats
+		
+func _refresh_non_command_center_building_stats() -> void:
+	for type in _building_stats_by_type:
+		_building_stats_by_type[type].new_record()
+		
 	for building in team_units.buildings:
 		var building_type := ConstructionResource.type_from_building(building)
-		if building_type == type:
-			var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
-			if manufacturing_component:
-				total_buildings += 1
-				total_queue_size += manufacturing_component.max_queue
-				total_in_progress += manufacturing_component.queue_depth
+		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
+		if manufacturing_component:
+			var stats:BuildingStats = _get_building_stats_record(building_type)
+			stats.total_buildings += 1
+			stats.total_queue_size += manufacturing_component.max_queue
+			stats.total_in_progress += manufacturing_component.queue_depth
 	
 	# for total buildings also consider those that are in progress of being built or placed
 	for placement in enemy_building_create_action.active_placements:
-		if placement.context.type == type:
-			total_buildings += 1
-			
-	# Set avg queue depth to 1.0 if no buildings to push towards building that building
-	context.avg_queue_depth_fraction = float(total_in_progress) / total_queue_size if total_queue_size > 0 else 1.0
-	context.curr_building_count = total_buildings
-
-func _add_command_center_building_context(context: BuildBuildingUtilityContext) -> void:
+		_get_building_stats_record(placement.context.type).total_buildings += 1
+	
+func _refresh_command_center_building_stats() -> void:
 	var scrap_fields_data:Array[EnemyTeamBlackboard.ScrapFieldData] = blackboard.active_scrap_fields
 	var team:int = match_team.team
 
@@ -281,8 +316,20 @@ func _add_command_center_building_context(context: BuildBuildingUtilityContext) 
 		most_depleted_field_fraction = maxf(most_depleted_field_fraction, 1.0 - field.remaining_fraction)
 		time_to_exhaustion = maxf(time_to_exhaustion, field.get_estimated_time_to_exhaustion())
 		
-	context.most_depleted_field_fraction = most_depleted_field_fraction
-	context.time_to_exhaustion = time_to_exhaustion
+	if not _command_center_data:
+		_command_center_data = CommandCenterData.new()
+			
+	_command_center_data.most_depleted_field_fraction = most_depleted_field_fraction
+	_command_center_data.time_to_exhaustion = time_to_exhaustion
+	
+func _add_non_command_center_building_context(type: ConstructionResource.Type, context: BuildBuildingUtilityContext) -> void:
+	var stats:BuildingStats = _get_building_stats_record(type)		
+	context.avg_queue_depth_fraction = stats.get_queue_depth_fraction()
+	context.curr_building_count = stats.total_buildings
+
+func _add_command_center_building_context(context: BuildBuildingUtilityContext) -> void:
+	context.most_depleted_field_fraction = _command_center_data.most_depleted_field_fraction
+	context.time_to_exhaustion = _command_center_data.time_to_exhaustion
 
 func _on_enemy_building_create_action_on_building_complete(context: BuildBuildingUtilityContext, building: Building) -> void:
 	if building or failed_building_cooldown_time <= 0:

@@ -520,6 +520,8 @@ layout_mode = 2
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("33_bvix3")]
 
+[connection signal="new_asset_built" from="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/GlobalServices/TeamUnits" to="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BuildingLocationFinder" method="_on_team_units_new_asset_built"]
+
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies/EnemyTank01/Body"]
