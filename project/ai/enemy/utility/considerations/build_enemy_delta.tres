@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_g8fba"]
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_jklbj"]
 
-[sub_resource type="Curve" id="Curve_0kpa1"]
-_limits = [0.0, 1.0, 0.0, 5.0]
-_data = [Vector2(0, 0.09827924), 0.0, 0.0, 0, 0, Vector2(1.9978285, 0.74502826), 0.1351949, 0.1351949, 0, 0, Vector2(3.8165038, 0.9039409), 0.08595063, 0.08595063, 0, 0, Vector2(5, 1), 0.050870877, 0.12068105, 0, 0]
-point_count = 4
+[sub_resource type="Curve" id="Curve_g8fba"]
+_limits = [0.0, 1.0, 0.0, 2.0]
+_data = [Vector2(0, 0.1), 0.0, 0.14196612, 0, 0, Vector2(1, 0.4), 0.87092406, 0.87092406, 0, 0, Vector2(1.998315, 1), 0.0, 0.0, 0, 0]
+point_count = 3
 script = ExtResource("1_g8fba")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
 
 [resource]
 script = ExtResource("1_jklbj")
 input_key = "enemy_delta"
-response_curve = SubResource("Curve_0kpa1")
+response_curve = SubResource("Curve_g8fba")
 metadata/_custom_type_script = "uid://dcep36176g5w8"

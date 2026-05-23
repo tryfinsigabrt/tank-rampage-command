@@ -158,7 +158,11 @@ func next_build() -> bool:
 				utility_context.construction = candidate.get_build_metadata(type)
 				utility_context.available_personnel = available_personnel
 				utility_context.available_scrap = available_scrap
-				utility_context.enemy_delta = _enemy_unit_distributions.get(type, 0) - team_distributions.get(type, 0)
+				
+				var enemy_count:int = _enemy_unit_distributions.get(type, 0)
+				var team_count:int = team_distributions.get(type, 0)
+				
+				utility_context.enemy_delta = enemy_count / float(team_count) if team_count > 0 else 1.0 if enemy_count > 0 else 0.5
 				
 				action = func() -> bool:
 					if candidate.can_build(type):

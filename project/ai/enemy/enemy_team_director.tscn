@@ -196,6 +196,7 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 5: ExtResource("35_qp5pp"),
 6: ExtResource("35_qp5pp")
 })
+allow_buildings = true
 
 [node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")
