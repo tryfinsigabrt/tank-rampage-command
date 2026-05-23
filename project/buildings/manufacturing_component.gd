@@ -188,7 +188,6 @@ func _do_spawn(resource:ConstructionResource) -> Node3D:
 	
 	var asset_name:String = _create_asset_name(resource.type)
 	
-	# TODO: Canceling?
 	var asset:Node3D = asset_spawner.spawn(resource, asset_name)
 	build_completed.emit(resource, asset)
 	

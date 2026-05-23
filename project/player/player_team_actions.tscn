@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cg1qpvidgvbei" path="res://player/order_manager.gd" id="5_1k0rd"]
 [ext_resource type="Script" uid="uid://cl70rbq026hdr" path="res://player/group_manager.gd" id="5_wipxo"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="6_632wb"]
+[ext_resource type="Script" uid="uid://dxui6ki76cnji" path="res://player/rally_point_manager.gd" id="6_f65hl"]
 [ext_resource type="Material" uid="uid://g3f32qmgfuu0" path="res://player/effects/target_selection_outline_overlay_material.tres" id="7_rsxwl"]
 [ext_resource type="PackedScene" uid="uid://15e16r8qmv1v" path="res://player/effects/ground_action_indicator.tscn" id="8_ow4pb"]
 [ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="9_wo08e"]
@@ -47,6 +48,9 @@ _asset_selection_effect = NodePath("AssetSelectionEffect")
 [node name="GroupManager" type="Node" parent="SelectionManager" unique_id=1681393483 node_paths=PackedStringArray("selection_manager")]
 script = ExtResource("5_wipxo")
 selection_manager = NodePath("..")
+
+[node name="RallyPointManager" type="Node" parent="SelectionManager" unique_id=438941660]
+script = ExtResource("6_f65hl")
 
 [node name="OrderManager" type="Node" parent="." unique_id=2071856498 node_paths=PackedStringArray("selection_manager", "position_distribution", "target_asset_selection_effect", "move_to_effect", "attack_move_effect", "attack_position_effect")]
 script = ExtResource("5_1k0rd")
