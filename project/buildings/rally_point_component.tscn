@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://7gsl50b8qqwx"]
+
+[ext_resource type="Script" uid="uid://c6rre6xyokdg0" path="res://buildings/rally_point_component.gd" id="1_n1nda"]
+
+[node name="RallyPointComponent" type="Node" unique_id=1678853461]
+script = ExtResource("1_n1nda")

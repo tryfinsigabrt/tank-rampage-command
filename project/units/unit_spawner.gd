@@ -12,8 +12,12 @@ var _container:Node
 
 func _ready() -> void:
 	_match_team = Groups.get_parent_with_type(self, MatchTeam)
-	_container = _match_team
-	if not _match_team:
+	
+	if _match_team:
+		# Need to wait so we can access asset_container
+		await NodeUtils.ensure_ready(_match_team)
+		_container = _match_team.asset_container
+	if not _container:
 		push_error("%s: UnitSpawner has no MatchTeam parent!" % name)
 		_container = self
 	assert(node_picker, "%s: Node Picker not set!" % name)

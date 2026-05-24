@@ -28,7 +28,7 @@ var any_buildings_same_team:bool:
 			var building:Building = instance_from_id(id)
 			if not building:
 				continue
-			if _is_on_same_team(building):
+			if is_on_same_team(building):
 				return true
 		return false
 		
@@ -66,12 +66,12 @@ var all_selected:Array[Node3D]:
 var all_selected_same_team:Array[Node3D]:
 	get:
 		var all:Array[Node3D]
-		NodeUtils.populate_instances(_selected_units, all, _is_on_same_team)
-		NodeUtils.populate_instances(_selected_buildings, all, _is_on_same_team)
+		NodeUtils.populate_instances(_selected_units, all, is_on_same_team)
+		NodeUtils.populate_instances(_selected_buildings, all, is_on_same_team)
 		
 		return all
 
-func _is_on_same_team(node: Node3D) -> bool:
+func is_on_same_team(node: Node3D) -> bool:
 	var team_component:TeamComponent = TeamComponent.get_component(node)
 	return team_component and team_component.is_on_team(team)
 	
