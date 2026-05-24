@@ -16,7 +16,9 @@ func _on_avoidance_enemies_changed() -> void:
 	var heading_dict:Dictionary[int, Vector3]
 	if avoidance_enemies:
 		for unit in blackboard.idle_units:
-			heading_dict[unit.get_instance_id()] = _calculate_weighted_avoidance_heading(unit, avoidance_enemies)
+			# TODO: Shouldn't need to do this but ran into previously freed
+			if is_instance_valid(unit):
+				heading_dict[unit.get_instance_id()] = _calculate_weighted_avoidance_heading(unit, avoidance_enemies)
 	
 	blackboard.explore_heading_bias = heading_dict
 	
