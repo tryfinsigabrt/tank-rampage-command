@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cbrse0srgx4nn"]
+
+[ext_resource type="PackedScene" uid="uid://15e16r8qmv1v" path="res://player/effects/ground_action_indicator.tscn" id="1_150n8"]
+[ext_resource type="Material" uid="uid://b00enlmfj2ihs" path="res://player/effects/rally_point_material.tres" id="2_voctg"]
+[ext_resource type="Material" uid="uid://dope7aapntv1p" path="res://player/effects/move_to_material.tres" id="3_3n3l2"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q1adf"]
+material = ExtResource("3_3n3l2")
+top_radius = 4.0
+bottom_radius = 4.0
+height = 0.1
+
+[node name="RallyPointIndicator" unique_id=1424207464 instance=ExtResource("1_150n8")]
+material = ExtResource("2_voctg")
+lifetime = 0.0
+
+[node name="Mesh" parent="." index="0" unique_id=468868762]
+mesh = SubResource("CylinderMesh_q1adf")

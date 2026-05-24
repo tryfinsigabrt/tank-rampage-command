@@ -1,6 +1,7 @@
 class_name RallyPointComponent extends Node
 
 const ComponentName:StringName = &"RallyPointComponent"
+const NO_RALLY_POINT_SET:Vector3 = Vector3.INF
 
 signal rally_point_set
 signal rally_point_removed
@@ -9,19 +10,19 @@ var _manufacturing_component:ManufacturingComponent
 
 var has_rally_point:bool:
 	get:
-		return rally_point != Vector3.INF
+		return rally_point != NO_RALLY_POINT_SET
 		
-var rally_point:Vector3 = Vector3.INF:
+var rally_point:Vector3 = NO_RALLY_POINT_SET:
 	set(value):
 		rally_point = value
 		if is_node_ready():
-			if value != Vector3.INF:
+			if value != NO_RALLY_POINT_SET:
 				rally_point_set.emit()
 			else:
 				rally_point_removed.emit()
 
 func clear_rally_point() -> void:
-	rally_point = Vector3.INF
+	rally_point = NO_RALLY_POINT_SET
 	
 func _ready() -> void:
 	var team_asset:Node3D = Groups.get_parent_in_group(self, Groups.TeamAsset) as Node3D
