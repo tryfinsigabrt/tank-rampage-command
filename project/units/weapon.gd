@@ -35,9 +35,9 @@ const DEFAULT_HIT_VFX_SCENE:PackedScene = preload("uid://ydirx1srogti")
 @export var hit_vfx:HitVfx
 
 const SHOOT_VFX_SCENES := {
-	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot_vfx_small.tscn"),
-	ShootVfx.SizePreset.MEDIUM: preload("res://particles/shoot_vfx_medium.tscn"),
-	ShootVfx.SizePreset.LARGE: preload("res://particles/shoot_vfx_large.tscn"),
+	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot/shoot_vfx_small.tscn"),
+	ShootVfx.SizePreset.MEDIUM: preload("res://particles/shoot/shoot_vfx_medium.tscn"),
+	ShootVfx.SizePreset.LARGE: preload("res://particles/shoot/shoot_vfx_large.tscn"),
 }
 
 @export
