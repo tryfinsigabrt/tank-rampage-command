@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://3rip4p51cxb0" path="res://test/museums/museum_ground_material.tres" id="1_h70ab"]
 [ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="2_24ide"]
 [ext_resource type="PackedScene" uid="uid://cidyx3ws41l3p" path="res://test/museums/vfx_demo.tscn" id="3_bgbxl"]
-[ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/artillery-explosion-vfx-spawner.tscn" id="4_24ide"]
+[ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/hit/artillery_explosion_vfx_spawner.tscn" id="4_24ide"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnysw"]
 ground_bottom_color = Color(0, 0, 0, 1)

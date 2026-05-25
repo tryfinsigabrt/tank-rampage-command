@@ -18,8 +18,6 @@ enum TraceType
 	Launch
 }
 
-const DEFAULT_HIT_VFX_SCENE:PackedScene = preload("uid://ydirx1srogti")
-
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var impact_timer: Timer = $ImpactTimer
 @onready var damage_emitter: DamageEmitter = $DamageEmitter
@@ -33,11 +31,17 @@ const DEFAULT_HIT_VFX_SCENE:PackedScene = preload("uid://ydirx1srogti")
 @export var shoot_sfx:Node
 
 @export var hit_vfx:HitVfx
+@export var hit_vfx_size: HitVfx.SizePreset = HitVfx.SizePreset.NORMAL
 
 const SHOOT_VFX_SCENES := {
 	ShootVfx.SizePreset.SMALL: preload("res://particles/shoot/shoot_vfx_small.tscn"),
 	ShootVfx.SizePreset.MEDIUM: preload("res://particles/shoot/shoot_vfx_medium.tscn"),
 	ShootVfx.SizePreset.LARGE: preload("res://particles/shoot/shoot_vfx_large.tscn"),
+}
+
+const HIT_VFX_SCENES := {
+	HitVfx.SizePreset.SMALL: preload("res://particles/hit/default_hit_vfx_small.tscn"),
+	HitVfx.SizePreset.NORMAL: preload("res://particles/hit/default_hit_vfx.tscn"),
 }
 
 @export
@@ -143,8 +147,7 @@ func _ready() -> void:
 		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
 	
 	if not hit_vfx:
-		hit_vfx = DEFAULT_HIT_VFX_SCENE.instantiate()
-		add_child(hit_vfx)
+		_spawn_hit_vfx()
 	
 	_shoot_vfx_origin_node = get_node_or_null(shoot_vfx_origin_path) as Node3D
 	if _shoot_vfx_origin_node == null:
@@ -336,6 +339,17 @@ func _spawn_shoot_vfx() -> void:
 		return
 
 	shoot_vfx_container.add_child(_shoot_vfx)
+
+func _spawn_hit_vfx() -> void:
+	var hit_vfx_scene: PackedScene = HIT_VFX_SCENES.get(hit_vfx_size)
+	if hit_vfx_scene == null:
+		return
+
+	hit_vfx = hit_vfx_scene.instantiate() as HitVfx
+	if hit_vfx == null:
+		return
+
+	add_child(hit_vfx)
 	
 func _on_fire_state_timer_timeout() -> void:
 	firing_state_changed.emit(false)

@@ -289,6 +289,7 @@ transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.47178695, 1.8308499, -1.1
 
 [node name="Weapon" parent="FireOrigin" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx") instance=ExtResource("3_5cd41")]
 unique_name_in_owner = true
+hit_vfx_size = 0
 shoot_vfx_origin_path = NodePath("%FireOrigin")
 shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
 shoot_sfx = NodePath("ShootSfx")

@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cppqq3gh2badh"]
+[gd_scene format=3 uid="uid://dwkvxfs4bso5h"]
 
-[ext_resource type="Script" path="res://particles/emit_then_self_remove.gd" id="1_0i3p6"]
-[ext_resource type="Texture2D" path="res://particles/particle-crescent.png" id="3_d218c"]
-[ext_resource type="Texture2D" path="res://particles/darksmoke.png" id="3_ylk6w"]
+[ext_resource type="Script" uid="uid://cgfv4xcfck5t3" path="res://particles/hit/emit_then_self_remove.gd" id="1_0i3p6"]
+[ext_resource type="Texture2D" uid="uid://ds048deuh5dco" path="res://particles/hit/particle-crescent.png" id="3_d218c"]
+[ext_resource type="Texture2D" uid="uid://0y1nc6wpuck0" path="res://particles/hit/darksmoke.png" id="3_ylk6w"]
 
 [sub_resource type="Curve" id="Curve_0i3p6"]
 _data = [Vector2(0.020725384, 0), 0.0, 8.40309, 0, 0, Vector2(0.253886, 0.8876405), -0.6099016, -0.6099016, 0, 0, Vector2(1, 0), 0.07289207, 0.0, 0, 0]

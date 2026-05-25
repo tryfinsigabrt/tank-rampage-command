@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ydirx1srogti"]
+[gd_scene format=3 uid="uid://drbvqa1n5p8n3"]
 
 [ext_resource type="Script" uid="uid://b2svojemn1wp4" path="res://particles/hit/default_hit_vfx.gd" id="1_hb012"]
 
@@ -17,12 +17,12 @@ scale_curve = SubResource("CurveTexture_impact_scale")
 albedo_color = Color(1, 0.9607843, 0.6509804, 1)
 emission_enabled = true
 emission = Color(1, 0.54509807, 0.227451, 1)
-emission_energy_multiplier = 7.0
+emission_energy_multiplier = 6.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_impact_flash"]
 material = SubResource("StandardMaterial3D_impact_flash")
-radius = 0.675
-height = 0.675
+radius = 0.25
+height = 0.25
 radial_segments = 8
 rings = 4
 
@@ -36,11 +36,11 @@ curve = SubResource("Curve_spark_scale")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_spark_burst"]
 particle_flag_align_y = true
 emission_shape = 1
-emission_sphere_radius = 0.225
+emission_sphere_radius = 0.08
 direction = Vector3(0, 1, 0)
-spread = 18.0
-initial_velocity_min = 12.0
-initial_velocity_max = 18.0
+spread = 14.0
+initial_velocity_min = 8.0
+initial_velocity_max = 12.0
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_spark_scale")
 
@@ -48,33 +48,33 @@ scale_curve = SubResource("CurveTexture_spark_scale")
 albedo_color = Color(1, 0.7921569, 0.25490198, 1)
 emission_enabled = true
 emission = Color(1, 0.67058825, 0.18431373, 1)
-emission_energy_multiplier = 3.5
+emission_energy_multiplier = 3.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_spark_burst"]
 material = SubResource("StandardMaterial3D_spark_burst")
-top_radius = 0.12
+top_radius = 0.04
 bottom_radius = 0.0
-height = 2.7
+height = 1.0
 radial_segments = 6
 rings = 1
 
-[node name="DefaultHitEmitter" type="Node3D" unique_id=185743384]
+[node name="DefaultHitEmitterSmall" type="Node3D" unique_id=281275510]
 script = ExtResource("1_hb012")
 metadata/_custom_type_script = "uid://dohkdamtqtrkk"
 
-[node name="ImpactFlash" type="GPUParticles3D" parent="." unique_id=865586622]
+[node name="ImpactFlash" type="GPUParticles3D" parent="." unique_id=1172776922]
 emitting = false
 amount = 1
-lifetime = 0.2
+lifetime = 0.16
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_impact_flash")
 draw_pass_1 = SubResource("SphereMesh_impact_flash")
 
-[node name="SparkBurst" type="GPUParticles3D" parent="." unique_id=1446913921]
+[node name="SparkBurst" type="GPUParticles3D" parent="." unique_id=690865056]
 emitting = false
-amount = 6
-lifetime = 0.18
+amount = 4
+lifetime = 0.14
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_spark_burst")

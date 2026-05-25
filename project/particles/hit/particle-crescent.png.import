@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0y1nc6wpuck0"
-path.s3tc="res://.godot/imported/darksmoke.png-41073d350b9c4b72b0616d08457aa6ee.s3tc.ctex"
+uid="uid://ds048deuh5dco"
+path.s3tc="res://.godot/imported/particle-crescent.png-456cfd322ff10eefdea3f9ac04081656.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://particles/darksmoke.png"
-dest_files=["res://.godot/imported/darksmoke.png-41073d350b9c4b72b0616d08457aa6ee.s3tc.ctex"]
+source_file="res://particles/hit/particle-crescent.png"
+dest_files=["res://.godot/imported/particle-crescent.png-456cfd322ff10eefdea3f9ac04081656.s3tc.ctex"]
 
 [params]
 
