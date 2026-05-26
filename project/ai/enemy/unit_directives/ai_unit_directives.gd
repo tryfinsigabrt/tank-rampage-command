@@ -109,9 +109,6 @@ func _ready() -> void:
 	_recent_commands = CircularBuffer.new(10)
 	_priority_timer.wait_time = evaluation_delay
 	
-	# Stop execution if another command issued outside the ecosystem
-	unit.get_or_add_actions().command_issued.connect(_on_command_issued)
-	
 func _on_command_issued(command_id:int) -> void:
 	# We issued this command
 	if _recent_commands.contains(command_id):
@@ -128,6 +125,10 @@ func stop() -> void:
 
 	_priority_timer.stop()
 	_behavior_tree.enabled = false
+	
+	var unit_actions := unit.get_or_add_actions()
+	if unit_actions.command_issued.is_connected(_on_command_issued):
+		unit_actions.command_issued.disconnect(_on_command_issued)	
 	
 	if _active_state and _active_state.state == StateActivity.STARTED:
 		_active_state.state = StateActivity.CANCELED
@@ -217,6 +218,10 @@ func _switch_state(state:State) -> void:
 	print_debug("%s(%s): Switching state to %s" % [name, unit.name, state])
 	if not _behavior_tree.enabled:
 		_behavior_tree.enabled = true
+		# Stop execution if another command issued outside the ecosystem
+		var unit_actions := unit.get_or_add_actions()
+		if not unit_actions.command_issued.is_connected(_on_command_issued):
+			unit_actions.command_issued.connect(_on_command_issued)	
 		
 	_active_state = state
 	blackboard.set_state(state)

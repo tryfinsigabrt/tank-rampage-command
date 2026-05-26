@@ -25,6 +25,9 @@ const BUILD_PROGRESS_BAR:PackedScene = preload("uid://vcmg5a8ggm00")
 
 var _visible_children:PackedInt64Array
 
+var build_time_remaining:float:
+	get: return build_timer.time_left
+	
 func _ready() -> void:
 	_building = get_parent() as Building
 	if not _building:

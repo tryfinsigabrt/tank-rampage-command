@@ -64,13 +64,15 @@ script = ExtResource("7_vx21p")
 cap = 30
 metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
 
-[sub_resource type="Resource" id="Resource_2gujw"]
+[sub_resource type="Resource" id="Resource_3tjyc"]
 script = ExtResource("8_s1k2f")
+cap = 1000000
+count = 100000
 metadata/_custom_type_script = "uid://wjqvneg6aev5"
 
-[sub_resource type="Resource" id="Resource_8m8hx"]
+[sub_resource type="Resource" id="Resource_smmll"]
 script = ExtResource("9_taos0")
-scrap = SubResource("Resource_2gujw")
+scrap = SubResource("Resource_3tjyc")
 personnel = SubResource("Resource_37ytp")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
@@ -82,19 +84,20 @@ _data = {
 }
 point_count = 7
 
-[sub_resource type="Resource" id="Resource_dy05a"]
+[sub_resource type="Resource" id="Resource_hmviv"]
 script = ExtResource("7_vx21p")
 cap = 30
 metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
 
-[sub_resource type="Resource" id="Resource_7l2ia"]
+[sub_resource type="Resource" id="Resource_prpbj"]
 script = ExtResource("8_s1k2f")
+count = 0
 metadata/_custom_type_script = "uid://wjqvneg6aev5"
 
-[sub_resource type="Resource" id="Resource_prpbj"]
+[sub_resource type="Resource" id="Resource_ic35g"]
 script = ExtResource("9_taos0")
-scrap = SubResource("Resource_7l2ia")
-personnel = SubResource("Resource_dy05a")
+scrap = SubResource("Resource_prpbj")
+personnel = SubResource("Resource_hmviv")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [node name="TestAIAssistance" type="Node3D" unique_id=1293608661]
@@ -251,7 +254,7 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("6_mh4ib")]
 team = 2
-resources = SubResource("Resource_8m8hx")
+resources = SubResource("Resource_smmll")
 config = ExtResource("19_1qc1s")
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("20_43s5d")]
@@ -402,7 +405,7 @@ curve = SubResource("Curve3D_37ytp")
 
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_mh4ib")]
 team = 1
-resources = SubResource("Resource_prpbj")
+resources = SubResource("Resource_ic35g")
 config = ExtResource("10_2hj1t")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("11_2apio")]

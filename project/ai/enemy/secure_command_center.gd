@@ -16,7 +16,7 @@ var ideal_enemy_army_hold_strength:float = 0.1
 var discovery_hold_duration:float = 30.0
 
 @export
-var secure_hold_duration:float = 120.0
+var secure_hold_additional_duration:float = 30.0
 
 @export
 var min_secure_strength:float = 20.0
@@ -31,8 +31,13 @@ func _on_enemy_building_create_action_on_building_complete(_context: BuildBuildi
 	if not enable_assistance or building is not CommandCenter:
 		return
 	
-	# TODO: Get construction building and read remaining build time
-	_secure_base(building, secure_hold_duration)
+	var construction_building: ConstructionBuilding = Groups.get_child_with_type(building, ConstructionBuilding)
+	var hold_duration:float = secure_hold_additional_duration
+	if construction_building:
+		# Secure additionally for remaining build time
+		hold_duration += construction_building.build_time_remaining
+
+	_secure_base(building, hold_duration)
 
 func _watch_scrap_field(scrap_field:EnemyTeamBlackboard.ScrapFieldData) -> void:
 	if not scrap_field.open:
