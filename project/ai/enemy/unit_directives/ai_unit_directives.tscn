@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b3vm8ltgbvea6"]
+
+[ext_resource type="Script" uid="uid://dvuwpdabt6yjr" path="res://ai/enemy/unit_directives/ai_unit_directives.gd" id="1_b4jg7"]
+[ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_ooypq"]
+[ext_resource type="Script" uid="uid://bnmiiil1yq63f" path="res://ai/enemy/unit_directives/unit_directive_blackboard.gd" id="3_ebadl"]
+[ext_resource type="Script" uid="uid://cw22yurt5l74k" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="4_uef0l"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_j53kv"]
+[ext_resource type="Script" uid="uid://uoy6r3dbnq25" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="6_j53kv"]
+[ext_resource type="Script" uid="uid://cj4ph03l8lxpb" path="res://ai/enemy/unit_directives/move_and_attack_action.gd" id="7_1pph0"]
+[ext_resource type="Script" uid="uid://doexeeuhrywnc" path="res://ai/enemy/unit_directives/hold_action.gd" id="8_1pph0"]
+[ext_resource type="Script" uid="uid://cmnurafp01fhf" path="res://ai/enemy/unit_directives/directive_sequence_composite.gd" id="10_r2fj0"]
+
+[node name="AiUnitDirectives" type="Node" unique_id=1200788001]
+script = ExtResource("1_b4jg7")
+
+[node name="Blackboard" type="Node" parent="." unique_id=356464779]
+unique_name_in_owner = true
+script = ExtResource("3_ebadl")
+metadata/_custom_type_script = "uid://dme5f24l0edsf"
+
+[node name="BeehaveTree" type="Node" parent="." unique_id=1404365285 node_paths=PackedStringArray("blackboard", "actor")]
+unique_name_in_owner = true
+script = ExtResource("2_ooypq")
+enabled = false
+tick_rate = 30
+actor_node_path = NodePath("..")
+blackboard = NodePath("../Blackboard")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
+
+[node name="ActionChoice" type="Node" parent="BeehaveTree" unique_id=765317782]
+script = ExtResource("4_uef0l")
+metadata/_custom_type_script = "uid://cw22yurt5l74k"
+
+[node name="ChooseDefendPosition" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1965042963]
+script = ExtResource("5_j53kv")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsDefendPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendPosition" unique_id=1085620991]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"defend_position\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="DefendPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendPosition" unique_id=1072799462]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendPosition/DefendPosition" unique_id=380184057]
+script = ExtResource("7_1pph0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="Hold" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendPosition/DefendPosition" unique_id=68752572]
+script = ExtResource("8_1pph0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="PriorityTimer" type="Timer" parent="." unique_id=1530248530]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="timeout" from="PriorityTimer" to="." method="_on_priority_timer_timeout"]

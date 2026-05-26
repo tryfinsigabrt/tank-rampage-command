@@ -74,8 +74,8 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 			var unit:Unit = score.unit
 			_candidate_units.erase(unit.get_instance_id())
 			
-			unit.get_or_add_actions().move_and_attack(target)
-			# TODO: If there is an assistance duration then immediately request a hold after the move request completes
+			var directive:AiUnitDirectives = AiUnitDirectives.get_component(unit)
+			directive.set_defend_position(target, request.min_duration)
 			if request.strength <= 0:
 				break
 				

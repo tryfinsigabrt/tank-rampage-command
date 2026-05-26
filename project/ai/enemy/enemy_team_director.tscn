@@ -197,6 +197,8 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 6: ExtResource("35_qp5pp")
 })
 allow_buildings = true
+buildings_delay = null
+failed_building_cooldown_time = null
 
 [node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")
@@ -221,6 +223,7 @@ autostart = true
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
 [connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" method="_on_enemy_building_create_action_on_building_complete"]
+[connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_enemy_building_create_action_on_building_complete"]
 [connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BuildingLocationFinder" method="_update_building_clusters" unbinds=2]
 [connection signal="building_attack_status_changed" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_building_attack_status_changed"]
 [connection signal="control_point_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_control_point_discovered"]

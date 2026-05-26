@@ -46,7 +46,7 @@ func _initialize() -> void:
 	if game:
 		_team = game.get_team(my_unit.team)
 		if not _team:
-			push_warning("%s: could not find MatchTeam for team=%d slow path taken" % [name, _team])
+			push_warning("%s: could not find MatchTeam for team=%d slow path taken" % [name, my_unit.team])
 	else:
 		push_warning("%s: match not in tree - slow path taken" % name)
 		

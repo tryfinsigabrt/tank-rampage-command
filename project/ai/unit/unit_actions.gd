@@ -1,5 +1,6 @@
 class_name UnitActions extends Node3D
 
+signal command_issued(command_id:int)
 signal command_finished(command_id:int)
 
 @onready var behavior_tree: BeehaveTree = $BeehaveTree
@@ -43,7 +44,7 @@ func _ready() -> void:
 	unit.shoot_intent_toggled.connect(_on_shoot_intent_toggled)
 	
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
-	_update_tree_state()
+	_update_tree_state.call_deferred()
 		
 func _on_command_finished(in_unit: Unit, command:StringName, command_id:int) -> void:
 	if in_unit != unit:
@@ -167,6 +168,9 @@ func _new_action() -> void:
 	_clear_all_actions()
 	
 	blackboard.action_id = _command_id
+	
+	# Call at end of frame so that caller of action has a change to read the command id before the command is issued
+	command_issued.emit.call_deferred(_command_id)
 	
 func _clear_all_actions() -> void:
 	blackboard.set_value(UnitBlackboard.Keys.Action, "")

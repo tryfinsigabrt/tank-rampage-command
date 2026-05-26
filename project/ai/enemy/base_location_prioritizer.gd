@@ -2,6 +2,28 @@ class_name BaseLocationPrioritizer extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
+## Temporary flag during testing
+@export
+var enable_assistance:bool
+
+@export
+var min_discovery_hold_strength:float = 10.0
+
+@export
+var ideal_enemy_army_hold_strength:float = 0.1
+
+@export
+var discovery_hold_duration:float = 30.0
+
+@export
+var secure_hold_duration:float = 120.0
+
+@export
+var min_secure_strength:float = 20.0
+
+@export
+var ideal_enemy_army_secure_fraction:float = 0.3
+
 func _on_scrap_field_discovered(scrap_field:ScrapField) -> void:
 	var fields:Array[EnemyTeamBlackboard.ScrapFieldData] = blackboard.active_scrap_fields
 	var scrap_field_data := EnemyTeamBlackboard.ScrapFieldData.new(scrap_field)
@@ -15,6 +37,9 @@ func _on_scrap_field_discovered(scrap_field:ScrapField) -> void:
 	)
 
 	blackboard.on_available_scrap_fields_changed.emit()
+	
+	if enable_assistance:
+		_watch_scrap_field.call_deferred(scrap_field_data)
 	
 func _on_scrap_field_visibility_changed(scrap_field:ScrapField, in_visible:bool) -> void:
 	var fields:Array[EnemyTeamBlackboard.ScrapFieldData] = blackboard.active_scrap_fields
@@ -72,3 +97,58 @@ func get_best_open_scrap_field() -> ScrapField:
 	
 	var best_id:int = candidate_scrap_fields.front().id
 	return instance_from_id(best_id)
+	
+#region Scrap Field Assistance
+func _watch_scrap_field(scrap_field:EnemyTeamBlackboard.ScrapFieldData) -> void:
+	if not scrap_field.open:
+		return
+	 
+	var strength:float = _get_ideal_strength(min_discovery_hold_strength, ideal_enemy_army_hold_strength)
+	_issue_assistance(instance_from_id(scrap_field.id), strength, discovery_hold_duration)
+	
+func _issue_assistance(resource_or_asset:Node3D, strength:float, time:float) -> void:
+	if not resource_or_asset:
+		return
+		
+	var boundingSphere := Bounds.create_circumscribed_sphere(resource_or_asset.get_bounds())
+	var dir:Vector2 = MathUtils.get_rand_vector2_dir()
+	var location:Vector3 = Vector3(dir.x, 0.0, dir.y) * boundingSphere.radius * 2.0
+	
+	var assistance := EnemyTeamBlackboard.AssistanceRequest.new()
+	assistance.requesting_party_id = resource_or_asset.get_instance_id()
+	assistance.timestamp = GameManager.game_timer.time_seconds
+	assistance.strength = strength
+	assistance.location = location
+	assistance.min_duration = time
+	
+	blackboard.assistance_requests.push_back(assistance)
+	
+func _get_ideal_strength(min_strength:float, enemy_fraction:float) -> float:
+	var enemy_teams := blackboard.enemy_teams_info
+	var total_strength:float = 0.0
+	
+	for team:EnemyTeamUnits in enemy_teams:
+		var assets := team.assets
+		for asset_id in assets:
+			var asset_data:UnitData = assets[asset_id]
+			if asset_data.valid:
+				var unit:Unit = asset_data.asset as Unit
+				if unit:
+					total_strength += unit.strength()
+	return maxf(min_strength, total_strength * enemy_fraction)
+				
+func _secure_base(building:Building, duration:float) -> void:
+	if not enable_assistance:
+		return
+	
+	var strength:float = _get_ideal_strength(min_secure_strength, ideal_enemy_army_secure_fraction)
+	_issue_assistance(building, strength, duration)
+
+func _on_enemy_building_create_action_on_building_complete(_context: BuildBuildingUtilityContext, building: Building) -> void:
+	if not enable_assistance or building is not CommandCenter:
+		return
+	
+	# TODO: Get construction building and read remaining build time
+	_secure_base(building, secure_hold_duration)
+	
+#endregion
