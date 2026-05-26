@@ -24,6 +24,9 @@ var min_secure_strength:float = 20.0
 @export
 var ideal_enemy_army_secure_fraction:float = 0.3
 
+@export
+var assistance_positioning_bounds_multiplier:float = 2.0
+
 func _on_enemy_building_create_action_on_building_complete(_context: BuildBuildingUtilityContext, building: Building) -> void:
 	if not enable_assistance or building is not CommandCenter:
 		return
@@ -44,7 +47,9 @@ func _issue_assistance(resource_or_asset:Node3D, strength:float, time:float) -> 
 		
 	var boundingSphere := Bounds.create_circumscribed_sphere(resource_or_asset.get_bounds())
 	var dir:Vector2 = MathUtils.get_rand_vector2_dir()
-	var location:Vector3 = Vector3(dir.x, 0.0, dir.y) * boundingSphere.radius * 2.0
+	var distance_multiplier:float = randf_range(1.0, assistance_positioning_bounds_multiplier)
+	var location_offset:Vector3 = Vector3(dir.x, 0.0, dir.y) * boundingSphere.radius * distance_multiplier
+	var location:Vector3 = boundingSphere.center + location_offset
 	
 	var assistance := EnemyTeamBlackboard.AssistanceRequest.new()
 	assistance.requesting_party_id = resource_or_asset.get_instance_id()
@@ -76,7 +81,6 @@ func _secure_base(building:Building, duration:float) -> void:
 	var strength:float = _get_ideal_strength(min_secure_strength, ideal_enemy_army_secure_fraction)
 	_issue_assistance(building, strength, duration)
 
-
 func _on_team_units_scrap_field_discovered(scrap_field: ScrapField) -> void:
 	if not enable_assistance:
 		return
@@ -87,4 +91,3 @@ func _on_team_units_scrap_field_discovered(scrap_field: ScrapField) -> void:
 	# However unlikely it's possible the scrap field is now no longer valid
 	var id:int = scrap_field.get_instance_id() if is_instance_valid(scrap_field) else -1
 	_watch_scrap_field(blackboard.get_active_scrap_field_by_id(id))
-	

@@ -82,7 +82,7 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 		if _candidate_units.is_empty():
 			break
 	# If strength met then remove
-	for i in range(assistance_requests.size(), -1, -1):
+	for i in range(assistance_requests.size() - 1, -1, -1):
 		var request := assistance_requests[i]
 		if request.strength <= 0:
 			assistance_requests.remove_at(i)

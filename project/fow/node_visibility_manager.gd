@@ -70,6 +70,10 @@ func _update() -> void:
 			team_component.set_visible_to(fog_of_war.player_team, visible)
 
 func is_node_visible(node: Node3D, points_to_check: PackedVector3Array = PackedVector3Array(), visible_threshold:float = visible_channel_threshold, channel:int = FogOfWar.FOW_VISIBLE_CHANNEL, require_all:bool = false) -> bool:
+	# If overriding fog of war visibility for testing then always make the node visible to player
+	if not fog_of_war.visible:
+		return true
+		
 	if not points_to_check:
 		points_to_check.resize(4)
 		

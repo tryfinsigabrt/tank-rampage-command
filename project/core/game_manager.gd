@@ -19,6 +19,12 @@ var fog_of_war_node:FogOfWar:
 		var fow_node: FogOfWar = fog_of_war_node if _scene_ready else _get_fog_of_war()
 		return fow_node if is_instance_valid(fow_node) else null
 
+## Used for testing to reveal whole map to player
+var fog_of_war_visibility_override:bool:
+	get:
+		# When fog of war is not visible then it is enabled for AI calculations but player can see all
+		return not fog_of_war or not fog_of_war_node.visible
+		
 func _ready() -> void:
 	reset_world_state()
 	#scene_manager.scene_entering.connect(reset_world_state.unbind(1))

@@ -10,6 +10,10 @@ var visibility_tick_rate:float = 0.19
 @export
 var enable:bool = true
 
+## Enable/Disable to allow calculations but remove the overlay for testing purposes
+@export
+var visible:bool = true
+
 @export_range(0.0, 1.0, 0.01)
 var explored_area_modulation:float = 0.3
 
@@ -96,6 +100,8 @@ func _ready() -> void:
 		post_process_quad.visible = false
 		return
 		
+	post_process_quad.visible = visible
+	
 	_player_team = _get_player_team()
 	
 	# Recommended await per the get_texture() function documentation when used in _ready
