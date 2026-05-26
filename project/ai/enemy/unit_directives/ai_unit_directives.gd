@@ -30,7 +30,15 @@ class State:
 	
 	func _to_string() -> String:
 		return "%s:%d" % [key, priority]
-
+		
+	func equals(other:State, is_equal:Callable) -> bool:
+		if not other:
+			return false
+		if key != other.key:
+			return false
+		# Invoke state-specific equality condition
+		return is_equal.call(other.data)
+			
 var unit:Unit
 
 var _requested_states:Array[State]
@@ -56,17 +64,41 @@ func set_defend_position(position:Vector3, time:float) -> void:
 		TIME = time
 	}
 	
-	_add_state(state)	
+	_add_or_update_state(state, func(other_data:Dictionary[StringName, Variant]) -> bool:
+		var other_pos:Vector3 = other_data[&"POSITION"]
+		return other_pos.distance_squared_to(position) < 25.0
+	)
 #endregion
 
-func _add_state(state: State) -> void:
-	# Highest priority goes last so can use "pop_back"
-	var index:int = _requested_states.bsearch_custom(state, func(a:State, b:State) -> bool:
-		return a.priority < b.priority
-	)
-	_requested_states.insert(index, state)
+func _add_or_update_state(state: State, is_equal:Callable) -> void:
+	# If the key exists already, update in place
+	if _active_state and _active_state.equals(state, is_equal):
+		_active_state = state
+	else:
+		var existing_index:int = -1
+		for i in _requested_states.size():
+			var existing_state:State = _requested_states[i]
+			if existing_state.equals(state, is_equal):
+				existing_index = i
+				break
+		if existing_index != -1:
+			var existing_state:State = _requested_states[existing_index]
+			_requested_states[existing_index] = state
+			# If not same priority, then have to do full resort
+			if not is_equal_approx(state.priority, existing_state.priority):
+				_requested_states.sort_custom(_priority_compare)
+		# Adding a new state, place at right location in priority queue
+		else:	
+			var index:int = _requested_states.bsearch_custom(state, _priority_compare)
+			_requested_states.insert(index, state)
+			
+	# Reschedule if top priority changed
+	if not _active_state or (_requested_states and _active_state.priority < _requested_states.back().priority):
+		_schedule_if_stopped()
 	
-	_schedule_if_stopped()
+# Highest priority goes last so can use "pop_back"
+static func _priority_compare(a:State, b:State) -> bool:
+	return a.priority < b.priority
 	
 func _ready() -> void:
 	if not unit:
