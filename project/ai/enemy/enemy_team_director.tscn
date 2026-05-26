@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="24_iv7ch"]
 [ext_resource type="Resource" uid="uid://c3bxk8yll8q70" path="res://ai/enemy/utility/behaviors/build_unit.tres" id="26_ex0vg"]
 [ext_resource type="Script" uid="uid://uff6dkwlcyjk" path="res://ai/enemy/base_location_prioritizer.gd" id="27_tfuuw"]
+[ext_resource type="Script" uid="uid://dytsirn3dfqyk" path="res://ai/enemy/secure_command_center.gd" id="29_ksxea"]
 [ext_resource type="PackedScene" uid="uid://buoljkxn0anma" path="res://ai/enemy/enemy_building_create_action.tscn" id="35_74ntl"]
 [ext_resource type="Resource" uid="uid://660h7urih8ix" path="res://ai/enemy/utility/behaviors/build_building.tres" id="35_qp5pp"]
 [ext_resource type="Script" uid="uid://0xi6ijvd3iqj" path="res://ai/enemy/building_location_finder.gd" id="36_k681l"]
@@ -177,6 +178,9 @@ _interval = 1.0
 [node name="Tick" type="Timer" parent="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" unique_id=1444085412]
 wait_time = 10.0
 
+[node name="SecureCommandCenterLocation" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=1574707161]
+script = ExtResource("29_ksxea")
+
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
 
@@ -223,7 +227,7 @@ autostart = true
 [connection signal="on_idle_units_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_blackboard_on_idle_units_changed"]
 [connection signal="on_unit_visibility_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer" method="_on_unit_visibility_changed"]
 [connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" method="_on_enemy_building_create_action_on_building_complete"]
-[connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_enemy_building_create_action_on_building_complete"]
+[connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/EnemyActionPrioritizer/SecureCommandCenterLocation" method="_on_enemy_building_create_action_on_building_complete"]
 [connection signal="on_building_complete" from="EnemyBuildingCreateAction" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BuildingLocationFinder" method="_update_building_clusters" unbinds=2]
 [connection signal="building_attack_status_changed" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_building_attack_status_changed"]
 [connection signal="control_point_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_control_point_discovered"]
@@ -232,6 +236,7 @@ autostart = true
 [connection signal="new_asset_built" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_team_units_new_asset_built"]
 [connection signal="resource_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer" method="_on_resource_discovered"]
 [connection signal="scrap_field_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_scrap_field_discovered"]
+[connection signal="scrap_field_discovered" from="GlobalServices/TeamUnits" to="GlobalServices/EnemyActionPrioritizer/SecureCommandCenterLocation" method="_on_team_units_scrap_field_discovered"]
 [connection signal="scrap_field_visibility_changed" from="GlobalServices/TeamUnits" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/BaseLocationPrioritizer" method="_on_scrap_field_visibility_changed"]
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]

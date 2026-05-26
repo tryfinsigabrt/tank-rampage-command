@@ -239,6 +239,12 @@ var active_scrap_fields:Array[ScrapFieldData]:
 	set(value):
 		set_value(Keys.active_scrap_fields, value)
 
+func get_active_scrap_field_by_id(id: int) -> ScrapFieldData:
+	for field in active_scrap_fields:
+		if field.id == id:
+			return field
+	return null
+	
 var assistance_requests:Array[AssistanceRequest]:
 	get:
 		if not has_value(Keys.request_assistance):
