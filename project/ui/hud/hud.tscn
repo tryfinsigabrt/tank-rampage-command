@@ -22,6 +22,7 @@ metadata/_custom_type_script = "uid://vdoi2x7i44vm"
 
 [node name="ResourcesContainer" type="HBoxContainer" parent="." unique_id=1866024107]
 layout_mode = 2
+size_flags_vertical = 0
 alignment = 2
 
 [node name="Resources" parent="ResourcesContainer" unique_id=993976760 instance=ExtResource("3_e0nub")]
