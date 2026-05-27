@@ -1,0 +1,29 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://bxjvb57wf3jmr"]
+
+[ext_resource type="AudioStream" uid="uid://ct5fwsvcw88fu" path="res://sounds/unit_barks/bark_movement_a.wav" id="1_03hqj"]
+[ext_resource type="AudioStream" uid="uid://dig31im1y01so" path="res://sounds/unit_barks/bark_movement_b.wav" id="2_t66mw"]
+[ext_resource type="AudioStream" uid="uid://cfo02wydsc6s1" path="res://sounds/unit_barks/bark_movement_k.wav" id="3_472y6"]
+[ext_resource type="AudioStream" uid="uid://b3stnagi4j4yq" path="res://sounds/unit_barks/bark_movement_c.wav" id="4_20odj"]
+[ext_resource type="AudioStream" uid="uid://x4jt1mea4frh" path="res://sounds/unit_barks/bark_movement_d.wav" id="5_ywprx"]
+[ext_resource type="AudioStream" uid="uid://bv3ahbls2o4ua" path="res://sounds/unit_barks/bark_movement_e.wav" id="6_8f7xf"]
+[ext_resource type="AudioStream" uid="uid://bg0sfws8n7yne" path="res://sounds/unit_barks/bark_movement_f.wav" id="7_7f5py"]
+[ext_resource type="AudioStream" uid="uid://k4246b7qpqfo" path="res://sounds/unit_barks/bark_movement_g.wav" id="8_23ikp"]
+[ext_resource type="AudioStream" uid="uid://cxuaeeijc78yh" path="res://sounds/unit_barks/bark_movement_h.wav" id="9_x0tw3"]
+[ext_resource type="AudioStream" uid="uid://vr6slmdwp4mq" path="res://sounds/unit_barks/bark_movement_i.wav" id="10_itoq2"]
+[ext_resource type="AudioStream" uid="uid://cyiffuwbd2maa" path="res://sounds/unit_barks/bark_movement_j.wav" id="11_o5b3c"]
+
+[resource]
+random_pitch = 1.0293022
+random_volume_offset_db = 2.0
+streams_count = 11
+stream_0/stream = ExtResource("1_03hqj")
+stream_1/stream = ExtResource("2_t66mw")
+stream_2/stream = ExtResource("4_20odj")
+stream_3/stream = ExtResource("5_ywprx")
+stream_4/stream = ExtResource("6_8f7xf")
+stream_5/stream = ExtResource("7_7f5py")
+stream_6/stream = ExtResource("8_23ikp")
+stream_7/stream = ExtResource("9_x0tw3")
+stream_8/stream = ExtResource("10_itoq2")
+stream_9/stream = ExtResource("11_o5b3c")
+stream_10/stream = ExtResource("3_472y6")

@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="9_0iag7"]
 [ext_resource type="Script" uid="uid://5pqh5xi3bva6" path="res://units/human/marine/marine_anim_tree.gd" id="9_mtu0e"]
 [ext_resource type="Curve" uid="uid://cll4vwuasbk5b" path="res://units/human/marine/default_anim_state_blend_curve.tres" id="10_nmyc4"]
-[ext_resource type="AudioStream" uid="uid://cxpqcwxv56f7b" path="res://sounds/marine-shooting-distant-gunfire.wav" id="15_02c0l"]
+[ext_resource type="AudioStream" uid="uid://cxpqcwxv56f7b" path="res://sounds/marine_shooting_distant_gunfire.wav" id="15_02c0l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yqf8"]
 height = 2.3
