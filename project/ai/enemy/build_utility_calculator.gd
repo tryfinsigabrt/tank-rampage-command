@@ -324,13 +324,10 @@ func _refresh_command_center_building_stats() -> void:
 
 	var most_depleted_field_fraction:float = 0.0
 	var time_to_exhaustion:float = 0.0
-	var available_build_sites:int = 0
 	
 	for scrap_field_data in scrap_fields_data:
 		scrap_field_data.refresh_visible_data()
 		if team not in scrap_field_data.teams:
-			if scrap_field_data.open and is_instance_id_valid(scrap_field_data.id):
-				available_build_sites += 1
 			continue
 		var field:ScrapField = instance_from_id(scrap_field_data.id)
 		if not field:
