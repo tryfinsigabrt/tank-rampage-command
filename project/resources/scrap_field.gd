@@ -157,6 +157,10 @@ func _on_mining_timer_timeout(command_center_id:int) -> void:
 	if not command_center:
 		_deregister_timer_for(command_center_id)
 		return
+	# Command center must be fully built
+	var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(command_center)
+	if not manufacturing_component.active:
+		return
 		
 	# TODO: Adjust the base mining interval and/or scrap amount if support command center upgrades
 	var mined_scrap:int = mini(scrap_per_interval, remaining_scrap)
