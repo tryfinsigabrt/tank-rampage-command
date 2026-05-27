@@ -184,6 +184,7 @@ wait_time = 10.0
 
 [node name="SecureCommandCenterLocation" type="Node" parent="GlobalServices/EnemyActionPrioritizer" unique_id=1574707161]
 script = ExtResource("29_ksxea")
+enable_assistance = true
 
 [node name="UnitViabilityChecker" type="Node" parent="GlobalServices" unique_id=1523359671]
 script = ExtResource("13_4dbsd")
