@@ -65,6 +65,14 @@ var can_be_canceled:bool:
 var cancelable_builds:Array[BuildQueueElement]:
 	get:
 		return _build_queue.slice(1)
+		
+var currently_building:Array[ConstructionResource]:
+	get:
+		var resources: Array[ConstructionResource]
+		resources.resize(_build_queue.size())
+		for i in resources.size():
+			resources[i] = _build_queue[i].resource
+		return resources
 				
 static func get_component(node: Node, required:bool = true) -> ManufacturingComponent:
 	return Components.get_component(Components.Manufacturing, node, required) as ManufacturingComponent

@@ -23,6 +23,8 @@ var curr_building_count:int
 var most_depleted_field_fraction:float
 # Time before all resources across all fields will be depleted
 var time_to_exhaustion:float
+
+var build_site_score:float
 #endregion
 
 var cost:int:

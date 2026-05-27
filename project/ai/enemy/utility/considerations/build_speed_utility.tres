@@ -4,12 +4,9 @@
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_ynv86"]
 
 [sub_resource type="Curve" id="Curve_ipby6"]
-_data = [Vector2(0, 0.31920293), 0.0, 0.48778683, 1, 1, Vector2(0.1, 0.3679816), 0.48778683, 0.63493603, 1, 1, Vector2(0.2, 0.43147522), 0.63493603, 0.78550273, 1, 1, Vector2(0.3, 0.5100255), 0.78550273, 0.91286844, 1, 1, Vector2(0.4, 0.60131234), 0.91286844, 0.98687655, 1, 1, Vector2(0.5, 0.7), 0.98687655, 0.98687625, 1, 1, Vector2(0.6, 0.79868764), 0.98687625, 0.9128686, 1, 1, Vector2(0.7, 0.8899745), 0.9128686, 0.78550255, 1, 1, Vector2(0.8, 0.96852475), 0.78550255, 0.31475255, 1, 1, Vector2(0.9, 1), 0.31475255, 0.0, 1, 1, Vector2(1, 1), 0.0, 0.0, 1, 1]
-point_count = 11
+_data = [Vector2(0.0053590573, 0.50190955), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 2
 script = ExtResource("1_2hm8l")
-curve_type = 3
-exponent = 4
-y_shift = 0.19999999999999996
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
 
 [resource]

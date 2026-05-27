@@ -5,8 +5,8 @@
 
 [sub_resource type="Curve" id="Curve_11xro"]
 _limits = [0.0, 1.0, 0.0, 1000.0]
-_data = [Vector2(1e-05, 1), 0.0, -2.2814887e-05, 0, 0, Vector2(995.82654, 0.001047492), -0.002754056, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, -2.2814887e-05, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1000, 0.4036339), -0.0013379388, 0.0, 0, 0]
+point_count = 3
 script = ExtResource("1_tdcsk")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
 

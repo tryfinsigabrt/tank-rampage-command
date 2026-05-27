@@ -121,11 +121,23 @@ func next_build() -> bool:
 	var team_distributions: Dictionary[ConstructionResource.Type, int]
 	var team_assets := team_units.assets_dict
 	var total_units:int = 0
+	var queued_units:int = 0
+	
 	for asset_id in team_assets:
-		var unit:Unit = team_assets[asset_id] as Unit if is_instance_id_valid(asset_id) else null
-		if unit:
+		if not is_instance_id_valid(asset_id):
+			continue
+		var asset:Node3D = team_assets[asset_id]
+		if asset is Unit:
 			total_units += 1
-			_count_unit_by_type(unit, team_distributions)
+			_count_unit_by_type(asset, team_distributions)
+		elif asset is Building:
+			# Consider the queue
+			var manufacturing_comp:ManufacturingComponent = ManufacturingComponent.get_component(asset, false)
+			if manufacturing_comp:
+				for resource in manufacturing_comp.currently_building:
+					var type := resource.type
+					queued_units += 1
+					team_distributions[type] = team_distributions.get(type, 0) + 1
 	
 	var team_resources: TeamResources = match_team.resources
 	var personnel:PersonnelResource = team_resources.personnel
@@ -154,13 +166,15 @@ func next_build() -> bool:
 			if candidate.has_free_slot:
 				utility_context = BuildUnitUtilityContext.new()
 				utility_context.id = candidate.get_instance_id()
-				utility_context.army_fraction = float(team_distributions.get(type, 0)) / total_units if total_units > 0 else 0.0
+				var live_and_queued_total_units:int = total_units + queued_units
+				utility_context.army_fraction = float(team_distributions.get(type, 0)) / live_and_queued_total_units if live_and_queued_total_units > 0 else 0.0
 				utility_context.construction = candidate.get_build_metadata(type)
 				utility_context.available_personnel = available_personnel
 				utility_context.available_scrap = available_scrap
 				
 				var enemy_count:int = _enemy_unit_distributions.get(type, 0)
 				var team_count:int = team_distributions.get(type, 0)
+				#print("ARMY FRACTION(%s): %d / %d -> %.2f" % [EnumUtils.enum_to_string(ConstructionResource.Type, type), team_distributions.get(type, 0), live_and_queued_total_units,  utility_context.army_fraction])
 				
 				utility_context.enemy_delta = enemy_count / float(team_count) if team_count > 0 else 1.0 if enemy_count > 0 else 0.5
 				
@@ -180,14 +194,13 @@ func next_build() -> bool:
 				
 			var is_command_center:bool = type == ConstructionResource.Type.CommandCenter
 			var viable_locations:Array[BoundingCircle]
-			var best_scrap_field:ScrapField = null
 			
 			if is_command_center:
-				best_scrap_field = base_location_prioritizer.get_best_open_scrap_field()
-				if not best_scrap_field:
+				var best_scrap_field_data := _command_center_data.best_open_field
+				if not best_scrap_field_data:
 					continue
-					
-				var location:BoundingCircle = building_location_finder.get_command_center_building_bounds(best_scrap_field)
+				# ScrapField guaranteed to exist if there is a candidate match	
+				var location:BoundingCircle = building_location_finder.get_command_center_building_bounds(instance_from_id(best_scrap_field_data.id))
 				if location:
 					viable_locations.push_back(location)
 			else:
@@ -279,6 +292,7 @@ class BuildingStats:
 class CommandCenterData:
 	var most_depleted_field_fraction:float
 	var time_to_exhaustion:float
+	var best_open_field:EnemyTeamBlackboard.ScrapFieldData
 	
 func _get_building_stats_record(type: ConstructionResource.Type) -> BuildingStats:
 	var stats:BuildingStats = _building_stats_by_type.get(type)
@@ -310,10 +324,13 @@ func _refresh_command_center_building_stats() -> void:
 
 	var most_depleted_field_fraction:float = 0.0
 	var time_to_exhaustion:float = 0.0
+	var available_build_sites:int = 0
 	
 	for scrap_field_data in scrap_fields_data:
 		scrap_field_data.refresh_visible_data()
 		if team not in scrap_field_data.teams:
+			if scrap_field_data.open and is_instance_id_valid(scrap_field_data.id):
+				available_build_sites += 1
 			continue
 		var field:ScrapField = instance_from_id(scrap_field_data.id)
 		if not field:
@@ -326,6 +343,7 @@ func _refresh_command_center_building_stats() -> void:
 			
 	_command_center_data.most_depleted_field_fraction = most_depleted_field_fraction
 	_command_center_data.time_to_exhaustion = time_to_exhaustion
+	_command_center_data.best_open_field = base_location_prioritizer.get_best_open_scrap_field()
 	
 func _add_non_command_center_building_context(type: ConstructionResource.Type, context: BuildBuildingUtilityContext) -> void:
 	var stats:BuildingStats = _get_building_stats_record(type)		
@@ -335,6 +353,7 @@ func _add_non_command_center_building_context(type: ConstructionResource.Type, c
 func _add_command_center_building_context(context: BuildBuildingUtilityContext) -> void:
 	context.most_depleted_field_fraction = _command_center_data.most_depleted_field_fraction
 	context.time_to_exhaustion = _command_center_data.time_to_exhaustion
+	context.build_site_score = _command_center_data.best_open_field.score
 
 func _on_enemy_building_create_action_on_building_complete(context: BuildBuildingUtilityContext, building: Building) -> void:
 	if building or failed_building_cooldown_time <= 0:

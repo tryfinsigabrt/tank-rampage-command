@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://c6avo4t7dgjc8"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_8nqos"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_vrybr"]
+
+[sub_resource type="Curve" id="Curve_hs325"]
+_data = [Vector2(0, 0), 0.0, 0.010000001, 1, 1, Vector2(0.1, 0.001), 0.010000001, 0.07, 1, 1, Vector2(0.2, 0.008), 0.07, 0.19, 1, 1, Vector2(0.3, 0.027), 0.19, 0.37, 1, 1, Vector2(0.4, 0.064), 0.37, 0.61, 1, 1, Vector2(0.5, 0.125), 0.61, 0.90999985, 1, 1, Vector2(0.6, 0.216), 0.90999985, 1.2700003, 1, 1, Vector2(0.7, 0.343), 1.2700003, 1.6899998, 1, 1, Vector2(0.8, 0.512), 1.6899998, 2.1700003, 1, 1, Vector2(0.9, 0.729), 2.1700003, 2.7099996, 1, 1, Vector2(1, 1), 2.7099996, 0.0, 1, 1]
+point_count = 11
+script = ExtResource("1_8nqos")
+curve_type = 2
+exponent = 3
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_vrybr")
+input_key = "build_site_score"
+response_curve = SubResource("Curve_hs325")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

@@ -39,6 +39,10 @@
 [ext_resource type="Resource" uid="uid://660h7urih8ix" path="res://ai/enemy/utility/behaviors/build_building.tres" id="35_qp5pp"]
 [ext_resource type="Script" uid="uid://0xi6ijvd3iqj" path="res://ai/enemy/building_location_finder.gd" id="36_k681l"]
 [ext_resource type="Resource" uid="uid://nru8gyjh6huw" path="res://ai/enemy/utility/behaviors/build_command_center.tres" id="36_ksxea"]
+[ext_resource type="Curve" uid="uid://cncku6u1wf2ln" path="res://ai/enemy/sf_building_score_v_distance.tres" id="39_k52rh"]
+[ext_resource type="Curve" uid="uid://bh0gre8ljapmb" path="res://ai/enemy/sf_unit_score_v_distance.tres" id="40_mkw7c"]
+[ext_resource type="Curve" uid="uid://b6qsw60sdyu20" path="res://ai/enemy/sf_cc_score_v_distance.tres" id="41_7k78q"]
+[ext_resource type="Curve" uid="uid://dvguukhjqcwg2" path="res://ai/enemy/sf_last_visible_multiplier.tres" id="42_s5f31"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -201,11 +205,13 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 6: ExtResource("35_qp5pp")
 })
 allow_buildings = true
-buildings_delay = null
-failed_building_cooldown_time = null
 
 [node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")
+building_score_v_dist = ExtResource("39_k52rh")
+unit_score_v_dist = ExtResource("40_mkw7c")
+sf_closest_base_center_score_v_dist = ExtResource("41_7k78q")
+sf_last_visible_multiplier = ExtResource("42_s5f31")
 
 [node name="BuildingLocationFinder" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=663790473]
 script = ExtResource("36_k681l")

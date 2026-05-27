@@ -5,8 +5,8 @@
 
 [sub_resource type="Curve" id="Curve_vocri"]
 _limits = [0.0, 1.0, 0.0, 50.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(10, 0), 0.0, 0.0, 0, 0, Vector2(49.61215, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(10, 0), 0.0, 0.0, 0, 0, Vector2(25, 0.8), 0.023903344, 0.023903344, 0, 0, Vector2(49.61215, 1), 0.0, 0.0, 0, 0]
+point_count = 4
 script = ExtResource("1_7y5t4")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
 
