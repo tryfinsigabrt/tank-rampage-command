@@ -21,7 +21,13 @@ func _ready() -> void:
 	SignalBus.match_ready.connect(_on_match_ready.unbind(1), ConnectFlags.CONNECT_ONE_SHOT)
 	
 	camera_centering.initialize()
-	
+
+func recenter_camera() -> void:
+	camera_centering.recenter()
+
+func focus_on(assets:Array[Node3D], camera_update_flags:int = CameraCentering.FOCUS_UPDATE_ALL) -> void:
+	camera_centering.focus_on(assets, camera_update_flags)
+		
 func _on_match_ready() -> void:
 	# Ensure idle action added
 	for unit in player_team.units:

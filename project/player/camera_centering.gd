@@ -9,6 +9,10 @@ var zoom_v_bounds_area:Curve
 var camera:RTSCamera
 var player_team:MatchTeam
 
+const FOCUS_UPDATE_ORIENTATION:int = 1
+const FOCUS_UPDATE_ZOOM:int = 1 << 1
+const FOCUS_UPDATE_ALL:int = ~0
+
 func initialize() -> void:
 	if not camera or not player_team:
 		push_error("%s: camera or player team not set" % name)
@@ -21,25 +25,22 @@ func initialize() -> void:
 func _on_match_ready() -> void:
 	recenter()
 
-func recenter() -> void:
-	# Get all our assets and then determine the average orientation
+func focus_on(objects:Array[Node3D], update_flags:int = FOCUS_UPDATE_ALL) -> void:
 	var assets:Array[Node3D]
-	assets.append_array(player_team.units)
+	assets.resize(objects.size())
 	
-	# if there are no units then center on buildings
-	if not assets:
-		assets.append_array(player_team.buildings)
-	
-	if not assets:
-		print_debug("%s: No units - skipping recentering" % name)
+	var asset_count:int = 0
+	for i in objects.size():
+		var object := objects[i]
+		if object.is_in_group(Groups.TeamAsset):
+			assets[asset_count] = object
+			asset_count += 1
+		
+	if asset_count == 0:
+		push_warning("%s: No valid TeamAssets objects were passed as focus nodes: %s" % [name, objects])
 		return
-	
-	var avg_orientation:Vector3 = Vector3.ZERO
-	for asset in assets:
-		avg_orientation += asset.global_forward
-	
-	avg_orientation /= assets.size()
-	avg_orientation = avg_orientation.normalized()
+		
+	assets.resize(asset_count)
 	
 	var bounds:AABB
 	for asset in assets:
@@ -52,35 +53,53 @@ func recenter() -> void:
 	if not bounds.has_volume():
 		var current_size:Vector3 = bounds.size
 		bounds.size = Vector3(maxf(current_size.x, 0.01), maxf(current_size.y, 0.01), maxf(current_size.z, 0.01))
+	
 	# Find initial camera reference point
 	var center:Vector3 = bounds.get_center()
-	var ray_start:Vector3 = center - avg_orientation * 1000
-	
-	# Make volume larger for ray cast
-	var ray_cast_bounds := AABB(bounds)
-	var new_size:Vector3 = ray_cast_bounds.size
-	new_size.y += 200.0
-	ray_cast_bounds.size = new_size
-	
-	var result:Variant = ray_cast_bounds.intersects_ray(ray_start, avg_orientation)
-	var camera_reference_start:Vector3 
-	
-	if not result:
-		push_warning("%s: Could not find camera start reference - using bounds center with offset")
-		camera_reference_start = center
-	else:
-		camera_reference_start = result as Vector3
-	
-	var camera_position:Vector3 = camera_reference_start - avg_orientation * ideal_distance_from_closest_focus
-	print_debug("%s: Focusing camera on %s" % [name, camera_position])
+	var camera_position:Vector3
 	
 	# Align rotation along the avg_orientation
-	var forward:Vector3 = -avg_orientation
-	var right := Vector3.UP.cross(forward).normalized()
-	var up := forward.cross(right).normalized()
-	camera.transform.basis = Basis(right, up, forward)
+	if update_flags & FOCUS_UPDATE_ORIENTATION:
+		var avg_orientation:Vector3 = Vector3.ZERO
+		for asset in assets:
+			avg_orientation += asset.global_forward
+		
+		avg_orientation /= assets.size()
+		avg_orientation = avg_orientation.normalized()
 	
-	if zoom_v_bounds_area:
+		var ray_start:Vector3 = center - avg_orientation * 1000
+		
+		# Make volume larger for ray cast
+		var ray_cast_bounds := AABB(bounds)
+		var new_size:Vector3 = ray_cast_bounds.size
+		new_size.y += 200.0
+		ray_cast_bounds.size = new_size
+		
+		var result:Variant = ray_cast_bounds.intersects_ray(ray_start, avg_orientation)
+		var camera_reference_start:Vector3 
+		
+		if not result:
+			push_warning("%s: Could not find camera start reference - using bounds center with offset")
+			camera_reference_start = center
+		else:
+			camera_reference_start = result as Vector3
+		
+		camera_position = camera_reference_start - avg_orientation * ideal_distance_from_closest_focus
+		print_debug("%s: Focusing camera on %s" % [name, camera_position])
+	
+		var forward:Vector3 = -avg_orientation
+		var right := Vector3.UP.cross(forward).normalized()
+		var up := forward.cross(right).normalized()
+		camera.transform.basis = Basis(right, up, forward)
+		
+	# Align with current camera orientation
+	else:
+		# Forward is -z so just add the z basis to move the camera back from the focused position
+		camera_position = center + camera.transform.basis.z * ideal_distance_from_closest_focus
+
+	print_debug("%s: Focusing camera on %s" % [name, camera_position])
+
+	if zoom_v_bounds_area and (update_flags & FOCUS_UPDATE_ZOOM):
 		#Set initial zoom based on area of bounds fitted to a curve
 		var ground_area:float = bounds.get_volume() / bounds.get_shortest_axis_size()
 		#print_debug("%s: Bounding area=%f" % [name, ground_area])
@@ -90,3 +109,18 @@ func recenter() -> void:
 		camera.zoom = zoom
 		
 	camera.move_to(camera_position)
+	
+func recenter() -> void:
+	# Get all our assets and then determine the average orientation
+	var assets:Array[Node3D]
+	assets.append_array(player_team.units)
+	
+	# if there are no units then center on buildings
+	if not assets:
+		assets.append_array(player_team.buildings)
+	
+	if not assets:
+		print_debug("%s: No units - skipping recentering" % name)
+		return
+		
+	focus_on(assets, FOCUS_UPDATE_ALL)
