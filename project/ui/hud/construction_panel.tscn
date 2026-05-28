@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://dptr5phfa2op7"]
+[gd_scene load_steps=6 format=3 uid="uid://dptr5phfa2op7"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3jj5u"]
 [ext_resource type="PackedScene" path="res://ui/hud/building_chip.tscn" id="2_jf3cx"]
+[ext_resource type="Script" path="res://ui/hud/construction_panel.gd" id="3_jg7p4"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="4_tk9nu"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="5_j8gfu"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="6_lm21q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
@@ -27,6 +31,8 @@ offset_top = -492.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("1_3jj5u")
+script = ExtResource("3_jg7p4")
+construction_resources = Array[Resource("res://core/construction_resource.gd")]([ExtResource("4_tk9nu"), ExtResource("5_j8gfu"), ExtResource("6_lm21q")])
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1663771125]
