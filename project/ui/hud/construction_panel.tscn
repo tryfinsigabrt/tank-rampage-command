@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dptr5phfa2op7"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3jj5u"]
+[ext_resource type="PackedScene" path="res://ui/hud/building_chip.tscn" id="2_jf3cx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.13333334, 0.1254902, 0.12156863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ConstructionPanel" type="PanelContainer" unique_id=841683297]
+top_level = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -444.0
+offset_top = -492.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_3jj5u")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1663771125]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="Content" type="VBoxContainer" parent="Padding" unique_id=1267538225]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Grid" type="GridContainer" parent="Padding/Content" unique_id=1506452742]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Chip01" parent="Padding/Content/Grid" unique_id=375206834 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip02" parent="Padding/Content/Grid" unique_id=2060701986 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip03" parent="Padding/Content/Grid" unique_id=1619853661 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip04" parent="Padding/Content/Grid" unique_id=686407930 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip05" parent="Padding/Content/Grid" unique_id=1265743370 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip06" parent="Padding/Content/Grid" unique_id=854272876 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip07" parent="Padding/Content/Grid" unique_id=715975920 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip08" parent="Padding/Content/Grid" unique_id=119735937 instance=ExtResource("2_jf3cx")]
+layout_mode = 2
+
+[node name="Chip09" parent="Padding/Content/Grid" unique_id=1422519848 instance=ExtResource("2_jf3cx")]
+layout_mode = 2

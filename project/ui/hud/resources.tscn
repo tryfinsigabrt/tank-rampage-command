@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3pf0r"]
 [ext_resource type="Script" uid="uid://dkmwdsmumgog" path="res://ui/hud/resources.gd" id="1_d83mv"]
-[ext_resource type="Texture2D" uid="uid://dqx0rtqh7fhap" path="res://ui/hud/icons/personnel.png" id="3_3t7od"]
-[ext_resource type="Texture2D" uid="uid://dj8khqyiirt2t" path="res://ui/hud/icons/scrap.png" id="4_t4gbr"]
+[ext_resource type="PackedScene" path="res://ui/hud/icons/personnel_icon.tscn" id="3_npu3s"]
+[ext_resource type="PackedScene" path="res://ui/hud/icons/scrap_icon.tscn" id="4_6a17m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.88)
@@ -16,20 +16,6 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_personnel_badge"]
-bg_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
-corner_radius_top_left = 999
-corner_radius_top_right = 999
-corner_radius_bottom_right = 999
-corner_radius_bottom_left = 999
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scrap_badge"]
-bg_color = Color(0.59607846, 0.4117647, 0.06666667, 1)
-corner_radius_top_left = 999
-corner_radius_top_right = 999
-corner_radius_bottom_right = 999
-corner_radius_bottom_left = 999
 
 [node name="Resources" type="HBoxContainer" unique_id=993976760]
 size_flags_vertical = 4
@@ -78,23 +64,9 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="PersonnelBadge" type="PanelContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=1545242448]
+[node name="PersonnelBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=1545242448 instance=ExtResource("3_npu3s")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_personnel_badge")
-
-[node name="Center" type="CenterContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent/PersonnelBadge" unique_id=1258869318]
-layout_mode = 2
-
-[node name="PersonnelIcon" type="TextureRect" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent/PersonnelBadge/Center" unique_id=2115310980]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("3_3t7od")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="PersonnelText" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=172084274]
 layout_mode = 2
@@ -133,23 +105,9 @@ theme_override_constants/margin_bottom = 0
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ScrapBadge" type="PanelContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=1296181524]
+[node name="ScrapBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=1296181524 instance=ExtResource("4_6a17m")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_scrap_badge")
-
-[node name="Center" type="CenterContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent/ScrapBadge" unique_id=1128853733]
-layout_mode = 2
-
-[node name="ScrapIcon" type="TextureRect" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent/ScrapBadge/Center" unique_id=1701822669]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("4_t4gbr")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="ScrapValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=319128694]
 unique_name_in_owner = true
