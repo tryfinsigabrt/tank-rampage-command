@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dbe5qaxxnvqt0"]
+
+[ext_resource type="Script" uid="uid://da8d5jme74o8w" path="res://match/inventory_component.gd" id="1_wl5f6"]
+[ext_resource type="PackedScene" uid="uid://dp6iwccvur6ku" path="res://core/placement/node_placement.tscn" id="2_y87ds"]
+
+[node name="InventoryComponent" type="Node" unique_id=885223291]
+script = ExtResource("1_wl5f6")
+node_placement_spawner_scene = ExtResource("2_y87ds")
+metadata/_custom_type_script = "uid://da8d5jme74o8w"

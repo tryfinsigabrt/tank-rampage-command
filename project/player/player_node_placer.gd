@@ -11,6 +11,8 @@ var stationary_refresh_interval:float = 0.2
 
 @onready var building_manufacturing: BuildingManufacturing = $BuildingManufacturing
 
+var _inventory_component:InventoryComponent
+
 var _current_placement_spawner:NodePlacementSpawner
 var _last_mouse_position:Vector2
 var _last_mouse_dt:float
@@ -20,6 +22,12 @@ func _ready() -> void:
 	
 	assert(node_picker, "node_picker not set!")
 	assert(selection_manager, "selection_manager not set!")
+	
+	var match_team:MatchTeam = Groups.get_parent_with_type(self, MatchTeam)
+	assert(match_team, "Not in a MatchTeam tree!")
+	if match_team:
+		await NodeUtils.ensure_ready(match_team)
+		_inventory_component = match_team.inventory_component
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_placement_spawner:
@@ -42,7 +50,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_current_placement_spawner = building_manufacturing.create(ConstructionResource.Type.Factory)
 	elif event.is_action_pressed(&"build_barracks"):
 		_current_placement_spawner = building_manufacturing.create(ConstructionResource.Type.Barracks)
-
+	elif event.is_action_pressed(&"build_mines"):
+		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.Mine)
+	elif event.is_action_pressed(&"build_sandbags"):
+		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.BarbedWire)
+	elif event.is_action_pressed(&"build_tank_spikes"):
+		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.TankSpikes)
+		
 	if _current_placement_spawner == null:
 		return
 	

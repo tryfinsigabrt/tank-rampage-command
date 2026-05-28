@@ -151,17 +151,17 @@ func build(type: ConstructionResource.Type) -> Node3D:
 		resource.spend(_match_team.resources)
 		resource.queue_personnel(_match_team.resources)
 		
-	var unit := await _do_spawn(resource)
+	var asset := await _do_spawn(resource)
 	if _match_team:
 		resource.dequeue_personnel(_match_team.resources)
-		if unit:
+		if asset:
 			# Now count against army size
 			resource.spend_personnel_only(_match_team.resources)
-			resource.assign_to(unit)
+			resource.assign_to(asset)
 		else:
 			resource.refund_fully(_match_team.resources)
 			
-	return unit
+	return asset
 
 ## Cancel queued builds that haven't started yet
 func cancel_builds(items: Array[BuildQueueElement]) -> void:

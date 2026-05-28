@@ -24,6 +24,7 @@ var config:MatchTeamConfig
 @onready var asset_container: Node3D = $Assets
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
 @onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent
+@onready var inventory_component: InventoryComponent = %InventoryComponent
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}

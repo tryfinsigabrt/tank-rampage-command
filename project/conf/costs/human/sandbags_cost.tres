@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://bnp02362c5kqh"]
+
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="1_5m7pn"]
+[ext_resource type="Resource" uid="uid://fnbnm56lxmod" path="res://structures/sandbags/sandbags_asset.tres" id="1_sjorg"]
+[ext_resource type="PackedScene" uid="uid://dciuecqknn77y" path="res://structures/sandbags/sandbags_structure.tscn" id="2_u023u"]
+[ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_wcw7r"]
+[ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_s42yg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h25mk"]
+
+[sub_resource type="Resource" id="Resource_sjorg"]
+script = ExtResource("3_s42yg")
+to_spawn = ExtResource("2_u023u")
+max_slope_angle_deg = 30.0
+metadata/_custom_type_script = "uid://rchprl2i3qgf"
+
+[resource]
+script = ExtResource("1_5m7pn")
+team_asset = ExtResource("2_u023u")
+icon = SubResource("PlaceholderTexture2D_h25mk")
+type = 8
+cost = 15
+time = 5.0
+count = 3
+attributes = ExtResource("1_sjorg")
+placement_spawner_resource = SubResource("Resource_sjorg")
+construction_scene = ExtResource("2_wcw7r")
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

@@ -30,6 +30,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		_dispatch_cancel_build_artillery()
 	elif event.is_action_pressed("build_artillery"):
 		_dispatch_build_artillery()
+		
+	elif event.is_action_pressed("cancel_mines"):
+		_dispatch_cancel_build_mines()
+	elif event.is_action_pressed("build_mines"):
+		_dispatch_build_mines()
+		
+	elif event.is_action_pressed("cancel_sandbags"):
+		_dispatch_cancel_build_sandbags()
+	elif event.is_action_pressed("build_sandbags"):
+		_dispatch_build_sandbags()
+		
+	elif event.is_action_pressed("cancel_tank_spikes"):
+		_dispatch_cancel_build_tank_spikes()
+	elif event.is_action_pressed("build_tank_spikes"):
+		_dispatch_build_tank_spikes()
 
 func _dispatch_build_marine() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Marine)
@@ -40,6 +55,15 @@ func _dispatch_build_tank() -> void:
 func _dispatch_build_artillery() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Artillery)
 	
+func _dispatch_build_mines() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.Mine)
+
+func _dispatch_build_sandbags() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.BarbedWire)
+	
+func _dispatch_build_tank_spikes() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.TankSpikes)
+		
 func _dispatch_cancel_build_marine() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Marine)
 
@@ -48,6 +72,15 @@ func _dispatch_cancel_build_tank() -> void:
 
 func _dispatch_cancel_build_artillery() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Artillery)
+	
+func _dispatch_cancel_build_mines() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Mine)
+
+func _dispatch_cancel_build_sandbags() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.BarbedWire)
+	
+func _dispatch_cancel_build_tank_spikes() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.TankSpikes)
 	
 func _dispatch_viable_build_order(type: ConstructionResource.Type) -> void:
 	var buildings := selection_manager.get_selected_buildings_on_team()

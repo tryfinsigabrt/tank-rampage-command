@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://cs3cn5fqrad51"]
+
+[ext_resource type="Resource" uid="uid://dcyi8nxjyjbs4" path="res://structures/landmines/landmines_asset.tres" id="1_5jcfj"]
+[ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_5jcfj"]
+[ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_lefgh"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="5_qrblw"]
+[ext_resource type="PackedScene" uid="uid://cymly4bxhw47c" path="res://structures/landmines/landmine_structure.tscn" id="6_5jcfj"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h25mk"]
+
+[sub_resource type="Resource" id="Resource_ss543"]
+script = ExtResource("3_lefgh")
+to_spawn = ExtResource("6_5jcfj")
+max_slope_angle_deg = 30.0
+metadata/_custom_type_script = "uid://rchprl2i3qgf"
+
+[resource]
+script = ExtResource("5_qrblw")
+team_asset = ExtResource("6_5jcfj")
+icon = SubResource("PlaceholderTexture2D_h25mk")
+type = 9
+cost = 25
+time = 5.0
+count = 5
+attributes = ExtResource("1_5jcfj")
+placement_spawner_resource = SubResource("Resource_ss543")
+construction_scene = ExtResource("2_5jcfj")
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

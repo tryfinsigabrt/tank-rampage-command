@@ -57,8 +57,6 @@ func _ready() -> void:
 		
 	_is_player = match_team.is_player_team if match_team else true
 	_ghost_asset = resource.to_spawn.instantiate() as StaticBody3D
-	_ghost_asset.collision_mask = 0
-	_ghost_asset.collision_layer = 0
 
 	if not _ghost_asset:
 		push_error("%s: Could not spawn scene=%s as StaticBody3D!" % [name, resource.to_spawn.resource_path])
@@ -68,13 +66,20 @@ func _ready() -> void:
 	_ghost_asset.visible = false
 	_ghost_asset.position = Vector3.UP * above_ground_height
 	asset_container.add_child(_ghost_asset)
+	disable_all_physics_interactions(_ghost_asset)
 	
 	_world_boundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
 	
 	_find_collision_shape()
 	
 	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
-		
+
+func disable_all_physics_interactions(node: Node) -> void:
+	# Some structures like land mines also have an area node so need to get all children as well
+	for static_body:CollisionObject3D in Groups.get_children_with_type(node, CollisionObject3D):
+		static_body.collision_mask = 0
+		static_body.collision_layer = 0
+	
 func activate() -> void:
 	if _active:
 		return

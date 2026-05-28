@@ -14,11 +14,12 @@ enum Type
 	Barracks,
 	Factory,
 	
-	# Structures [7,10]
+	# Structures [7,11]
 	TankSpikes,
 	BarbedWire,
 	Mine,
-	Turret
+	Turret,
+	Bunker,
 }
 
 enum Classification
@@ -51,6 +52,11 @@ var personnel:int = 0
 
 @export_range(0.1, 1e9, 0.1, "or_greater")
 var time:float = 1.0
+
+## How many of the type are constructed at once
+## Only applies to Structures.  Buildings and Units are constructed 1 at a time.
+@export_range(1, 1e9, 1, "or_greater")
+var count:int = 1
 
 @export
 var attributes:TeamAssetAttributes

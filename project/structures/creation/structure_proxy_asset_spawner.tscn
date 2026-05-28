@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cot3ohmrrukgu"]
+
+[ext_resource type="Script" uid="uid://42ynjny15xve" path="res://structures/creation/structure_proxy_asset_spawner.gd" id="1_1rwxc"]
+
+[node name="StructureProxyAssetSpawner" type="Node" unique_id=138975051]
+script = ExtResource("1_1rwxc")
+metadata/_custom_type_script = "uid://42ynjny15xve"

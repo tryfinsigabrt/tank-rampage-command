@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="8_oigsi"]
 [ext_resource type="Script" uid="uid://b6cpk4dw5htfw" path="res://match/same_team_structure_ignore.gd" id="11_gbsub"]
 [ext_resource type="Script" uid="uid://cht5ed6trcmrq" path="res://match/team_visibility_component.gd" id="11_wgr8h"]
+[ext_resource type="PackedScene" uid="uid://dbe5qaxxnvqt0" path="res://match/inventory_component.tscn" id="12_gbsub"]
 
 [node name="MatchTeam" type="Node3D" unique_id=1256450270 groups=["MatchTeam"]]
 script = ExtResource("1_sgnxb")
@@ -31,3 +32,6 @@ script = ExtResource("11_wgr8h")
 
 [node name="SameTeamStructureIgnore" type="Node" parent="Components" unique_id=1937281610]
 script = ExtResource("11_gbsub")
+
+[node name="InventoryComponent" parent="Components" unique_id=885223291 instance=ExtResource("12_gbsub")]
+unique_name_in_owner = true
