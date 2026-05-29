@@ -19,6 +19,7 @@ var _last_mouse_dt:float
 
 func _ready() -> void:
 	set_process(false)
+	SignalBus.on_construction_requested.connect(_on_construction_requested)
 	
 	assert(node_picker, "node_picker not set!")
 	assert(selection_manager, "selection_manager not set!")
@@ -28,6 +29,13 @@ func _ready() -> void:
 	if match_team:
 		await NodeUtils.ensure_ready(match_team)
 		_inventory_component = match_team.inventory_component
+
+func _exit_tree() -> void:
+	if SignalBus.on_construction_requested.is_connected(_on_construction_requested):
+		SignalBus.on_construction_requested.disconnect(_on_construction_requested)
+
+func _on_construction_requested(type: ConstructionResource.Type) -> void:
+	_begin_placement(type)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_placement_spawner:
@@ -45,23 +53,38 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 		
 	if event.is_action_pressed(&"build_command_center"):
-		_current_placement_spawner = building_manufacturing.create(ConstructionResource.Type.CommandCenter)
+		_begin_placement(ConstructionResource.Type.CommandCenter)
 	elif event.is_action_pressed(&"build_factory"):
-		_current_placement_spawner = building_manufacturing.create(ConstructionResource.Type.Factory)
+		_begin_placement(ConstructionResource.Type.Factory)
 	elif event.is_action_pressed(&"build_barracks"):
-		_current_placement_spawner = building_manufacturing.create(ConstructionResource.Type.Barracks)
+		_begin_placement(ConstructionResource.Type.Barracks)
 	elif event.is_action_pressed(&"build_mines"):
-		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.Mine)
+		_begin_placement(ConstructionResource.Type.Mine)
 	elif event.is_action_pressed(&"build_sandbags"):
-		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.BarbedWire)
+		_begin_placement(ConstructionResource.Type.BarbedWire)
 	elif event.is_action_pressed(&"build_tank_spikes"):
-		_current_placement_spawner = _inventory_component.create(ConstructionResource.Type.TankSpikes)
-		
+		_begin_placement(ConstructionResource.Type.TankSpikes)
+
+func _begin_placement(type: ConstructionResource.Type) -> void:
+	if _current_placement_spawner:
+		_remove_spawner()
+
+	if selection_manager.any:
+		selection_manager.clear()
+
+	match type:
+		ConstructionResource.Type.CommandCenter, ConstructionResource.Type.Barracks, ConstructionResource.Type.Factory:
+			_current_placement_spawner = building_manufacturing.create(type)
+		ConstructionResource.Type.Mine, ConstructionResource.Type.BarbedWire, ConstructionResource.Type.TankSpikes:
+			_current_placement_spawner = _inventory_component.create(type)
+		_:
+			_current_placement_spawner = null
+
 	if _current_placement_spawner == null:
 		return
-	
+
 	add_child(_current_placement_spawner)
-	
+
 	# Set initial position
 	_current_placement_spawner.activate()
 	_last_mouse_position = Vector2.INF
@@ -69,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var camera := get_viewport().get_camera_3d()
 		if camera:
 			_current_placement_spawner.move_to(camera.global_position, false)
-	
+
 	set_process(true)
 	
 func _consume_input() -> void:

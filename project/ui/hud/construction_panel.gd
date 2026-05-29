@@ -9,6 +9,7 @@ var _match_team: MatchTeam
 func _ready() -> void:
 	_populate_chips()
 	_connect_player_resources()
+	_connect_chip_signals()
 
 func _connect_player_resources() -> void:
 	var player := get_tree().get_first_node_in_group(Groups.Player) as Player
@@ -35,6 +36,14 @@ func _populate_chips() -> void:
 
 	if _match_team:
 		_update_affordability(_match_team.resources.scrap.count)
+
+func _connect_chip_signals() -> void:
+	for chip in _get_building_chips():
+		if not chip.clicked.is_connected(_on_chip_clicked):
+			chip.clicked.connect(_on_chip_clicked)
+
+func _on_chip_clicked(type: ConstructionResource.Type) -> void:
+	SignalBus.on_construction_requested.emit(type)
 
 
 func _update_affordability(scrap_count: int) -> void:

@@ -43,9 +43,14 @@ custom_minimum_size = Vector2(122, 144)
 theme = ExtResource("1_w0p3g")
 theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
 script = ExtResource("4_h2n1j")
+mouse_filter = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=677376353]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -53,16 +58,19 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Content" type="VBoxContainer" parent="Padding" unique_id=1133806932]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 8
 
 [node name="IconBack" type="PanelContainer" parent="Padding/Content" unique_id=1795427755]
 custom_minimum_size = Vector2(0, 68)
 layout_mode = 2
+mouse_filter = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_icon_back")
 
 [node name="IconMargin" type="MarginContainer" parent="Padding/Content/IconBack" unique_id=217274026]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
@@ -72,21 +80,25 @@ theme_override_constants/margin_bottom = 8
 unique_name_in_owner = true
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
+mouse_filter = 2
 texture = SubResource("PlaceholderTexture2D_building_icon")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="NameStripe" type="PanelContainer" parent="Padding/Content/IconBack" unique_id=503967983]
 layout_mode = 2
+mouse_filter = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_name_stripe")
 
 [node name="NameCenter" type="CenterContainer" parent="Padding/Content/IconBack/NameStripe" unique_id=289745644]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BuildingName" type="Label" parent="Padding/Content/IconBack/NameStripe/NameCenter" unique_id=2076725953]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
 theme_override_font_sizes/font_size = 16
 text = "Barracks"
@@ -95,21 +107,25 @@ vertical_alignment = 2
 
 [node name="CostRow" type="HBoxContainer" parent="Padding/Content" unique_id=178703153]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="ScrapCost" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=357183509]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="Icon" parent="Padding/Content/CostRow/ScrapCost" unique_id=1063351846 instance=ExtResource("2_wsvtr")]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ScrapCostValue" type="Label" parent="Padding/Content/CostRow/ScrapCost" unique_id=228134685]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.9098039, 0.5294118, 1)
 theme_override_font_sizes/font_size = 14
 text = "150"
@@ -118,15 +134,18 @@ text = "150"
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="PersonnelCostIcon" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=2117759278 instance=ExtResource("3_kr7vj")]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="PersonnelCostValue" type="Label" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=1931757475]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.5254902, 0.92941177, 0.98039216, 1)
 theme_override_font_sizes/font_size = 14
 text = "0"

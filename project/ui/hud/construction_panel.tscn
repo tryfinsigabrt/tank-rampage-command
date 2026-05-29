@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dptr5phfa2op7"]
+[gd_scene format=3 uid="uid://dptr5phfa2op7"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3jj5u"]
-[ext_resource type="PackedScene" path="res://ui/hud/building_chip.tscn" id="2_jf3cx"]
-[ext_resource type="Script" path="res://ui/hud/construction_panel.gd" id="3_jg7p4"]
+[ext_resource type="PackedScene" uid="uid://tkb3vp3t5ssx" path="res://ui/hud/building_chip.tscn" id="2_jf3cx"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="3_e8w7b"]
+[ext_resource type="Script" uid="uid://biuhgo8fwsmnf" path="res://ui/hud/construction_panel.gd" id="3_jg7p4"]
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="4_tk9nu"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="5_j8gfu"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="6_lm21q"]
@@ -31,9 +32,9 @@ offset_top = -492.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("1_3jj5u")
-script = ExtResource("3_jg7p4")
-construction_resources = Array[Resource("res://core/construction_resource.gd")]([ExtResource("4_tk9nu"), ExtResource("5_j8gfu"), ExtResource("6_lm21q")])
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("3_jg7p4")
+construction_resources = Array[ExtResource("3_e8w7b")]([ExtResource("4_tk9nu"), ExtResource("5_j8gfu"), ExtResource("6_lm21q")])
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1663771125]
 layout_mode = 2
@@ -55,27 +56,36 @@ columns = 3
 
 [node name="Chip01" parent="Padding/Content/Grid" unique_id=375206834 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip02" parent="Padding/Content/Grid" unique_id=2060701986 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip03" parent="Padding/Content/Grid" unique_id=1619853661 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip04" parent="Padding/Content/Grid" unique_id=686407930 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip05" parent="Padding/Content/Grid" unique_id=1265743370 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip06" parent="Padding/Content/Grid" unique_id=854272876 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip07" parent="Padding/Content/Grid" unique_id=715975920 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip08" parent="Padding/Content/Grid" unique_id=119735937 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="Chip09" parent="Padding/Content/Grid" unique_id=1422519848 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
+mouse_filter = 0
