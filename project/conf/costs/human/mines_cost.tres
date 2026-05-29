@@ -2,11 +2,10 @@
 
 [ext_resource type="Resource" uid="uid://dcyi8nxjyjbs4" path="res://structures/landmines/landmines_asset.tres" id="1_5jcfj"]
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_5jcfj"]
+[ext_resource type="Texture2D" uid="uid://d04a1bovgc52p" path="res://ui/building/icons/landmine.png" id="3_5jcfj"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_lefgh"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="5_qrblw"]
 [ext_resource type="PackedScene" uid="uid://cymly4bxhw47c" path="res://structures/landmines/landmine_structure.tscn" id="6_5jcfj"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h25mk"]
 
 [sub_resource type="Resource" id="Resource_ss543"]
 script = ExtResource("3_lefgh")
@@ -17,7 +16,7 @@ metadata/_custom_type_script = "uid://rchprl2i3qgf"
 [resource]
 script = ExtResource("5_qrblw")
 team_asset = ExtResource("6_5jcfj")
-icon = SubResource("PlaceholderTexture2D_h25mk")
+icon = ExtResource("3_5jcfj")
 type = 9
 cost = 25
 time = 5.0

@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://ddgct30jgqcly" path="res://units/human/artillery/artillery_unit_mesh.tscn" id="2_b1so8"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="3_3jdjo"]
 [ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="4_avmad"]
+[ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="5_61k01"]
+[ext_resource type="PackedScene" uid="uid://dciuecqknn77y" path="res://structures/sandbags/sandbags_structure.tscn" id="6_2gcbc"]
+[ext_resource type="PackedScene" uid="uid://bj11lkpa8cvvf" path="res://structures/tank_spikes/tank_spikes.tscn" id="7_rqpul"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
 
@@ -42,6 +45,7 @@ fov = 50.0
 
 [node name="tank" parent="IconRoot" unique_id=260396010 instance=ExtResource("3_3jdjo")]
 transform = Transform3D(-0.9715077, 0, 0.23700765, 0, 1, 0, -0.23700765, 0, -0.9715077, 0, 0, 0)
+visible = false
 
 [node name="Camera" type="Camera3D" parent="IconRoot/tank" unique_id=1236855170]
 transform = Transform3D(1, 0, 0, 0, 0.95266145, 0.30403307, 0, -0.30403307, 0.95266145, -0.475, 3.479, 7.965)
@@ -57,8 +61,36 @@ transform = Transform3D(1, 0, 0, 0, 0.88701075, 0.46174857, 0, -0.46174857, 0.88
 top_level = true
 fov = 81.0
 
+[node name="landmine" parent="IconRoot" unique_id=1356064904 instance=ExtResource("5_61k01")]
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/landmine" unique_id=295024115]
+transform = Transform3D(1, 0, 0, 0, 0.080320686, 0.9967691, 0, -0.9967691, 0.080320686, 0.03653717, 1.8411474, 0.15036368)
+top_level = true
+fov = 50.0
+
+[node name="Sandbags" parent="IconRoot" unique_id=605498753 instance=ExtResource("6_2gcbc")]
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/Sandbags" unique_id=145275901]
+transform = Transform3D(1, 0, 0, 0, 0.95266145, 0.30403307, 0, -0.30403307, 0.95266145, -0.20837173, 2.9266996, 5.3368187)
+top_level = true
+fov = 50.0
+
+[node name="TankSpikes" parent="IconRoot" unique_id=209512405 instance=ExtResource("7_rqpul")]
+
+[node name="UI" parent="IconRoot/TankSpikes" index="1" unique_id=1292899281]
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/TankSpikes" unique_id=1813525337]
+transform = Transform3D(0.9704837, 0.111426376, -0.21388221, 0.032718644, 0.81783193, 0.5745263, 0.23893705, -0.5645664, 0.7900469, -0.3543297, 1.8942509, 1.701294)
+top_level = true
+fov = 70.0
+
 [node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
 unique_name_in_owner = true
 size = Vector2i(128, 128)
 render_target_clear_mode = 1
 render_target_update_mode = 4
+
+[editable path="IconRoot/TankSpikes"]

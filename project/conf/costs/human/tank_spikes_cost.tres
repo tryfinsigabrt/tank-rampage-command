@@ -2,11 +2,10 @@
 
 [ext_resource type="Resource" uid="uid://dntux0v3t7ktl" path="res://structures/tank_spikes/tank_spikes_asset.tres" id="1_bgy17"]
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_wvdya"]
+[ext_resource type="Texture2D" uid="uid://dgjgalcve88uh" path="res://ui/building/icons/tank_spikes.png" id="3_bgy17"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_hs8os"]
 [ext_resource type="PackedScene" uid="uid://bj11lkpa8cvvf" path="res://structures/tank_spikes/tank_spikes.tscn" id="4_r5pfb"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="5_p41mc"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h25mk"]
 
 [sub_resource type="Resource" id="Resource_bgy17"]
 script = ExtResource("3_hs8os")
@@ -17,7 +16,7 @@ metadata/_custom_type_script = "uid://rchprl2i3qgf"
 [resource]
 script = ExtResource("5_p41mc")
 team_asset = ExtResource("4_r5pfb")
-icon = SubResource("PlaceholderTexture2D_h25mk")
+icon = ExtResource("3_bgy17")
 type = 7
 cost = 15
 time = 5.0
