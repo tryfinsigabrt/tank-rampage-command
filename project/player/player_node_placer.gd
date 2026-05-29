@@ -9,6 +9,9 @@ var selection_manager:SelectionManager
 @export
 var stationary_refresh_interval:float = 0.2
 
+@export
+var rotation_rate_degrees:float = 45.0
+
 @onready var building_manufacturing: BuildingManufacturing = $BuildingManufacturing
 
 var _inventory_component:InventoryComponent
@@ -109,6 +112,11 @@ func _process(delta: float) -> void:
 		return
 		
 	_move_spawner(delta)
+	
+	if Input.is_action_pressed(&"ghost_asset_rotate_ccw"):
+		_current_placement_spawner.rotate_yaw_deg(delta * rotation_rate_degrees)
+	if Input.is_action_pressed(&"ghost_asset_rotate_cw"):
+		_current_placement_spawner.rotate_yaw_deg(-delta * rotation_rate_degrees)
 
 func _move_spawner(delta:float = 0.0) -> bool:
 	_last_mouse_dt += delta	

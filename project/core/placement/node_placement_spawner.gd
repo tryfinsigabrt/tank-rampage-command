@@ -24,12 +24,15 @@ var fow_visibility_threshold:float = 0.1
 var _active:bool = false
 var _can_spawn:bool = false
 var _is_player:bool
+var _is_grounded:bool
 
 var _ghost_asset:StaticBody3D
 var _asset_aabb:AABB
 
-var _spawn_rotation_euler:Vector3
+var _spawn_basis:Basis
 var _spawn_position:Vector3
+var _requested_yaw_rad:float = 0.0
+var _upright_heading:Vector3 = Vector3.FORWARD
 
 var _collision_shape:Resource
 var _world_boundaries:WorldBoundaries
@@ -74,6 +77,7 @@ func _ready() -> void:
 	
 	_find_collision_shape()
 	_update_collision_specifications()
+	_update_upright_heading()
 	
 	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
 
@@ -99,6 +103,7 @@ func deactivate() -> void:
 		return
 	
 	_active = false
+	_is_grounded = false
 	_ghost_asset.visible = false
 	_can_spawn = false
 	
@@ -110,6 +115,16 @@ func move_to(pos:Vector3, is_grounded:bool = false) -> void:
 	_ghost_asset.global_position = curr_ghost
 	
 	_update_state(pos, is_grounded)
+
+func rotate_yaw_deg(degrees:float) -> void:
+	_requested_yaw_rad = wrapf(_requested_yaw_rad + deg_to_rad(degrees), -PI, PI)
+	# Initially sync basis so visuals are always updated based on requested yaw even if the grounded checks fail
+	_sync_basis(Vector3.UP)
+	
+	if not _is_grounded:
+		return
+		
+	_update_state(_ghost_asset.global_position, true)
 
 func _update_state(pos:Vector3, is_grounded:bool) -> void:
 	_update_eligibility(pos, is_grounded)
@@ -152,7 +167,7 @@ func place(asset:StaticBody3D) -> bool:
 	else:
 		asset_container.add_child(asset)
 	
-	asset.global_rotation_degrees = _spawn_rotation_euler
+	asset.global_basis = _spawn_basis
 	asset.global_position = _spawn_position
 	
 	on_spawn.emit(asset)
@@ -162,6 +177,8 @@ func place(asset:StaticBody3D) -> bool:
 	
 func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 	var ground_position:Vector3
+	_is_grounded = is_grounded
+	
 	if is_grounded:
 		_can_spawn = true
 		ground_position = pos
@@ -170,10 +187,15 @@ func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 		if ground_position == Vector3.INF:
 			_can_spawn = false
 			return
+		_is_grounded = true
 	# Move ghost to be above the current ground position
 	_ghost_asset.global_position = Vector3(ground_position.x, ground_position.y + above_ground_height, ground_position.z)
 	
-	_can_spawn = _test_position_for_collisions(ground_position)
+	_can_spawn = _is_viable_ground(ground_position)
+	if not _can_spawn:
+		return
+
+	_can_spawn = _test_position_for_collisions(ground_position, _spawn_basis)
 	if not _can_spawn:
 		return
 		
@@ -187,10 +209,6 @@ func _update_eligibility(pos:Vector3, is_grounded:bool) -> void:
 		if fow and GameManager.fog_of_war and not fow.is_node_visible(_ghost_asset, fow_visibility_threshold, FogOfWar.FOW_VISIBLE_CHANNEL, true):
 			_can_spawn = false
 			return
-		
-	_can_spawn = _is_viable_ground(ground_position)
-	if not _can_spawn:
-		return
 		
 	_spawn_position = ground_position
 
@@ -206,8 +224,7 @@ func _update_effects() -> void:
 		not_viable_placement_effect.toggle_selection(_ghost_asset, true)
 			
 func _is_viable_ground(pos:Vector3) -> bool:
-	# TODO: Would need to combine this with any existing yaw rotation requested by user
-	_spawn_rotation_euler = Vector3.ZERO
+	_spawn_basis = _ghost_asset.global_basis
 	if not _asset_aabb.has_volume():
 		return true
 	
@@ -236,9 +253,34 @@ func _is_viable_ground(pos:Vector3) -> bool:
 	if angle_to_up > resource.max_slope_angle_deg:
 		return false
 		
-	_spawn_rotation_euler = _get_alignment_quaternion(_ghost_asset.global_transform, ground_normal).get_euler()
+	_sync_basis(ground_normal)
 	
 	return true
+
+func _sync_basis(ground_normal:Vector3) -> void:
+	_spawn_basis = _basis_from_forward_and_up(_requested_forward(), ground_normal)
+	_ghost_asset.global_basis = _spawn_basis
+	
+func _requested_forward() -> Vector3:
+	return _upright_heading.rotated(Vector3.UP, _requested_yaw_rad).normalized()
+
+func _basis_from_forward_and_up(forward_hint:Vector3, up:Vector3) -> Basis:
+	if up.is_zero_approx():
+		return Basis.IDENTITY
+
+	var forward := forward_hint.slide(up).normalized()
+
+	# Last-resort fallback for degenerate cases.
+	if forward.is_zero_approx():
+		var planar := Vector3.FORWARD if absf(up.dot(Vector3.FORWARD)) < 0.99 else Vector3.RIGHT
+		forward = planar.slide(up).normalized()
+
+	var right := forward.cross(up).normalized()
+	forward = up.cross(right).normalized()
+
+	if resource.use_model_front:
+		return Basis(right, up, forward).orthonormalized()
+	return Basis(right, up, -forward).orthonormalized()
 	
 func _get_avg_normal(planar_points:PackedVector3Array) -> Vector3:
 	# Diagonal 1: Front Left to Back Right
@@ -255,11 +297,6 @@ func _get_avg_normal(planar_points:PackedVector3Array) -> Vector3:
 		
 	return ground_normal
 	
-static func _get_alignment_quaternion(current_transform: Transform3D, target_normal: Vector3) -> Quaternion:
-	var current_up := current_transform.basis.y
-	# Find the shortest rotation from current UP to ground NORMAL
-	return Quaternion(current_up, target_normal)
-	
 func _find_collision_shape() -> void:
 	var collision_nodes := Collisions.get_collisions_nodes(_ghost_asset)
 	# Only support first collision shape
@@ -272,7 +309,7 @@ func _find_collision_shape() -> void:
 		return
 	_collision_shape = collision.shape
 		
-func _test_position_for_collisions(pos: Vector3) -> bool:
+func _test_position_for_collisions(pos: Vector3, in_basis:Basis) -> bool:
 	if not _collision_shape:
 		return true
 		
@@ -283,7 +320,7 @@ func _test_position_for_collisions(pos: Vector3) -> bool:
 	params.collide_with_areas = true
 	params.collide_with_bodies = true
 	params.margin = Collisions.default_collision_margin
-	params.transform = Transform3D(Basis.IDENTITY, pos)
+	params.transform = Transform3D(in_basis, pos)
 
 	for collision_spec in _collision_specifications:
 		params.collision_mask = collision_spec.get_collision_mask(team)
@@ -304,3 +341,10 @@ func _update_collision_specifications() -> void:
 		_collision_specifications.push_back(base_specification)
 		
 	_collision_specifications.append_array(resource.additional_collisions)
+
+func _update_upright_heading() -> void:
+	var rest_basis := _ghost_asset.global_basis.orthonormalized()
+	var rest_forward := rest_basis.z if resource.use_model_front else -rest_basis.z
+	_upright_heading = rest_forward.slide(Vector3.UP).normalized()
+	if _upright_heading.is_zero_approx():
+		_upright_heading = Vector3.FORWARD

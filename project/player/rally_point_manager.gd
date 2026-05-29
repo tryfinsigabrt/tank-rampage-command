@@ -19,7 +19,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(&"set_rally_point"):
 		_set_rally_point_to_mouse_cursor()
 
-
 func _get_selected_building_rally_point_components() -> Array[RallyPointComponent]:
 	var selected_buildings:Array[Building] = selection_manager.selected_buildings
 	var rally_point_components:Array[RallyPointComponent]

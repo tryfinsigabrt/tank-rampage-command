@@ -11,3 +11,7 @@ var collision_mask:int = Collisions.CompositeMasks.any_asset
 
 @export
 var additional_collisions:Array[CollisionSpecification]
+
+## Used for determining the orientation basis for rotations
+@export
+var use_model_front:bool
