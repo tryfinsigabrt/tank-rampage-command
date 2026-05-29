@@ -34,6 +34,8 @@ var _spawn_position:Vector3
 var _collision_shape:Resource
 var _world_boundaries:WorldBoundaries
 
+var _collision_specifications:Array[CollisionSpecification]
+
 var asset_aabb:AABB:
 	get: return _asset_aabb
 	
@@ -71,6 +73,7 @@ func _ready() -> void:
 	_world_boundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
 	
 	_find_collision_shape()
+	_update_collision_specifications()
 	
 	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
 
@@ -273,15 +276,31 @@ func _test_position_for_collisions(pos: Vector3) -> bool:
 	if not _collision_shape:
 		return true
 		
+	var team:int = match_team.team if match_team else 0
+	var space_state := get_world_3d().direct_space_state
+	
 	var params := PhysicsShapeQueryParameters3D.new()
 	params.collide_with_areas = true
 	params.collide_with_bodies = true
-	params.collision_mask = resource.collision_mask
 	params.margin = Collisions.default_collision_margin
 	params.transform = Transform3D(Basis.IDENTITY, pos)
-	params.shape = _collision_shape
+
+	for collision_spec in _collision_specifications:
+		params.collision_mask = collision_spec.get_collision_mask(team)
+		params.shape = collision_spec.collision_shape
+		
+		var results: Array[Dictionary] = space_state.intersect_shape(params, 1)
+		if results:
+			return false
 	
-	var space_state := get_world_3d().direct_space_state
-	var results: Array[Dictionary] = space_state.intersect_shape(params, 1)
-	
-	return not results
+	return true
+
+func _update_collision_specifications() -> void:
+	_collision_specifications.clear()
+	if _collision_shape:
+		var base_specification:CollisionSpecification = CollisionSpecification.new()
+		base_specification.collision_shape = _collision_shape
+		base_specification.base_collision_mask = resource.collision_mask
+		_collision_specifications.push_back(base_specification)
+		
+	_collision_specifications.append_array(resource.additional_collisions)

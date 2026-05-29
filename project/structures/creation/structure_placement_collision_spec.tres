@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CollisionSpecification" format=3 uid="uid://2lig2t1hsgw2"]
+
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="1_1vc2h"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1vc2h"]
+radius = 60.0
+
+[resource]
+script = ExtResource("1_1vc2h")
+team_mask_type = 2
+collision_shape = SubResource("SphereShape3D_1vc2h")
+metadata/_custom_type_script = "uid://c6glk3qgpovpm"

@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_5jcfj"]
 [ext_resource type="Texture2D" uid="uid://d04a1bovgc52p" path="res://ui/building/icons/landmine.png" id="3_5jcfj"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_lefgh"]
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="4_gvayv"]
+[ext_resource type="Resource" uid="uid://2lig2t1hsgw2" path="res://structures/creation/structure_placement_collision_spec.tres" id="5_oeo7b"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="5_qrblw"]
 [ext_resource type="PackedScene" uid="uid://cymly4bxhw47c" path="res://structures/landmines/landmine_structure.tscn" id="6_5jcfj"]
 
@@ -11,6 +13,7 @@
 script = ExtResource("3_lefgh")
 to_spawn = ExtResource("6_5jcfj")
 max_slope_angle_deg = 30.0
+additional_collisions = Array[ExtResource("4_gvayv")]([ExtResource("5_oeo7b")])
 metadata/_custom_type_script = "uid://rchprl2i3qgf"
 
 [resource]

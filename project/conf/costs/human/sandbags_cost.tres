@@ -6,11 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_wcw7r"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_s42yg"]
 [ext_resource type="Texture2D" uid="uid://djxn1hcrj8oor" path="res://ui/building/icons/sandbags.png" id="3_wcw7r"]
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="4_ve4nu"]
+[ext_resource type="Resource" uid="uid://2lig2t1hsgw2" path="res://structures/creation/structure_placement_collision_spec.tres" id="5_5msnu"]
 
 [sub_resource type="Resource" id="Resource_sjorg"]
 script = ExtResource("3_s42yg")
 to_spawn = ExtResource("2_u023u")
 max_slope_angle_deg = 30.0
+additional_collisions = Array[ExtResource("4_ve4nu")]([ExtResource("5_5msnu")])
 metadata/_custom_type_script = "uid://rchprl2i3qgf"
 
 [resource]

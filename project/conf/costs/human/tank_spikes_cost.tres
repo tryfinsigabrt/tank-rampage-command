@@ -4,13 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_wvdya"]
 [ext_resource type="Texture2D" uid="uid://dgjgalcve88uh" path="res://ui/building/icons/tank_spikes.png" id="3_bgy17"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="3_hs8os"]
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="4_hs8os"]
 [ext_resource type="PackedScene" uid="uid://bj11lkpa8cvvf" path="res://structures/tank_spikes/tank_spikes.tscn" id="4_r5pfb"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="5_p41mc"]
+[ext_resource type="Resource" uid="uid://2lig2t1hsgw2" path="res://structures/creation/structure_placement_collision_spec.tres" id="5_tnr5e"]
 
 [sub_resource type="Resource" id="Resource_bgy17"]
 script = ExtResource("3_hs8os")
 to_spawn = ExtResource("4_r5pfb")
 max_slope_angle_deg = 30.0
+additional_collisions = Array[ExtResource("4_hs8os")]([ExtResource("5_tnr5e")])
 metadata/_custom_type_script = "uid://rchprl2i3qgf"
 
 [resource]
