@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://dp5gyrwhmjqwl"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_0lq8d"]
+[ext_resource type="PackedScene" uid="uid://tkb3vp3t5ssx" path="res://ui/hud/building_chip.tscn" id="2_qk6mh"]
+[ext_resource type="Script" uid="uid://ctd7isuqknbmi" path="res://ui/hud/building_panel.gd" id="3_2m7yh"]
+[ext_resource type="PackedScene" uid="uid://cwa3b1e36vywf" path="res://ui/hud/production_queue_slot.tscn" id="4_gk8ca"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.13333334, 0.1254902, 0.12156863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="BuildingPanel" type="PanelContainer" unique_id=1057710323]
+top_level = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -194.0
+offset_right = 210.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_0lq8d")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("3_2m7yh")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1866103611]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="Content" type="VBoxContainer" parent="Padding" unique_id=996572403]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BuildRow" type="HBoxContainer" parent="Padding/Content" unique_id=1673934964]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Chip01" parent="Padding/Content/BuildRow" unique_id=1298495025 instance=ExtResource("2_qk6mh")]
+layout_mode = 2
+
+[node name="Chip02" parent="Padding/Content/BuildRow" unique_id=418262516 instance=ExtResource("2_qk6mh")]
+layout_mode = 2
+
+[node name="Chip03" parent="Padding/Content/BuildRow" unique_id=125616097 instance=ExtResource("2_qk6mh")]
+layout_mode = 2
+
+[node name="QueueInfo" type="VBoxContainer" parent="Padding/Content" unique_id=1429650869]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="QueueLabel" type="Label" parent="Padding/Content/QueueInfo" unique_id=934997237]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
+theme_override_font_sizes/font_size = 18
+text = "Production Queue"
+
+[node name="QueueRowPadding" type="MarginContainer" parent="Padding/Content/QueueInfo" unique_id=2116901772]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 2
+
+[node name="QueueRow" type="HBoxContainer" parent="Padding/Content/QueueInfo/QueueRowPadding" unique_id=1407074382]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Slot01" parent="Padding/Content/QueueInfo/QueueRowPadding/QueueRow" unique_id=898586636 instance=ExtResource("4_gk8ca")]
+layout_mode = 2
+
+[node name="Slot02" parent="Padding/Content/QueueInfo/QueueRowPadding/QueueRow" unique_id=510569261 instance=ExtResource("4_gk8ca")]
+layout_mode = 2
+
+[node name="Slot03" parent="Padding/Content/QueueInfo/QueueRowPadding/QueueRow" unique_id=1132955710 instance=ExtResource("4_gk8ca")]
+layout_mode = 2
+
+[node name="Slot04" parent="Padding/Content/QueueInfo/QueueRowPadding/QueueRow" unique_id=358396948 instance=ExtResource("4_gk8ca")]
+layout_mode = 2
+
+[node name="Slot05" parent="Padding/Content/QueueInfo/QueueRowPadding/QueueRow" unique_id=532719143 instance=ExtResource("4_gk8ca")]
+layout_mode = 2

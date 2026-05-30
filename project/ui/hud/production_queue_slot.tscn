@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cwa3b1e36vywf"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_t8pcq"]
+[ext_resource type="Shader" uid="uid://dtuxflq0cwxgj" path="res://ui/building/building_progress.gdshader" id="2_mhhlo"]
+[ext_resource type="Script" uid="uid://dg75e8ydvjpej" path="res://ui/hud/production_queue_slot.gd" id="3_v8m9t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot"]
+bg_color = Color(0.050980393, 0.07058824, 0.08627451, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.13333334, 0.1254902, 0.12156863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_queue_icon"]
+shader = ExtResource("2_mhhlo")
+shader_parameter/progress = 0.0
+shader_parameter/darkness = 0.6
+shader_parameter/opacity = 1.0
+
+[node name="ProductionQueueSlot" type="PanelContainer" unique_id=449990770]
+custom_minimum_size = Vector2(52, 52)
+theme = ExtResource("1_t8pcq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
+script = ExtResource("3_v8m9t")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1104944330]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="QueueIcon" type="TextureRect" parent="Padding" unique_id=1114810348]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_queue_icon")
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EmptyLabel" type="Label" parent="Padding" unique_id=330096708]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5254902, 0.5803922, 0.61960787, 1)
+theme_override_font_sizes/font_size = 20
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1

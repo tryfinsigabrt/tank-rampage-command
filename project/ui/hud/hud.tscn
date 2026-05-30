@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://vdoi2x7i44vm" path="res://ui/hud/hud.gd" id="1_rbyyf"]
 [ext_resource type="PackedScene" uid="uid://b267c78yllwfx" path="res://ui/hud/resources.tscn" id="3_e0nub"]
 [ext_resource type="PackedScene" uid="uid://dvr8xr3q18rl8" path="res://ui/MiniMap/MiniMap.tscn" id="4_w75iv"]
-[ext_resource type="PackedScene" path="res://ui/hud/construction_panel.tscn" id="5_4j2e1"]
+[ext_resource type="PackedScene" uid="uid://dptr5phfa2op7" path="res://ui/hud/construction_panel.tscn" id="5_4j2e1"]
 [ext_resource type="PackedScene" uid="uid://bh4m2d75hvtc3" path="res://ui/project_version_label.tscn" id="5_imuuq"]
+[ext_resource type="PackedScene" uid="uid://dp5gyrwhmjqwl" path="res://ui/hud/building_panel.tscn" id="6_3h2ut"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
 anchors_preset = 15
@@ -29,10 +30,18 @@ alignment = 2
 [node name="Resources" parent="ResourcesContainer" unique_id=993976760 instance=ExtResource("3_e0nub")]
 layout_mode = 2
 
-[node name="MiniMap" parent="." unique_id=944229518 instance=ExtResource("4_w75iv")]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=242826739]
 layout_mode = 2
 
-[node name="ConstructionPanel" parent="." instance=ExtResource("5_4j2e1")]
+[node name="MiniMap" parent="HBoxContainer" unique_id=944229518 instance=ExtResource("4_w75iv")]
+layout_mode = 2
+
+[node name="BuildingPanel" parent="HBoxContainer" unique_id=131589363 instance=ExtResource("6_3h2ut")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ConstructionPanel" parent="." unique_id=1141959633 instance=ExtResource("5_4j2e1")]
 layout_mode = 2
 
 [node name="ProjectVersionLabel" parent="." unique_id=434954575 instance=ExtResource("5_imuuq")]
