@@ -965,7 +965,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24786615, 3.4372122)
 [node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" unique_id=413668482 instance=ExtResource("7_hs18c")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28172088, -1.6485891)
-hit_vfx_size = 1
 shoot_vfx_size = 1
 shoot_vfx_origin_path = NodePath("%FireOrigin")
 shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)

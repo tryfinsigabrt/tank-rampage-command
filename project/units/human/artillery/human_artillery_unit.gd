@@ -49,6 +49,7 @@ var _aim_at_tween:Tween
 var _yaw_reset_tween:Tween
 var _rotate_aim_tween:Tween
 var _last_aim_request_time:float = 0
+var _has_moved:bool
 
 func _ready() -> void:
 	super._ready()
@@ -62,13 +63,19 @@ func _physics_process(delta: float) -> void:
 	collision.disabled = not is_visible_in_tree()
 
 	# Add the gravity.
-	if not is_on_floor():
+	# Weird issue where if unit hasn't moved it reports not on floor
+	if is_on_floor() or not _has_moved:
+		velocity.y = 0.0
+	else:
 		velocity += get_gravity() * delta
 		
 ## Provides the screen direction to instruct the unit to move to
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	if input_direction.is_zero_approx():
 		return
+		
+	_has_moved = true
+	
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)

@@ -15,6 +15,8 @@ var turret_aim_tolerance:float = 0.02
 @export_range(0.0, 1.0, 0.001)
 var pitch_tolerance:float = 0.01
 	
+var _has_moved:bool
+
 func _is_alive() -> bool:
 	return health_stat.is_alive
 	
@@ -22,12 +24,18 @@ func _physics_process(delta: float) -> void:
 	collision.disabled = not is_visible_in_tree()
 
 	# Add the gravity.
-	if not is_on_floor():
+	# Weird issue where if unit hasn't moved it reports not on floor
+	if is_on_floor() or not _has_moved:
+		velocity.y = 0.0
+	else:
 		velocity += get_gravity() * delta
 	
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	if input_direction.is_zero_approx():
 		return
+	
+	_has_moved = true
+	
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0, input_direction.y)

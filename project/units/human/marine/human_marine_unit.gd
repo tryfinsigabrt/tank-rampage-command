@@ -21,6 +21,7 @@ var is_shooting:bool:
 @onready var _team_comp: TeamComponent = %TeamComponent
 
 var _aim_at_tween:Tween
+var _has_moved:bool
 
 func _set_visual_overrides(_overrides:AssetVisualTeamResource) -> void:
 	_set_mesh_material()
@@ -43,7 +44,10 @@ func _physics_process(delta: float) -> void:
 	collision.disabled = not _is_alive() or not is_visible_in_tree()
 
 	# Add the gravity.
-	if not is_on_floor():
+	# Weird issue where if unit hasn't moved it reports not on floor
+	if is_on_floor() or not _has_moved:
+		velocity.y = 0.0
+	else:
 		velocity += get_gravity() * delta
 
 # TODO: Some of this can be moved to unit base class or separate component
@@ -51,6 +55,7 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	if is_dead or input_direction.is_zero_approx():
 		return
 	
+	_has_moved = true
 	# Move forward/back always proceeds along forward vector 
 	# and left/right rotates in place
 	var input_direction_3:Vector3 = Vector3(input_direction.x, 0.0, input_direction.y)
