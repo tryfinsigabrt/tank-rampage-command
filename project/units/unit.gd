@@ -82,6 +82,12 @@ var team_component:TeamComponent:
 	get:
 		return _get_team_component()
 
+## Returns (x,z) components of velocity
+var grid_velocity:Vector2:
+	get:
+		var vel := velocity
+		return Vector2(vel.x, vel.z)
+		
 var _unit_actions:UnitActions
 var _aabb:AABB
 

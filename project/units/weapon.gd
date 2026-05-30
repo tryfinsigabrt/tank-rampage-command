@@ -123,6 +123,8 @@ var ideal_fire_range:Vector2:
 	get:
 		return Vector2(min_distance, max_distance_range.x)
 
+var _grid_velocity_at_fire_time:Vector2
+
 func is_in_range(target:Vector3) -> bool:
 	if not _unit:
 		return false
@@ -184,6 +186,8 @@ func fire() -> void:
 	
 	_set_cooldown()
 	
+	_grid_velocity_at_fire_time = _unit.grid_velocity
+	
 	await _delay_impact()
 	_hit_scan()
 
@@ -227,14 +231,15 @@ func _delay_impact() -> void:
 	await impact_timer.timeout
 		
 func _calculate_final_target_deviation_deg(source:Vector3, target:Vector3) -> float:
-	var deviation:float = 0.0
-	var movement_dir:Vector3 = _unit.velocity.normalized()
-	var is_moving:bool = not movement_dir.is_zero_approx()
+	var is_moving:bool = not _grid_velocity_at_fire_time.is_zero_approx()
 	if not is_moving:
 		return 0.0
 		
+	var deviation:float = 0.0
+
 	if accuracy_v_velocity_alignment:
-		var to_target:Vector3 = source.direction_to(target)
+		var movement_dir:Vector2 = _grid_velocity_at_fire_time.normalized()
+		var to_target:Vector2 = MathUtils.grid_vector(source).direction_to(MathUtils.grid_vector(target))
 		var alignment:float = to_target.dot(movement_dir)
 		deviation += 1.0 - accuracy_v_velocity_alignment.sample_baked(alignment)
 	var sgn:float = MathUtils.randf_sgn()
@@ -364,7 +369,10 @@ func _on_fire_state_timer_timeout() -> void:
 #region Trace Helpers
 
 func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
-	var origin := query.from
+	# Always use fire location for from for accuracy modification
+	# since for standard trace it does this and other drop traces from will be from sky which isn't what we want
+	
+	var origin := global_position
 	var target := query.to
 	
 	var hit_position: Vector3 = result["position"]
@@ -377,6 +385,8 @@ func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Diction
 	var to_target:Vector3 = origin.direction_to(target)
 	var dev_to_target:Vector3 = to_target.rotated(global_basis.y, deg_to_rad(target_dev_deg))
 	var new_target:Vector3 = origin + dev_to_target * cast_distance
+	# Don't change y coordinate of new_target
+	new_target.y = target.y
 	
 	query.to = new_target
 	return _check_hit(query, result)
