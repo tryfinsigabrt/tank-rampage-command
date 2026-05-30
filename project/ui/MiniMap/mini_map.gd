@@ -31,6 +31,7 @@ func _input(event: InputEvent) -> void:
 			return
 
 		_move_camera_to_cursor(local_pos)
+		get_viewport().set_input_as_handled()
 
 func _move_camera_to_cursor(local_pos:Vector2) -> void:
 	var scale_factor := 	Vector2(_mini_map_viewport.size) / size
