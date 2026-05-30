@@ -364,6 +364,7 @@ ghost_asset_rotate_cw={
 3d_physics/layer_10="vehicle"
 3d_physics/layer_11="structure_vehicle"
 3d_physics/layer_12="control_point"
+3d_physics/layer_13="structure_explosive"
 3d_physics/layer_29="team_1"
 3d_physics/layer_30="team_2"
 

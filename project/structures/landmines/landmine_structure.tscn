@@ -13,7 +13,7 @@
 radius = 1.5
 
 [node name="Landmine" type="StaticBody3D" unique_id=2013739816 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
-collision_layer = 0
+collision_layer = 4096
 collision_mask = 0
 script = ExtResource("1_dnqhm")
 health_stat = NodePath("Stats/HealthStat")
@@ -61,6 +61,7 @@ update_scale = false
 unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
+assign_team_collision_layers = false
 
 [node name="DamageEmitter" type="Node" parent="." unique_id=944665689]
 unique_name_in_owner = true
@@ -76,6 +77,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99999994, 0)
 collision_layer = 1088
 collision_mask = 4
+monitorable = false
 
 [node name="AreaCollision" type="CollisionShape3D" parent="TriggerArea" unique_id=1765328389]
 unique_name_in_owner = true

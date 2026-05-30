@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="5_g7uy2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7uy2"]
-size = Vector3(2.25, 2, 2.25)
+size = Vector3(2.25, 3, 2.25)
 
 [node name="TankSpikes" type="StaticBody3D" unique_id=605498753 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
 collision_layer = 1024
@@ -42,7 +42,7 @@ script = ExtResource("5_g7uy2")
 target_node = NodePath("..")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=466703260]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_g7uy2")
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=2115307770]

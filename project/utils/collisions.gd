@@ -25,14 +25,24 @@ class Layers:
 	## A structure that blocks behicles
 	const structure_vehicle:int = 1 << 10
 	
-	# A generic boundary like a scrap field
+	## A generic boundary like a scrap field
 	const boundary:int = 1 << 11
 	
-	# A control point
+	## A control point
 	const control_point:int = 1 << 12
 	
+	## A structure that is an explosive
+	## This is currently used for landmines for weapons to target them or for scans to find them
+	## But to not block movement of infantry or vehicles
+	## They are also typically hidden so shouldn't show up on simpler structure scans
+	const structure_explosive:int = 1 << 13
+	
+	## Layer assigned to assets on team 1
 	const team_1:int = 1 << 28
+	
+	## Layer assigned to assets on team 2
 	const team_2:int = 1 << 29
+	
 	# Reserving 30 and 31 if we have 4 total teams
 	
 	const team_masks:Dictionary[int,int] = {
@@ -45,6 +55,7 @@ class CompositeMasks:
 	const world:int = Layers.world_static | Layers.terrain | Layers.world_dynamic
 	const visibility: int = world | team_asset
 	const ground: int = Layers.world_static | Layers.terrain
+	# Exclude structure_explosive as these are treated specially
 	const structure:int = Layers.structure_infantry | Layers.structure_vehicle
 	const team_asset:int = Layers.unit | Layers.building | structure
 	const damageable_team_asset:int = team_asset

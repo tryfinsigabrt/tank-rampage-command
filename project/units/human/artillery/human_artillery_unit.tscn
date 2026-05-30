@@ -120,6 +120,7 @@ fire_time_range = Vector2(0, 1)
 fire_time_v_distance = ExtResource("6_uf7ra")
 max_spread_angle = 16.0
 friendly_fire = true
+damage_mask = 5231
 allow_source_damage = true
 type = 2
 launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")

@@ -6,7 +6,6 @@
 [node name="Weapon" type="Node3D" unique_id=107617315]
 script = ExtResource("1_jedj3")
 enable_debug_draw = false
-damage_mask = 111
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1206839657]
 one_shot = true

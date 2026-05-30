@@ -23,6 +23,9 @@ var team:int:
 @export_range(1.0, 1e9, 0.1, "or_greater")
 var vision:float = 50.0
 
+@export
+var assign_team_collision_layers:bool = true
+
 var render:bool = true:
 	set(value):
 		if value == render:
@@ -53,7 +56,8 @@ func _exit_tree() -> void:
 		
 func refresh_team_layers() -> void:
 	if team_asset:
-		Collisions.apply_team_collision_layer(team_asset, team)
+		if assign_team_collision_layers:
+			Collisions.apply_team_collision_layer(team_asset, team)
 		Visibility.apply_team_collision_layer(team_asset, team)
 			
 	if GameManager.fog_of_war:

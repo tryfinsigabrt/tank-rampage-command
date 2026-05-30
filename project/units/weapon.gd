@@ -199,11 +199,18 @@ func _set_cooldown() -> void:
 	_set_timer(cooldown_timer, cooldown)
 
 func _refresh_damage_mask() -> void:
+	# Apply the team damage mask only if there is any overlap between the selector and the original mask
+	# This avoids applying the team selection mask unconditionally
+	const selector:int = Collisions.CompositeMasks.any_asset
+	var any_match:bool = selector & damage_mask
+	if not any_match:
+		return
+		
 	if friendly_fire:
-		damage_mask |= Collisions.CompositeMasks.any_unit
+		damage_mask |= selector
 	else:
 		var enemy_team_mask:int = Collisions.enemy_team_mask(_unit.team)
-		damage_mask = MathUtils.update_mask(damage_mask, Collisions.CompositeMasks.any_unit, enemy_team_mask)
+		damage_mask = MathUtils.update_mask(damage_mask, selector, enemy_team_mask)
 		
 # Delay impact after fire emission before impact to avoid visually inaccurate results
 func _delay_impact() -> void:
@@ -393,7 +400,7 @@ func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionar
 func _create_trace_query() -> PhysicsRayQueryParameters3D:
 	var query := PhysicsRayQueryParameters3D.new()
 	
-	query.collide_with_areas = true
+	query.collide_with_areas = false
 	query.collide_with_bodies = true
 	query.collision_mask = damage_mask
 	

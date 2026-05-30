@@ -35,10 +35,10 @@ func _took_damage(_damage_params: DamageParameters) -> void:
 
 func _update_mask(damage_mask:int) -> int:
 	if friendly_fire:
-		damage_mask |= Collisions.CompositeMasks.any_unit
+		damage_mask |= Collisions.CompositeMasks.any_asset
 	else:
 		var enemy_team_mask:int = Collisions.enemy_team_mask(team_component.team)
-		damage_mask = MathUtils.update_mask(damage_mask, Collisions.CompositeMasks.any_unit, enemy_team_mask)
+		damage_mask = MathUtils.update_mask(damage_mask, Collisions.CompositeMasks.any_asset, enemy_team_mask)
 	return damage_mask
 	
 func _on_trigger_area_body_entered(body: Node3D) -> void:
