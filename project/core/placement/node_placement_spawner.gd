@@ -268,19 +268,23 @@ func _basis_from_forward_and_up(forward_hint:Vector3, up:Vector3) -> Basis:
 	if up.is_zero_approx():
 		return Basis.IDENTITY
 
-	var forward := forward_hint.slide(up).normalized()
+	var forward := forward_hint.slide(up)
 
 	# Last-resort fallback for degenerate cases.
 	if forward.is_zero_approx():
 		var planar := Vector3.FORWARD if absf(up.dot(Vector3.FORWARD)) < 0.99 else Vector3.RIGHT
-		forward = planar.slide(up).normalized()
+		forward = planar.slide(up)
+		if forward.is_zero_approx():
+			return Basis.IDENTITY
+	forward = forward.normalized()
 
 	var right := forward.cross(up).normalized()
 	forward = up.cross(right).normalized()
 
+	# Already an orthonormal basis so no need to call "orthonormalized" - input up is always a unit vector
 	if resource.use_model_front:
-		return Basis(right, up, forward).orthonormalized()
-	return Basis(right, up, -forward).orthonormalized()
+		return Basis(right, up, forward)
+	return Basis(right, up, -forward)
 	
 func _get_avg_normal(planar_points:PackedVector3Array) -> Vector3:
 	# Diagonal 1: Front Left to Back Right

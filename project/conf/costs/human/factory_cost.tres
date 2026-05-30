@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_c46ob"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="2_q27nu"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="2_ucwhr"]
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="3_b7fup"]
 
 [sub_resource type="Resource" id="Resource_c46ob"]
 script = ExtResource("2_ucwhr")
