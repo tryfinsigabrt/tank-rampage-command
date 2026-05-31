@@ -3,7 +3,10 @@ class_name AiUnitDirectives extends Node
 const ComponentName:StringName = &"AiUnitDirectives"
 
 const DEFEND_POSITION:StringName = &"defend_position"
+const DEFEND_AREA:StringName = &"defend_area"
+
 const TIME:StringName = &"time"
+const POSITION_CALLBACK:StringName = &"position_cb"
 
 #region Signals
 @warning_ignore_start("unused_signal")
@@ -23,15 +26,27 @@ enum StateActivity
 }
 
 class State:
+	var id:int
 	var key:StringName
+	var tag:String
 	var priority:float
 	var data:Dictionary[StringName, Variant]
 	var state:StateActivity
+	var is_equal:Callable
 	
+	@warning_ignore("unused_signal")
+	signal started
+	@warning_ignore("unused_signal")
+	signal finished(success:bool)
+	
+	func replace(previous_instance:State) -> State:
+		id = previous_instance.id
+		return self
+		
 	func _to_string() -> String:
 		return "%s:%d" % [key, priority]
 		
-	func equals(other:State, is_equal:Callable) -> bool:
+	func equals(other:State) -> bool:
 		if not other:
 			return false
 		if key != other.key:
@@ -52,43 +67,80 @@ var evaluation_delay:float = 0.1
 @onready var blackboard: UnitDirectiveBlackboard = %Blackboard
 @onready var _priority_timer: Timer = %PriorityTimer
 
+var _state_id_counter:int
+
 var enabled:bool:
 	get: return _behavior_tree.enabled
 	
 #region States
-func set_defend_position(position:Vector3, time:float) -> void:
+func set_defend_position(position:Vector3, time:float, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()
 	state.key = DEFEND_POSITION
+	state.priority = priority
+	state.tag = tag
 	state.data = {
 		POSITION = position,
 		TIME = time
 	}
 	
-	_add_or_update_state(state, func(other_data:Dictionary[StringName, Variant]) -> bool:
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
 		var other_pos:Vector3 = other_data[&"POSITION"]
 		return other_pos.distance_squared_to(position) < 25.0
-	)
+	
+	_add_or_update_state(state)
+	
+	return state
+
+func set_defend_area(area:BoundingSphere, time:float, position_callback:Callable, priority:int = 0, tag:String = "") -> State:
+	var state:State = State.new()
+	state.key = DEFEND_AREA
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		BOUNDS = area,
+		TIME = time,
+		POSITION_CALLBACK = position_callback,
+	}
+	
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		var other_bounds:BoundingSphere = other_data[&"BOUNDS"]
+		return area.is_equal_approx(other_bounds)
+	
+	_add_or_update_state(state)
+	
+	return state
+	
 #endregion
 
-func _add_or_update_state(state: State, is_equal:Callable) -> void:
+func has_state(matcher:Callable) -> bool:
+	if _active_state and matcher.call(_active_state):
+		return true
+	for state in _requested_states:
+		if matcher.call(state):
+			return true
+	return false
+	
+func _add_or_update_state(state: State) -> void:
 	# If the key exists already, update in place
-	if _active_state and _active_state.equals(state, is_equal):
-		_active_state = state
+	if _active_state and _active_state.equals(state):
+		_active_state = state.replace(_active_state)
 	else:
 		var existing_index:int = -1
 		for i in _requested_states.size():
 			var existing_state:State = _requested_states[i]
-			if existing_state.equals(state, is_equal):
+			if existing_state.equals(state):
 				existing_index = i
 				break
 		if existing_index != -1:
 			var existing_state:State = _requested_states[existing_index]
-			_requested_states[existing_index] = state
+			_requested_states[existing_index] = state.replace(existing_state)
 			# If not same priority, then have to do full resort
 			if not is_equal_approx(state.priority, existing_state.priority):
 				_requested_states.sort_custom(_priority_compare)
 		# Adding a new state, place at right location in priority queue
-		else:	
+		else:
+			_state_id_counter += 1
+			state.id = _state_id_counter
 			var index:int = _requested_states.bsearch_custom(state, _priority_compare)
 			_requested_states.insert(index, state)
 			
@@ -163,7 +215,8 @@ func completed() -> void:
 		
 	curr_state.state = StateActivity.COMPLETED
 	on_completed.emit(curr_state)
-	
+	curr_state.finished.emit(true)
+
 	if enabled:
 		_schedule_next()
 
@@ -173,6 +226,7 @@ func canceled() -> void:
 		return
 		
 	curr_state.state = StateActivity.CANCELED
+	curr_state.finished.emit(false)
 	on_canceled.emit(curr_state)
 	
 	if enabled:
@@ -184,6 +238,7 @@ func started() -> void:
 		return
 	
 	_active_state.state = StateActivity.STARTED
+	curr_state.started.emit()
 	on_started.emit(curr_state)
 	
 func _schedule_next() -> void:

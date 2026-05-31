@@ -103,6 +103,15 @@ func contains(point:Vector3) -> bool:
 	var sphere:BoundingSphere = inscribed_sphere if type == Type.SPHERE_INSCRIBED else circumscribed_sphere
 	return sphere.contains(point)
 
+func is_equal_approx(other:Bounds) -> bool:
+	if not other:
+		return false
+	if self == other:
+		return true
+	if self.type != other.type:
+		return false
+	return aabb.is_equal_approx(other.aabb)
+	
 func to_rect() -> Rect2:
 	return aabb_to_grid_rect(aabb)
 	

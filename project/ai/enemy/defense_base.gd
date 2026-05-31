@@ -10,6 +10,8 @@ var defense_radius_buffer:float = 5.0
 @export
 var angle_increment_deg:float = 30.0
 
+@export
+var defense_time:float = 30.0
 
 class BuildingData:
 	var bounds:BoundingSphere
@@ -56,24 +58,19 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 			building_data = BuildingData.new(building, defense_radius)
 			_building_data[building_id] = building_data
 		
-		# if defender move target or current hold position within the defense radius then no new order required
-		var unit_actions:UnitActions = defender.get_or_add_actions()
-		var current_pos:Vector3 = defender.global_position
-		if unit_actions.has_target_position():
-			var target_pos:Vector3 = unit_actions.get_target_position()
-			if building_data.defense_bounds.contains(target_pos):
-				continue
-		elif building_data.defense_bounds.contains(current_pos):
-			if not unit_actions.is_hold():
-				unit_actions.hold()
-			continue
-		
-		# Issue move and attack to the next position
+		var unit_directives := AiUnitDirectives.get_component(defender)
 		var defense_bounds:BoundingSphere = building_data.defense_bounds
-		var next_heading:Vector3 = building_data.forward.rotated(Vector3.UP, building_data.angle)
-		var next_pos:Vector3 = defense_bounds.center + next_heading * maxf(defense_bounds.radius - defense_radius_buffer, defense_radius_buffer)
-		unit_actions.move_and_attack(next_pos)
 		
-		building_data.angle += angle_increment_rad
+		var state := unit_directives.set_defend_area(defense_bounds, defense_time, func() -> Vector3:
+			var next_heading:Vector3 = building_data.forward.rotated(Vector3.UP, building_data.angle)
+			var next_pos:Vector3 = defense_bounds.center + next_heading * maxf(defense_bounds.radius - defense_radius_buffer, defense_radius_buffer)		
+			building_data.angle += angle_increment_rad
+			
+			return next_pos
+		, 10)
+		
+		state.finished.connect((func() -> void:
+			blackboard.base_defend_units.erase(defender_id)
+		).unbind(1))
 		
 	return SUCCESS

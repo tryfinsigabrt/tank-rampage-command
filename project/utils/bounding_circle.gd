@@ -88,3 +88,8 @@ func union(other: BoundingCircle) -> BoundingCircle:
 	var new_center: Vector2 = center + direction * (new_radius - radius)
 
 	return BoundingCircle.new(new_center, new_radius)
+	
+func is_equal_approx(other: BoundingCircle) -> bool:
+	if not other:
+		return false
+	return is_equal_approx(radius, other.radius) and center.is_equal_approx(other.center)

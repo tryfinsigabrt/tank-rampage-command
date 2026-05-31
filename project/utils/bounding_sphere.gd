@@ -83,3 +83,8 @@ func union(other: BoundingSphere) -> BoundingSphere:
 	var new_center: Vector3 = center + direction * (new_radius - radius)
 
 	return BoundingSphere.new(new_center, new_radius)
+
+func is_equal_approx(other: BoundingSphere) -> bool:
+	if not other:
+		return false
+	return is_equal_approx(radius, other.radius) and center.is_equal_approx(other.center)
