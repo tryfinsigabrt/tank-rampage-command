@@ -32,14 +32,24 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=242826739]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 20
 
 [node name="MiniMap" parent="HBoxContainer" unique_id=944229518 instance=ExtResource("4_w75iv")]
-layout_mode = 2
-
-[node name="BuildingPanel" parent="HBoxContainer" unique_id=131589363 instance=ExtResource("6_3h2ut")]
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 8
+
+[node name="ContextPanelSlot" type="MarginContainer" parent="HBoxContainer" unique_id=1582035510]
+custom_minimum_size = Vector2(420, 320)
+layout_mode = 2
+theme_override_constants/margin_top = 62
+
+[node name="BuildingPanel" parent="HBoxContainer/ContextPanelSlot" unique_id=131589363 instance=ExtResource("6_3h2ut")]
+custom_minimum_size = Vector2(420, 320)
+layout_mode = 2
 
 [node name="ConstructionPanel" parent="." unique_id=1141959633 instance=ExtResource("5_4j2e1")]
 layout_mode = 2
