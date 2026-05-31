@@ -133,7 +133,7 @@ prefer_close_shots = false
 [node name="DamageEmitter" parent="WeaponTrace/Weapon" index="2" unique_id=1547374086]
 damage_falloff_type = 2
 min_falloff_distance = 10.0
-max_falloff_distance = 35.0
+max_falloff_distance = 25.0
 min_damage = 10.0
 max_damage = 1000.0
 
