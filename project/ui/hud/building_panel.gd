@@ -99,8 +99,8 @@ func _set_current_manufacturing(component: ManufacturingComponent) -> void:
 		return
 
 	_current_manufacturing.build_queued.connect(_on_manufacturing_changed)
-	_current_manufacturing.build_canceled.connect(_on_manufacturing_changed)
-	_current_manufacturing.build_completed.connect(_on_manufacturing_changed)
+	_current_manufacturing.build_canceled.connect(_on_manufacturing_changed.unbind(1))
+	_current_manufacturing.build_completed.connect(_on_manufacturing_changed.unbind(1))
 	_current_manufacturing.build_started.connect(_on_manufacturing_changed)
 
 
@@ -109,8 +109,8 @@ func _disconnect_manufacturing_signals() -> void:
 		return
 
 	_current_manufacturing.build_queued.disconnect(_on_manufacturing_changed)
-	_current_manufacturing.build_canceled.disconnect(_on_manufacturing_changed)
-	_current_manufacturing.build_completed.disconnect(_on_manufacturing_changed)
+	_current_manufacturing.build_canceled.disconnect(_on_manufacturing_changed.unbind(1))
+	_current_manufacturing.build_completed.disconnect(_on_manufacturing_changed.unbind(1))
 	_current_manufacturing.build_started.disconnect(_on_manufacturing_changed)
 
 
