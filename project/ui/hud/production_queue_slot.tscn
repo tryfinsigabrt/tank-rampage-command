@@ -23,7 +23,7 @@ shader_parameter/darkness = 0.6
 shader_parameter/opacity = 1.0
 
 [node name="ProductionQueueSlot" type="PanelContainer" unique_id=449990770]
-custom_minimum_size = Vector2(52, 52)
+custom_minimum_size = Vector2(78, 78)
 theme = ExtResource("1_t8pcq")
 theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
 script = ExtResource("3_v8m9t")
@@ -31,10 +31,10 @@ script = ExtResource("3_v8m9t")
 [node name="Padding" type="MarginContainer" parent="." unique_id=1104944330]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="QueueIcon" type="TextureRect" parent="Padding" unique_id=1114810348]
 unique_name_in_owner = true

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dptr5phfa2op7" path="res://ui/hud/construction_panel.tscn" id="5_4j2e1"]
 [ext_resource type="PackedScene" uid="uid://bh4m2d75hvtc3" path="res://ui/project_version_label.tscn" id="5_imuuq"]
 [ext_resource type="PackedScene" uid="uid://dp5gyrwhmjqwl" path="res://ui/hud/building_panel.tscn" id="6_3h2ut"]
+[ext_resource type="PackedScene" path="res://ui/hud/unit_panel.tscn" id="7_yy1et"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
 anchors_preset = 15
@@ -49,6 +50,9 @@ theme_override_constants/margin_top = 62
 
 [node name="BuildingPanel" parent="HBoxContainer/ContextPanelSlot" unique_id=131589363 instance=ExtResource("6_3h2ut")]
 custom_minimum_size = Vector2(420, 320)
+layout_mode = 2
+
+[node name="UnitPanel" parent="HBoxContainer/ContextPanelSlot" unique_id=1234244246 instance=ExtResource("7_yy1et")]
 layout_mode = 2
 
 [node name="ConstructionPanel" parent="." unique_id=1141959633 instance=ExtResource("5_4j2e1")]

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://ppduxd2nx5ty"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_eb8l8"]
+[ext_resource type="Script" uid="uid://if08bbbl0mg" path="res://ui/hud/unit_chip.gd" id="2_t10m7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
+bg_color = Color(0.050980393, 0.07058824, 0.08627451, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.13333334, 0.1254902, 0.12156863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_unit_icon"]
+size = Vector2(96, 96)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_track"]
+bg_color = Color(0.101960786, 0.11764706, 0.13333334, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="UnitChip" type="PanelContainer" unique_id=856197054]
+theme = ExtResource("1_eb8l8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
+script = ExtResource("2_t10m7")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1362879581]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Content" type="VBoxContainer" parent="Padding" unique_id=1343935498]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="UnitIcon" type="TextureRect" parent="Padding/Content" unique_id=732563071]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_unit_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HealthTrack" type="PanelContainer" parent="Padding/Content" unique_id=874156900]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_health_track")
+
+[node name="HealthFill" type="ColorRect" parent="Padding/Content/HealthTrack" unique_id=600816557]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+color = Color(0.23529412, 0.84705883, 0.32941177, 1)
