@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_o2xd8"]
 [ext_resource type="PackedScene" uid="uid://bq4xgttpcjwl4" path="res://props/tankspikes/large_tank-spike.tscn" id="5_6ywqw"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="5_g7uy2"]
+[ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="8_o2xd8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7uy2"]
 size = Vector3(2.25, 3, 2.25)
@@ -62,6 +63,10 @@ update_scale = false
 unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
+
+[node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("8_o2xd8")]
+affects_unit_classes = Array[int]([1, 2])
+affect_only_enemy_team = true
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

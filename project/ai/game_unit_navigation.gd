@@ -1,5 +1,7 @@
 class_name GameUnitNavigation extends Node
 
+const ComponentName:StringName = "GameUnitNavigation"
+
 var _unit:Unit
 var _current_target_position: Vector3
 var _target_reached:bool = true
@@ -51,6 +53,18 @@ func _ready() -> void:
 	simple_navigation.unit = _unit
 	
 	set_enabled(false)
+	
+#region Component Registration
+static func get_component(node: Node, required:bool = true) -> GameUnitNavigation:
+	return Components.get_component(ComponentName, node, required) as GameUnitNavigation
+		
+func _enter_tree() -> void:
+	Components.add_component(ComponentName, self)
+
+func _exit_tree() -> void:
+	Components.remove_component(ComponentName, self)
+	
+#endregion
 
 func _on_unit_move_issued(unit:Unit, target: Vector3) -> void:
 	if unit != _unit:
@@ -84,6 +98,7 @@ func set_enabled(in_enabled:bool) -> void:
 	
 	if in_enabled:
 		if avoidance_enabled:
+			Avoidance.apply_avoidance_mask_to(_unit)
 			navigation_agent_3d.avoidance_enabled = true
 			navigation_agent_3d.max_speed = _unit.movement_speed
 			navigation_agent_3d.set_velocity_forced(_unit.velocity)

@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_eox5s"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 [ext_resource type="PackedScene" uid="uid://cot3ohmrrukgu" path="res://structures/creation/structure_proxy_asset_spawner.tscn" id="11_eox5s"]
+[ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="12_nsawp"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
@@ -81,6 +82,10 @@ supported_types = ExtResource("7_jfsyt")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1933568097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+
+[node name="DynamicNavObstacle" parent="." unique_id=658740099 instance=ExtResource("12_nsawp")]
+default_avoidance_layers = 1
+extra_bounds_padding = 2.0
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

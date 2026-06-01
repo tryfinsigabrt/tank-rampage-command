@@ -17,6 +17,7 @@ script = ExtResource("2_p2f7o")
 
 [node name="SimpleNavigation" type="Node" parent="." unique_id=99106818]
 script = ExtResource("3_rywok")
+raycast_mask = 33
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

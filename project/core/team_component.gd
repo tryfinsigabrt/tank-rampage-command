@@ -1,6 +1,7 @@
 class_name TeamComponent extends Node
 
 signal update_render(in_render:bool)
+signal team_changed(prev_team:int)
 
 @export
 var team_asset:Node3D
@@ -15,6 +16,7 @@ var team:int:
 			return
 		team = value
 		if is_node_ready():
+			team_changed.emit(prev_team)
 			if team_asset:
 				SignalBus.on_team_asset_changed_teams.emit(team_asset, prev_team, value)
 			refresh_team_layers()
