@@ -14,6 +14,7 @@ enum Mode
 	NONE,
 	MOVE,
 	ATTACK,
+	MOVE_AND_ATTACK,
 	STOP,
 	HOLD
 }
@@ -142,6 +143,7 @@ func _handle_select(event: InputEvent) -> void:
 		Mode.NONE: _handle_asset_select(event)
 		Mode.ATTACK: _handle_attack(event)
 		Mode.MOVE: _handle_move_to(event)
+		Mode.MOVE_AND_ATTACK: _handle_move_and_attack(event)
 		_ : pass
 	
 	# Clear mode after action taken
@@ -150,6 +152,22 @@ func _handle_select(event: InputEvent) -> void:
 func _handle_move_to(event: InputEvent) -> void:
 	_move_to(event)
 	
+	_mode = Mode.NONE
+
+func _handle_move_and_attack(event: InputEvent) -> void:
+	if not selection_manager.any_units_same_team:
+		return
+
+	var selected:Node3D = node_picker.pick_team_asset(event)
+	if selected and selected.team_component.is_visible_to(team) and not selected.team_component.is_on_team(team):
+		order_manager.attack(selected)
+	else:
+		var result := node_picker.pick_ground(event)
+		if not result:
+			return
+		var target_position:Vector3 = result.get("position")
+		order_manager.move_and_attack(target_position)
+
 	_mode = Mode.NONE
 	
 func _handle_stop(_event: InputEvent) -> void:
@@ -161,6 +179,21 @@ func _handle_hold(_event: InputEvent) -> void:
 	order_manager.hold()
 	
 	_mode = Mode.NONE
+
+func begin_move_mode() -> void:
+	_mode = Mode.MOVE
+
+func begin_attack_mode() -> void:
+	_mode = Mode.ATTACK
+
+func begin_move_and_attack_mode() -> void:
+	_mode = Mode.MOVE_AND_ATTACK
+
+func issue_stop() -> void:
+	_handle_stop(InputEventAction.new())
+
+func issue_hold() -> void:
+	_handle_hold(InputEventAction.new())
 	
 func _handle_attack(event: InputEvent) -> void:
 	if not selection_manager.any_units_same_team:

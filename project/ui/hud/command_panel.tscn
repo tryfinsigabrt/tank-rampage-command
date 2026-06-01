@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c2rpqm3eydx63"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_5xg7k"]
+[ext_resource type="Script" uid="uid://dtmeeiy61qgyr" path="res://ui/hud/command_panel.gd" id="2_yo11w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.13333334, 0.1254902, 0.12156863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="CommandPanel" type="PanelContainer" unique_id=146243948]
+visible = false
+custom_minimum_size = Vector2(160, 194)
+theme = ExtResource("1_5xg7k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("2_yo11w")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1666500413]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="CommandRow" type="GridContainer" parent="Padding" unique_id=2143147930]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2

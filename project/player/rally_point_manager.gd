@@ -6,6 +6,8 @@ var node_picker:NodePicker
 @export
 var selection_manager:SelectionManager
 
+var _set_rally_mode: bool = false
+
 func _ready() -> void:
 	assert(node_picker, "%s: Node Picker not set!" % name)
 	assert(selection_manager, "%s: Selection Manager not set!" % name)
@@ -14,10 +16,20 @@ func _ready() -> void:
 		queue_free()
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"clear_rally_point"):
+	if _set_rally_mode and event.is_action_pressed(&"unit_select", false, true):
+		_set_rally_mode = false
+		_set_rally_point_to_mouse_cursor()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"clear_rally_point"):
 		_clear_rally_point()
 	elif event.is_action_pressed(&"set_rally_point"):
 		_set_rally_point_to_mouse_cursor()
+
+func begin_set_rally_point() -> void:
+	_set_rally_mode = true
+
+func clear_selected_rally_points() -> void:
+	_clear_rally_point()
 
 func _get_selected_building_rally_point_components() -> Array[RallyPointComponent]:
 	var selected_buildings:Array[Building] = selection_manager.selected_buildings
