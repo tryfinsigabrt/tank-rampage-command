@@ -2,9 +2,7 @@ class_name BuildingChip extends PanelContainer
 
 signal clicked(type: ConstructionResource.Type)
 
-const BUILDABLE_BORDER_COLOR := Color(0.59607846, 0.4117647, 0.06666667, 1)
-const DEFAULT_BORDER_COLOR := Color(0.13333334, 0.1254902, 0.12156863, 1)
-const BORDER_WIDTH := 4
+
 
 @export var resource: ConstructionResource:
 	set(value):
@@ -88,11 +86,11 @@ func _update_border_style() -> void:
 		return
 
 	var is_highlighted := resource != null and _can_afford and _hovered
-	stylebox.border_width_left = BORDER_WIDTH
-	stylebox.border_width_top = BORDER_WIDTH
-	stylebox.border_width_right = BORDER_WIDTH
-	stylebox.border_width_bottom = BORDER_WIDTH
-	stylebox.border_color = BUILDABLE_BORDER_COLOR if is_highlighted else DEFAULT_BORDER_COLOR
+	stylebox.border_width_left = HUD.BORDER_WIDTH
+	stylebox.border_width_top = HUD.BORDER_WIDTH
+	stylebox.border_width_right = HUD.BORDER_WIDTH
+	stylebox.border_width_bottom = HUD.BORDER_WIDTH
+	stylebox.border_color = HUD.BUILDING_BORDER_COLOR if is_highlighted else HUD.DEFAULT_BORDER_COLOR
 	add_theme_stylebox_override("panel", stylebox)
 
 func _type_to_display_name(type: ConstructionResource.Type) -> String:

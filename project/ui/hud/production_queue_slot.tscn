@@ -27,6 +27,8 @@ custom_minimum_size = Vector2(78, 78)
 theme = ExtResource("1_t8pcq")
 theme_override_styles/panel = SubResource("StyleBoxFlat_slot")
 script = ExtResource("3_v8m9t")
+mouse_filter = 1
+mouse_filter = 1
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1104944330]
 layout_mode = 2
@@ -52,3 +54,6 @@ theme_override_font_sizes/font_size = 20
 text = "-"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

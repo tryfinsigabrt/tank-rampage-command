@@ -12,6 +12,7 @@ func _ready() -> void:
 	visible = false
 	_connect_selection_sources()
 	_connect_chip_signals()
+	_connect_queue_slot_signals()
 	_refresh_selected_building()
 
 
@@ -53,6 +54,14 @@ func _connect_chip_signals() -> void:
 	for chip in _get_build_chips():
 		if not chip.clicked.is_connected(_on_chip_clicked):
 			chip.clicked.connect(_on_chip_clicked)
+
+func _connect_queue_slot_signals() -> void:
+	var slots := _get_queue_slots()
+	for i in slots.size():
+		var slot := slots[i]
+		slot.slot_index = i
+		if not slot.clicked.is_connected(_on_queue_slot_clicked):
+			slot.clicked.connect(_on_queue_slot_clicked)
 
 
 func _on_selection_changed(_asset: Node3D) -> void:
@@ -162,6 +171,21 @@ func _on_chip_clicked(type: ConstructionResource.Type) -> void:
 	@warning_ignore("missing_await")
 	_current_manufacturing.build(type)
 	_populate_build_row()
+
+func _on_queue_slot_clicked(slot_index: int) -> void:
+	if _current_manufacturing == null:
+		return
+
+	var queued := _current_manufacturing.currently_building
+	if slot_index < 0 or slot_index >= queued.size():
+		return
+
+	# Access the actual queue element so we can cancel that exact slot.
+	var queue_elements: Array = _current_manufacturing._build_queue
+	if slot_index >= queue_elements.size():
+		return
+
+	_current_manufacturing.cancel_single_build(queue_elements[slot_index])
 
 
 func _populate_queue_row() -> void:

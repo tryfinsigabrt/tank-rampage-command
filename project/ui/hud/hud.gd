@@ -1,1 +1,6 @@
 class_name HUD extends MarginContainer
+
+static var BUILDING_BORDER_COLOR := Color(0.59607846, 0.4117647, 0.06666667, 1)
+static var DEFAULT_BORDER_COLOR := Color(0.08235294, 0.23921569, 0.2784314, 1)
+static var BORDER_WIDTH := 4
+static var COMMAND_BORDER_COLOR := Color(0.14509803, 0.40784314, 0.47058823)
