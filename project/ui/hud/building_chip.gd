@@ -18,6 +18,8 @@ var _hovered: bool = false
 @onready var scrap_cost_value: Label = %ScrapCostValue
 @onready var personnel_cost: HBoxContainer = %PersonnelCostRow
 @onready var personnel_cost_value: Label = %PersonnelCostValue
+@onready var count_badge: PanelContainer = %CountBadge
+@onready var count_label: Label = %CountLabel
 @onready var unavailable_overlay: Control = %UnavailableOverlay
 
 func _ready() -> void:
@@ -34,6 +36,8 @@ func _apply_resource() -> void:
 		scrap_cost_value.text = "0"
 		if personnel_cost:
 			personnel_cost.visible = false
+		if count_badge:
+			count_badge.visible = false
 		_update_border_style()
 		return
 
@@ -46,6 +50,10 @@ func _apply_resource() -> void:
 		personnel_cost.visible = resource.personnel > 0
 	if personnel_cost_value:
 		personnel_cost_value.text = str(resource.personnel)
+	if count_badge:
+		count_badge.visible = resource.count > 1
+	if count_label:
+		count_label.text = str(resource.count)
 	_set_affordability_overlay()
 
 func set_can_afford(can_afford: bool) -> void:

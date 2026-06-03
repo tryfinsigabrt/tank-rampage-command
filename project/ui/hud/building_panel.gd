@@ -87,7 +87,7 @@ func _refresh_selected_building() -> void:
 		_hide_panel()
 		return
 
-	if not (building is Barracks or building is Factory):
+	if not (building is Barracks or building is Factory or building is CommandCenter):
 		_hide_panel()
 		return
 
@@ -174,6 +174,8 @@ func _on_chip_clicked(type: ConstructionResource.Type) -> void:
 
 func _on_queue_slot_clicked(slot_index: int) -> void:
 	if _current_manufacturing == null:
+		return
+	if slot_index <= 0:
 		return
 
 	var queued := _current_manufacturing.currently_building

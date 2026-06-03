@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w0p3g"]
 [ext_resource type="PackedScene" path="res://ui/hud/icons/scrap_icon.tscn" id="2_wsvtr"]
-[ext_resource type="PackedScene" path="res://ui/hud/icons/personnel_icon.tscn" id="3_kr7vj"]
+[ext_resource type="PackedScene" uid="uid://cgulvmn4i8c5l" path="res://ui/hud/icons/personnel_icon.tscn" id="3_kr7vj"]
 [ext_resource type="Script" uid="uid://bs4857vjbg4lk" path="res://ui/hud/building_chip.gd" id="4_h2n1j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
@@ -30,6 +30,12 @@ content_margin_bottom = 3.0
 bg_color = Color(0.015686275, 0.023529412, 0.03137255, 0.72)
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_count_badge"]
+content_margin_left = 6.0
+content_margin_right = 6.0
+bg_color = Color(0.015686275, 0.023529412, 0.03137255, 0.88)
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unavailable_overlay"]
 bg_color = Color(0, 0, 0, 0.45)
@@ -101,6 +107,27 @@ text = "Barracks"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="CountBadge" type="PanelContainer" parent="Padding/Content/IconBack" unique_id=1801804866]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_count_badge")
+
+[node name="CountCenter" type="CenterContainer" parent="Padding/Content/IconBack/CountBadge" unique_id=271921128]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CountLabel" type="Label" parent="Padding/Content/IconBack/CountBadge/CountCenter" unique_id=1796405396]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 1
+theme_override_font_sizes/font_size = 22
+text = "3"
+
 [node name="CostRow" type="HBoxContainer" parent="Padding/Content" unique_id=178703153]
 layout_mode = 2
 mouse_filter = 2
@@ -122,7 +149,7 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9098039, 0.5294118, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 22
 text = "150"
 
 [node name="PersonnelCostRow" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=1672628504]
