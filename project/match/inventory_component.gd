@@ -31,7 +31,16 @@ func add_structure(proxy:StructureProxy) -> void:
 
 func has(type: ConstructionResource.Type) -> int:
 	return get_count(type) > 0
+
+func get_available_types() -> Array[ConstructionResource.Type]:
+	var available_types:Array[ConstructionResource.Type]
+	for type in _inventory_containers_by_type:
+		var container:Node = _inventory_containers_by_type[type]
+		if container.get_child_count() > 0:
+			available_types.push_back(type)
 	
+	return available_types
+	 	
 func get_count(type: ConstructionResource.Type) -> int:
 	var container:Node = _inventory_containers_by_type.get(type)
 	if not container:
