@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="4_tk9nu"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="5_j8gfu"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="6_lm21q"]
+[ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_vb3xs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
@@ -35,6 +36,7 @@ theme = ExtResource("1_3jj5u")
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 script = ExtResource("3_jg7p4")
 construction_resources = Array[ExtResource("3_e8w7b")]([ExtResource("4_tk9nu"), ExtResource("5_j8gfu"), ExtResource("6_lm21q")])
+inventory_resources = ExtResource("7_vb3xs")
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1663771125]
 layout_mode = 2
@@ -47,45 +49,49 @@ theme_override_constants/margin_bottom = 14
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Grid" type="GridContainer" parent="Padding/Content" unique_id=1506452742]
+[node name="ConstructionGrid" type="GridContainer" parent="Padding/Content" unique_id=1506452742]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
 
-[node name="Chip01" parent="Padding/Content/Grid" unique_id=375206834 instance=ExtResource("2_jf3cx")]
+[node name="Chip01" parent="Padding/Content/ConstructionGrid" unique_id=375206834 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Chip02" parent="Padding/Content/Grid" unique_id=2060701986 instance=ExtResource("2_jf3cx")]
+[node name="Chip02" parent="Padding/Content/ConstructionGrid" unique_id=2060701986 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Chip03" parent="Padding/Content/Grid" unique_id=1619853661 instance=ExtResource("2_jf3cx")]
+[node name="Chip03" parent="Padding/Content/ConstructionGrid" unique_id=1619853661 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Chip04" parent="Padding/Content/Grid" unique_id=686407930 instance=ExtResource("2_jf3cx")]
+[node name="MarginContainer" type="MarginContainer" parent="Padding/Content" unique_id=1230751483]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="InventoryLabel" type="Label" parent="Padding/Content/MarginContainer" unique_id=1973521018]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Inventory"
+
+[node name="InventoryGrid" type="GridContainer" parent="Padding/Content" unique_id=1265743370]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Chip01" parent="Padding/Content/InventoryGrid" unique_id=1367647802 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Chip05" parent="Padding/Content/Grid" unique_id=1265743370 instance=ExtResource("2_jf3cx")]
+[node name="Chip02" parent="Padding/Content/InventoryGrid" unique_id=931137921 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Chip06" parent="Padding/Content/Grid" unique_id=854272876 instance=ExtResource("2_jf3cx")]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="Chip07" parent="Padding/Content/Grid" unique_id=715975920 instance=ExtResource("2_jf3cx")]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="Chip08" parent="Padding/Content/Grid" unique_id=119735937 instance=ExtResource("2_jf3cx")]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="Chip09" parent="Padding/Content/Grid" unique_id=1422519848 instance=ExtResource("2_jf3cx")]
+[node name="Chip03" parent="Padding/Content/InventoryGrid" unique_id=404533649 instance=ExtResource("2_jf3cx")]
 layout_mode = 2
 mouse_filter = 0

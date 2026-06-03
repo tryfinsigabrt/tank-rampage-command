@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w0p3g"]
 [ext_resource type="PackedScene" path="res://ui/hud/icons/scrap_icon.tscn" id="2_wsvtr"]
 [ext_resource type="PackedScene" uid="uid://cgulvmn4i8c5l" path="res://ui/hud/icons/personnel_icon.tscn" id="3_kr7vj"]
+[ext_resource type="PackedScene" path="res://ui/hud/icons/inventory_icon.tscn" id="4_4g3eo"]
 [ext_resource type="Script" uid="uid://bs4857vjbg4lk" path="res://ui/hud/building_chip.gd" id="4_h2n1j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
@@ -119,7 +120,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_count_badge")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CountLabel" type="Label" parent="Padding/Content/IconBack/CountBadge/CountCenter" unique_id=1796405396]
+[node name="CountBadgeValue" type="Label" parent="Padding/Content/IconBack/CountBadge/CountCenter" unique_id=1796405396]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
@@ -129,6 +130,7 @@ theme_override_font_sizes/font_size = 22
 text = "3"
 
 [node name="CostRow" type="HBoxContainer" parent="Padding/Content" unique_id=178703153]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
@@ -152,23 +154,42 @@ theme_override_colors/font_color = Color(1, 0.9098039, 0.5294118, 1)
 theme_override_font_sizes/font_size = 22
 text = "150"
 
-[node name="PersonnelCostRow" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=1672628504]
+[node name="PersonnelCost" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=1672628504]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="PersonnelCostIcon" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=2117759278 instance=ExtResource("3_kr7vj")]
+[node name="PersonnelCostIcon" parent="Padding/Content/CostRow/PersonnelCost" unique_id=2117759278 instance=ExtResource("3_kr7vj")]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="PersonnelCostValue" type="Label" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=1931757475]
+[node name="PersonnelCostValue" type="Label" parent="Padding/Content/CostRow/PersonnelCost" unique_id=1931757475]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5254902, 0.92941177, 0.98039216, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="InventoryCount" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=80901377]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="InventoryCountIcon" parent="Padding/Content/CostRow/InventoryCount" unique_id=1841549518 instance=ExtResource("4_4g3eo")]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="InventoryCountValue" type="Label" parent="Padding/Content/CostRow/InventoryCount" unique_id=1143144923]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7372549, 0.88235295, 0.7254902, 1)
+theme_override_font_sizes/font_size = 22
 text = "0"
 
 [node name="UnavailableOverlay" type="PanelContainer" parent="." unique_id=553490895]

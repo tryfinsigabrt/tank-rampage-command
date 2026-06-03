@@ -135,6 +135,10 @@ func _populate_build_row() -> void:
 	for i in chips.size():
 		var chip := chips[i]
 		var resource := resources[i] if i < resources.size() else null
+		chip.set_show_count_badge(true)
+		chip.set_show_personnel_cost(true)
+		chip.set_show_personnel_cost(true)
+		chip.set_show_inventory_count(false)
 		chip.resource = resource
 		chip.visible = resource != null
 		if resource != null and _current_manufacturing != null:

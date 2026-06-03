@@ -1,5 +1,7 @@
 class_name InventoryComponent extends Node
 
+signal inventory_changed
+
 @export
 var node_placement_spawner_scene:PackedScene
 
@@ -28,6 +30,7 @@ func add_structure(proxy:StructureProxy) -> void:
 	
 	proxy.count = proxy.resource.count	
 	container.add_child(proxy)
+	inventory_changed.emit()
 
 func has(type: ConstructionResource.Type) -> int:
 	return get_count(type) > 0
@@ -50,6 +53,13 @@ func get_count(type: ConstructionResource.Type) -> int:
 		count += proxy.count
 	return count
 
+func get_resource(type: ConstructionResource.Type) -> ConstructionResource:
+	var container:Node = _inventory_containers_by_type.get(type)
+	if not container or container.get_child_count() == 0:
+		return null
+	var proxy := container.get_child(0) as StructureProxy
+	return proxy.resource if proxy else null
+
 func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 	if not has(type):
 		return null
@@ -63,6 +73,7 @@ func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 	if structure_proxy.count == 0:
 		removed = true
 		type_container.remove_child(structure_proxy)
+	inventory_changed.emit()
 	
 	var resource:ConstructionResource = structure_proxy.resource
 	
@@ -90,5 +101,6 @@ func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 			structure_proxy.count += 1
 			if removed:
 				type_container.add_child(structure_proxy)
+			inventory_changed.emit()
 	)
 	return placement_spawner
