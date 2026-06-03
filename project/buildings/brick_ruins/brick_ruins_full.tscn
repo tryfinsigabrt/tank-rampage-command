@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c1ipseqpueqgd"]
+
+[ext_resource type="PackedScene" uid="uid://dbwfsp18sxtqg" path="res://buildings/brick_ruins/brick-ruins-full.fbx" id="1_ng2yf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_squ3g"]
+size = Vector3(0.08, 0.06, 0.015075)
+
+[node name="brick-ruins-full" unique_id=1798804167 instance=ExtResource("1_ng2yf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="brick-ruins-full" parent_id_path=PackedInt32Array(1335830228) index="0" unique_id=109094849]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="brick-ruins-full/StaticBody3D" index="0" unique_id=1628940329]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, -1.4210855e-14, 0, 1.4210855e-14, 1.0000001, 0, 0, 0.0075374986)
+shape = SubResource("BoxShape3D_squ3g")
