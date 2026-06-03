@@ -37,6 +37,9 @@ class Layers:
 	## They are also typically hidden so shouldn't show up on simpler structure scans
 	const structure_explosive:int = 1 << 13
 	
+	## A layer added to team asset collision that has a DynamicNavObstacle node attached
+	const dynamic_obstacle:int = 1 << 14
+	
 	## Layer assigned to assets on team 1
 	const team_1:int = 1 << 28
 	

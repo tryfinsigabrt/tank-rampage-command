@@ -9,6 +9,7 @@ var _target_reached:bool = true
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var stuck_detector: StuckDetector = $StuckDetector
 @onready var simple_navigation: SimpleNavigation = $SimpleNavigation
+@onready var avoidance_steering: AvoidanceSteering = $AvoidanceSteering
 
 @export
 var distance_threshold:float = 4.0
@@ -27,6 +28,9 @@ var enable_stuck_detection:bool = true
 
 @export
 var enable_simple_nav_fallback:bool = true
+
+@export
+var enable_avoidance_steering:bool = true
 
 ## Minimum size of x or z component of move velocity to actually issue move
 ## Avoids flip flopping when components are small
@@ -51,6 +55,8 @@ func _ready() -> void:
 	
 	stuck_detector.unit = _unit
 	simple_navigation.unit = _unit
+	
+	avoidance_steering.active = enable_avoidance_steering
 	
 	set_enabled(false)
 	
@@ -144,7 +150,16 @@ func _on_tick_next_target(delta:float, next_position:Vector3) -> void:
 	velocity = _get_sanitized_velocity(velocity)
 	if not velocity:
 		return
-	velocity = velocity.normalized() * _unit.movement_speed
+	
+	velocity = velocity.normalized()
+	if avoidance_steering.active:
+		avoidance_steering.tick(delta)
+		if avoidance_steering.avoidance_heading != Vector3.INF:
+			velocity = avoidance_steering.avoidance_heading
+			velocity.y = 0.0
+			velocity = velocity.normalized()
+			
+	velocity *= _unit.movement_speed
 	
 	if navigation_agent_3d.avoidance_enabled:
 		navigation_agent_3d.velocity = velocity

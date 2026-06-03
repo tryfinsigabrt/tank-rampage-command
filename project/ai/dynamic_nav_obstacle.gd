@@ -1,5 +1,7 @@
 class_name DynamicNavObstacle extends Node3D
 
+const ComponentName:StringName = "DynamicNavObstacle"
+
 @export_flags_avoidance
 var default_avoidance_layers:int
 
@@ -23,22 +25,51 @@ var nav_obstacle: NavigationObstacle3D = %NavigationObstacle3D
 
 var _team_asset_root:Node3D
 
+#region Component Registration
+
+static func get_component(node: Node, required:bool = true) -> DynamicNavObstacle:
+	return Components.get_component(ComponentName, node, required) as DynamicNavObstacle
+		
 func _enter_tree() -> void:
 	_team_asset_root = Groups.get_parent_in_group(self, Groups.TeamAsset)
 	if not _team_asset_root:
 		push_warning("%s: Added to not team asset root - will not be updated to fit collision bounds!" % name)
+	
+	Components.add_component(ComponentName, self)
+
+func _exit_tree() -> void:
+	Components.remove_component(ComponentName, self)
+#endregion
+
+func affects(unit:Unit) -> bool:
+	if not is_instance_valid(unit):
+		return false
+		
+	var nav_agent:NavigationAgent3D = Groups.get_child_with_type(unit, NavigationAgent3D)
+	if not nav_agent:
+		return false
+	
+	return nav_obstacle.avoidance_layers & nav_agent.avoidance_mask != 0
 	
 func _ready() -> void:
 	if _team_asset_root and affect_only_enemy_team:
 		var team_component := TeamComponent.get_component(_team_asset_root, false)
 		if team_component:
 			team_component.team_changed.connect(_refresh_avoidance_layers.unbind(1))
-		
+	
+	_set_team_asset_collision_layer()	
 	_refresh_avoidance_layers()
 	
 	if _team_asset_root:
 		_build_obstacle_bounds.call_deferred()
+
+func _set_team_asset_collision_layer() -> void:
+	var physics_body:PhysicsBody3D = _team_asset_root as PhysicsBody3D
+	if not physics_body:
+		return
 	
+	physics_body.collision_layer |= Collisions.Layers.dynamic_obstacle
+		
 func _refresh_avoidance_layers() -> void:
 	var teams:PackedInt32Array
 	if _team_asset_root and affect_only_enemy_team:
