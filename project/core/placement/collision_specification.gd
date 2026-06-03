@@ -16,6 +16,11 @@ var team_mask_type:TeamMaskType = TeamMaskType.None
 @export
 var collision_shape:Shape3D
 
+## Specify true if want to only allow spawning if a collision occurs
+## By default a collision causes the criteria to fail.
+@export
+var invert_result:bool
+
 func get_collision_mask(team:int) -> int:
 	if team_mask_type == TeamMaskType.None:
 		return base_collision_mask

@@ -335,7 +335,12 @@ func _test_position_for_collisions(pos: Vector3, in_basis:Basis) -> bool:
 		params.shape = collision_spec.collision_shape
 		
 		var results: Array[Dictionary] = space_state.intersect_shape(params, 1)
-		if results:
+		# Ordinarily the collision test fails if there is a collision result but if we want a collision
+		# for example, only allowing building near player base, then we want to fail if there is no collision
+		# The latter could be accomplished by using a team_type of Same on the spec and using building 
+		# and control_point as the layers
+		var fails_test:bool = results.is_empty() if collision_spec.invert_result else not results.is_empty()
+		if fails_test:
 			return false
 	
 	return true
