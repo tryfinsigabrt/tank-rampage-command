@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="16_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
-[ext_resource type="Script" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -35,13 +35,13 @@ attributes = ExtResource("2_l52bp")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 
-[node name="BodyMain" parent="Body/Mesh" index="0" unique_id=237451480]
+[node name="BodyMain" parent="Body/Mesh" index="0"]
 material_override = ExtResource("5_3jpjq")
 
 [node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="Body/Turret/Mesh" index="0" unique_id=1969060419]
+[node name="Turret" parent="Body/Turret/Mesh" index="0"]
 material_override = ExtResource("7_l52bp")
 
 [node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]
@@ -72,6 +72,7 @@ shape = SubResource("CapsuleShape3D_83yeg")
 path_desired_distance = 4.0
 target_desired_distance = 4.0
 path_max_distance = 25.01
+navigation_layers = 5
 radius = 4.0
 max_speed = 15.0
 

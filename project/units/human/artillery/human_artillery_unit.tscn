@@ -70,6 +70,7 @@ unique_name_in_owner = true
 path_desired_distance = 4.0
 target_desired_distance = 4.0
 path_max_distance = 25.01
+navigation_layers = 9
 radius = 4.0
 max_speed = 15.0
 
