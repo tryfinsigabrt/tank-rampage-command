@@ -2,6 +2,10 @@ class_name GameUnitNavigation extends Node
 
 const ComponentName:StringName = "GameUnitNavigation"
 
+signal move_started(target:Vector3)
+signal move_completed(target:Vector3)
+signal move_canceled(target:Vector3)
+
 var _unit:Unit
 var _current_target_position: Vector3
 var _target_reached:bool = true
@@ -37,9 +41,23 @@ var enable_avoidance_steering:bool = true
 @export
 var move_comp_mag_threshold:float = 0.01
 
+var _enabled:bool
+var _paused:bool
+
 var enabled:bool:
 	get:
-		return is_physics_processing()
+		return _enabled
+		
+var paused:bool:
+	get:
+		return _paused
+	set(value):
+		if not enabled or value == _paused:
+			return
+			
+		print_debug("%s: Paused toggled - %s to %s" % [name, StringUtils.safe_name(_unit), value])
+		_paused = value
+		_set_processing(value)
 
 var current_target:Vector3:
 	get:
@@ -85,6 +103,8 @@ func move_to(target:Vector3) -> void:
 	navigation_agent_3d.target_position = target
 	
 	_target_reached = false
+	
+	move_started.emit(target)
 
 	if not _is_at_target(target):
 		stuck_detector.goal_position = target
@@ -96,8 +116,10 @@ func move_to(target:Vector3) -> void:
 		_emit_target_reached()
 	
 func set_enabled(in_enabled:bool) -> void:
-	set_physics_process(in_enabled)
-	set_process(in_enabled)
+	_enabled = in_enabled
+	_paused = false
+
+	_set_processing(in_enabled)
 	
 	if LogUtils.verbose:
 		print_debug("%s: Navigation toggled - %s to %s" % [name, _unit.name, in_enabled])
@@ -113,6 +135,10 @@ func set_enabled(in_enabled:bool) -> void:
 		navigation_agent_3d.avoidance_enabled = false
 		simple_navigation.stop()
 
+func _set_processing(in_enabled:bool) -> void:
+	set_physics_process(in_enabled)
+	set_process(in_enabled)
+	
 func _is_at_target(next_position: Vector3) -> bool:
 	var current_position := _unit.global_position
 	return next_position.distance_squared_to(current_position) <= distance_threshold * distance_threshold
@@ -211,6 +237,8 @@ func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 		print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
 	_stop_navigation()
 	
+	move_canceled.emit(target_position)
+	
 func _on_navigation_agent_3d_navigation_finished() -> void:
 	_emit_target_reached()
 	
@@ -223,6 +251,8 @@ func _emit_target_reached() -> void:
 		
 		_stop_navigation()
 		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
+		
+		move_completed.emit(_current_target_position)
 
 func _stop_navigation() -> void:
 	# Clear out horizontal velocity on unit if on floor

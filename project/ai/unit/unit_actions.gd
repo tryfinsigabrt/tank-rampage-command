@@ -17,6 +17,8 @@ var _command_counter:int
 
 var _command_id:int
 
+var _move_tracker:MoveTracker
+
 var last_command_id:int:
 	get:
 		return _command_id
@@ -28,7 +30,10 @@ var enabled:bool:
 		_update_tree_state()
 	get:
 		return enabled
-			
+	
+@export
+var follow_distance:float = 5.0
+		
 func _ready() -> void:
 	if not unit:
 		push_error("%s: Unit is not set" % name)
@@ -145,8 +150,27 @@ func move_and_attack(target_position:Vector3) -> void:
 		print_debug("%s(%s): %s command ordered -> %s" % \
 			[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
 	
-func follow(_friendly:Unit) -> void:
-	push_error("Not implemented")
+func follow(friendly:Unit) -> void:
+	_new_action()
+	_clear_hold()
+	
+	_move_tracker = MoveTracker.new()
+	_move_tracker.leader = friendly
+	_move_tracker.follower = unit
+	add_child(_move_tracker)
+	
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Follow)
+	blackboard.set_value(UnitBlackboard.Keys.TargetNode, friendly)
+	blackboard.set_value(UnitBlackboard.Keys.FollowDistance, follow_distance)
+	
+	enabled = true
+	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Follow, _command_id, {
+		&"target_node": friendly
+	} as Dictionary[StringName, Variant])
+	
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Follow, StringUtils.safe_name(friendly)])
 
 func stop() -> void:
 	_clear_all_actions()
@@ -176,6 +200,10 @@ func _clear_all_actions() -> void:
 	blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
+	
+	if _move_tracker:
+		_move_tracker.queue_free()
+		_move_tracker = null
 	
 func is_attacking() -> bool:
 	return blackboard.is_attacking

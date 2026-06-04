@@ -11,7 +11,10 @@
 [ext_resource type="Script" uid="uid://r8b0istslwhq" path="res://addons/beehave/nodes/leaves/blackboard_erase.gd" id="8_j7wwn"]
 [ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
 [ext_resource type="PackedScene" uid="uid://mwp2boe4r11w" path="res://ai/enemy/threat_scorer.tscn" id="10_iprnb"]
+[ext_resource type="Script" uid="uid://c84st521ytmk3" path="res://addons/beehave/nodes/decorators/until_fail.gd" id="11_jqmni"]
 [ext_resource type="PackedScene" uid="uid://csoios358ouls" path="res://ai/unit/idle_state.tscn" id="11_wbnxj"]
+[ext_resource type="Script" uid="uid://bkr7qj44253ue" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="12_ad4kn"]
+[ext_resource type="Script" uid="uid://1w1cljj5txo8" path="res://ai/unit/maintain_follow_distance.gd" id="13_kg5mj"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
@@ -89,6 +92,33 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("8_j7wwn")
 key = "\"action\""
 metadata/_custom_type_script = "uid://r8b0istslwhq"
+
+[node name="FollowCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1366060796]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsFollow" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand" unique_id=495904674]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"follow\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="UntilFailDecorator" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand" unique_id=2113625445]
+script = ExtResource("11_jqmni")
+metadata/_custom_type_script = "uid://c84st521ytmk3"
+
+[node name="SimpleParallelComposite" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator" unique_id=385812673]
+script = ExtResource("12_ad4kn")
+metadata/_custom_type_script = "uid://bkr7qj44253ue"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator/SimpleParallelComposite" unique_id=1033168970 node_paths=PackedStringArray("threat_scorer")]
+script = ExtResource("9_y0ny0")
+threat_scorer = NodePath("../../../../../../ThreatScorer")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="MaintainFollowDistance" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator/SimpleParallelComposite" unique_id=247085914]
+script = ExtResource("13_kg5mj")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="IdleState" parent="." unique_id=1002371402 instance=ExtResource("11_wbnxj")]
 

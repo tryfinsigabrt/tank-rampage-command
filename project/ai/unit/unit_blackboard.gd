@@ -14,6 +14,7 @@ class Keys:
 	const ActionId:StringName = &"action_id"
 	const TargetNode:StringName = &"target_node"
 	const HoldIssued:StringName = &"hold"
+	const FollowDistance:StringName = &"follow_distance"
 
 var current_action:StringName:
 	get:
