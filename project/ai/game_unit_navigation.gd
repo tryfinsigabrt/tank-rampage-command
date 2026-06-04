@@ -57,7 +57,12 @@ var paused:bool:
 			
 		print_debug("%s: Paused toggled - %s to %s" % [name, StringUtils.safe_name(_unit), value])
 		_paused = value
-		_set_processing(value)
+		_set_processing(not value)
+		if value:
+			navigation_agent_3d.avoidance_enabled = false
+			_clear_velocity()
+		else:
+			navigation_agent_3d.avoidance_enabled = avoidance_enabled
 
 var current_target:Vector3:
 	get:
@@ -255,11 +260,13 @@ func _emit_target_reached() -> void:
 		move_completed.emit(_current_target_position)
 
 func _stop_navigation() -> void:
-	# Clear out horizontal velocity on unit if on floor
-	if _unit.is_on_floor():
-		_unit.velocity = Vector3(0.0, _unit.velocity.y, 0.0)
-	
+	_clear_velocity()
 	set_enabled(false)
+	
+func _clear_velocity() -> void:
+	# Clear out horizontal velocity on unit if on floor
+	if _unit and _unit.is_on_floor():
+		_unit.velocity = Vector3(0.0, _unit.velocity.y, 0.0)
 	
 #region Avoidance
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:

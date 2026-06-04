@@ -31,8 +31,14 @@ var enabled:bool:
 	get:
 		return enabled
 	
+## Minimum distance to maintain when following another unit
 @export
 var follow_distance:float = 5.0
+
+## Minimum time between switching between moving and not moving
+## when following another unit
+@export
+var follow_movement_change_interval:float = 2.0
 		
 func _ready() -> void:
 	if not unit:
@@ -162,6 +168,7 @@ func follow(friendly:Unit) -> void:
 	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Follow)
 	blackboard.set_value(UnitBlackboard.Keys.TargetNode, friendly)
 	blackboard.set_value(UnitBlackboard.Keys.FollowDistance, follow_distance)
+	blackboard.set_value(UnitBlackboard.Keys.FollowMovementChangeInterval, follow_movement_change_interval)
 	
 	enabled = true
 	

@@ -12,12 +12,16 @@
 [ext_resource type="Script" uid="uid://dmghqy74okbgs" path="res://ai/unit/move_and_attack_action.gd" id="9_y0ny0"]
 [ext_resource type="PackedScene" uid="uid://mwp2boe4r11w" path="res://ai/enemy/threat_scorer.tscn" id="10_iprnb"]
 [ext_resource type="Script" uid="uid://c84st521ytmk3" path="res://addons/beehave/nodes/decorators/until_fail.gd" id="11_jqmni"]
+[ext_resource type="Script" uid="uid://b3l5la6v33ijq" path="res://ai/unit/follow_command_decorator.gd" id="11_kg5mj"]
 [ext_resource type="PackedScene" uid="uid://csoios358ouls" path="res://ai/unit/idle_state.tscn" id="11_wbnxj"]
 [ext_resource type="Script" uid="uid://bkr7qj44253ue" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="12_ad4kn"]
 [ext_resource type="Script" uid="uid://1w1cljj5txo8" path="res://ai/unit/maintain_follow_distance.gd" id="13_kg5mj"]
+[ext_resource type="Script" uid="uid://dsf3a8vlolhx8" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="14_poa1y"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
+follow_distance = 10.0
+follow_movement_change_interval = 1.0
 
 [node name="Blackboard" type="Node" parent="." unique_id=331095330]
 script = ExtResource("2_osbnw")
@@ -103,20 +107,29 @@ left_operand = "get_value(\"action\")"
 right_operand = "\"follow\""
 metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 
-[node name="UntilFailDecorator" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand" unique_id=2113625445]
+[node name="FollowCommandDecorator" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand" unique_id=1215035412]
+script = ExtResource("11_kg5mj")
+metadata/_custom_type_script = "uid://kfhcykujhf38"
+
+[node name="UntilFailDecorator" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator" unique_id=2113625445]
 script = ExtResource("11_jqmni")
 metadata/_custom_type_script = "uid://c84st521ytmk3"
 
-[node name="SimpleParallelComposite" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator" unique_id=385812673]
+[node name="SimpleParallelComposite" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator/UntilFailDecorator" unique_id=385812673]
 script = ExtResource("12_ad4kn")
 metadata/_custom_type_script = "uid://bkr7qj44253ue"
 
-[node name="MoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator/SimpleParallelComposite" unique_id=1033168970 node_paths=PackedStringArray("threat_scorer")]
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator/UntilFailDecorator/SimpleParallelComposite" unique_id=1678200]
+script = ExtResource("14_poa1y")
+metadata/_custom_type_script = "uid://dsf3a8vlolhx8"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator/UntilFailDecorator/SimpleParallelComposite/AlwaysSucceedDecorator" unique_id=1033168970 node_paths=PackedStringArray("threat_scorer")]
 script = ExtResource("9_y0ny0")
-threat_scorer = NodePath("../../../../../../ThreatScorer")
+threat_scorer = NodePath("../../../../../../../../ThreatScorer")
+is_sub_action = true
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
-[node name="MaintainFollowDistance" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/UntilFailDecorator/SimpleParallelComposite" unique_id=247085914]
+[node name="MaintainFollowDistance" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator/UntilFailDecorator/SimpleParallelComposite" unique_id=247085914]
 script = ExtResource("13_kg5mj")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 

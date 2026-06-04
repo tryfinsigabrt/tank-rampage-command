@@ -28,6 +28,13 @@ func distance_to(point:Vector3) -> float:
 	var dist:float = center_dist - radius
 	return dist if dist >= 0 else 0.0
 
+func distance_to_bounds(other: BoundingSphere) -> float:
+	if not other:
+		return INF
+
+	var center_dist: float = center.distance_to(other.center)
+	return maxf(0.0, center_dist - radius - other.radius)
+	
 func contains(point:Vector3) -> bool:
 	var dist_sq:float = center.distance_squared_to(point)
 	return dist_sq <= radius * radius
@@ -40,13 +47,7 @@ func closest_point_to(point:Vector3) -> Vector3:
 	return center + point_dir * radius
 
 func overlaps(other: BoundingSphere) -> bool:
-	if not other:
-		return false
-		
-	var center_dist: float = center.distance_to(other.center)
-	var radial_sum:float = radius + other.radius
-	
-	return radial_sum <= center_dist
+	return distance_to_bounds(other) <= 0.0
 
 func ray_intersects(ray_origin:Vector3, ray_direction: Vector3) -> bool:
 	var to_center:Vector3 = center - ray_origin

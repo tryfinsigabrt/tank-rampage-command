@@ -79,6 +79,41 @@ func distance_to(point:Vector3) -> float:
 	var sphere:BoundingSphere = inscribed_sphere if type == Type.SPHERE_INSCRIBED else circumscribed_sphere
 	return sphere.distance_to(point)	
 
+func distance_to_bounds(other: Bounds) -> float:
+	if not other:
+		return INF
+
+	if type != Type.AABB and other.type != Type.AABB:
+		return _get_active_sphere().distance_to_bounds(other._get_active_sphere())
+
+	if type == Type.AABB and other.type == Type.AABB:
+		return _distance_between_aabbs(aabb, other.aabb)
+
+	if type == Type.AABB:
+		return _distance_between_aabb_and_sphere(aabb, other._get_active_sphere())
+
+	return _distance_between_aabb_and_sphere(other.aabb, _get_active_sphere())
+
+func overlaps(other: Bounds) -> bool:
+	return distance_to_bounds(other) <= 0.0
+
+func _get_active_sphere() -> BoundingSphere:
+	return inscribed_sphere if type == Type.SPHERE_INSCRIBED else circumscribed_sphere
+
+static func _distance_between_aabbs(left: AABB, right: AABB) -> float:
+	var dx: float = maxf(0.0, maxf(left.position.x - right.end.x, right.position.x - left.end.x))
+	var dy: float = maxf(0.0, maxf(left.position.y - right.end.y, right.position.y - left.end.y))
+	var dz: float = maxf(0.0, maxf(left.position.z - right.end.z, right.position.z - left.end.z))
+	return Vector3(dx, dy, dz).length()
+
+static func _distance_between_aabb_and_sphere(box: AABB, sphere: BoundingSphere) -> float:
+	var closest := Vector3(
+		clampf(sphere.center.x, box.position.x, box.end.x),
+		clampf(sphere.center.y, box.position.y, box.end.y),
+		clampf(sphere.center.z, box.position.z, box.end.z)
+	)
+	return maxf(0.0, closest.distance_to(sphere.center) - sphere.radius)
+	
 func closest_point_to(point:Vector3) -> Vector3:
 	if type == Type.AABB:
 		if contains(point):

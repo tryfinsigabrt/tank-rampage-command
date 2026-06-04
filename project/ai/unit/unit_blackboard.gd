@@ -15,7 +15,8 @@ class Keys:
 	const TargetNode:StringName = &"target_node"
 	const HoldIssued:StringName = &"hold"
 	const FollowDistance:StringName = &"follow_distance"
-
+	const FollowMovementChangeInterval:StringName = &"follow_movement_change_interval"
+	
 var current_action:StringName:
 	get:
 		return get_value(Keys.Action,&"")
