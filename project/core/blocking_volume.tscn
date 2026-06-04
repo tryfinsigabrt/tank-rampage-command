@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://ccmg026oulqo2" path="res://core/blocking_volume.gd" id="1_b0nqc"]
 [ext_resource type="Material" uid="uid://06l242c2yysk" path="res://core/blocking_volume_material.tres" id="2_os30u"]
+[ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="3_f6rl0"]
 
 [node name="BlockingVolume" type="StaticBody3D" unique_id=931215775]
 collision_mask = 0
 script = ExtResource("1_b0nqc")
+gameplay_draw = null
 
 [node name="Shape" type="CollisionShape3D" parent="." unique_id=1923523538]
 debug_color = Color(0.98, 0, 0.3920001, 1)
@@ -14,3 +16,6 @@ debug_fill = false
 [node name="DebugView" type="CSGBox3D" parent="." unique_id=1507884429]
 size = Vector3(0, 0, 0)
 material = ExtResource("2_os30u")
+
+[node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("3_f6rl0")]
+default_avoidance_layers = 1

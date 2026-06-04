@@ -22,6 +22,7 @@ raycast_mask = 33
 
 [node name="AvoidanceSteering" type="Node" parent="." unique_id=463391274]
 script = ExtResource("4_lfjhi")
+raycast_delta_angle_deg = 15.0
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

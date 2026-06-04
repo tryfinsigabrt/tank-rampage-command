@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="19_yuq8o"]
 [ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="20_e8euh"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
+[ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="28_m666l"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="31_yemwc"]
 
@@ -48,6 +49,9 @@ agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
 size = Vector3(600, 100, 525)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a3rw4"]
+size = Vector3(50, 10, 50)
 
 [sub_resource type="Resource" id="Resource_jtih4"]
 script = ExtResource("5_crfp1")
@@ -129,6 +133,12 @@ transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -36.5246
 use_collision = true
 collision_mask = 0
 radius = 5.0
+
+[node name="BlockingVolume" parent="World/NavigationRegion3D/Obstacles" unique_id=931215775 instance=ExtResource("28_m666l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.399994, 0, 113.6)
+collision_layer = 36
+gameplay_draw = true
+shape = SubResource("BoxShape3D_a3rw4")
 
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_l0gy4")]
 

@@ -24,6 +24,7 @@ var is_dynamic:bool
 var nav_obstacle: NavigationObstacle3D = %NavigationObstacle3D
 
 var _team_asset_root:Node3D
+var _physics_body_root:PhysicsBody3D
 
 #region Component Registration
 
@@ -32,8 +33,14 @@ static func get_component(node: Node, required:bool = true) -> DynamicNavObstacl
 		
 func _enter_tree() -> void:
 	_team_asset_root = Groups.get_parent_in_group(self, Groups.TeamAsset)
-	if not _team_asset_root:
-		push_warning("%s: Added to not team asset root - will not be updated to fit collision bounds!" % name)
+	_physics_body_root = _team_asset_root as PhysicsBody3D
+	
+	if not _physics_body_root:
+		_physics_body_root = Groups.get_parent_with_type(self, PhysicsBody3D)
+	if not _physics_body_root:
+		push_warning("%s: Added to tree without a PhysicsBody3D - will not be updated to fit collision bounds!" % name)
+	if not _team_asset_root and affect_only_enemy_team:
+		push_warning("%s: Added to tree without a TeamAsset - will not be able to affect only the enemy team!" % name)
 	
 	Components.add_component(ComponentName, self)
 
@@ -55,22 +62,21 @@ func _ready() -> void:
 	if _team_asset_root and affect_only_enemy_team:
 		var team_component := TeamComponent.get_component(_team_asset_root, false)
 		if team_component:
-			team_component.team_changed.connect(_refresh_avoidance_layers.unbind(1))
+			team_component.team_changed.connect(refresh_avoidance_layers.unbind(1))
 	
-	_set_team_asset_collision_layer()	
-	_refresh_avoidance_layers()
+	_set_root_asset_collision_layer()	
+	refresh_avoidance_layers()
 	
 	if _team_asset_root:
 		_build_obstacle_bounds.call_deferred()
 
-func _set_team_asset_collision_layer() -> void:
-	var physics_body:PhysicsBody3D = _team_asset_root as PhysicsBody3D
-	if not physics_body:
+func _set_root_asset_collision_layer() -> void:
+	if not _physics_body_root:
 		return
 	
-	physics_body.collision_layer |= Collisions.Layers.dynamic_obstacle
+	_physics_body_root.collision_layer |= Collisions.Layers.dynamic_obstacle
 		
-func _refresh_avoidance_layers() -> void:
+func refresh_avoidance_layers() -> void:
 	var teams:PackedInt32Array
 	if _team_asset_root and affect_only_enemy_team:
 		var team_component := TeamComponent.get_component(_team_asset_root, false)
@@ -78,14 +84,27 @@ func _refresh_avoidance_layers() -> void:
 			teams = Avoidance.get_enemy_teams(team_component.team)
 		
 	nav_obstacle.avoidance_layers = Avoidance.get_avoidance_team_layer_mask(default_avoidance_layers, affects_unit_classes, teams)
+	nav_obstacle.avoidance_enabled = nav_obstacle.avoidance_layers != 0
 
-func _build_obstacle_bounds() -> void:
-	if not _team_asset_root.has_method("get_bounds") or "bounds_type" not in _team_asset_root:
-		push_warning("%s: Team Asset root '%s' does not have the required bounds functionality - will not be updated to fit collision bounds!" % [name, _team_asset_root.name])
-		return
+func _get_obstacle_bounds_local() -> Bounds:
+	if _team_asset_root:
+		if _team_asset_root.has_method("get_bounds") and "bounds_type" in _team_asset_root:
+			return Bounds.new(_team_asset_root.get_bounds(), _team_asset_root.bounds_type)
+		push_warning("%s: Team Asset root '%s' does not have the required bounds functionality - Falling back to generated AABB" % [name, _team_asset_root.name])
+	if _physics_body_root:
+		var aabb := Collisions.calculate_aabb(_physics_body_root)
+		if aabb.has_volume():
+			return Bounds.new(aabb)
+		push_warning("%s: Could not calculate bounds for physics body root: %s - will not be updated to fit collision bounds!" % [name, _physics_body_root.name])
+	else:
+		push_warning("%s: No team asset root or physics body exists in hierarchy - will not be updated to fit collision bounds!" % name)
 		
+	return null
+func _build_obstacle_bounds() -> void:
 	# Vertices are in local space
-	var bounds:Bounds = Bounds.new(_team_asset_root.get_bounds(), _team_asset_root.bounds_type)
+	var bounds:Bounds = _get_obstacle_bounds_local()
+	if not bounds:
+		return
 	
 	var vertices:PackedVector3Array
 	var height:float = 0.0
