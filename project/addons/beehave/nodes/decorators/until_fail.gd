@@ -28,7 +28,9 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		return RUNNING
 	if response == SUCCESS:
 		c.after_run(actor, blackboard)
+		# Reset running child so that before_run will be triggered again on next tick
+		running_child = null
 		return RUNNING
 
-	c.after_run(actor, blackboard)
+	c.after_run(actor, blackboard)	
 	return SUCCESS
