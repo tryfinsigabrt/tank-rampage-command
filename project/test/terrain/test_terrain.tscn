@@ -128,6 +128,7 @@ metadata/_edit_lock_ = true
 [node name="VehicleForestVolume" parent="World/NavigationRegion3D/BlockingVolumes" unique_id=931215775 instance=ExtResource("5_575d2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.1, 0, -77.200005)
 collision_layer = 544
+gameplay_draw = false
 shape = SubResource("BoxShape3D_575d2")
 
 [node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("6_sttne")]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://bmska4037wbdf"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_6spfh"]
-[ext_resource type="Script" path="res://ui/hud/command_chip.gd" id="2_i11bo"]
+[ext_resource type="Script" uid="uid://dk0s33o7spwsc" path="res://ui/hud/command_chip.gd" id="2_i11bo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
 bg_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
@@ -18,23 +18,14 @@ corner_radius_bottom_left = 2
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_command_icon"]
 size = Vector2(64, 64)
 
-[node name="CommandChip" type="PanelContainer"]
+[node name="CommandChip" type="PanelContainer" unique_id=1430574990]
 custom_minimum_size = Vector2(64, 64)
+mouse_filter = 1
 theme = ExtResource("1_6spfh")
 theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
 script = ExtResource("2_i11bo")
-mouse_filter = 1
-mouse_filter = 1
 
-[node name="Padding" type="MarginContainer" parent="."]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="CommandIcon" type="TextureRect" parent="Padding"]
+[node name="CommandIcon" type="TextureRect" parent="." unique_id=412064244]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2

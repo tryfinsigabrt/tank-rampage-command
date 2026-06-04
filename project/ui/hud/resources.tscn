@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3pf0r"]
 [ext_resource type="Script" uid="uid://dkmwdsmumgog" path="res://ui/hud/resources.gd" id="1_d83mv"]
-[ext_resource type="PackedScene" path="res://ui/hud/icons/personnel_icon.tscn" id="3_npu3s"]
-[ext_resource type="PackedScene" path="res://ui/hud/icons/scrap_icon.tscn" id="4_6a17m"]
+[ext_resource type="PackedScene" uid="uid://cgulvmn4i8c5l" path="res://ui/hud/icons/personnel_icon.tscn" id="3_npu3s"]
+[ext_resource type="PackedScene" uid="uid://cpiwayxfniui7" path="res://ui/hud/icons/scrap_icon.tscn" id="4_6a17m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.88)
@@ -37,10 +37,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
 [node name="ResourcePanelPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel" unique_id=1586868919]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="Chips" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding" unique_id=1245785664]
 layout_mode = 2
@@ -52,39 +52,32 @@ custom_minimum_size = Vector2(138, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="PersonnelChipPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip" unique_id=1205311271]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="PersonnelContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding" unique_id=993481480]
+[node name="PersonnelContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip" unique_id=993481480]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="PersonnelBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=1545242448 instance=ExtResource("3_npu3s")]
+[node name="PersonnelBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelContent" unique_id=1545242448 instance=ExtResource("3_npu3s")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PersonnelText" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=172084274]
+[node name="PersonnelText" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelContent" unique_id=172084274]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="PersonnelValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent/PersonnelText" unique_id=1398597137]
+[node name="PersonnelValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelContent/PersonnelText" unique_id=1398597137]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98039216, 1, 0.92156863, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 28
 text = "10/20"
 
-[node name="PersonnelQueuedValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent/PersonnelText" unique_id=1456727490]
+[node name="PersonnelQueuedValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelContent/PersonnelText" unique_id=1456727490]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.49803922, 0.92941177, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 24
 text = "+4"
 
 [node name="ScrapChip" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips" unique_id=1226843715]
@@ -93,25 +86,17 @@ custom_minimum_size = Vector2(116, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ScrapChipPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip" unique_id=976786818]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="ScrapContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding" unique_id=312761862]
+[node name="ScrapContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip" unique_id=312761862]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ScrapBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=1296181524 instance=ExtResource("4_6a17m")]
+[node name="ScrapBadge" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapContent" unique_id=1296181524 instance=ExtResource("4_6a17m")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ScrapValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=319128694]
+[node name="ScrapValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapContent" unique_id=319128694]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9196078, 0.5568628, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 28
 text = "10000"

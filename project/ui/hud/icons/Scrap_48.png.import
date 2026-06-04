@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce4cie7adrx5b"
-path="res://.godot/imported/move_and_attack.png-befcb698de052dc691aa65d007c5a9d9.ctex"
+uid="uid://pyx117eh3y4y"
+path="res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/move_and_attack.png"
-dest_files=["res://.godot/imported/move_and_attack.png-befcb698de052dc691aa65d007c5a9d9.ctex"]
+source_file="res://ui/hud/icons/Scrap_48.png"
+dest_files=["res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
