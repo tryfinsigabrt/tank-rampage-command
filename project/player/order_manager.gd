@@ -10,6 +10,9 @@ var position_distribution:PositionDistributor
 var target_asset_selection_effect:AssetSelectionEffect
 
 @export
+var follow_unit_selection_effect:AssetSelectionEffect
+
+@export
 var move_to_effect:GroundActionIndicator
 
 @export
@@ -97,7 +100,7 @@ func follow(leader:Unit) -> void:
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Follow)
 	
 	_reset_effects()
-	# TODO: Trigger effect of making the leader unit turn blue to indicate it is being followed
+	follow_unit_selection_effect.toggle_selection(leader, true)
 		
 func stop() -> void:
 	var units := selection_manager.get_selected_units_on_team()
@@ -126,11 +129,14 @@ func hold() -> void:
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Hold)
 	
 	_reset_effects()	
+
 func _reset_effects() -> void:
 	move_to_effect.hide()
 	attack_move_effect.hide()
 	attack_position_effect.hide()
+	
 	target_asset_selection_effect.disable_all()
+	follow_unit_selection_effect.disable_all()	
 	
 func attack_position(position:Vector3) -> bool:
 	var units := selection_manager.get_selected_units_on_team()
