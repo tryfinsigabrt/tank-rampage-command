@@ -79,6 +79,26 @@ func attack(to_attack:Node3D) -> void:
 	_reset_effects()
 	target_asset_selection_effect.toggle_selection(to_attack, true)
 
+func follow(leader:Unit) -> void:
+	var units := selection_manager.get_selected_units_on_team()
+	if not units:
+		return
+	
+	# unit must be on same team and must not already be in selected group
+	if not is_instance_valid(leader) or not leader.is_on_team(selection_manager.team) or leader in units:
+		print_debug("%s: Skip as leader=%s must be on same team and not already in selection" % [name, StringUtils.safe_name(leader)])
+		return
+	
+	for unit in units:
+		var unit_actions := unit.get_or_add_actions()
+		unit_actions.follow(leader)
+	
+	selection_manager.unit_order_dispatched()
+	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Follow)
+	
+	_reset_effects()
+	# TODO: Trigger effect of making the leader unit turn blue to indicate it is being followed
+		
 func stop() -> void:
 	var units := selection_manager.get_selected_units_on_team()
 	if not units:

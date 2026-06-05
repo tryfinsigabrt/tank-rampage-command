@@ -84,7 +84,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	# This is the context-aware "right click" mode that doesn't take _mode into account	
 	# Attacks unit if selects an enemy unit, follows an ally unit
-	elif event.is_action_pressed("unit_move_to"):
+	elif event.is_action_pressed("unit_smart_action"):
 		_handle_context_action(event)
 	
 func _handle_toggle_asset(event: InputEvent) -> void:
@@ -117,8 +117,7 @@ func _handle_context_action(event: InputEvent) -> void:
 	var selected:Node3D = node_picker.pick_team_asset(event)
 	if selected:
 		if selected.team_component.is_on_team(team):
-			# TODO: Follow not currently implemented so just move to
-			_move_to(event)
+			_handle_follow_action(event, selected)
 		else:
 			order_manager.attack(selected)
 	else:
@@ -127,6 +126,15 @@ func _handle_context_action(event: InputEvent) -> void:
 func _can_issue_orders_to_unit(unit: Unit) -> bool:
 	return unit and unit.team == team
 	
+func _handle_follow_action(event: InputEvent, selected: Node3D) -> void:
+	if not selection_manager.any_units_same_team:
+		return
+		
+	if selected is Unit:
+		order_manager.follow(selected)
+	else:
+		_move_to(event)
+		
 func _move_to(event: InputEvent) -> void:
 	if not selection_manager.any_units_same_team:
 		return
