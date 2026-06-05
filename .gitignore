@@ -25,3 +25,6 @@ logs/
 # Krita temp files
 *.kra~
 *.png~
+
+# Material Maker Temp Files
+*.ptex.mmcr

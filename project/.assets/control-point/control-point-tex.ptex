@@ -7,12 +7,6 @@
 			"to_port": 0
 		},
 		{
-			"from": "shape_2",
-			"from_port": 0,
-			"to": "blend2",
-			"to_port": 1
-		},
-		{
 			"from": "blend2",
 			"from_port": 0,
 			"to": "combine",
@@ -41,6 +35,18 @@
 			"from_port": 0,
 			"to": "Material",
 			"to_port": 0
+		},
+		{
+			"from": "shape_2",
+			"from_port": 0,
+			"to": "fast_blur",
+			"to_port": 0
+		},
+		{
+			"from": "shape_2",
+			"from_port": 0,
+			"to": "blend2",
+			"to_port": 1
 		}
 	],
 	"label": "Graph",
@@ -76,7 +82,7 @@
 				"metallic": 0.0,
 				"normal": 1.0,
 				"roughness": 1.0,
-				"size": 9,
+				"size": 9.0,
 				"sss": 1.0
 			},
 			"seed_int": 0,
@@ -85,12 +91,12 @@
 		{
 			"name": "shape",
 			"node_position": {
-				"x": -538.457214355469,
-				"y": -391.904724121094
+				"x": -643.457214355469,
+				"y": -404.904724121094
 			},
 			"parameters": {
-				"edge": 0.1,
-				"radius": 0.9,
+				"edge": 0.03,
+				"radius": 0.95,
 				"shape": 0.0,
 				"sides": 6.0
 			},
@@ -100,12 +106,12 @@
 		{
 			"name": "shape_2",
 			"node_position": {
-				"x": -540.831970214844,
-				"y": -225.412994384766
+				"x": -653.001098632813,
+				"y": -190.058792114258
 			},
 			"parameters": {
-				"edge": 0.2,
-				"radius": 0.7,
+				"edge": 0.03,
+				"radius": 0.92,
 				"shape": 0.0,
 				"sides": 6.0
 			},
@@ -139,7 +145,7 @@
 			},
 			"parameters": {
 				"amount1": 1.0,
-				"blend_type1": 11
+				"blend_type1": 11.0
 			},
 			"seed_int": 0,
 			"type": "blend2"
@@ -147,14 +153,14 @@
 		{
 			"name": "fast_blur",
 			"node_position": {
-				"x": -266.207427978516,
-				"y": -5.1063232421875
+				"x": -291.672424316406,
+				"y": -18.5313205718994
 			},
 			"parameters": {
 				"param0": 11.0,
-				"param1": 100.0,
-				"param2": 1.0,
-				"param3": 1.0
+				"param1": 1.0,
+				"param2": 3.0,
+				"param3": 10.0
 			},
 			"seed_int": 0,
 			"type": "fast_blur"
