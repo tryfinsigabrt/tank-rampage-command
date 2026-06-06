@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://hrs1rakf5iql" path="res://structures/bunker/bunker.tscn" id="5_0vvam"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="7_alybg"]
+[ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="8_txgmq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
 size = Vector3(10, 4, 10)
@@ -61,6 +62,9 @@ unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
 
+[node name="UnitContainerComponent" parent="Components" unique_id=58222699 instance=ExtResource("8_txgmq")]
+unique_name_in_owner = true
+
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("7_alybg")]
 default_avoidance_layers = 1
 affects_unit_classes = Array[int]([1, 2, 3])
@@ -68,3 +72,5 @@ affects_unit_classes = Array[int]([1, 2, 3])
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+[connection signal="on_unit_added" from="Components/UnitContainerComponent" to="." method="_on_unit_added"]
+[connection signal="on_unit_removed" from="Components/UnitContainerComponent" to="." method="_on_unit_removed"]

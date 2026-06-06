@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cvnoobxwdwhuh"]
+
+[ext_resource type="Script" uid="uid://exciy2pe6mae" path="res://core/unit_container_component.gd" id="1_7cwav"]
+
+[node name="UnitContainerComponent" type="Node" unique_id=1753319725]
+script = ExtResource("1_7cwav")
+metadata/_custom_type_script = "uid://exciy2pe6mae"
