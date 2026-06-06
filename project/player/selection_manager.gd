@@ -4,36 +4,32 @@ var team:int
 
 var _selected_units:PackedInt64Array = []
 var _selected_buildings:PackedInt64Array = []
+var _selected_structures:PackedInt64Array = []
 
 @export
 var _asset_selection_effect:AssetSelectionEffect
 
 var any:bool:
-	get: return not _selected_units.is_empty() or not _selected_buildings.is_empty()
+	get: return not _selected_units.is_empty() or not _selected_buildings.is_empty() or not _selected_structures.is_empty()
 	
 var any_same_team:bool:
-	get: return any_units_same_team or any_buildings_same_team
+	get: return any_units_same_team or any_buildings_same_team or any_structures_same_team
 	
 var any_units:bool:
 	get: return not _selected_units.is_empty()
 	
 var any_buildings:bool:
 	get: return not _selected_buildings.is_empty()
+
+var any_structures:bool:
+	get: return not _selected_structures.is_empty()
 	
 var any_buildings_same_team:bool:
-	get:
-		if not any_buildings:
-			return false
-		for id in _selected_buildings:
-			var building:Building = instance_from_id(id)
-			if not building:
-				continue
-			if is_on_same_team(building):
-				return true
-		return false
+	get: return _are_any_on_same_team(_selected_buildings)
 		
 var any_units_same_team:bool:
 	get:
+		# units have a dedicated is_on_team function so use a custom impl instead of generic _are_any_on_same_team
 		if not any_units:
 			return false
 		for id in _selected_units:
@@ -41,6 +37,9 @@ var any_units_same_team:bool:
 			if unit and unit.is_on_team(team):
 				return true
 		return false
+
+var any_structures_same_team:bool:
+	get: return _are_any_on_same_team(_selected_structures)
 	
 var selected_units:Array[Unit]:
 	get:
@@ -53,21 +52,30 @@ var selected_buildings:Array[Building]:
 		var buildings:Array[Building]
 		NodeUtils.populate_instances(_selected_buildings, buildings)
 		return buildings
-		
+	
+var selected_structures:Array[DefensiveStructure]:
+	get:
+		var structures:Array[DefensiveStructure]
+		NodeUtils.populate_instances(_selected_structures, structures)
+		return structures
+			
 var all_selected:Array[Node3D]:
 	get:
 		var all:Array[Node3D]
 		
 		NodeUtils.populate_instances(_selected_units, all)
 		NodeUtils.populate_instances(_selected_buildings, all)
+		NodeUtils.populate_instances(_selected_structures, all)
 		
 		return all
 		
 var all_selected_same_team:Array[Node3D]:
 	get:
 		var all:Array[Node3D]
+		
 		NodeUtils.populate_instances(_selected_units, all, is_on_same_team)
 		NodeUtils.populate_instances(_selected_buildings, all, is_on_same_team)
+		NodeUtils.populate_instances(_selected_structures, all, is_on_same_team)
 		
 		return all
 
@@ -78,12 +86,22 @@ func is_on_same_team(node: Node3D) -> bool:
 func _ready() -> void:
 	if not _asset_selection_effect:
 		push_warning("%s: Asset Selection Effect not set - no selection rendering will occur!" % name)
-				
+
+func _are_any_on_same_team(asset_ids:PackedInt64Array) -> bool:
+	for id in asset_ids:
+		var asset:Node3D = instance_from_id(id)
+		if asset and is_on_same_team(asset):
+			return true
+	return false
+					
 func get_selected_units_on_team() -> Array[Unit]:
 	return _get_selected_on_team(selected_units, [] as Array[Unit])
 	
 func get_selected_buildings_on_team() -> Array[Building]:
 	return _get_selected_on_team(selected_buildings, [] as Array[Building])
+
+func get_selected_structures_on_team() -> Array[DefensiveStructure]:
+	return _get_selected_on_team(selected_structures, [] as Array[DefensiveStructure])
 		
 func _get_selected_on_team(selection:Array, filtered:Array) -> Array:
 	var uniform:bool = true
@@ -115,6 +133,7 @@ func clear() -> void:
 func _clear_internal() -> void:
 	_selected_units.clear()
 	_selected_buildings.clear()
+	_selected_structures.clear()
 	
 func add_all(assets: Array) -> void:
 	for asset:Node3D in assets:
@@ -169,8 +188,7 @@ func add(asset:Node3D) -> bool:
 	if asset is Building:
 		return _add_building(asset)
 	if asset is DefensiveStructure:
-		# TODO: handle adding structure to selection or just skip
-		return false
+		return _add_structure(asset)
 		
 	assert(false, "asset=%s is not a supported type!" % [asset.name])		
 	return false
@@ -181,7 +199,7 @@ func unit_order_dispatched() -> void:
 	
 func _add_unit(unit:Unit) -> bool:
 	var id:int = unit.get_instance_id()
-	if not id in _selected_units:
+	if id not in _selected_units:
 		_selected_units.push_back(id)
 		SignalBus.on_unit_selected.emit(unit)
 		return true
@@ -189,12 +207,20 @@ func _add_unit(unit:Unit) -> bool:
 
 func _add_building(building:Building) -> bool:
 	var id:int = building.get_instance_id()
-	if not id in _selected_buildings:
+	if id not in _selected_buildings:
 		_selected_buildings.push_back(id)
 		SignalBus.on_building_selected.emit(building)
 		return true
 	return false
-	
+
+func _add_structure(structure:DefensiveStructure) -> bool:
+	var id:int = structure.get_instance_id()
+	if id not in _selected_structures:
+		_selected_structures.push_back(id)
+		SignalBus.on_structure_selected.emit(structure)
+		return true
+	return false
+		
 func remove_all(assets:Array) -> void:
 	for asset:Node3D in assets:
 		remove(asset)
@@ -208,6 +234,8 @@ func remove(asset:Node3D) -> bool:
 		erased = _selected_units.erase(asset.get_instance_id())
 	elif asset is Building:
 		erased = _selected_buildings.erase(asset.get_instance_id())
+	elif asset is DefensiveStructure:
+		erased = _selected_structures.erase(asset.get_instance_id())
 	else:
 		return false
 	
@@ -225,6 +253,9 @@ func _do_deselect(asset:Node3D) -> void:
 	elif asset is Building:
 		print_debug("%s: De-select building=%s" % [name, asset.name])
 		SignalBus.on_building_deselected.emit(asset)
+	elif asset is DefensiveStructure:
+		print_debug("%s: De-select structure=%s" % [name, asset.name])
+		SignalBus.on_structure_deselected.emit(asset)
 	
 func has(asset:Node3D) -> bool:
 	if not asset:
@@ -233,6 +264,8 @@ func has(asset:Node3D) -> bool:
 		return asset.get_instance_id() in _selected_units
 	elif asset is Building:
 		return asset.get_instance_id() in _selected_buildings
+	elif asset is DefensiveStructure:
+		return asset.get_instance_id() in _selected_structures
 	return false
 	
 ## Adds if not present and removes otherwise
