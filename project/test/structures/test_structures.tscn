@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dciuecqknn77y" path="res://structures/sandbags/sandbags_structure.tscn" id="16_eppw5"]
 [ext_resource type="PackedScene" uid="uid://cymly4bxhw47c" path="res://structures/landmines/landmine_structure.tscn" id="17_eppw5"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="17_inwmp"]
+[ext_resource type="PackedScene" uid="uid://nt05r3qybt2g" path="res://structures/bunker/bunker_structure.tscn" id="18_aubyk"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="18_bpls6"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="19_hjb7q"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="20_ida0i"]
@@ -274,6 +275,12 @@ team = 2
 
 [node name="Landmine10" parent="World/Match/PlayerTeam/Structures/Mines" unique_id=1297964326 instance=ExtResource("17_eppw5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.4, 0, 68.1)
+team = 2
+
+[node name="Bunkers" type="Node3D" parent="World/Match/PlayerTeam/Structures" unique_id=1573479602]
+
+[node name="BunkerStructure" parent="World/Match/PlayerTeam/Structures/Bunkers" unique_id=427098526 instance=ExtResource("18_aubyk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.47252, 0, 94.76298)
 team = 2
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("17_inwmp")]

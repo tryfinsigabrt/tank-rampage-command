@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://hrs1rakf5iql"]
+
+[ext_resource type="PackedScene" uid="uid://01w0dsqcl5vj" path="res://structures/bunker/bunker.glb" id="1_2t3jb"]
+[ext_resource type="Texture2D" uid="uid://dr8rlv2p3giht" path="res://structures/bunker/cement_baked_diffuse.png" id="2_2sllx"]
+[ext_resource type="Texture2D" uid="uid://uxebfd7uok44" path="res://structures/bunker/cement_baked_normal.png" id="2_yfbqp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2sllx"]
+albedo_texture = ExtResource("2_2sllx")
+normal_enabled = true
+normal_texture = ExtResource("2_yfbqp")
+
+[node name="Bunker" type="Node3D" unique_id=1274962094]
+
+[node name="bunker" parent="." unique_id=1013236178 instance=ExtResource("1_2t3jb")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+
+[node name="Cube" parent="bunker" index="0" unique_id=1489915978]
+surface_material_override/0 = SubResource("StandardMaterial3D_2sllx")
+
+[editable path="bunker"]
