@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://df6b8ys2gb72d"]
+
+[ext_resource type="Script" uid="uid://dcr1bdl4w1sr1" path="res://sounds/shoot_sfx.gd" id="1_wmbc2"]
+
+[node name="ShootSfx" type="Node3D" unique_id=1748265597]
+script = ExtResource("1_wmbc2")
+
+[node name="ShootSfx" type="AudioStreamPlayer3D" parent="." unique_id=65979590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)
+volume_db = 6.0
+unit_size = 500.0
+max_db = 6.0
+max_distance = 1500.0
+bus = &"Sfx"

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cuh5crtdvqiwo"]
+
+[ext_resource type="PackedScene" uid="uid://df6b8ys2gb72d" path="res://sounds/shoot_sfx.tscn" id="1_3hch6"]
+[ext_resource type="AudioStream" uid="uid://cbwbqw27b1nfx" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_stream.tres" id="2_u45if"]
+
+[node name="ArtilleryShootSfx" unique_id=1748265597 instance=ExtResource("1_3hch6")]
+
+[node name="ShootSfx" parent="." index="0" unique_id=65979590]
+stream = ExtResource("2_u45if")
+volume_db = 8.0
+pitch_scale = 0.8

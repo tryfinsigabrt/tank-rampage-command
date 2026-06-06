@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bmim3nx5ckc8q" path="res://particles/hit/scene_spawning_hit_vfx.gd" id="12_v88ec"]
 [ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/hit/artillery_explosion_vfx_spawner.tscn" id="13_v0tda"]
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="14_pxuev"]
+[ext_resource type="PackedScene" uid="uid://cuh5crtdvqiwo" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_sfx.tscn" id="18_r8l68"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -110,10 +111,11 @@ update_scale = false
 unique_name_in_owner = true
 gizmo_extents = 2.62
 
-[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("hit_vfx", "launch_trace_node") instance=ExtResource("7_uf7ra")]
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
 shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
+shoot_sfx = NodePath("ArtilleryShootSfx")
 hit_vfx = NodePath("HitVfx")
 min_distance = 75.0
 max_distance_range = Vector2(200, 450)
@@ -145,6 +147,8 @@ scene_properties = Dictionary[StringName, Variant]({
 &"explosion_radius": 50.0
 })
 metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
+
+[node name="ArtilleryShootSfx" parent="WeaponTrace/Weapon" unique_id=1748265597 instance=ExtResource("18_r8l68")]
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

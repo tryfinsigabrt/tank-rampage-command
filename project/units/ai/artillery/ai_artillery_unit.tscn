@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://rx6bk05esv8e" path="res://units/ai/artillery/ai_artillery_dark.tres" id="3_8dfaq"]
 [ext_resource type="Material" uid="uid://e1x11ebf5jc6" path="res://units/ai/artillery/ai_artillery_light.tres" id="4_l2mj7"]
 [ext_resource type="Material" uid="uid://cppbqfnncmwad" path="res://units/human/marine/material/marine_red.tres" id="5_xx754"]
+[ext_resource type="AudioStream" uid="uid://cgia6o1vhoh20" path="res://sounds/tank_sfx/tank_fire/enemy_artillery_shoot_stream.tres" id="6_8dfaq"]
 
 [node name="HumanArtilleryUnit" unique_id=1517178385 instance=ExtResource("1_bk6as")]
 
@@ -98,9 +99,14 @@ surface_material_override/0 = ExtResource("4_l2mj7")
 [node name="Wheel__9_" parent="VisualRoot/ArtilleryBody" parent_id_path=PackedInt32Array(832701472) index="14" unique_id=1689422705]
 surface_material_override/0 = ExtResource("4_l2mj7")
 
+[node name="ShootSfx" parent="WeaponTrace/Weapon/ArtilleryShootSfx" parent_id_path=PackedInt32Array(1748265597) index="0" unique_id=65979590]
+stream = ExtResource("6_8dfaq")
+pitch_scale = 1.1
+
 [editable path="VisualRoot/TurretPivot/Turret"]
 [editable path="VisualRoot/TurretPivot/Turret/GunnerPanel/marine"]
 [editable path="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel"]
 [editable path="VisualRoot/ArtilleryBody"]
 [editable path="GameUnitNavigation"]
 [editable path="WeaponTrace/Weapon"]
+[editable path="WeaponTrace/Weapon/ArtilleryShootSfx"]
