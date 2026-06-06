@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioStreamConfig" format=3 uid="uid://d0j0jg2357m2b"]
+
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="1_o261a"]
+[ext_resource type="AudioStream" uid="uid://ywgg8pdau5qe" path="res://sounds/tank_sfx/impact_sounds/vehicle_hit_stream.tres" id="2_67l2n"]
+
+[resource]
+script = ExtResource("1_o261a")
+stream = ExtResource("2_67l2n")
+play_from = 0.1
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"

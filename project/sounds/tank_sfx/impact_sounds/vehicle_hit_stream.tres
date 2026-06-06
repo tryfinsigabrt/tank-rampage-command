@@ -1,0 +1,18 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://ywgg8pdau5qe"]
+
+[ext_resource type="AudioStream" uid="uid://h8ak4jnehtcl" path="res://sounds/tank_sfx/impact_sounds/crash_full_3.mp3" id="1_iv0ap"]
+[ext_resource type="AudioStream" uid="uid://c6h2om3ik3doa" path="res://sounds/tank_sfx/impact_sounds/crash_full_4.mp3" id="2_shyey"]
+[ext_resource type="AudioStream" uid="uid://p6saok037cto" path="res://sounds/tank_sfx/impact_sounds/crash_full_5.mp3" id="3_utpgd"]
+[ext_resource type="AudioStream" uid="uid://bpai7vjpu7hp6" path="res://sounds/tank_sfx/impact_sounds/metal_bang.mp3" id="4_3wg46"]
+[ext_resource type="AudioStream" uid="uid://cif0v6ltqk70r" path="res://sounds/tank_sfx/impact_sounds/metal_bang_2.mp3" id="5_odulv"]
+
+[resource]
+playback_mode = 1
+random_pitch = 1.0594631
+random_volume_offset_db = 1.0
+streams_count = 5
+stream_0/stream = ExtResource("1_iv0ap")
+stream_1/stream = ExtResource("2_shyey")
+stream_2/stream = ExtResource("3_utpgd")
+stream_3/stream = ExtResource("4_3wg46")
+stream_4/stream = ExtResource("5_odulv")

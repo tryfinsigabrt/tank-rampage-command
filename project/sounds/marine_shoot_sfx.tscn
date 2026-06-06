@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bcihjgy36csgl"]
+
+[ext_resource type="PackedScene" uid="uid://df6b8ys2gb72d" path="res://sounds/shoot_sfx.tscn" id="1_05pah"]
+[ext_resource type="AudioStream" uid="uid://cxpqcwxv56f7b" path="res://sounds/marine_shooting_distant_gunfire.wav" id="2_38kyo"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_02c0l"]
+random_pitch = 1.0174797
+random_volume_offset_db = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("2_38kyo")
+
+[node name="MarineShootSfx" unique_id=1748265597 instance=ExtResource("1_05pah")]
+
+[node name="ShootSfx" parent="." index="0" unique_id=65979590]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+stream = SubResource("AudioStreamRandomizer_02c0l")
+volume_db = 4.0
+unit_size = 200.0
+max_db = 4.0
+max_polyphony = 4

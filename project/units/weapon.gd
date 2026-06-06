@@ -28,7 +28,7 @@ enum TraceType
 @export var shoot_vfx_origin_path: NodePath
 @export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
 
-@export var shoot_sfx:Node
+@export var shoot_sfx:ShootSfx
 
 @export var hit_vfx:HitVfx
 @export var hit_vfx_size: HitVfx.SizePreset = HitVfx.SizePreset.NORMAL
@@ -182,7 +182,7 @@ func fire() -> void:
 		_shoot_vfx.shoot()
 	
 	if shoot_sfx:
-		shoot_sfx.play()
+		shoot_sfx.play_shoot()
 	
 	_set_cooldown()
 	
@@ -277,6 +277,9 @@ func _hit_scan() -> void:
 	damage_emitter.damage(damage_params)
 	
 	hit_vfx.start(damage_params)
+	
+	if shoot_sfx:
+		shoot_sfx.play_hit(damage_params)
 
 func _check_hit(query: PhysicsRayQueryParameters3D, out_result:Dictionary) -> bool:
 	var space := get_world_3d().direct_space_state

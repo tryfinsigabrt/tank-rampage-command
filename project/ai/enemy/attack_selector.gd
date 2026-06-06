@@ -31,7 +31,7 @@ func _execute() -> void:
 	var total_weight:float = 0.0	
 	for priority in attack_priorities:
 		var unit:Unit = priority.unit
-		if unit.get_instance_id() not in _currently_attacking_mapping:
+		if is_instance_valid(unit) and unit.get_instance_id() not in _currently_attacking_mapping:
 			_new_attacks.push_back(priority)
 			total_weight += priority.weight
 	
