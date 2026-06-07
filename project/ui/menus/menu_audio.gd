@@ -1,8 +1,8 @@
 extends Node
 class_name MenuAudio
 
-const BUTTON_HOVER_STREAM: AudioStream = preload("res://sounds/ui-cursor-hover.wav")
-const BUTTON_SELECT_STREAM: AudioStream = preload("res://sounds/ui-cursor-select.wav")
+const BUTTON_HOVER_STREAM: AudioStream = preload("res://sounds/ui_cursor_hover.wav")
+const BUTTON_SELECT_STREAM: AudioStream = preload("res://sounds/ui_cursor_select.wav")
 
 static var _button_signal_audio_streams: Dictionary[StringName, AudioStream]
 
