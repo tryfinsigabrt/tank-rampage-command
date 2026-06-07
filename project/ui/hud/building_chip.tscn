@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://tkb3vp3t5ssx"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w0p3g"]
-[ext_resource type="PackedScene" path="res://ui/hud/icons/scrap_icon.tscn" id="2_wsvtr"]
-[ext_resource type="PackedScene" uid="uid://cgulvmn4i8c5l" path="res://ui/hud/icons/personnel_icon.tscn" id="3_kr7vj"]
-[ext_resource type="PackedScene" path="res://ui/hud/icons/inventory_icon.tscn" id="4_4g3eo"]
+[ext_resource type="Texture2D" uid="uid://pyx117eh3y4y" path="res://ui/hud/icons/scrap_48.png" id="2_k47vp"]
+[ext_resource type="Texture2D" uid="uid://bj8bcf3nj4tkb" path="res://ui/hud/icons/personel_48.png" id="3_yi5w2"]
+[ext_resource type="Texture2D" uid="uid://dmfr52l4h2mp7" path="res://ui/hud/icons/inventory_48.png" id="4_8u5m6"]
 [ext_resource type="Script" uid="uid://bs4857vjbg4lk" path="res://ui/hud/building_chip.gd" id="4_h2n1j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
@@ -37,6 +37,27 @@ content_margin_left = 6.0
 content_margin_right = 6.0
 bg_color = Color(0.015686275, 0.023529412, 0.03137255, 0.88)
 corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scrap_badge"]
+bg_color = Color(0.59607846, 0.4117647, 0.06666667, 1)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_personnel_badge"]
+bg_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inventory_badge"]
+bg_color = Color(0.2901961, 0.40392157, 0.2901961, 1)
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unavailable_overlay"]
 bg_color = Color(0, 0, 0, 0.45)
@@ -120,7 +141,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_count_badge")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CountBadgeValue" type="Label" parent="Padding/Content/IconBack/CountBadge/CountCenter" unique_id=1796405396]
+[node name="CountLabel" type="Label" parent="Padding/Content/IconBack/CountBadge/CountCenter" unique_id=1796405396]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
@@ -142,10 +163,18 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="Icon" parent="Padding/Content/CostRow/ScrapCost" unique_id=1063351846 instance=ExtResource("2_wsvtr")]
-custom_minimum_size = Vector2(20, 20)
+[node name="ScrapCostIcon" type="PanelContainer" parent="Padding/Content/CostRow/ScrapCost" unique_id=1063351846]
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_scrap_badge")
+
+[node name="Icon" type="TextureRect" parent="Padding/Content/CostRow/ScrapCost/ScrapCostIcon" unique_id=1129746008]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("2_k47vp")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="ScrapCostValue" type="Label" parent="Padding/Content/CostRow/ScrapCost" unique_id=228134685]
 unique_name_in_owner = true
@@ -154,38 +183,54 @@ theme_override_colors/font_color = Color(1, 0.9098039, 0.5294118, 1)
 theme_override_font_sizes/font_size = 22
 text = "150"
 
-[node name="PersonnelCost" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=1672628504]
+[node name="PersonnelCostRow" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=1672628504]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="PersonnelCostIcon" parent="Padding/Content/CostRow/PersonnelCost" unique_id=2117759278 instance=ExtResource("3_kr7vj")]
+[node name="PersonnelCostIcon" type="PanelContainer" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=2117759278]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_personnel_badge")
 
-[node name="PersonnelCostValue" type="Label" parent="Padding/Content/CostRow/PersonnelCost" unique_id=1931757475]
+[node name="Icon" type="TextureRect" parent="Padding/Content/CostRow/PersonnelCostRow/PersonnelCostIcon" unique_id=1365220604]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("3_yi5w2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PersonnelCostValue" type="Label" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=1931757475]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5254902, 0.92941177, 0.98039216, 1)
 theme_override_font_sizes/font_size = 22
 text = "0"
 
-[node name="InventoryCount" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=80901377]
+[node name="InventoryCountRow" type="HBoxContainer" parent="Padding/Content/CostRow" unique_id=80901377]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="InventoryCountIcon" parent="Padding/Content/CostRow/InventoryCount" unique_id=1841549518 instance=ExtResource("4_4g3eo")]
+[node name="InventoryCountIcon" type="PanelContainer" parent="Padding/Content/CostRow/InventoryCountRow" unique_id=1841549518]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_inventory_badge")
 
-[node name="InventoryCountValue" type="Label" parent="Padding/Content/CostRow/InventoryCount" unique_id=1143144923]
+[node name="Icon" type="TextureRect" parent="Padding/Content/CostRow/InventoryCountRow/InventoryCountIcon" unique_id=471675693]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("4_8u5m6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InventoryCountValue" type="Label" parent="Padding/Content/CostRow/InventoryCountRow" unique_id=1143144923]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7372549, 0.88235295, 0.7254902, 1)

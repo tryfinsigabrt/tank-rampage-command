@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccgm1ipcd6urm"
-path="res://.godot/imported/clear_spawn.png-dd5129ba6b951e82966d270d0f58a6cb.ctex"
+uid="uid://bj8bcf3nj4tkb"
+path="res://.godot/imported/personel_48.png-76d61658305604a263eff68f52893434.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/clear_spawn.png"
-dest_files=["res://.godot/imported/clear_spawn.png-dd5129ba6b951e82966d270d0f58a6cb.ctex"]
+source_file="res://ui/hud/icons/personel_48.png"
+dest_files=["res://.godot/imported/personel_48.png-76d61658305604a263eff68f52893434.ctex"]
 
 [params]
 

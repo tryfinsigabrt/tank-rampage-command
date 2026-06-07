@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwhblidu32ehc"
-path="res://.godot/imported/move.png-a7acce7761b37b677f79a97488db80f7.ctex"
+uid="uid://cl36eoq64nbck"
+path="res://.godot/imported/hold_64.png-092289b99deb6e85ecd4eadebd2a6a48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/move.png"
-dest_files=["res://.godot/imported/move.png-a7acce7761b37b677f79a97488db80f7.ctex"]
+source_file="res://ui/hud/icons/hold_64.png"
+dest_files=["res://.godot/imported/hold_64.png-092289b99deb6e85ecd4eadebd2a6a48.ctex"]
 
 [params]
 

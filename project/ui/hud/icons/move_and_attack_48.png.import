@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd0ne8xmgb6ms"
-path="res://.godot/imported/set_spawn.png-42570a363621c48de7f97d9fea90a0bd.ctex"
+uid="uid://ybotemp60dey"
+path="res://.godot/imported/move_and_attack_48.png-fb3e9af7cc60be26bb7a6b0aa1229928.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/set_spawn.png"
-dest_files=["res://.godot/imported/set_spawn.png-42570a363621c48de7f97d9fea90a0bd.ctex"]
+source_file="res://ui/hud/icons/move_and_attack_48.png"
+dest_files=["res://.godot/imported/move_and_attack_48.png-fb3e9af7cc60be26bb7a6b0aa1229928.ctex"]
 
 [params]
 

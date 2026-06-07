@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqx0rtqh7fhap"
-path="res://.godot/imported/personnel.png-f6b9a826ca413691f39bf431da0cdcef.ctex"
+uid="uid://cuu1g820edpdp"
+path="res://.godot/imported/clear_spawn_64.png-1028cdeb2957b0e2db0a638ec1a82190.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/personnel.png"
-dest_files=["res://.godot/imported/personnel.png-f6b9a826ca413691f39bf431da0cdcef.ctex"]
+source_file="res://ui/hud/icons/clear_spawn_64.png"
+dest_files=["res://.godot/imported/clear_spawn_64.png-1028cdeb2957b0e2db0a638ec1a82190.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcct5prii77jb"
-path="res://.godot/imported/hold.png-0fb09569215dddb9c6dc7f218eb1727a.ctex"
+uid="uid://3vclvfjrjiik"
+path="res://.godot/imported/move_and_attack_64.png-643d0466f3f55f459167c70ce885fd86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/hold.png"
-dest_files=["res://.godot/imported/hold.png-0fb09569215dddb9c6dc7f218eb1727a.ctex"]
+source_file="res://ui/hud/icons/move_and_attack_64.png"
+dest_files=["res://.godot/imported/move_and_attack_64.png-643d0466f3f55f459167c70ce885fd86.ctex"]
 
 [params]
 

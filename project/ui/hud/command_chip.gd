@@ -5,13 +5,13 @@ signal clicked(command_name: String)
 
 
 const COMMAND_ICONS := {
-	"Move": preload("res://ui/hud/icons/move.png"),
-	"Attack": preload("res://ui/hud/icons/attack.png"),
-	"Move And Attack": preload("res://ui/hud/icons/move_and_attack.png"),
-	"Stop": preload("res://ui/hud/icons/stop.png"),
-	"Hold": preload("res://ui/hud/icons/hold.png"),
-	"Set Spawn Point": preload("res://ui/hud/icons/set_spawn.png"),
-	"Clear Spawn Point": preload("res://ui/hud/icons/clear_spawn.png"),
+	"Move": preload("res://ui/hud/icons/move_64.png"),
+	"Attack": preload("res://ui/hud/icons/attack_64.png"),
+	"Move And Attack": preload("res://ui/hud/icons/move_and_attack_64.png"),
+	"Stop": preload("res://ui/hud/icons/stop_64.png"),
+	"Hold": preload("res://ui/hud/icons/hold_64.png"),
+	"Set Spawn Point": preload("res://ui/hud/icons/set_spawn_64.png"),
+	"Clear Spawn Point": preload("res://ui/hud/icons/clear_spawn_64.png"),
 }
 
 @export var command_name: String:

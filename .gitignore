@@ -28,3 +28,6 @@ logs/
 
 # Material Maker Temp Files
 *.ptex.mmcr
+
+# Affinity
+*.af~lock~

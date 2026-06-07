@@ -21,12 +21,12 @@ var _show_inventory_count: bool = true
 @onready var name_label: Label = %BuildingName
 @onready var scrap_cost: HBoxContainer = %ScrapCost
 @onready var scrap_cost_value: Label = %ScrapCostValue
-@onready var personnel_cost: HBoxContainer = %PersonnelCost
+@onready var personnel_cost: HBoxContainer = %PersonnelCostRow
 @onready var personnel_cost_value: Label = %PersonnelCostValue
-@onready var inventory_count: HBoxContainer = %InventoryCount
+@onready var inventory_count: HBoxContainer = %InventoryCountRow
 @onready var inventory_count_value: Label = %InventoryCountValue
 @onready var count_badge: PanelContainer = %CountBadge
-@onready var count_badge_value: Label = %CountBadgeValue
+@onready var count_badge_value: Label = %CountLabel
 @onready var unavailable_overlay: Control = %UnavailableOverlay
 
 var _inventory_count: int = -1
