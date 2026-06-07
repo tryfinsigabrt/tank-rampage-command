@@ -32,6 +32,7 @@ BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 DebugMenu="*uid://cggqb75a8w8r"
 GameManager="*uid://3t5i7ypkifpd"
+MenuAudio="res://ui/menus/menu_audio.gd"
 
 [debug]
 

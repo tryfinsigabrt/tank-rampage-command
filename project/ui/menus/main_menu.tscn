@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://csvsxw0u0ct37" path="res://ui/menus/main_menu.gd" id="2_5ssi0"]
 [ext_resource type="Texture2D" uid="uid://dc5a7y68hy2il" path="res://ui/menus/TankRampageCommandLogo.png" id="3_1njj5"]
 [ext_resource type="PackedScene" uid="uid://bh4m2d75hvtc3" path="res://ui/project_version_label.tscn" id="3_5ssi0"]
+[ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="5_h223f"]
 
 [node name="MainMenu" type="Control" unique_id=310902899]
 layout_mode = 3
@@ -95,6 +96,12 @@ theme_override_constants/margin_bottom = 20
 [node name="ProjectVersionLabel" parent="OverlayContainer" unique_id=434954575 instance=ExtResource("3_5ssi0")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+
+[node name="MainMenuAudio" type="Node" parent="." unique_id=817749623]
+script = ExtResource("5_h223f")
+metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
+
+[node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="MainMenuAudio" unique_id=651686801]
 
 [connection signal="pressed" from="MainMenu/MainMenuButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MainMenuButtons/Quit" to="." method="_on_quit_pressed"]
