@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://bkr7qj44253ue" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="12_ad4kn"]
 [ext_resource type="Script" uid="uid://1w1cljj5txo8" path="res://ai/unit/maintain_follow_distance.gd" id="13_kg5mj"]
 [ext_resource type="Script" uid="uid://dsf3a8vlolhx8" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="14_poa1y"]
+[ext_resource type="Script" uid="uid://clg4ri55p3j4a" path="res://ai/unit/load_into_command_decorator.gd" id="16_altjp"]
+[ext_resource type="Script" uid="uid://ckj0hsokffdu8" path="res://ai/unit/load_when_arrived.gd" id="17_tswba"]
 
 [node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
@@ -131,6 +133,36 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="MaintainFollowDistance" type="Node" parent="BeehaveTree/CommandSelector/FollowCommand/FollowCommandDecorator/UntilFailDecorator/SimpleParallelComposite" unique_id=247085914]
 script = ExtResource("13_kg5mj")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="LoadIntoCommand" type="Node" parent="BeehaveTree/CommandSelector" unique_id=1132208287]
+script = ExtResource("4_gd3js")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsLoad" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand" unique_id=182120086]
+script = ExtResource("6_ak1gx")
+left_operand = "get_value(\"action\")"
+right_operand = "\"load\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="LoadIntoCommandDecorator" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand" unique_id=305088127]
+script = ExtResource("16_altjp")
+metadata/_custom_type_script = "uid://kfhcykujhf38"
+
+[node name="SimpleParallelComposite" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand/LoadIntoCommandDecorator" unique_id=2011089993]
+script = ExtResource("12_ad4kn")
+metadata/_custom_type_script = "uid://bkr7qj44253ue"
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand/LoadIntoCommandDecorator/SimpleParallelComposite" unique_id=2144809385]
+script = ExtResource("14_poa1y")
+metadata/_custom_type_script = "uid://dsf3a8vlolhx8"
+
+[node name="Move" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand/LoadIntoCommandDecorator/SimpleParallelComposite/AlwaysSucceedDecorator" unique_id=2105804235]
+script = ExtResource("7_2o64v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="LoadWhenArrived" type="Node" parent="BeehaveTree/CommandSelector/LoadIntoCommand/LoadIntoCommandDecorator/SimpleParallelComposite" unique_id=172334129]
+script = ExtResource("17_tswba")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="IdleState" parent="." unique_id=1002371402 instance=ExtResource("11_wbnxj")]

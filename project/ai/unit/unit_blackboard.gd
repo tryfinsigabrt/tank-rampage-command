@@ -4,6 +4,7 @@ class Action:
 	const Move:StringName = &"move"
 	const Attack:StringName = &"attack"
 	const Follow:StringName = &"follow"
+	const Load:StringName = &"load"
 	const MoveAndAttack:StringName = &"move_and_attack"
 	const Stop:StringName = &"stop"
 	const Hold:StringName = &"hold"
@@ -16,6 +17,7 @@ class Keys:
 	const HoldIssued:StringName = &"hold"
 	const FollowDistance:StringName = &"follow_distance"
 	const FollowMovementChangeInterval:StringName = &"follow_movement_change_interval"
+	const LoadIntoDistance:StringName = &"load_into_distance"
 	
 var current_action:StringName:
 	get:

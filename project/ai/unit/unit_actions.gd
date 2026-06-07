@@ -39,6 +39,10 @@ var follow_distance:float = 5.0
 ## when following another unit
 @export
 var follow_movement_change_interval:float = 2.0
+
+## Minimum distance from a unit container component asset (e.g. Bunker) before a unit will load into it
+@export
+var load_into_distance:float = 3.0
 		
 func _ready() -> void:
 	if not unit:
@@ -178,6 +182,24 @@ func follow(friendly:Unit) -> void:
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Follow, StringUtils.safe_name(friendly)])
+
+func load_into(asset:Node3D) -> void:
+	_new_action()
+	_clear_hold()
+	
+	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Load)
+	blackboard.set_value(UnitBlackboard.Keys.TargetNode, asset)
+	blackboard.set_value(UnitBlackboard.Keys.TargetPosition, asset.global_position)
+	blackboard.set_value(UnitBlackboard.Keys.LoadIntoDistance, load_into_distance)
+	
+	enabled = true
+	
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Load, _command_id, {
+		&"target_node": asset
+	} as Dictionary[StringName, Variant])
+	
+	if LogUtils.debug:
+		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Load, StringUtils.safe_name(asset)])
 
 func stop() -> void:
 	_clear_all_actions()

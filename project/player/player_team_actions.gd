@@ -117,7 +117,7 @@ func _handle_context_action(event: InputEvent) -> void:
 	var selected:Node3D = node_picker.pick_team_asset(event)
 	if selected:
 		if selected.team_component.is_on_team(team):
-			_handle_follow_action(event, selected)
+			_handle_friendly_action(event, selected)
 		else:
 			order_manager.attack(selected)
 	else:
@@ -126,12 +126,15 @@ func _handle_context_action(event: InputEvent) -> void:
 func _can_issue_orders_to_unit(unit: Unit) -> bool:
 	return unit and unit.team == team
 	
-func _handle_follow_action(event: InputEvent, selected: Node3D) -> void:
+func _handle_friendly_action(event: InputEvent, selected: Node3D) -> void:
 	if not selection_manager.any_units_same_team:
 		return
 		
 	if selected is Unit:
 		order_manager.follow(selected)
+	# If the selected asset has a UnitContainerComponent then issue a load command
+	elif UnitContainerComponent.has_component(selected):
+		order_manager.load_into(selected)
 	else:
 		_move_to(event)
 		
