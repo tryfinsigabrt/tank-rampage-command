@@ -84,8 +84,8 @@ func _ready() -> void:
 func _disable_all_interactions(node: Node) -> void:
 	# Some structures like land mines also have an area node so need to get all children as well
 	for static_body:CollisionObject3D in Groups.get_children_with_type(node, CollisionObject3D):
-		static_body.collision_mask = 0
-		static_body.collision_layer = 0
+		# This will disable collision
+		static_body.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	# Disable any dynamic obstacles added
 	for dynamic_obstacle:Node in Groups.get_children_with_type(node, DynamicNavObstacle):
