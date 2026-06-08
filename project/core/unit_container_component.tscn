@@ -4,4 +4,6 @@
 
 [node name="UnitContainerComponent" type="Node" unique_id=1753319725]
 script = ExtResource("1_7cwav")
+capacity = null
+supported_unit_classes = null
 metadata/_custom_type_script = "uid://exciy2pe6mae"

@@ -14,6 +14,15 @@ var capacity:int = 4
 
 var units:Array[Unit]
 
+#region Inner Classes
+	
+class Data:
+	var collision_node_process_state:Dictionary[int, Node.ProcessMode] = {}
+
+#endregion
+
+var _unit_state_data:Dictionary[int,Data] = {}
+
 var _team_asset:Node3D
 
 var is_full:bool:
@@ -24,6 +33,12 @@ var is_not_full:bool:
 	
 @export
 var supported_unit_classes:Array[Unit.UnitClass] = [Unit.UnitClass.Soldier]
+
+static func is_in_container(unit:Unit) -> bool:
+	return unit.has_meta(ADDED_META_KEY)
+
+static func get_container_for_unit(unit:Unit) -> UnitContainerComponent:
+	return _get_container_meta_value(unit, ADDED_META_KEY)
 
 func supports_unit(unit:Unit) -> bool:
 	return unit.unit_class in supported_unit_classes
@@ -46,15 +61,19 @@ func add_unit(unit:Unit) -> bool:
 		return false
 			
 	units.push_back(unit)
-	
-	# Set a meta key in case unit needs to query quickly if it is in a container
-	unit.set_meta(ADDED_META_KEY, get_instance_id())
-
-	on_unit_added.emit(unit)
+	_on_add(unit)
 	
 	return true
 	
-func _get_container_meta_value(unit:Unit, key:StringName) -> UnitContainerComponent:
+func _on_add(unit:Unit) -> void:
+	# Set a meta key in case unit needs to query quickly if it is in a container
+	unit.set_meta(ADDED_META_KEY, get_instance_id())
+
+	_disable_unit(unit)
+	
+	on_unit_added.emit(unit)
+
+static func _get_container_meta_value(unit:Unit, key:StringName) -> UnitContainerComponent:
 	if unit.has_meta(key):
 		return instance_from_id(unit.get_meta(key)) as UnitContainerComponent
 	return null
@@ -64,17 +83,21 @@ func remove_unit(unit:Unit) -> bool:
 		return false
 		
 	units.erase(unit)
-	
-	if _get_container_meta_value(unit, ADDED_META_KEY) == self:
-		unit.remove_meta(ADDED_META_KEY)
-	
-	on_unit_removed.emit(unit)
+	_on_remove(unit)
 	
 	return true
 
+func _on_remove(unit:Unit) -> void:
+	if _get_container_meta_value(unit, ADDED_META_KEY) == self:
+		unit.remove_meta(ADDED_META_KEY)
+	
+	_enable_unit(unit)
+	
+	on_unit_removed.emit(unit)
+	
 func remove_all_units() -> void:
 	for unit in units:
-		on_unit_removed.emit(unit)
+		_on_remove(unit)
 	
 	units.clear()
 	
@@ -97,5 +120,39 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	Components.remove_component(ComponentName, self)
-			
+	
+	# Any units still left should be notified that they are being removed from the container
+	remove_all_units()
+	
+#endregion
+
+#region Enable/Disable unit state
+func _disable_unit(unit:Unit) -> void:
+	unit.hide()
+	var state_data:Data = Data.new()
+	_unit_state_data[unit.get_instance_id()] = state_data
+	
+	_toggle_collision_state(unit, state_data, false)
+	unit.get_or_add_actions().enabled = false
+	
+func _enable_unit(unit:Unit) -> void:
+	var unit_id:int = unit.get_instance_id()
+	var state_data:Data = _unit_state_data[unit_id]
+	
+	unit.show()
+	_toggle_collision_state(unit, state_data, true)
+	unit.get_or_add_actions().stop()
+	
+	_unit_state_data.erase(unit_id)
+	
+func _toggle_collision_state(unit:Unit, state_data:Data, enable:bool) -> void:
+	for collision:CollisionObject3D in unit.find_children("*", "CollisionObject3D"):
+		var collision_id:int = collision.get_instance_id()
+		if enable:
+			if collision_id in state_data.collision_node_state:
+				var process_state:Node.ProcessMode = state_data.collision_node_state[collision_id]
+				collision.process_mode = process_state
+		else:
+			state_data.collision_node_process_state[collision_id] = collision.process_mode
+			collision.process_mode = Node.PROCESS_MODE_DISABLED
 #endregion

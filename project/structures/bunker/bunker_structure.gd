@@ -4,12 +4,15 @@ class_name BunkerStructure extends DefensiveStructure
 @onready var ui: Node3D = %UI
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
 
+var _destroyed:bool
+
 func _do_update_render(in_visible:bool) -> void:
 	visual_root.visible = in_visible
 	ui.visible = in_visible
 
 func _die(_damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
+	_destroyed = true
 	_remove_all_units()
 	
 	queue_free()
@@ -27,14 +30,13 @@ func _remove_all_units() -> void:
 func _on_unit_added(unit: Unit) -> void:
 	_add_to_bunker_defense(unit)
 
-func _add_to_bunker_defense(unit: Unit) -> void:
-	unit.hide()
-	unit.get_or_add_actions().hold()
+func _add_to_bunker_defense(_unit: Unit) -> void:
+	pass
 	
-func _remove_from_bunker_defense(unit: Unit) -> void:
-	unit.show()
-	unit.get_or_add_actions().stop()
+func _remove_from_bunker_defense(_unit: Unit) -> void:
+	pass
 	
 func _on_unit_removed(unit: Unit) -> void:
 	_remove_from_bunker_defense(unit)
 	# TODO: Place outside bunker like when the manfacturing component finds an available spot for unit to spawn
+	# If bunker was destroyed then just place unit at bunker center position, may need to wait a frame for physics to update

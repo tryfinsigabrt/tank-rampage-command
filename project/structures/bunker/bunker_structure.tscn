@@ -64,6 +64,8 @@ vision = 200.0
 
 [node name="UnitContainerComponent" parent="Components" unique_id=58222699 instance=ExtResource("8_txgmq")]
 unique_name_in_owner = true
+capacity = 4
+supported_unit_classes = Array[int]([3])
 
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("7_alybg")]
 default_avoidance_layers = 1
