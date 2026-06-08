@@ -8,6 +8,7 @@ func _ready() -> void:
 	# Remove buttons that don't function on Web
 	if OS.get_name() == "Web":
 		quit.hide()
+
 func _on_play_pressed() -> void:
 	_disable_buttons()
 	await GameManager.scene_manager.new_game()

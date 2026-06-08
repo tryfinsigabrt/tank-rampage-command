@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c2rpqm3eydx63" path="res://ui/hud/command_panel.tscn" id="8_x8wtu"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
