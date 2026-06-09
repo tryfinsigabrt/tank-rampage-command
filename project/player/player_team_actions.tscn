@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="18_1ejb4"]
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="19_2r2h7"]
 [ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="20_hbot4"]
+[ext_resource type="Script" uid="uid://cjschgktt5pgi" path="res://player/unit_container_actions.gd" id="20_rsxwl"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_118rc"]
 [ext_resource type="Script" uid="uid://r5vi23q5py4e" path="res://player/order_barks.gd" id="22_2fhkc"]
 [ext_resource type="AudioStream" uid="uid://djl1g5wfsd05p" path="res://sounds/unit_barks/bark_attack.tres" id="23_i53q6"]
@@ -112,21 +113,27 @@ top_level = true
 script = ExtResource("13_nkdgy")
 outline_width = 2.0
 
-[node name="BuildingManufacturingActions" type="Node" parent="." unique_id=2042305144 node_paths=PackedStringArray("selection_manager")]
-script = ExtResource("14_uwcuh")
-selection_manager = NodePath("../SelectionManager")
+[node name="Actions" type="Node" parent="." unique_id=18233157]
 
-[node name="AssetCreation" type="Node" parent="." unique_id=667114620 node_paths=PackedStringArray("node_picker", "selection_manager")]
+[node name="BuildingManufacturingActions" type="Node" parent="Actions" unique_id=2042305144 node_paths=PackedStringArray("selection_manager")]
+script = ExtResource("14_uwcuh")
+selection_manager = NodePath("../../SelectionManager")
+
+[node name="AssetCreation" type="Node" parent="Actions" unique_id=667114620 node_paths=PackedStringArray("node_picker", "selection_manager")]
 script = ExtResource("15_lafsi")
 node_picker = NodePath("GroundPicker")
-selection_manager = NodePath("../SelectionManager")
+selection_manager = NodePath("../../SelectionManager")
 
-[node name="BuildingManufacturing" parent="AssetCreation" unique_id=397080948 instance=ExtResource("16_5vowf")]
+[node name="BuildingManufacturing" parent="Actions/AssetCreation" unique_id=397080948 instance=ExtResource("16_5vowf")]
 supported_types = SubResource("Resource_mkbv6")
 
-[node name="GroundPicker" type="Node3D" parent="AssetCreation" unique_id=1520157363]
+[node name="GroundPicker" type="Node3D" parent="Actions/AssetCreation" unique_id=1520157363]
 script = ExtResource("2_wipxo")
 ground_mask = 2
+
+[node name="UnitContainerActions" type="Node" parent="Actions" unique_id=1528971138 node_paths=PackedStringArray("selection_manager")]
+script = ExtResource("20_rsxwl")
+selection_manager = NodePath("../../SelectionManager")
 
 [node name="UnitBarks" type="Node" parent="." unique_id=420836898 node_paths=PackedStringArray("_order_barks", "_selection_barks")]
 script = ExtResource("22_2fhkc")

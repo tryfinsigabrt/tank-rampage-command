@@ -25,6 +25,9 @@ var _unit_state_data:Dictionary[int,Data] = {}
 
 var _team_asset:Node3D
 
+var any:bool:
+	get: return not units.is_empty()
+	
 var is_full:bool:
 	get: return units.size() >= capacity
 

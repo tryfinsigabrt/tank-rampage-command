@@ -1,15 +1,15 @@
 class_name BunkerStructure extends DefensiveStructure
 
-@onready var visual_root: Node3D = $VisualRoot
-@onready var ui: Node3D = %UI
+@onready var _visual_root: Node3D = $VisualRoot
+@onready var _ui: Node3D = %UI
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
-@onready var node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
+@onready var _node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
 
 var _destroyed:bool
-
+	
 func _do_update_render(in_visible:bool) -> void:
-	visual_root.visible = in_visible
-	ui.visible = in_visible
+	_visual_root.visible = in_visible
+	_ui.visible = in_visible
 
 func _die(_damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
@@ -38,6 +38,7 @@ func _on_unit_added(unit: Unit) -> void:
 	_add_to_bunker_defense(unit)
 
 func _add_to_bunker_defense(_unit: Unit) -> void:
+	# TODO: Unit's weapon added to defense and turns on attack monitoring if at least one weapon available
 	pass
 	
 func _remove_from_bunker_defense(unit: Unit) -> void:
@@ -46,11 +47,9 @@ func _remove_from_bunker_defense(unit: Unit) -> void:
 		var location:Vector3 = global_position
 		# Face the forward direction of the bunker
 		var direction:Vector2 = MathUtils.grid_vector(-global_basis.z)
-		node_viable_position_finder.attempt_placement_at(location, direction, unit, true)
+		_node_viable_position_finder.attempt_placement_at(location, direction, unit, true)
 	else:
-		node_viable_position_finder.place_asset(unit)
+		_node_viable_position_finder.place_asset(unit)
 	
 func _on_unit_removed(unit: Unit) -> void:
 	_remove_from_bunker_defense(unit)
-	# TODO: Place outside bunker like when the manfacturing component finds an available spot for unit to spawn
-	# If bunker was destroyed then just place unit at bunker center position, may need to wait a frame for physics to update
