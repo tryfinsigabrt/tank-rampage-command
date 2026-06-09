@@ -9,24 +9,28 @@ var placement_bounds:Vector2
 @onready var node_picker: NodePicker = $NodePicker
 @onready var spawn_location_finder: SpawnLocationFinder = $SpawnLocationFinder
 
-func configure_spawn(bounds:Vector2, bounds_dir:Vector2) -> void:
-	spawn_location_finder.bounds = bounds
-	spawn_location_finder.bounds_dir = bounds_dir
-		
-func move(asset:Node3D) -> bool:
+func place_asset(asset:Node3D) -> bool:
+	spawn_location_finder.bounds = placement_bounds
+
 	# Second time around force the spawn	
 	for i in 2:
 		for spawn_region in spawn_locations:
 			var location:Vector3 = spawn_region.global_position
 			var dir:Vector2 = MathUtils.grid_vector(-spawn_region.global_basis.z)
 			
-			spawn_location_finder.bounds = placement_bounds
 			spawn_location_finder.bounds_dir = dir
 	
 			var success := _attempt_placement(location, asset, i > 0)
 			if success:
 				return true
-	return false
+	return false	
+
+func attempt_placement_at(at:Vector3, looking_at:Vector2, asset:Node3D, force:bool = false) -> bool:
+	spawn_location_finder.bounds = placement_bounds
+	spawn_location_finder.bounds_dir = looking_at
+	
+	return _attempt_placement(at, asset, force)
+	
 
 func _attempt_placement(at:Vector3, asset:Node3D, force:bool = false) -> bool:
 	var open_position:Vector3 = spawn_location_finder.find_viable_spawn_grid_location(at, asset)
