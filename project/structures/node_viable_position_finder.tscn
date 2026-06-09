@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dw0ynn0f21bgb"]
+
+[ext_resource type="Script" uid="uid://bhn1afn83y2op" path="res://structures/node_viable_position_finder.gd" id="1_wmrdw"]
+[ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="2_wg02y"]
+[ext_resource type="Script" uid="uid://dknm04cwj8vmq" path="res://buildings/spawn_location_finder.gd" id="3_40n0x"]
+
+[node name="NodeViablePositionFinder" type="Node" unique_id=1836995556]
+script = ExtResource("1_wmrdw")
+
+[node name="NodePicker" type="Node3D" parent="." unique_id=1490053132]
+script = ExtResource("2_wg02y")
+
+[node name="SpawnLocationFinder" type="Node3D" parent="." unique_id=1351171007]
+script = ExtResource("3_40n0x")

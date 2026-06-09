@@ -3,6 +3,7 @@ class_name BunkerStructure extends DefensiveStructure
 @onready var visual_root: Node3D = $VisualRoot
 @onready var ui: Node3D = %UI
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
+@onready var node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
 
 var _destroyed:bool
 

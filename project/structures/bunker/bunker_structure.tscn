@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="7_alybg"]
 [ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="8_txgmq"]
+[ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
 size = Vector3(10, 4, 10)
@@ -70,6 +71,25 @@ supported_unit_classes = Array[int]([3])
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("7_alybg")]
 default_avoidance_layers = 1
 affects_unit_classes = Array[int]([1, 2, 3])
+
+[node name="NodeViablePositionFinder" parent="." unique_id=1836995556 node_paths=PackedStringArray("spawn_locations") instance=ExtResource("10_ud41o")]
+unique_name_in_owner = true
+spawn_locations = [NodePath("../UnloadPositions/Position1"), NodePath("../UnloadPositions/Position2"), NodePath("../UnloadPositions/Position3"), NodePath("../UnloadPositions/Position4")]
+placement_bounds = Vector2(30, 30)
+
+[node name="UnloadPositions" type="Node3D" parent="." unique_id=585242457]
+
+[node name="Position1" type="Marker3D" parent="UnloadPositions" unique_id=275896670]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.3987644e-06, 0, -8)
+
+[node name="Position2" type="Marker3D" parent="UnloadPositions" unique_id=683294979]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 8)
+
+[node name="Position3" type="Marker3D" parent="UnloadPositions" unique_id=698543821]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 0, -0.1)
+
+[node name="Position4" type="Marker3D" parent="UnloadPositions" unique_id=1929027767]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 8, 0, 0)
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
