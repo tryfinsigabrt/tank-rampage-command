@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://745i788v8vyq" path="res://units/human/tank/tank01_body_material.tres" id="5_3jpjq"]
 [ext_resource type="Material" uid="uid://h16symhq6i3u" path="res://units/human/tank/tank01_turret_material.tres" id="7_l52bp"]
 [ext_resource type="PackedScene" uid="uid://bm8ep6xhqj8co" path="res://sounds/tank_sfx/tank_fire/tank_shoot_sfx.tscn" id="9_l52bp"]
+[ext_resource type="Script" uid="uid://b8vcfwgedh344" path="res://units/unit_weapon_controller.gd" id="10_th8qc"]
 [ext_resource type="PackedScene" uid="uid://bkefu1383smlp" path="res://units/human/tank/hero/mesh/body.tscn" id="10_v2578"]
 [ext_resource type="PackedScene" uid="uid://baiqwcwaqg702" path="res://units/human/tank/hero/mesh/turret.tscn" id="11_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="11_s68el"]
@@ -51,12 +52,18 @@ unique_name_in_owner = true
 [node name="FireOrigin" parent="Body/Turret/Barrel/Pivot" parent_id_path=PackedInt32Array(1198725874, 1174948464) index="1" unique_id=104605609]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.253356)
 
-[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" index="0" unique_id=413668482 node_paths=PackedStringArray("shoot_sfx")]
+[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" index="0" unique_id=413668482 node_paths=PackedStringArray("shoot_sfx", "weapon_controller")]
 shoot_sfx = NodePath("TankShootSfx")
 min_distance = 5.0
 max_distance_range = Vector2(100, 150)
+weapon_controller = NodePath("WeaponController")
 
 [node name="TankShootSfx" parent="Body/Turret/Barrel/Pivot/FireOrigin/Weapon" index="5" unique_id=1748265597 instance=ExtResource("9_l52bp")]
+
+[node name="WeaponController" type="Node" parent="Body/Turret/Barrel/Pivot/FireOrigin/Weapon" index="6" unique_id=1092730578 node_paths=PackedStringArray("unit", "weapon")]
+script = ExtResource("10_th8qc")
+unit = NodePath("../../../../../../..")
+weapon = NodePath("..")
 
 [node name="WheelsRight" parent="Body" unique_id=433920229 instance=ExtResource("15_bakst")]
 

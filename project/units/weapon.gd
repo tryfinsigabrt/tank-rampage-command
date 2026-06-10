@@ -85,7 +85,10 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 
 @export var type: TraceType = TraceType.Standard
 
-var _unit:Unit
+@export
+var weapon_controller:WeaponController
+
+var _team_asset:Node3D
 var _fire_pending:bool
 var _mask_requires_refresh:bool
 var _shoot_vfx: ShootVfx
@@ -126,27 +129,27 @@ var ideal_fire_range:Vector2:
 var _grid_velocity_at_fire_time:Vector2
 
 func is_in_range(target:Vector3) -> bool:
-	if not _unit:
+	if not weapon_controller:
 		return false
 		
-	var my_position:Vector3 = _unit.get_fire_global_position()
+	var my_position:Vector3 = weapon_controller.get_fire_global_position()
 	var dist_sq:float = target.distance_squared_to(my_position)
 	
 	return dist_sq >= ideal_fire_range.x * ideal_fire_range.x and dist_sq <= ideal_fire_range.y * ideal_fire_range.y
 
 func is_in_range_bounds(bounds:Bounds) -> bool:
-	if not _unit:
+	if not weapon_controller:
 		return false
 		
-	var my_position:Vector3 = _unit.get_fire_global_position()	
+	var my_position:Vector3 = weapon_controller.get_fire_global_position()	
 	var dist:float = bounds.distance_to(my_position)
 	
 	return dist >= ideal_fire_range.x and dist <= ideal_fire_range.y
 	
 func _ready() -> void:
-	_unit = Groups.get_parent_in_group(self, Groups.Unit)
-	if not _unit:
-		push_error("%s: Weapon not connected to a unit - damage calculations impacted" % name)
+	_team_asset = weapon_controller.get_team_asset() if weapon_controller else null
+	if not _team_asset:
+		push_error("%s: Weapon not connected to a team asset - damage calculations impacted" % name)
 	
 	if not hit_vfx:
 		_spawn_hit_vfx()
@@ -186,7 +189,8 @@ func fire() -> void:
 	
 	_set_cooldown()
 	
-	_grid_velocity_at_fire_time = _unit.grid_velocity
+	if _team_asset is CharacterBody3D:
+		_grid_velocity_at_fire_time = MathUtils.grid_vector(_team_asset.velocity)
 	
 	await _delay_impact()
 	_hit_scan()
@@ -213,7 +217,8 @@ func _refresh_damage_mask() -> void:
 	if friendly_fire:
 		damage_mask |= selector
 	else:
-		var enemy_team_mask:int = Collisions.enemy_team_mask(_unit.team)
+		var team_component:TeamComponent = TeamComponent.get_component(_team_asset)
+		var enemy_team_mask:int = Collisions.enemy_team_mask(team_component.team)
 		damage_mask = MathUtils.update_mask(damage_mask, selector, enemy_team_mask)
 		
 # Delay impact after fire emission before impact to avoid visually inaccurate results
@@ -406,7 +411,7 @@ func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionar
 	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
 	damage_params.source = self
 	damage_params.source_damage_allowed = allow_source_damage
-	damage_params.source_owner = _unit
+	damage_params.source_owner = _team_asset
 	
 	return damage_params	
 	
@@ -417,8 +422,8 @@ func _create_trace_query() -> PhysicsRayQueryParameters3D:
 	query.collide_with_bodies = true
 	query.collision_mask = damage_mask
 	
-	if not allow_source_damage and _unit:
-		query.exclude = [_unit.get_rid()]
+	if not allow_source_damage and _team_asset is CollisionObject3D:
+		query.exclude = [_team_asset.get_rid()]
 	return query
 	
 #endregion

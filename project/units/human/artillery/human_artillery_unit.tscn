@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/hit/artillery_explosion_vfx_spawner.tscn" id="13_v0tda"]
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="14_pxuev"]
 [ext_resource type="PackedScene" uid="uid://cuh5crtdvqiwo" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_sfx.tscn" id="18_r8l68"]
+[ext_resource type="Script" uid="uid://b8vcfwgedh344" path="res://units/unit_weapon_controller.gd" id="19_082nv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -111,7 +112,7 @@ update_scale = false
 unique_name_in_owner = true
 gizmo_extents = 2.62
 
-[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "launch_trace_node") instance=ExtResource("7_uf7ra")]
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "weapon_controller", "launch_trace_node") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
 shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
@@ -129,6 +130,7 @@ friendly_fire = true
 damage_mask = 5231
 allow_source_damage = true
 type = 2
+weapon_controller = NodePath("WeaponController")
 launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
 target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
@@ -149,6 +151,11 @@ scene_properties = Dictionary[StringName, Variant]({
 metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
 
 [node name="ArtilleryShootSfx" parent="WeaponTrace/Weapon" unique_id=1748265597 instance=ExtResource("18_r8l68")]
+
+[node name="WeaponController" type="Node" parent="WeaponTrace/Weapon" unique_id=1454682227 node_paths=PackedStringArray("unit", "weapon")]
+script = ExtResource("19_082nv")
+unit = NodePath("../../..")
+weapon = NodePath("..")
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

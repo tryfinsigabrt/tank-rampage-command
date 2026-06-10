@@ -14,6 +14,7 @@
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="11_crfb0"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="13_dh08n"]
 [ext_resource type="PackedScene" uid="uid://drjhcq8e8qqru" path="res://sounds/tank_sfx/tank_fire/enemy_tank_shoot_sfx.tscn" id="13_e2vrp"]
+[ext_resource type="Script" uid="uid://b8vcfwgedh344" path="res://units/unit_weapon_controller.gd" id="14_fceur"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="14_o5wff"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="15_gcj7y"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="16_fqfsc"]
@@ -542,7 +543,7 @@ metadata/extras = {
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24786615, 3.4372122)
 
-[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" unique_id=413668482 node_paths=PackedStringArray("shoot_sfx") instance=ExtResource("9_dls12")]
+[node name="Weapon" parent="Body/Turret/Barrel/Pivot/FireOrigin" unique_id=413668482 node_paths=PackedStringArray("shoot_sfx", "weapon_controller") instance=ExtResource("9_dls12")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28172088, -1.6485891)
 shoot_vfx_size = 1
@@ -553,8 +554,14 @@ min_distance = 5.0
 max_distance_range = Vector2(100, 150)
 damage_v_distance = ExtResource("10_yngfg")
 accuracy_v_velocity_alignment = ExtResource("11_crfb0")
+weapon_controller = NodePath("WeaponController")
 
 [node name="TankShootSfx" parent="Body/Turret/Barrel/Pivot/FireOrigin/Weapon" unique_id=1748265597 instance=ExtResource("13_e2vrp")]
+
+[node name="WeaponController" type="Node" parent="Body/Turret/Barrel/Pivot/FireOrigin/Weapon" unique_id=1504897365 node_paths=PackedStringArray("unit", "weapon")]
+script = ExtResource("14_fceur")
+unit = NodePath("../../../../../../..")
+weapon = NodePath("..")
 
 [node name="Tracks_L" type="Node3D" parent="Body" unique_id=1852854159]
 
