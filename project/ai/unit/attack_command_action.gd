@@ -50,7 +50,7 @@ func before_run(actor: Node, in_blackboard: Blackboard) -> void:
 		return
 
 	_attack_action = attack_action_scene.instantiate()
-	_attack_action.controlled_unit = _unit
+	_attack_action.weapon = _unit.weapon
 	if _targeted_node:
 		_attack_action.targeted_node = _targeted_node
 	else:

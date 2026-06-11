@@ -7,7 +7,12 @@ enum MoveBehavior
 	NEVER
 }
 
-var controlled_unit:Unit
+var weapon:Weapon
+
+var _weapon_controller:WeaponController
+var _controlled_asset:Node3D
+# If controlled asset is a unit
+var _controlled_unit:Unit
 
 var targeted_node:Node3D:
 	set(value):
@@ -57,18 +62,22 @@ signal _los_signal
 
 var _check_los:bool
 var _has_los:bool
-var _weapon:Weapon
 
 func _ready() -> void:
-	if not controlled_unit:
-		push_warning("%s: No controlled unit set - no attack will occur" % name)
+	if not weapon:
+		push_warning("%s: No weapon set - no attack will occur" % name)
 		return
 	
-	_weapon = controlled_unit.weapon
+	_weapon_controller = weapon.weapon_controller
+	if not _weapon_controller:
+		push_warning("%s: Weapon=%s has no WeaponController - no attack will occur" % [name, weapon.name])
+		return
+		
+	_controlled_asset = _weapon_controller.get_team_asset()
+	_controlled_unit = _controlled_asset as Unit
 	
-	if _weapon:
-		fire_interval = _weapon.cooldown_time_range.x
-		fire_range = _weapon.ideal_fire_range
+	fire_interval = weapon.cooldown_time_range.x
+	fire_range = weapon.ideal_fire_range
 		
 	_move_into_attack_range()
 	
@@ -90,18 +99,19 @@ func _exit_tree() -> void:
 		SignalBus.on_unit_move_canceled.disconnect(_move_finished)
 		
 	# Cancel active move if it's not complete
-	if is_instance_valid(controlled_unit) and _range_move_target != Vector3.INF:
+	if is_instance_valid(_controlled_unit) and _range_move_target != Vector3.INF:
 		if LogUtils.debug:
-			print_debug("%s: %s cancel target move to %s" % [name, controlled_unit.name, _range_move_target])
-		SignalBus.on_unit_move_canceled.emit(controlled_unit, _range_move_target)
+			print_debug("%s: %s cancel target move to %s" % [name, _controlled_unit.name, _range_move_target])
+		SignalBus.on_unit_move_canceled.emit(_controlled_unit, _range_move_target)
 		
 func _move_into_attack_range() -> void:
 	_range_move_target = Vector3.INF
 	
-	if move_into_range == MoveBehavior.NEVER:
+	# Only supported for units with the move into range behavior set
+	if not _controlled_unit or move_into_range == MoveBehavior.NEVER:
 		return
 		
-	var my_position:Vector3 = controlled_unit.get_fire_global_position()
+	var my_position:Vector3 = _weapon_controller.get_fire_global_position()
 	var attack_position:Vector3 = _get_target_position()
 	var to_attack:Vector3 = attack_position - my_position
 	var attack_dir:Vector3 = to_attack.normalized()
@@ -124,22 +134,24 @@ func _move_into_attack_range() -> void:
 			move = diff < 0
 		if move:
 			# Add a buffer
-			var bounds_size := controlled_unit.get_global_bounds().size
+			var bounds_size := _controlled_unit.get_global_bounds().size
 			var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
 			diff += signf(diff) * buffer
 			_range_move_target = my_position + attack_dir * diff
 			_move_to_ranged_target()
 
 func _move_to_ranged_target() -> void:
+	assert(_controlled_unit, "%s: Unexpected call to move for non-unit asset=%s" % [name, StringUtils.safe_name(_controlled_asset)])
+	
 	if not SignalBus.on_destination_reached.is_connected(_move_finished):
 		SignalBus.on_destination_reached.connect(_move_finished)
 	if not SignalBus.on_unit_move_canceled.is_connected(_move_finished):
 		SignalBus.on_unit_move_canceled.connect(_move_finished)
 		
-	SignalBus.on_unit_move_issued.emit(controlled_unit, _range_move_target)
+	SignalBus.on_unit_move_issued.emit(_controlled_unit, _range_move_target)
 
 func _move_finished(in_unit:Unit, _in_target_position:Vector3) -> void:
-	if in_unit != controlled_unit:
+	if in_unit != _controlled_unit:
 		return
 	_range_move_target = Vector3.INF
 	
@@ -170,14 +182,14 @@ func _process(delta: float) -> void:
 		_fire_and_schedule()
 	elif not in_range and fire_timer_running:
 		_fire_timer.stop()
-		controlled_unit.shoot_intent_toggled.emit(false)
+		_weapon_controller.shoot_intent_toggled.emit(false)
 		
 func _aim() -> void:
 	var target:Vector3 = _get_target_position()
-	controlled_unit.aim_at(target)
+	_weapon_controller.aim_at(target)
 	
 func _is_in_range() -> bool:
-	var my_position:Vector3 = controlled_unit.get_fire_global_position()
+	var my_position:Vector3 = _weapon_controller.get_fire_global_position()
 	var target_position:Vector3 = _get_target_position()
 	var to_target:Vector3 = target_position - my_position
 	var dist_sq:float = to_target.length_squared()
@@ -190,7 +202,7 @@ func _is_in_range() -> bool:
 		return false
 	
 	# Check angle alignment
-	var aim_direction:Vector3 = controlled_unit.get_fire_global_forward()
+	var aim_direction:Vector3 = _weapon_controller.get_fire_global_forward()
 	#DebugDraw3D.draw_ray(my_position, aim_direction, 10000.0, Color.BLUE)
 
 	var heading:Vector3 = to_target / maxf(dist_sq, 0.001)
@@ -209,19 +221,20 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	return not _node_was_targeted or (targeted_node and targeted_node.team_component.is_visible_to(controlled_unit.team))
+	return not _node_was_targeted or \
+	(targeted_node and TeamComponent.first_is_visible_to_second_asset(targeted_node, _controlled_asset))
 	
 func _check_target_los() -> bool:
 	# If targeting unit make sure it is visible to us
-	if targeted_node and not targeted_node.team_component.is_visible_to(controlled_unit.team):
+	if targeted_node and not TeamComponent.first_is_visible_to_second_asset(targeted_node, _controlled_asset):
 		return false
 		
-	if _weapon and not _weapon.require_los:
+	if weapon and not weapon.require_los:
 		return true
 		
 	var space_state := get_world_3d().direct_space_state
 	
-	var from:Vector3 = controlled_unit.get_fire_global_position()
+	var from:Vector3 = _weapon_controller.get_fire_global_position()
 	var to:Vector3 = _get_target_position()
 	var to_to:Vector3 = to - from
 	var dir := to_to.normalized()
@@ -247,12 +260,12 @@ func _get_target_position() -> Vector3:
 	return targeted_node.global_position if targeted_node else targeted_location
 	
 func is_valid() -> bool:
-	return is_instance_valid(controlled_unit) and _is_target_valid()
+	return is_instance_valid(_weapon_controller) and _is_target_valid()
 
 func _fire_and_schedule() -> void:
 	await _fire()
 	
-	controlled_unit.shoot_intent_toggled.emit(true)
+	_weapon_controller.shoot_intent_toggled.emit(true)
 	_fire_timer.start()
 	
 func _on_fire() -> void:
@@ -270,4 +283,5 @@ func _fire() -> void:
 		await _los_signal
 		_check_los = false
 		
-	controlled_unit.shoot()
+	@warning_ignore("missing_await")
+	_weapon_controller.shoot()

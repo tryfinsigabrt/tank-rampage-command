@@ -9,8 +9,6 @@ signal damaged(damage_params:DamageParameters)
 signal on_entered_world_boundaries(world_boundaries: WorldBoundaries)
 signal on_left_world_boundaries(world_boundaries:WorldBoundaries)
 
-signal shoot_intent_toggled(shooting:bool)
-
 @warning_ignore_restore("unused_signal")
 
 enum UnitClass

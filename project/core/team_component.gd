@@ -80,6 +80,12 @@ static func to_team_mask(in_team:int) -> int:
 func is_visible_to(in_team:int) -> bool:
 	return team_visibility_mask & to_team_mask(in_team)
 
+func is_visible_to_component(other_team:TeamComponent) -> bool:
+	return is_visible_to(other_team.team)
+
+static func first_is_visible_to_second_asset(first:Node3D, second:Node3D) -> bool:
+	return TeamComponent.get_component(first).is_visible_to_component(TeamComponent.get_component(second))
+		
 func set_visible_to(in_team:int, in_visible:bool) -> void:
 	var team_mask:int = to_team_mask(in_team)
 	if in_visible:

@@ -92,7 +92,7 @@ func _attack_asset(enemy:Node3D) -> void:
 		_attack_action.queue_free()
 		
 	_attack_action = attack_action_scene.instantiate()
-	_attack_action.controlled_unit = _unit
+	_attack_action.weapon = _unit.weapon
 	_attack_action.targeted_node = enemy
 	_attack_action.move_into_range = AttackAction.MoveBehavior.NEVER
 	

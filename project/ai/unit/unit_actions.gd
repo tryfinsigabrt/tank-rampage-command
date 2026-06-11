@@ -56,7 +56,7 @@ func _ready() -> void:
 	if _unit_nav:
 		_initial_stuck_detection = _unit_nav.enable_stuck_detection
 	
-	unit.shoot_intent_toggled.connect(_on_shoot_intent_toggled)
+	unit.weapon.weapon_controller.shoot_intent_toggled.connect(_on_shoot_intent_toggled)
 	
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 	_update_tree_state.call_deferred()

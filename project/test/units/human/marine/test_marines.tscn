@@ -11,8 +11,11 @@
 [ext_resource type="Material" uid="uid://cuyk7kcoaaowq" path="res://units/human/tank/tank03_turret_material.tres" id="11_wwlmm"]
 [ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="12_lmb3x"]
 [ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="13_8rcwx"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="14_duwkw"]
 [ext_resource type="Material" uid="uid://bm4y3uq4crefx" path="res://units/human/tank/tank04_body_material.tres" id="14_gsalf"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="15_kfjjp"]
 [ext_resource type="Material" uid="uid://cp2seb1b81mhj" path="res://units/human/tank/tank04_turret_material.tres" id="15_r7cmo"]
+[ext_resource type="PackedScene" uid="uid://cml5eraldlua2" path="res://ui/debug/marine_unit_debug_hud.tscn" id="16_1ci7e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -246,6 +249,14 @@ material_override = ExtResource("15_r7cmo")
 
 [node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank04" index="5" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("14_duwkw")]
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("15_kfjjp")]
+layout_mode = 2
+
+[node name="MarineUnitDebugHud" parent="DebugHud" unique_id=1147953126 instance=ExtResource("16_1ci7e")]
+layout_mode = 2
 
 [editable path="World/Match/PlayerTeam/Player"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01"]

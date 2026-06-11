@@ -7,7 +7,9 @@ func aim_at(world_location:Vector3) -> void:
 	return unit.aim_at(world_location)
 
 func shoot() -> void:
-	unit.shoot()
+	# Most of these are async
+	@warning_ignore("redundant_await")
+	await unit.shoot()
 
 func get_fire_global_position() -> Vector3:
 	return unit.get_fire_global_position()
