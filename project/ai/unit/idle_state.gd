@@ -14,7 +14,7 @@ var enabled:bool:
 			return
 			
 		if value:
-			unit_scanner.my_unit = my_unit
+			unit_scanner.my_asset = my_unit
 		unit_scanner.enabled = value
 	get:
 		return enabled

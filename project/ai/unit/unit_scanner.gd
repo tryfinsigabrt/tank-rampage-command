@@ -4,7 +4,7 @@ class_name UnitScanner extends Node
 var threshold_distance:float = 500.0
 
 @export
-var my_unit:Unit
+var my_asset:Node3D
 
 var _team:MatchTeam
 var _init:bool
@@ -37,16 +37,17 @@ func _on_enable_changed() -> void:
 		tick.stop()
 
 func _initialize() -> void:
-	if not my_unit:
-		push_error("%s: my_unit not set" % name)
+	if not my_asset:
+		push_error("%s: my_asset not set" % name)
 		queue_free()
 		return
 		
 	var game:Match = get_tree().get_first_node_in_group(Groups.Match)
 	if game:
-		_team = game.get_team(my_unit.team)
+		var team_component := TeamComponent.get_component(my_asset)
+		_team = game.get_team(team_component.team)
 		if not _team:
-			push_warning("%s: could not find MatchTeam for team=%d slow path taken" % [name, my_unit.team])
+			push_warning("%s: could not find MatchTeam for team=%d slow path taken" % [name, team_component.team])
 	else:
 		push_warning("%s: match not in tree - slow path taken" % name)
 		
@@ -57,21 +58,25 @@ func _ready() -> void:
 	_on_enable_changed()
 		
 func _tick() -> void:
-	var threats: Array[Node3D] = sweeper.sweep_assets(my_unit.global_position, _get_team_units(), _team.team if _team else 0)
+	var threats: Array[Node3D] = sweeper.sweep_assets(my_asset.global_position, _get_team_assets(), _team.team if _team else 0)
 	if threats:
 		threats_detected.emit(threats)
 
-func _get_team_units() -> Array[Unit]:
+func _get_team_assets() -> Array[Node3D]:
 	if _team:
-		return _team.units
+		return _team.assets
 	
-	var all_units:Array[Node] = get_tree().get_nodes_in_group(Groups.Unit)
-	var team_units:Array[Unit]
+	var all_assets:Array[Node] = get_tree().get_nodes_in_group(Groups.TeamAsset)
+	var team_assets:Array[Node3D]
 	
-	for node in all_units:
-		var unit:Unit = node as Unit
-		if my_unit.on_same_team(unit):
-			team_units.push_back(unit)
+	var my_team_component := TeamComponent.get_component(my_asset)
 	
-	return team_units
+	for node in all_assets:
+		var asset:Node3D = node as Node3D
+		if asset:
+			var team_component := TeamComponent.get_component(asset, false)
+			if my_team_component.on_same_team(team_component):
+				team_assets.push_back(asset)
+	
+	return team_assets
 	
