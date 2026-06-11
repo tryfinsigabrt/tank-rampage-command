@@ -42,11 +42,14 @@ func sweep_assets(center:Vector3, exclude:Array, team:int) -> Array[Node3D]:
 	
 	for result in results:
 		var asset:Node3D = result.get("collider") as Node3D
-		if asset and asset.is_in_group(Groups.TeamAsset) \
-		and (team <= 0 or (
-		 	asset.team_component.is_enemy_team(team)) \
-		 	and (team <= 0 or asset.team_component.is_visible_to(team)) \
-		  ) and not asset in assets:
+		if not asset or not asset.is_in_group(Groups.TeamAsset):
+			continue
+		var include:bool = team <= 0
+		if not include:
+			var team_component := TeamComponent.get_component(asset, false)
+			if team_component and team_component.is_enemy_team(team) and team_component.is_visible_to(team):
+				include = true
+		if include and not asset in assets:
 			assets.push_back(asset)
 	
 	return assets
