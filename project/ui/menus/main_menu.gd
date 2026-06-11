@@ -12,6 +12,10 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	_disable_buttons()
 	await GameManager.scene_manager.new_game()
+	
+func _on_level_select_pressed() -> void:
+	_disable_buttons()
+	await GameManager.scene_manager.level_select_menu()
 
 func _on_quit_pressed() -> void:
 	_disable_buttons()

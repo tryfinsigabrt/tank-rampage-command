@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://su8ucbrnrgb1"]
+
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_tvlfg"]
+[ext_resource type="PackedScene" uid="uid://duuf5gpbaix6p" path="res://ui/menus/level_panel.tscn" id="2_uhb52"]
+[ext_resource type="Script" uid="uid://c4bocj7tgd1pd" path="res://ui/menus/level_select_menu.gd" id="3_m3o25"]
+
+[node name="LevelSelect" type="Control" unique_id=1853160801]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tvlfg")
+script = ExtResource("3_m3o25")
+
+[node name="RootMargin" type="MarginContainer" parent="." unique_id=5023541]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 36
+
+[node name="Content" type="VBoxContainer" parent="RootMargin" unique_id=1431190009]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+
+[node name="Header" type="HBoxContainer" parent="RootMargin/Content" unique_id=1887694675]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BackButton" type="Button" parent="RootMargin/Content/Header" unique_id=1022909643]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Back"
+
+[node name="Title" type="Label" parent="RootMargin/Content/Header" unique_id=72549135]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.99607843, 0.9647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 42
+text = "Level Select"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="RootMargin/Content/Header" unique_id=1670313552]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="RootMargin/Content" unique_id=337958763]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LevelList" type="VBoxContainer" parent="RootMargin/Content/Scroll" unique_id=1672902767]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Level01" parent="RootMargin/Content/Scroll/LevelList" unique_id=956145141 instance=ExtResource("2_uhb52")]
+layout_mode = 2
+
+[node name="Level02" parent="RootMargin/Content/Scroll/LevelList" unique_id=1696495302 instance=ExtResource("2_uhb52")]
+layout_mode = 2
+
+[connection signal="pressed" from="RootMargin/Content/Header/BackButton" to="." method="_on_back_button_pressed"]

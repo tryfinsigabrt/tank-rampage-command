@@ -54,6 +54,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Play"
 
+[node name="LevelSelect" type="Button" parent="CenterContainer/MainMenu/MainMenuButtons" unique_id=326208317]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Level Select"
+
 [node name="Spacer" type="Control" parent="CenterContainer/MainMenu/MainMenuButtons" unique_id=1718069491]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
@@ -99,4 +106,5 @@ metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="MainMenuAudio" unique_id=651686801]
 
 [connection signal="pressed" from="CenterContainer/MainMenu/MainMenuButtons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/MainMenu/MainMenuButtons/LevelSelect" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenu/MainMenuButtons/Quit" to="." method="_on_quit_pressed"]

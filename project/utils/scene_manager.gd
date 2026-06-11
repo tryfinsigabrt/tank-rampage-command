@@ -1,6 +1,7 @@
 class_name SceneManager extends Node
 
 const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
+const LEVEL_SELECT_MENU_SCENE:PackedScene = preload("uid://su8ucbrnrgb1")
 const GAME_SCENE:PackedScene = preload("uid://y2gjgrbqtl7n")
 
 signal scene_changed(new_scene:Node)
@@ -12,6 +13,9 @@ var paused:bool:
 	
 func main_menu() -> void:
 	await switch_scene(MAIN_MENU_SCENE)
+
+func level_select_menu() -> void:
+	await switch_scene(LEVEL_SELECT_MENU_SCENE)
 
 func new_game() -> void:
 	await switch_scene(GAME_SCENE)

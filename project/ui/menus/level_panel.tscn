@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://duuf5gpbaix6p"]
+
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_7g7q0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_preview_back"]
+bg_color = Color(0.03529412, 0.21176471, 0.2509804, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_preview"]
+size = Vector2(320, 180)
+
+[node name="LevelPanel" type="PanelContainer" unique_id=1838808392]
+custom_minimum_size = Vector2(0, 240)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7g7q0")
+
+[node name="Padding" type="MarginContainer" parent="." unique_id=1957613612]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Content" type="HBoxContainer" parent="Padding" unique_id=135332538]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="PreviewBack" type="PanelContainer" parent="Padding/Content" unique_id=1812165459]
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_preview_back")
+
+[node name="PreviewMargin" type="MarginContainer" parent="Padding/Content/PreviewBack" unique_id=388372829]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Preview" type="TextureRect" parent="Padding/Content/PreviewBack/PreviewMargin" unique_id=1243083225]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_preview")
+
+[node name="Info" type="VBoxContainer" parent="Padding/Content" unique_id=267884208]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Padding/Content/Info" unique_id=426412439]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99607843, 0.9647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 34
+text = "Level 01"
+
+[node name="Description" type="RichTextLabel" parent="Padding/Content/Info" unique_id=1816688495]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Push through enemy defenses and secure the approach.
+
+This is placeholder text for the level description."
+fit_content = true
+scroll_active = false
+
+[node name="Actions" type="HBoxContainer" parent="Padding/Content/Info" unique_id=1680703850]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="PlayButton" type="Button" parent="Padding/Content/Info/Actions" unique_id=1568451512]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Play"
