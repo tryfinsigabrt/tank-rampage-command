@@ -7,9 +7,12 @@
 [ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="5_ritgf"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="6_ut7ra"]
 [ext_resource type="Resource" uid="uid://dp0r4g2njcjq7" path="res://conf/costs/ai/ai_marine_cost.tres" id="7_x6ce4"]
+[ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="8_5ejx3"]
 [ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="8_v7ap7"]
+[ext_resource type="Resource" uid="uid://b8sax7qhmtdqr" path="res://conf/costs/human/tank_spikes_cost.tres" id="9_ritgf"]
+[ext_resource type="Resource" uid="uid://bnp02362c5kqh" path="res://conf/costs/human/sandbags_cost.tres" id="10_ut7ra"]
 
 [resource]
 script = ExtResource("8_v7ap7")
-construction = Array[ExtResource("1_x6ce4")]([ExtResource("2_x6ce4"), ExtResource("3_x6ce4"), ExtResource("4_5ejx3"), ExtResource("5_ritgf"), ExtResource("6_ut7ra"), ExtResource("7_x6ce4")])
+construction = Array[ExtResource("1_x6ce4")]([ExtResource("2_x6ce4"), ExtResource("3_x6ce4"), ExtResource("4_5ejx3"), ExtResource("5_ritgf"), ExtResource("6_ut7ra"), ExtResource("7_x6ce4"), ExtResource("8_5ejx3"), ExtResource("9_ritgf"), ExtResource("10_ut7ra")])
 metadata/_custom_type_script = "uid://xt576yq3qny0"

@@ -8,6 +8,7 @@ var is_player_team:bool
 signal match_team_ready
 signal units_changed
 signal buildings_changed
+signal structures_changed
 
 var is_match_ready:bool
 
@@ -28,6 +29,7 @@ var config:MatchTeamConfig
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}
+var _structures:Dictionary[int, DefensiveStructure] = {}
 
 const IS_PREDEPLOYED_KEY:StringName = "Predeployed"
 
@@ -37,9 +39,30 @@ var units:Array[Unit]:
 var buildings: Array[Building]:
 	get: return _buildings.values()
 	
+var structures: Array[DefensiveStructure]:
+	get: return _structures.values()
+	
+var assets: Array[Node3D]:
+	get:
+		var _assets:Array[Node3D]
+		_assets.resize(_units.size() + _buildings.size() + _structures.size())
+		
+		var cnt:int = 0
+		for id in _units:
+			_assets[cnt] = _units[id]
+			cnt += 1
+		for id in _buildings:
+			_assets[cnt] = _buildings[id]
+			cnt += 1
+		for id in _structures:
+			_assets[cnt] = _structures[id]
+			cnt += 1
+			
+		return _assets
+		
 var active:bool:
 	get: return _units or _buildings
-
+	
 func _ready() -> void:
 	team_visibility_component.team = team
 	
@@ -73,6 +96,16 @@ func _ready() -> void:
 		building.set_meta(IS_PREDEPLOYED_KEY, true)
 		_disable_non_player_predeployed_visible_nodes(building)
 		_add_building(building)
+		
+	var starting_structures:Array[Node] = Groups.get_children_in_group(self, Groups.Structure)
+	for node in starting_structures:
+		var structure:DefensiveStructure = node as DefensiveStructure
+		if not structure:
+			push_warning("%s: Found node=%s labeled in group 'Stucture' but is not a DefensiveStructure type" % [name, node.name])
+			continue
+		structure.set_meta(IS_PREDEPLOYED_KEY, true)
+		_disable_non_player_predeployed_visible_nodes(structure)
+		_add_structure(structure)
 		
 	await get_tree().process_frame
 	
@@ -123,6 +156,15 @@ func _add_building(building:Building) -> void:
 	
 	buildings_changed.emit()
 	
+func _add_structure(structure:DefensiveStructure) -> void:
+	structure.team = team
+	HealthStat.connect_died_signal(structure, _on_structure_destroyed.bind(structure))
+	_structures[structure.get_instance_id()] = structure
+	
+	team_resources.spend_resources(structure)
+	
+	structures_changed.emit()
+	
 func _on_asset_added(asset:Node3D) -> void:
 	if not asset.is_in_group(Groups.TeamAsset):
 		push_warning("%s: _on_asset_added - attempted to add non-TeamAsset %s" % [name, asset.name])
@@ -142,6 +184,8 @@ func _on_asset_added(asset:Node3D) -> void:
 		_add_unit(asset)
 	elif asset is Building:
 		_add_building(asset)
+	elif asset is DefensiveStructure:
+		_add_structure(asset)
 
 func _disable_non_player_predeployed_visible_nodes(asset:Node3D) -> void:
 	# Have to take the slow path as the player team may not be set yet
@@ -176,6 +220,16 @@ func _on_building_destroyed(building:Building) -> void:
 	buildings_changed.emit()
 	@warning_ignore("missing_await")
 	_check_defeated()
+	
+func _on_structure_destroyed(structure:DefensiveStructure) -> void:
+	print_debug("%s: structure=%s destroyed" % [name, structure.name])
+	
+	if not _structures.erase(structure.get_instance_id()):
+		return
+
+	structures_changed.emit()
+	
+	# Structures not part of win condition
 
 func _check_defeated() -> void:
 	if not active:
