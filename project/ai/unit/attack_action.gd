@@ -43,8 +43,8 @@ var fire_interval:float = 2.0
 @export
 var fire_range:Vector2 = Vector2(10.0, 500.0)
 
-@export_range(0.0,180.0, 0.1)
-var fire_alignment_tolerance_deg:float = 15.0
+@export
+var fire_max_angle_deg_v_range_fraction:Curve
 
 @export
 var ray_cast_dest_offset:float = 5.0
@@ -118,7 +118,10 @@ func _move_into_attack_range() -> void:
 	
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
-		var ideal_dist:float = fire_range.x * 2.0 if fire_range.x / fire_range.y < 0.1 else fire_range.x + 1.0
+		var buffer:float = _get_move_buffer_dist()
+		var min_dist:float = minf(fire_range.x + buffer, fire_range.y)
+			
+		var ideal_dist:float = min_dist * 2.0 if fire_range.x / fire_range.y < 0.1 else min_dist
 		_range_move_target = attack_position - attack_dir * ideal_dist
 		_move_to_ranged_target()
 	
@@ -134,12 +137,16 @@ func _move_into_attack_range() -> void:
 			move = diff < 0
 		if move:
 			# Add a buffer
-			var bounds_size := _controlled_unit.get_global_bounds().size
-			var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
+			var buffer:float = _get_move_buffer_dist()
 			diff += signf(diff) * buffer
 			_range_move_target = my_position + attack_dir * diff
 			_move_to_ranged_target()
 
+func _get_move_buffer_dist() -> float:
+	var bounds_size := _controlled_unit.get_global_bounds().size
+	var buffer:float = maxf(bounds_size.x, bounds_size.z) * 2.0
+	return buffer
+	
 func _move_to_ranged_target() -> void:
 	assert(_controlled_unit, "%s: Unexpected call to move for non-unit asset=%s" % [name, StringUtils.safe_name(_controlled_asset)])
 	
@@ -207,16 +214,20 @@ func _is_in_range() -> bool:
 
 	var heading:Vector3 = to_target / maxf(dist_sq, 0.001)
 	var angle:float = rad_to_deg(aim_direction.angle_to(heading))
-	if angle > fire_alignment_tolerance_deg:
+	var dist:float = sqrt(dist_sq)
+	var range_fraction:float = inverse_lerp(fire_range.x, fire_range.y, dist)
+	var max_angle_deg:float = fire_max_angle_deg_v_range_fraction.sample_baked(range_fraction)
+	
+	if angle > max_angle_deg:
 		if OS.is_stdout_verbose():
-			DebugDraw3D.draw_ray(my_position, to_target, sqrt(dist_sq), Color.ORANGE)
-			print_verbose("%s: in_range=FALSE(ANGLE); my_position=%s; target=%s; to_target=%s; dist=%f; angle=%f" % [name, my_position, targeted_location, to_target, sqrt(dist_sq), angle])
+			DebugDraw3D.draw_ray(my_position, to_target, dist, Color.ORANGE)
+			print_verbose("%s: in_range=FALSE(ANGLE); my_position=%s; target=%s; to_target=%s; dist=%f; angle=%f > %f" % [name, my_position, targeted_location, to_target, dist, angle, max_angle_deg])
 	
 		return false
 	
 	if OS.is_stdout_verbose():
-		DebugDraw3D.draw_ray(my_position, to_target, sqrt(dist_sq), Color.GREEN)
-		print_verbose("%s: in_range=TRUE; my_position=%s; target=%s; to_target=%s; dist=%f; angle=%f" % [name, my_position, targeted_location, to_target, sqrt(dist_sq), angle])
+		DebugDraw3D.draw_ray(my_position, to_target, dist, Color.GREEN)
+		print_verbose("%s: in_range=TRUE; my_position=%s; target=%s; to_target=%s; dist=%f; angle=%f <= %f" % [name, my_position, targeted_location, to_target, dist, angle, max_angle_deg])
 	
 	return true
 	

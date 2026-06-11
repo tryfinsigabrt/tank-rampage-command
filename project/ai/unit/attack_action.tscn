@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cwj8iaowhbop5"]
 
 [ext_resource type="Script" uid="uid://c8x1t4kiiqne6" path="res://ai/unit/attack_action.gd" id="1_8g2f6"]
+[ext_resource type="Curve" uid="uid://spwe5mbfj4s5" path="res://ai/unit/attack_action_max_angle_v_dist.tres" id="2_74i1g"]
 
 [node name="AttackAction" type="Node3D" unique_id=1043215461]
 script = ExtResource("1_8g2f6")
+fire_max_angle_deg_v_range_fraction = ExtResource("2_74i1g")
