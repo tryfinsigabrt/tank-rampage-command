@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://catcqlv77h1kq"]
+
+[ext_resource type="Script" uid="uid://cbjevxe4yyvhk" path="res://ai/unit/weapon_targeting_component.gd" id="1_j6xls"]
+[ext_resource type="PackedScene" uid="uid://cwj8iaowhbop5" path="res://ai/unit/attack_action.tscn" id="2_xxuuj"]
+[ext_resource type="PackedScene" uid="uid://8rwv0t451365" path="res://ai/unit/unit_scanner.tscn" id="3_d0rt4"]
+[ext_resource type="PackedScene" uid="uid://mwp2boe4r11w" path="res://ai/enemy/threat_scorer.tscn" id="4_0i38n"]
+
+[node name="WeaponTargetingComponent" type="Node" unique_id=1383309094]
+script = ExtResource("1_j6xls")
+attack_action = ExtResource("2_xxuuj")
+
+[node name="UnitScanner" parent="." unique_id=228691689 instance=ExtResource("3_d0rt4")]
+threshold_distance = 300.0
+enabled = false
+
+[node name="ThreatScorer" parent="." unique_id=65921218 instance=ExtResource("4_0i38n")]
+
+[node name="WeaponsContainer" type="Node" parent="." unique_id=302765171]
+
+[connection signal="threats_detected" from="UnitScanner" to="." method="_on_unit_scanner_threats_detected"]

@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="7_alybg"]
 [ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="8_txgmq"]
+[ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="9_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
@@ -67,6 +68,9 @@ vision = 200.0
 unique_name_in_owner = true
 capacity = 4
 supported_unit_classes = Array[int]([3])
+
+[node name="WeaponTargetingComponent" parent="Components" unique_id=1383309094 node_paths=PackedStringArray("my_asset") instance=ExtResource("9_bjwuk")]
+my_asset = NodePath("../..")
 
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("7_alybg")]
 default_avoidance_layers = 1
