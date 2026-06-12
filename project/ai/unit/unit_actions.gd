@@ -80,7 +80,7 @@ func _update_tree_state() -> void:
 	behavior_tree.enabled = enabled
 	
 	idle_state.my_unit = unit
-	idle_state.enabled = not enabled
+	idle_state.enabled = not enabled and unit.is_visible_in_tree()
 
 func move(target_position:Vector3) -> void:
 	_new_action()

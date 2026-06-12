@@ -4,6 +4,7 @@ class_name BunkerStructure extends DefensiveStructure
 @onready var _ui: Node3D = %UI
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
 @onready var _node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
+@onready var targeting_component: WeaponTargetingComponent = %WeaponTargetingComponent
 
 var _destroyed:bool
 	
@@ -37,16 +38,17 @@ func _remove_all_units() -> void:
 func _on_unit_added(unit: Unit) -> void:
 	_add_to_bunker_defense(unit)
 
-func _add_to_bunker_defense(_unit: Unit) -> void:
-	# TODO: Unit's weapon added to defense and turns on attack monitoring if at least one weapon available
-	pass
+func _add_to_bunker_defense(unit: Unit) -> void:
+	targeting_component.add_weapon(unit.get_instance_id(), unit.weapon, true)
 	
 func _remove_from_bunker_defense(unit: Unit) -> void:
+	targeting_component.remove_weapon(unit.get_instance_id())
+	
 	if _destroyed:
 		# Just place the unit at the bunker's global position
 		var location:Vector3 = global_position
 		# Face the forward direction of the bunker
-		var direction:Vector2 = MathUtils.grid_vector(-global_basis.z)
+		var direction:Vector3 = -global_basis.z
 		_node_viable_position_finder.attempt_placement_at(location, direction, unit, true)
 	else:
 		_node_viable_position_finder.place_asset(unit)

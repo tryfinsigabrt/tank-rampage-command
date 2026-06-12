@@ -136,7 +136,11 @@ func _disable_unit(unit:Unit) -> void:
 	_unit_state_data[unit.get_instance_id()] = state_data
 	
 	_toggle_collision_state(unit, state_data, false)
-	unit.get_or_add_actions().enabled = false
+	
+	var actions := unit.get_or_add_actions()
+	# Cancel current command and then disable
+	actions.stop()
+	actions.enabled = false
 	
 func _enable_unit(unit:Unit) -> void:
 	var unit_id:int = unit.get_instance_id()
@@ -144,7 +148,10 @@ func _enable_unit(unit:Unit) -> void:
 	
 	unit.show()
 	_toggle_collision_state(unit, state_data, true)
-	unit.get_or_add_actions().stop()
+	
+	var actions := unit.get_or_add_actions()
+	# Force refresh
+	actions.enabled = false
 	
 	_unit_state_data.erase(unit_id)
 	

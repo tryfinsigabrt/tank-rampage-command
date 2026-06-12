@@ -27,13 +27,15 @@ class WeaponState:
 	var attacking:AttackAction
 	var firing_location:Node3D
 	
-	func _notification(what: int) -> void:
-		if what == NOTIFICATION_PREDELETE:
-			_destroy()
+	# CANNOT use NOTIFICATION_PREDELETE because self is no longer valid
+	# See https://github.com/godotengine/godot/issues/31166
+	#func _notification(what: int) -> void:
+		#if what == NOTIFICATION_PREDELETE:
+			#destructor()
 			
-	func _destroy() -> void:
+	func destructor() -> void:
 		stop_attacking()
-		if owned:
+		if owned and weapon:
 			weapon.queue_free()
 			weapon = null
 		elif is_instance_valid(weapon) and weapon.get_parent() != original_owner:
@@ -47,6 +49,8 @@ class WeaponState:
 		if is_instance_valid(attacking):
 			attacking.queue_free()
 		attacking = null
+		if is_instance_valid(weapon):
+			weapon.hide()
 				
 	func restore_parent() -> void:
 		if not is_instance_valid(original_owner):
@@ -57,11 +61,14 @@ class WeaponState:
 					
 	func change_parent(new_parent:Node) -> bool:
 		assert(new_parent)
+		if not is_instance_valid(weapon):
+			return false
+			
 		var current_parent:Node = weapon.get_parent()
 		if current_parent != new_parent:
 			if current_parent:
 				current_parent.remove_child(weapon)
-			new_parent.add_child(new_parent)
+			new_parent.add_child(weapon)
 			return true
 		return false
 
@@ -134,14 +141,34 @@ func _set_up_weapon(weapon:Weapon) -> void:
 	weapon.shoot_vfx_origin_path = NodePath()
 	weapon.allow_source_damage = false
 	
+	# Hack to get the shoot vfx facing the right way
+	weapon.shoot_vfx_use_model_front = false
+			
+	weapon.enable_debug_draw = true
+
+func remove_all_weapons() -> void:
+	_destroy_all_weapons()
+	enabled = false
+	
+func _destroy_all_weapons() -> void:
+	for id in _weapons:
+		var weapon_state:WeaponState = _weapons[id]
+		weapon_state.destructor()
+	_weapons.clear()
+	
 func remove_weapon(id:int) -> bool:
-	if id not in _weapons:
+	var weapon_state:WeaponState = _weapons.get(id)
+	if not weapon_state:
 		push_warning("%s: Cannot remove id=%d as it does not exist" % [name, id])
 		return false
 		
 	# WeaponState will destructor will free the weapon if it was owned	
+	# but we have a reference to it on the scene_tree exited on AttackScene to null out the 
+	# reference so need to explicitly stop any attack here
 	_weapons.erase(id)
 	
+	weapon_state.destructor()
+
 	if _weapons.is_empty():
 		enabled = false
 		
@@ -233,10 +260,11 @@ func _start_attacking(weapon_state:WeaponState, attack_target:Node3D, attack_ori
 	
 	# Null out attacking when action frees itself
 	action.tree_exited.connect(func() -> void:
-		weapon_state.attacking = null
+		weapon_state.stop_attacking()
+		weapon_state.restore_parent()
 	)
 	weapon_state.attacking = action
-	
+	weapon.show()
 	actions_container.add_child(action)
 	
 #region Component Registration
@@ -251,4 +279,6 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	Components.remove_component(ComponentName, self)
+	
+	_destroy_all_weapons()
 #endregion

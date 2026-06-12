@@ -11,7 +11,7 @@ var weapon:Weapon
 func aim_at(world_location:Vector3) -> void
 
 func shoot() -> void:
-	await weapon.shoot()
+	await weapon.fire()
 
 func get_fire_global_position() -> Vector3:
 	return weapon.global_position

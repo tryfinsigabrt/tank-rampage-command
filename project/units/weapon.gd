@@ -27,6 +27,7 @@ enum TraceType
 @export var shoot_vfx_size: ShootVfx.SizePreset = ShootVfx.SizePreset.SMALL
 @export var shoot_vfx_origin_path: NodePath
 @export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
+@export var shoot_vfx_use_model_front:bool = true
 
 @export var shoot_sfx:ShootSfx
 
@@ -194,9 +195,6 @@ func fire() -> void:
 	
 	await _delay_impact()
 	_hit_scan()
-
-var global_forward:Vector3:
-	get: return global_transform.basis.z
 	
 func _cooldown() -> void:
 	if not cooldown_timer.is_stopped():
@@ -336,7 +334,7 @@ func _orient_shoot_vfx() -> void:
 		vfx_origin.global_position,
 		vfx_origin.global_basis.x,
 		vfx_origin.global_basis.y,
-		-vfx_origin.global_basis.z,
+		vfx_origin.global_basis.z if shoot_vfx_use_model_front else -vfx_origin.global_basis.z,
 	)
 	_shoot_vfx.rotate_object_local(Vector3.RIGHT, deg_to_rad(shoot_vfx_rotation_offset_degrees.x))
 	_shoot_vfx.rotate_object_local(Vector3.UP, deg_to_rad(shoot_vfx_rotation_offset_degrees.y))
@@ -445,7 +443,7 @@ func _weapon_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_d
 			
 func _standard_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
 	var origin:Vector3 = global_position
-	var target:Vector3 = origin + global_forward * cast_distance
+	var target:Vector3 = origin + weapon_controller.get_fire_global_forward() * cast_distance
 
 	query.from = origin
 	query.to = target
