@@ -35,12 +35,12 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nm2cs"]
 
-[sub_resource type="Sky" id="Sky_l5wcu"]
+[sub_resource type="Sky" id="Sky_lkwmk"]
 sky_material = SubResource("ProceduralSkyMaterial_nm2cs")
 
 [sub_resource type="Environment" id="Environment_sttne"]
 background_mode = 2
-sky = SubResource("Sky_l5wcu")
+sky = SubResource("Sky_lkwmk")
 ambient_light_source = 3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_575d2"]
@@ -95,6 +95,7 @@ point_count = 4
 layer = 10
 
 [node name="PauseMenu" parent="PauseMenuLayer" unique_id=315174667 instance=ExtResource("1_q4yjv")]
+metadata/_edit_use_anchors_ = true
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_dayn7")]
 explored_area_modulation = 0.5
