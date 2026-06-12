@@ -139,6 +139,8 @@ selection_manager = NodePath("../../SelectionManager")
 script = ExtResource("22_2fhkc")
 _order_barks = {
 &"attack": NodePath("Attack"),
+&"follow": NodePath("Move"),
+&"load": NodePath("Move"),
 &"move": NodePath("Move"),
 &"move_and_attack": NodePath("Move")
 }
