@@ -29,6 +29,13 @@ func _ready() -> void:
 	
 	var inst := MyClass.new(1)
 	print(inst.another_value)
+	
+	var node:Node
+	node = Node.new()
+	node.queue_free()
+	print(\"VALID=%s\" % is_instance_valid(node))
+	print(\"QUEUED=%s\" % node.is_queued_for_deletion())
+	node.queue_free()
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

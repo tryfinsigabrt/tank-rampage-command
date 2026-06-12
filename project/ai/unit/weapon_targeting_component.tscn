@@ -15,6 +15,8 @@ enabled = false
 
 [node name="ThreatScorer" parent="." unique_id=65921218 instance=ExtResource("4_0i38n")]
 
-[node name="WeaponsContainer" type="Node" parent="." unique_id=302765171]
+[node name="Weapons" type="Node" parent="." unique_id=302765171]
+
+[node name="Actions" type="Node" parent="." unique_id=1069604094]
 
 [connection signal="threats_detected" from="UnitScanner" to="." method="_on_unit_scanner_threats_detected"]

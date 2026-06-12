@@ -54,7 +54,7 @@ scrap = SubResource("Resource_ytr8p")
 personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
-[node name="TestStructures" type="Node3D" unique_id=1293608661]
+[node name="TestBunker" type="Node3D" unique_id=1293608661]
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_bljek")]
 enable = false

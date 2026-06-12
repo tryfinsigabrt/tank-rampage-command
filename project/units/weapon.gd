@@ -469,7 +469,6 @@ func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
 			target.x += offset.x
 			target.z += offset.y
 		
-	
 	query.from = target + 1000 * Vector3.UP
 	query.to = target - 1000 * Vector3.UP
 	
