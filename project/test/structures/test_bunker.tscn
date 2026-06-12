@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bt88j75o4un6u"]
 
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_bljek"]
+[ext_resource type="Script" uid="uid://u3nwsrri4iw3" path="res://test/structures/test_bunker.gd" id="1_fnsaw"]
 [ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_e8dvh"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_t63lr"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="4_e7wfw"]
@@ -59,6 +60,7 @@ personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [node name="TestBunker" type="Node3D" unique_id=1293608661]
+script = ExtResource("1_fnsaw")
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_bljek")]
 enable = false
@@ -106,6 +108,7 @@ team_resource = ExtResource("11_ebfwh")
 [node name="Structures" type="Node3D" parent="World/Match/PlayerTeam" unique_id=395737292]
 
 [node name="Bunkers" type="Node3D" parent="World/Match/PlayerTeam/Structures" unique_id=1573479602]
+unique_name_in_owner = true
 
 [node name="BunkerStructure" parent="World/Match/PlayerTeam/Structures/Bunkers" unique_id=427098526 instance=ExtResource("18_i255q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.37252, 0, 82.76298)
