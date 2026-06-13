@@ -5,13 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="3_n1581"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="4_41wx6"]
 [ext_resource type="PackedScene" uid="uid://c8j2tvpinb33h" path="res://buildings/build_queue_display.tscn" id="5_3h0kb"]
-[ext_resource type="Material" uid="uid://da6rnnawm0pi1" path="res://props/shared/materials/brick_wall_material.tres" id="5_4cn2g"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_16k4d"]
-[ext_resource type="Material" uid="uid://ckuqt1hixyau" path="res://props/shared/materials/corrugated_metal_material.tres" id="5_k8o3l"]
 [ext_resource type="PackedScene" uid="uid://ck7rycacmi8bm" path="res://buildings/manufacturing_component.tscn" id="6_l3mmg"]
-[ext_resource type="Material" uid="uid://iiasmd44uw7v" path="res://props/shared/materials/window_material.tres" id="6_ptm6w"]
+[ext_resource type="PackedScene" uid="uid://ci0rgf5oirt43" path="res://buildings/factory/factory_model.tscn" id="7_2qjsw"]
 [ext_resource type="Resource" uid="uid://dxda8l74lu5jt" path="res://buildings/factory/factory_manufacturing.tres" id="7_dsl00"]
-[ext_resource type="Material" uid="uid://dplcs3t88fab7" path="res://props/shared/materials/trim_material.tres" id="7_ptm6w"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="10_nknb6"]
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="13_2qjsw"]
 [ext_resource type="PackedScene" uid="uid://7gsl50b8qqwx" path="res://buildings/rally_point_component.tscn" id="15_43hgy"]
@@ -19,20 +16,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(16, 12, 16)
-
-[sub_resource type="PrismMesh" id="PrismMesh_k8o3l"]
-
-[sub_resource type="PrismMesh" id="PrismMesh_ptm6w"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_3h0kb"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_2qjsw"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_nknb6"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ptm6w"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_3h0kb"]
 
 [node name="Factory" type="StaticBody3D" unique_id=1143212309 node_paths=PackedStringArray("health_stat", "team_component", "manufacturing_component", "visual_root", "ui_root") groups=["Building", "Interactable", "TeamAsset"]]
 collision_layer = 32
@@ -77,110 +60,7 @@ shape = SubResource("BoxShape3D_1e70b")
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=1734318274]
 
-[node name="roof-glass" type="MeshInstance3D" parent="VisualRoot" unique_id=1851460811]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 6, 5.775, 0)
-material_override = ExtResource("6_ptm6w")
-mesh = SubResource("PrismMesh_k8o3l")
-
-[node name="roof-glass2" type="MeshInstance3D" parent="VisualRoot" unique_id=694850869]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 4, 6.3, 0)
-material_override = ExtResource("6_ptm6w")
-mesh = SubResource("PrismMesh_k8o3l")
-
-[node name="roof-glass3" type="MeshInstance3D" parent="VisualRoot" unique_id=2130057502]
-transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 2, 6.775, 0)
-material_override = ExtResource("6_ptm6w")
-mesh = SubResource("PrismMesh_k8o3l")
-
-[node name="roof" type="MeshInstance3D" parent="VisualRoot" unique_id=1462720984]
-transform = Transform3D(16, 0, 0, 0, 2, 0, 0, 0, 16, 0, 6, 0)
-material_override = ExtResource("5_k8o3l")
-mesh = SubResource("PrismMesh_ptm6w")
-
-[node name="smokestack" type="MeshInstance3D" parent="VisualRoot" unique_id=750413925]
-transform = Transform3D(0.5, 0, 0, 0, 4, 0, 0, 0, 0.5, -1, 8, 7)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("CylinderMesh_3h0kb")
-
-[node name="smokestack2" type="MeshInstance3D" parent="VisualRoot" unique_id=345069825]
-transform = Transform3D(0.5, 0, 0, 0, 4, 0, 0, 0, 0.5, -1, 8, 6)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("CylinderMesh_3h0kb")
-
-[node name="smokestack3" type="MeshInstance3D" parent="VisualRoot" unique_id=1225074802]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -1, 8, -3)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("CylinderMesh_3h0kb")
-
-[node name="windows" type="MeshInstance3D" parent="VisualRoot" unique_id=546201666]
-transform = Transform3D(15.5, 0, 0, 0, 1, 0, 0, 0, 15.5, 0, 4.5, 0)
-material_override = ExtResource("6_ptm6w")
-mesh = SubResource("BoxMesh_2qjsw")
-
-[node name="walls" type="MeshInstance3D" parent="VisualRoot" unique_id=442386719]
-transform = Transform3D(16, 0, 0, 0, 4, 0, 0, 0, 16, 0, 2, 0)
-material_override = ExtResource("5_4cn2g")
-mesh = SubResource("BoxMesh_nknb6")
-
-[node name="roof-awning" type="MeshInstance3D" parent="VisualRoot" unique_id=1436558184]
-transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 4, -4, 5.5, 0)
-material_override = ExtResource("5_4cn2g")
-mesh = SubResource("BoxMesh_ptm6w")
-
-[node name="door" type="MeshInstance3D" parent="VisualRoot" unique_id=730851589]
-transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, 0)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door2" type="MeshInstance3D" parent="VisualRoot" unique_id=864554665]
-transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, -6)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door3" type="MeshInstance3D" parent="VisualRoot" unique_id=804207261]
-transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, -5)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door4" type="MeshInstance3D" parent="VisualRoot" unique_id=1190884416]
-transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, 1, 0.5, -8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door5" type="MeshInstance3D" parent="VisualRoot" unique_id=2138192983]
-transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, 0, 0.5, -8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door6" type="MeshInstance3D" parent="VisualRoot" unique_id=1152169585]
-transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, -1, 0.5, -8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door7" type="MeshInstance3D" parent="VisualRoot" unique_id=131888661]
-transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, -1, 0.5, -8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door8" type="MeshInstance3D" parent="VisualRoot" unique_id=1426731938]
-transform = Transform3D(-2.1855694e-08, 0, -1, 0, 1, 0, 0.5, 0, -4.371139e-08, -8.01, 0.5, -6)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door9" type="MeshInstance3D" parent="VisualRoot" unique_id=1064600041]
-transform = Transform3D(-2.1855694e-08, 0, -1, 0, 1, 0, 0.5, 0, -4.371139e-08, -8.01, 0.5, 6)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door10" type="MeshInstance3D" parent="VisualRoot" unique_id=2116179513]
-transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, 8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
-
-[node name="door11" type="MeshInstance3D" parent="VisualRoot" unique_id=1597755446]
-transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, 8.01)
-material_override = ExtResource("7_ptm6w")
-mesh = SubResource("QuadMesh_3h0kb")
+[node name="FactoryModel" parent="VisualRoot" unique_id=1590993206 instance=ExtResource("7_2qjsw")]
 
 [node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=526988712]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 18, 0)

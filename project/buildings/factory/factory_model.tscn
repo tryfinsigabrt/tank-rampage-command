@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://ci0rgf5oirt43"]
+
+[ext_resource type="Material" uid="uid://iiasmd44uw7v" path="res://props/shared/materials/window_material.tres" id="1_6t4dr"]
+[ext_resource type="Material" uid="uid://ckuqt1hixyau" path="res://props/shared/materials/corrugated_metal_material.tres" id="2_aoogi"]
+[ext_resource type="Material" uid="uid://dplcs3t88fab7" path="res://props/shared/materials/trim_material.tres" id="3_s2ym7"]
+[ext_resource type="Material" uid="uid://da6rnnawm0pi1" path="res://props/shared/materials/brick_wall_material.tres" id="4_fn25o"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_k8o3l"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_ptm6w"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3h0kb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2qjsw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nknb6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ptm6w"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_3h0kb"]
+
+[node name="FactoryModel" type="Node3D" unique_id=1590993206]
+
+[node name="roof-glass" type="MeshInstance3D" parent="." unique_id=1041229131]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 6, 5.775, 0)
+material_override = ExtResource("1_6t4dr")
+mesh = SubResource("PrismMesh_k8o3l")
+skeleton = NodePath("../..")
+
+[node name="roof-glass2" type="MeshInstance3D" parent="." unique_id=591908140]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 4, 6.3, 0)
+material_override = ExtResource("1_6t4dr")
+mesh = SubResource("PrismMesh_k8o3l")
+skeleton = NodePath("../..")
+
+[node name="roof-glass3" type="MeshInstance3D" parent="." unique_id=884745188]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 14, 2, 6.775, 0)
+material_override = ExtResource("1_6t4dr")
+mesh = SubResource("PrismMesh_k8o3l")
+skeleton = NodePath("../..")
+
+[node name="roof" type="MeshInstance3D" parent="." unique_id=979632325]
+transform = Transform3D(16, 0, 0, 0, 2, 0, 0, 0, 16, 0, 6, 0)
+material_override = ExtResource("2_aoogi")
+mesh = SubResource("PrismMesh_ptm6w")
+skeleton = NodePath("../..")
+
+[node name="smokestack" type="MeshInstance3D" parent="." unique_id=137234036]
+transform = Transform3D(0.5, 0, 0, 0, 4, 0, 0, 0, 0.5, -1, 8, 7)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("CylinderMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="smokestack2" type="MeshInstance3D" parent="." unique_id=990791306]
+transform = Transform3D(0.5, 0, 0, 0, 4, 0, 0, 0, 0.5, -1, 8, 6)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("CylinderMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="smokestack3" type="MeshInstance3D" parent="." unique_id=1453738469]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -1, 8, -3)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("CylinderMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="windows" type="MeshInstance3D" parent="." unique_id=1278012756]
+transform = Transform3D(15.5, 0, 0, 0, 1, 0, 0, 0, 15.5, 0, 4.5, 0)
+material_override = ExtResource("1_6t4dr")
+mesh = SubResource("BoxMesh_2qjsw")
+skeleton = NodePath("../..")
+
+[node name="walls" type="MeshInstance3D" parent="." unique_id=1658739994]
+transform = Transform3D(16, 0, 0, 0, 4, 0, 0, 0, 16, 0, 2, 0)
+material_override = ExtResource("4_fn25o")
+mesh = SubResource("BoxMesh_nknb6")
+skeleton = NodePath("../..")
+
+[node name="roof-awning" type="MeshInstance3D" parent="." unique_id=1966538138]
+transform = Transform3D(4, 0, 0, 0, 2, 0, 0, 0, 4, -4, 5.5, 0)
+material_override = ExtResource("4_fn25o")
+mesh = SubResource("BoxMesh_ptm6w")
+skeleton = NodePath("../..")
+
+[node name="door" type="MeshInstance3D" parent="." unique_id=947363936]
+transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, 0)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door2" type="MeshInstance3D" parent="." unique_id=1577330405]
+transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, -6)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door3" type="MeshInstance3D" parent="." unique_id=954781843]
+transform = Transform3D(-2.1855694e-08, 0, 1, 0, 1, 0, -0.5, 0, -4.371139e-08, 8.01, 0.5, -5)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door4" type="MeshInstance3D" parent="." unique_id=2146124388]
+transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, 1, 0.5, -8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door5" type="MeshInstance3D" parent="." unique_id=1068441473]
+transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, 0, 0.5, -8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door6" type="MeshInstance3D" parent="." unique_id=569027463]
+transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, -1, 0.5, -8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door7" type="MeshInstance3D" parent="." unique_id=2067187716]
+transform = Transform3D(-0.5, 0, -8.742278e-08, 0, 1, 0, 4.371139e-08, 0, -1, -1, 0.5, -8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door8" type="MeshInstance3D" parent="." unique_id=2140199941]
+transform = Transform3D(-2.1855694e-08, 0, -1, 0, 1, 0, 0.5, 0, -4.371139e-08, -8.01, 0.5, -6)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door9" type="MeshInstance3D" parent="." unique_id=1353287154]
+transform = Transform3D(-2.1855694e-08, 0, -1, 0, 1, 0, 0.5, 0, -4.371139e-08, -8.01, 0.5, 6)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door10" type="MeshInstance3D" parent="." unique_id=1405903912]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.5, 8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
+
+[node name="door11" type="MeshInstance3D" parent="." unique_id=581776772]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.5, 8.01)
+material_override = ExtResource("3_s2ym7")
+mesh = SubResource("QuadMesh_3h0kb")
+skeleton = NodePath("../..")
