@@ -1,0 +1,156 @@
+[gd_scene format=3 uid="uid://j711hmm5lbwg"]
+
+[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_08qw1"]
+[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_u7f0y"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_a0yix"]
+[ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="4_0rga4"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_4dr0m"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_l2u6e"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="7_diocq"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="8_1e74n"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="9_1pvf8"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="10_5mqik"]
+[ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="15_vyxpj"]
+[ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="16_e8e63"]
+[ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="17_uudh1"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="18_sdlo4"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_c2k4k"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="22_8ow88"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="23_uh1wc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_w7djc")
+
+[sub_resource type="Environment" id="Environment_nsiie"]
+background_mode = 2
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_nsiie"]
+vertices = PackedVector3Array(-497, 0.5, 41, -44.25, 0.5, 41, -43, 0.5, 37, -40.75, 0.5, 34.75, -38.75, 0.5, 33.75, -36.5, 0.5, 33.5, -36.5, 0.5, -497, -497, 0.5, -497, -30.25, 0.5, 36.75, -28.75, 0.5, 41, 497, 0.5, 41, -32.25, 0.5, 34.75, -34.25, 0.5, 33.75, 497, 0.5, -497, -38, 10, 40.75, -37.75, 10, 42, -37, 10, 42.5, -35.5, 10, 42.25, -35, 10, 41.25, -35.5, 10, 39.75, -37.5, 10, 39.75, -35, 0.5, 73.75, -35.5, 0.5, 48.5, -37.25, 0.5, 48.75, -41, 0.5, 47.25, -42.75, 0.5, 45.5, -45, 0.5, 79.25, -46.25, 0.5, 81.75, -497, 0.5, 81.75, -33.75, 0.5, 73.75, -32.5, 0.5, 47.5, -30.25, 0.5, 45.25, -31.75, 0.5, 75, -26.25, 0.5, 85.25, 497, 0.5, 85.25, -39.25, 10.5, 82.5, -37.25, 10.5, 86.75, -33, 10.5, 84.5, -35.25, 10.5, 80.5, -37, 0.5, 86.25, -33.5, 0.5, 84.5, -35.25, 0.5, 81, -39, 0.5, 82.75, -47.75, 0.5, 103, -43.5, 0.5, 102.5, -40.75, 0.5, 91.75, -49.25, 0.5, 103.75, -52, 0.5, 107, -45.25, 0.5, 84.25, -497, 0.5, 109.75, -52.75, 0.5, 110, -52.75, 0.5, 108.5, -28, 0.5, 88.25, -34.25, 0.5, 91.5, -35.75, 0.5, 92.75, -37.25, 0.5, 108.25, -37, 0.5, 112.25, -38.25, 0.5, 93.5, -38.75, 0.5, 105.5, -27, 0.5, 87.25, 497, 0.5, 112.25, -40, 0.5, 92.75, -41.25, 0.5, 103.5, -46.5, 15.5, 111.75, -45.75, 15.5, 112.5, -43.75, 15.5, 112.25, -45.5, 15.5, 108.75, -46.75, 15.5, 109.5, -43, 15.5, 111.5, -43.5, 15.5, 109, -43.25, 0.5, 111.25, -43.5, 0.5, 109.5, -44.25, 0.5, 109, -46.5, 0.5, 109.75, -45.75, 0.5, 112, -44, 0.5, 112, -497, 0.5, 111.25, -52.75, 0.5, 111, -46.5, 0.5, 497, -46.5, 0.5, 118.5, -49, 0.5, 117.25, -51.75, 0.5, 114.75, -52.5, 0.5, 113.25, -497, 0.5, 497, -42, 0.5, 118, -44.25, 0.5, 118.25, -44, 0.5, 497, -40.5, 0.5, 117.25, -37.75, 0.5, 114, 497, 0.5, 497)
+polygons = [PackedInt32Array(0, 2, 1), PackedInt32Array(3, 2, 0), PackedInt32Array(4, 3, 0), PackedInt32Array(4, 0, 5), PackedInt32Array(5, 0, 6), PackedInt32Array(6, 0, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(10, 8, 11), PackedInt32Array(12, 5, 6), PackedInt32Array(11, 12, 10), PackedInt32Array(10, 12, 6), PackedInt32Array(10, 6, 13), PackedInt32Array(16, 15, 14), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(19, 16, 14), PackedInt32Array(19, 14, 20), PackedInt32Array(23, 22, 21), PackedInt32Array(24, 23, 21), PackedInt32Array(24, 21, 25), PackedInt32Array(25, 21, 26), PackedInt32Array(26, 27, 25), PackedInt32Array(25, 27, 1), PackedInt32Array(1, 27, 28), PackedInt32Array(1, 28, 0), PackedInt32Array(21, 22, 29), PackedInt32Array(29, 22, 30), PackedInt32Array(31, 9, 32), PackedInt32Array(32, 9, 33), PackedInt32Array(33, 9, 34), PackedInt32Array(34, 9, 10), PackedInt32Array(29, 30, 32), PackedInt32Array(32, 30, 31), PackedInt32Array(38, 37, 35), PackedInt32Array(35, 37, 36), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(45, 44, 43), PackedInt32Array(45, 43, 46), PackedInt32Array(46, 47, 45), PackedInt32Array(45, 47, 48), PackedInt32Array(51, 50, 49), PackedInt32Array(47, 51, 48), PackedInt32Array(48, 51, 27), PackedInt32Array(27, 51, 28), PackedInt32Array(28, 51, 49), PackedInt32Array(53, 52, 54), PackedInt32Array(54, 52, 55), PackedInt32Array(55, 52, 56), PackedInt32Array(57, 54, 58), PackedInt32Array(58, 54, 55), PackedInt32Array(52, 59, 56), PackedInt32Array(56, 59, 60), PackedInt32Array(33, 34, 59), PackedInt32Array(59, 34, 60), PackedInt32Array(44, 45, 61), PackedInt32Array(61, 57, 44), PackedInt32Array(44, 57, 62), PackedInt32Array(57, 58, 62), PackedInt32Array(65, 64, 63), PackedInt32Array(66, 69, 67), PackedInt32Array(67, 69, 63), PackedInt32Array(63, 69, 65), PackedInt32Array(65, 69, 68), PackedInt32Array(71, 70, 72), PackedInt32Array(72, 70, 75), PackedInt32Array(72, 75, 74), PackedInt32Array(72, 74, 73), PackedInt32Array(77, 76, 50), PackedInt32Array(50, 76, 49), PackedInt32Array(80, 79, 78), PackedInt32Array(81, 80, 78), PackedInt32Array(82, 81, 78), PackedInt32Array(82, 78, 77), PackedInt32Array(77, 78, 76), PackedInt32Array(76, 78, 83), PackedInt32Array(86, 85, 84), PackedInt32Array(86, 84, 87), PackedInt32Array(86, 87, 88), PackedInt32Array(88, 56, 86), PackedInt32Array(86, 56, 60), PackedInt32Array(86, 60, 89), PackedInt32Array(78, 79, 86), PackedInt32Array(86, 79, 85)]
+geometry_collision_mask = 3
+agent_height = 3.0
+agent_radius = 3.0
+agent_max_slope = 60.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
+size = Vector3(600, 100, 525)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a3rw4"]
+size = Vector3(50, 10, 50)
+
+[sub_resource type="Resource" id="Resource_jtih4"]
+script = ExtResource("7_diocq")
+cap = 100
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_ytr8p"]
+script = ExtResource("8_1e74n")
+count = 20000
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_ur5xo"]
+script = ExtResource("9_1pvf8")
+scrap = SubResource("Resource_ytr8p")
+personnel = SubResource("Resource_jtih4")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[node name="TestConstruction" type="Node3D" unique_id=1293608661]
+
+[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_08qw1")]
+
+[node name="Environment" type="Node3D" parent="." unique_id=767500655]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1566065024]
+environment = SubResource("Environment_nsiie")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1635653192]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+
+[node name="World" type="Node3D" parent="." unique_id=1409335951]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=2066909013]
+navigation_mesh = SubResource("NavigationMesh_nsiie")
+
+[node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_u7f0y")
+use_collision = true
+collision_layer = 2
+size = Vector3(1000, 1, 1000)
+
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("3_a0yix")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
+shape = SubResource("BoxShape3D_mushl")
+debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
+
+[node name="Obstacles" type="Node3D" parent="World/NavigationRegion3D" unique_id=198417533]
+
+[node name="Cylinder" type="CSGCylinder3D" parent="World/NavigationRegion3D/Obstacles" unique_id=646215894]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -44.897667, 7.500001, 110.547104)
+use_collision = true
+collision_mask = 0
+radius = 5.0
+height = 15.0
+
+[node name="Box" type="CSGBox3D" parent="World/NavigationRegion3D/Obstacles" unique_id=225209603]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -36.211136, 5, 83.59262)
+use_collision = true
+collision_mask = 0
+size = Vector3(10, 10, 10)
+
+[node name="Sphere" type="CSGSphere3D" parent="World/NavigationRegion3D/Obstacles" unique_id=490857096]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -36.5246, 5, 41.049683)
+use_collision = true
+collision_mask = 0
+radius = 5.0
+
+[node name="BlockingVolume" parent="World/NavigationRegion3D/Obstacles" unique_id=931215775 instance=ExtResource("4_0rga4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.399994, 0, 113.6)
+collision_layer = 36
+gameplay_draw = true
+shape = SubResource("BoxShape3D_a3rw4")
+
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_4dr0m")]
+
+[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_l2u6e")]
+team = 1
+resources = SubResource("Resource_ur5xo")
+
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("10_5mqik")]
+player_team = NodePath("..")
+
+[node name="Barracks" parent="World/Match/PlayerTeam" unique_id=404914555 instance=ExtResource("15_vyxpj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.3, 0, 167.90001)
+team = 1
+
+[node name="UI" parent="World/Match/PlayerTeam/Barracks" index="1" unique_id=231095817]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -72.3, 15, 167.90001)
+
+[node name="CommandCenter" parent="World/Match/PlayerTeam" unique_id=1674660700 instance=ExtResource("16_e8e63")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 169.90001)
+team = 1
+
+[node name="UI" parent="World/Match/PlayerTeam/CommandCenter" index="1" unique_id=1700774743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 30, 169.90001)
+
+[node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("17_uudh1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 185.8)
+team = 1
+
+[node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("18_sdlo4")]
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("21_c2k4k")]
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("22_8ow88")]
+layout_mode = 2
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("23_uh1wc")]
+
+[editable path="World/Match/PlayerTeam/Barracks"]
+[editable path="World/Match/PlayerTeam/CommandCenter"]

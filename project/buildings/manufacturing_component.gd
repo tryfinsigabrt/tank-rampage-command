@@ -91,11 +91,9 @@ func _exit_tree() -> void:
 func _refund_build_queue() -> void:
 	# Refund any queued up units that haven't spawned
 	if _match_team:
-		var team_resource := _match_team.resources
 		for element in _build_queue:
 			var resource := element.resource
-			resource.refund_fully(team_resource)
-			resource.dequeue_personnel(team_resource)
+			_refund_resource(resource)
 
 
 func _ready() -> void:
@@ -178,15 +176,7 @@ func cancel_builds(items: Array[BuildQueueElement]) -> void:
 		return
 
 	for item in items:
-		var idx:int = _build_queue.find(item)
-		if idx == -1:
-			push_warning("%s: requested canceled item %s not found!" % [name, item.resource])
-			continue
-		elif idx == 0:
-			push_warning("%s: Cannot cancel the active element: %s!" % [name, item.resource])
-			continue
-		_build_queue.remove_at(idx)
-		build_canceled.emit(item.resource, idx)
+		cancel_single_build(item)
 
 
 ## Cancel single queued build
@@ -202,14 +192,17 @@ func cancel_single_build(item: BuildQueueElement) -> void:
 		push_warning("%s: Cannot cancel the active element: %s!" % [name, item.resource])
 		return
 
-	if _match_team:
-		item.resource.dequeue_personnel(_match_team.resources)
-		item.resource.refund_fully(_match_team.resources)
+	_refund_resource(item.resource)
 
 	_build_queue.remove_at(idx)
 	build_canceled.emit(item.resource, idx)
 
-
+func _refund_resource(resource:ConstructionResource) -> void:
+	if _match_team:
+		var resources := _match_team.resources
+		resource.dequeue_personnel(resources)
+		resource.refund_fully(resources)
+		
 func _do_spawn(resource:ConstructionResource) -> Node3D:
 	# If queue depth too high then fail spawning
 	if _build_queue.size() >= max_queue:

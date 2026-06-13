@@ -136,4 +136,4 @@ func _dispatch_viable_build_cancel_order(type: ConstructionResource.Type) -> voi
 				item_to_cancel = elm
 				break
 		if item_to_cancel:
-			comp.cancel_builds([item_to_cancel])
+			comp.cancel_single_build(item_to_cancel)
