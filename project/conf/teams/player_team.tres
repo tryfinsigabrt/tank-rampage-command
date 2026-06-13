@@ -11,8 +11,9 @@
 [ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="8_6h1ir"]
 [ext_resource type="Resource" uid="uid://b8sax7qhmtdqr" path="res://conf/costs/human/tank_spikes_cost.tres" id="9_vkllt"]
 [ext_resource type="Resource" uid="uid://bnp02362c5kqh" path="res://conf/costs/human/sandbags_cost.tres" id="10_nmc5c"]
+[ext_resource type="Resource" uid="uid://rwp7cr3nn0at" path="res://conf/costs/human/bunker_cost.tres" id="11_vkllt"]
 
 [resource]
 script = ExtResource("2_n5aqu")
-construction = Array[ExtResource("1_ab2q4")]([ExtResource("2_m1s6g"), ExtResource("3_xu7sm"), ExtResource("4_ujl1h"), ExtResource("5_6h1ir"), ExtResource("6_vkllt"), ExtResource("7_nmc5c"), ExtResource("8_6h1ir"), ExtResource("9_vkllt"), ExtResource("10_nmc5c")])
+construction = Array[ExtResource("1_ab2q4")]([ExtResource("2_m1s6g"), ExtResource("3_xu7sm"), ExtResource("4_ujl1h"), ExtResource("5_6h1ir"), ExtResource("6_vkllt"), ExtResource("7_nmc5c"), ExtResource("8_6h1ir"), ExtResource("9_vkllt"), ExtResource("10_nmc5c"), ExtResource("11_vkllt")])
 metadata/_custom_type_script = "uid://xt576yq3qny0"

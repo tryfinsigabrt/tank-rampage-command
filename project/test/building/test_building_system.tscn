@@ -16,14 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="12_51tpp"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_dk5yy"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_23ivt"]
-[ext_resource type="Script" uid="uid://dbbl6g16o8jb3" path="res://buildings/manufacturing_types.gd" id="16_82chk"]
-[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="17_m666l"]
-[ext_resource type="Resource" uid="uid://bnp02362c5kqh" path="res://conf/costs/human/sandbags_cost.tres" id="18_a3rw4"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="18_jtih4"]
-[ext_resource type="Resource" uid="uid://b8sax7qhmtdqr" path="res://conf/costs/human/tank_spikes_cost.tres" id="19_dckif"]
 [ext_resource type="PackedScene" uid="uid://bxxopcco6kl1o" path="res://resources/scrap_token.tscn" id="19_ytr8p"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="19_yuq8o"]
-[ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="20_e8euh"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="28_m666l"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
@@ -68,11 +63,6 @@ script = ExtResource("7_0hdnv")
 scrap = SubResource("Resource_ytr8p")
 personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
-
-[sub_resource type="Resource" id="Resource_ee8qm"]
-script = ExtResource("16_82chk")
-types = Array[ExtResource("17_m666l")]([ExtResource("18_a3rw4"), ExtResource("19_dckif"), ExtResource("20_e8euh")])
-metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
 
 [sub_resource type="Curve3D" id="Curve3D_jtih4"]
 closed = true
@@ -232,9 +222,6 @@ team = 1
 
 [node name="UI" parent="World/Match/PlayerTeam/CommandCenter" index="1" unique_id=1700774743]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 30, 169.90001)
-
-[node name="ManufacturingComponent" parent="World/Match/PlayerTeam/CommandCenter/Components" parent_id_path=PackedInt32Array(1674660700, 908056470) index="1" unique_id=878942946]
-supported_types = SubResource("Resource_ee8qm")
 
 [node name="Factory" parent="World/Match/PlayerTeam" unique_id=1143212309 instance=ExtResource("14_23ivt")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 185.8)

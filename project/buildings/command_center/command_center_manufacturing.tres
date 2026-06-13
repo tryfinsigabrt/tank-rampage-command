@@ -5,8 +5,9 @@
 [ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="3_4ourt"]
 [ext_resource type="Resource" uid="uid://b8sax7qhmtdqr" path="res://conf/costs/human/tank_spikes_cost.tres" id="4_3poyv"]
 [ext_resource type="Resource" uid="uid://bnp02362c5kqh" path="res://conf/costs/human/sandbags_cost.tres" id="5_qm1vw"]
+[ext_resource type="Resource" uid="uid://rwp7cr3nn0at" path="res://conf/costs/human/bunker_cost.tres" id="6_3poyv"]
 
 [resource]
 script = ExtResource("1_56a6v")
-types = Array[ExtResource("2_4ndsh")]([ExtResource("3_4ourt"), ExtResource("4_3poyv"), ExtResource("5_qm1vw")])
+types = Array[ExtResource("2_4ndsh")]([ExtResource("3_4ourt"), ExtResource("4_3poyv"), ExtResource("5_qm1vw"), ExtResource("6_3poyv")])
 metadata/_custom_type_script = "uid://dbbl6g16o8jb3"

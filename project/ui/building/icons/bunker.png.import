@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pyx117eh3y4y"
-path="res://.godot/imported/scrap_48.png-91496acc22f8a5b1c7dda78f3f5a2ae2.ctex"
+uid="uid://b5r3dyk5p1h4"
+path="res://.godot/imported/bunker.png-c86a4f7ae90674d296f1dfdc07a8403d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/scrap_48.png"
-dest_files=["res://.godot/imported/scrap_48.png-91496acc22f8a5b1c7dda78f3f5a2ae2.ctex"]
+source_file="res://ui/building/icons/bunker.png"
+dest_files=["res://.godot/imported/bunker.png-c86a4f7ae90674d296f1dfdc07a8403d.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c8wxog2atj6fo" path="res://props/landmine/landmine.tscn" id="5_61k01"]
 [ext_resource type="PackedScene" uid="uid://dciuecqknn77y" path="res://structures/sandbags/sandbags_structure.tscn" id="6_2gcbc"]
 [ext_resource type="PackedScene" uid="uid://bj11lkpa8cvvf" path="res://structures/tank_spikes/tank_spikes.tscn" id="7_rqpul"]
+[ext_resource type="PackedScene" uid="uid://hrs1rakf5iql" path="res://structures/bunker/bunker.tscn" id="8_2gcbc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
 
@@ -78,6 +79,7 @@ top_level = true
 fov = 50.0
 
 [node name="TankSpikes" parent="IconRoot" unique_id=209512405 instance=ExtResource("7_rqpul")]
+visible = false
 
 [node name="UI" parent="IconRoot/TankSpikes" index="1" unique_id=1292899281]
 visible = false
@@ -86,6 +88,13 @@ visible = false
 transform = Transform3D(0.9704837, 0.111426376, -0.21388221, 0.032718644, 0.81783193, 0.5745263, 0.23893705, -0.5645664, 0.7900469, -0.3543297, 1.8942509, 1.701294)
 top_level = true
 fov = 70.0
+
+[node name="bunker" parent="IconRoot" unique_id=1274962094 instance=ExtResource("8_2gcbc")]
+
+[node name="Camera" type="Camera3D" parent="IconRoot/bunker" unique_id=1168845229]
+transform = Transform3D(1, 0, 0, 0, 0.86725324, 0.4978673, 0, -0.49786732, 0.86725324, -0.048671365, 7.5911007, 13.77966)
+top_level = true
+fov = 45.0
 
 [node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
 unique_name_in_owner = true

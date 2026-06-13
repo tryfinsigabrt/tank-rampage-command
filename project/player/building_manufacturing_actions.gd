@@ -46,6 +46,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("build_tank_spikes"):
 		_dispatch_build_tank_spikes()
 
+	elif event.is_action_pressed("cancel_bunker"):
+		_dispatch_cancel_build_bunker()
+	elif event.is_action_pressed("build_bunker"):
+		_dispatch_build_bunker()
+		
 func _dispatch_build_marine() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Marine)
 	
@@ -64,6 +69,9 @@ func _dispatch_build_sandbags() -> void:
 func _dispatch_build_tank_spikes() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.TankSpikes)
 		
+func _dispatch_build_bunker() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.Bunker)
+	
 func _dispatch_cancel_build_marine() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Marine)
 
@@ -82,6 +90,9 @@ func _dispatch_cancel_build_sandbags() -> void:
 func _dispatch_cancel_build_tank_spikes() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.TankSpikes)
 	
+func _dispatch_cancel_build_bunker() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Bunker)
+
 func _dispatch_viable_build_order(type: ConstructionResource.Type) -> void:
 	var buildings := selection_manager.get_selected_buildings_on_team()
 	var manufacturing_components: Array[ManufacturingComponent]

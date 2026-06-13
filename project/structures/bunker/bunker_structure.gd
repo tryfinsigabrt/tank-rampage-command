@@ -7,6 +7,7 @@ class_name BunkerStructure extends DefensiveStructure
 @onready var targeting_component: WeaponTargetingComponent = %WeaponTargetingComponent
 
 var _destroyed:bool
+
 	
 func _do_update_render(in_visible:bool) -> void:
 	_visual_root.visible = in_visible
@@ -44,6 +45,9 @@ func _add_to_bunker_defense(unit: Unit) -> void:
 func _remove_from_bunker_defense(unit: Unit) -> void:
 	targeting_component.remove_weapon(unit.get_instance_id())
 	
+	# Wait a frame so that physics toggle takes effect
+	await get_tree().physics_frame
+	
 	if _destroyed:
 		# Just place the unit at the bunker's global position
 		var location:Vector3 = global_position
@@ -54,4 +58,6 @@ func _remove_from_bunker_defense(unit: Unit) -> void:
 		_node_viable_position_finder.place_asset(unit)
 	
 func _on_unit_removed(unit: Unit) -> void:
-	_remove_from_bunker_defense(unit)
+	await _remove_from_bunker_defense(unit)
+
+

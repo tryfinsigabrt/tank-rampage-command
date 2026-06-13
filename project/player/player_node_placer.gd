@@ -67,7 +67,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		_begin_placement(ConstructionResource.Type.BarbedWire)
 	elif event.is_action_pressed(&"build_tank_spikes"):
 		_begin_placement(ConstructionResource.Type.TankSpikes)
-
+	elif event.is_action_pressed(&"build_bunker"):
+		_begin_placement(ConstructionResource.Type.Bunker)
+		
 func _begin_placement(type: ConstructionResource.Type) -> void:
 	if _current_placement_spawner:
 		_remove_spawner()
@@ -78,7 +80,7 @@ func _begin_placement(type: ConstructionResource.Type) -> void:
 	match type:
 		ConstructionResource.Type.CommandCenter, ConstructionResource.Type.Barracks, ConstructionResource.Type.Factory:
 			_current_placement_spawner = building_manufacturing.create(type)
-		ConstructionResource.Type.Mine, ConstructionResource.Type.BarbedWire, ConstructionResource.Type.TankSpikes:
+		ConstructionResource.Type.Mine, ConstructionResource.Type.BarbedWire, ConstructionResource.Type.TankSpikes, ConstructionResource.Type.Bunker:
 			_current_placement_spawner = _inventory_component.create(type)
 		_:
 			_current_placement_spawner = null
