@@ -129,7 +129,11 @@ unique_name_in_owner = true
 my_asset = NodePath("../..")
 single_target = true
 
-[node name="YawPitchAimingComponent" parent="Components" unique_id=2102639078 instance=ExtResource("16_ek3dp")]
+[node name="YawPitchAimingComponent" parent="Components" unique_id=2102639078 node_paths=PackedStringArray("yaw_root", "pitch_root") instance=ExtResource("16_ek3dp")]
+yaw_root = NodePath("../../VisualRoot/YawPivot")
+pitch_root = NodePath("../../VisualRoot/YawPivot/PitchPivot")
+min_pitch_degrees = -20.0
+max_pitch_degrees = 45.0
 
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("11_kea5b")]
 default_avoidance_layers = 1

@@ -53,7 +53,7 @@ class WeaponState:
 		if is_instance_valid(attacking):
 			attacking.queue_free()
 		attacking = null
-		if is_instance_valid(weapon):
+		if is_instance_valid(weapon) and owned:
 			weapon.hide()
 				
 	func restore_parent() -> void:

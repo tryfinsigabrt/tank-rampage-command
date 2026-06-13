@@ -6,6 +6,10 @@ class_name TurretStructure extends DefensiveStructure
 @onready var targeting_component: WeaponTargetingComponent = %WeaponTargetingComponent
 @onready var weapon: Weapon = %Weapon
 	
+func _ready() -> void:
+	super()
+	targeting_component.add_weapon(1, weapon)
+	
 func _do_update_render(in_visible:bool) -> void:
 	_visual_root.visible = in_visible
 	_ui.visible = in_visible
