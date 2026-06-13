@@ -38,8 +38,8 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
 			# The container will issue a stop command which will complete this tree
 			return SUCCESS
 		else:
-			print_debug("%s: unit=%s could not be loaded into %s - canceling movement" % [name, _unit.name, _container_asset.name])
-			SignalBus.on_unit_move_canceled.emit(_unit, blackboard.target_position)
+			print_debug("%s: unit=%s could not be loaded into %s - canceling action" % [name, _unit.name, _container_asset.name])
+			blackboard.current_action = ""
 			return FAILURE
 	return RUNNING
 

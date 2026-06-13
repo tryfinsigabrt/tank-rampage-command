@@ -21,9 +21,9 @@ class Keys:
 	
 var current_action:StringName:
 	get:
-		return get_value(Keys.Action,&"")
+		return get_value(Keys.Action, &"")
 	set(value):
-		set_value(Keys,Action, value)
+		set_value(Keys.Action, value)
 
 var action_id:int:
 	get:
