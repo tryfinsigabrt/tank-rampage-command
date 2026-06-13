@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_tvlfg"]
 [ext_resource type="PackedScene" uid="uid://duuf5gpbaix6p" path="res://ui/menus/level_panel.tscn" id="2_uhb52"]
 [ext_resource type="Script" uid="uid://c4bocj7tgd1pd" path="res://ui/menus/level_select_menu.gd" id="3_m3o25"]
+[ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="4_j7w7g"]
 
 [node name="LevelSelect" type="Control" unique_id=1853160801]
 layout_mode = 3
@@ -69,5 +70,11 @@ layout_mode = 2
 
 [node name="Level02" parent="RootMargin/Content/Scroll/LevelList" unique_id=1696495302 instance=ExtResource("2_uhb52")]
 layout_mode = 2
+
+[node name="LevelSelectMenuAudio" type="Node" parent="." unique_id=1849803575]
+script = ExtResource("4_j7w7g")
+metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
+
+[node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="LevelSelectMenuAudio" unique_id=1808534369]
 
 [connection signal="pressed" from="RootMargin/Content/Header/BackButton" to="." method="_on_back_button_pressed"]
