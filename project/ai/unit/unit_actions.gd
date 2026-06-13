@@ -216,6 +216,8 @@ func hold() -> void:
 		print_debug("%s(%s): Hold command ordered" % [name, StringUtils.safe_name(unit)])
 
 func _new_action() -> void:
+	_unload_unit_if_in_container()
+	
 	_command_counter += 1
 	_command_id += 1
 	_clear_all_actions()
@@ -225,7 +227,14 @@ func _new_action() -> void:
 	# Call at end of frame so that caller of action has a change to read the command id before the command is issued
 	command_issued.emit.call_deferred(_command_id)
 	
-func _clear_all_actions() -> void:
+func _unload_unit_if_in_container() -> void:
+	# If unit is in a container need to unload first before issuing new command	
+	var container := UnitContainerComponent.get_container_for_unit(unit)
+	if not container:
+		return
+	container.remove_unit(unit)
+		
+func _clear_all_actions() -> void:	
 	blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
