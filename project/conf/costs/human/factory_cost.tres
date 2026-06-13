@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="2_q27nu"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="2_ucwhr"]
 [ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="3_b7fup"]
+[ext_resource type="Texture2D" uid="uid://eb6scy1eakbm" path="res://ui/building/icons/factory.png" id="3_cd7ht"]
 
 [sub_resource type="Resource" id="Resource_c46ob"]
 script = ExtResource("2_ucwhr")
@@ -16,6 +17,7 @@ metadata/_custom_type_script = "uid://rchprl2i3qgf"
 [resource]
 script = ExtResource("1_q27nu")
 team_asset = ExtResource("2_q27nu")
+icon = ExtResource("3_cd7ht")
 type = 6
 cost = 1500
 time = 45.0

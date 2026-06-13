@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="2_ccxxr"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="2_om3vm"]
 [ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="3_7nsvx"]
+[ext_resource type="Texture2D" uid="uid://cvfq0on4gh3j1" path="res://ui/building/icons/command_center.png" id="3_sc18i"]
 
 [sub_resource type="Resource" id="Resource_4sx7e"]
 script = ExtResource("2_ccxxr")
@@ -16,6 +17,7 @@ metadata/_custom_type_script = "uid://rchprl2i3qgf"
 [resource]
 script = ExtResource("1_om3vm")
 team_asset = ExtResource("2_om3vm")
+icon = ExtResource("3_sc18i")
 type = 4
 cost = 4000
 time = 60.0

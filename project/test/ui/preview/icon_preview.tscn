@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dciuecqknn77y" path="res://structures/sandbags/sandbags_structure.tscn" id="6_2gcbc"]
 [ext_resource type="PackedScene" uid="uid://bj11lkpa8cvvf" path="res://structures/tank_spikes/tank_spikes.tscn" id="7_rqpul"]
 [ext_resource type="PackedScene" uid="uid://hrs1rakf5iql" path="res://structures/bunker/bunker.tscn" id="8_2gcbc"]
+[ext_resource type="PackedScene" uid="uid://c5gw7nav87313" path="res://buildings/command_center/CommandCenter.fbx" id="9_rqpul"]
+[ext_resource type="PackedScene" uid="uid://bwuxs2s68wlbl" path="res://buildings/barracks/barracks.glb" id="10_louwm"]
+[ext_resource type="PackedScene" uid="uid://ci0rgf5oirt43" path="res://buildings/factory/factory_model.tscn" id="11_1wkgh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
 
@@ -90,11 +93,36 @@ top_level = true
 fov = 70.0
 
 [node name="bunker" parent="IconRoot" unique_id=1274962094 instance=ExtResource("8_2gcbc")]
+visible = false
 
 [node name="Camera" type="Camera3D" parent="IconRoot/bunker" unique_id=1168845229]
 transform = Transform3D(1, 0, 0, 0, 0.86725324, 0.4978673, 0, -0.49786732, 0.86725324, -0.048671365, 7.5911007, 13.77966)
 top_level = true
 fov = 45.0
+
+[node name="command_center" parent="IconRoot" unique_id=1933697642 instance=ExtResource("9_rqpul")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/command_center" unique_id=1084494267]
+transform = Transform3D(1, 0, 0, 0, 0.6250928, 0.7805504, 0, -0.7805504, 0.6250928, -0.9144397, 56.682076, 40.002827)
+top_level = true
+fov = 45.0
+
+[node name="barracks" parent="IconRoot" unique_id=1224656603 instance=ExtResource("10_louwm")]
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/barracks" unique_id=37898168]
+transform = Transform3D(-4.371139e-08, -0.860742, 0.5090415, 0, 0.5090415, 0.860742, -1, 3.7624226e-08, -2.225091e-08, 5.18935, 8.611839, -0.0655117)
+top_level = true
+fov = 62.5
+
+[node name="factory" parent="IconRoot" unique_id=1590993206 instance=ExtResource("11_1wkgh")]
+
+[node name="Camera" type="Camera3D" parent="IconRoot/factory" unique_id=2062018240]
+transform = Transform3D(-4.371139e-08, -0.72055113, 0.6934018, 0, 0.6934018, 0.72055113, -1, 3.1496292e-08, -3.0309558e-08, 13.088848, 16.975433, -0.059688568)
+top_level = true
+fov = 65.0
 
 [node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
 unique_name_in_owner = true

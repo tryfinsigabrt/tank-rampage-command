@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="2_0lrjf"]
 [ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="2_0tr7y"]
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_lawxi"]
+[ext_resource type="Texture2D" uid="uid://b34mypjluvt7l" path="res://ui/building/icons/barracks.png" id="3_qk5g8"]
 [ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="3_up3l4"]
 
 [sub_resource type="Resource" id="Resource_lawxi"]
@@ -16,6 +17,7 @@ metadata/_custom_type_script = "uid://rchprl2i3qgf"
 [resource]
 script = ExtResource("1_0lrjf")
 team_asset = ExtResource("2_0lrjf")
+icon = ExtResource("3_qk5g8")
 type = 5
 cost = 1000
 time = 30.0
