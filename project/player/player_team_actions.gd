@@ -100,7 +100,7 @@ func _handle_select_all_of_type(event: InputEvent) -> void:
 	var unit := node_picker.pick_unit(event)
 	if not unit:
 		return
-	selection_manager.set_selection_multiple(unit.get_all_units_same_team_and_class())
+	selection_manager.set_selection_multiple(_filter_to_selectable(unit.get_all_units_same_team_and_class()))
 
 func _handle_select_all(event: InputEvent) -> void:
 	# Only select army and not buildings and only player's team
@@ -110,8 +110,17 @@ func _handle_select_all(event: InputEvent) -> void:
 		
 	var team_component:TeamComponent =  TeamComponent.get_component(unit)
 	if team_component and team_component.is_on_team(team):
-		selection_manager.set_selection_multiple(unit.get_all_units_on_same_team())
-		
+		selection_manager.set_selection_multiple(_filter_to_selectable(unit.get_all_units_on_same_team()))
+	
+func _filter_to_selectable(units:Array[Unit]) -> Array[Unit]:
+	# Cannot select all/of type when units are in a container like a bunker
+	# The units are already not pickable when in a container but they are still in the scene and could get selected
+	var selectable:Array[Unit]
+	for unit in units:
+		if not UnitContainerComponent.is_in_container(unit):
+			selectable.push_back(unit)
+	return selectable
+	
 func _handle_context_action(event: InputEvent) -> void:
 	var selected:Node3D = node_picker.pick_team_asset(event)
 	if selected:

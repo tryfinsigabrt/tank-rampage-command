@@ -101,7 +101,42 @@ resources = SubResource("Resource_ur5xo")
 player_team = NodePath("..")
 
 [node name="HumanMarineUnit" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("10_hliuv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.01600027, 105.00436)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0.01600027, 85.50436)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit2" parent="World/Match/PlayerTeam/Player" unique_id=42338786 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.5, 0.01600027, 81.80436)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit3" parent="World/Match/PlayerTeam/Player" unique_id=132370668 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.5, 0.01600027, 81.604355)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit4" parent="World/Match/PlayerTeam/Player" unique_id=878191119 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7, 0.01600027, 88.70435)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit5" parent="World/Match/PlayerTeam/Player" unique_id=1967208315 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7, 0.01600027, 85.00436)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit6" parent="World/Match/PlayerTeam/Player" unique_id=875537254 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8, 0.01600027, 89.00436)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit7" parent="World/Match/PlayerTeam/Player" unique_id=1515196419 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8, 0.01600027, 82.104355)
+team = 1
+team_resource = ExtResource("11_ebfwh")
+
+[node name="HumanMarineUnit8" parent="World/Match/PlayerTeam/Player" unique_id=1932198422 instance=ExtResource("10_hliuv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.3, 0.01600027, 85.50436)
 team = 1
 team_resource = ExtResource("11_ebfwh")
 
