@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://fww35ea30gsn"]
+
+[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_ms3bl"]
+[ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="3_00gs0"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_k0ujd"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_ejt34"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_q4aml"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="7_tk7vh"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="8_17d60"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="9_w51p4"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="10_2tof7"]
+[ext_resource type="PackedScene" uid="uid://4ip8egka5br3" path="res://structures/turret/turret_structure.tscn" id="10_gwfy2"]
+[ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="14_dfu87"]
+[ext_resource type="Material" uid="uid://dx2wg1txn4s3" path="res://units/human/tank/tank02_body_material.tres" id="15_gfi7w"]
+[ext_resource type="Material" uid="uid://bxy3abyk7006r" path="res://units/human/tank/tank02_turret_material.tres" id="16_qxlbm"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="17_n6y8p"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="18_0yn8p"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="19_63xcg"]
+[ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="20_in8qg"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="21_lm3ha"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_w7djc")
+
+[sub_resource type="Environment" id="Environment_nsiie"]
+background_mode = 2
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_nsiie"]
+vertices = PackedVector3Array(-497, 0.5, -497, -497, 0.5, 497, 497, 0.5, 497, 497, 0.5, -497)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_collision_mask = 3
+agent_height = 3.0
+agent_radius = 3.0
+agent_max_slope = 60.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mushl"]
+size = Vector3(600, 100, 525)
+
+[sub_resource type="Resource" id="Resource_jtih4"]
+script = ExtResource("7_tk7vh")
+cap = 100
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_ytr8p"]
+script = ExtResource("8_17d60")
+count = 20000
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_ur5xo"]
+script = ExtResource("9_w51p4")
+scrap = SubResource("Resource_ytr8p")
+personnel = SubResource("Resource_jtih4")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[node name="TestTurret" type="Node3D" unique_id=1293608661]
+
+[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_ms3bl")]
+enable = false
+
+[node name="Environment" type="Node3D" parent="." unique_id=767500655]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1566065024]
+environment = SubResource("Environment_nsiie")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1635653192]
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+
+[node name="World" type="Node3D" parent="." unique_id=1409335951]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=2066909013]
+navigation_mesh = SubResource("NavigationMesh_nsiie")
+
+[node name="Floor" type="CSGBox3D" parent="World/NavigationRegion3D" unique_id=703992550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("3_00gs0")
+use_collision = true
+size = Vector3(1000, 1, 1000)
+
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("4_k0ujd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.609497, 0, 138.00285)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=300927404]
+shape = SubResource("BoxShape3D_mushl")
+debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
+
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_ejt34")]
+
+[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_q4aml")]
+team = 1
+resources = SubResource("Resource_ur5xo")
+
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("10_2tof7")]
+player_team = NodePath("..")
+
+[node name="Structures" type="Node3D" parent="World/Match/PlayerTeam" unique_id=395737292]
+
+[node name="Turrets" type="Node3D" parent="World/Match/PlayerTeam/Structures" unique_id=2024841390]
+
+[node name="TurretStructure" parent="World/Match/PlayerTeam/Structures/Turrets" unique_id=427098526 instance=ExtResource("10_gwfy2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.94992, 0, 81.32184)
+
+[node name="Enemies" type="Node3D" parent="World/Match" unique_id=82109565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 164.73514)
+
+[node name="EnemyTank03" parent="World/Match/Enemies" unique_id=544561936 instance=ExtResource("14_dfu87")]
+transform = Transform3D(-0.15779611, 0, -0.98747176, 0, 1, 0, 0.98747176, 0, -0.15779611, -0.022733688, 0, -83.63393)
+team = 2
+
+[node name="Body" parent="World/Match/Enemies/EnemyTank03" index="1" unique_id=1516550406]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="BodyMain" parent="World/Match/Enemies/EnemyTank03/Body/Mesh" index="0"]
+material_override = ExtResource("15_gfi7w")
+
+[node name="Turret" parent="World/Match/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
+material_override = ExtResource("16_qxlbm")
+
+[node name="Weapon" parent="World/Match/Enemies/EnemyTank03/Body/Turret/Barrel/Pivot/FireOrigin" parent_id_path=PackedInt32Array(544561936, 1198725874, 104605609) index="0" unique_id=413668482]
+shoot_vfx_origin_path = NodePath("..")
+
+[node name="Collision" parent="World/Match/Enemies/EnemyTank03" index="2" unique_id=1002010230]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
+
+[node name="UI" parent="World/Match/Enemies/EnemyTank03" index="5" unique_id=1673194704]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.022733688, 5.5, 81.10121)
+
+[node name="HealthBar" parent="World/Match/Enemies/EnemyTank03/UI" index="0" unique_id=1686186120]
+transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
+
+[node name="UnitRemotePosition" parent="World/Match/Enemies/EnemyTank03" index="6" unique_id=1196521052]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
+
+[node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("17_n6y8p")]
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("18_0yn8p")]
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("19_63xcg")]
+layout_mode = 2
+
+[node name="UnitActionsDebugHud" parent="DebugHud" unique_id=442782189 instance=ExtResource("20_in8qg")]
+layout_mode = 2
+team = 1
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("21_lm3ha")]
+
+[editable path="World/Match/Enemies/EnemyTank03"]
+[editable path="World/Match/Enemies/EnemyTank03/Body"]
+[editable path="World/Match/Enemies/EnemyTank03/Body/Mesh"]
+[editable path="World/Match/Enemies/EnemyTank03/Body/Turret"]
+[editable path="World/Match/Enemies/EnemyTank03/Body/Turret/Mesh"]
+[editable path="World/Match/Enemies/EnemyTank03/Body/Turret/Barrel"]
+[editable path="World/Match/Enemies/EnemyTank03/Body/Turret/Barrel/Pivot/Mesh"]
+[editable path="World/Match/Enemies/EnemyTank03/GameUnitNavigation"]

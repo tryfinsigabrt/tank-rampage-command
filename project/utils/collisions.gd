@@ -145,7 +145,7 @@ func get_aabb_from_shape(shape:Shape3D) -> AABB:
 	elif shape is SphereShape3D:
 		bounds = bounds.expand(Vector3.ONE * shape.radius)
 		bounds = bounds.expand(-Vector3.ONE * shape.radius)
-	elif shape is CapsuleShape3D:
+	elif shape is CapsuleShape3D or shape is CylinderShape3D:
 		var extent:Vector3 = Vector3(shape.radius, shape.height * 0.5, shape.radius)
 		bounds = bounds.expand(extent)
 		bounds = bounds.expand(-extent)

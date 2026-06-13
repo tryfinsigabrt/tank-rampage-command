@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cvn7ngiwpqsbp"]
+
+[ext_resource type="Script" uid="uid://d3wkb1uqoavfe" path="res://core/targeting/yaw_pitch_aiming_component.gd" id="1_s88ld"]
+
+[node name="YawPitchAimingComponent" type="Node" unique_id=2102639078]
+script = ExtResource("1_s88ld")

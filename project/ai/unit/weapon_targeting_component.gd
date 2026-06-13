@@ -18,6 +18,10 @@ var my_asset:Node3D
 @export
 var targeting_locations:Array[Node3D]
 
+## If set to true then all weapons focus on a single target at a time rather than distribute
+@export
+var single_target:bool
+
 #region class WeaponState
 class WeaponState:
 	var weapon:Weapon
@@ -176,7 +180,7 @@ func _on_unit_scanner_threats_detected(threats: Array[Node3D]) -> void:
 	var scores := threat_scorer.get_threat_assets(threats, my_asset.global_position)
 	
 	print_debug("%s: Discovered %d threats" % [name, scores.size()])
-	var num_assignments:int = mini(scores.size(), _weapons.size())
+	var num_assignments:int = mini(scores.size(), _weapons.size() if not single_target else mini(_weapons.size(), 1))
 	if num_assignments == 0:
 		_stop_all()
 		return

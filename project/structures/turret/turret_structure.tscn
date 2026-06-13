@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://4ip8egka5br3"]
+
+[ext_resource type="Script" uid="uid://c4wjm0lnwyycw" path="res://structures/turret/turret_structure.gd" id="1_o7dn3"]
+[ext_resource type="Resource" uid="uid://do681iyuuxvga" path="res://structures/turret/turret_attributes.tres" id="2_fcn1j"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="4_88m77"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_icecj"]
+[ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="5_o7dn3"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="6_67m3y"]
+[ext_resource type="Material" uid="uid://cspyk34sesgai" path="res://units/human/tank/hero_turret_material.tres" id="6_fcn1j"]
+[ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="7_bqrcb"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="8_vluti"]
+[ext_resource type="PackedScene" uid="uid://b8nxs1p4lvu0t" path="res://units/weapon.tscn" id="9_ukj7n"]
+[ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="10_6606p"]
+[ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="10_tcarc"]
+[ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="11_ek3dp"]
+[ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="11_kea5b"]
+[ext_resource type="PackedScene" uid="uid://bm8ep6xhqj8co" path="res://sounds/tank_sfx/tank_fire/tank_shoot_sfx.tscn" id="12_vml3p"]
+[ext_resource type="Script" uid="uid://ctcf0vf5ptwx0" path="res://core/targeting/yaw_pitch_weapon_controller.gd" id="13_6606p"]
+[ext_resource type="PackedScene" uid="uid://cvn7ngiwpqsbp" path="res://core/targeting/yaw_pitch_aiming_component.tscn" id="16_ek3dp"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_416h4"]
+height = 3.5
+radius = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_416h4"]
+material = ExtResource("5_o7dn3")
+top_radius = 3.0
+bottom_radius = 3.0
+height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_416h4"]
+material = ExtResource("6_fcn1j")
+size = Vector3(3, 3, 3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sjp2e"]
+material = ExtResource("7_bqrcb")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 4.0
+
+[node name="TurretStructure" type="StaticBody3D" unique_id=427098526 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
+collision_layer = 1088
+collision_mask = 0
+script = ExtResource("1_o7dn3")
+health_stat = NodePath("Stats/HealthStat")
+team_component = NodePath("Components/TeamComponent")
+attributes = ExtResource("2_fcn1j")
+metadata/_custom_type_script = "uid://bqfimj20y03t8"
+
+[node name="Stats" type="Node" parent="." unique_id=495933970]
+
+[node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("4_88m77")]
+unique_name_in_owner = true
+max_health = 3000.0
+
+[node name="UI" type="Node3D" parent="." unique_id=1422772707]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 4, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("5_icecj")]
+transform = Transform3D(0.5, 0, 3.1786513e-08, 0, 0.5, 0, -3.1786513e-08, 0, 0.5, 0, 0, 0)
+health_stat = NodePath("../../Stats/HealthStat")
+
+[node name="CameraYawTracker" type="Node" parent="UI" unique_id=345308461 node_paths=PackedStringArray("target_node")]
+script = ExtResource("6_67m3y")
+target_node = NodePath("..")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1410761795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8278644, -0.0182724)
+shape = SubResource("CylinderShape3D_416h4")
+
+[node name="VisualRoot" type="Node3D" parent="." unique_id=1680505641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50708437, 0)
+
+[node name="Body" type="Node3D" parent="VisualRoot" unique_id=669848381]
+
+[node name="Base" type="MeshInstance3D" parent="VisualRoot/Body" unique_id=1732613410]
+mesh = SubResource("CylinderMesh_416h4")
+skeleton = NodePath("../..")
+
+[node name="YawPivot" type="Marker3D" parent="VisualRoot" unique_id=347733249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4873095, 0)
+
+[node name="Mount" type="MeshInstance3D" parent="VisualRoot/YawPivot" unique_id=505075580]
+mesh = SubResource("BoxMesh_416h4")
+
+[node name="PitchPivot" type="Marker3D" parent="VisualRoot/YawPivot" unique_id=1818962769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9332881, -1.467361)
+
+[node name="Barrel" type="MeshInstance3D" parent="VisualRoot/YawPivot/PitchPivot" unique_id=1422949133]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.3841858e-07, -1.8259213)
+mesh = SubResource("CylinderMesh_sjp2e")
+
+[node name="Weapon" parent="VisualRoot/YawPivot/PitchPivot/Barrel" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "weapon_controller") instance=ExtResource("9_ukj7n")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1984148, 0.011338472)
+shoot_vfx_size = 2
+shoot_vfx_rotation_offset_degrees = Vector3(0, 180, 0)
+shoot_sfx = NodePath("TankShootSfx")
+min_distance = 5.0
+max_distance_range = Vector2(100, 150)
+damage_v_distance = ExtResource("10_6606p")
+accuracy_v_velocity_alignment = ExtResource("11_ek3dp")
+weapon_controller = NodePath("WeaponController")
+
+[node name="TankShootSfx" parent="VisualRoot/YawPivot/PitchPivot/Barrel/Weapon" unique_id=1748265597 instance=ExtResource("12_vml3p")]
+
+[node name="WeaponController" type="Node" parent="VisualRoot/YawPivot/PitchPivot/Barrel/Weapon" unique_id=507839176 node_paths=PackedStringArray("aiming_component", "weapon")]
+script = ExtResource("13_6606p")
+aiming_component = NodePath("../../../../../../Components/YawPitchAimingComponent")
+weapon = NodePath("..")
+
+[node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=1067168929]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 4, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[node name="Components" type="Node" parent="." unique_id=1561157423]
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("8_vluti")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[node name="WeaponTargetingComponent" parent="Components" unique_id=1383309094 node_paths=PackedStringArray("my_asset") instance=ExtResource("10_tcarc")]
+unique_name_in_owner = true
+my_asset = NodePath("../..")
+single_target = true
+
+[node name="YawPitchAimingComponent" parent="Components" unique_id=2102639078 instance=ExtResource("16_ek3dp")]
+
+[node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("11_kea5b")]
+default_avoidance_layers = 1
+affects_unit_classes = Array[int]([1, 2, 3])
+
+[connection signal="died" from="Stats/HealthStat" to="." method="_die"]
+[connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
