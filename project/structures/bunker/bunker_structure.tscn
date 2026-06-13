@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bqfimj20y03t8" path="res://structures/bunker/bunker_structure.gd" id="1_fjwdy"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="2_0vvam"]
+[ext_resource type="Script" uid="uid://b4kxj6okdq31" path="res://conf/weapon_attribute_mods.gd" id="2_alybg"]
 [ext_resource type="Resource" uid="uid://gky33grfxjwm" path="res://structures/bunker/bunker_attributes.tres" id="2_ktvw8"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="3_ktvw8"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="4_txgmq"]
@@ -12,6 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="9_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
 
+[sub_resource type="Resource" id="Resource_xb0ja"]
+script = ExtResource("2_alybg")
+metadata/_custom_type_script = "uid://b4kxj6okdq31"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
 size = Vector3(10, 4, 10)
 
@@ -19,6 +24,7 @@ size = Vector3(10, 4, 10)
 collision_layer = 1088
 collision_mask = 0
 script = ExtResource("1_fjwdy")
+weapon_attributes = SubResource("Resource_xb0ja")
 health_stat = NodePath("Stats/HealthStat")
 team_component = NodePath("Components/TeamComponent")
 attributes = ExtResource("2_ktvw8")
@@ -116,3 +122,4 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5, 1
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
 [connection signal="on_unit_added" from="Components/UnitContainerComponent" to="." method="_on_unit_added"]
 [connection signal="on_unit_removed" from="Components/UnitContainerComponent" to="." method="_on_unit_removed"]
+[connection signal="on_weapon_setup" from="Components/WeaponTargetingComponent" to="." method="_on_weapon_setup"]

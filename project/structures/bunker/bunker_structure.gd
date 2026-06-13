@@ -6,6 +6,9 @@ class_name BunkerStructure extends DefensiveStructure
 @onready var _node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
 @onready var targeting_component: WeaponTargetingComponent = %WeaponTargetingComponent
 
+@export
+var weapon_attributes:WeaponAttributeMods
+
 var _destroyed:bool
 
 	
@@ -61,3 +64,7 @@ func _on_unit_removed(unit: Unit) -> void:
 	await _remove_from_bunker_defense(unit)
 
 
+func _on_weapon_setup(weapon: Weapon) -> void:
+	if not weapon_attributes:
+		return
+	weapon.max_distance_range *= weapon_attributes.range_bonus
