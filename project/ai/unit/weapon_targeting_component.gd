@@ -143,9 +143,7 @@ func _set_up_weapon(weapon:Weapon) -> void:
 	
 	# Hack to get the shoot vfx facing the right way
 	weapon.shoot_vfx_use_model_front = false
-			
-	weapon.enable_debug_draw = true
-
+	
 func remove_all_weapons() -> void:
 	_destroy_all_weapons()
 	enabled = false
@@ -185,7 +183,7 @@ func _on_unit_scanner_threats_detected(threats: Array[Node3D]) -> void:
 	
 	var weapon_states:Array[WeaponState] = _weapons.values()
 	
-	var weapons_per_assignment:int = floori(float(num_assignments) / weapon_states.size())
+	var weapons_per_assignment:int = floori(float(weapon_states.size()) / num_assignments)
 	var extra:int = weapon_states.size() % weapons_per_assignment
 	
 	var weapon_count:int = 0
