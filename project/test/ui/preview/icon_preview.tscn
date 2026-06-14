@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c5gw7nav87313" path="res://buildings/command_center/CommandCenter.fbx" id="9_rqpul"]
 [ext_resource type="PackedScene" uid="uid://bwuxs2s68wlbl" path="res://buildings/barracks/barracks.glb" id="10_louwm"]
 [ext_resource type="PackedScene" uid="uid://ci0rgf5oirt43" path="res://buildings/factory/factory_model.tscn" id="11_1wkgh"]
+[ext_resource type="PackedScene" uid="uid://4ip8egka5br3" path="res://structures/turret/turret_structure.tscn" id="12_u7h3f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
 
@@ -118,11 +119,30 @@ top_level = true
 fov = 62.5
 
 [node name="factory" parent="IconRoot" unique_id=1590993206 instance=ExtResource("11_1wkgh")]
+visible = false
 
 [node name="Camera" type="Camera3D" parent="IconRoot/factory" unique_id=2062018240]
 transform = Transform3D(-4.371139e-08, -0.72055113, 0.6934018, 0, 0.6934018, 0.72055113, -1, 3.1496292e-08, -3.0309558e-08, 13.088848, 16.975433, -0.059688568)
 top_level = true
 fov = 65.0
+
+[node name="turret_structure" parent="IconRoot" unique_id=427098526 instance=ExtResource("12_u7h3f")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="UI" parent="IconRoot/turret_structure" index="1" unique_id=1422772707]
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/turret_structure" unique_id=35695307]
+transform = Transform3D(-0.06213614, -0.3380198, 0.9390856, -0.0107071, 0.9410753, 0.33802754, -0.9980103, 0.010948842, -0.062094, 10.720108, 5.239362, 0.7123251)
+top_level = true
+fov = 42.5
+
+[node name="SpotLight3D" type="SpotLight3D" parent="IconRoot/turret_structure" unique_id=814025590]
+transform = Transform3D(0.86602545, 1.0927847e-07, -0.4999999, 0.4999999, -3.7855173e-08, 0.86602545, 7.5710346e-08, -1, -8.742276e-08, -3.4, 7.740586, -1.1000003)
+light_energy = 6.0
+light_specular = 1.0
+spot_range = 10.915
+spot_attenuation = 0.3
 
 [node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
 unique_name_in_owner = true
@@ -131,3 +151,5 @@ render_target_clear_mode = 1
 render_target_update_mode = 4
 
 [editable path="IconRoot/TankSpikes"]
+[editable path="IconRoot/turret_structure"]
+[editable path="IconRoot/turret_structure/VisualRoot/YawPivot/PitchPivot/Barrel/Weapon"]

@@ -16,6 +16,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not selection_manager or not selection_manager.any_buildings_same_team:
 		return
 		
+	# TODO: Can map these via config resource rather than hardcoded constants
 	if event.is_action_pressed("cancel_marine"):
 		_dispatch_cancel_build_marine()
 	elif event.is_action_pressed("build_marine"):
@@ -50,7 +51,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_dispatch_cancel_build_bunker()
 	elif event.is_action_pressed("build_bunker"):
 		_dispatch_build_bunker()
+	
+	elif event.is_action_pressed("cancel_turret"):
+		_dispatch_cancel_build_turret()
+	elif event.is_action_pressed("build_turret"):
+		_dispatch_build_turret()
 		
+#region Build Types	
 func _dispatch_build_marine() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Marine)
 	
@@ -71,6 +78,9 @@ func _dispatch_build_tank_spikes() -> void:
 		
 func _dispatch_build_bunker() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Bunker)
+
+func _dispatch_build_turret() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.Turret)
 	
 func _dispatch_cancel_build_marine() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Marine)
@@ -92,6 +102,11 @@ func _dispatch_cancel_build_tank_spikes() -> void:
 	
 func _dispatch_cancel_build_bunker() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Bunker)
+
+func _dispatch_cancel_build_turret() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Turret)
+	
+#endregion
 
 func _dispatch_viable_build_order(type: ConstructionResource.Type) -> void:
 	var buildings := selection_manager.get_selected_buildings_on_team()

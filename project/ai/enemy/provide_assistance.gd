@@ -30,6 +30,8 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 	
 	_candidate_units.clear()
 	for unit in available_units:
+		if not is_instance_valid(unit):
+			continue
 		var attributes:TeamAssetAttributes = unit.attributes
 		if attributes and attributes.strength > 0:
 			_candidate_units[unit.get_instance_id()] = AssistanceScore.new(unit)

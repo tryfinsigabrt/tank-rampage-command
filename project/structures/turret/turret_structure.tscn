@@ -50,7 +50,7 @@ metadata/_custom_type_script = "uid://bqfimj20y03t8"
 
 [node name="HealthStat" parent="Stats" unique_id=1169615643 instance=ExtResource("4_88m77")]
 unique_name_in_owner = true
-max_health = 3000.0
+max_health = 1500.0
 
 [node name="UI" type="Node3D" parent="." unique_id=1422772707]
 unique_name_in_owner = true

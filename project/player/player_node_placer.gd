@@ -54,7 +54,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Don't allow building if there is an active selection
 	if selection_manager.any:
 		return
-		
+	
+	# TODO: Can map these via resource config rather than hardcoded constants and handlers	
 	if event.is_action_pressed(&"build_command_center"):
 		_begin_placement(ConstructionResource.Type.CommandCenter)
 	elif event.is_action_pressed(&"build_factory"):
@@ -69,7 +70,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		_begin_placement(ConstructionResource.Type.TankSpikes)
 	elif event.is_action_pressed(&"build_bunker"):
 		_begin_placement(ConstructionResource.Type.Bunker)
-		
+	elif event.is_action_pressed(&"build_turret"):
+		_begin_placement(ConstructionResource.Type.Turret)	
 func _begin_placement(type: ConstructionResource.Type) -> void:
 	if _current_placement_spawner:
 		_remove_spawner()
@@ -80,7 +82,7 @@ func _begin_placement(type: ConstructionResource.Type) -> void:
 	match type:
 		ConstructionResource.Type.CommandCenter, ConstructionResource.Type.Barracks, ConstructionResource.Type.Factory:
 			_current_placement_spawner = building_manufacturing.create(type)
-		ConstructionResource.Type.Mine, ConstructionResource.Type.BarbedWire, ConstructionResource.Type.TankSpikes, ConstructionResource.Type.Bunker:
+		ConstructionResource.Type.Mine, ConstructionResource.Type.BarbedWire, ConstructionResource.Type.TankSpikes, ConstructionResource.Type.Bunker, ConstructionResource.Type.Turret:
 			_current_placement_spawner = _inventory_component.create(type)
 		_:
 			_current_placement_spawner = null
