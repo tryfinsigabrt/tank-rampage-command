@@ -70,6 +70,20 @@ func aim_at(weapon:Weapon, world_location:Vector3) -> bool:
 	
 	return true
 	
+func get_fire_alignment_basis() -> Basis:
+	var reference_up := team_asset.global_basis.y.normalized()
+	# Turret is rotated 180 due to parent visual_root so negate the basis vector +Z is model forward
+	var fire_forward := (yaw_root.global_basis.z).slide(reference_up).normalized()
+
+	# Right-handed frame: right = forward x up
+	var fire_right := fire_forward.cross(reference_up).normalized()
+
+	# Recompute up so the basis is orthonormal
+	var fire_up := fire_right.cross(fire_forward).normalized()
+
+	var basis_forward:Vector3 = fire_forward if not use_model_front else -fire_forward
+	return Basis(fire_right, fire_up, basis_forward)
+	
 #region Component Registration
 static func get_component(node: Node, required:bool = true) -> YawPitchAimingComponent:
 	return Components.get_component(ComponentName, node, required) as YawPitchAimingComponent
@@ -101,23 +115,23 @@ func _rotate_gun_at(weapon:Weapon, world_location:Vector3) -> void:
 			-rotation_angle_v_distance_fraction.sample_baked(dist_fraction))
 	else:
 		var pitch_parent := pitch_root.get_parent() as Node3D
-		var to_target_pitch:Vector3 = pitch_parent.to_local(world_location) - pitch_root.position
-		to_target_pitch.x = 0.0
-		if not to_target_pitch.is_zero_approx():
-			var forward_local:Vector3 = Vector3.BACK if use_model_front else Vector3.FORWARD
-			var forward_distance:float = to_target_pitch.dot(forward_local)
-			target_pitch_angle = atan2(-to_target_pitch.y, forward_distance)
+		var to_target_world:Vector3 = world_location - pitch_root.global_position
+		if not to_target_world.is_zero_approx():
+			# Use elevation over horizontal distance so pitch is independent of current yaw.
+			var local_up:Vector3 = pitch_parent.global_basis.y.normalized()
+			var vertical_distance:float = to_target_world.dot(local_up)
+			var horizontal_distance:float = to_target_world.slide(local_up).length()
+			target_pitch_angle = atan2(vertical_distance, horizontal_distance)
 		else:
 			target_pitch_angle = pitch_root.rotation.x
 
-	print("%s: TARGET PITCH ANGLE (%s -> %s) -> %.1f" % [name, pitch_root.global_position, world_location, rad_to_deg(target_pitch_angle)])
+	#print("%s: TARGET PITCH ANGLE (%s -> %s) -> %.1f" % [name, pitch_root.global_position, world_location, rad_to_deg(target_pitch_angle)])
 	
 	target_pitch_angle = clampf(
 		target_pitch_angle,
 		deg_to_rad(min_pitch_degrees),
 		deg_to_rad(max_pitch_degrees)
 	)
-
 
 	# Pitch
 	var current_pitch_rotation:Vector3 = pitch_root.rotation
