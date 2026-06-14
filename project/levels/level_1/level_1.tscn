@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_5b03i"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_e6u7d"]
+[ext_resource type="NavigationMesh" uid="uid://b3kduunytprs3" path="res://levels/level_1/navigation_mesh.tres" id="3_f313t"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="3_mxc8w"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="4_j48du"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="5_8jbay"]
@@ -19,7 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="14_0rvqm"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="15_mgcax"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="16_plqb7"]
+[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="16_xywve"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="17_e6dmr"]
+[ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="17_vk63l"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="18_drths"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
@@ -33,7 +36,7 @@ sky = SubResource("Sky_l5wcu")
 ambient_light_source = 3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la5aw"]
-size = Vector3(1600, 1000, 1700)
+size = Vector3(1000, 1000, 1000)
 
 [sub_resource type="Resource" id="Resource_f313t"]
 script = ExtResource("8_1iwl3")
@@ -49,6 +52,10 @@ script = ExtResource("10_vk63l")
 scrap = SubResource("Resource_0rvqm")
 personnel = SubResource("Resource_f313t")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[sub_resource type="Resource" id="Resource_plqb7"]
+script = ExtResource("17_vk63l")
+metadata/_custom_type_script = "uid://4o2wv5gggw58"
 
 [sub_resource type="Curve3D" id="Curve3D_hmxt8"]
 closed = true
@@ -67,6 +74,7 @@ layer = 10
 metadata/_edit_use_anchors_ = true
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_e6u7d")]
+enable = false
 explored_area_modulation = 0.5
 
 [node name="Environment" type="Node3D" parent="." unique_id=155131152]
@@ -75,17 +83,21 @@ explored_area_modulation = 0.5
 environment = SubResource("Environment_vi6ws")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=554623098]
-transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 251.05542, 22, 352.56155)
+transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 201.72263, 22, 352.56155)
 
 [node name="World" type="Node3D" parent="." unique_id=1469393695]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=896268034]
+navigation_mesh = ExtResource("3_f313t")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=1025590860]
 data_directory = "res://levels/level_1/data"
 material = ExtResource("3_mxc8w")
 assets = ExtResource("4_j48du")
 save_16_bit = true
+collision_mode = 3
+collision_layer = 2
+collision_mask = 15
 displacement_sharpness = 0.5
 top_level = true
 metadata/_edit_lock_ = true
@@ -97,24 +109,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -38)
 shape = SubResource("BoxShape3D_la5aw")
 debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
-[node name="TerrainBoundaryMarkers" type="Node3D" parent="World" unique_id=496991803]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="World/TerrainBoundaryMarkers" unique_id=707276140]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 43, -500)
-size = Vector3(100, 100, 100)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="World/TerrainBoundaryMarkers" unique_id=871004872]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 49, 500)
-size = Vector3(100, 100, 100)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="World/TerrainBoundaryMarkers" unique_id=1030541063]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -500, 44, 500)
-size = Vector3(100, 100, 100)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="World/TerrainBoundaryMarkers" unique_id=172508540]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 50, -500)
-size = Vector3(100, 100, 100)
-
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("6_tk2t7")]
 
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("7_drths")]
@@ -124,40 +118,73 @@ resources = SubResource("Resource_mgcax")
 config = ExtResource("9_lbtho")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("10_1iwl3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.454224, 0, -8.944305)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105.78702, 0, -8.944305)
 player_team = NodePath("..")
 
 [node name="CommandCenter" parent="World/Match/PlayerTeam/Player" unique_id=1674660700 instance=ExtResource("11_xywve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.275482, -0.7, -0.709198)
 team = 1
 
+[node name="Barracks" parent="World/Match/PlayerTeam/Player" unique_id=404914555 instance=ExtResource("14_0rvqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.98947, 0.015031815, -18.169495)
+team = 1
+
+[node name="Factory" parent="World/Match/PlayerTeam/Player" unique_id=1143212309 instance=ExtResource("15_mgcax")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.464264, 0, -56.19998)
+team = 1
+
+[node name="Marine01" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("16_xywve")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -58.003357, 1.1306114, -37.583374)
+team = 1
+team_resource = SubResource("Resource_plqb7")
+
+[node name="Marine02" parent="World/Match/PlayerTeam/Player" unique_id=166778139 instance=ExtResource("16_xywve")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -55.815002, 0.8306112, -30.681824)
+team = 1
+team_resource = SubResource("Resource_plqb7")
+
+[node name="Marine03" parent="World/Match/PlayerTeam/Player" unique_id=1284351538 instance=ExtResource("16_xywve")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -53.512085, 1.530611, -33.4812)
+team = 1
+team_resource = SubResource("Resource_plqb7")
+
+[node name="Marine04" parent="World/Match/PlayerTeam/Player" unique_id=1530606227 instance=ExtResource("16_xywve")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.500793, 1.1306114, -35.085846)
+team = 1
+team_resource = SubResource("Resource_plqb7")
+
+[node name="Marine05" parent="World/Match/PlayerTeam/Player" unique_id=1735315936 instance=ExtResource("16_xywve")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.478638, 1.1306114, -32.077576)
+team = 1
+team_resource = SubResource("Resource_plqb7")
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=145325473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -279.11038, 0, -376.94025)
 
-[node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1265444414 instance=ExtResource("7_drths")]
+[node name="EnemyTeam" parent="World/Match/EnemyTeams" unique_id=1265444414 instance=ExtResource("7_drths")]
 team = 2
 resources = ExtResource("8_owtu7")
 config = ExtResource("12_vk63l")
 
-[node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("13_f313t")]
+[node name="EnemyTeamDirector" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=20484500 instance=ExtResource("13_f313t")]
 team = 2
 
-[node name="CommandCenter2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=2035798719 instance=ExtResource("11_xywve")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.435638, 0, 40.67328)
+[node name="CommandCenter" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=2035798719 instance=ExtResource("11_xywve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.05293, 0, 13.911896)
 team = 2
 
-[node name="Barracks2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=404914555 instance=ExtResource("14_0rvqm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.45529, 1.3000002, 82.66736)
+[node name="Barracks" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1608622249 instance=ExtResource("14_0rvqm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 99.03328, 1.3000002, 55.905975)
 team = 2
 
-[node name="Factory2" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1143212309 instance=ExtResource("15_mgcax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.552246, -1.4000001, 46.36731)
+[node name="Factory" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=782170731 instance=ExtResource("15_mgcax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.936325, -1.4000001, 19.605927)
 team = 2
 
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=1592727463]
 
 [node name="ControlPoint1" parent="World/Match/ControlPoints" unique_id=588474072 instance=ExtResource("16_plqb7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 138.62334, 1, 363.3963)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.978348, 1, 363.3963)
 
 [node name="ControlPoint2" parent="World/Match/ControlPoints" unique_id=1574908201 instance=ExtResource("16_plqb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.19255, 1, 220.02261)
@@ -165,10 +192,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -255.19255, 1, 220.02261)
 [node name="ControlPoint3" parent="World/Match/ControlPoints" unique_id=318770090 instance=ExtResource("16_plqb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.414688, 1, 19.911926)
 
+[node name="ControlPoint4" parent="World/Match/ControlPoints" unique_id=1073434399 instance=ExtResource("16_plqb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.12343, 1, -160.01674)
+
+[node name="ControlPoint5" parent="World/Match/ControlPoints" unique_id=493678685 instance=ExtResource("16_plqb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.538925, 1, -323.72064)
+
 [node name="Resources" type="Node3D" parent="World/Match" unique_id=1602655195]
 
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("17_e6dmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.12921, -23.4, 363.6809)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 316.5523, -23.4, 371.56885)
+curve = SubResource("Curve3D_hmxt8")
+
+[node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.87994, -23.4, -383.46402)
 curve = SubResource("Curve3D_hmxt8")
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("18_drths")]
