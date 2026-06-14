@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://duuf5gpbaix6p"]
 
 [ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_7g7q0"]
+[ext_resource type="Script" path="res://ui/menus/level_panel.gd" id="2_6myem"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_preview_back"]
 bg_color = Color(0.03529412, 0.21176471, 0.2509804, 0.96)
@@ -25,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_7g7q0")
+script = ExtResource("2_6myem")
 
 [node name="Padding" type="MarginContainer" parent="." unique_id=1957613612]
 layout_mode = 2
@@ -87,3 +89,5 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Play"
+
+[connection signal="pressed" from="Padding/Content/Info/Actions/PlayButton" to="." method="_on_play_button_pressed"]
