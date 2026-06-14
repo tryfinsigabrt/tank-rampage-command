@@ -19,6 +19,7 @@
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="14_pxuev"]
 [ext_resource type="PackedScene" uid="uid://cuh5crtdvqiwo" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_sfx.tscn" id="18_r8l68"]
 [ext_resource type="Script" uid="uid://b8vcfwgedh344" path="res://units/unit_weapon_controller.gd" id="19_082nv"]
+[ext_resource type="PackedScene" uid="uid://cvn7ngiwpqsbp" path="res://core/targeting/yaw_pitch_aiming_component.tscn" id="20_3ijsc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -156,6 +157,14 @@ metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
 script = ExtResource("19_082nv")
 unit = NodePath("../../..")
 weapon = NodePath("..")
+
+[node name="Components" type="Node" parent="." unique_id=1693643277]
+
+[node name="YawPitchAimingComponent" parent="Components" unique_id=2102639078 node_paths=PackedStringArray("yaw_root", "pitch_root") instance=ExtResource("20_3ijsc")]
+unique_name_in_owner = true
+yaw_root = NodePath("../../VisualRoot/TurretPivot")
+pitch_root = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode")
+rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

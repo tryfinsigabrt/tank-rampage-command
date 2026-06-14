@@ -66,6 +66,8 @@ func aim_at(weapon:Weapon, world_location:Vector3) -> bool:
 	_last_aim_target = world_location
 	_last_aim_pos = pos
 		
+	weapon.fire_target = world_location
+
 	_rotate_gun_at(weapon, world_location)
 	
 	return true
