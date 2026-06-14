@@ -7,5 +7,3 @@
 
 [node name="ShootSfx" parent="." index="0" unique_id=65979590]
 stream = ExtResource("2_u45if")
-volume_db = 8.0
-pitch_scale = 0.8
