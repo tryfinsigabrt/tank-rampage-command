@@ -104,6 +104,7 @@ script = ExtResource("5_h223f")
 metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="MainMenuAudio" unique_id=651686801]
+bus = &"Menu"
 
 [connection signal="pressed" from="CenterContainer/MainMenu/MainMenuButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenu/MainMenuButtons/LevelSelect" to="." method="_on_level_select_pressed"]

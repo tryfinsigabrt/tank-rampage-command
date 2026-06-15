@@ -76,5 +76,6 @@ script = ExtResource("4_j7w7g")
 metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="LevelSelectMenuAudio" unique_id=1808534369]
+bus = &"Menu"
 
 [connection signal="pressed" from="RootMargin/Content/Header/BackButton" to="." method="_on_back_button_pressed"]
