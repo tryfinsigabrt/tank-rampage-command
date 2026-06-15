@@ -1,6 +1,8 @@
 extends Control
 
 @onready var content_container: VBoxContainer = %ContentContainer
+@onready var pause_menu_panel: Control = %PauseMenuPanel
+@onready var options_menu: PanelContainer = %OptionsMenu
 @onready var resume: Button = %ResumeButton
 @onready var quit: Button = %QuitButton
 
@@ -19,8 +21,14 @@ func _on_game_pause_state_changed(paused:bool) -> void:
 func _on_resume_pressed() -> void:
 	GameManager.scene_manager.pause_game(false)
 
+func _on_options_pressed() -> void:
+	pause_menu_panel.hide()
+	options_menu.show()
+
 func _update_visibility(paused:bool) -> void:
 	if paused:
+		options_menu.hide()
+		pause_menu_panel.show()
 		show()
 	else:
 		hide()
@@ -32,6 +40,10 @@ func _on_quit_pressed() -> void:
 func _disable_buttons() -> void:
 	@warning_ignore("missing_await")
 	UIUtils.disable_all_buttons(content_container, 20.0)
+
+func _on_options_menu_back_requested() -> void:
+	options_menu.hide()
+	pause_menu_panel.show()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):

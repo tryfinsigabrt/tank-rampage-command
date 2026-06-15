@@ -1,6 +1,8 @@
 extends Control
 
 @onready var main_menu_buttons: VBoxContainer = %MainMenuButtons
+@onready var main_menu_container: Control = %MainMenuContainer
+@onready var options_menu: PanelContainer = %OptionsMenu
 
 @onready var quit: Button = %Quit
 
@@ -8,18 +10,34 @@ func _ready() -> void:
 	# Remove buttons that don't function on Web
 	if OS.get_name() == "Web":
 		quit.hide()
+		
+	options_menu.back_requested.connect(_on_options_menu_back_requested)
+
 
 func _on_play_pressed() -> void:
 	_disable_buttons()
 	await GameManager.scene_manager.new_game()
-	
+
+
 func _on_level_select_pressed() -> void:
 	_disable_buttons()
 	await GameManager.scene_manager.level_select_menu()
 
+
+func _on_options_pressed() -> void:
+	main_menu_container.hide()
+	options_menu.show()
+
+
 func _on_quit_pressed() -> void:
 	_disable_buttons()
 	GameManager.scene_manager.quit()
+
+
+func _on_options_menu_back_requested() -> void:
+	options_menu.hide()
+	main_menu_container.show()
+
 
 func _disable_buttons() -> void:
 	@warning_ignore("missing_await")
