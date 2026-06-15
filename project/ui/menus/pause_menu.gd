@@ -1,8 +1,8 @@
 extends Control
 
 @onready var content_container: VBoxContainer = %ContentContainer
-@onready var resume: Button = %Resume
-@onready var quit: Button = %Quit
+@onready var resume: Button = %ResumeButton
+@onready var quit: Button = %QuitButton
 
 func _ready() -> void:
 	SignalBus.on_paused.connect(_on_game_pause_state_changed)

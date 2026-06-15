@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cw0hkpwye3afk"]
 
 [ext_resource type="Script" uid="uid://dg22a6i2gpmla" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
-[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w225i"]
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_w225i"]
 [ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="3_51icm"]
 
 [node name="PauseMenu" type="Control" unique_id=315174667]
@@ -22,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.19607843)
+color = Color(0, 0, 0, 0.39215687)
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=238170877]
 layout_mode = 1
@@ -31,42 +31,52 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -170.0
+offset_top = -140.0
+offset_right = 170.0
+offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=278550743]
+layout_mode = 2
+
+[node name="Padding" type="MarginContainer" parent="MarginContainer/PanelContainer" unique_id=1874227645]
+layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ContentContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1225616701]
+[node name="ContentContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/Padding" unique_id=1225616701]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 16
 
-[node name="Header" type="Label" parent="MarginContainer/ContentContainer" unique_id=1780365284]
+[node name="Header" type="Label" parent="MarginContainer/PanelContainer/Padding/ContentContainer" unique_id=1780365284]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(0.99607843, 0.9647059, 0.7019608, 1)
+theme_override_font_sizes/font_size = 42
 text = "Paused"
+horizontal_alignment = 1
 uppercase = true
 
-[node name="Spacer" type="Control" parent="MarginContainer/ContentContainer" unique_id=1280156604]
+[node name="Spacer" type="Control" parent="MarginContainer/PanelContainer/Padding/ContentContainer" unique_id=1280156604]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
-[node name="Resume" type="Button" parent="MarginContainer/ContentContainer" unique_id=1563831412]
+[node name="ResumeButton" type="Button" parent="MarginContainer/PanelContainer/Padding/ContentContainer" unique_id=1563831412]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Resume"
 
-[node name="Quit" type="Button" parent="MarginContainer/ContentContainer" unique_id=549256535]
+[node name="QuitButton" type="Button" parent="MarginContainer/PanelContainer/Padding/ContentContainer" unique_id=549256535]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Quit"
 
 [node name="PauseMenuAudio" type="Node" parent="." unique_id=1521880232]
@@ -75,5 +85,5 @@ metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="PauseMenuAudio" unique_id=615885262]
 
-[connection signal="pressed" from="MarginContainer/ContentContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="MarginContainer/ContentContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/Padding/ContentContainer/ResumeButton" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/Padding/ContentContainer/QuitButton" to="." method="_on_quit_pressed"]
