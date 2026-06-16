@@ -65,6 +65,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
+[node name="Tutorial" parent="RootMargin/Content/Scroll/LevelList" unique_id=1654602142 instance=ExtResource("2_uhb52")]
+layout_mode = 2
+
 [node name="Level01" parent="RootMargin/Content/Scroll/LevelList" unique_id=956145141 instance=ExtResource("2_uhb52")]
 layout_mode = 2
 
