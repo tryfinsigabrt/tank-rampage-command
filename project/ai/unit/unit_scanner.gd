@@ -56,7 +56,11 @@ func _initialize() -> void:
 	
 func _ready() -> void:
 	_on_enable_changed()
-		
+
+## Manually invoke the scanner on demand
+func invoke() -> void:
+	_tick()
+			
 func _tick() -> void:
 	var threats: Array[Node3D] = sweeper.sweep_assets(my_asset.global_position, _get_team_assets(), _team.team if _team else 0)
 	if threats:

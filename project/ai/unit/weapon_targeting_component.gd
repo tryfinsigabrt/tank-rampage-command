@@ -25,6 +25,8 @@ var single_target:bool
 @export
 var max_target_distance:float = 300.0
 
+var _exiting_tree:bool
+
 #region class WeaponState
 class WeaponState:
 	var weapon:Weapon
@@ -255,7 +257,7 @@ func _start_attacking(weapon_state:WeaponState, attack_target:Node3D, attack_ori
 	# If we are already attacking target and attack origin is the same then don't change anything
 	var weapon:Weapon = weapon_state.weapon
 	if is_instance_valid(weapon_state.attacking) and \
-		attack_origin == weapon.get_parent() and \
+		(not attack_origin or attack_origin == weapon.get_parent()) and \
 		weapon_state.attacking.targeted_node == attack_target:
 		return
 		
@@ -270,12 +272,22 @@ func _start_attacking(weapon_state:WeaponState, attack_target:Node3D, attack_ori
 	action.weapon = weapon
 	action.targeted_node = attack_target
 	action.move_into_range = AttackAction.MoveBehavior.NEVER
-	
-	# Null out attacking when action frees itself
+
+	# Capture target by id to avoid "call:Lambda capture at index 2 was freed. Passed "null" instead errors	
+	var target_id:int = attack_target.get_instance_id()
+	# Null out attacking when action frees itself if it is still the curent action
 	action.tree_exited.connect(func() -> void:
+		if not weapon_state.attacking == action:
+			return
+			
 		weapon_state.stop_attacking()
 		weapon_state.restore_parent()
+		# Select a new target
+		if not _exiting_tree and is_instance_valid(weapon_state.weapon) and \
+		(not is_instance_id_valid(target_id) or instance_from_id(target_id).is_queued_for_deletion()):
+			unit_scanner.invoke.call_deferred()
 	)
+	
 	weapon_state.attacking = action
 	weapon.show()
 	actions_container.add_child(action)
@@ -288,9 +300,11 @@ static func has_component(node: Node) -> bool:
 	return Components.has_component(ComponentName, node)
 			
 func _enter_tree() -> void:
+	_exiting_tree = false
 	Components.add_component(ComponentName, self)
 
 func _exit_tree() -> void:
+	_exiting_tree = true
 	Components.remove_component(ComponentName, self)
 	
 	_destroy_all_weapons()
