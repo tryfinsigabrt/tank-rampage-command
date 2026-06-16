@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="20_uyqxh"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="21_4r4nw"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="22_drhmd"]
+[ext_resource type="Script" path="res://levels/tutorial/tutorial.gd" id="23_8m5ib"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7yhsa"]
 
@@ -60,6 +61,7 @@ _data = {
 point_count = 10
 
 [node name="Tutorial" type="Node3D" unique_id=1039357832]
+script = ExtResource("23_8m5ib")
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=334730572]
 layer = 10

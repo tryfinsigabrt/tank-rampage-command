@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dp5gyrwhmjqwl" path="res://ui/hud/building_panel.tscn" id="6_3h2ut"]
 [ext_resource type="PackedScene" path="res://ui/hud/unit_panel.tscn" id="7_yy1et"]
 [ext_resource type="PackedScene" uid="uid://c2rpqm3eydx63" path="res://ui/hud/command_panel.tscn" id="8_x8wtu"]
+[ext_resource type="PackedScene" path="res://ui/hud/player_message_panel.tscn" id="9_5yq4i"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
 texture_filter = 1
@@ -32,6 +33,12 @@ alignment = 2
 
 [node name="Resources" parent="ResourcesContainer" unique_id=993976760 instance=ExtResource("3_e0nub")]
 layout_mode = 2
+
+[node name="PlayerMessagePanel" parent="." unique_id=843331390 instance=ExtResource("9_5yq4i")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=242826739]
 layout_mode = 2
