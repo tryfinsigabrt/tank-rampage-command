@@ -22,6 +22,9 @@ var targeting_locations:Array[Node3D]
 @export
 var single_target:bool
 
+@export
+var max_target_distance:float = 300.0
+
 #region class WeaponState
 class WeaponState:
 	var weapon:Weapon
@@ -88,10 +91,18 @@ var enabled:bool:
 			return
 				
 		if value:
+			_sync_targeting_distance()
 			unit_scanner.my_asset = my_asset
 		unit_scanner.enabled = value
 	get:
 		return enabled
+	
+func _ready() -> void:
+	_sync_targeting_distance()
+	
+func _sync_targeting_distance() -> void:
+	unit_scanner.threshold_distance = max_target_distance
+	threat_scorer.ideal_distance = max_target_distance
 	
 # Weapon will be a duplicate 
 func add_weapon(id:int, weapon:Weapon, should_duplicate:bool = false) -> bool:

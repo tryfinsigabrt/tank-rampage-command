@@ -36,6 +36,8 @@ func _ready() -> void:
 	print(\"VALID=%s\" % is_instance_valid(node))
 	print(\"QUEUED=%s\" % node.is_queued_for_deletion())
 	node.queue_free()
+	
+	print(inverse_lerp(100, 10, 20))
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

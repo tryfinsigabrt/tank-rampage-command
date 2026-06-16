@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_37b1s")
-attack_priority = 2
+attack_priority = 4
 metadata/_custom_type_script = "uid://d0xjpcjnalcme"

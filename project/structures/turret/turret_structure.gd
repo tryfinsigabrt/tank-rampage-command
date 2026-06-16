@@ -8,7 +8,7 @@ class_name TurretStructure extends DefensiveStructure
 	
 func _ready() -> void:
 	super()
-	targeting_component.add_weapon(1, weapon)
+	targeting_component.add_weapon.call_deferred(1, weapon)
 	
 func _do_update_render(in_visible:bool) -> void:
 	_visual_root.visible = in_visible

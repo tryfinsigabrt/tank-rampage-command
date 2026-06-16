@@ -8,12 +8,6 @@ var threat_score_threshold:float = 0.5
 @export
 var ideal_distance:float = 300.0
 
-var _ideal_distance_sq:float
-
-func _ready() -> void:
-	_ideal_distance_sq = ideal_distance * ideal_distance
-	#_max_distance_sq = max_distance * max_distance
-
 func get_threat_assets(assets: Array[Node3D], position:Vector3) -> Array[UnitScore]:
 	return _get_threat_assets(assets, position, func(data:Node3D) -> Node3D: return data)
 	
@@ -27,37 +21,51 @@ func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:
 	if not assets:
 		return matches
 	
-	var max_score:float = 0.0
+	var ideal_distance_sq:float = ideal_distance * ideal_distance
+	var max_distance_score:float = 0.0
+	var priority_range:Vector2i = Vector2i(1e9,-1e9)
 	
 	# TODO: Placeholder Utility AI - use real utility AI system to score and filter candidates
 	for unit_data:Variant in assets:
 		var asset:Node3D = viable_asset_extractor.call(unit_data) as Node3D
 		if asset and asset.is_in_group(Groups.TeamAsset):
 			var dist_sq:float = asset.global_position.distance_squared_to(position)
-			var score:float = dist_sq
-			#if score > _max_distance_sq:
-				#continue
-			score = _ideal_distance_sq / maxf(score, 0.001)
-			max_score = maxf(score, max_score)
+				
+			var score:float = ideal_distance_sq / maxf(dist_sq, 0.001)
+			max_distance_score = maxf(score, max_distance_score)
 			
 			var attributes:TeamAssetAttributes = asset.attributes
 			
+			var priority:int = attributes.attack_priority
+			priority_range.x = mini(priority, priority_range.x)
+			priority_range.y = maxi(priority, priority_range.y)
+			
 			var entry := UnitScore.new()
 			entry.threat = asset
-			entry.priority = attributes.attack_priority
+			entry.priority = priority
 			entry.score = score
 			entry._dist_sq = dist_sq
 			matches.push_back(entry)
 	
-	# Normalize scores
+	if not matches:
+		return matches
+		
+	# Normalize dist scores and factor in priority scoring
+	var max_score:float = 0.0
+	for entry in matches:
+		var norm_dist_score:float = entry.score / max_distance_score
+		# Lower priority is a higher score so reverse the ilerp
+		var priority_score:float = inverse_lerp(priority_range.y, priority_range.x, entry.priority)
+		var total_score:float = norm_dist_score * 0.6 + priority_score * 0.4
+		max_score = maxf(total_score, max_score)
+		
+		entry.score = total_score
+		
+	# Renormalize
 	for entry in matches:
 		entry.score = entry.score / max_score
+		
 	matches.sort_custom(func(a:UnitScore, b:UnitScore) -> bool:
-		# First compare by priority, ordering lower score first and then by score with highest first
-		if a.priority < b.priority:
-			return true
-		if a.priority > b.priority:
-			return false
 		return a.score > b.score
 	)
 	

@@ -14,6 +14,7 @@ threshold_distance = 300.0
 enabled = false
 
 [node name="ThreatScorer" parent="." unique_id=65921218 instance=ExtResource("4_0i38n")]
+threat_score_threshold = 0.0
 
 [node name="Weapons" type="Node" parent="." unique_id=302765171]
 
