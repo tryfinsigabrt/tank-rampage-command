@@ -82,7 +82,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="DefenseBase" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=1111098611]
 script = ExtResource("9_4xohm")
-defense_time = null
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ProvideAssistance" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=1489697587]
@@ -109,7 +108,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="DefenseBase" type="Node" parent="BeehaveTree/Root/Explore" unique_id=213540078]
 script = ExtResource("9_4xohm")
-defense_time = null
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ProvideAssistance" type="Node" parent="BeehaveTree/Root/Explore" unique_id=1271430354]

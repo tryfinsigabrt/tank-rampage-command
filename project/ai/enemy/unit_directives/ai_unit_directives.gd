@@ -4,6 +4,7 @@ const ComponentName:StringName = &"AiUnitDirectives"
 
 const DEFEND_POSITION:StringName = &"defend_position"
 const DEFEND_AREA:StringName = &"defend_area"
+const SECURE_CONTROL_POINT:StringName = &"secure_control_point"
 
 const TIME:StringName = &"time"
 const POSITION_CALLBACK:StringName = &"position_cb"
@@ -92,8 +93,22 @@ func set_defend_position(position:Vector3, time:float, priority:int = 0, tag:Str
 	return state
 
 func set_defend_area(area:BoundingSphere, time:float, position_callback:Callable, priority:int = 0, tag:String = "") -> State:
+	return _set_defend_area_key(area, time, position_callback, DEFEND_AREA, priority, tag)
+
+func set_defend_control_point(control_point:ControlPoint, time:float, priority:int = 0, tag:String = "") -> State:
+	# TODO: This should be a unique BT state as the time should be additional hold time after arriving AND team has control
+	# There should be an additional leaf condition that is checking that the team has possession of the control point before moving into a timed hold state
+	# Bounds were computed once before in control_point_prioritizer.gd but the AABB is already computed so its cheap to reconstruct it on each directive issuance
+	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_INSCRIBED)
+	var countrol_bounding_sphere:BoundingSphere = control_bounds.inscribed_sphere
+	
+	return _set_defend_area_key(countrol_bounding_sphere, time, func() -> Vector3:
+		return countrol_bounding_sphere.center
+	, SECURE_CONTROL_POINT, priority, tag)
+	
+func _set_defend_area_key(area:BoundingSphere, time:float, position_callback:Callable, key:StringName, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()
-	state.key = DEFEND_AREA
+	state.key = key
 	state.priority = priority
 	state.tag = tag
 	state.data = {
@@ -109,7 +124,6 @@ func set_defend_area(area:BoundingSphere, time:float, position_callback:Callable
 	_add_or_update_state(state)
 	
 	return state
-	
 #endregion
 
 func has_state(matcher:Callable) -> bool:

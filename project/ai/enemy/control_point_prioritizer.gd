@@ -132,8 +132,6 @@ func _evaluate_priorities() -> void:
 			continue
 			
 		var control_point := control_point_ctx.control_point
-		var bounds := control_point_ctx.bounds
-		var cp_pos := control_point.global_position
 		
 		var count:int = 0
 		for context in control_point_ctx.assist_context:
@@ -141,19 +139,10 @@ func _evaluate_priorities() -> void:
 			var unit_id:int = unit.get_instance_id()
 			if not unit_id in available_units:
 				continue
-			
-			var unit_pos:Vector3 = unit.global_position
-			var unit_pos2: Vector2 = MathUtils.grid_vector(unit_pos)
-			
-			var actions := unit.get_or_add_actions()
-			if bounds.contains(unit_pos2):
-				if not actions.is_hold():
-					actions.hold()
-			else:
-				var unit_blackboard := actions.blackboard
-				if unit_blackboard.current_action != UnitBlackboard.Action.MoveAndAttack or \
-					not unit_blackboard.target_position.is_equal_approx(cp_pos):
-					actions.move_and_attack(cp_pos)
+						
+			var unit_directives := AiUnitDirectives.get_component(unit)
+			# TODO: Capture time should be more precise and hard coding a high priority of 20
+			unit_directives.set_defend_control_point(control_point, control_point.capture_time * 3.0, 20, "CONTROL_POINT")
 			
 			count += 1
 			available_units.erase(unit_id)
