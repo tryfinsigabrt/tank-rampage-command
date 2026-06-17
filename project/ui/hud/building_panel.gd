@@ -212,11 +212,11 @@ func _populate_queue_row() -> void:
 
 		var active := i == 0
 
-		var time_left = _current_manufacturing.build_timer.time_left
+		var time_left := _current_manufacturing.build_timer.time_left
 		if time_left <= 0:
 			slot.set_resource(resource, 0.0, active)
 		else:
-			var wait_time = _current_manufacturing.build_timer.wait_time
+			var wait_time := _current_manufacturing.build_timer.wait_time
 			var progress:float = 1 - (time_left / wait_time)
 			slot.set_resource(resource, progress, active)
 

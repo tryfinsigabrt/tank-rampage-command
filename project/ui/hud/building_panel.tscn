@@ -48,6 +48,12 @@ layout_mode = 2
 [node name="Chip03" parent="Padding/Content/BuildRow" unique_id=125616097 instance=ExtResource("2_qk6mh")]
 layout_mode = 2
 
+[node name="Chip04" parent="Padding/Content/BuildRow" unique_id=1367647802 instance=ExtResource("2_qk6mh")]
+layout_mode = 2
+
+[node name="Chip05" parent="Padding/Content/BuildRow" unique_id=424153294 instance=ExtResource("2_qk6mh")]
+layout_mode = 2
+
 [node name="QueueInfo" type="VBoxContainer" parent="Padding/Content" unique_id=1429650869]
 unique_name_in_owner = true
 layout_mode = 2

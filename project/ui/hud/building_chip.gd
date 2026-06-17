@@ -202,5 +202,7 @@ func _type_to_display_name(type: ConstructionResource.Type) -> String:
 			return "Tank"
 		ConstructionResource.Type.Artillery:
 			return "Artillery"
+		ConstructionResource.Type.Bunker:
+			return "Bunker"
 		_:
 			return ""
