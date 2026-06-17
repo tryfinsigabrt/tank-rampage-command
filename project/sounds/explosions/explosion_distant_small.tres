@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://ye2iqgqy1bdy"]
+
+[ext_resource type="AudioStream" uid="uid://coqyierectdvm" path="res://sounds/explosions/explode-distant-small.wav" id="1_bqxwe"]
+
+[resource]
+playback_mode = 1
+random_pitch = 1.0594631
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("1_bqxwe")

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://p21sm8ww765t"]
+
+[ext_resource type="PackedScene" uid="uid://llt86qai7yiq" path="res://sounds/death_sfx.tscn" id="1_fcdc4"]
+[ext_resource type="AudioStream" uid="uid://dvimwg2ohuf8i" path="res://sounds/explosions/explosion_medium.tres" id="2_i4ci4"]
+[ext_resource type="Script" uid="uid://beeh4sacw2pyj" path="res://sounds/audio_stream_distance_config.gd" id="2_q6mbc"]
+[ext_resource type="AudioStream" uid="uid://t42h70bapaan" path="res://sounds/explosions/explosion_distant_medium.tres" id="4_q6mbc"]
+[ext_resource type="AudioStream" uid="uid://ye2iqgqy1bdy" path="res://sounds/explosions/explosion_distant_small.tres" id="5_0kl1r"]
+
+[sub_resource type="Resource" id="Resource_b0epw"]
+script = ExtResource("2_q6mbc")
+max_distance = 300.0
+stream = ExtResource("2_i4ci4")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
+
+[sub_resource type="Resource" id="Resource_7iryi"]
+script = ExtResource("2_q6mbc")
+max_distance = 1000.0
+stream = ExtResource("4_q6mbc")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
+
+[sub_resource type="Resource" id="Resource_cn5j3"]
+script = ExtResource("2_q6mbc")
+max_distance = 10000.0
+stream = ExtResource("5_0kl1r")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
+
+[node name="DeathSfx" unique_id=928613514 instance=ExtResource("1_fcdc4")]
+streams_by_distance = Array[ExtResource("2_q6mbc")]([SubResource("Resource_b0epw"), SubResource("Resource_7iryi"), SubResource("Resource_cn5j3")])
+
+[node name="Player" parent="." index="0" unique_id=1334804835]
+stream = ExtResource("2_i4ci4")

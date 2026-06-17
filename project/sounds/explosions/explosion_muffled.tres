@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://df2cp6k0m65or"]
+
+[ext_resource type="AudioStream" uid="uid://dd7vxuubfnmb5" path="res://sounds/explosions/explode-muffled.wav" id="1_0amt4"]
+
+[resource]
+playback_mode = 1
+random_pitch = 1.0293022
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("1_0amt4")

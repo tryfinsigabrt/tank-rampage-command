@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cyr6us06o3fw2" path="res://buildings/unit_asset_spawner.tscn" id="9_q7pe4"]
 [ext_resource type="PackedScene" uid="uid://7gsl50b8qqwx" path="res://buildings/rally_point_component.tscn" id="12_ewlsq"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="13_25xcf"]
+[ext_resource type="PackedScene" uid="uid://01etokioo21k" path="res://sounds/building_death_sfx.tscn" id="14_al3h0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(10, 4, 10)
@@ -89,6 +90,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 [node name="DynamicNavObstacle" parent="." unique_id=658740099 instance=ExtResource("13_25xcf")]
 default_avoidance_layers = 1
 extra_bounds_padding = 2.0
+
+[node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("14_al3h0")]
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

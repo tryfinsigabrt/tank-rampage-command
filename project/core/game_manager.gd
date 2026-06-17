@@ -2,6 +2,7 @@ extends Node
 
 @onready var game_timer: GameTimer = %GameTimer
 @onready var scene_manager: SceneManager = %SceneManager
+@onready var audio_manager: AudioManager = %AudioManager
 
 # If called before data refreshed then just query dynamically
 var _scene_ready:bool

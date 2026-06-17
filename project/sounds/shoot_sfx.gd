@@ -5,16 +5,22 @@ class_name ShootSfx extends Node3D
 @onready var shoot_sfx: AudioStreamPlayer3D = $ShootSfx
 @onready var hit_sfx: AudioStreamPlayer3D = $HitSfx
 @onready var explosion_sfx: AudioStreamPlayer3D = $ExplosionSfx
+@onready var audio_stream_switcher: AudioStreamSwitcher = $AudioStreamSwitcher
 
 @export
 var hit_streams_by_group:Dictionary[StringName,AudioStreamConfig]
+
+@export
+var explosion_streams_by_grid_distance:Array[AudioStreamDistanceConfig]
 
 func play_shoot() -> void:
 	shoot_sfx.play()
 
 func play_hit(damage_params:DamageParameters) -> void:
-	_play_stream(hit_sfx, damage_params, _select_hit_stream(damage_params))
-	_play_stream(explosion_sfx, damage_params)	
+	var location:Vector3 = damage_params.contact_point
+	
+	audio_stream_switcher.play_stream(hit_sfx, location, _select_hit_stream(damage_params))
+	audio_stream_switcher.play_level_stream(explosion_sfx, location, _select_explosion_stream(damage_params))
 
 func _select_hit_stream(damage_params:DamageParameters) -> AudioStreamConfig:
 	var target:Node3D = damage_params.target_object
@@ -26,14 +32,6 @@ func _select_hit_stream(damage_params:DamageParameters) -> AudioStreamConfig:
 		if group in node_groups:
 			return hit_streams_by_group[group]
 	return null
-	
-func _play_stream(player:AudioStreamPlayer3D, damage_params:DamageParameters, stream_override:AudioStreamConfig = null) -> void:
-	var play_from:float = 0.0
-	if stream_override:
-		player.stream = stream_override.stream
-		play_from = stream_override.play_from
-	if not player.stream:
-		return
-		
-	player.global_position = damage_params.contact_point
-	player.play(play_from)
+
+func _select_explosion_stream(damage_params:DamageParameters) -> AudioStreamConfig:
+	return audio_stream_switcher.select_stream_by_camera_distance(explosion_streams_by_grid_distance, damage_params.contact_point)

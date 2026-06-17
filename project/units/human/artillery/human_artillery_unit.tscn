@@ -19,11 +19,27 @@
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="14_pxuev"]
 [ext_resource type="PackedScene" uid="uid://cuh5crtdvqiwo" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_sfx.tscn" id="18_r8l68"]
 [ext_resource type="Script" uid="uid://b8vcfwgedh344" path="res://units/unit_weapon_controller.gd" id="19_082nv"]
+[ext_resource type="Script" uid="uid://beeh4sacw2pyj" path="res://sounds/audio_stream_distance_config.gd" id="19_tt3np"]
 [ext_resource type="PackedScene" uid="uid://cvn7ngiwpqsbp" path="res://core/targeting/yaw_pitch_aiming_component.tscn" id="20_3ijsc"]
+[ext_resource type="AudioStream" uid="uid://erx7l6hkoem7" path="res://sounds/explosions/explosion_massive.tres" id="20_b3o5j"]
+[ext_resource type="AudioStream" uid="uid://cqymyfwga7coe" path="res://sounds/explosions/explosion_distant_large.tres" id="21_chb8j"]
+[ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="21_em114"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
 height = 7.0
+
+[sub_resource type="Resource" id="Resource_sin8l"]
+script = ExtResource("19_tt3np")
+max_distance = 300.0
+stream = ExtResource("20_b3o5j")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
+
+[sub_resource type="Resource" id="Resource_orapb"]
+script = ExtResource("19_tt3np")
+max_distance = 1000.0
+stream = ExtResource("21_chb8j")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
 
 [node name="HumanArtilleryUnit" type="CharacterBody3D" unique_id=1517178385 node_paths=PackedStringArray("turret_rotation_node", "barrel_pitch_node") groups=["Interactable", "TeamAsset", "Unit", "UnitClassArtillery"]]
 collision_layer = 516
@@ -152,6 +168,7 @@ scene_properties = Dictionary[StringName, Variant]({
 metadata/_custom_type_script = "uid://bmim3nx5ckc8q"
 
 [node name="ArtilleryShootSfx" parent="WeaponTrace/Weapon" unique_id=1748265597 instance=ExtResource("18_r8l68")]
+explosion_streams_by_grid_distance = Array[ExtResource("19_tt3np")]([SubResource("Resource_sin8l"), SubResource("Resource_orapb")])
 
 [node name="WeaponController" type="Node" parent="WeaponTrace/Weapon" unique_id=1454682227 node_paths=PackedStringArray("unit", "weapon")]
 script = ExtResource("19_082nv")
@@ -165,6 +182,8 @@ unique_name_in_owner = true
 yaw_root = NodePath("../../VisualRoot/TurretPivot")
 pitch_root = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode")
 rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
+
+[node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("21_em114")]
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

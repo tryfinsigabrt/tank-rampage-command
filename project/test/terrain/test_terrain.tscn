@@ -537,6 +537,8 @@ size = Vector3(100, 100, 100)
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("20_83iv7")]
 
+[node name="LevelAudio" type="Node3D" parent="World" unique_id=1305282593 groups=["LevelAudio"]]
+
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("25_qxacn")]
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("21_xxlqf")]

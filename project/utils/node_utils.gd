@@ -15,7 +15,7 @@ static func wait_free(node: Node) -> void:
 	# if that call is itself deferred we may need to wait multiple frames
 	while is_instance_valid(node):
 		await tree.process_frame
-
+		
 static func populate_instances(id_list:PackedInt64Array, instances: Array, filter:Callable = Callable()) -> void:
 	var existing_size:int = instances.size()
 	instances.resize(existing_size + id_list.size())

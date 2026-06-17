@@ -24,6 +24,8 @@ const ControlPoint:StringName = &"ControlPoint"
 const UI:StringName = &"UI"
 const TeamVisible:StringName = &"TeamVisible"
 
+const LevelAudio:StringName = &"LevelAudio"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:

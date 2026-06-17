@@ -13,3 +13,7 @@ hit_streams_by_group = Dictionary[StringName, ExtResource("2_1cj43")]({
 
 [node name="ShootSfx" parent="." index="0" unique_id=65979590]
 stream = ExtResource("2_6anow")
+volume_db = 4.0
+
+[node name="HitSfx" parent="." index="1" unique_id=1847773974]
+volume_db = 2.0

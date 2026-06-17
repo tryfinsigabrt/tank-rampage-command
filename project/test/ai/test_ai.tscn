@@ -503,6 +503,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -262.96005, 0.049996186, 111.
 [node name="ControlPoint5" parent="World/ControlPoints" unique_id=1116214033 instance=ExtResource("32_r4ybk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.55914)
 
+[node name="LevelAudio" type="Node3D" parent="World" unique_id=1794161654 groups=["LevelAudio"]]
+
 [node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("19_le2i0")]
