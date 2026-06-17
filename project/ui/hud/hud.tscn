@@ -36,6 +36,7 @@ layout_mode = 2
 
 [node name="PlayerMessagePanel" parent="." unique_id=843331390 instance=ExtResource("9_5yq4i")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 180)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

@@ -14,15 +14,26 @@
 [ext_resource type="Resource" uid="uid://ch6qcxh47bv1p" path="res://conf/teams/player_team.tres" id="12_bs3kj"]
 [ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="13_fputw"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="14_0fgam"]
-[ext_resource type="Resource" uid="uid://bf1ocuue3ngsj" path="res://conf/match/default_match_resources.tres" id="15_t4sos"]
-[ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="16_igt3x"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="16_fputw"]
+[ext_resource type="Resource" uid="uid://c7o20tq4j3vd1" path="res://conf/costs/ai/ai_tank_cost.tres" id="17_0fgam"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="17_jqtcf"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="18_mfiw0"]
+[ext_resource type="Resource" uid="uid://cs3jagxdxmhym" path="res://conf/costs/ai/ai_artillery_cost.tres" id="18_t4sos"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="19_agodc"]
+[ext_resource type="Resource" uid="uid://8r04bbeb5fpq" path="res://conf/costs/human/barracks_cost.tres" id="19_igt3x"]
+[ext_resource type="Resource" uid="uid://ddtilai6lomtw" path="res://conf/costs/human/command_center_cost.tres" id="20_jqtcf"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="20_uyqxh"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="21_4r4nw"]
+[ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_mfiw0"]
+[ext_resource type="Resource" uid="uid://dp0r4g2njcjq7" path="res://conf/costs/ai/ai_marine_cost.tres" id="22_agodc"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="22_drhmd"]
-[ext_resource type="Script" path="res://levels/tutorial/tutorial.gd" id="23_8m5ib"]
+[ext_resource type="Script" uid="uid://boye2wkq36s13" path="res://levels/tutorial/tutorial.gd" id="23_8m5ib"]
+[ext_resource type="Resource" uid="uid://cs3cn5fqrad51" path="res://conf/costs/human/mines_cost.tres" id="23_uyqxh"]
+[ext_resource type="Resource" uid="uid://b8sax7qhmtdqr" path="res://conf/costs/human/tank_spikes_cost.tres" id="24_4r4nw"]
+[ext_resource type="Resource" uid="uid://bnp02362c5kqh" path="res://conf/costs/human/sandbags_cost.tres" id="25_drhmd"]
+[ext_resource type="Resource" uid="uid://rwp7cr3nn0at" path="res://conf/costs/human/bunker_cost.tres" id="26_7yhsa"]
+[ext_resource type="Resource" uid="uid://c4mv1cyq3pg50" path="res://conf/costs/human/turret_cost.tres" id="27_0gw2p"]
+[ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="28_myhrv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7yhsa"]
 
@@ -37,20 +48,45 @@ ambient_light_source = 3
 [sub_resource type="BoxShape3D" id="BoxShape3D_myhrv"]
 size = Vector3(1000, 1000, 500)
 
-[sub_resource type="Resource" id="Resource_f313t"]
+[sub_resource type="Resource" id="Resource_g00wj"]
 script = ExtResource("9_urcd8")
+command_center_bonus = 0
 metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
 
-[sub_resource type="Resource" id="Resource_0rvqm"]
+[sub_resource type="Resource" id="Resource_wbvyt"]
 script = ExtResource("10_tyneo")
-count = 2000
+count = 10000
 metadata/_custom_type_script = "uid://wjqvneg6aev5"
 
-[sub_resource type="Resource" id="Resource_4pju4"]
+[sub_resource type="Resource" id="Resource_awbml"]
 script = ExtResource("11_thc13")
-scrap = SubResource("Resource_0rvqm")
-personnel = SubResource("Resource_f313t")
+scrap = SubResource("Resource_wbvyt")
+personnel = SubResource("Resource_g00wj")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[sub_resource type="Resource" id="Resource_4pju4"]
+script = ExtResource("9_urcd8")
+control_point_cap_bonus = 1
+command_center_bonus = 0
+cap = 0
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_1ch1d"]
+script = ExtResource("10_tyneo")
+cap = 1
+count = 0
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_6p5wt"]
+script = ExtResource("11_thc13")
+scrap = SubResource("Resource_1ch1d")
+personnel = SubResource("Resource_4pju4")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[sub_resource type="Resource" id="Resource_w2cd1"]
+script = ExtResource("28_myhrv")
+construction = Array[ExtResource("16_fputw")]([ExtResource("17_0fgam"), ExtResource("18_t4sos"), ExtResource("19_igt3x"), ExtResource("20_jqtcf"), ExtResource("21_mfiw0"), ExtResource("22_agodc"), ExtResource("23_uyqxh"), ExtResource("24_4r4nw"), ExtResource("25_drhmd"), ExtResource("26_7yhsa"), ExtResource("27_0gw2p")])
+metadata/_custom_type_script = "uid://xt576yq3qny0"
 
 [sub_resource type="Curve3D" id="Curve3D_1ch1d"]
 closed = true
@@ -110,7 +146,7 @@ debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 [node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("8_smjjj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 376.61377, 0, 374.66925)
 team = 1
-resources = SubResource("Resource_4pju4")
+resources = SubResource("Resource_awbml")
 config = ExtResource("12_bs3kj")
 
 [node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("13_fputw")]
@@ -127,8 +163,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -279.11038, 0, -425.59155)
 [node name="EnemyTeam" parent="World/Match/EnemyTeams" unique_id=988467642 instance=ExtResource("8_smjjj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.60306, 0, 197.52031)
 team = 2
-resources = ExtResource("15_t4sos")
-config = ExtResource("16_igt3x")
+resources = SubResource("Resource_6p5wt")
+config = SubResource("Resource_w2cd1")
 
 [node name="EnemyTeamDirector" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=20484500 instance=ExtResource("17_jqtcf")]
 team = 2
@@ -148,15 +184,12 @@ team = 2
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=462420514]
 
 [node name="ControlPoint1" parent="World/Match/ControlPoints" unique_id=588474072 instance=ExtResource("20_uyqxh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.130424, 1, -203.00739)
-
-[node name="ControlPoint2" parent="World/Match/ControlPoints" unique_id=1020047241 instance=ExtResource("20_uyqxh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -142.057, 1, -171.94342)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 
 [node name="Resources" type="Node3D" parent="World/Match" unique_id=1298244886]
 
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.74433, 0, -114.882034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7366905, 0, -94.737274)
 curve = SubResource("Curve3D_1ch1d")
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("22_drhmd")]
