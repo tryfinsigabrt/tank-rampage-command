@@ -85,4 +85,5 @@ unique_name_in_owner = true
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+[connection signal="team_changed" from="Components/TeamComponent" to="." method="_on_team_changed" unbinds=1]
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]

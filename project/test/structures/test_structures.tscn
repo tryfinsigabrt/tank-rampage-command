@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://btw2g6jud6e2e"]
 
+[ext_resource type="Script" uid="uid://neu4sir6664l" path="res://test/structures/test_structures.gd" id="1_m113m"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_pcjm4"]
 [ext_resource type="Material" uid="uid://dem5k4n2r82pd" path="res://test/materials/grid_material.tres" id="2_8k6f8"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="3_lfh6y"]
@@ -61,6 +62,8 @@ personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [node name="TestStructures" type="Node3D" unique_id=1293608661]
+script = ExtResource("1_m113m")
+structures_team = 1
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_pcjm4")]
 

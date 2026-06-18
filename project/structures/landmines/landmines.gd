@@ -16,7 +16,7 @@ func _ready() -> void:
 	# Set area shape based on input collision shape
 	area_collision.shape = collision.shape
 	
-	trigger_area.collision_mask = _update_mask(trigger_area.collision_mask)
+	_on_team_changed()
 	
 func _do_update_render(in_visible:bool) -> void:
 	visual_root.visible = in_visible
@@ -74,3 +74,7 @@ func _allow_damage(collider: Node3D) -> bool:
 	if not unit:
 		return false
 	return friendly_fire or unit.team_component.is_enemy(team_component)
+
+
+func _on_team_changed() -> void:
+	trigger_area.collision_mask = _update_mask(trigger_area.collision_mask)
