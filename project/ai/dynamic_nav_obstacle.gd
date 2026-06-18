@@ -67,8 +67,9 @@ func _ready() -> void:
 	_set_root_asset_collision_layer()	
 	refresh_avoidance_layers()
 	
-	if _team_asset_root:
-		_build_obstacle_bounds.call_deferred()
+	# Disabling as we are not using built-in avoidance
+	#if _team_asset_root:
+		#_build_obstacle_bounds.call_deferred()
 
 func _set_root_asset_collision_layer() -> void:
 	if not _physics_body_root:
@@ -84,7 +85,9 @@ func refresh_avoidance_layers() -> void:
 			teams = Avoidance.get_enemy_teams(team_component.team)
 		
 	nav_obstacle.avoidance_layers = Avoidance.get_avoidance_team_layer_mask(default_avoidance_layers, affects_unit_classes, teams)
-	nav_obstacle.avoidance_enabled = nav_obstacle.avoidance_layers != 0
+	# Disabling built-in NavigationAgent3D avoidance as we are using a custom AvoidanceSteering solution
+	# The behavior of test_terrain was inconsistent with misc issues with tanks avoiding all sandbags even when the layer/masks were not intersecting
+	nav_obstacle.avoidance_enabled = false #nav_obstacle.avoidance_layers != 0
 
 func _get_obstacle_bounds_local() -> Bounds:
 	if _team_asset_root:
