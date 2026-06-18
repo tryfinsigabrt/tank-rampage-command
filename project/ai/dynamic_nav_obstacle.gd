@@ -100,6 +100,7 @@ func _get_obstacle_bounds_local() -> Bounds:
 		push_warning("%s: No team asset root or physics body exists in hierarchy - will not be updated to fit collision bounds!" % name)
 		
 	return null
+	
 func _build_obstacle_bounds() -> void:
 	# Vertices are in local space
 	var bounds:Bounds = _get_obstacle_bounds_local()

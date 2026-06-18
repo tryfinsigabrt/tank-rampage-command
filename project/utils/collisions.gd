@@ -25,20 +25,17 @@ class Layers:
 	## A structure that blocks behicles
 	const structure_vehicle:int = 1 << 10
 	
-	## A generic boundary like a scrap field
-	const boundary:int = 1 << 11
-	
 	## A control point
-	const control_point:int = 1 << 12
+	const control_point:int = 1 << 11
 	
 	## A structure that is an explosive
 	## This is currently used for landmines for weapons to target them or for scans to find them
 	## But to not block movement of infantry or vehicles
 	## They are also typically hidden so shouldn't show up on simpler structure scans
-	const structure_explosive:int = 1 << 13
+	const structure_explosive:int = 1 << 12
 	
 	## A layer added to team asset collision that has a DynamicNavObstacle node attached
-	const dynamic_obstacle:int = 1 << 14
+	const dynamic_obstacle:int = 1 << 13
 	
 	## Layer assigned to assets on team 1
 	const team_1:int = 1 << 28

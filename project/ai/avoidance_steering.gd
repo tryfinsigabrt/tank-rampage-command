@@ -76,6 +76,7 @@ func _init_ray_cast_params() -> void:
 		
 func _update() -> void:
 	_time_to_next_update = randf_range(update_rate - update_rate_variance, update_rate + update_rate_variance)
+	
 	var unit_up:Vector3 = _unit.global_up
 	var unit_forward:Vector3 = _unit.global_forward
 	var unit_position:Vector3 = _unit.global_position
