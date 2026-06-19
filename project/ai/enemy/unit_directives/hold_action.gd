@@ -1,18 +1,21 @@
 @tool
-extends ActionLeaf
+class_name HoldActionLeaf extends ActionLeaf
 
 var _command_id:int
 var _state:int
 
 var _start_time:float
-var _end_time:float
+var _duration:float
 
 @export
 var expected_pos_tolerance:float = 10.0
 
+func _should_end_hold() -> bool:
+	return GameManager.game_timer.time_seconds >= _start_time + _duration
+	
 func tick(actor: Node, _blackboard: Blackboard) -> int:
-	if _state == 0 and GameManager.game_timer.time_seconds >= _end_time:
-		print_debug("%s: Hold duration of %.1fs reached" % [name, _end_time - _start_time])
+	if _state == 0 and _should_end_hold():
+		print_debug("%s: Hold duration of %.1fs reached" % [name, _duration])
 		_state = SUCCESS
 		
 		var directive:AiUnitDirectives = actor
@@ -30,7 +33,6 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	var blackboard:UnitDirectiveBlackboard = _blackboard
 	
 	var position:Vector3 = blackboard.position
-	var duration:float = blackboard.time
 	
 	# Make sure we are actually at the position
 	var unit_pos:Vector3 = unit.get_fire_global_position()
@@ -47,7 +49,7 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 
 	_state = 0
 	_start_time = GameManager.game_timer.time_seconds
-	_end_time = _start_time + duration
+	_duration = blackboard.time
 
 	SignalUtils.connect_with_predicated_disconnect(unit_actions.command_finished,
 		func(command_id:int, destroy:Signal) -> void:

@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cmnurafp01fhf" path="res://ai/enemy/unit_directives/directive_sequence_composite.gd" id="10_r2fj0"]
 [ext_resource type="Script" uid="uid://11yk464vxtfq" path="res://ai/enemy/unit_directives/check_bounds.gd" id="11_vju81"]
 [ext_resource type="Script" uid="uid://c55yc3j8iap1c" path="res://ai/enemy/unit_directives/select_position.gd" id="12_l1lbj"]
+[ext_resource type="Script" uid="uid://dyjytflt3emtf" path="res://ai/enemy/unit_directives/hold_control_point.gd" id="13_l1lbj"]
 
 [node name="AiUnitDirectives" type="Node" unique_id=1200788001]
 script = ExtResource("1_b4jg7")
@@ -61,17 +62,7 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("5_j53kv")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="Condition OR" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea" unique_id=152331086]
-script = ExtResource("10_0m4yj")
-metadata/_custom_type_script = "uid://8hn4kne15ac5"
-
-[node name="IsDefendArea" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/Condition OR" unique_id=875319139]
-script = ExtResource("6_j53kv")
-left_operand = "get_value(\"action\")"
-right_operand = "\"defend_area\""
-metadata/_custom_type_script = "uid://uoy6r3dbnq25"
-
-[node name="IsSecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/Condition OR" unique_id=376727991]
+[node name="IsSecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea" unique_id=376727991]
 script = ExtResource("6_j53kv")
 left_operand = "get_value(\"action\")"
 right_operand = "\"secure_control_point\""
@@ -103,6 +94,44 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="Hold" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/DefendArea" unique_id=1991986328]
 script = ExtResource("8_1pph0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ChooseSecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1847842287]
+script = ExtResource("5_j53kv")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsSecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint" unique_id=1413688573]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"secure_control_point\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="SecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint" unique_id=1069632577]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="HeadToPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint" unique_id=1298881271]
+script = ExtResource("10_0m4yj")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="CheckBounds" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition" unique_id=435523302]
+script = ExtResource("11_vju81")
+metadata/_custom_type_script = "uid://cbnbvj8prv63i"
+
+[node name="Move" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition" unique_id=1626545728]
+script = ExtResource("5_j53kv")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="SelectPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move" unique_id=1558917198]
+script = ExtResource("12_l1lbj")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move" unique_id=1172623776]
+script = ExtResource("7_1pph0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="HoldControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint" unique_id=2013257716]
+script = ExtResource("13_l1lbj")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="PriorityTimer" type="Timer" parent="." unique_id=1530248530]

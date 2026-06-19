@@ -141,8 +141,9 @@ func _evaluate_priorities() -> void:
 				continue
 						
 			var unit_directives := AiUnitDirectives.get_component(unit)
-			# TODO: Capture time should be more precise and hard coding a high priority of 20
-			unit_directives.set_defend_control_point(control_point, control_point.capture_time * 3.0, 20, "CONTROL_POINT")
+			# TODO: hard coding a high priority of 20
+			# Hold for an additional capture time * 2 after captured without being contested
+			unit_directives.set_defend_control_point(control_point, control_point.capture_time * 2.0, 20, "CONTROL_POINT")
 			
 			count += 1
 			available_units.erase(unit_id)

@@ -6,9 +6,6 @@ const DEFEND_POSITION:StringName = &"defend_position"
 const DEFEND_AREA:StringName = &"defend_area"
 const SECURE_CONTROL_POINT:StringName = &"secure_control_point"
 
-const TIME:StringName = &"time"
-const POSITION_CALLBACK:StringName = &"position_cb"
-
 #region Signals
 @warning_ignore_start("unused_signal")
 signal on_started(state:State)
@@ -64,6 +61,9 @@ var _recent_commands:CircularBuffer
 @export
 var evaluation_delay:float = 0.1
 
+@export
+var control_point_radius_defend_fraction:float = 0.5
+
 @onready var _behavior_tree: BeehaveTree = %BeehaveTree
 @onready var blackboard: UnitDirectiveBlackboard = %Blackboard
 @onready var _priority_timer: Timer = %PriorityTimer
@@ -96,16 +96,37 @@ func set_defend_area(area:BoundingSphere, time:float, position_callback:Callable
 	return _set_defend_area_key(area, time, position_callback, DEFEND_AREA, priority, tag)
 
 func set_defend_control_point(control_point:ControlPoint, time:float, priority:int = 0, tag:String = "") -> State:
-	# TODO: This should be a unique BT state as the time should be additional hold time after arriving AND team has control
-	# There should be an additional leaf condition that is checking that the team has possession of the control point before moving into a timed hold state
 	# Bounds were computed once before in control_point_prioritizer.gd but the AABB is already computed so its cheap to reconstruct it on each directive issuance
 	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_INSCRIBED)
 	var countrol_bounding_sphere:BoundingSphere = control_bounds.inscribed_sphere
 	
-	return _set_defend_area_key(countrol_bounding_sphere, time, func() -> Vector3:
-		return countrol_bounding_sphere.center
-	, SECURE_CONTROL_POINT, priority, tag)
+	var position_callback: Callable = func() -> Vector3:
+		# Calculate a random point near the center of the control point
+		var defense_radius: float = countrol_bounding_sphere.radius * control_point_radius_defend_fraction
+		var defend_pos_2d:Vector2 = MathUtils.get_random_point_in_circle(defense_radius)
+		var defense_position:Vector3 = countrol_bounding_sphere.center + Vector3(defend_pos_2d.x, 0.0, defend_pos_2d.y)
+		return defense_position
 	
+	# Also add the control point for context	
+	var state:State = State.new()
+	state.key = SECURE_CONTROL_POINT
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		BOUNDS = countrol_bounding_sphere,
+		TIME = time,
+		POSITION_CALLBACK = position_callback,
+		CONTROL_POINT = control_point,
+	}
+	
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		var other_cp:ControlPoint = other_data[&"CONTROL_POINT"]
+		return control_point == other_cp
+	
+	_add_or_update_state(state)
+	
+	return state
+		
 func _set_defend_area_key(area:BoundingSphere, time:float, position_callback:Callable, key:StringName, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()
 	state.key = key

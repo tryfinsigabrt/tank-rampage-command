@@ -8,6 +8,7 @@ class Keys:
 	const TIME:StringName = "TIME"
 	const BOUNDS:StringName = "BOUNDS"
 	const Position_Callback:StringName = "POSITION_CALLBACK"
+	const CONTROL_POINT:StringName = "CONTROL_POINT"
 	
 var current_action:StringName:
 	get:
@@ -24,6 +25,11 @@ var bounds:BoundingSphere:
 var time:float:
 	get:
 		return get_value(Keys.TIME, -INF)
+		
+var control_point:ControlPoint:
+	get:
+		var instance:Variant = get_value(Keys.CONTROL_POINT)
+		return instance as ControlPoint if is_instance_valid(instance) else null
 
 func set_state(state:AiUnitDirectives.State) -> void:
 	clear_state()
