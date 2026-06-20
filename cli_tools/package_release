@@ -1,0 +1,6 @@
+#!/bin/bash
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+build_dir="${script_dir}/../project/build"
+
+python "${script_dir}/package_release.py" "${build_dir}"
