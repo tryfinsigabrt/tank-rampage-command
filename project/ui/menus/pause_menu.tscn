@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dg22a6i2gpmla" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
 [ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_w225i"]
-[ext_resource type="PackedScene" path="res://ui/menus/options_menu.tscn" id="2_hj0a6"]
+[ext_resource type="PackedScene" uid="uid://bnb4g7v8cd4wb" path="res://ui/menus/options_menu.tscn" id="2_hj0a6"]
 [ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="3_51icm"]
 
 [node name="PauseMenu" type="Control" unique_id=315174667]
@@ -81,26 +81,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Options"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/PauseMenuPanel/Padding/ContentContainer" unique_id=549256535]
+[node name="QuitToMenuButton" type="Button" parent="MarginContainer/PauseMenuPanel/Padding/ContentContainer" unique_id=189244513]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Quit"
+text = "Quit to Main Menu"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/PauseMenuPanel/Padding/ContentContainer" unique_id=549256535]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit to Desktop"
 
 [node name="OptionsMenu" parent="." unique_id=37405403 instance=ExtResource("2_hj0a6")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -380.0
-offset_top = -280.0
-offset_right = 380.0
-offset_bottom = 280.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="PauseMenuAudio" type="Node" parent="." unique_id=1521880232]
 script = ExtResource("3_51icm")
@@ -111,5 +106,6 @@ bus = &"Menu"
 
 [connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/ResumeButton" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/OptionsButton" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/ExitButton" to="." method="_on_quit_pressed"]
 [connection signal="back_requested" from="OptionsMenu" to="." method="_on_options_menu_back_requested"]

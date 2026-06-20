@@ -4,7 +4,8 @@ extends Control
 @onready var pause_menu_panel: Control = %PauseMenuPanel
 @onready var options_menu: PanelContainer = %OptionsMenu
 @onready var resume: Button = %ResumeButton
-@onready var quit: Button = %QuitButton
+@onready var quit: Button = %ExitButton
+@onready var quit_to_menu_button: Button = %QuitToMenuButton
 
 func _ready() -> void:
 	SignalBus.on_paused.connect(_on_game_pause_state_changed)
@@ -48,3 +49,9 @@ func _on_options_menu_back_requested() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		GameManager.scene_manager.toggle_pause()
+
+
+func _on_quit_to_menu_button_pressed() -> void:
+	_disable_buttons()
+	
+	await GameManager.scene_manager.main_menu()
