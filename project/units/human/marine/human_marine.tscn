@@ -74,6 +74,7 @@ bones/25/rotation = Quaternion(0.9986992, 5.539901e-05, -0.004699273, -0.0507728
 bones/26/position = Vector3(2.0084636, 1.9623741, -0.0064786286)
 
 [node name="BaseMarine" parent="Armature/Skeleton3D" index="0" unique_id=528268255]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_8rv8m")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="1" unique_id=547164330]
@@ -83,6 +84,7 @@ bone_idx = 14
 
 [node name="GunPropLocal" type="MeshInstance3D" parent="Armature/Skeleton3D/BoneAttachment3D" index="0" unique_id=384279234]
 transform = Transform3D(-0.056212574, -0.99578094, -0.07252988, -0.28318745, -0.053759485, 0.95755696, -0.9574159, 0.07436636, -0.27897072, -0.019685626, 0.12729327, -0.035263002)
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_6irl0")
 skeleton = NodePath("")
 

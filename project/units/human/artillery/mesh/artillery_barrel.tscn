@@ -6,11 +6,14 @@
 
 [node name="artillery_barrel" unique_id=1296765349 instance=ExtResource("1_ktwgn")]
 
-[node name="BarrelBase" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="0" unique_id=1320233590]
+[node name="BarrelBase" parent="Barrel" parent_id_path=PackedInt32Array(784809788) index="0" unique_id=54886835]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_68vbq")
 
-[node name="BarrelBody" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="1" unique_id=955531907]
+[node name="BarrelBody" parent="Barrel" parent_id_path=PackedInt32Array(784809788) index="1" unique_id=1427160273]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("3_kc12r")
 
-[node name="BarrelEnd" parent="Barrel" parent_id_path=PackedInt32Array(1732332473) index="2" unique_id=827074121]
+[node name="BarrelEnd" parent="Barrel" parent_id_path=PackedInt32Array(784809788) index="2" unique_id=1246353029]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_68vbq")

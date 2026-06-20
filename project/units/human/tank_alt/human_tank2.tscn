@@ -917,6 +917,7 @@ script = ExtResource("3_xjs78")
 
 [node name="Chasis" type="MeshInstance3D" parent="Body" unique_id=742718749]
 material_override = ExtResource("4_pba8h")
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_qxixh")
 skeleton = NodePath("")
 metadata/extras = {
@@ -933,6 +934,7 @@ script = ExtResource("7_g0ku4")
 [node name="Turret" type="MeshInstance3D" parent="Body/Turret" unique_id=1300884229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02771391, 0)
 material_override = ExtResource("4_pba8h")
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_uhos7")
 skeleton = NodePath("")
 metadata/extras = {

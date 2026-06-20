@@ -8,38 +8,49 @@
 
 [node name="artillery_turret" unique_id=1112570591 instance=ExtResource("1_5mu4f")]
 
-[node name="BackPiston" parent="." index="0" unique_id=1894188820]
+[node name="BackPiston" parent="." index="0" unique_id=1208946536]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")
 
-[node name="BackPiston__1_" parent="." index="1" unique_id=246612210]
+[node name="BackPiston__1_" parent="." index="1" unique_id=2072097190]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")
 
-[node name="BackSupport" parent="." index="2" unique_id=880644554]
+[node name="BackSupport" parent="." index="2" unique_id=1473058552]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")
 
-[node name="BackSupport__1_" parent="." index="3" unique_id=1439999823]
+[node name="BackSupport__1_" parent="." index="3" unique_id=1318459383]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")
 
-[node name="CenterMotor" parent="." index="4" unique_id=2069582727]
+[node name="CenterMotor" parent="." index="4" unique_id=975501735]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("3_iypsa")
 
-[node name="FrontPiston" parent="." index="5" unique_id=713650903]
+[node name="FrontPiston" parent="." index="5" unique_id=735023299]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("3_iypsa")
 
-[node name="FrontPiston__1_" parent="." index="6" unique_id=7653321]
+[node name="FrontPiston__1_" parent="." index="6" unique_id=1232541972]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("3_iypsa")
 
-[node name="GunnerPanel" parent="." index="7" unique_id=521042010]
+[node name="GunnerPanel" parent="." index="7" unique_id=591539292]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_r1p1a")
 
 [node name="marine" parent="GunnerPanel" index="0" unique_id=216610260 instance=ExtResource("5_qkydh")]
 transform = Transform3D(7.752685e-07, 0.50257224, 15.992105, -2.4147407e-06, -15.992105, 0.50257224, 16, -2.437901e-06, -6.990371e-07, -6.016613, 35.200558, 3.744194e-06)
 
-[node name="GunnerSeat" parent="." index="8" unique_id=1011354617]
+[node name="GunnerSeat" parent="." index="8" unique_id=772479311]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("3_iypsa")
 
-[node name="TurretBase" parent="." index="9" unique_id=1543591280]
+[node name="TurretBase" parent="." index="9" unique_id=1546889396]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")
 
-[node name="TurretRotation" parent="." index="10" unique_id=444366998]
+[node name="TurretRotation" parent="." index="10" unique_id=1493251737]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_lksl2")

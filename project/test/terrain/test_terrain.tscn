@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://cymly4bxhw47c" path="res://structures/landmines/landmine_structure.tscn" id="18_y10a1"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="20_83iv7"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="21_8fumc"]
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="21_w6fx3"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="21_xxlqf"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="22_83iv7"]
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="22_saqa1"]
@@ -105,7 +106,12 @@ metadata/_edit_use_anchors_ = true
 environment = SubResource("Environment_sttne")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=888974588]
-transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, 0, 22, 0)
+transform = Transform3D(0.13165087, 0.9912962, 1.1892601e-08, -0.76151896, 0.10113489, 0.64020365, 0.6346314, -0.08428336, 0.7682053, 0, 22, 0)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.5
+directional_shadow_max_distance = 2000.0
 
 [node name="World" type="Node3D" parent="." unique_id=1547469510]
 
@@ -354,6 +360,10 @@ team = 1
 
 [node name="Landmine12" parent="World/Match/PlayerTeam/Player/Structures/Mines" unique_id=427335480 instance=ExtResource("18_y10a1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 300.30005, 0, -49.299995)
+team = 1
+
+[node name="HumanArtilleryUnit" parent="World/Match/PlayerTeam/Player" unique_id=1517178385 instance=ExtResource("21_w6fx3")]
+transform = Transform3D(-0.8056285, 0, 0.5924211, 0, 1, 0, -0.5924211, 0, -0.8056285, 349.8049, 0, -40.889767)
 team = 1
 
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1513419806]

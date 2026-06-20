@@ -114,7 +114,12 @@ explored_area_modulation = 0.5
 environment = SubResource("Environment_0gw2p")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1757603109]
-transform = Transform3D(0.13165085, 0.9912962, 0, -0.85848767, 0.11401298, 0.5, 0.4956481, -0.065825425, 0.8660254, -91.764496, 22, 37.198708)
+transform = Transform3D(0.1316508, 0.9912962, -2.488255e-08, -0.8252499, 0.10959877, 0.5540313, 0.54920906, -0.07293865, 0.83249587, 0, 22, 0)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.5
+directional_shadow_max_distance = 2000.0
 
 [node name="World" type="Node3D" parent="." unique_id=111854781]
 
@@ -154,7 +159,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.326965, 0, -439.73172)
 player_team = NodePath("..")
 
 [node name="CommandCenter" parent="World/Match/PlayerTeam/Player" unique_id=1674660700 instance=ExtResource("14_0fgam")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.60634, -0.7, -32.122887)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -44.60634, -0.7, -32.122887)
 team = 1
 
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1591108918]

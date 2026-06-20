@@ -29,6 +29,7 @@ unique_name_in_owner = true
 
 [node name="TriggerVisual" type="CSGPolygon3D" parent="VisualRoot" unique_id=1830065206]
 unique_name_in_owner = true
+cast_shadow = 0
 polygon = PackedVector2Array()
 material = SubResource("StandardMaterial3D_0d56a")
 

@@ -8,46 +8,61 @@
 [node name="artillery_body" unique_id=832701472 instance=ExtResource("1_5tslx")]
 
 [node name="FrontArmour" parent="." index="0" unique_id=1017633795]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_5tslx")
 
 [node name="TopStorage" parent="." index="1" unique_id=1181951891]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_5tslx")
 
 [node name="TreadCover" parent="." index="2" unique_id=895933813]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_5tslx")
 
 [node name="TreadsOutside" parent="." index="3" unique_id=1235880440]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("2_k2d2x")
 
 [node name="Wheel" parent="." index="4" unique_id=1865249026]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__10_" parent="." index="5" unique_id=1417851096]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__1_" parent="." index="6" unique_id=628682417]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__2_" parent="." index="7" unique_id=212813908]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__3_" parent="." index="8" unique_id=1169088478]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__4_" parent="." index="9" unique_id=1179315213]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__5_" parent="." index="10" unique_id=1120371473]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__6_" parent="." index="11" unique_id=630215048]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__7_" parent="." index="12" unique_id=1657819477]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__8_" parent="." index="13" unique_id=850501300]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")
 
 [node name="Wheel__9_" parent="." index="14" unique_id=1689422705]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("4_hvgai")

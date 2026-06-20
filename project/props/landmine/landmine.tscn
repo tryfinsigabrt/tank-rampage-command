@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://o7t2y36bqtep" path="res://props/landmine/landmine.glb" id="1_feyd5"]
 
 [node name="landmine" unique_id=1356064904 instance=ExtResource("1_feyd5")]
+
+[node name="SimpleMine" parent="." index="0" unique_id=1049362607]
+cast_shadow = 0
