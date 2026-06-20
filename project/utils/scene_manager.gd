@@ -2,7 +2,11 @@ class_name SceneManager extends Node
 
 const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
 const LEVEL_SELECT_MENU_SCENE:PackedScene = preload("uid://su8ucbrnrgb1")
-const GAME_SCENE:PackedScene = preload("uid://y2gjgrbqtl7n")
+
+# TODO: We can create a level config with a level resource with display name and resource path
+const ALL_LEVELS:Array[String] = [
+	"res://levels/level_1/level_1.tscn"
+]
 
 signal scene_changed(new_scene:Node)
 signal scene_leaving(old_scene:Node)
@@ -18,7 +22,7 @@ func level_select_menu() -> void:
 	await switch_scene(LEVEL_SELECT_MENU_SCENE)
 
 func new_game() -> void:
-	await switch_scene(GAME_SCENE)
+	await switch_scene_file(ALL_LEVELS.pick_random())
 	
 func quit() -> void:
 	get_tree().quit()
