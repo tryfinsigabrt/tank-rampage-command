@@ -204,6 +204,10 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 		var strength:float = assist_context.strength
 		
 		var pos:Vector3 = unit.global_position
+		var unit_weapon:Weapon = unit.weapon
+		var ranged_weapon:bool = not unit_weapon.prefer_close_shots
+		var weapon_range:Vector2 = unit_weapon.ideal_fire_range
+			
 		var grid_pos:Vector2 = MathUtils.grid_vector(pos)
 		var to_cp2_dir:Vector2 = grid_pos.direction_to(cp_grid_pos)
 		
@@ -213,7 +217,8 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 		if unit in control_point_friendlies:
 			unit_score = 15.0
 			in_control_point = true
-		elif control_bounds_influence.contains(grid_pos):
+		elif control_bounds_influence.contains(grid_pos) or \
+		 (ranged_weapon and MathUtils.is_between(control_bounds.distance_to(pos), weapon_range)):
 			unit_score = 5.0
 		else:
 			# score and strength diminishes by distance outside

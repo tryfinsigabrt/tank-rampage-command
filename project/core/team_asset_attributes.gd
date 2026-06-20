@@ -9,3 +9,7 @@ var attack_priority:int = 0
 
 @export_range(0.0, 1e9, 0.01, "or_greater")
 var defense_strength:float = 0.0
+
+## Ideal range to explore - only applies to units
+@export
+var explore_range:Vector2 = Vector2(100.0, 250.0)

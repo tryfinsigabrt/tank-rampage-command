@@ -100,11 +100,26 @@ func set_defend_control_point(control_point:ControlPoint, time:float, priority:i
 	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_INSCRIBED)
 	var countrol_bounding_sphere:BoundingSphere = control_bounds.inscribed_sphere
 	
+	# If we are a ranged unit then pick a position where we can cover the area
 	var position_callback: Callable = func() -> Vector3:
-		# Calculate a random point near the center of the control point
+		
+		var weapon:Weapon = unit.weapon
+		var ranged_weapon:bool = not weapon.prefer_close_shots
+		var defense_position:Vector3
 		var defense_radius: float = countrol_bounding_sphere.radius * control_point_radius_defend_fraction
+		
+		if ranged_weapon:
+			var pos:Vector3 = unit.global_position
+			var ideal_defense_distance:float = MathUtils.mid_point(weapon.ideal_fire_range)
+			var max_target_point:Vector3 = countrol_bounding_sphere.furthest_point_to(pos)
+			var to_pos_dir:Vector3 = countrol_bounding_sphere.center.direction_to(pos)
+			defense_position = max_target_point + to_pos_dir * ideal_defense_distance
+		else:
+			defense_position = countrol_bounding_sphere.center
+		
+		# Calculate a random point near the center of the control point
 		var defend_pos_2d:Vector2 = MathUtils.get_random_point_in_circle(defense_radius)
-		var defense_position:Vector3 = countrol_bounding_sphere.center + Vector3(defend_pos_2d.x, 0.0, defend_pos_2d.y)
+		defense_position +=  Vector3(defend_pos_2d.x, 0.0, defend_pos_2d.y)
 		return defense_position
 	
 	# Also add the control point for context	

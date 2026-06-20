@@ -48,6 +48,10 @@ func closest_point_to(point:Vector2) -> Vector2:
 	var point_dir:Vector2 = center.direction_to(point)
 	return center + point_dir * radius
 
+func furthest_point_to(point:Vector2) -> Vector2:
+	var point_dir:Vector2 = center.direction_to(point)
+	return center - point_dir * radius
+	
 func overlaps(other: BoundingCircle) -> bool:
 	return distance_to_bounds(other) <= 0.0
 

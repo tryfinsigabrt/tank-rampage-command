@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_37b1s")
 attack_priority = 4
+explore_range = Vector2(150, 300)
 metadata/_custom_type_script = "uid://d0xjpcjnalcme"

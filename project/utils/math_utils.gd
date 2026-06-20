@@ -46,3 +46,9 @@ static func get_random_point_in_sphere(radius:float) -> Vector3:
 
 static func grid_vector(vec:Vector3) -> Vector2:
 	return Vector2(vec.x, vec.z)
+
+static func mid_point(range_vec:Vector2) -> float:
+	return (range_vec.y - range_vec.x) * 0.5
+
+static func is_between(value: float, range_vec:Vector2) -> bool:
+	return value >= range_vec.x and value <= range_vec.y

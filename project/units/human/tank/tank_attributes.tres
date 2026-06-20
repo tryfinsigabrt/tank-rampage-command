@@ -6,4 +6,5 @@
 script = ExtResource("1_dovwi")
 strength = 5.0
 attack_priority = 3
+explore_range = Vector2(20, 40)
 metadata/_custom_type_script = "uid://d0xjpcjnalcme"
