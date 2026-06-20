@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://ugonc2k2mtvb" path="res://props/tree/tree_1_merged.tscn" id="1_b7bm7"]
 [ext_resource type="Texture2D" uid="uid://dnw6emfbo3rjo" path="res://terrain/mud-diffuse.jpg" id="2_2c7fa"]
 [ext_resource type="Texture2D" uid="uid://cssb84v8xlle8" path="res://terrain/mud-normal.jpg" id="3_qfn6n"]
-[ext_resource type="Texture2D" uid="uid://06mjoowet1ld" path="res://terrain/grass-diffuse.jpg" id="4_v3w8j"]
-[ext_resource type="Texture2D" uid="uid://bu30itu2nsb5l" path="res://terrain/grass-normal.jpg" id="5_ivnfu"]
+[ext_resource type="Texture2D" uid="uid://brp3qkp7syp3" path="res://terrain/new-grass_albedo.jpg" id="4_7x7fd"]
+[ext_resource type="Texture2D" uid="uid://b0uc3yy38ben3" path="res://terrain/new-grass_packed.jpg" id="5_7x7fd"]
 [ext_resource type="Texture2D" uid="uid://dy8ml4k0wf2bt" path="res://terrain/gravel-diffuse.jpg" id="6_frivs"]
 [ext_resource type="Texture2D" uid="uid://bqvok2jvc0343" path="res://terrain/gravel-normal.jpg" id="7_uyyfq"]
 [ext_resource type="Texture2D" uid="uid://d0cg08ipv6bvc" path="res://terrain/sand-diffuse.jpg" id="8_hsl1x"]
@@ -31,8 +31,12 @@ normal_texture = ExtResource("3_qfn6n")
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_dxl67"]
 name = "grass"
 id = 1
-albedo_texture = ExtResource("4_v3w8j")
-normal_texture = ExtResource("5_ivnfu")
+albedo_texture = ExtResource("4_7x7fd")
+normal_texture = ExtResource("5_7x7fd")
+ao_strength = 1.0
+ao_light_affect = 1.0
+displacement_scale = 1.0
+uv_scale = 0.06
 
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_mtubd"]
 name = "gravel"
