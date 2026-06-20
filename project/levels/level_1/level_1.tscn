@@ -34,6 +34,10 @@ sky_material = SubResource("ProceduralSkyMaterial_2j4y6")
 background_mode = 2
 sky = SubResource("Sky_l5wcu")
 ambient_light_source = 3
+tonemap_mode = 2
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_f313t"]
+exposure_multiplier = 0.7
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la5aw"]
 size = Vector3(1000, 1000, 1000)
@@ -88,6 +92,7 @@ explored_area_modulation = 0.5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1672336262]
 environment = SubResource("Environment_vi6ws")
+camera_attributes = SubResource("CameraAttributesPractical_f313t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=554623098]
 transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)

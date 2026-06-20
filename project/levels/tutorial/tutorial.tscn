@@ -35,15 +35,19 @@
 [ext_resource type="Resource" uid="uid://c4mv1cyq3pg50" path="res://conf/costs/human/turret_cost.tres" id="27_0gw2p"]
 [ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="28_myhrv"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7yhsa"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
 [sub_resource type="Sky" id="Sky_l5wcu"]
-sky_material = SubResource("ProceduralSkyMaterial_7yhsa")
+sky_material = SubResource("ProceduralSkyMaterial_2j4y6")
 
-[sub_resource type="Environment" id="Environment_0gw2p"]
+[sub_resource type="Environment" id="Environment_vi6ws"]
 background_mode = 2
 sky = SubResource("Sky_l5wcu")
 ambient_light_source = 3
+tonemap_mode = 2
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_f313t"]
+exposure_multiplier = 0.7
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_myhrv"]
 size = Vector3(1000, 1000, 500)
@@ -111,7 +115,8 @@ explored_area_modulation = 0.5
 [node name="Environment" type="Node3D" parent="." unique_id=1163312648]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=72420042]
-environment = SubResource("Environment_0gw2p")
+environment = SubResource("Environment_vi6ws")
+camera_attributes = SubResource("CameraAttributesPractical_f313t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1757603109]
 transform = Transform3D(0.1316508, 0.9912962, -2.488255e-08, -0.8252499, 0.10959877, 0.5540313, 0.54920906, -0.07293865, 0.83249587, 0, 22, 0)
