@@ -40,7 +40,7 @@ tonemap_mode = 2
 exposure_multiplier = 0.7
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la5aw"]
-size = Vector3(1000, 1000, 1000)
+size = Vector3(900, 1000, 900)
 
 [sub_resource type="Resource" id="Resource_f313t"]
 script = ExtResource("8_1iwl3")
@@ -124,6 +124,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -38)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=1195590548]
+transform = Transform3D(0.99999917, -1.5788828e-09, 0, -8.367351e-11, 1, 0, 2.7939677e-09, 0, 1, 99.63126, -0.8068466, 118.34571)
 shape = SubResource("BoxShape3D_la5aw")
 debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
 
