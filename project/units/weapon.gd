@@ -195,6 +195,15 @@ func fire() -> void:
 	
 	await _delay_impact()
 	_hit_scan()
+
+func simulate_fire_at(target:Node3D, world_location:Vector3) -> Array[DamageParameters]:
+	var damage_params := DamageParameters.new()
+	damage_params.contact_point = world_location
+	damage_params.target_object = target
+	
+	_set_core_damage_params(damage_params)
+	
+	return damage_emitter.damage(damage_params, Callable(), false)
 	
 func _cooldown() -> void:
 	if not cooldown_timer.is_stopped():
@@ -405,13 +414,16 @@ func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionar
 	var hit_position: Vector3 = result["position"]
 	var dist:float = query.from.distance_to(hit_position)
 	
-	damage_params.damage_mask = damage_mask
+	_set_core_damage_params(damage_params)
 	damage_params.damage_multiplier = _calculate_damage_multiplier(dist)
+	
+	return damage_params	
+	
+func _set_core_damage_params(damage_params:DamageParameters) -> void:
+	damage_params.damage_mask = damage_mask
 	damage_params.source = self
 	damage_params.source_damage_allowed = allow_source_damage
 	damage_params.source_owner = _team_asset
-	
-	return damage_params	
 	
 func _create_trace_query() -> PhysicsRayQueryParameters3D:
 	var query := PhysicsRayQueryParameters3D.new()
