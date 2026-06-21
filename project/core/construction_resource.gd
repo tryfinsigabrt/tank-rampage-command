@@ -2,24 +2,30 @@ class_name ConstructionResource extends Resource
 
 enum Type
 {
-	None,
+	None = 0,
 	
 	# Units [1,3]
-	Marine,
-	Tank,
-	Artillery,
+	Marine = 1,
+	Tank = 2,
+	Artillery = 3,
 	
 	# Buildings [4,6]
-	CommandCenter,
-	Barracks,
-	Factory,
+	CommandCenter = 4,
+	Barracks = 5,
+	Factory = 6,
 	
 	# Structures [7,11]
-	TankSpikes,
-	BarbedWire,
-	Mine,
-	Turret,
-	Bunker,
+	TankSpikes = 7,
+	BarbedWire = 8,
+	Mine = 9,
+	Turret = 10,
+	Bunker = 11,
+	
+	Transport = 12,
+	## Godot saves enumerables in resource files as integers,
+	## if you change the order of them in the script you will mismatch
+	## saved resources. That's why I'm putting this new Unit type at the bottom.
+	## -tarnished moth
 }
 
 enum Classification

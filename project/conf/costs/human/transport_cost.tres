@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://x7yj1piwadsv"]
+
+[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="1_31sn5"]
+[ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="3_ky4yk"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="3_lqdy2"]
+
+[resource]
+script = ExtResource("3_lqdy2")
+team_asset = ExtResource("3_ky4yk")
+type = 12
+cost = 50
+scrap_fraction = 0.6
+personnel = 2
+time = 9.0
+attributes = ExtResource("1_31sn5")
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

@@ -32,11 +32,12 @@ attributes = ExtResource("2_oavtb")
 
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1538080642]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1538080642]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0.9479163)
 mesh = SubResource("BoxMesh_2suiy")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1994437290]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body" unique_id=1994437290]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.735, -0.9479163)
 mesh = SubResource("BoxMesh_dxkag")
 skeleton = NodePath("../..")

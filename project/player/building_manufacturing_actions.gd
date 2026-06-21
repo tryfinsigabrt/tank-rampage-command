@@ -32,6 +32,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("build_artillery"):
 		_dispatch_build_artillery()
 		
+	elif event.is_action_pressed("cancel_transport"):
+		_dispatch_cancel_build_transport()
+	elif event.is_action_pressed("build_transport"):
+		_dispatch_build_transport()
+		
 	elif event.is_action_pressed("cancel_mines"):
 		_dispatch_cancel_build_mines()
 	elif event.is_action_pressed("build_mines"):
@@ -66,6 +71,9 @@ func _dispatch_build_tank() -> void:
 	
 func _dispatch_build_artillery() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Artillery)
+
+func _dispatch_build_transport() -> void:
+	_dispatch_viable_build_order(ConstructionResource.Type.Transport)
 	
 func _dispatch_build_mines() -> void:
 	_dispatch_viable_build_order(ConstructionResource.Type.Mine)
@@ -90,6 +98,9 @@ func _dispatch_cancel_build_tank() -> void:
 
 func _dispatch_cancel_build_artillery() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Artillery)
+
+func _dispatch_cancel_build_transport() -> void:
+	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Transport)
 	
 func _dispatch_cancel_build_mines() -> void:
 	_dispatch_viable_build_cancel_order(ConstructionResource.Type.Mine)
