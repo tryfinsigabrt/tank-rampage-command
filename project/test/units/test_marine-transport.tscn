@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d4g0yv45755p7"]
+
+[ext_resource type="PackedScene" uid="uid://dl6cdn6vje37" path="res://levels/level_1/level_1.tscn" id="1_l3mgn"]
+[ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="2_4ksqh"]
+
+[node name="Level1" unique_id=493714105 instance=ExtResource("1_l3mgn")]
+
+[node name="MarineTransport" parent="World/Match/PlayerTeam/Player" parent_id_path=PackedInt32Array(686890281) index="0" unique_id=260396010 instance=ExtResource("2_4ksqh")]
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -79.71913, 1.1306114, -23.714233)

@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://b3mw0r3k4ail3"]
+
+[ext_resource type="Script" uid="uid://dpmqyqdvyheru" path="res://units/human/transport/marine_transport.gd" id="1_g02f8"]
+[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_oavtb"]
+[ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="3_nv4hd"]
+[ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="7_5psun"]
+[ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="11_5psun"]
+[ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="15_qyk6k"]
+[ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="16_is1o0"]
+[ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="17_vmbqi"]
+[ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="18_pj1jn"]
+[ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="19_j4wgs"]
+[ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_udl3h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2suiy"]
+size = Vector3(3.255, 3.565, 5.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dxkag"]
+size = Vector3(3.15, 2.1, 6.96)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
+radius = 1.6
+height = 8.0
+
+[node name="MarineTransport" type="CharacterBody3D" unique_id=260396010 groups=["Interactable", "TeamAsset", "Unit", "UnitClassTransport"]]
+collision_layer = 516
+collision_mask = 1087
+script = ExtResource("1_g02f8")
+movement_speed = 25.0
+unit_class = 4
+attributes = ExtResource("2_oavtb")
+
+[node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1538080642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0.9479163)
+mesh = SubResource("BoxMesh_2suiy")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1994437290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.735, -0.9479163)
+mesh = SubResource("BoxMesh_dxkag")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.6500001, -0.1)
+shape = SubResource("CapsuleShape3D_83yeg")
+
+[node name="GameUnitNavigation" parent="." unique_id=1689817134 instance=ExtResource("15_qyk6k")]
+
+[node name="NavigationAgent3D" parent="GameUnitNavigation" index="0" unique_id=512793571]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_max_distance = 25.01
+navigation_layers = 5
+radius = 4.0
+max_speed = 15.0
+
+[node name="Components" type="Node" parent="." unique_id=1147446724]
+
+[node name="HealthStat" parent="Components" unique_id=1169615643 instance=ExtResource("16_is1o0")]
+unique_name_in_owner = true
+
+[node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("17_vmbqi")]
+unique_name_in_owner = true
+team_asset = NodePath("../..")
+vision = 200.0
+
+[node name="UnitContainerComponent" parent="Components" unique_id=1753319725 instance=ExtResource("7_5psun")]
+unique_name_in_owner = true
+capacity = 6
+supported_unit_classes = Array[int]([3])
+
+[node name="NodeViablePositionFinder" parent="Components" unique_id=1836995556 node_paths=PackedStringArray("spawn_locations") instance=ExtResource("11_5psun")]
+unique_name_in_owner = true
+spawn_locations = [NodePath("../../UnloadPositions/Position1"), NodePath("../../UnloadPositions/Position2"), NodePath("../../UnloadPositions/Position3"), NodePath("../../UnloadPositions/Position4")]
+placement_bounds = Vector2(30, 30)
+
+[node name="UI" type="Node3D" parent="." unique_id=1673194704]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
+top_level = true
+
+[node name="HealthBar" parent="UI" unique_id=1686186120 node_paths=PackedStringArray("health_stat") instance=ExtResource("18_pj1jn")]
+health_stat = NodePath("../../Components/HealthStat")
+
+[node name="CameraYawTracker" type="Node" parent="UI" unique_id=1431253981 node_paths=PackedStringArray("target_node")]
+script = ExtResource("19_j4wgs")
+target_node = NodePath("..")
+
+[node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
+remote_path = NodePath("../UI")
+update_rotation = false
+update_scale = false
+
+[node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("20_udl3h")]
+
+[node name="UnloadPositions" type="Node3D" parent="." unique_id=245731617]
+
+[node name="Position1" type="Marker3D" parent="UnloadPositions" unique_id=1803170177]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -15)
+
+[node name="Position2" type="Marker3D" parent="UnloadPositions" unique_id=2041763589]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 15)
+
+[node name="Position3" type="Marker3D" parent="UnloadPositions" unique_id=20177093]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15, 0, 0)
+
+[node name="Position4" type="Marker3D" parent="UnloadPositions" unique_id=408058356]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 15, 0, 0)
+
+[connection signal="health_changed" from="Components/HealthStat" to="." method="_on_health_changed"]
+[connection signal="took_damage" from="Components/HealthStat" to="." method="_on_took_damage"]
+[connection signal="update_render" from="Components/TeamComponent" to="." method="_update_render"]
+
+[editable path="GameUnitNavigation"]

@@ -71,6 +71,7 @@ UI="in-game UI like health bars and building indicators"
 HUD="The player HUD scene"
 TeamVisible="Only visible to the current player team"
 LevelAudio="Dedicated container node in a level to hold one-shot audio sounds whose lifetime is tied to that of the level and not an individual team asset"
+UnitClassTransport="Marine transport unit class"
 
 [input]
 

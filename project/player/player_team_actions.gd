@@ -139,7 +139,10 @@ func _handle_friendly_action(event: InputEvent, selected: Node3D) -> void:
 		return
 		
 	if selected is Unit:
-		order_manager.follow(selected)
+		if selected is MarineTransportUnit:
+			order_manager.load_into(selected)
+		else:
+			order_manager.follow(selected)
 	# If the selected asset has a UnitContainerComponent then issue a load command
 	elif UnitContainerComponent.has_component(selected):
 		order_manager.load_into(selected)

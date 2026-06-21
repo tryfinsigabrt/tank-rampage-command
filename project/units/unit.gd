@@ -17,6 +17,7 @@ enum UnitClass
 	Tank,
 	Artillery,
 	Soldier,
+	Transport,
 }
 
 static func group_for_class(in_class:UnitClass) -> StringName:
