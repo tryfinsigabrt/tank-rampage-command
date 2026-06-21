@@ -18,8 +18,8 @@ var _destination_reached:bool
 var _attack_action:AttackAction
 var _scanner:UnitScanner
 
-const attack_action_scene = preload("uid://cwj8iaowhbop5")
-const scanner_scene = preload("uid://8rwv0t451365")
+const attack_action_scene:PackedScene = preload("uid://cwj8iaowhbop5")
+const scanner_scene:PackedScene = preload("uid://8rwv0t451365")
 
 func _cleanup(actor: Node, blackboard: UnitBlackboard) -> void:
 	#print_debug("%s: CLEANUP %s - command %d -> %s AFTER RUN" % [name, actor.name, action_id, my_action])
@@ -61,6 +61,8 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	_scanner.threshold_distance = threat_max_distance_threshold
 	_scanner.threats_detected.connect(_threats_detected)
 	add_child(_scanner)
+	
+	threat_scorer.apply_scoring_modifier_for(_unit)
 
 	_connect_move_signal()
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
