@@ -94,7 +94,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreRemaining" type="Node" parent="BeehaveTree/Root/Attack/AttackAndExploreRemaining" unique_id=971392095 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
-default_move_radius = null
 world_boundaries_checker = NodePath("../../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
@@ -116,7 +115,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ExploreSurroundings" type="Node" parent="BeehaveTree/Root/Explore" unique_id=990507036 node_paths=PackedStringArray("world_boundaries_checker")]
 script = ExtResource("8_f2wvq")
-default_move_radius = null
 world_boundaries_checker = NodePath("../../../../GlobalServices/WorldBoundariesChecker")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
