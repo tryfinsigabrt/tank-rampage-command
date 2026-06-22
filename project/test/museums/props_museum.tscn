@@ -331,7 +331,7 @@ spot_attenuation = 2.0
 spot_angle = 70.0
 
 [node name="SpotLight3D6" type="SpotLight3D" parent="Lights/Right" unique_id=51005913]
-transform = Transform3D(0.25000015, -0.0669875, 0.96592593, -0.9330126, 0.25000036, 0.2588192, -0.25881943, -0.96592593, -7.4505806e-08, 7.020846, 2.53395, 7.1590996)
+transform = Transform3D(-0.12431245, -0.898903, 0.42014307, -0.9330125, 0.25000057, 0.2588194, -0.3376895, -0.35982427, -0.8697658, 6.526527, 2.53395, 5.29786)
 light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
@@ -339,6 +339,14 @@ shadow_opacity = 0.75
 spot_range = 10.0
 spot_attenuation = 2.0
 spot_angle = 70.0
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="Lights/Right" unique_id=1533734280]
+transform = Transform3D(-0.28000358, -0.8676071, -0.41092122, -0.60112125, 0.49219546, -0.6296006, 0.7484996, 0.07072289, -0.6593535, 4.5111995, 0.2772963, 7.665658)
+light_energy = 5.0
+light_size = 0.1
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="Lights/Right" unique_id=1892244569]
 transform = Transform3D(0.12500027, 0.9665065, -0.22414385, -0.8365162, 0.2241441, 0.5000002, 0.53349394, 0.12499981, 0.8365163, -5.1804247, 2.9387763, 13.901138)

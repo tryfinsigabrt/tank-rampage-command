@@ -4,11 +4,13 @@
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_oavtb"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="3_nv4hd"]
 [ext_resource type="PackedScene" uid="uid://dbijxt6ikt1q6" path="res://units/human/transport/transport-truck.gltf" id="4_5sxx5"]
-[ext_resource type="Material" uid="uid://c3oa68bd41fvs" path="res://units/human/artillery/body_material.tres" id="5_f00yv"]
+[ext_resource type="Material" uid="uid://cujgasbkkjc2c" path="res://units/human/tank/hero_body_material.tres" id="5_f00yv"]
 [ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="6_g02f8"]
 [ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="7_5psun"]
 [ext_resource type="Material" uid="uid://bykuy2too8y6c" path="res://units/human/transport/canopy_netting.tres" id="7_5yhg2"]
+[ext_resource type="Material" uid="uid://ckuqt1hixyau" path="res://props/shared/materials/corrugated_metal_material.tres" id="8_g02f8"]
 [ext_resource type="Material" uid="uid://dd50ig6r55a2h" path="res://units/human/tank/treads_material.tres" id="10_f00yv"]
+[ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="10_g02f8"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="11_5psun"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="15_qyk6k"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="16_is1o0"]
@@ -16,12 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="18_pj1jn"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="19_j4wgs"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_udl3h"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_2suiy"]
-size = Vector3(3.255, 3.565, 5.08)
-
-[sub_resource type="BoxMesh" id="BoxMesh_dxkag"]
-size = Vector3(3.15, 2.1, 6.96)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -38,26 +34,26 @@ attributes = ExtResource("2_oavtb")
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
 
 [node name="transport-truck" parent="." unique_id=219350285 instance=ExtResource("4_5sxx5")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, -0.5)
 
-[node name="Body" parent="transport-truck" index="0" unique_id=1282320300]
+[node name="Body" parent="transport-truck" index="0" unique_id=2586614]
 surface_material_override/0 = ExtResource("5_f00yv")
 surface_material_override/1 = ExtResource("6_g02f8")
 surface_material_override/2 = ExtResource("7_5yhg2")
+surface_material_override/3 = ExtResource("8_g02f8")
 
-[node name="Wheels" parent="transport-truck" index="1" unique_id=1067860369]
+[node name="Wheels" parent="transport-truck" index="1" unique_id=1200139609]
 surface_material_override/0 = ExtResource("10_f00yv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1538080642]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0.9479163)
-visible = false
-mesh = SubResource("BoxMesh_2suiy")
+[node name="Frame" parent="transport-truck" index="3" unique_id=1480849379]
+surface_material_override/0 = ExtResource("10_g02f8")
+surface_material_override/1 = ExtResource("5_f00yv")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1994437290]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.735, -0.9479163)
-visible = false
-mesh = SubResource("BoxMesh_dxkag")
-skeleton = NodePath("../..")
+[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1339657216]
+surface_material_override/0 = ExtResource("6_g02f8")
+
+[node name="Interior" parent="transport-truck" index="5" unique_id=2113500892]
+surface_material_override/0 = ExtResource("10_g02f8")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 1.6500001, -0.1)
