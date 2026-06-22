@@ -31,6 +31,9 @@ func remove_scoring_modifier() -> void:
 			
 func apply_scoring_modifier_for(unit:Unit) -> void:
 	var weapon:Weapon = unit.weapon
+	if not weapon:
+		return
+	
 	var current_modifier:ThreatScoreModifier = get_current_scoring_modifier()
 	var apply_ranged_score_modifier:bool = not weapon.prefer_close_shots
 	
