@@ -354,12 +354,6 @@ config = ExtResource("19_q4a86")
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=20484500 instance=ExtResource("14_43cal")]
 team = 2
 
-[node name="ExploreRemaining" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/BeehaveTree/Root/Attack/AttackAndExploreRemaining" parent_id_path=PackedInt32Array(20484500, 860766234) index="4" unique_id=971392095]
-default_move_radius = Vector2(100, 250)
-
-[node name="ExploreSurroundings" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/BeehaveTree/Root/Explore" parent_id_path=PackedInt32Array(20484500, 839203828) index="3" unique_id=990507036]
-default_move_radius = Vector2(100, 250)
-
 [node name="Enemies" type="Node3D" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1702973220]
 
 [node name="EnemyTank01" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/Enemies" unique_id=1223720870 instance=ExtResource("1_h7ph6")]

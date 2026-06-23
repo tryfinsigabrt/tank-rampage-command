@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ei06w42e6qcv"]
+
+[ext_resource type="Script" uid="uid://bf2vopuxwklyy" path="res://ai/enemy/map_regions.gd" id="1_222up"]
+[ext_resource type="Script" uid="uid://cnk33ih60bfjk" path="res://ai/enemy/region_updater.gd" id="2_ue7gf"]
+
+[node name="MapRegions" type="Node" unique_id=206029175]
+script = ExtResource("1_222up")
+
+[node name="RegionUpdater" type="Node" parent="." unique_id=324555474 node_paths=PackedStringArray("map_regions")]
+script = ExtResource("2_ue7gf")
+map_regions = NodePath("..")
+
+[node name="Timer" type="Timer" parent="RegionUpdater" unique_id=766107769]
+wait_time = 0.5
+autostart = true
+
+[node name="CacheCleanupTimer" type="Timer" parent="RegionUpdater" unique_id=1284276915]
+wait_time = 5.1000000000000005
+autostart = true
+
+[connection signal="timeout" from="RegionUpdater/Timer" to="RegionUpdater" method="_tick"]
+[connection signal="timeout" from="RegionUpdater/CacheCleanupTimer" to="RegionUpdater" method="_cleanup_cache"]
