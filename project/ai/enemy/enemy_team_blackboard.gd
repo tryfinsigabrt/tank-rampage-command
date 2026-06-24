@@ -52,6 +52,7 @@ class Keys:
 	const buildings_under_attack:StringName = &"bldgs_under_attack"
 	const base_defend_units:StringName = &"base_defend_units"
 	const request_assistance:StringName = &"request_assistance"
+	const map_regions:StringName = &"map_regions"
 	
 class AssistanceRequest:
 	var requesting_party_id:int
@@ -293,3 +294,9 @@ var control_point_priorities:Array[ControlPoint]:
 		return get_value(Keys.control_point_priorities)
 	set(value):
 		set_value(Keys.control_point_priorities, value)
+
+var map_regions:MapRegions:
+	get:
+		return get_value(Keys.map_regions)
+	set(value):
+		set_value(Keys.map_regions, value)

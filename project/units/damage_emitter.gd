@@ -33,6 +33,14 @@ enum DamageReportingType
 
 var _sweep_shape:RID
 
+var damage_range:Vector2:
+	get:
+		return Vector2(min_damage, max_damage)
+
+var falloff_distance_range:Vector2:
+	get:
+		return Vector2(min_falloff_distance, max_falloff_distance)
+		
 func _enter_tree() -> void:
 	if not _sweep_shape:
 		_sweep_shape = PhysicsServer3D.sphere_shape_create()
@@ -44,7 +52,8 @@ func _exit_tree() -> void:
 
 ## Cause damage from the given incident point and an optional damage_filter that can filter out swept colliders
 ## By default all colliders matching the sweep mask are included	
-func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Callable()) -> void:
+## If apply_dam is false then no actual damage done
+func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Callable(), apply_damage:bool = true) -> Array[DamageParameters]:
 	if not damage_filter:
 		damage_filter = func(_collider:Node3D) -> bool:
 			return true
@@ -52,7 +61,7 @@ func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Ca
 	# Calculate initial damage point
 	var initial_target:Node3D = incident_damage_params.target_object
 	var hit_position:Vector3 = incident_damage_params.contact_point
-	var amount:float = _calculate_damage(initial_target, hit_position, hit_position) \
+	var amount:float = _calculate_damage(hit_position, hit_position) \
 		* incident_damage_params.damage_multiplier
 	
 	incident_damage_params.damage = amount
@@ -85,17 +94,20 @@ func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Ca
 						else:
 							contact_position = collider.global_position
 							
-						amount = _calculate_damage(collider, contact_position, hit_position)
+						amount = _calculate_damage(contact_position, hit_position)
 						if amount > 0:
 							var damage_result:DamageParameters = DamageParameters.from_shape_intersect(result, incident_damage_params)
 							if damage_result:
 								damage_result.damage = amount
 								results.push_back(damage_result)
-						
-	if LogUtils.verbose:
-		print_debug("%s: damage: nodes impacted=%d; incident_damage_params=%s" % [name, results.size(), incident_damage_params])
-	for result in results:
-		emit_damage(result, processed_nodes[result.target_object])
+	
+	if apply_damage:					
+		if LogUtils.verbose:
+			print_debug("%s: damage: nodes impacted=%d; incident_damage_params=%s" % [name, results.size(), incident_damage_params])
+		for result in results:
+			emit_damage(result, processed_nodes[result.target_object])
+	
+	return results
 
 func _damage_sweep(incident_damage_params:DamageParameters) -> Array[Dictionary]:
 	var params := PhysicsShapeQueryParameters3D.new()
@@ -129,7 +141,7 @@ func emit_damage(damage_params:DamageParameters, damageable_children: Array[Node
 static func _get_damageables(collider:Node3D) -> Array[Node]:
 	return Groups.get_children_in_group(collider, Groups.Damageable)
 	
-func _calculate_damage(_target: Node3D, contact_position:Vector3, damage_center:Vector3) -> float:
+func _calculate_damage(contact_position:Vector3, damage_center:Vector3) -> float:
 	return _calculate_point_damage(contact_position, damage_center)
 
 func _calculate_point_damage(impact_point: Vector3, pos:Vector3) -> float:

@@ -2,6 +2,7 @@ extends PanelContainer
 
 @onready var build_row: HBoxContainer = %BuildRow
 @onready var queue_row: HBoxContainer = %QueueRow
+@onready var queue_info: VBoxContainer = %QueueInfo
 
 var _selection_manager: SelectionManager
 var _current_building: Building
@@ -54,6 +55,7 @@ func _connect_chip_signals() -> void:
 	for chip in _get_build_chips():
 		if not chip.clicked.is_connected(_on_chip_clicked):
 			chip.clicked.connect(_on_chip_clicked)
+
 
 func _connect_queue_slot_signals() -> void:
 	var slots := _get_queue_slots()
@@ -175,6 +177,7 @@ func _on_chip_clicked(type: ConstructionResource.Type) -> void:
 	@warning_ignore("missing_await")
 	_current_manufacturing.build(type)
 	_populate_build_row()
+
 
 func _on_queue_slot_clicked(slot_index: int) -> void:
 	if _current_manufacturing == null:

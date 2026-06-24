@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="18_ehnlb"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="19_bhdle"]
 [ext_resource type="PackedScene" uid="uid://5uwrklvb7l5a" path="res://buildings/city/city-test.fbx" id="20_ehnlb"]
+[ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="21_bhdle"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
 material = ExtResource("1_domqp")
@@ -300,7 +301,27 @@ spot_attenuation = 2.0
 spot_angle = 70.0
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="Lights/Right" unique_id=149178449]
-transform = Transform3D(0.18301292, 0.68301266, 0.70710695, -0.96592575, 0.2588194, -7.479035e-08, -0.18301304, -0.68301266, 0.7071068, 5.520841, 1.981035, 12.75719)
+transform = Transform3D(0.18301305, 0.6830127, 0.7071068, -0.96592575, 0.25881955, -1.0771079e-07, -0.18301317, -0.6830126, 0.70710695, 9.971874, 4.525754, 10.998732)
+light_energy = 24.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="Lights/Right" unique_id=1210075024]
+transform = Transform3D(0.7851196, 0.38771212, 0.48297697, -0.61896473, 0.5184833, 0.5899643, -0.021679193, -0.7621381, 0.6470516, 9.414595, 4.525754, 17.037872)
+light_energy = 24.0
+light_size = 0.1
+shadow_enabled = true
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
+spot_angle = 70.0
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="Lights/Right" unique_id=1268091956]
+transform = Transform3D(0.18301313, 0.6830127, 0.7071068, -0.96592575, 0.2588196, -7.78905e-08, -0.18301319, -0.6830126, 0.70710695, 5.539291, 4.525754, 22.09829)
 light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
@@ -310,7 +331,7 @@ spot_attenuation = 2.0
 spot_angle = 70.0
 
 [node name="SpotLight3D6" type="SpotLight3D" parent="Lights/Right" unique_id=51005913]
-transform = Transform3D(0.25000015, -0.0669875, 0.96592593, -0.9330126, 0.25000036, 0.2588192, -0.25881943, -0.96592593, -7.4505806e-08, 7.020846, 2.53395, 7.1590996)
+transform = Transform3D(-0.12431245, -0.898903, 0.42014307, -0.9330125, 0.25000057, 0.2588194, -0.3376895, -0.35982427, -0.8697658, 6.526527, 2.53395, 5.29786)
 light_energy = 24.0
 light_size = 0.1
 shadow_enabled = true
@@ -318,6 +339,14 @@ shadow_opacity = 0.75
 spot_range = 10.0
 spot_attenuation = 2.0
 spot_angle = 70.0
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="Lights/Right" unique_id=1533734280]
+transform = Transform3D(-0.28000358, -0.8676071, -0.41092122, -0.60112125, 0.49219546, -0.6296006, 0.7484996, 0.07072289, -0.6593535, 4.5111995, 0.2772963, 7.665658)
+light_energy = 5.0
+light_size = 0.1
+shadow_opacity = 0.75
+spot_range = 10.0
+spot_attenuation = 2.0
 
 [node name="SpotLight3D7" type="SpotLight3D" parent="Lights/Right" unique_id=1892244569]
 transform = Transform3D(0.12500027, 0.9665065, -0.22414385, -0.8365162, 0.2241441, 0.5000002, 0.53349394, 0.12499981, 0.8365163, -5.1804247, 2.9387763, 13.901138)
@@ -622,3 +651,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.3, -63.7)
 
 [node name="city-test" parent="." unique_id=2029838145 instance=ExtResource("20_ehnlb")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 25, 0.1, -25)
+
+[node name="MarineTransport" parent="." unique_id=11993427 instance=ExtResource("21_bhdle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.170295, 0, 10.591998)

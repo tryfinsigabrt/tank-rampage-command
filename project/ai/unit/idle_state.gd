@@ -13,8 +13,9 @@ var enabled:bool:
 		if not unit_scanner:
 			return
 			
-		if value:
+		if value and unit_scanner.my_asset != my_unit:
 			unit_scanner.my_asset = my_unit
+			threat_scorer.apply_scoring_modifier_for(my_unit)
 		unit_scanner.enabled = value
 	get:
 		return enabled

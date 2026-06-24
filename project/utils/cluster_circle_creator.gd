@@ -1,4 +1,4 @@
-## Copied from ClusterCircleing and made more generic
+## Copied from UnitClustering and made more generic
 class_name ClusterCircleCreator
 
 var max_cluster_size:float = 300.0

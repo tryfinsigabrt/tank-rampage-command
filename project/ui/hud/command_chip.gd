@@ -10,6 +10,7 @@ const COMMAND_ICONS := {
 	"Move And Attack": preload("res://ui/hud/icons/move_and_attack_64.png"),
 	"Stop": preload("res://ui/hud/icons/stop_64.png"),
 	"Hold": preload("res://ui/hud/icons/hold_64.png"),
+	"Exit": preload("res://ui/hud/icons/exit_64.png"),
 	"Set Spawn Point": preload("res://ui/hud/icons/set_spawn_64.png"),
 	"Clear Spawn Point": preload("res://ui/hud/icons/clear_spawn_64.png"),
 }

@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene format=3 uid="uid://2lnnwwyci8ww"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_jv3rr"]
-[ext_resource type="Script" path="res://ui/hud/unit_panel.gd" id="2_6m7vy"]
+[ext_resource type="Script" uid="uid://dj5ftnli5av6d" path="res://ui/hud/unit_panel.gd" id="2_6m7vy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.9)
@@ -15,21 +15,42 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="UnitPanel" type="PanelContainer"]
+[node name="UnitPanel" type="PanelContainer" unique_id=1240449341]
 visible = false
 custom_minimum_size = Vector2(420, 194)
 theme = ExtResource("1_jv3rr")
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 script = ExtResource("2_6m7vy")
 
-[node name="Padding" type="MarginContainer" parent="."]
+[node name="Padding" type="MarginContainer" parent="." unique_id=69980282]
 layout_mode = 2
 theme_override_constants/margin_left = 14
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 14
 theme_override_constants/margin_bottom = 14
 
-[node name="UnitRow" type="HFlowContainer" parent="Padding"]
+[node name="Content" type="VBoxContainer" parent="Padding" unique_id=523020803]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UnitRow" type="HFlowContainer" parent="Padding/Content" unique_id=1934080036]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="OccupantsInfo" type="VBoxContainer" parent="Padding/Content" unique_id=2059803481]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="OccupantsLabel" type="Label" parent="Padding/Content/OccupantsInfo" unique_id=1684799745]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Occupants"
+
+[node name="OccupantsRow" type="HFlowContainer" parent="Padding/Content/OccupantsInfo" unique_id=767011480]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 8

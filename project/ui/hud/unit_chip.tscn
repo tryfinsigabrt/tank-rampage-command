@@ -26,6 +26,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [node name="UnitChip" type="PanelContainer" unique_id=856197054]
+custom_minimum_size = Vector2(68, 78)
 theme = ExtResource("1_eb8l8")
 theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
 script = ExtResource("2_t10m7")
@@ -51,6 +52,27 @@ mouse_filter = 2
 texture = SubResource("PlaceholderTexture2D_unit_icon")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="EmptyLabel" type="Label" parent="Padding/Content/UnitIcon" unique_id=397664400]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.7372549, 0.88235295, 0.7254902, 0.8)
+theme_override_font_sizes/font_size = 24
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HealthTrack" type="PanelContainer" parent="Padding/Content" unique_id=874156900]
 unique_name_in_owner = true

@@ -34,6 +34,7 @@
 [ext_resource type="Resource" uid="uid://rwp7cr3nn0at" path="res://conf/costs/human/bunker_cost.tres" id="26_7yhsa"]
 [ext_resource type="Resource" uid="uid://c4mv1cyq3pg50" path="res://conf/costs/human/turret_cost.tres" id="27_0gw2p"]
 [ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="28_myhrv"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="34_0fgam"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
@@ -201,6 +202,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7366905, 0, -94.737274)
 curve = SubResource("Curve3D_1ch1d")
+
+[node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
+
+[node name="LevelAudio" type="Node3D" parent="World/Match" unique_id=708779230 groups=["LevelAudio"]]
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("22_drhmd")]
 metadata/_edit_use_anchors_ = true

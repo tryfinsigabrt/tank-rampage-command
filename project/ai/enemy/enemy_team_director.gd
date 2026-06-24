@@ -4,6 +4,7 @@ class_name EnemyTeamDirector extends Node3D
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var behavior_tree: BeehaveTree = %BeehaveTree
+@onready var map_regions: MapRegions = %MapRegions
 
 @export
 var team:int
@@ -76,3 +77,4 @@ func _init_blackboard() -> void:
 	blackboard.team = team
 	blackboard.match_team = GameManager.find_match_team_by_id(team)
 	blackboard.focus_position = team_units.get_average_position()
+	blackboard.map_regions = map_regions
