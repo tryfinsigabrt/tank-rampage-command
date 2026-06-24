@@ -20,6 +20,7 @@ const BUILDING_COMMANDS := [
 var _selection_manager: SelectionManager
 var _player_actions: PlayerTeamActions
 var _rally_point_manager: RallyPointManager
+var _unit_container_actions: UnitContainerActions
 
 func _ready() -> void:
 	visible = false
@@ -37,6 +38,10 @@ func _exit_tree() -> void:
 		SignalBus.on_building_selected.disconnect(_on_selection_changed)
 	if SignalBus.on_building_deselected.is_connected(_on_selection_changed):
 		SignalBus.on_building_deselected.disconnect(_on_selection_changed)
+	if SignalBus.on_structure_selected.is_connected(_on_selection_changed):
+		SignalBus.on_structure_selected.disconnect(_on_selection_changed)
+	if SignalBus.on_structure_deselected.is_connected(_on_selection_changed):
+		SignalBus.on_structure_deselected.disconnect(_on_selection_changed)
 
 func _connect_selection_sources() -> void:
 	var player := get_tree().get_first_node_in_group(Groups.Player) as Player
@@ -44,12 +49,15 @@ func _connect_selection_sources() -> void:
 		_player_actions = player.player_unit_actions
 		_selection_manager = player.player_unit_actions.selection_manager
 		_rally_point_manager = _player_actions.get_node_or_null("SelectionManager/RallyPointManager") as RallyPointManager
+		_unit_container_actions = _player_actions.get_node_or_null("Actions/UnitContainerActions") as UnitContainerActions
 
 	SignalBus.on_unit_selected.connect(_on_selection_changed)
 	SignalBus.on_unit_deselected.connect(_on_selection_changed)
 	SignalBus.on_unit_killed.connect(_on_unit_killed)
 	SignalBus.on_building_selected.connect(_on_selection_changed)
 	SignalBus.on_building_deselected.connect(_on_selection_changed)
+	SignalBus.on_structure_selected.connect(_on_selection_changed)
+	SignalBus.on_structure_deselected.connect(_on_selection_changed)
 
 func _on_selection_changed(_asset: Node3D) -> void:
 	_refresh_commands()
@@ -64,13 +72,21 @@ func _refresh_commands() -> void:
 		return
 
 	if _has_live_selected_units():
-		_populate_commands(UNIT_COMMANDS)
+		var commands := UNIT_COMMANDS.duplicate()
+		if _has_selected_container_assets():
+			commands.push_back("Exit")
+		_populate_commands(commands)
 		visible = true
 		return
 
 	var buildings := _selection_manager.get_selected_buildings_on_team()
 	if buildings.size() == 1 and (buildings[0] is Barracks or buildings[0] is Factory):
 		_populate_commands(BUILDING_COMMANDS)
+		visible = true
+		return
+
+	if _has_selected_container_assets():
+		_populate_commands(["Exit"])
 		visible = true
 		return
 
@@ -86,6 +102,20 @@ func _has_live_selected_units() -> bool:
 		if unit.is_dead:
 			continue
 		return true
+
+	return false
+
+func _has_selected_container_assets() -> bool:
+	if _selection_manager == null:
+		return false
+
+	for unit in _selection_manager.get_selected_units_on_team():
+		if UnitContainerComponent.get_component(unit, false):
+			return true
+
+	for structure in _selection_manager.get_selected_structures_on_team():
+		if UnitContainerComponent.get_component(structure, false):
+			return true
 
 	return false
 
@@ -119,6 +149,9 @@ func _on_command_clicked(command_name: String) -> void:
 		"Hold":
 			if _player_actions:
 				_player_actions.issue_hold()
+		"Exit":
+			if _unit_container_actions:
+				_unit_container_actions.unload_all_units()
 		"Set Spawn Point":
 			if _rally_point_manager:
 				_rally_point_manager.begin_set_rally_point()
