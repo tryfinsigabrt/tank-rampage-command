@@ -235,3 +235,52 @@ func _check_defeated() -> void:
 	if not active:
 		await get_tree().process_frame
 		SignalBus.match_team_eliminated.emit(self)
+
+#region Iterator
+class It:
+	var index:int
+	var buildings_start:int
+	var structures_start:int
+	var size:int
+	var values:Array
+	
+func _iter_init(arg: Array) -> bool:
+	var num_units:int = _units.size()
+	var num_buildings:int = _buildings.size()
+	var num_structures:int = _structures.size()
+		
+	var it := It.new()
+	it.buildings_start = num_units
+	it.structures_start = num_units + num_buildings
+	it.size = it.structures_start + num_structures
+	
+	arg[0] = it
+	
+	return it.size > 0
+
+func _iter_next(arg: Array) -> bool:
+	var it:It = arg[0]
+	it.index += 1
+	return it.index < it.size
+
+func _iter_get(iter: Variant) -> Variant:
+	var it:It = iter
+	var idx:int = it.index
+	if idx < it.buildings_start:
+		if idx == 0:
+			it.values = _units.values()
+			return it.values.front()
+		return it.values[idx]
+	elif idx < it.structures_start:
+		if idx == it.buildings_start:
+			it.values = _buildings.values()
+			return it.values.front()
+		else:
+			return it.values[idx - it.buildings_start]
+	else:
+		if idx == it.structures_start:
+			it.values = _structures.values()
+			return it.values.front()
+		return it.values[idx - it.structures_start]
+	
+#endregion

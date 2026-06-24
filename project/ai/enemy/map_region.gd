@@ -1,10 +1,9 @@
 class_name MapRegion
 
 var area:Rect2
-var visible:bool
 var explored:bool
 var navigable:bool
-var last_visible_game_time:float
+var last_visible_game_time:float = -INF
 var index:int
 
 

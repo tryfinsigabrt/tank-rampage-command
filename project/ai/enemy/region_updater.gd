@@ -3,13 +3,14 @@ extends Node
 @export
 var map_regions:MapRegions
 
+@onready var tick_timer: Timer = $TickTimer
+@onready var cache_cleanup_timer: Timer = $CacheCleanupTimer
+
 var _match_team:MatchTeam
 
-var _visible_markers:PackedByteArray
-
 class CacheEntry:
-	var pos:Vector3
-	var vision:float
+	var pos:Vector3 = Vector3.INF
+	var vision:float = -1.0
 	var pos_region:MapRegion
 	var visible_regions:Array[MapRegion]
 	
@@ -21,32 +22,31 @@ func _ready() -> void:
 		push_error("%s: Map region not put in a MatchTeam tree" % name)
 		queue_free()
 		return
-	await NodeUtils.ensure_ready(map_regions)
 	
-	_visible_markers.resize(map_regions.regions.size())
+	tick_timer.wait_time = map_regions.update_interval
+	tick_timer.start()
+	
+	cache_cleanup_timer.start()
 	
 func _tick() -> void:
-	if not _visible_markers:
-		return
-		
 	var time:float = GameManager.game_timer.time_seconds
-	_visible_markers.fill(0)
 		
-	for asset in _match_team.assets:
+	for asset in _match_team:
 		var team_component := TeamComponent.get_component(asset, false)
 		if not team_component:
 			continue
 		var vision:float = team_component.vision
 		if vision <= 0:
 			continue
-		var pos:Vector3 = asset.global_position
 		
 		var instance_id:int = asset.get_instance_id()
 		var cache_entry:CacheEntry = _region_cache.get(instance_id)
 		var cache_valid:bool = false
 		
+		var pos:Vector3 = asset.global_position
+
 		if cache_entry:
-			cache_valid = cache_entry.pos.is_equal_approx(pos) and is_equal_approx(vision, cache_entry.vision)
+			cache_valid = cache_entry.pos.distance_squared_to(pos) < 1.0 and is_equal_approx(vision, cache_entry.vision)
 		else:
 			cache_entry = CacheEntry.new()
 			_region_cache[instance_id] = cache_entry
@@ -66,7 +66,7 @@ func _tick() -> void:
 			if pos_region:
 				pos_region.navigable = true
 			
-		# Update all regions
+		# Update visible regions
 		var visible_regions:Array[MapRegion]
 		if cache_valid:
 			visible_regions = cache_entry.visible_regions
@@ -77,13 +77,7 @@ func _tick() -> void:
 		for region in visible_regions:
 			region.explored = true
 			region.last_visible_game_time = time
-			_visible_markers[region.index] = 1
 	# For all assets
-	
-	# Update all visibility from marked visible regions
-	var all_regions := map_regions.regions
-	for index in _visible_markers.size():
-		all_regions[index].visible = _visible_markers[index]
 
 func _cleanup_cache() -> void:
 	var invalid_cache_keys:PackedInt64Array

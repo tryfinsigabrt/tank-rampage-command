@@ -5,18 +5,16 @@
 
 [node name="MapRegions" type="Node" unique_id=206029175]
 script = ExtResource("1_222up")
+update_interval = 1.01
 
 [node name="RegionUpdater" type="Node" parent="." unique_id=324555474 node_paths=PackedStringArray("map_regions")]
 script = ExtResource("2_ue7gf")
 map_regions = NodePath("..")
 
-[node name="Timer" type="Timer" parent="RegionUpdater" unique_id=766107769]
-wait_time = 0.5
-autostart = true
+[node name="TickTimer" type="Timer" parent="RegionUpdater" unique_id=766107769]
 
 [node name="CacheCleanupTimer" type="Timer" parent="RegionUpdater" unique_id=1284276915]
 wait_time = 5.1000000000000005
-autostart = true
 
-[connection signal="timeout" from="RegionUpdater/Timer" to="RegionUpdater" method="_tick"]
+[connection signal="timeout" from="RegionUpdater/TickTimer" to="RegionUpdater" method="_tick"]
 [connection signal="timeout" from="RegionUpdater/CacheCleanupTimer" to="RegionUpdater" method="_cleanup_cache"]

@@ -5,6 +5,9 @@ var region_size:float = 20.0
 
 var regions:Array[MapRegion]
 
+@export
+var update_interval:float = 0.5
+
 var _world_bounds:Rect2
 var _region_dim:Vector2i
 
@@ -22,7 +25,11 @@ func _ready() -> void:
 		return
 	_build_regions(world_boundaries)
 		
-
+func is_region_visible(region:MapRegion) -> bool:
+	var current_time:float = GameManager.game_timer.time_seconds
+	var last_visible_time:float = region.last_visible_game_time
+	return last_visible_time + update_interval * 1.1 > current_time
+	
 func get_region_at(world_location:Vector3) -> MapRegion:
 	var region_coords:Vector2i = _world_location_to_grid_location(world_location)
 	if region_coords.x < 0 or region_coords.y < 0 or region_coords.x >= _region_dim.x or region_coords.y >= _region_dim.y:
