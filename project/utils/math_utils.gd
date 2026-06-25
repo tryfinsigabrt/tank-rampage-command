@@ -44,6 +44,25 @@ static func get_random_point_in_sphere(radius:float) -> Vector3:
 	
 	return Vector3(x, y, z)
 
+static func get_random_point_in_rect(bounds:Rect2) -> Vector2:
+	var start:Vector2 = bounds.position
+	var end:Vector2 = bounds.end
+
+	return Vector2(
+		randf_range(start.x, end.x),
+		randf_range(start.y, end.y)
+	)
+	
+static func get_random_point_in_aabb(bounds:AABB) -> Vector3:
+	var start:Vector3 = bounds.position
+	var end:Vector3 = bounds.end
+
+	return Vector3(
+		randf_range(start.x, end.x),
+		randf_range(start.y, end.y),
+		randf_range(start.z, end.z)
+	)
+	
 static func grid_vector(vec:Vector3) -> Vector2:
 	return Vector2(vec.x, vec.z)
 

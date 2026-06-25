@@ -15,6 +15,9 @@ const INVALID_COORDS:Vector2i = Vector2i.MIN
 const SQRT_TWO:float = sqrt(2.0)
 const HALF_SQRT_TWO:float = SQRT_TWO * 0.5
 
+var region_dims:Vector2i:
+	get: return _region_dim
+	
 var valid:bool:
 	get: return not regions.is_empty()
 	
@@ -50,6 +53,45 @@ func index_to_coords(index:int) -> Vector2i:
 	var y:int = index % length
 	
 	return Vector2i(x, y)
+
+func get_region_extent(row_major_regions:Array[MapRegion]) -> Vector2i:
+	if row_major_regions.size() < 2:
+		return Vector2i.ZERO
+	
+	# Compute indices of first and last to get the extents and then fill in the rest
+	var min_coords:Vector2i = index_to_coords(row_major_regions.front().index)
+	var max_coords:Vector2i = index_to_coords(row_major_regions.back().index)
+	
+	return max_coords - min_coords
+	
+func get_region_coords(row_major_regions:Array[MapRegion]) -> Array[Vector2i]:
+	var indices:Array[Vector2i]
+	if not row_major_regions:
+		return indices
+	
+	var size:int = row_major_regions.size()
+	indices.resize(size)
+	
+	# Compute indices of first and last to get the extents and then fill in the rest
+	var min_coords:Vector2i = index_to_coords(row_major_regions.front().index)
+	if size == 1:
+		indices[0] = min_coords
+		return indices
+	
+	var max_coords:Vector2i = index_to_coords(row_major_regions.back().index)
+	if size == 2:
+		indices[-1] = max_coords
+		return indices
+	
+	var num_cols:int = max_coords.x - min_coords.x
+	var num_rows:int = max_coords.y - min_coords.y
+	
+	for i in range(num_rows):
+		var offset:int = i * num_cols
+		for j in range(num_cols):
+			indices[offset + j] = min_coords + Vector2i(i,j)
+		
+	return indices
 	
 func get_regions_for(world_location:Vector3, radius:float) -> Array[MapRegion]:
 	var matching_regions:Array[MapRegion]
@@ -69,9 +111,9 @@ func get_regions_for(world_location:Vector3, radius:float) -> Array[MapRegion]:
 	min_indices = min_indices.clamp(Vector2i.ZERO, _region_dim)
 	max_indices = max_indices.clamp(Vector2i.ZERO, _region_dim)
 	
-	for i in range(min_indices.x, max_indices.x):
+	for i in range(min_indices.y, max_indices.y):
 		var offset:int = _region_dim.x * i
-		for j in range(min_indices.y, max_indices.y):
+		for j in range(min_indices.x, max_indices.x):
 			var index:int = offset + j
 			matching_regions.push_back(regions[index])
 	return matching_regions
