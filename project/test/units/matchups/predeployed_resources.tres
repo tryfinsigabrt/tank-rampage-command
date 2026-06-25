@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TeamResources" format=3 uid="uid://ci4a3g24arc7k"]
+
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="1_cpn63"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="2_40bcp"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="3_aug5u"]
+
+[sub_resource type="Resource" id="Resource_3guwm"]
+script = ExtResource("1_cpn63")
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_ptnn7"]
+script = ExtResource("2_40bcp")
+cap = 1
+count = 0
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[resource]
+script = ExtResource("3_aug5u")
+scrap = SubResource("Resource_ptnn7")
+personnel = SubResource("Resource_3guwm")
+metadata/_custom_type_script = "uid://j0wvywuecgch"

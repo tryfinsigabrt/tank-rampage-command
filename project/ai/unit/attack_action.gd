@@ -204,7 +204,7 @@ func _is_in_range() -> bool:
 	if dist_sq < fire_range.x * fire_range.x or dist_sq > fire_range.y * fire_range.y:
 		if OS.is_stdout_verbose():
 			DebugDraw3D.draw_ray(my_position, to_target, sqrt(dist_sq), Color.RED)
-			print_verbose("%s: in_range=FALSE(DIST); my_position=%s; target=%s; to_target=%s; dist=%f" % [name, my_position, targeted_location, to_target, sqrt(dist_sq)])
+			print_verbose("%s: in_range=FALSE(DIST); my_position=%s; target=%s; to_target=%s; dist=%f" % [name, my_position, target_position, to_target, sqrt(dist_sq)])
 	
 		return false
 	
