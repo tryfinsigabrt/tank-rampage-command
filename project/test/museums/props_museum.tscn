@@ -611,7 +611,7 @@ transform = Transform3D(5.9604645e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, 5.9
 transform = Transform3D(0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.9659258, -11.29923, -1.9073486e-06, -16.939741)
 
 [node name="marine19" parent="Units/Marines" unique_id=329701625 instance=ExtResource("7_fdxvd")]
-transform = Transform3D(-0.25881913, 0, 0.96592593, 0, 1, 0, -0.96592593, 0, -0.25881913, 8.461616, -7.1525574e-07, 8.528227)
+transform = Transform3D(0.98796535, 0, 0.15467599, 0, 1, 0, -0.15467599, 0, 0.98796535, 11.861057, 1.5689459, 9.639786)
 
 [node name="marine20" parent="Units/Marines" unique_id=909230685 instance=ExtResource("7_fdxvd")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 8.973773, -2.6226044e-06, 5.3295116)
