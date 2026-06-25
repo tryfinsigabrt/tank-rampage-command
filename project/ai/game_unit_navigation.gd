@@ -164,7 +164,11 @@ func _on_tick_next_target(delta:float, next_position:Vector3) -> void:
 	if _is_at_target(next_position):
 		_emit_target_reached()
 		return
-	
+	# If simple navigation not already active and the navigation system failed (finished without reaching target) then enable simple
+	# navigation pro-actively
+	elif not simple_navigation.active and navigation_agent_3d.is_navigation_finished() and enable_simple_nav_fallback:
+		_start_simple_nav()
+		return
 	# TODO: Maybe this needs to be "body.global_position"
 	var current_position := _unit.global_position
 	

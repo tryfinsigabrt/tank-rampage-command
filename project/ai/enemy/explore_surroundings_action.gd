@@ -26,7 +26,7 @@ var min_unit_group_proximity:float = 25.0
 var enable_map_region_use:bool = true
 
 @export
-var map_region_score_random_threshold:float = 5.0
+var map_region_score_random_threshold:float = 0.25
 
 var _cluster_creator:ClusterCircleCreator = ClusterCircleCreator.new(preferred_unit_group_proximity)
 	
@@ -35,6 +35,8 @@ var _blackboard:EnemyTeamBlackboard
 const FOLLOWER_UNIT_CLASSES: Array[Unit.UnitClass] = [
 	Unit.UnitClass.Artillery
 ]
+
+const REGION_PENALTY_V_TIME:Curve = preload("res://ai/enemy/explore_region_penalty_v_time.tres")
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -202,21 +204,22 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 		var total_score:float = 0.0
 		var area:Rect2 = region.area
 		var dist_sq:float = area.position.distance_squared_to(current_pos_2d)
-		var dist_score:float = dist_sq / max_dist_sq * 25.0
+		var dist_score:float = dist_sq / max_dist_sq
 		total_score += dist_score
 		
 		# If area currently contains the unit then give it a penalty
 		if area.has_point(current_pos_2d):
-			total_score -= 20.0
+			total_score -= 1.0
 		
-		# If recently selected this position then reduce score
-		if region.last_targeted_time > 0.0:
-			var recency_penalty:float
+		# If recently selected this position then reduce score if not confirmed navigable
+		if not region.navigable and region.last_targeted_time > 0.0:
 			var delta_time:float = time - region.last_targeted_time
-			if delta_time < 22.5:
-				recency_penalty = 200.0
-			else:
-				recency_penalty = exp(120.0 / maxf(delta_time, 0.01))
+			var recency_penalty:float = REGION_PENALTY_V_TIME.sample_baked(delta_time)
+			# Recency penalty harsher for non-explored as that is probably inaccessible
+			# or being explored by another party
+			if not region.explored:
+				recency_penalty *= 5.0
+				
 			total_score -= recency_penalty
 			
 		# If unexplored then add a bonus if adjacent region is confirmed to be navigable which also implies explored
@@ -226,32 +229,32 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 			if region_coord.x > 0:
 				var left_neighbor := all_regions[global_index - 1]
 				if left_neighbor.navigable:
-					total_score += 10.0
+					total_score += 1
 			# Has a right neighbor
 			if region_coord.x < region_dims.x:
 				var right_neighbor := all_regions[global_index + 1]
 				if right_neighbor.navigable:
-					total_score += 10.0
+					total_score += 1
 			# Has a top neighbor
 			if region_coord.y > 0:
 				var top_neighbor := all_regions[global_index - coord_dim.x]
 				if top_neighbor.navigable:
-					total_score += 10.0
+					total_score += 1
 			# Has a bottom neighbor
 			if region_coord.y < region_dims.y:
 				var top_neighbor := all_regions[global_index + coord_dim.x]
 				if top_neighbor.navigable:
-					total_score += 10.0
+					total_score += 1
 		# Explored but not visible regions get a boost since want to push out into non-visible areas
 		elif not map_regions.is_region_visible(region):
-			total_score += 7.5
-		# Penalize visible areas
+			total_score += 0.5
+		# Penalize visible areas since want to explore out into the unknown
 		else:
-			total_score -= 15.0
+			total_score -= 1.0
 		
 		# if region is confirmed navigable get a boost	
 		if region.navigable:
-			total_score += 10.0
+			total_score += 0.25
 			
 		region_score.score = total_score		
 	# for every region score
@@ -263,13 +266,20 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 	var max_sampling_index:int = 0
 	for i in range(1, region_scores.size()):
 		var score:float = region_scores[i].score
-		if max_score - score <= map_region_score_random_threshold:
+		if score > 0 and max_score - score <= map_region_score_random_threshold:
 			max_sampling_index += 1
 		else:
 			break
 			
 	var selected_index:int = randi_range(0, max_sampling_index)
-	var selected_region:MapRegion = candidate_regions[selected_index]
+	# If the max score is 0 then fall back to a default strategy
+	var selected_region_data:RegionScore = region_scores[selected_index]
+	if selected_region_data.score <= 0.0:
+		print_debug("%s: unit=%s with %d regions had max candidate score of %.3f - falling back to default strategy" % 
+			[name, unit.name, region_scores.size(), selected_region_data.score])
+		return current_pos
+	
+	var selected_region:MapRegion = selected_region_data.region
 	selected_region.last_targeted_time = time
 	
 	# Go to a random point in the region

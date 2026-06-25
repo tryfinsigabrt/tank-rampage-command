@@ -83,8 +83,8 @@ func get_region_coords(row_major_regions:Array[MapRegion]) -> Array[Vector2i]:
 		indices[-1] = max_coords
 		return indices
 	
-	var num_cols:int = max_coords.x - min_coords.x
-	var num_rows:int = max_coords.y - min_coords.y
+	var num_cols:int = max_coords.x - min_coords.x + 1
+	var num_rows:int = max_coords.y - min_coords.y + 1
 	
 	for i in range(num_rows):
 		var offset:int = i * num_cols
@@ -105,9 +105,10 @@ func get_regions_for(world_location:Vector3, radius:float) -> Array[MapRegion]:
 	var max_pos:Vector2 = grid_center + world_extent
 		
 	var min_indices:Vector2i = _world_grid_location_to_grid_location(min_pos)
-	var max_indices:Vector2i = _world_grid_location_to_grid_location(max_pos)
+	# Include the max indices since this is a valid position
+	var max_indices:Vector2i = _world_grid_location_to_grid_location(max_pos) + Vector2i.ONE
 	
-	# Clamp
+	# Clamp - here max is out of bounds to work cleaner with range
 	min_indices = min_indices.clamp(Vector2i.ZERO, _region_dim)
 	max_indices = max_indices.clamp(Vector2i.ZERO, _region_dim)
 	
