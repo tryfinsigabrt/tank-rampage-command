@@ -157,25 +157,6 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	var control_point: ControlPoint = control_point_data.control_point
 	var known_state := control_point_data.state
 	
-	# Owned or capturing bonuses
-	if control_point.owned_team == our_team:
-		score += 5.0
-		if control_point.is_being_captured():
-			score += 25.0
-		elif control_point.is_constested():
-			score += 15.0
-	elif control_point.capturing_team == our_team:
-		score += 3.0
-		if control_point.is_being_captured():
-			score += 25.0
-		elif control_point.is_constested():
-			score += 12.0
-	elif known_state == ControlPointState.NEUTRAL:
-		score += 4.0
-	# Penalty if known to be enemy occupied and we are not currently capturing as need a stronger attacking force
-	elif known_state == ControlPointState.THEIRS:
-		score -= 6.0
-		
 	var control_bounds: Bounds = Bounds.new(control_point.get_global_bounds(), Bounds.Type.SPHERE_INSCRIBED)
 	var control_bounds_influence: BoundingCircle = BoundingCircle.from_sphere(control_bounds.inscribed_sphere)
 	control_bounds_influence.radius = control_point_influence_radius
@@ -189,7 +170,7 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 			threat_strength += threat.strength
 	
 	score -= sqrt(threat_strength)
-	
+		
 	var control_point_friendlies: Array[Unit] = control_point.get_units_by_team(our_team)
 	var team_units: Array[Unit] = blackboard.team_info.units
 	
@@ -199,7 +180,13 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	var assist_contexts: Array[AssistContext]
 	
 	var positive_units:int = 0
+	var our_strength:float = 0
+	
 	for unit in team_units:
+		# Only assist if have a weapon - i.e. not a transport type unit
+		if not unit.weapon:
+			continue
+			
 		var assist_context := AssistContext.new(unit)
 		var strength:float = assist_context.strength
 		
@@ -217,13 +204,18 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 		if unit in control_point_friendlies:
 			unit_score = 15.0
 			in_control_point = true
+			our_strength += strength
 		elif control_bounds_influence.contains(grid_pos) or \
 		 (ranged_weapon and MathUtils.is_between(control_bounds.distance_to(pos), weapon_range)):
 			unit_score = 5.0
+			our_strength += strength
 		else:
 			# score and strength diminishes by distance outside
 			var dist:float = control_bounds_influence.distance_to(grid_pos)
-			unit_score = 5.0 - log(dist)
+			var log_dist:float = maxf(log(dist), 0.0)
+			
+			unit_score = 5.0 - log_dist
+			our_strength += strength / maxf(log_dist, 1.0)
 		
 		unit_score += sqrt(strength)
 		
@@ -239,6 +231,30 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 			score += unit_score
 			positive_units += 1
 	
+	# END For every team unit
+	
+	if control_point.owned_team == our_team:
+		score += 5.0
+		if control_point.is_being_captured():
+			score += 50.0
+		elif control_point.is_constested():
+			score += 15.0
+		else:
+			# If we are overmatched and no threats then reduce score
+			if our_strength > threat_strength:
+				score -= our_strength - threat_strength
+	elif control_point.capturing_team == our_team:
+		score += 3.0
+		if control_point.is_being_captured():
+			score += 50.0
+		elif control_point.is_constested():
+			score += 20.0
+	elif known_state == ControlPointState.NEUTRAL:
+		score += 100.0
+	# Penalty if known to be enemy occupied and we are not currently capturing as need a stronger attacking force
+	elif known_state == ControlPointState.THEIRS:
+		score -= 6.0
+		
 	var cp_context := ControlPointContext.new()
 	cp_context.assist_context = assist_contexts
 	cp_context.control_point = control_point
