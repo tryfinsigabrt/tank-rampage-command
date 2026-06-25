@@ -62,10 +62,10 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("5_j53kv")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="IsSecureControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea" unique_id=376727991]
+[node name="IsDefendArea" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea" unique_id=376727991]
 script = ExtResource("6_j53kv")
 left_operand = "get_value(\"action\")"
-right_operand = "\"secure_control_point\""
+right_operand = "\"defend_area\""
 metadata/_custom_type_script = "uid://uoy6r3dbnq25"
 
 [node name="DefendArea" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea" unique_id=1513603511]
