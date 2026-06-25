@@ -102,9 +102,8 @@ func set_defend_control_point(control_point:ControlPoint, time:float, priority:i
 	
 	# If we are a ranged unit then pick a position where we can cover the area
 	var position_callback: Callable = func() -> Vector3:
-		
 		var weapon:Weapon = unit.weapon
-		var ranged_weapon:bool = not weapon.prefer_close_shots
+		var ranged_weapon:bool = not weapon.prefer_close_shots if weapon else false
 		var defense_position:Vector3
 		var defense_radius: float = countrol_bounding_sphere.radius * control_point_radius_defend_fraction
 		
