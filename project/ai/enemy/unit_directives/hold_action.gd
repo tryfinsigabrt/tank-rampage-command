@@ -16,7 +16,7 @@ func _should_end_hold() -> bool:
 func tick(actor: Node, _blackboard: Blackboard) -> int:
 	if _state == 0 and _should_end_hold():
 		print_debug("%s: Hold duration of %.1fs reached" % [name, _duration])
-		_state = SUCCESS
+		_state = 1
 		
 		var directive:AiUnitDirectives = actor
 		var unit:Unit = directive.unit
