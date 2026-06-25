@@ -3,6 +3,7 @@ extends Control
 @onready var main_menu_buttons: VBoxContainer = %MainMenuButtons
 @onready var main_menu_container: Control = %MainMenuContainer
 @onready var options_menu: PanelContainer = %OptionsMenu
+@onready var controls_menu: Control = %ControlsReferenceMenu
 
 @onready var quit: Button = %Quit
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 		quit.hide()
 		
 	options_menu.back_requested.connect(_on_options_menu_back_requested)
+	controls_menu.back_requested.connect(_on_controls_menu_back_requested)
 
 
 func _on_play_pressed() -> void:
@@ -26,7 +28,13 @@ func _on_level_select_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	main_menu_container.hide()
+	controls_menu.hide()
 	options_menu.show()
+
+func _on_controls_pressed() -> void:
+	main_menu_container.hide()
+	options_menu.hide()
+	controls_menu.show()
 
 
 func _on_quit_pressed() -> void:
@@ -36,6 +44,10 @@ func _on_quit_pressed() -> void:
 
 func _on_options_menu_back_requested() -> void:
 	options_menu.hide()
+	main_menu_container.show()
+
+func _on_controls_menu_back_requested() -> void:
+	controls_menu.hide()
 	main_menu_container.show()
 
 

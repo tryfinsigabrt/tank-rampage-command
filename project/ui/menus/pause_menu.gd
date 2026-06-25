@@ -3,6 +3,7 @@ extends Control
 @onready var content_container: VBoxContainer = %ContentContainer
 @onready var pause_menu_panel: Control = %PauseMenuPanel
 @onready var options_menu: PanelContainer = %OptionsMenu
+@onready var controls_menu: Control = %ControlsReferenceMenu
 @onready var resume: Button = %ResumeButton
 @onready var quit: Button = %ExitButton
 @onready var quit_to_menu_button: Button = %QuitToMenuButton
@@ -14,6 +15,9 @@ func _ready() -> void:
 	if OS.get_name() == "Web":
 		quit.hide()
 
+	options_menu.back_requested.connect(_on_options_menu_back_requested)
+	controls_menu.back_requested.connect(_on_controls_menu_back_requested)
+
 	_update_visibility(GameManager.scene_manager.paused)
 
 func _on_game_pause_state_changed(paused:bool) -> void:
@@ -24,11 +28,18 @@ func _on_resume_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	pause_menu_panel.hide()
+	controls_menu.hide()
 	options_menu.show()
+
+func _on_controls_pressed() -> void:
+	pause_menu_panel.hide()
+	options_menu.hide()
+	controls_menu.show()
 
 func _update_visibility(paused:bool) -> void:
 	if paused:
 		options_menu.hide()
+		controls_menu.hide()
 		pause_menu_panel.show()
 		show()
 	else:
@@ -44,6 +55,10 @@ func _disable_buttons() -> void:
 
 func _on_options_menu_back_requested() -> void:
 	options_menu.hide()
+	pause_menu_panel.show()
+
+func _on_controls_menu_back_requested() -> void:
+	controls_menu.hide()
 	pause_menu_panel.show()
 
 func _unhandled_input(event: InputEvent) -> void:
