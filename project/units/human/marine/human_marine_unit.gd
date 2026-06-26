@@ -23,11 +23,24 @@ var is_shooting:bool:
 var _aim_at_tween:Tween
 var _has_moved:bool
 
+var _ground_cast_parameters:PhysicsRayQueryParameters3D
+var _surface_normal:Vector3
+var _elapsed_since_cast:float = 0.0
+
+@export
+var ground_cast_interval:float = 0.2
+
 func _set_visual_overrides(_overrides:AssetVisualTeamResource) -> void:
 	_set_mesh_material()
 	
 func _ready() -> void:
 	super._ready()
+	
+	_ground_cast_parameters = PhysicsRayQueryParameters3D.new()
+	_ground_cast_parameters.collision_mask = Collisions.CompositeMasks.ground
+	_ground_cast_parameters.collide_with_areas = false
+	_ground_cast_parameters.collide_with_bodies = true
+	
 	_set_mesh_material()
 	
 func _set_mesh_material() -> void:
@@ -49,6 +62,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 	else:
 		velocity += get_gravity() * delta
+
+	if _is_alive():
+		_reorient_along_surface_normal(delta)
 
 # TODO: Some of this can be moved to unit base class or separate component
 func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
@@ -172,5 +188,43 @@ func _on_weapon_firing_state_changed(firing: bool) -> void:
 	#print("%s: SHOOTING=%s" % [name, firing])
 	_is_shooting = firing and is_alive
 
+func _reorient_along_surface_normal(delta:float) -> void:
+	var space_state := get_world_3d().direct_space_state
+	
+	var current_pos:Vector3 = global_position
+	
+	_elapsed_since_cast += delta
+	if not _surface_normal or _elapsed_since_cast >= ground_cast_interval:
+		_ground_cast_parameters.from = current_pos + Vector3.UP * 100.0
+		_ground_cast_parameters.to = current_pos + Vector3.DOWN * 100.0
+		
+		var result := space_state.intersect_ray(_ground_cast_parameters)
+		if result:
+			_surface_normal = result["normal"].normalized()
+		else:
+			_surface_normal = Vector3.ZERO
+		_elapsed_since_cast = 0.0
+		
+	if _surface_normal:
+		global_basis = _basis_from_forward_and_up(global_forward, _surface_normal)
+	else:
+		global_basis = _basis_from_forward_and_up(global_forward, Vector3.UP)
+
+func _basis_from_forward_and_up(forward_hint:Vector3, up_vector:Vector3) -> Basis:
+	if up_vector.is_zero_approx():
+		return global_basis
+
+	var new_forward := forward_hint.slide(up_vector)
+	if new_forward.is_zero_approx():
+		var planar := Vector3.FORWARD if absf(up_vector.dot(Vector3.FORWARD)) < 0.99 else Vector3.RIGHT
+		new_forward = planar.slide(up_vector)
+		if new_forward.is_zero_approx():
+			return global_basis
+	new_forward = new_forward.normalized()
+
+	var new_right := new_forward.cross(up_vector).normalized()
+	new_forward = up_vector.cross(new_right).normalized()
+	return Basis(new_right, up_vector, -new_forward)
+	
 func _get_team_component() -> TeamComponent:
 	return _team_comp
