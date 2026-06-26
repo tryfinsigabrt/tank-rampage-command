@@ -12,17 +12,20 @@ var auto_disable_delay:float = -1.0
 func toggle_selection(asset:Node3D, enabled:bool) -> void:	
 	var new_material:Material
 	var expected_existing:Material
+	var force:bool
 	
 	if enabled:
 		new_material = outline_material
 		expected_existing = null
+		force = true
 		if auto_disable_delay > 0:
 			_schedule_disable(asset)
 	else:
 		new_material = null
 		expected_existing = outline_material
+		force = false
 		
-	MaterialUtils.set_overlay_material(asset, new_material, expected_existing)
+	MaterialUtils.set_overlay_material(asset, new_material, expected_existing, force)
 
 ## Disables all materials that have scheduled delay timers
 func disable_all() -> void:
