@@ -2,8 +2,7 @@ class_name MarineTransportUnit extends Unit
 
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
 @onready var _node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
-
-@onready var body: MeshInstance3D = %Body
+@onready var model_root: Node3D = %"transport-truck"
 @onready var collision: CollisionShape3D = $Collision
 @onready var game_unit_navigation: GameUnitNavigation = $GameUnitNavigation
 @onready var health_stat: HealthStat = %HealthStat
@@ -122,12 +121,9 @@ func _on_health_changed(previous_health: float, current_health: float) -> void:
 
 func _on_took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)
-	if health_stat.is_dead:
-		if not _destroyed:
-			_die(damage_params)
 
 func _update_render(in_render:bool) -> void:
-	body.visible = in_render
+	model_root.visible = in_render
 	ui.visible = in_render
 
 func _get_health_stat() -> HealthStat:
@@ -139,3 +135,13 @@ func _get_weapon() -> Weapon:
 
 func _get_team_component() -> TeamComponent:
 	return _team_comp
+
+func _on_unit_removed(unit: Unit) -> void:
+	# Wait a frame so that physics toggle takes effect
+	await get_tree().physics_frame
+	
+	# Just place the unit at the bunker's global position
+	var location:Vector3 = global_position
+	# Face the forward direction of the bunker
+	var direction:Vector3 = -global_basis.z
+	_node_viable_position_finder.attempt_placement_at(location, direction, unit, true)
