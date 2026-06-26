@@ -13,18 +13,21 @@ var _weapon_controller:WeaponController
 var _controlled_asset:Node3D
 # If controlled asset is a unit
 var _controlled_unit:Unit
+var _use_target_node_bounds:bool
 
 var targeted_node:Node3D:
 	set(value):
 		if is_instance_valid(value) and value.is_in_group(Groups.TeamAsset):
 			_node_was_targeted = true
 			targeted_node = value
+			_use_target_node_bounds = targeted_node.has_method("get_global_bounds")
 		else:
 			# Make sure we didn't fail the group check
 			assert(not is_instance_valid(value), "%s: targeted_node=%s not in expected group!" % [name, StringUtils.safe_name(value)])
 			
 			_node_was_targeted = false
 			targeted_node = null
+			_use_target_node_bounds = false
 	get:
 		return targeted_node if is_instance_valid(targeted_node) else null
 			
@@ -268,7 +271,14 @@ func _check_target_los() -> bool:
 	return has_los
 	
 func _get_target_position() -> Vector3:
-	return targeted_node.global_position if targeted_node else targeted_location
+	if targeted_node:
+		# Prefer to target the center of the target instead of it's global_position which is usually the bottom
+		if _use_target_node_bounds:
+			var bounds:AABB = targeted_node.get_global_bounds()
+			return bounds.get_center()
+		else:
+			return targeted_node.global_position
+	return targeted_location
 	
 func is_valid() -> bool:
 	return is_instance_valid(_weapon_controller) and _is_target_valid()
