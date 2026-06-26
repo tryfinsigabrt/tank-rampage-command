@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="2_scbrx"]
 [ext_resource type="Resource" uid="uid://c15yy2yxbmpuf" path="res://conf/costs/human/artillery_cost.tres" id="4_5rldj"]
 [ext_resource type="Resource" uid="uid://c0js7vjcgp2at" path="res://conf/costs/human/tank_cost.tres" id="4_s6gqv"]
+[ext_resource type="Resource" uid="uid://x7yj1piwadsv" path="res://conf/costs/human/transport_cost.tres" id="5_s6gqv"]
 
 [resource]
 script = ExtResource("1_4sjg7")
-types = Array[ExtResource("2_scbrx")]([ExtResource("4_s6gqv"), ExtResource("4_5rldj")])
+types = Array[ExtResource("2_scbrx")]([ExtResource("4_s6gqv"), ExtResource("4_5rldj"), ExtResource("5_s6gqv")])
 metadata/_custom_type_script = "uid://dbbl6g16o8jb3"
