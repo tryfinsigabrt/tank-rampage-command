@@ -73,7 +73,8 @@ func aim_at(world_location:Vector3) -> void:
 	if absf(rotation_dir) > turret_aim_tolerance:
 		turret.rotate_turret(rotation_dir)
 	
-	var aim_pitch:float = aim_direction.y
+	var local_aim_direction:Vector3 = barrel.fire_position_marker.to_local(world_location).normalized()
+	var aim_pitch:float = local_aim_direction.y
 	# Technically this is not an angle but using some small value to avoid jitter
 	if absf(aim_pitch) > pitch_tolerance:
 		barrel.pitch_barrel(aim_pitch)
@@ -98,7 +99,7 @@ func get_fire_global_right() -> Vector3:
 	return barrel.fire_position_marker.global_basis.x
 
 func get_fire_global_up() -> Vector3:
-	return barrel.global_basis.y
+	return barrel.fire_position_marker.global_basis.y
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled

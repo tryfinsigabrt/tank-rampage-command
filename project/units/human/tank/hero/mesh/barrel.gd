@@ -14,8 +14,8 @@ func pitch_barrel(direction:float) -> void:
 	if is_zero_approx(direction):
 		return
 	var rot:float = -rotation_speed_degrees * get_process_delta_time() * signf(direction)
-	pivot.rotation_degrees.x = clampf(pivot.rotation_degrees.x + rot, -max_pitch_degrees, 0.0)
-
+	pivot.rotation_degrees.x = clampf(pivot.rotation_degrees.x + rot, -max_pitch_degrees, max_pitch_degrees)
+	#print("PIVOT: %.1f" % [pivot.rotation_degrees.x])
 func shoot() -> void:
 	await weapon.fire()
 
