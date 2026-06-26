@@ -15,9 +15,6 @@ func _ready() -> void:
 	if OS.get_name() == "Web":
 		quit.hide()
 
-	options_menu.back_requested.connect(_on_options_menu_back_requested)
-	controls_menu.back_requested.connect(_on_controls_menu_back_requested)
-
 	_update_visibility(GameManager.scene_manager.paused)
 
 func _on_game_pause_state_changed(paused:bool) -> void:

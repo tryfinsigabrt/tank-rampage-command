@@ -106,6 +106,7 @@ layout_mode = 1
 
 [node name="ControlsReferenceMenu" parent="." unique_id=1233289673 instance=ExtResource("3_9c2tr")]
 unique_name_in_owner = true
+anchors_preset = 0
 
 [node name="PauseMenuAudio" type="Node" parent="." unique_id=1521880232]
 script = ExtResource("3_51icm")
@@ -120,3 +121,4 @@ bus = &"Menu"
 [connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
 [connection signal="pressed" from="MarginContainer/PauseMenuPanel/Padding/ContentContainer/ExitButton" to="." method="_on_quit_pressed"]
 [connection signal="back_requested" from="OptionsMenu" to="." method="_on_options_menu_back_requested"]
+[connection signal="back_requested" from="ControlsReferenceMenu" to="." method="_on_controls_menu_back_requested"]
