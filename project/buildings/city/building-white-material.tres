@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cttdi0gs6b8t8"]
+
+[ext_resource type="Texture2D" uid="uid://cl8djufwu7b7p" path="res://buildings/city/skyscraper3.png" id="1_dg1on"]
+[ext_resource type="Texture2D" uid="uid://blkv6eniggo4f" path="res://buildings/city/skyscraper3-emissive.png" id="2_db515"]
+
+[resource]
+albedo_texture = ExtResource("1_dg1on")
+emission_enabled = true
+emission_texture = ExtResource("2_db515")

@@ -19,8 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="17_soewx"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="18_ehnlb"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="19_bhdle"]
-[ext_resource type="PackedScene" uid="uid://5uwrklvb7l5a" path="res://buildings/city/city-test.fbx" id="20_ehnlb"]
 [ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="21_bhdle"]
+[ext_resource type="PackedScene" uid="uid://ireagkacr4lv" path="res://buildings/city/city.tscn" id="21_ue1ox"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
 material = ExtResource("1_domqp")
@@ -649,8 +649,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.400001, 0.100002766, -63.
 [node name="Barracks" parent="Buildings" unique_id=404914555 instance=ExtResource("19_bhdle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.3, -63.7)
 
-[node name="city-test" parent="." unique_id=2029838145 instance=ExtResource("20_ehnlb")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 25, 0.1, -25)
-
 [node name="MarineTransport" parent="." unique_id=11993427 instance=ExtResource("21_bhdle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.170295, 0, 10.591998)
+
+[node name="City" parent="." unique_id=2029838145 instance=ExtResource("21_ue1ox")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 72, 0.1, -75)
