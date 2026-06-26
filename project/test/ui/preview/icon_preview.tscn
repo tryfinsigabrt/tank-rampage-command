@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bwuxs2s68wlbl" path="res://buildings/barracks/barracks.glb" id="10_louwm"]
 [ext_resource type="PackedScene" uid="uid://ci0rgf5oirt43" path="res://buildings/factory/factory_model.tscn" id="11_1wkgh"]
 [ext_resource type="PackedScene" uid="uid://4ip8egka5br3" path="res://structures/turret/turret_structure.tscn" id="12_u7h3f"]
+[ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="13_6d2xm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nah6a"]
 
@@ -128,6 +129,7 @@ fov = 65.0
 
 [node name="turret_structure" parent="IconRoot" unique_id=427098526 instance=ExtResource("12_u7h3f")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+visible = false
 
 [node name="UI" parent="IconRoot/turret_structure" index="1" unique_id=1422772707]
 visible = false
@@ -144,6 +146,18 @@ light_specular = 1.0
 spot_range = 10.915
 spot_attenuation = 0.3
 
+[node name="marine_transport" parent="IconRoot" unique_id=1486632881 instance=ExtResource("13_6d2xm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0782461, 0)
+
+[node name="UI" parent="IconRoot/marine_transport" index="5" unique_id=1673194704]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 6.578246, 0)
+visible = false
+
+[node name="Camera" type="Camera3D" parent="IconRoot/marine_transport" unique_id=1166861565]
+transform = Transform3D(0.5973453, -0.24382964, 0.7640195, 3.2859027e-09, 0.9526615, 0.30403298, -0.8019842, -0.18161267, 0.56906784, 8.389754, 5.7886147, 7.637619)
+top_level = true
+fov = 50.0
+
 [node name="RenderToTexture" type="SubViewport" parent="." unique_id=1924058133]
 unique_name_in_owner = true
 size = Vector2i(128, 128)
@@ -153,3 +167,6 @@ render_target_update_mode = 4
 [editable path="IconRoot/TankSpikes"]
 [editable path="IconRoot/turret_structure"]
 [editable path="IconRoot/turret_structure/VisualRoot/YawPivot/PitchPivot/Barrel/Weapon"]
+[editable path="IconRoot/marine_transport"]
+[editable path="IconRoot/marine_transport/transport-truck"]
+[editable path="IconRoot/marine_transport/GameUnitNavigation"]
