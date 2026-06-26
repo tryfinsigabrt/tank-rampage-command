@@ -35,6 +35,7 @@ signal camera_changed(flags:int)
 @export var camera_zoom_mouse_multiplier:int = 5
 @export var camera_zoom_range:Vector2 = Vector2(10.0, 300.0)
 
+
 var _camera_movement_velocity:Vector3 = Vector3.ZERO
 var _camera_target_movement_velocity:Vector3 = Vector3.ZERO
 var _camera_current_zoom_speed:float = 0.0
@@ -42,6 +43,7 @@ var _camera_total_zoom:float = 0.0
 var _mouse_zoom:int = 0
 var _drag_panning:bool = false
 var _drag_pan_delta:Vector2 = Vector2.ZERO
+var _rotation_pivot:Vector3 = Vector3.ZERO
 
 var _change_flags:int
 
@@ -95,19 +97,6 @@ func pan_camera(_delta:float) -> void:
 	elif Input.is_action_pressed("camera_move_backward") or mouse_pos.y > viewport_size.y - camera_pan_margin_pixels:
 		_camera_target_movement_velocity.z = adjusted_camera_move_speed
 
-func rotate_camera(delta:float) -> void:
-	var updated:bool = false
-	if Input.is_action_pressed("camera_rotate_right"):
-		global_rotation.y -= camera_rotation_speed * delta
-		updated = true
-	if Input.is_action_pressed("camera_rotate_left"):
-		global_rotation.y += camera_rotation_speed * delta
-		updated = not updated
-		
-	if updated:
-		_change_flags |= YAW_UPDATED
-
-	
 func zoom_camera(delta:float) -> void:
 	if Input.is_action_pressed("camera_zoom_in"):
 		_camera_current_zoom_speed -= camera_zoom_speed * delta
@@ -139,9 +128,7 @@ func move_to(global_planar_pos:Vector3) -> void:
 	)
 	
 	global_position = new_global_pos
-	
-	# Reset camera boom offset
-	camera_boom.position = Vector3.ZERO
+	_update_rotation_pivot()
 	
 	# Just set all flags for safety
 	camera_changed.emit(~0)
@@ -151,6 +138,7 @@ func move_to(global_planar_pos:Vector3) -> void:
 #region overrides
 func _ready() -> void:
 	_setup_camera()
+	_update_rotation_pivot.call_deferred()
 	if make_current_if_visible and is_visible_in_tree():
 		make_camera_current()
 	
@@ -164,11 +152,14 @@ func _process(delta: float) -> void:
 		
 	pan_camera(delta)
 	drag_pan_camera(delta)
-	rotate_camera(delta)
 	zoom_camera(delta)
 	
 	_apply_movement_velocity(delta)
 	_apply_zoom_velocity()
+	if _change_flags & (POSITION_UPDATED | ZOOM_UPDATED):
+		_update_rotation_pivot()
+
+	rotate_camera(delta)
 	
 	if _change_flags:
 		camera_changed.emit(_change_flags)
@@ -197,7 +188,34 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_visibility_changed() -> void:
 	if make_current_if_visible and visible:
 		make_camera_current()
-		
+		_update_rotation_pivot.call_deferred()
+
+
+func _update_rotation_pivot() -> void:
+	if camera == null or not is_instance_valid(camera):
+		return
+
+	var viewport := get_viewport()
+	if viewport == null:
+		return
+
+	var center := viewport.get_visible_rect().size * 0.5
+	var from := camera.project_ray_origin(center)
+	var to := from + camera.project_ray_normal(center) * 10000.0
+	
+	var space_state := get_world_3d().direct_space_state
+	var ray_params := PhysicsRayQueryParameters3D.new()
+	ray_params.collision_mask = Collisions.CompositeMasks.ground
+	ray_params.from = from
+	ray_params.to = to
+
+	var hit := space_state.intersect_ray(ray_params)
+	if not hit:
+		return
+
+	_rotation_pivot = hit["position"]
+
+
 func _setup_camera() -> void:
 	camera_tilt.position.y = pos_y
 	camera_tilt.rotation.x = deg_to_rad(rot_y)
@@ -206,6 +224,7 @@ func _setup_camera() -> void:
 	_camera_total_zoom = pos_z
 	camera.fov = fov
 	camera.translate_object_local(Vector3(0.0, 0.0, pos_z))
+
 	
 func _apply_movement_velocity(delta: float) -> void:
 	var weight := 1.0 - exp(-camera_movement_smoothing * delta)
@@ -214,7 +233,7 @@ func _apply_movement_velocity(delta: float) -> void:
 	if _camera_movement_velocity.is_zero_approx():
 		return
 
-	camera_boom.translate_object_local(_camera_movement_velocity * delta)
+	translate_object_local(_camera_movement_velocity * delta)
 	
 	_change_flags |= POSITION_UPDATED
 
@@ -231,5 +250,24 @@ func _apply_zoom_velocity() -> void:
 	_mouse_zoom = 0
 	
 	_change_flags |= ZOOM_UPDATED
+
+
+func rotate_camera(delta:float) -> void:
+	var yaw_delta:float = 0.0
+	if Input.is_action_pressed("camera_rotate_right"):
+		yaw_delta -= camera_rotation_speed * delta
+	if Input.is_action_pressed("camera_rotate_left"):
+		yaw_delta += camera_rotation_speed * delta
+
+	if is_zero_approx(yaw_delta):
+		return
+
+	var offset := global_position - _rotation_pivot
+	offset = offset.rotated(Vector3.UP, yaw_delta)
+	global_position = _rotation_pivot + offset
+	_change_flags |= POSITION_UPDATED
+
+	global_rotation.y += yaw_delta
+	_change_flags |= YAW_UPDATED
 
 #endregion
