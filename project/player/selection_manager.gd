@@ -192,10 +192,6 @@ func add(asset:Node3D) -> bool:
 		
 	assert(false, "asset=%s is not a supported type!" % [asset.name])		
 	return false
-
-func unit_order_dispatched() -> void:
-	for unit in selected_units:
-		_asset_selection_effect.toggle_selection(unit, false)
 	
 func _add_unit(unit:Unit) -> bool:
 	var id:int = unit.get_instance_id()

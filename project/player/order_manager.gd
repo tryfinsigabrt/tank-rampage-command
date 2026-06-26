@@ -37,7 +37,6 @@ func move(position:Vector3) -> void:
 		var pos := positions_dict[unit.get_instance_id()]
 		action.move(pos)
 		
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Move)
 	
 	_reset_effects()
@@ -58,7 +57,6 @@ func move_and_attack(position:Vector3) -> void:
 
 		unit_actions.move_and_attack(pos)
 	
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.MoveAndAttack)
 	
 	_reset_effects()
@@ -80,7 +78,6 @@ func attack(to_attack:Node3D) -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack(to_attack)
 
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
 	
 	_reset_effects()
@@ -100,7 +97,6 @@ func follow(leader:Unit) -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.follow(leader)
 	
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Follow)
 	
 	_reset_effects()
@@ -137,9 +133,7 @@ func load_into(asset: Node3D) -> void:
 			unit_actions.load_into(asset)
 		else:
 			unit_actions.move(asset_position)
-		
-	selection_manager.unit_order_dispatched()
-	
+			
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Load)
 	_reset_effects()
 	load_unit_effect.toggle_selection(asset, true)
@@ -153,7 +147,6 @@ func stop() -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.stop()
 		
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Stop)
 	
 	_reset_effects()
@@ -167,7 +160,6 @@ func hold() -> void:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.hold()
 		
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Hold)
 	
 	_reset_effects()	
@@ -195,7 +187,6 @@ func attack_position(position:Vector3) -> bool:
 		var unit_actions := unit.get_or_add_actions()
 		unit_actions.attack_position(position)
 	
-	selection_manager.unit_order_dispatched()
 	SignalBus.on_order_manager_command_issued.emit(UnitBlackboard.Action.Attack)
 
 	_reset_effects()
