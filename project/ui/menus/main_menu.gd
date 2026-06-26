@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _on_play_pressed() -> void:
 	_disable_buttons()
-	await GameManager.scene_manager.new_game()
+	await GameManager.scene_manager.play_now()
 
 
 func _on_level_select_pressed() -> void:
@@ -54,3 +54,7 @@ func _on_controls_menu_back_requested() -> void:
 func _disable_buttons() -> void:
 	@warning_ignore("missing_await")
 	UIUtils.disable_all_buttons(main_menu_buttons, 20.0)
+
+
+func _on_tutorial_pressed() -> void:
+	await GameManager.scene_manager.play_tutorial()

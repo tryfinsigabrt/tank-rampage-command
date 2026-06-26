@@ -31,8 +31,8 @@ func _on_back_button_pressed() -> void:
 
 func _on_tutorial_play_button_pressed() -> void:
 	tutorial.play_button_disabled = true
-	await GameManager.scene_manager.switch_scene_file("res://levels/tutorial/tutorial.tscn")
+	await GameManager.scene_manager.play_tutorial()
 
 func _on_level_1_play_button_pressed() -> void:
 	level_01.play_button_disabled = true
-	await GameManager.scene_manager.switch_scene_file("res://levels/level_1/level_1.tscn")
+	await GameManager.scene_manager.play_level(1)

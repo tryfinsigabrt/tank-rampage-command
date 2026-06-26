@@ -8,6 +8,8 @@ const ALL_LEVELS:Array[String] = [
 	"res://levels/level_1/level_1.tscn"
 ]
 
+const TUTORIAL_LEVEL:String = "res://levels/tutorial/tutorial.tscn"
+
 signal scene_changed(new_scene:Node)
 signal scene_leaving(old_scene:Node)
 signal scene_entering(new_scene:Node)
@@ -21,8 +23,15 @@ func main_menu() -> void:
 func level_select_menu() -> void:
 	await switch_scene(LEVEL_SELECT_MENU_SCENE)
 
-func new_game() -> void:
+func play_now() -> void:
 	await switch_scene_file(ALL_LEVELS.pick_random())
+	
+func play_tutorial() -> void:
+	await switch_scene_file(TUTORIAL_LEVEL)
+
+func play_level(level_number:int) -> void:
+	assert(level_number > 0 and level_number <= ALL_LEVELS.size(),"%f: Invalid level number=%d" % level_number)
+	await switch_scene_file(ALL_LEVELS[level_number - 1])
 	
 func quit() -> void:
 	get_tree().quit()
