@@ -48,9 +48,11 @@ func before_run(actor: Node, in_blackboard: Blackboard) -> void:
 		_finished = -1
 		push_error("%s: Missing unit or targeted unit/position - cannot perform attack action" % name)
 		return
+	
+	var weapon:Weapon = _unit.weapon
 
 	_attack_action = attack_action_scene.instantiate()
-	_attack_action.weapon = _unit.weapon
+	_attack_action.weapon = weapon
 	if _targeted_node:
 		_attack_action.targeted_node = _targeted_node
 	else:
@@ -60,7 +62,6 @@ func before_run(actor: Node, in_blackboard: Blackboard) -> void:
 	# Some weapons like the artillery shells prefer to stay at a distance
 	# If a hold command is issued then never move
 	var move_behavior:AttackAction.MoveBehavior
-	var weapon:Weapon = _unit.weapon
 
 	if blackboard.is_hold:
 		move_behavior = AttackAction.MoveBehavior.NEVER
