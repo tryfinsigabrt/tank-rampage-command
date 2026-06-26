@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://buipewqcv0puf" path="res://ui/MiniMap/mini_map.gd" id="1_3x50y"]
 [ext_resource type="Texture2D" uid="uid://ctjkpefu42cxt" path="res://ui/MiniMap/MiniMapBezel.png" id="1_tuy02"]
 [ext_resource type="Script" uid="uid://wxf4ylo7mq0j" path="res://player/node_picker.gd" id="3_tm8bl"]
+[ext_resource type="Script" uid="uid://b4j2j5sunyw8o" path="res://ui/MiniMap/camera_view_overlay.gd" id="4_n4n0x"]
 
 [node name="MiniMap" type="SubViewportContainer" unique_id=944229518]
 anchors_preset = 2
@@ -15,6 +16,7 @@ script = ExtResource("1_3x50y")
 metadata/_custom_type_script = "uid://buipewqcv0puf"
 
 [node name="MiniMapViewport" type="SubViewport" parent="." unique_id=995441271]
+unique_name_in_owner = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(256, 256)
@@ -29,6 +31,9 @@ current = true
 position = Vector2(128, 128)
 scale = Vector2(2, 2)
 texture = ExtResource("1_tuy02")
+
+[node name="CameraViewOverlay" type="Node2D" parent="." unique_id=1896582959]
+script = ExtResource("4_n4n0x")
 
 [node name="LocationPicker" type="Node3D" parent="." unique_id=1400949337 node_paths=PackedStringArray("camera")]
 unique_name_in_owner = true

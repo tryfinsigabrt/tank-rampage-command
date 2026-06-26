@@ -5,6 +5,7 @@ const POSITION_UPDATED:int = 1 << 1
 const ZOOM_UPDATED:int = 1 << 2
 
 signal camera_changed(flags:int)
+signal ground_view_polygon_changed(polygon:PackedVector3Array)
 
 # Zoom done on the camera
 @onready var camera: Camera3D = %Camera
@@ -132,7 +133,9 @@ func move_to(global_planar_pos:Vector3) -> void:
 	
 	# Just set all flags for safety
 	camera_changed.emit(~0)
-	
+	_update_ground_view_polygon()
+
+
 #endregion
 
 #region overrides
@@ -142,6 +145,9 @@ func _ready() -> void:
 	if make_current_if_visible and is_visible_in_tree():
 		make_camera_current()
 	
+	_update_ground_view_polygon.call_deferred()
+
+
 func _process(delta: float) -> void:
 	_change_flags = 0
 	
@@ -159,10 +165,12 @@ func _process(delta: float) -> void:
 	if _change_flags & (POSITION_UPDATED | ZOOM_UPDATED):
 		_update_rotation_pivot()
 
-	rotate_camera(delta)
+	_rotate_camera(delta)
 	
 	if _change_flags:
 		camera_changed.emit(_change_flags)
+		_update_ground_view_polygon()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_released("pause"):
@@ -252,7 +260,7 @@ func _apply_zoom_velocity() -> void:
 	_change_flags |= ZOOM_UPDATED
 
 
-func rotate_camera(delta:float) -> void:
+func _rotate_camera(delta:float) -> void:
 	var yaw_delta:float = 0.0
 	if Input.is_action_pressed("camera_rotate_right"):
 		yaw_delta -= camera_rotation_speed * delta
@@ -269,5 +277,36 @@ func rotate_camera(delta:float) -> void:
 
 	global_rotation.y += yaw_delta
 	_change_flags |= YAW_UPDATED
+
+
+func _update_ground_view_polygon() -> void:
+	var polygon := PackedVector3Array()
+	if camera == null or not is_instance_valid(camera):
+		return
+
+	var viewport := get_viewport()
+	if viewport == null:
+		return
+
+	var size := viewport.get_visible_rect().size
+	var corners := [
+		Vector2.ZERO,
+		Vector2(size.x, 0.0),
+		Vector2(size.x, size.y),
+		Vector2(0.0, size.y),
+	]
+	var ground_plane := Plane(Vector3.UP, Vector3.ZERO)
+
+	for corner in corners:
+		var from := camera.project_ray_origin(corner)
+		var direction := camera.project_ray_normal(corner)
+		var hit: Variant = ground_plane.intersects_ray(from, direction)
+		if hit == null:
+			return
+		polygon.push_back(hit)
+
+	if polygon.size() == 4:
+		ground_view_polygon_changed.emit(polygon)
+
 
 #endregion
