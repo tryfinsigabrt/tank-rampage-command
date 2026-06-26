@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pyx117eh3y4y"
-path="res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"
+uid="uid://7yr1lmeu65g8"
+path="res://.godot/imported/city-rooftop.png-8efe2b6d3fd858d3093201a5eac451a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/Scrap_48.png"
-dest_files=["res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"]
+source_file="res://buildings/city/city-rooftop.png"
+dest_files=["res://.godot/imported/city-rooftop.png-8efe2b6d3fd858d3093201a5eac451a2.ctex"]
 
 [params]
 

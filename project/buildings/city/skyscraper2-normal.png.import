@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pyx117eh3y4y"
-path="res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"
+uid="uid://dkkn7rbmdbkh3"
+path="res://.godot/imported/skyscraper2-normal.png-56b3ef739e3e9c1912a6d8c1d7f8ec0a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/hud/icons/Scrap_48.png"
-dest_files=["res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.ctex"]
+source_file="res://buildings/city/skyscraper2-normal.png"
+dest_files=["res://.godot/imported/skyscraper2-normal.png-56b3ef739e3e9c1912a6d8c1d7f8ec0a.ctex"]
 
 [params]
 
