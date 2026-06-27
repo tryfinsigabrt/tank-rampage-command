@@ -45,6 +45,8 @@ var _mouse_zoom:int = 0
 var _drag_panning:bool = false
 var _drag_pan_delta:Vector2 = Vector2.ZERO
 var _rotation_pivot:Vector3 = Vector3.ZERO
+var _world_boundaries:WorldBoundaries
+var _warned_missing_world_boundaries:bool = false
 
 var _change_flags:int
 
@@ -129,6 +131,7 @@ func move_to(global_planar_pos:Vector3) -> void:
 	)
 	
 	global_position = new_global_pos
+	_clamp_to_world_boundaries()
 	_update_rotation_pivot()
 	
 	# Just set all flags for safety
@@ -242,8 +245,35 @@ func _apply_movement_velocity(delta: float) -> void:
 		return
 
 	translate_object_local(_camera_movement_velocity * delta)
+	_clamp_to_world_boundaries()
 	
 	_change_flags |= POSITION_UPDATED
+
+
+func _get_world_boundaries() -> WorldBoundaries:
+	if _world_boundaries:
+		return _world_boundaries
+
+	_world_boundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
+	if not _world_boundaries and not _warned_missing_world_boundaries:
+		_warned_missing_world_boundaries = true
+		push_warning("%s: No WorldBoundaries node found in scene tree - camera movement will not be limited" % name)
+
+	return _world_boundaries
+
+
+func _clamp_to_world_boundaries() -> void:
+	var world_boundaries := _get_world_boundaries()
+	if not world_boundaries:
+		return
+
+	var bounds := world_boundaries.bounds
+	global_position = Vector3(
+		clampf(global_position.x, bounds.position.x, bounds.end.x),
+		global_position.y,
+		clampf(global_position.z, bounds.position.z, bounds.end.z)
+	)
+
 
 func _apply_zoom_velocity() -> void:
 	if is_zero_approx(_camera_current_zoom_speed):
