@@ -144,7 +144,10 @@ func _populate_build_row() -> void:
 		chip.resource = resource
 		chip.visible = resource != null
 		if resource != null and _current_manufacturing != null:
+			_apply_chip_resource_state(chip, resource)
 			chip.set_can_afford(_current_manufacturing.can_build(resource.type))
+		else:
+			chip.set_missing_costs(false, false)
 
 
 func _get_supported_resources() -> Array[ConstructionResource]:
@@ -237,8 +240,26 @@ func _hide_panel() -> void:
 	_current_building = null
 	_set_current_manufacturing(null)
 	for chip in _get_build_chips():
+		chip.set_missing_costs(false, false)
 		chip.resource = null
 		chip.visible = false
 	for slot in _get_queue_slots():
 		slot.clear()
 	visible = false
+
+
+func _apply_chip_resource_state(chip: BuildingChip, resource: ConstructionResource) -> void:
+	if _current_manufacturing == null or _current_manufacturing.get_parent() == null:
+		chip.set_missing_costs(false, false)
+		return
+
+	var match_team := Groups.get_parent_with_type(_current_manufacturing, MatchTeam) as MatchTeam
+	var team_resources := match_team.resources if match_team else null
+	if team_resources == null:
+		chip.set_missing_costs(false, false)
+		return
+
+	chip.set_missing_costs(
+		team_resources.scrap.count < resource.cost,
+		team_resources.personnel.remaining < resource.personnel
+	)

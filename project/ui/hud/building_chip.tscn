@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tkb3vp3t5ssx"]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_w0p3g"]
-[ext_resource type="Texture2D" uid="uid://pyx117eh3y4y" path="res://ui/hud/icons/Scrap_48.png" id="2_k47vp"]
+[ext_resource type="Texture2D" uid="uid://pyx117eh3y4y" path="res://ui/hud/icons/scrap_48.png" id="2_k47vp"]
 [ext_resource type="Texture2D" uid="uid://bj8bcf3nj4tkb" path="res://ui/hud/icons/personel_48.png" id="3_yi5w2"]
 [ext_resource type="Texture2D" uid="uid://dmfr52l4h2mp7" path="res://ui/hud/icons/inventory_48.png" id="4_8u5m6"]
 [ext_resource type="Script" uid="uid://bs4857vjbg4lk" path="res://ui/hud/building_chip.gd" id="4_h2n1j"]
@@ -164,6 +164,7 @@ mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="ScrapCostIcon" type="PanelContainer" parent="Padding/Content/CostRow/ScrapCost" unique_id=1063351846]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 mouse_filter = 2
@@ -191,6 +192,7 @@ mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="PersonnelCostIcon" type="PanelContainer" parent="Padding/Content/CostRow/PersonnelCostRow" unique_id=2117759278]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_filter = 2

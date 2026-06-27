@@ -109,6 +109,13 @@ func _on_chip_clicked(type: ConstructionResource.Type) -> void:
 func _update_construction_affordability() -> void:
 	var resources := _match_team.resources if _match_team else null
 	for chip in _get_construction_chips():
+		if chip.resource != null and resources != null:
+			chip.set_missing_costs(
+				resources.scrap.count < chip.resource.cost,
+				resources.personnel.remaining < chip.resource.personnel
+			)
+		else:
+			chip.set_missing_costs(false, false)
 		var can_afford := chip.resource != null and chip.resource.can_build(resources)
 		chip.set_can_afford(can_afford)
 

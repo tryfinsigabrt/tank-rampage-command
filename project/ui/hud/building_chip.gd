@@ -2,6 +2,10 @@ class_name BuildingChip extends PanelContainer
 
 signal clicked(type: ConstructionResource.Type)
 
+const SCRAP_COLOR := Color(1.0, 0.9098039, 0.5294118, 1.0)
+const PERSONNEL_COLOR := Color(0.5254902, 0.92941177, 0.98039216, 1.0)
+const MISSING_COST_COLOR := Color(1.0, 0.47058824, 0.47058824, 1.0)
+
 
 @export var resource: ConstructionResource:
 	set(value):
@@ -16,12 +20,16 @@ var _show_count_badge: bool = true
 var _show_scrap_cost: bool = true
 var _show_personnel_cost: bool = true
 var _show_inventory_count: bool = true
+var _missing_scrap: bool = false
+var _missing_personnel: bool = false
 
 @onready var icon: TextureRect = %BuildingIcon
 @onready var name_label: Label = %BuildingName
 @onready var scrap_cost: HBoxContainer = %ScrapCost
+@onready var scrap_cost_icon: PanelContainer = %ScrapCostIcon
 @onready var scrap_cost_value: Label = %ScrapCostValue
 @onready var personnel_cost: HBoxContainer = %PersonnelCostRow
+@onready var personnel_cost_icon: PanelContainer = %PersonnelCostIcon
 @onready var personnel_cost_value: Label = %PersonnelCostValue
 @onready var inventory_count: HBoxContainer = %InventoryCountRow
 @onready var inventory_count_value: Label = %InventoryCountValue
@@ -34,6 +42,8 @@ var _inventory_count: int = -1
 func _ready() -> void:
 	_apply_resource()
 	_set_affordability_overlay()
+	_update_cost_state()
+	_update_tooltip_text()
 	_update_border_style()
 
 
@@ -46,6 +56,7 @@ func _apply_resource() -> void:
 		scrap_cost_value.text = "0"
 		personnel_cost.visible = false
 		inventory_count.visible = false
+		set_missing_costs(false, false)
 		if count_badge:
 			count_badge.visible = false
 		_update_border_style()
@@ -60,6 +71,8 @@ func _apply_resource() -> void:
 	_update_count_badge()
 	_update_inventory_count()
 	_set_affordability_overlay()
+	_update_cost_state()
+	_update_tooltip_text()
 
 
 func set_show_count_badge(show_count_badge: bool) -> void:
@@ -132,6 +145,15 @@ func set_can_afford(can_afford: bool) -> void:
 	if is_node_ready():
 		_set_affordability_overlay()
 		_update_border_style()
+		_update_tooltip_text()
+
+
+func set_missing_costs(missing_scrap: bool, missing_personnel: bool) -> void:
+	_missing_scrap = missing_scrap
+	_missing_personnel = missing_personnel
+	if is_node_ready():
+		_update_cost_state()
+		_update_tooltip_text()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -160,6 +182,31 @@ func _set_affordability_overlay() -> void:
 
 	if unavailable_overlay:
 		unavailable_overlay.visible = resource != null and not _can_afford
+
+
+func _update_cost_state() -> void:
+	if scrap_cost_value:
+		scrap_cost_value.modulate = MISSING_COST_COLOR if _missing_scrap else SCRAP_COLOR
+	if scrap_cost_icon:
+		scrap_cost_icon.modulate = MISSING_COST_COLOR if _missing_scrap else Color.WHITE
+	if personnel_cost_value:
+		personnel_cost_value.modulate = MISSING_COST_COLOR if _missing_personnel else PERSONNEL_COLOR
+	if personnel_cost_icon:
+		personnel_cost_icon.modulate = MISSING_COST_COLOR if _missing_personnel else Color.WHITE
+
+
+func _update_tooltip_text() -> void:
+	if resource == null:
+		tooltip_text = ""
+		return
+
+	var reasons: Array[String] = []
+	if _missing_scrap:
+		reasons.push_back("Need Scrap")
+	if _missing_personnel:
+		reasons.push_back("Need Personnel")
+
+	tooltip_text = ", ".join(reasons) if not reasons.is_empty() else ""
 
 
 func _update_border_style() -> void:
