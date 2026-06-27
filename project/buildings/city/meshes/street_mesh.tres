@@ -1,0 +1,43 @@
+[gd_resource type="ArrayMesh" format=4 uid="uid://hfxcue8b1oq7"]
+
+[ext_resource type="Texture2D" uid="uid://cmphdo7pcyw11" path="res://buildings/city/city-test_4.png" id="1_renfk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te4ky"]
+resource_name = "city-street.002"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_renfk")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n4cda"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"name": "city-street.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "Plane_024"
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPwAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"material": SubResource("StandardMaterial3D_te4ky"),
+"name": "city-street.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_n4cda")

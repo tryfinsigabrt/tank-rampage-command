@@ -1,0 +1,317 @@
+[gd_scene format=3 uid="uid://duqqdcj3ppr2a"]
+
+[ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_4nbo2"]
+[ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_8r3qo"]
+[ext_resource type="NavigationMesh" uid="uid://cl62jsei5gceh" path="res://levels/level_2/navigation_mesh.tres" id="3_0butd"]
+[ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_1vf62"]
+[ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_8y2in"]
+[ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_5ts7o"]
+[ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="5_ubkp0"]
+[ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_yiikh"]
+[ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_dj0pt"]
+[ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="7_1vf62"]
+[ext_resource type="PackedScene" uid="uid://ireagkacr4lv" path="res://buildings/city/city.tscn" id="7_yiikh"]
+[ext_resource type="ArrayMesh" uid="uid://hfxcue8b1oq7" path="res://buildings/city/meshes/street_mesh.tres" id="8_6fwx2"]
+[ext_resource type="Script" uid="uid://wjqvneg6aev5" path="res://resources/scrap.gd" id="8_yiikh"]
+[ext_resource type="Script" uid="uid://j0wvywuecgch" path="res://resources/team_resources.gd" id="9_fq0us"]
+[ext_resource type="Resource" uid="uid://ch6qcxh47bv1p" path="res://conf/teams/player_team.tres" id="10_kgdtm"]
+[ext_resource type="PackedScene" uid="uid://dxeffwyx41uhx" path="res://player/player.tscn" id="11_12l1j"]
+[ext_resource type="Resource" uid="uid://bf1ocuue3ngsj" path="res://conf/match/default_match_resources.tres" id="12_uuidd"]
+[ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="13_ppf8r"]
+[ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_s4b5i"]
+[ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="15_fq0us"]
+[ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_qfhyh"]
+[ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="16_6fwx2"]
+[ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="16_12l1j"]
+[ext_resource type="Resource" uid="uid://cbi5db4cuvjbe" path="res://units/ai/ai_marine_team_red.tres" id="17_qfhyh"]
+[ext_resource type="PackedScene" uid="uid://dwsj1us3rnher" path="res://units/human/artillery/human_artillery_unit.tscn" id="17_uuidd"]
+[ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="18_uuidd"]
+[ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="22_s4b5i"]
+[ext_resource type="PackedScene" uid="uid://bklp362b1wxax" path="res://units/ai/artillery/ai_artillery_unit.tscn" id="23_qfhyh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_un0ug"]
+
+[sub_resource type="Sky" id="Sky_l5wcu"]
+sky_material = SubResource("ProceduralSkyMaterial_un0ug")
+
+[sub_resource type="Environment" id="Environment_25w0s"]
+background_mode = 2
+sky = SubResource("Sky_l5wcu")
+ambient_light_source = 3
+tonemap_mode = 2
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lnqnw"]
+exposure_multiplier = 0.7
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ptf1"]
+size = Vector3(900, 1000, 900)
+
+[sub_resource type="MultiMesh" id="MultiMesh_6fwx2"]
+transform_format = 1
+instance_count = 128
+mesh = ExtResource("8_6fwx2")
+buffer = PackedFloat32Array(-100.001, 0, 0, -2.4732342, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.9313972, -100.001, 0, 0, -8.791281, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.33752993, 0, 100.001, 4.3711825e-06, -5.5001884, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.24394725, 0, 100.001, 4.3711825e-06, -6.0325794, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.34831685, -100.001, 0, 0, -4.187955, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.97145563, 0, 100.001, 4.3711825e-06, -0.13159582, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.4681605, 0, 100.001, 4.3711825e-06, 0.2657193, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.6502675, 0, 100.001, 4.3711825e-06, 0.7988587, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.9595763, 0, 100.001, 4.3711825e-06, -2.1260288, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.4262089, -100.001, 0, 0, -5.891419, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.8086638, -100.001, 0, 0, -3.9989488, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.71973133, 0, 100.001, 4.3711825e-06, -6.9950285, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.31099528, 0, 100.001, 4.3711825e-06, -0.98302376, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.37634337, 0, 100.001, 4.3711825e-06, 0.6919125, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.14578627, 0, 100.001, 4.3711825e-06, -3.268844, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.27688545, -100.001, 0, 0, -4.4907503, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.81452036, -100.001, 0, 0, -5.2600036, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.4964661, 0, 100.001, 4.3711825e-06, -0.8136274, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.68880415, 0, 100.001, 4.3711825e-06, 0.6014217, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.69992095, 0, 100.001, 4.3711825e-06, 0.39365762, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2481175, 0, 100.001, 4.3711825e-06, 0.24504426, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.3884793, 0, 100.001, 4.3711825e-06, -6.8086834, 0, -4.3711825e-06, 100.001, 4.6566126e-10, 100.001, 0, 0, -0.2893657, -100.001, 0, 0, -9.157668, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.7381796, -100.001, 0, 0, -8.665741, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.47034204, 0, 100.001, 4.3711825e-06, -1.3649788, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.7004907, 0, 100.001, 4.3711825e-06, -6.4347277, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.35763782, 0, 100.001, 4.3711825e-06, 0.40735602, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.45865616, 0, 100.001, 4.3711825e-06, -3.985755, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2939471, -100.001, 0, 0, -4.9785833, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.706517, 0, 100.001, 4.3711825e-06, -6.4278784, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.1574491, 0, 100.001, 4.3711825e-06, -1.3768458, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.3592608, 0, 100.001, 4.3711825e-06, -1.0213435, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.7830138, -100.001, 0, 0, -7.697375, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.8266913, 0, 100.001, 4.3711825e-06, -3.7892416, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2556095, 0, 100.001, 4.3711825e-06, -3.7257707, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.53505546, 0, 100.001, 4.3711825e-06, 0.105002254, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.518444, -100.001, 0, 0, -7.9526243, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.63115746, 0, 100.001, 4.3711825e-06, -0.57848644, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.3173156, 0, 100.001, 4.3711825e-06, -0.50194883, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.48011208, 0, 100.001, 4.3711825e-06, 0.78737384, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.15671808, -100.001, 0, 0, -4.1942673, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.71260804, -100.001, 0, 0, -4.9521627, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.69244623, -100.001, 0, 0, -7.220371, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.662025, -100.001, 0, 0, -3.4449353, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.66880924, -100.001, 0, 0, -9.226324, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.960374, -100.001, 0, 0, -7.8507853, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.8153112, -100.001, 0, 0, -3.4724712, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.9664805, 0, 100.001, 4.3711825e-06, -1.2607671, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.24877004, 0, 100.001, 4.3711825e-06, -1.8683933, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.51495016, 0, 100.001, 4.3711825e-06, -5.802901, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.36542487, -100.001, 0, 0, -5.677079, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.67989457, -100.001, 0, 0, -3.9985409, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.6776883, 0, 100.001, 4.3711825e-06, 0.12560421, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.43328688, -100.001, 0, 0, -2.4733644, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.84296554, -100.001, 0, 0, -1.0921429, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.83961403, -100.001, 0, 0, -4.30209, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.781839, 0, 100.001, 4.3711825e-06, -5.8498917, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.17528449, -100.001, 0, 0, -8.169115, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.6225272, 0, 100.001, 4.3711825e-06, -1.7958059, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.1340465, 0, 100.001, 4.3711825e-06, -3.7334602, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.3567183, -100.001, 0, 0, -6.171338, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.6491878, -100.001, 0, 0, -5.9668236, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.5249653, 0, 100.001, 4.3711825e-06, 0.85934013, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.4000007, 0, 100.001, 4.3711825e-06, -4.1030035, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.26089165, -100.001, 0, 0, -6.7452316, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.69697434, 0, 100.001, 4.3711825e-06, -2.775467, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.56483316, 0, 100.001, 4.3711825e-06, 0.37151882, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.27818456, 0, 100.001, 4.3711825e-06, -1.7946843, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.5009286, -100.001, 0, 0, -8.855457, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.5124449, 0, 100.001, 4.3711825e-06, 0.93396664, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2767536, -100.001, 0, 0, -4.358828, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.78761494, -100.001, 0, 0, -6.425124, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.8577659, 0, 100.001, 4.3711825e-06, -4.3074684, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.20175664, -100.001, 0, 0, -8.218626, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.34630793, 0, 100.001, 4.3711825e-06, -0.4924758, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.72160673, -100.001, 0, 0, -3.033646, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.72939354, -100.001, 0, 0, -6.7305126, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.90113693, -100.001, 0, 0, -6.521448, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.38270116, -100.001, 0, 0, -7.9764547, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.45093033, 0, 100.001, 4.3711825e-06, -2.339126, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.5890961, -100.001, 0, 0, -6.559223, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.83880305, 0, 100.001, 4.3711825e-06, -3.6004796, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.5199776, -100.001, 0, 0, -3.870042, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.9615747, -100.001, 0, 0, -9.022817, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.37213206, -100.001, 0, 0, -5.6599445, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.4896821, 0, 100.001, 4.3711825e-06, -1.8104398, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.45251244, -100.001, 0, 0, -6.1319194, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.65330416, 0, 100.001, 4.3711825e-06, -1.2712171, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2816317, 0, 100.001, 4.3711825e-06, -5.4577575, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.27805847, 0, 100.001, 4.3711825e-06, -1.139457, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.22939137, 0, 100.001, 4.3711825e-06, 0.23011917, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.8043674, 0, 100.001, 4.3711825e-06, -1.9765948, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.6763499, -100.001, 0, 0, -8.031387, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.46183446, -100.001, 0, 0, -4.9938216, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.7256063, -100.001, 0, 0, -9.196208, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.708107, -100.001, 0, 0, -8.187447, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.72558784, -100.001, 0, 0, -7.9851284, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.4946673, -100.001, 0, 0, -1.765756, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.7798324, -100.001, 0, 0, -7.959265, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.42762923, -100.001, 0, 0, -8.285589, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.47858343, 0, 100.001, 4.3711825e-06, -0.39354265, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.7867252, 0, 100.001, 4.3711825e-06, 0.92168415, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.2279668, 0, 100.001, 4.3711825e-06, 0.8814405, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.6844123, -100.001, 0, 0, -5.7574825, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.5748942, 0, 100.001, 4.3711825e-06, -0.9107703, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.5516476, 0, 100.001, 4.3711825e-06, -1.9288266, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.51445144, 0, 100.001, 4.3711825e-06, -1.9110389, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.6679411, -100.001, 0, 0, -7.86157, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.2963172, 0, 100.001, 4.3711825e-06, -1.3703933, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.21137646, 0, 100.001, 4.3711825e-06, 0.43537337, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.8167646, -100.001, 0, 0, -7.637368, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.73099947, 0, 100.001, 4.3711825e-06, -0.5259601, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.592171, 0, 100.001, 4.3711825e-06, -4.7086973, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.1375835, -100.001, 0, 0, -6.0554047, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.6794697, 0, 100.001, 4.3711825e-06, 0.8790442, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.6157482, 0, 100.001, 4.3711825e-06, -0.14698803, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.59591705, -100.001, 0, 0, -7.835411, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.44191724, 0, 100.001, 4.3711825e-06, 0.90241206, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.37899083, 0, 100.001, 4.3711825e-06, -1.1197397, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.755067, -100.001, 0, 0, -4.06162, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.9422417, -100.001, 0, 0, -5.221671, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.5201948, -100.001, 0, 0, -6.2152905, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.5532253, 0, 100.001, 4.3711825e-06, -0.34838963, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.24036941, -100.001, 0, 0, -4.5321865, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.72231126, 0, 100.001, 4.3711825e-06, -5.498196, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.3821939, 0, 100.001, 4.3711825e-06, -2.4721782, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.26942715, -100.001, 0, 0, -7.576406, 0, -4.3711825e-06, 100.001, 4.656613e-10, 0, 100.001, 4.3711825e-06, -0.4742717, 0, 100.001, 4.3711825e-06, -5.168475, 0, -4.3711825e-06, 100.001, 4.656613e-10, 100.001, 0, 0, -0.30471504)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ulcqf"]
+size = Vector2(10.31, 0.86)
+
+[sub_resource type="Resource" id="Resource_f313t"]
+script = ExtResource("7_1vf62")
+metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
+
+[sub_resource type="Resource" id="Resource_0rvqm"]
+script = ExtResource("8_yiikh")
+count = 2000
+metadata/_custom_type_script = "uid://wjqvneg6aev5"
+
+[sub_resource type="Resource" id="Resource_ulcqf"]
+script = ExtResource("9_fq0us")
+scrap = SubResource("Resource_0rvqm")
+personnel = SubResource("Resource_f313t")
+metadata/_custom_type_script = "uid://j0wvywuecgch"
+
+[node name="Level2" type="Node3D" unique_id=1679824873]
+
+[node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=1066912548]
+layer = 10
+
+[node name="PauseMenu" parent="PauseMenuLayer" unique_id=315174667 instance=ExtResource("1_4nbo2")]
+metadata/_edit_use_anchors_ = true
+
+[node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_8r3qo")]
+visible = false
+explored_area_modulation = 0.5
+
+[node name="Environment" type="Node3D" parent="." unique_id=792859291]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=546831564]
+environment = SubResource("Environment_25w0s")
+camera_attributes = SubResource("CameraAttributesPractical_lnqnw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1316863953]
+transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.5
+directional_shadow_max_distance = 2000.0
+
+[node name="World" type="Node3D" parent="." unique_id=552073371]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=2119038299]
+transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0.99998426, 0.005322719, -0.006012329, -0.005311953, 0.9999678, -131.72644, -93.84094, -76.28359)
+navigation_mesh = ExtResource("3_0butd")
+
+[node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=585117782]
+data_directory = "res://levels/level_2/data"
+material = ExtResource("4_1vf62")
+assets = ExtResource("5_yiikh")
+save_16_bit = true
+collision_mode = 3
+collision_layer = 2
+collision_mask = 15
+displacement_sharpness = 0.5
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("4_8y2in")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -38)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/NavigationRegion3D/WorldBoundaries" unique_id=109286289]
+transform = Transform3D(0.99999917, -1.5788828e-09, 0, -8.367351e-11, 1, 0, 2.7939677e-09, 0, 1, 99.63126, -0.8068466, 118.34571)
+shape = SubResource("BoxShape3D_5ptf1")
+debug_color = Color(0.058333278, 0.7, 0, 0.7254902)
+
+[node name="City" parent="World/NavigationRegion3D" unique_id=2029838145 instance=ExtResource("7_yiikh")]
+transform = Transform3D(29.999413, 0.053272005, -0.18036991, -0.054230332, 29.999533, -0.15935862, 0.18008408, 0.15968162, 29.999035, 148.57033, 93.43939, 67.87613)
+
+[node name="city-street-faded-out" parent="World/NavigationRegion3D/City" index="22" unique_id=165731032]
+visible = false
+
+[node name="city-street-faded-out2" parent="World/NavigationRegion3D/City" index="23" unique_id=1226444903]
+visible = false
+
+[node name="city-street-faded-out3" parent="World/NavigationRegion3D/City" index="24" unique_id=1042325691]
+visible = false
+
+[node name="city-street-faded-out_001" parent="World/NavigationRegion3D/City" index="25" unique_id=1167218602]
+visible = false
+
+[node name="city-street-faded-out_008" parent="World/NavigationRegion3D/City" index="26" unique_id=1827976336]
+visible = false
+
+[node name="city-street-faded-out_009" parent="World/NavigationRegion3D/City" index="27" unique_id=1823210467]
+visible = false
+
+[node name="city-street-faded-out_002" parent="World/NavigationRegion3D/City" index="28" unique_id=176096946]
+visible = false
+
+[node name="city-street-faded-out_004" parent="World/NavigationRegion3D/City" index="29" unique_id=141436325]
+visible = false
+
+[node name="city-street-faded-out_005" parent="World/NavigationRegion3D/City" index="30" unique_id=811476832]
+visible = false
+
+[node name="city-street-faded-out_003" parent="World/NavigationRegion3D/City" index="31" unique_id=1496210220]
+visible = false
+
+[node name="city-street-faded-out_006" parent="World/NavigationRegion3D/City" index="32" unique_id=453597649]
+visible = false
+
+[node name="city-street-faded-out_007" parent="World/NavigationRegion3D/City" index="33" unique_id=2130140212]
+visible = false
+
+[node name="Expansion" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1086163164]
+
+[node name="InstancedStreet" type="Node3D" parent="World/NavigationRegion3D/City/Expansion" unique_id=544479134]
+transform = Transform3D(1, 1.0362083e-17, 0, -1.4371221e-17, 1, 0, 2.220446e-16, 8.881784e-16, 1, -6.979998, 3.7252903e-09, -3.9933343)
+visible = false
+
+[node name="StreetInstances" type="MultiMeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/InstancedStreet" unique_id=425828115]
+multimesh = SubResource("MultiMesh_6fwx2")
+
+[node name="StreetTarget" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/InstancedStreet" unique_id=1614629050]
+transform = Transform3D(1, 1.0362085e-17, 0, -4.9343257e-19, 1, 0, 0, 4.440892e-16, 1, -4.183334, 4.656613e-10, -0.5466666)
+mesh = SubResource("PlaneMesh_ulcqf")
+skeleton = NodePath("../..")
+
+[node name="StreetSource" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/InstancedStreet" unique_id=912008594]
+mesh = ExtResource("8_6fwx2")
+
+[node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_5ts7o")]
+
+[node name="PlayerTeam" parent="World/Match" unique_id=1256450270 instance=ExtResource("6_dj0pt")]
+team = 1
+resources = SubResource("Resource_ulcqf")
+config = ExtResource("10_kgdtm")
+
+[node name="Player" parent="World/Match/PlayerTeam" unique_id=686890281 node_paths=PackedStringArray("player_team") instance=ExtResource("11_12l1j")]
+player_team = NodePath("..")
+
+[node name="Tank01" parent="World/Match/PlayerTeam/Player" unique_id=260396010 instance=ExtResource("15_fq0us")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -121.4, 0.024796486, -4.1682935)
+team = 2
+
+[node name="Tank02" parent="World/Match/PlayerTeam/Player" unique_id=1711647269 instance=ExtResource("15_fq0us")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -121.4, 0.024796486, 1.4317065)
+team = 2
+
+[node name="Tank03" parent="World/Match/PlayerTeam/Player" unique_id=461186376 instance=ExtResource("15_fq0us")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -110.6, 0.024796486, 1.4317065)
+team = 2
+
+[node name="Tank04" parent="World/Match/PlayerTeam/Player" unique_id=1286969788 instance=ExtResource("15_fq0us")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -110.200005, 0.024796486, -3.9682932)
+team = 2
+
+[node name="Marine01" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 9)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Marine02" parent="World/Match/PlayerTeam/Player" unique_id=156401644 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 10.8)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Marine03" parent="World/Match/PlayerTeam/Player" unique_id=214915148 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 12.3)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Marine04" parent="World/Match/PlayerTeam/Player" unique_id=902767372 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 14.1)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Marine05" parent="World/Match/PlayerTeam/Player" unique_id=1116646042 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 15.8)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Marine06" parent="World/Match/PlayerTeam/Player" unique_id=443978637 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -123.4, 0.6999998, 6.7)
+team = 2
+attributes = ExtResource("17_qfhyh")
+
+[node name="Artillery01" parent="World/Match/PlayerTeam/Player" unique_id=1517178385 instance=ExtResource("17_uuidd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -136.9, 0, 0)
+team = 2
+
+[node name="MarineTransport" parent="World/Match/PlayerTeam/Player" unique_id=1274361562 instance=ExtResource("18_uuidd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -109.700005, -0.10000411, 13.5)
+team = 2
+
+[node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=2810466]
+
+[node name="EnemyTeam" parent="World/Match/EnemyTeams" unique_id=1717253208 instance=ExtResource("6_dj0pt")]
+team = 2
+resources = ExtResource("12_uuidd")
+config = ExtResource("13_ppf8r")
+
+[node name="EnemyTeamDirector" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=20484500 instance=ExtResource("14_s4b5i")]
+team = 2
+
+[node name="EnemyTank" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=224836923 instance=ExtResource("22_s4b5i")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 1.6)
+team = 2
+
+[node name="EnemyTank2" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1543112196 instance=ExtResource("22_s4b5i")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 13.700001)
+team = 2
+
+[node name="EnemyTank3" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=959106379 instance=ExtResource("22_s4b5i")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -5.4999995)
+team = 2
+
+[node name="EnemyTank4" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1394710581 instance=ExtResource("22_s4b5i")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 7.700001)
+team = 2
+
+[node name="EnemyArtillery01" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1196555805 instance=ExtResource("23_qfhyh")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 18.3, 0, 5.6)
+team = 2
+
+[node name="EnemyMarine01" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1481533335 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.6, 0, -1.7)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="EnemyMarine02" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=405303750 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 15.400001, 0, -1.7)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="EnemyMarine03" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=502378210 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 10, 0, -1.7)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="EnemyMarine04" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=723504559 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.6, 0, -5.6000004)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="EnemyMarine05" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=788162359 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 12.6, 0, 1.5999999)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="EnemyMarine06" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=937999439 instance=ExtResource("16_12l1j")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 15.6, 0, 2)
+team = 2
+team_resource = ExtResource("17_qfhyh")
+
+[node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=706120660]
+
+[node name="Resources" type="Node3D" parent="World/Match" unique_id=240055576]
+
+[node name="LoopingMatch" parent="World/Match" unique_id=1151452462 instance=ExtResource("15_qfhyh")]
+
+[node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
+
+[node name="LevelAudio" type="Node3D" parent="World/Match" unique_id=930035455 groups=["LevelAudio"]]
+
+[node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("5_ubkp0")]
+
+[editable path="World/NavigationRegion3D/City"]

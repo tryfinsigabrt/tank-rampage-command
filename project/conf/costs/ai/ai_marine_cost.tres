@@ -1,16 +1,10 @@
 [gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://dp0r4g2njcjq7"]
 
+[ext_resource type="Resource" uid="uid://cbi5db4cuvjbe" path="res://units/ai/ai_marine_team_red.tres" id="1_afcf0"]
 [ext_resource type="Resource" uid="uid://cot016647asn5" path="res://units/human/marine/marine_attributes.tres" id="1_em5rp"]
 [ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="2_udq5n"]
 [ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="3_qx73v"]
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="4_yfkvu"]
-[ext_resource type="Material" uid="uid://cppbqfnncmwad" path="res://units/human/marine/material/marine_red.tres" id="5_afcf0"]
-[ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="6_rv3on"]
-
-[sub_resource type="Resource" id="Resource_0mryy"]
-script = ExtResource("6_rv3on")
-material = ExtResource("5_afcf0")
-metadata/_custom_type_script = "uid://4o2wv5gggw58"
 
 [resource]
 script = ExtResource("3_qx73v")
@@ -22,5 +16,5 @@ scrap_fraction = 0.6
 personnel = 1
 time = 5.0
 attributes = ExtResource("1_em5rp")
-visual_overrides = SubResource("Resource_0mryy")
+visual_overrides = ExtResource("1_afcf0")
 metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

@@ -1,0 +1,48 @@
+[gd_scene format=4 uid="uid://bbv3o4cbjg85q"]
+
+[ext_resource type="Texture2D" uid="uid://bmwyu18fgqrq7" path="res://buildings/city/city-test_2.png" id="1_sg0v2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bojik"]
+resource_name = "city-block"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_sg0v2")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8e0rp"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"name": "city-block",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3tdrt"]
+resource_name = "Plane_022"
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"attribute_data": PackedByteArray("AAAAPwAAAD8AAAA/AABgwAAAkEAAAAA/AACQQAAAYMA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"material": SubResource("StandardMaterial3D_bojik"),
+"name": "city-block",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_8e0rp")
+
+[node name="city-block" type="MeshInstance3D" unique_id=1050305959]
+transform = Transform3D(400, 0, 0, 0, -4.7683716e-05, 399.99997, 0, -399.99997, -4.7683716e-05, 0, 0, 0)
+mesh = SubResource("ArrayMesh_3tdrt")
+skeleton = NodePath("")

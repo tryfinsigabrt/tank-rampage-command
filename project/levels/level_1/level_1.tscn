@@ -24,17 +24,18 @@
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="17_e6dmr"]
 [ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="17_vk63l"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="18_drths"]
+[ext_resource type="Resource" uid="uid://cbi5db4cuvjbe" path="res://units/ai/ai_marine_team_red.tres" id="18_plqb7"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="24_mgcax"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="25_plqb7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
-[sub_resource type="Sky" id="Sky_l5wcu"]
+[sub_resource type="Sky" id="Sky_e6dmr"]
 sky_material = SubResource("ProceduralSkyMaterial_2j4y6")
 
 [sub_resource type="Environment" id="Environment_vi6ws"]
 background_mode = 2
-sky = SubResource("Sky_l5wcu")
+sky = SubResource("Sky_e6dmr")
 ambient_light_source = 3
 tonemap_mode = 2
 
@@ -44,19 +45,19 @@ exposure_multiplier = 0.7
 [sub_resource type="BoxShape3D" id="BoxShape3D_la5aw"]
 size = Vector3(900, 1000, 900)
 
-[sub_resource type="Resource" id="Resource_f313t"]
+[sub_resource type="Resource" id="Resource_hmxt8"]
 script = ExtResource("8_1iwl3")
 metadata/_custom_type_script = "uid://d1hpnehtmcoq7"
 
-[sub_resource type="Resource" id="Resource_0rvqm"]
+[sub_resource type="Resource" id="Resource_xiq7r"]
 script = ExtResource("9_xywve")
 count = 2000
 metadata/_custom_type_script = "uid://wjqvneg6aev5"
 
 [sub_resource type="Resource" id="Resource_mgcax"]
 script = ExtResource("10_vk63l")
-scrap = SubResource("Resource_0rvqm")
-personnel = SubResource("Resource_f313t")
+scrap = SubResource("Resource_xiq7r")
+personnel = SubResource("Resource_hmxt8")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
 [sub_resource type="Resource" id="Resource_plqb7"]
@@ -157,26 +158,31 @@ team = 1
 [node name="Marine01" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("16_xywve")]
 transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -58.003357, 1.1306114, -37.583374)
 team = 1
+attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine02" parent="World/Match/PlayerTeam/Player" unique_id=166778139 instance=ExtResource("16_xywve")]
 transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -55.815002, 0.8306112, -30.681824)
 team = 1
+attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine03" parent="World/Match/PlayerTeam/Player" unique_id=1284351538 instance=ExtResource("16_xywve")]
 transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -53.512085, 1.530611, -33.4812)
 team = 1
+attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine04" parent="World/Match/PlayerTeam/Player" unique_id=1530606227 instance=ExtResource("16_xywve")]
 transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.500793, 1.1306114, -35.085846)
 team = 1
+attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine05" parent="World/Match/PlayerTeam/Player" unique_id=1735315936 instance=ExtResource("16_xywve")]
 transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.478638, 1.1306114, -32.077576)
 team = 1
+attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=145325473]

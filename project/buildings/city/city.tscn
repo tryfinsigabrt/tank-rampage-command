@@ -1174,19 +1174,13 @@ size = Vector3(0.01, 0.01, 0.010009999)
 
 [node name="City" unique_id=2029838145 instance=ExtResource("1_icurv")]
 
-[node name="building" parent="." index="0" unique_id=521388120]
-surface_material_override/0 = ExtResource("2_5iaqv")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="building" index="0" unique_id=719064656]
+[node name="StaticBody3D" type="StaticBody3D" parent="building" parent_id_path=PackedInt32Array(109959686) index="0" unique_id=719064656]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building/StaticBody3D" index="0" unique_id=1340563334]
 shape = SubResource("BoxShape3D_6oyut")
 
-[node name="building_001" parent="." index="1" unique_id=1368992261]
-surface_material_override/0 = ExtResource("3_dtfag")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="building_001" index="0" unique_id=1658782905]
+[node name="StaticBody3D" type="StaticBody3D" parent="building_001" parent_id_path=PackedInt32Array(1951515658) index="0" unique_id=1658782905]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_001/StaticBody3D" index="0" unique_id=1572091405]
@@ -1228,10 +1222,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_007/StaticBody3D" index="0" unique_id=172036433]
 shape = SubResource("BoxShape3D_5fpg3")
 
-[node name="building_002" parent="." index="5" unique_id=470871388]
-surface_material_override/0 = ExtResource("6_vt7vm")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="building_002" index="0" unique_id=1602905840]
+[node name="StaticBody3D" type="StaticBody3D" parent="building_002" parent_id_path=PackedInt32Array(1255151572) index="0" unique_id=1602905840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_002/StaticBody3D" index="0" unique_id=527605624]
@@ -1317,7 +1308,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
 
-[node name="city-street-faded-out" parent="." index="22" unique_id=1439658352]
+[node name="city-street-faded-out" parent="." index="22" unique_id=165731032]
 transform = Transform3D(0, 100, 2.9802322e-06, 2.9802322e-06, 0, 100, 100, 2.9802322e-06, 0, -1, 0, 6)
 
 [node name="city-street-faded-out2" type="MeshInstance3D" parent="." index="23" unique_id=1226444903]
@@ -1330,7 +1321,7 @@ transform = Transform3D(0, 100, 2.9802322e-06, 2.9802322e-06, 0, 100, 100, 2.980
 mesh = SubResource("ArrayMesh_bdpoj")
 skeleton = NodePath("")
 
-[node name="city-street-faded-out_001" parent="." index="25" unique_id=877960509]
+[node name="city-street-faded-out_001" parent="." index="25" unique_id=1167218602]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 9, 0, 1)
 
 [node name="city-street-faded-out_008" type="MeshInstance3D" parent="." index="26" unique_id=1827976336]
@@ -1343,7 +1334,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_kfsg5")
 skeleton = NodePath("")
 
-[node name="city-street-faded-out_002" parent="." index="28" unique_id=1971436808]
+[node name="city-street-faded-out_002" parent="." index="28" unique_id=176096946]
 transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -6, 0, 0)
 
 [node name="city-street-faded-out_004" type="MeshInstance3D" parent="." index="29" unique_id=141436325]
@@ -1356,7 +1347,7 @@ transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 10
 mesh = SubResource("ArrayMesh_wh78p")
 skeleton = NodePath("")
 
-[node name="city-street-faded-out_003" parent="." index="31" unique_id=728420317]
+[node name="city-street-faded-out_003" parent="." index="31" unique_id=1496210220]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -9)
 
 [node name="city-street-faded-out_006" type="MeshInstance3D" parent="." index="32" unique_id=453597649]
@@ -1599,10 +1590,7 @@ transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
 
-[node name="office" parent="." index="93" unique_id=1464335806]
-surface_material_override/0 = ExtResource("6_vt7vm")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="office" index="0" unique_id=1984807975]
+[node name="StaticBody3D" type="StaticBody3D" parent="office" parent_id_path=PackedInt32Array(720151664) index="0" unique_id=1984807975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office/StaticBody3D" index="0" unique_id=1349550181]
@@ -1612,7 +1600,6 @@ shape = SubResource("BoxShape3D_rlw7m")
 transform = Transform3D(50, 0, 0, 0, -1.1920929e-05, 149.99998, 0, -99.99999, -1.7881393e-05, -1.5, 0, 4.2982483)
 mesh = SubResource("ArrayMesh_n6wr3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office2" index="0" unique_id=151755086]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1624,7 +1611,6 @@ shape = SubResource("BoxShape3D_7f64r")
 transform = Transform3D(50, 0, 0, 0, -1.1920929e-05, 149.99998, 0, -99.99999, -1.7881393e-05, 1.5, 0, 5)
 mesh = SubResource("ArrayMesh_n6wr3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office3" index="0" unique_id=1790295819]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1636,7 +1622,6 @@ shape = SubResource("BoxShape3D_r8knt")
 transform = Transform3D(50, 0, 0, 0, -1.1920929e-05, 149.99998, 0, -99.99999, -1.7881393e-05, 0.5, 0, 2)
 mesh = SubResource("ArrayMesh_n6wr3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office4" index="0" unique_id=632437899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1648,7 +1633,6 @@ shape = SubResource("BoxShape3D_enex3")
 transform = Transform3D(50, 0, 0, 0, -1.1920929e-05, 149.99998, 0, -99.99999, -1.7881393e-05, -3.8886344, 0, 2)
 mesh = SubResource("ArrayMesh_n6wr3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office5" index="0" unique_id=473487395]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1660,7 +1644,6 @@ shape = SubResource("BoxShape3D_os3gx")
 transform = Transform3D(50, 0, 0, 0, -1.1920929e-05, 149.99998, 0, -99.99999, -1.7881393e-05, -4.5, 0, 2)
 mesh = SubResource("ArrayMesh_n6wr3")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office6" index="0" unique_id=1601145990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1668,10 +1651,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office6/StaticBody3D" index="0" unique_id=1557078528]
 shape = SubResource("BoxShape3D_lh45j")
 
-[node name="office_001" parent="." index="99" unique_id=1597639008]
-surface_material_override/0 = ExtResource("2_5iaqv")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="office_001" index="0" unique_id=2116502248]
+[node name="StaticBody3D" type="StaticBody3D" parent="office_001" parent_id_path=PackedInt32Array(1763698605) index="0" unique_id=2116502248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_001/StaticBody3D" index="0" unique_id=1161871906]
@@ -1725,10 +1705,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_007/StaticBody3D" index="0" unique_id=398730907]
 shape = SubResource("BoxShape3D_ahslk")
 
-[node name="office_002" parent="." index="104" unique_id=305838793]
-surface_material_override/0 = ExtResource("6_vt7vm")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="office_002" index="0" unique_id=1541105762]
+[node name="StaticBody3D" type="StaticBody3D" parent="office_002" parent_id_path=PackedInt32Array(811220700) index="0" unique_id=1541105762]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_002/StaticBody3D" index="0" unique_id=1377025384]
@@ -1738,7 +1715,6 @@ shape = SubResource("BoxShape3D_lk2pt")
 transform = Transform3D(50, 0, 0, 0, -5.9604645e-06, 74.99999, 0, -49.999996, -8.940697e-06, 1.9981775, 0, 1.7214754)
 mesh = SubResource("ArrayMesh_2ymwn")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office_008" index="0" unique_id=2049481890]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1750,7 +1726,6 @@ shape = SubResource("BoxShape3D_cs5wv")
 transform = Transform3D(50, 0, 0, 0, -5.9604645e-06, 74.99999, 0, -49.999996, -8.940697e-06, 1.9981775, 0, 2.7214754)
 mesh = SubResource("ArrayMesh_2ymwn")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource("6_vt7vm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="office_009" index="0" unique_id=563789751]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1758,10 +1733,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_009/StaticBody3D" index="0" unique_id=265799830]
 shape = SubResource("BoxShape3D_li2i3")
 
-[node name="office_003" parent="." index="107" unique_id=865045875]
-surface_material_override/0 = ExtResource("3_dtfag")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="office_003" index="0" unique_id=427742391]
+[node name="StaticBody3D" type="StaticBody3D" parent="office_003" parent_id_path=PackedInt32Array(1959209154) index="0" unique_id=427742391]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_003/StaticBody3D" index="0" unique_id=1288269869]
