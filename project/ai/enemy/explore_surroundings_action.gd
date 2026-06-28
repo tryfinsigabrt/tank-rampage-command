@@ -180,18 +180,12 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 	for i in candidate_regions.size():
 		region_scores[i] = RegionScore.new(candidate_regions[i])
 	
-	# Offset all the region coords so they are relative coordinates
-	var min_coord:Vector2i = candidate_coords.front()
-	var max_coord:Vector2i = candidate_coords.back()
-	
-	# Now the dimensions will be the last element
-	var coord_dim:Vector2i = max_coord - min_coord
-	
 	var current_pos_2d:Vector2 = MathUtils.grid_vector(current_pos)
 	var max_dist_sq:float = move_radius * move_radius
 	
 	var all_regions:Array[MapRegion] = map_regions.regions
 	var region_dims:Vector2i = map_regions.region_dims
+	var max_region_coords:Vector2i = region_dims - Vector2i.ONE
 		
 	var time:float = GameManager.game_timer.time_seconds
 	
@@ -231,19 +225,19 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 				if left_neighbor.navigable:
 					total_score += 1
 			# Has a right neighbor
-			if region_coord.x < region_dims.x:
+			if region_coord.x < max_region_coords.x:
 				var right_neighbor := all_regions[global_index + 1]
 				if right_neighbor.navigable:
 					total_score += 1
 			# Has a top neighbor
 			if region_coord.y > 0:
-				var top_neighbor := all_regions[global_index - coord_dim.x]
+				var top_neighbor := all_regions[global_index - region_dims.x]
 				if top_neighbor.navigable:
 					total_score += 1
 			# Has a bottom neighbor
-			if region_coord.y < region_dims.y:
-				var top_neighbor := all_regions[global_index + coord_dim.x]
-				if top_neighbor.navigable:
+			if region_coord.y < max_region_coords.y:
+				var bottom_neighbor := all_regions[global_index + region_dims.x]
+				if bottom_neighbor.navigable:
 					total_score += 1
 		# Explored but not visible regions get a boost since want to push out into non-visible areas
 		elif not map_regions.is_region_visible(region):

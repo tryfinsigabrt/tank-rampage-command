@@ -39,18 +39,21 @@ func get_region_at(world_location:Vector3) -> MapRegion:
 		return null
 		
 	# Already validated that above coords are in range
-	var index:int = region_coords.x * _region_dim.x + region_coords.y
+	var index:int = _coords_to_index(region_coords)
 	assert(index >= 0 and index < regions.size(), 
 		"%s: index=%d is out of region with size=%d; world_location=%s; bounds=%s; coords=%s" % [ \
 			name, index, regions.size(), world_location, _world_bounds, region_coords
 		])
 	return regions[index]
 
+func _coords_to_index(region_coords:Vector2i) -> int:
+	return region_coords.y * _region_dim.x + region_coords.x
+
 func index_to_coords(index:int) -> Vector2i:
-	var length:int = _region_dim.x
+	var width:int = _region_dim.x
 	@warning_ignore("integer_division")
-	var x:int = index / length
-	var y:int = index % length
+	var y:int = index / width
+	var x:int = index % width
 	
 	return Vector2i(x, y)
 
@@ -74,8 +77,8 @@ func get_region_coords(row_major_regions:Array[MapRegion]) -> Array[Vector2i]:
 	
 	# Compute indices of first and last to get the extents and then fill in the rest
 	var min_coords:Vector2i = index_to_coords(row_major_regions.front().index)
+	indices[0] = min_coords
 	if size == 1:
-		indices[0] = min_coords
 		return indices
 	
 	var max_coords:Vector2i = index_to_coords(row_major_regions.back().index)
@@ -89,7 +92,7 @@ func get_region_coords(row_major_regions:Array[MapRegion]) -> Array[Vector2i]:
 	for i in range(num_rows):
 		var offset:int = i * num_cols
 		for j in range(num_cols):
-			indices[offset + j] = min_coords + Vector2i(i,j)
+			indices[offset + j] = min_coords + Vector2i(j, i)
 		
 	return indices
 	
@@ -112,11 +115,9 @@ func get_regions_for(world_location:Vector3, radius:float) -> Array[MapRegion]:
 	min_indices = min_indices.clamp(Vector2i.ZERO, _region_dim)
 	max_indices = max_indices.clamp(Vector2i.ZERO, _region_dim)
 	
-	for i in range(min_indices.y, max_indices.y):
-		var offset:int = _region_dim.x * i
-		for j in range(min_indices.x, max_indices.x):
-			var index:int = offset + j
-			matching_regions.push_back(regions[index])
+	for y in range(min_indices.y, max_indices.y):
+		for x in range(min_indices.x, max_indices.x):
+			matching_regions.push_back(regions[_coords_to_index(Vector2i(x, y))])
 	return matching_regions
 		
 func _world_location_to_grid_location(world_location:Vector3) -> Vector2i:
@@ -148,12 +149,11 @@ func _build_regions(world_boundaries:WorldBoundaries) -> void:
 	# Preallocate
 	var total_size:int = _region_dim.x * _region_dim.y
 	regions.resize(total_size)
-	var cnt:int = 0
 	var grid_size:Vector2 = Vector2(region_size,region_size)
 	
-	for i in _region_dim.x:
-		var x_coord:float = i * region_size
-		for j in _region_dim.y:
-			var pos:Vector2 = _world_bounds.position + Vector2(x_coord, j * region_size)
-			regions[cnt] = MapRegion.new(cnt, Rect2(pos, grid_size))
-			cnt += 1
+	for y in _region_dim.y:
+		var y_coord:float = y * region_size
+		for x in _region_dim.x:
+			var index:int = _coords_to_index(Vector2i(x, y))
+			var pos:Vector2 = _world_bounds.position + Vector2(x * region_size, y_coord)
+			regions[index] = MapRegion.new(index, Rect2(pos, grid_size))
