@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs67ol0qcys5s"
-path.bptc="res://.godot/imported/water-normal.jpg-8a9349ba808df6a04db7119524656d3e.bptc.ctex"
+uid="uid://c44y7yaclhyfo"
+path.s3tc="res://.godot/imported/water-normal-02.png-44e4d2752edb1b41ed568a2b2f24ba2e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://terrain/water-normal.jpg"
-dest_files=["res://.godot/imported/water-normal.jpg-8a9349ba808df6a04db7119524656d3e.bptc.ctex"]
+source_file="res://terrain/water-normal-02.png"
+dest_files=["res://.godot/imported/water-normal-02.png-44e4d2752edb1b41ed568a2b2f24ba2e.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ryc8t66twttc"]
+
+[ext_resource type="Shader" uid="uid://ckk5eebgsy0ah" path="res://terrain/water/water.gdshader" id="1_xwuqj"]
+[ext_resource type="Texture2D" uid="uid://cs67ol0qcys5s" path="res://terrain/water/water-normal.jpg" id="2_cuidd"]
+[ext_resource type="Texture2D" uid="uid://cyqwofh60t02y" path="res://terrain/water/water-diffuse.jpg" id="2_vbeab"]
+[ext_resource type="Texture2D" uid="uid://c44y7yaclhyfo" path="res://terrain/water/water-normal-02.png" id="3_vbeab"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xwuqj")
+shader_parameter/albedo_tex = ExtResource("2_vbeab")
+shader_parameter/albedo_tiling = Vector2(1, 1)
+shader_parameter/tint = Color(0, 0, 1, 1)
+shader_parameter/roughness = 0.70000001043084
+shader_parameter/normal_map_tex = ExtResource("2_cuidd")
+shader_parameter/normal_tiling = Vector2(2, 2)
+shader_parameter/direction1 = Vector2(0.6, 0.4)
+shader_parameter/speed = 0.00999999977648
+shader_parameter/normal_map_tex_2 = ExtResource("3_vbeab")
+shader_parameter/normal_tiling_2 = Vector2(3, 3)
+shader_parameter/direction2 = Vector2(-0.2, 0.3)
+shader_parameter/speed2 = 0.01999999955296
