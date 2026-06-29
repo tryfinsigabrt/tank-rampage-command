@@ -1,0 +1,50 @@
+[gd_scene format=4 uid="uid://v8s3au7e2iqa"]
+
+[ext_resource type="Material" uid="uid://6by65q1hlmd1" path="res://buildings/city/city-t-intersection-material.tres" id="1_nfm5w"]
+[ext_resource type="Texture2D" uid="uid://dbaq8d4l6vjg0" path="res://buildings/city/city-test_3.png" id="1_s0she"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fv2jt"]
+resource_name = "city-intersection"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_s0she")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gdojd"]
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"name": "city-intersection",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kcfrn"]
+resource_name = "Plane_023"
+_surfaces = [{
+"aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
+"attribute_data": PackedByteArray("AAAAAAAAgD8AAAAAAAAAAAAAgD8AAIA/AACAPwAAAAA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAQADAAIA"),
+"material": SubResource("StandardMaterial3D_fv2jt"),
+"name": "city-intersection",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAArXIzwAAAAACtcjPAAAAAAAAAAACtcjPArXIzwAAAAA/3//f////7//f/9/////v/9//3////+//3//f////78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_gdojd")
+
+[node name="city-t-intersection" type="MeshInstance3D" unique_id=688990879]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
+material_override = ExtResource("1_nfm5w")
+mesh = SubResource("ArrayMesh_kcfrn")
+skeleton = NodePath("")

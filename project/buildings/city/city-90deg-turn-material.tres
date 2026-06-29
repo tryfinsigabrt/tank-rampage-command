@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bt55l3naiysa4"]
+
+[ext_resource type="Texture2D" uid="uid://nc4816mu1lvf" path="res://buildings/city/city-street-90deg-turn.png" id="1_55sv6"]
+
+[resource]
+albedo_texture = ExtResource("1_55sv6")

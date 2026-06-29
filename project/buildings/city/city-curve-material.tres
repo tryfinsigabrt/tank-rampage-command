@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://decu66idrep0l"]
+
+[ext_resource type="Texture2D" uid="uid://dqw5gshl8tr2m" path="res://buildings/city/city-street-curve.png" id="1_xc1d4"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_xc1d4")
