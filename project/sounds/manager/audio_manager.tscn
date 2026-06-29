@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://caqyak8psu66f"]
+
+[ext_resource type="Script" uid="uid://dj41ywh0hxero" path="res://sounds/manager/audio_manager.gd" id="1_xdsxf"]
+[ext_resource type="Script" uid="uid://dl510l2b05l0f" path="res://sounds/manager/audio_manager_legacy.gd" id="2_cql61"]
+
+[node name="AudioManager" type="Node" unique_id=1696525873]
+script = ExtResource("1_xdsxf")
+
+[node name="Pools" type="Node" parent="." unique_id=1479344087]
+
+[node name="LegacyBehavior" type="Node" parent="." unique_id=2135633628]
+unique_name_in_owner = true
+script = ExtResource("2_cql61")

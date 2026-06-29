@@ -1,5 +1,4 @@
-## Audio Manager for managing game sounds and audio concurrency across different sound buses
-class_name AudioManager extends Node
+class_name AudioManagerLegacy extends Node
 
 var _level_audio_container:Node
 
@@ -30,7 +29,6 @@ func play_level_sound(playable_node:Node) -> void:
 	
 	playable_node.play()
 	
-#region Level Audio
 func _get_level_audio_container() -> Node:
 	if is_instance_valid(_level_audio_container):
 		return _level_audio_container
@@ -69,4 +67,3 @@ func _get_level_root() -> Node:
 	node = root.get_child(-1)
 	print_debug("%s: Using last root child node %s as the level root" % [name, node.name])
 	return node
-#endregion
