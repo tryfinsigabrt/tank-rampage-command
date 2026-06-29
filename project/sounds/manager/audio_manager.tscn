@@ -2,11 +2,48 @@
 
 [ext_resource type="Script" uid="uid://dj41ywh0hxero" path="res://sounds/manager/audio_manager.gd" id="1_xdsxf"]
 [ext_resource type="Script" uid="uid://dl510l2b05l0f" path="res://sounds/manager/audio_manager_legacy.gd" id="2_cql61"]
+[ext_resource type="Script" uid="uid://c1f72icarhdoc" path="res://sounds/manager/audio_manager_config_entry.gd" id="2_gnk7x"]
+[ext_resource type="Script" uid="uid://cppr72ds1h0hs" path="res://sounds/manager/audio_manager_config.gd" id="3_h5s1p"]
+
+[sub_resource type="Resource" id="Resource_k20er"]
+script = ExtResource("2_gnk7x")
+type = 1
+max_concurrency = 1
+bus = "Music"
+metadata/_custom_type_script = "uid://c1f72icarhdoc"
+
+[sub_resource type="Resource" id="Resource_gnk7x"]
+script = ExtResource("2_gnk7x")
+type = 1
+max_concurrency = 2
+bus = "Menu"
+metadata/_custom_type_script = "uid://c1f72icarhdoc"
+
+[sub_resource type="Resource" id="Resource_h5s1p"]
+script = ExtResource("2_gnk7x")
+type = 3
+max_concurrency = 16
+bus = "Sfx"
+metadata/_custom_type_script = "uid://c1f72icarhdoc"
+
+[sub_resource type="Resource" id="Resource_v2cmu"]
+script = ExtResource("2_gnk7x")
+type = 1
+max_concurrency = 2
+bus = "Voice"
+metadata/_custom_type_script = "uid://c1f72icarhdoc"
+
+[sub_resource type="Resource" id="Resource_ffn3w"]
+script = ExtResource("3_h5s1p")
+entries = Array[ExtResource("2_gnk7x")]([SubResource("Resource_k20er"), SubResource("Resource_gnk7x"), SubResource("Resource_h5s1p"), SubResource("Resource_v2cmu")])
+metadata/_custom_type_script = "uid://cppr72ds1h0hs"
 
 [node name="AudioManager" type="Node" unique_id=1696525873]
 script = ExtResource("1_xdsxf")
+config = SubResource("Resource_ffn3w")
 
 [node name="Pools" type="Node" parent="." unique_id=1479344087]
+unique_name_in_owner = true
 
 [node name="LegacyBehavior" type="Node" parent="." unique_id=2135633628]
 unique_name_in_owner = true

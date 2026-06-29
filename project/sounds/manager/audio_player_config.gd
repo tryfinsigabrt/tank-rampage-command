@@ -1,3 +1,5 @@
+# Needed for dynamic bus_name discovery in editor through _get_property_list
+@tool
 class_name AudioPlayerConfig extends Resource
 
 @export
@@ -33,6 +35,11 @@ var unit_size:float = 500.0
 var valid: bool:
 	get: return stream_config and stream_config.stream
 
+func _init() -> void:
+	# Forces the editor to look at our custom property list right away
+	if Engine.is_editor_hint():
+		notify_property_list_changed()
+		
 # Update bus_name dynamically as an exported property
 func _get_property_list() -> Array[Dictionary]:
 	return [EditorUtils.get_audio_bus_selection_property("bus")]

@@ -71,3 +71,6 @@ static func mid_point(range_vec:Vector2) -> float:
 
 static func is_between(value: float, range_vec:Vector2) -> bool:
 	return value >= range_vec.x and value <= range_vec.y
+
+static func num_int_digits(value:int) -> int:
+	return int(log(abs(value)) / log(10)) + 1 if value != 0 else 1

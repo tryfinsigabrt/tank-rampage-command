@@ -4,7 +4,8 @@ class_name EnumUtils
 ## By default str(MyEnum.VALUE1) would print 0. Use this function to print "VALUE1"
 ## printing the enum constant as a string literal
 static func enum_to_string(enum_type:Dictionary, enum_value:int) -> StringName:
-	return enum_type.keys()[enum_value]
+	# If we have a non-sequential enum type then need to first convert to ordinal index and then look up the key name
+	return enum_type.keys()[enum_ordinal(enum_type, enum_value)]
 
 ## Attempts to parse an enum string as an enum constant and returns null if there is no match
 static func enum_from_string(enum_type:Dictionary, enum_name:StringName, case_sensitive:bool = true) -> Variant:

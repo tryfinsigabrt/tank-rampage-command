@@ -355,11 +355,9 @@ config = ExtResource("19_q4a86")
 team = 2
 
 [node name="ExploreRemaining" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/BeehaveTree/Root/Attack/AttackAndExploreRemaining" parent_id_path=PackedInt32Array(20484500, 860766234) index="4" unique_id=971392095]
-enable_map_region_use = true
 map_region_score_random_threshold = 5.0
 
 [node name="ExploreSurroundings" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1/BeehaveTree/Root/Explore" parent_id_path=PackedInt32Array(20484500, 839203828) index="3" unique_id=990507036]
-enable_map_region_use = true
 map_region_score_random_threshold = 5.0
 
 [node name="Enemies" type="Node3D" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=1702973220]
