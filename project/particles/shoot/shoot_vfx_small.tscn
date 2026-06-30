@@ -53,7 +53,7 @@ height = 0.3
 radial_segments = 8
 rings = 4
 
-[node name="ShootVfx" type="Node3D" unique_id=1531094564]
+[node name="ShootVfx" type="Node3D" unique_id=1531094564 groups=["Precompilation"]]
 script = ExtResource("1_lkgnw")
 
 [node name="Projectile" type="GPUParticles3D" parent="." unique_id=758067375]

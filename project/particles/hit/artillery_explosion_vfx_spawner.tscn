@@ -107,7 +107,7 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_4x87k"]
 material = SubResource("StandardMaterial3D_28ymd")
 
-[node name="Artillery Explosion" type="Node3D" unique_id=1694489606]
+[node name="Artillery Explosion" type="Node3D" unique_id=1694489606 groups=["Precompilation"]]
 script = ExtResource("1_0i3p6")
 remove_delay = 20.0
 

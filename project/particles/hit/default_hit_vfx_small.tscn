@@ -58,7 +58,7 @@ height = 1.0
 radial_segments = 6
 rings = 1
 
-[node name="DefaultHitEmitterSmall" type="Node3D" unique_id=281275510]
+[node name="DefaultHitEmitterSmall" type="Node3D" unique_id=281275510 groups=["Precompilation"]]
 script = ExtResource("1_hb012")
 metadata/_custom_type_script = "uid://dohkdamtqtrkk"
 

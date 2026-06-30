@@ -26,6 +26,8 @@ const TeamVisible:StringName = &"TeamVisible"
 
 const LevelAudio:StringName = &"LevelAudio"
 
+const Precompilation:StringName = &"Precompilation"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:
@@ -101,3 +103,34 @@ static func get_scene_root(start:Node) -> Node:
 static func get_scene_root_if_in_group(start:Node, group:StringName) -> Node:
 	var root:Node = get_scene_root(start)
 	return root if root and root.is_in_group(group) else null
+
+static func scene_has_group(scene: PackedScene, group_name: StringName, root_only:bool = false) -> bool:
+	var state: SceneState = scene.get_state()
+	var node_count:int = state.get_node_count()
+	if not node_count:
+		return false
+	if root_only:
+		return group_name in state.get_node_groups(0)
+		
+	for i in node_count:
+		var groups: PackedStringArray = state.get_node_groups(i)
+		if group_name in groups:
+			return true
+			
+	return false
+
+static func scene_has_engine_type(scene: PackedScene, node_types:PackedStringArray) -> bool:
+	var state: SceneState = scene.get_state()
+		
+	for i in state.get_node_count():
+		var node_type_name:StringName = state.get_node_type(i)
+		if node_type_name in node_types:
+			return true
+			
+	return false
+static func scene_path_has_group(path: String, group_name: StringName, root_only:bool = false) -> bool:
+	var scene := ResourceLoader.load(path, "PackedScene") as PackedScene
+	if scene == null:
+		return false
+	return scene_has_group(scene, group_name, root_only)
+	
