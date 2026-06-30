@@ -12,6 +12,7 @@ metadata/_custom_type_script = "uid://bvp3etmkg05wu"
 [resource]
 script = ExtResource("1_810t3")
 stream_config = SubResource("Resource_6p4x8")
+group = "artillery"
 volume_db = 6.0
 volume_max_db = 6.0
 pitch_scale = 1.1

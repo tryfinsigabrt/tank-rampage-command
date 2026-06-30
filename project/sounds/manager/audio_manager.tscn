@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://c1f72icarhdoc"
 [sub_resource type="Resource" id="Resource_h5s1p"]
 script = ExtResource("2_gnk7x")
 type = 3
-max_concurrency = 16
+max_concurrency = 15
 bus = "Sfx"
 metadata/_custom_type_script = "uid://c1f72icarhdoc"
 
@@ -33,9 +33,16 @@ max_concurrency = 2
 bus = "Voice"
 metadata/_custom_type_script = "uid://c1f72icarhdoc"
 
+[sub_resource type="Resource" id="Resource_hos62"]
+script = ExtResource("2_gnk7x")
+type = 3
+group = "artillery"
+bus = "Sfx"
+metadata/_custom_type_script = "uid://c1f72icarhdoc"
+
 [sub_resource type="Resource" id="Resource_ffn3w"]
 script = ExtResource("3_h5s1p")
-entries = Array[ExtResource("2_gnk7x")]([SubResource("Resource_k20er"), SubResource("Resource_gnk7x"), SubResource("Resource_h5s1p"), SubResource("Resource_v2cmu")])
+entries = Array[ExtResource("2_gnk7x")]([SubResource("Resource_k20er"), SubResource("Resource_gnk7x"), SubResource("Resource_h5s1p"), SubResource("Resource_v2cmu"), SubResource("Resource_hos62")])
 metadata/_custom_type_script = "uid://cppr72ds1h0hs"
 
 [node name="AudioManager" type="Node" unique_id=1696525873]

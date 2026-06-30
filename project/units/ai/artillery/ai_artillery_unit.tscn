@@ -6,6 +6,23 @@
 [ext_resource type="Material" uid="uid://e1x11ebf5jc6" path="res://units/ai/artillery/ai_artillery_light.tres" id="4_l2mj7"]
 [ext_resource type="Material" uid="uid://cppbqfnncmwad" path="res://units/human/marine/material/marine_red.tres" id="5_xx754"]
 [ext_resource type="Resource" uid="uid://4tb1ymm502h5" path="res://sounds/tank_sfx/tank_fire/enemy_artillery_shoot_sfx.tres" id="6_l2mj7"]
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="7_xx754"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="8_42ewi"]
+
+[sub_resource type="Resource" id="Resource_r8btu"]
+script = ExtResource("8_42ewi")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[sub_resource type="Resource" id="Resource_u8ea5"]
+script = ExtResource("7_xx754")
+stream_config = SubResource("Resource_r8btu")
+group = "artillery"
+volume_db = 6.0
+volume_max_db = 6.0
+pitch_scale = 1.1
+max_distance = 1500.0
+bus = "Sfx"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"
 
 [node name="HumanArtilleryUnit" unique_id=1517178385 instance=ExtResource("1_bk6as")]
 
@@ -101,6 +118,7 @@ surface_material_override/0 = ExtResource("4_l2mj7")
 
 [node name="ArtilleryShootSfx" parent="WeaponTrace/Weapon" parent_id_path=PackedInt32Array(107617315) index="6" unique_id=1748265597]
 shoot_audio = ExtResource("6_l2mj7")
+explosion_audio = SubResource("Resource_u8ea5")
 
 [editable path="VisualRoot/TurretPivot/Turret"]
 [editable path="VisualRoot/TurretPivot/Turret/GunnerPanel/marine"]

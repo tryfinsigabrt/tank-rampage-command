@@ -12,6 +12,7 @@ metadata/_custom_type_script = "uid://bvp3etmkg05wu"
 [resource]
 script = ExtResource("1_4nono")
 stream_config = SubResource("Resource_myyao")
+group = "artillery"
 volume_db = 6.0
 volume_max_db = 6.0
 max_distance = 1500.0

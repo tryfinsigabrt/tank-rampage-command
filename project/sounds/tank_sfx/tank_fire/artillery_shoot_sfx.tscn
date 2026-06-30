@@ -2,6 +2,24 @@
 
 [ext_resource type="PackedScene" uid="uid://df6b8ys2gb72d" path="res://sounds/shoot_sfx.tscn" id="1_3hch6"]
 [ext_resource type="Resource" uid="uid://p6r5f8pxio7d" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_sfx.tres" id="2_l6gec"]
+[ext_resource type="Script" uid="uid://beeh4sacw2pyj" path="res://sounds/audio_stream_distance_config.gd" id="2_sk5ii"]
+[ext_resource type="AudioStream" uid="uid://dvimwg2ohuf8i" path="res://sounds/explosions/explosion_medium.tres" id="3_1n2i3"]
+[ext_resource type="AudioStream" uid="uid://t42h70bapaan" path="res://sounds/explosions/explosion_distant_medium.tres" id="4_yecq1"]
+[ext_resource type="Resource" uid="uid://clifxvxf71kof" path="res://sounds/tank_sfx/tank_fire/artillery_shell_explosion_sfx.tres" id="6_w34e4"]
+
+[sub_resource type="Resource" id="Resource_pnaoo"]
+script = ExtResource("2_sk5ii")
+max_distance = 300.0
+stream = ExtResource("3_1n2i3")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
+
+[sub_resource type="Resource" id="Resource_77srq"]
+script = ExtResource("2_sk5ii")
+max_distance = 10000.0
+stream = ExtResource("4_yecq1")
+metadata/_custom_type_script = "uid://beeh4sacw2pyj"
 
 [node name="ArtilleryShootSfx" unique_id=1748265597 instance=ExtResource("1_3hch6")]
+explosion_streams_by_grid_distance = Array[ExtResource("2_sk5ii")]([SubResource("Resource_pnaoo"), SubResource("Resource_77srq")])
 shoot_audio = ExtResource("2_l6gec")
+explosion_audio = ExtResource("6_w34e4")
