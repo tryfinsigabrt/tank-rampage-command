@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://dwrj84marnqi0"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_ef6ul"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_s6uq3"]
+[ext_resource type="AudioStream" uid="uid://djl1g5wfsd05p" path="res://sounds/unit_barks/bark_attack.tres" id="3_ghgpl"]
+
+[sub_resource type="Resource" id="Resource_t72ww"]
+script = ExtResource("2_s6uq3")
+stream = ExtResource("3_ghgpl")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_ef6ul")
+stream_config = SubResource("Resource_t72ww")
+bus = "Voice"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

@@ -28,9 +28,10 @@
 [ext_resource type="Script" uid="uid://cjschgktt5pgi" path="res://player/unit_container_actions.gd" id="20_rsxwl"]
 [ext_resource type="Resource" uid="uid://nhj1mgwdfgje" path="res://conf/costs/human/factory_cost.tres" id="21_118rc"]
 [ext_resource type="Script" uid="uid://r5vi23q5py4e" path="res://player/order_barks.gd" id="22_2fhkc"]
-[ext_resource type="AudioStream" uid="uid://djl1g5wfsd05p" path="res://sounds/unit_barks/bark_attack.tres" id="23_i53q6"]
-[ext_resource type="AudioStream" uid="uid://bxjvb57wf3jmr" path="res://sounds/unit_barks/bark_move.tres" id="24_4vvwb"]
-[ext_resource type="AudioStream" uid="uid://dariah7ax57cw" path="res://sounds/unit_barks/bark_selection.tres" id="25_fjrpl"]
+[ext_resource type="Resource" uid="uid://dd12xjeslpehx" path="res://sounds/unit_barks/bark_selection_player.tres" id="29_ow4pb"]
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="29_wo08e"]
+[ext_resource type="Resource" uid="uid://dwrj84marnqi0" path="res://sounds/unit_barks/bark_attack_player.tres" id="29_yvfcl"]
+[ext_resource type="Resource" uid="uid://c7jnh5ccfy6u1" path="res://sounds/unit_barks/bark_move_player.tres" id="30_uft7k"]
 
 [sub_resource type="Resource" id="Resource_mkbv6"]
 script = ExtResource("17_wj3pl")
@@ -135,28 +136,16 @@ ground_mask = 2
 script = ExtResource("20_rsxwl")
 selection_manager = NodePath("../../SelectionManager")
 
-[node name="UnitBarks" type="Node" parent="." unique_id=420836898 node_paths=PackedStringArray("_order_barks", "_selection_barks")]
+[node name="UnitBarks" type="Node" parent="." unique_id=420836898]
 script = ExtResource("22_2fhkc")
-_order_barks = {
-&"attack": NodePath("Attack"),
-&"follow": NodePath("Move"),
-&"load": NodePath("Move"),
-&"move": NodePath("Move"),
-&"move_and_attack": NodePath("Move")
-}
-_selection_barks = NodePath("Selection")
-
-[node name="Attack" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1380215223]
-stream = ExtResource("23_i53q6")
-bus = &"Voice"
-
-[node name="Move" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1833688392]
-stream = ExtResource("24_4vvwb")
-bus = &"Voice"
-
-[node name="Selection" type="AudioStreamPlayer" parent="UnitBarks" unique_id=1387073430]
-stream = ExtResource("25_fjrpl")
-bus = &"Voice"
+_order_barks = Dictionary[StringName, ExtResource("29_wo08e")]({
+&"attack": ExtResource("29_yvfcl"),
+&"follow": ExtResource("30_uft7k"),
+&"load": ExtResource("30_uft7k"),
+&"move": ExtResource("30_uft7k"),
+&"move_and_attack": ExtResource("30_uft7k")
+})
+_selection_barks = ExtResource("29_ow4pb")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="on_box_selection" from="BoxSelect" to="." method="_on_box_select_units"]
