@@ -1,16 +1,20 @@
 extends Node3D
 
-# TODO: Replace with a pooled audio manager autoload
-@onready var player: AudioStreamPlayer3D = $Player
 @onready var audio_stream_switcher: AudioStreamSwitcher = $AudioStreamSwitcher
 
 @export
 var default_stream:AudioStream
 
 @export
+var audio_player_config:AudioPlayerConfig
+
+@export
 var streams_by_distance:Array[AudioStreamDistanceConfig]
 
 func _ready() -> void:
+	if not audio_player_config:
+		return
+		
 	var team_asset:Node = Groups.get_parent_in_group(self, Groups.TeamAsset)
 	assert(team_asset)
 	if not team_asset:
@@ -22,9 +26,7 @@ func _ready() -> void:
 func _on_asset_died() -> void:
 	var stream_config:AudioStreamConfig = audio_stream_switcher.select_stream_by_camera_distance(streams_by_distance, global_position)
 	if stream_config:
-		player.stream = stream_config.stream
-	elif default_stream:
-		player.stream = default_stream
+		audio_player_config = audio_player_config.duplicate()
+		audio_player_config.stream_config = stream_config
 			
-	if player.stream:
-		GameManager.audio_manager.play_level_sound(player)
+	GameManager.audio_manager.play_3d(audio_player_config, global_position)

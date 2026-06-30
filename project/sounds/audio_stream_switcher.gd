@@ -17,23 +17,14 @@ func select_stream_by_camera_distance(streams:Array[AudioStreamDistanceConfig], 
 		if config.max_distance <= dist:
 			return config
 	return null
-	
-func play_stream(player:AudioStreamPlayer3D, world_location:Vector3, stream_override:AudioStreamConfig = null) -> void:
-	var play_from:float = 0.0
-	if stream_override:
-		player.stream = stream_override.stream
-		play_from = stream_override.play_from
-	if not player.stream:
+
+func play_stream(player_config:AudioPlayerConfig, world_location:Vector3, stream_override:AudioStreamConfig = null) -> void:
+	if not player_config:
 		return
 		
-	player.global_position = world_location
-	player.play(play_from)
-
-func play_level_stream(player:AudioStreamPlayer3D, world_location:Vector3, stream_override:AudioStreamConfig = null) -> void:
 	if stream_override:
-		player.stream = stream_override.stream
-	if not player.stream:
-		return
-	
-	player.global_position = world_location
-	GameManager.audio_manager.play_level_sound(player)
+		# Avoid changing global config since resources are shared across the game
+		player_config = player_config.duplicate()
+		player_config.stream_config = stream_override
+		
+	GameManager.audio_manager.play_3d(player_config, world_location)

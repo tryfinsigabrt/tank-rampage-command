@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://p6r5f8pxio7d"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_4nono"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_ginhh"]
+[ext_resource type="AudioStream" uid="uid://cbwbqw27b1nfx" path="res://sounds/tank_sfx/tank_fire/artillery_shoot_stream.tres" id="3_kheut"]
+
+[sub_resource type="Resource" id="Resource_myyao"]
+script = ExtResource("2_ginhh")
+stream = ExtResource("3_kheut")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_4nono")
+stream_config = SubResource("Resource_myyao")
+volume_db = 6.0
+volume_max_db = 6.0
+max_distance = 1500.0
+bus = "Sfx"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

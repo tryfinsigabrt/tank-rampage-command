@@ -2,18 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://df6b8ys2gb72d" path="res://sounds/shoot_sfx.tscn" id="1_wg4ba"]
 [ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_1cj43"]
-[ext_resource type="AudioStream" uid="uid://d1yemop651b5d" path="res://sounds/tank_sfx/tank_fire/tank_shoot_stream.tres" id="2_6anow"]
 [ext_resource type="Resource" uid="uid://d0j0jg2357m2b" path="res://sounds/tank_sfx/impact_sounds/vehicle_hit_stream_config.tres" id="3_ncl0b"]
+[ext_resource type="Resource" uid="uid://cvan2grnk7rhu" path="res://sounds/tank_sfx/tank_fire/tank_shoot_sfx.tres" id="4_nkt3s"]
+[ext_resource type="Resource" uid="uid://deq4hxbl3jqmx" path="res://sounds/tank_sfx/tank_fire/tank_weapon_hit_sfx.tres" id="5_ix4ka"]
 
 [node name="TankShootSfx" unique_id=1748265597 instance=ExtResource("1_wg4ba")]
 hit_streams_by_group = Dictionary[StringName, ExtResource("2_1cj43")]({
 &"UnitClassArtillery": ExtResource("3_ncl0b"),
 &"UnitClassTank": ExtResource("3_ncl0b")
 })
-
-[node name="ShootSfx" parent="." index="0" unique_id=65979590]
-stream = ExtResource("2_6anow")
-volume_db = 4.0
-
-[node name="HitSfx" parent="." index="1" unique_id=1847773974]
-volume_db = 2.0
+shoot_audio = ExtResource("4_nkt3s")
+hit_audio = ExtResource("5_ix4ka")

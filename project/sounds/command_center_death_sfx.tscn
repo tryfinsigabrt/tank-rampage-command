@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://01etokioo21k" path="res://sounds/building_death_sfx.tscn" id="1_q1h32"]
 [ext_resource type="Script" uid="uid://beeh4sacw2pyj" path="res://sounds/audio_stream_distance_config.gd" id="2_g7q3e"]
+[ext_resource type="Resource" uid="uid://daabxvw2jj5hf" path="res://sounds/death/command_center_death_sfx.tres" id="2_jppfl"]
 [ext_resource type="AudioStream" uid="uid://erx7l6hkoem7" path="res://sounds/explosions/explosion_massive.tres" id="3_jppfl"]
 [ext_resource type="AudioStream" uid="uid://cqymyfwga7coe" path="res://sounds/explosions/explosion_distant_large.tres" id="4_2ub5e"]
 
@@ -18,7 +19,5 @@ stream = ExtResource("4_2ub5e")
 metadata/_custom_type_script = "uid://beeh4sacw2pyj"
 
 [node name="DeathSfx" unique_id=928613514 instance=ExtResource("1_q1h32")]
+audio_player_config = ExtResource("2_jppfl")
 streams_by_distance = Array[ExtResource("2_g7q3e")]([SubResource("Resource_n4mh1"), SubResource("Resource_ggyii")])
-
-[node name="Player" parent="." index="0" unique_id=1334804835]
-volume_db = 6.0

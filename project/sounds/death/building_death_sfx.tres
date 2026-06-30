@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://bustuty668sn"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_2jjcr"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_8urfg"]
+[ext_resource type="AudioStream" uid="uid://df2cp6k0m65or" path="res://sounds/explosions/explosion_muffled.tres" id="3_ypxw6"]
+
+[sub_resource type="Resource" id="Resource_wjan0"]
+script = ExtResource("2_8urfg")
+stream = ExtResource("3_ypxw6")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_2jjcr")
+stream_config = SubResource("Resource_wjan0")
+volume_max_db = 6.0
+max_distance = 2000.0
+bus = "Sfx"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

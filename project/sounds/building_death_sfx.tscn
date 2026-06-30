@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://01etokioo21k"]
 
 [ext_resource type="PackedScene" uid="uid://llt86qai7yiq" path="res://sounds/death_sfx.tscn" id="1_bifw0"]
-[ext_resource type="AudioStream" uid="uid://df2cp6k0m65or" path="res://sounds/explosions/explosion_muffled.tres" id="2_hjydp"]
+[ext_resource type="Resource" uid="uid://bustuty668sn" path="res://sounds/death/building_death_sfx.tres" id="2_16xxu"]
 
 [node name="DeathSfx" unique_id=928613514 instance=ExtResource("1_bifw0")]
-
-[node name="Player" parent="." index="0" unique_id=1334804835]
-stream = ExtResource("2_hjydp")
+audio_player_config = ExtResource("2_16xxu")

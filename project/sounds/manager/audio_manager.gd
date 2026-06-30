@@ -25,7 +25,7 @@ func play_3d(player_config:AudioPlayerConfig, position:Vector3) -> void:
 	var pool:AudioPlayerPool3D = _get_pool_for(player_config, AudioManagerConfigEntry.Type.Player3D)
 	pool.play(player_config, position)
 	
-func play_attached_3d(player_config:AudioPlayerConfig, node:Node3D) -> void:
+func play_3d_attached(player_config:AudioPlayerConfig, node:Node3D) -> void:
 	if not player_config or not player_config.valid:
 		return
 	
@@ -44,14 +44,14 @@ func _get_pool_for(player_config:AudioPlayerConfig, type:AudioManagerConfigEntry
 	var pool:AudioPlayerPool = null
 	
 	if group:
-		var full_key:String = AudioManagerConfigEntry.create_key(player_config.bus_name, type, group)
+		var full_key:String = AudioManagerConfigEntry.create_key(player_config.bus, type, group)
 		pool = _pools_by_key.get(full_key)
 		if pool:
 			if OS.is_debug_build():
 				print_debug("%s: Selected pool %s with full_key=%s" % [name, pool.name, full_key])
 			return pool
 			
-	var bus_key:String = AudioManagerConfigEntry.create_key(player_config.bus_name, type)
+	var bus_key:String = AudioManagerConfigEntry.create_key(player_config.bus, type)
 	pool = _pools_by_key.get(bus_key)
 	if pool:
 		if OS.is_debug_build():
@@ -59,10 +59,10 @@ func _get_pool_for(player_config:AudioPlayerConfig, type:AudioManagerConfigEntry
 		return pool
 	
 	push_warning("%s: Could not find audio pool for config=%s with bus=%s; type=%d; group=%s = creating new default pool dynamically" % 
-		[name, player_config, player_config.bus_name, EnumUtils.enum_to_string(AudioManagerConfigEntry.Type, type), group])
+		[name, player_config, player_config.bus, EnumUtils.enum_to_string(AudioManagerConfigEntry.Type, type), group])
 	
 	var default_entry := AudioManagerConfigEntry.new()
-	default_entry.bus = player_config.bus_name
+	default_entry.bus = player_config.bus
 	default_entry.group = group
 	default_entry.type = type
 	

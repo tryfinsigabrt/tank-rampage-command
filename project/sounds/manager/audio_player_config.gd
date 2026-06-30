@@ -7,7 +7,7 @@ var stream_config:AudioStreamConfig
 
 # Cannot assign bus_name to a group since it's dynamic so keep audio_group_name top level too
 # This dynamically gets populated as an exported enum property with the available audio buses
-var bus_name: String = "Master"
+var bus: String = "Master"
 
 ## Additional unique identifier other than the bus_name to identify the unique stream pool.
 ## If the group doesn't exist on the audio manager, then a warning will be emitted the first time and the bus group will be used

@@ -69,7 +69,7 @@ func play_attached(player_config:AudioPlayerConfig, node:Node3D) -> void:
 func _play_with_config(player:AudioStreamPlayer3D, player_config:AudioPlayerConfig, position:Vector3) -> void:
 	var stream_config := player_config.stream_config
 	
-	player.bus = player_config.bus_name
+	player.bus = player_config.bus
 	player.attenuation_model = player_config.attenuation_model
 	player.max_distance = player_config.max_distance
 	player.pitch_scale = player_config.pitch_scale

@@ -30,7 +30,7 @@ func play(player_config:AudioPlayerConfig) -> void:
 func _play_with_config(player:AudioStreamPlayer, player_config:AudioPlayerConfig) -> void:
 	var stream_config := player_config.stream_config
 	
-	player.bus = player_config.bus_name
+	player.bus = player_config.bus
 	player.attenuation_model = player_config.attenuation_model
 	player.max_distance = player_config.max_distance
 	player.pitch_scale = player_config.pitch_scale

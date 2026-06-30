@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://r2xrey8uqinh"]
+
+[ext_resource type="AudioStream" uid="uid://cxpqcwxv56f7b" path="res://sounds/marine_shooting_distant_gunfire.wav" id="1_vcpfu"]
+
+[resource]
+random_pitch = 1.0174797
+random_volume_offset_db = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("1_vcpfu")

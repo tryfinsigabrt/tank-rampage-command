@@ -26,6 +26,3 @@ metadata/_custom_type_script = "uid://beeh4sacw2pyj"
 
 [node name="DeathSfx" unique_id=928613514 instance=ExtResource("1_fcdc4")]
 streams_by_distance = Array[ExtResource("2_q6mbc")]([SubResource("Resource_b0epw"), SubResource("Resource_7iryi"), SubResource("Resource_cn5j3")])
-
-[node name="Player" parent="." index="0" unique_id=1334804835]
-stream = ExtResource("2_i4ci4")
