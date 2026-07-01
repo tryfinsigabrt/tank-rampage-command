@@ -1,6 +1,9 @@
 class_name Precompilation3D extends Node3D
 
-@onready var container: Node3D = %Scenes
+
+@export
+var max_concurrency:int = 3
+
 
 #region Signals
 signal started(total_count:int)
@@ -19,6 +22,8 @@ var excluded_dirs:PackedStringArray = [
 	"/test/"
 ]
 
+@onready var container: Node3D = %Scenes
+		
 func run() -> void:
 	if not visible: 
 		show()
@@ -30,22 +35,48 @@ func run() -> void:
 	
 	print_debug("%s: Precompilation completed in %.1fms" % [name, (end - start) / 1000.0])
 	
-	completed.emit()
-
-func _precompile_scenes() -> void:
+func _precompile_scenes() -> Signal:
 	var scenes:Array[PackedScene] = _get_tagged_scenes()
 	
 	started.emit(scenes.size())
 	
+	var concurrency_count:PackedInt32Array = [0]
+	var completed_count:PackedInt32Array = [0]
+	var task_queue:Array[PrecompileTask]
+	var running_tasks:Array[PrecompileTask]
+	
+	var run_task := func(task:PrecompileTask) -> void:
+		concurrency_count[0] += 1
+		@warning_ignore("missing_await")
+		task.run()
+		
 	for i in scenes.size():
 		var scene := scenes[i]
 		# Could process in batches since task returns a signal that can later be awaited
 		# Though the compilation process is going to be serial anyways
-		await PrecompileTask.new(scene, container).run()
+		var precompile_task := PrecompileTask.new(scene, container)
+		# Keep it from getting destroyed before it finishing running
+		running_tasks.push_back(precompile_task)
 		
-		var completed_fraction:float = float(i + 1) / scenes.size()
-		progress_changed.emit(completed_fraction, 1)
-
+		precompile_task.finished.connect(func() -> void:
+			completed_count[0] += 1
+			concurrency_count[0] -= 1
+			running_tasks.erase(precompile_task)
+			
+			var completed_fraction:float = float(completed_count[0]) / scenes.size()
+			progress_changed.emit(completed_fraction, 1)
+			if task_queue:
+				run_task.call(task_queue.pop_back())
+			elif completed_count[0] == scenes.size():
+				completed.emit()
+		)
+		
+		if concurrency_count[0] < max_concurrency:
+			run_task.call(precompile_task)
+		else:
+			task_queue.push_back(precompile_task)
+	return completed
+	
 func _get_tagged_scenes() -> Array[PackedScene]:
 	var tagged_scenes:Array[PackedScene]
 	

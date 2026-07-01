@@ -10,6 +10,9 @@ func _init(in_scene:PackedScene, in_container:Node) -> void:
 	container = in_container
 	
 func run() -> Signal:
+	print_debug("Precompiling %s ..." % [scene.resource_path])
+	var start:int = Time.get_ticks_usec()
+	
 	var node:Node = scene.instantiate()
 	container.add_child(node)
 	
@@ -26,13 +29,16 @@ func run() -> Signal:
 			if not particle_node.emitting:
 				particle_node.restart()
 				particle_node.emitting = true
-		await tree.create_timer(0.5).timeout
+		await tree.create_timer(1.0).timeout
 	
 	await tree.process_frame
 	await tree.process_frame
 	
 	node.queue_free()
 	
+	var end:int = Time.get_ticks_usec()
+	print_debug("Precompiled %s in %.1fms" % [scene.resource_path, (end - start) / 1000.0])
+
 	finished.emit()
 	
 	return finished
