@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://daeh4g76rdm7j"]
+
+[ext_resource type="Script" uid="uid://b2cg5wvyqd6p2" path="res://ui/hud/tooltip_layer.gd" id="1_7khvj"]
+[ext_resource type="PackedScene" uid="uid://cf3mkticvs1js" path="res://ui/hud/tooltip_view.tscn" id="2_drwru"]
+
+[node name="TooltipLayer" type="Control" unique_id=525240784]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_7khvj")
+
+[node name="TooltipView" parent="." unique_id=58887158 instance=ExtResource("2_drwru")]
+unique_name_in_owner = true
+layout_mode = 0

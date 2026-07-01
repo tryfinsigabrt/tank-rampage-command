@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cf3mkticvs1js"]
+
+[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_knkr5"]
+[ext_resource type="Script" uid="uid://cuoa7s007pvr5" path="res://ui/hud/tooltip_view.gd" id="2_oqfcn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tooltip_panel"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.03529412, 0.047058824, 0.05882353, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 6
+
+[node name="TooltipView" type="PanelContainer" unique_id=1507231665]
+top_level = true
+custom_minimum_size = Vector2(320, 159)
+theme = ExtResource("1_knkr5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tooltip_panel")
+script = ExtResource("2_oqfcn")
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=1939211730]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="Label" parent="Content" unique_id=1075728627]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95686275, 0.972549, 0.98039216, 1)
+theme_override_font_sizes/font_size = 22
+text = "Title"
+
+[node name="SubtitleLabel" type="Label" parent="Content" unique_id=398913931]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5803922, 0.7411765, 0.7764706, 1)
+theme_override_font_sizes/font_size = 16
+text = "Subtitle"
+
+[node name="ContentLabel" type="Label" parent="Content" unique_id=179749848]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(272, 64)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.84705883, 0.8862745, 0.9019608, 1)
+theme_override_font_sizes/font_size = 16
+text = "Content"
+autowrap_mode = 3
+
+[node name="ExtraLabel" type="Label" parent="Content" unique_id=953486773]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(272, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.47058824, 0.47058824, 1)
+theme_override_font_sizes/font_size = 16
+text = "Extra"
+autowrap_mode = 3

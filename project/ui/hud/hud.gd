@@ -1,11 +1,15 @@
 class_name HUD extends MarginContainer
 
+signal ui_element_entered(code: StringName, extra: String)
+signal ui_element_exited(code: StringName)
+
 static var BUILDING_BORDER_COLOR := Color(0.59607846, 0.4117647, 0.06666667, 1)
 static var DEFAULT_BORDER_COLOR := Color(0.08235294, 0.23921569, 0.2784314, 1)
 static var BORDER_WIDTH := 4
 static var COMMAND_BORDER_COLOR := Color(0.14509803, 0.40784314, 0.47058823)
 
 @onready var player_message_panel: PanelContainer = %PlayerMessagePanel
+@onready var tooltip_layer: TooltipLayer = %TooltipLayer
 
 func _ready() -> void:
 	SignalBus.on_player_message_requested.connect(_on_player_message_requested)

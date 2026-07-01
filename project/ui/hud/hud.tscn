@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://dptr5phfa2op7" path="res://ui/hud/construction_panel.tscn" id="5_4j2e1"]
 [ext_resource type="PackedScene" uid="uid://bh4m2d75hvtc3" path="res://ui/project_version_label.tscn" id="5_imuuq"]
 [ext_resource type="PackedScene" uid="uid://dp5gyrwhmjqwl" path="res://ui/hud/building_panel.tscn" id="6_3h2ut"]
-[ext_resource type="PackedScene" path="res://ui/hud/unit_panel.tscn" id="7_yy1et"]
+[ext_resource type="PackedScene" uid="uid://2lnnwwyci8ww" path="res://ui/hud/unit_panel.tscn" id="7_yy1et"]
 [ext_resource type="PackedScene" uid="uid://c2rpqm3eydx63" path="res://ui/hud/command_panel.tscn" id="8_x8wtu"]
 [ext_resource type="PackedScene" path="res://ui/hud/player_message_panel.tscn" id="9_5yq4i"]
+[ext_resource type="PackedScene" uid="uid://daeh4g76rdm7j" path="res://ui/hud/tooltip_layer.tscn" id="10_eud4x"]
 
 [node name="Hud" type="MarginContainer" unique_id=1903012534 groups=["HUD"]]
 texture_filter = 1
@@ -79,3 +80,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 horizontal_alignment = 2
+
+[node name="TooltipLayer" parent="." unique_id=1321058485 instance=ExtResource("10_eud4x")]
+layout_mode = 2

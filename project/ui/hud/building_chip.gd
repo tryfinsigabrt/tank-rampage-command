@@ -22,6 +22,8 @@ var _show_personnel_cost: bool = true
 var _show_inventory_count: bool = true
 var _missing_scrap: bool = false
 var _missing_personnel: bool = false
+var _tooltip_code: StringName = &""
+var _hud: HUD
 
 @onready var icon: TextureRect = %BuildingIcon
 @onready var name_label: Label = %BuildingName
@@ -40,10 +42,10 @@ var _missing_personnel: bool = false
 var _inventory_count: int = -1
 
 func _ready() -> void:
+	_hud = Groups.get_parent_with_type(self, HUD) as HUD
 	_apply_resource()
 	_set_affordability_overlay()
 	_update_cost_state()
-	_update_tooltip_text()
 	_update_border_style()
 
 
@@ -52,11 +54,14 @@ func _apply_resource() -> void:
 		return
 
 	if resource == null:
+		if _hovered and _hud and _tooltip_code != StringName():
+			_hud.ui_element_exited.emit(_tooltip_code)
 		name_label.text = ""
 		scrap_cost_value.text = "0"
 		personnel_cost.visible = false
 		inventory_count.visible = false
 		set_missing_costs(false, false)
+		_tooltip_code = &""
 		if count_badge:
 			count_badge.visible = false
 		_update_border_style()
@@ -66,13 +71,15 @@ func _apply_resource() -> void:
 		icon.texture = resource.icon
 
 	name_label.text = _type_to_display_name(resource.type)
+	_tooltip_code = _type_to_tooltip_code(resource.type)
 	_update_scrap_cost()
 	_update_personnel_cost()
 	_update_count_badge()
 	_update_inventory_count()
 	_set_affordability_overlay()
 	_update_cost_state()
-	_update_tooltip_text()
+	if _hovered:
+		_emit_tooltip_entered()
 
 
 func set_show_count_badge(show_count_badge: bool) -> void:
@@ -145,7 +152,6 @@ func set_can_afford(can_afford: bool) -> void:
 	if is_node_ready():
 		_set_affordability_overlay()
 		_update_border_style()
-		_update_tooltip_text()
 
 
 func set_missing_costs(missing_scrap: bool, missing_personnel: bool) -> void:
@@ -153,7 +159,8 @@ func set_missing_costs(missing_scrap: bool, missing_personnel: bool) -> void:
 	_missing_personnel = missing_personnel
 	if is_node_ready():
 		_update_cost_state()
-		_update_tooltip_text()
+		if _hovered:
+			_emit_tooltip_entered()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -169,11 +176,14 @@ func _gui_input(event: InputEvent) -> void:
 func _on_mouse_entered() -> void:
 	_hovered = true
 	_update_border_style()
+	_emit_tooltip_entered()
 
 
 func _on_mouse_exited() -> void:
 	_hovered = false
 	_update_border_style()
+	if _hud and _tooltip_code != StringName():
+		_hud.ui_element_exited.emit(_tooltip_code)
 
 
 func _set_affordability_overlay() -> void:
@@ -195,20 +205,6 @@ func _update_cost_state() -> void:
 		personnel_cost_icon.modulate = MISSING_COST_COLOR if _missing_personnel else Color.WHITE
 
 
-func _update_tooltip_text() -> void:
-	if resource == null:
-		tooltip_text = ""
-		return
-
-	var reasons: Array[String] = []
-	if _missing_scrap:
-		reasons.push_back("Need Scrap")
-	if _missing_personnel:
-		reasons.push_back("Need Personnel")
-
-	tooltip_text = ", ".join(reasons) if not reasons.is_empty() else ""
-
-
 func _update_border_style() -> void:
 	var stylebox := get_theme_stylebox("panel") as StyleBoxFlat
 	if stylebox == null:
@@ -225,6 +221,25 @@ func _update_border_style() -> void:
 	stylebox.border_width_bottom = HUD.BORDER_WIDTH
 	stylebox.border_color = HUD.BUILDING_BORDER_COLOR if is_highlighted else HUD.DEFAULT_BORDER_COLOR
 	add_theme_stylebox_override("panel", stylebox)
+
+
+func get_tooltip_note() -> String:
+	var reasons: Array[String] = []
+	if _missing_scrap:
+		reasons.push_back("Needs Scrap")
+	if _missing_personnel:
+		reasons.push_back("Needs Personnel")
+	return ", ".join(reasons)
+
+
+func _emit_tooltip_entered() -> void:
+	if _hud == null or _tooltip_code == StringName():
+		return
+	_hud.ui_element_entered.emit(_tooltip_code, get_tooltip_note())
+
+
+func _type_to_tooltip_code(type: ConstructionResource.Type) -> StringName:
+	return StringName("construction_%s" % EnumUtils.enum_to_string(ConstructionResource.Type, type).to_snake_case())
 
 
 func _type_to_display_name(type: ConstructionResource.Type) -> String:
