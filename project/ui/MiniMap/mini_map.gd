@@ -18,7 +18,7 @@ func _ready() -> void:
 		set_process_input(false)
 		return
 	
-		# Initially set from current
+	# Initially set from current
 	_camera_updated(~0)
 	
 	_camera.camera_changed.connect(_camera_updated)

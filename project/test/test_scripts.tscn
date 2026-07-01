@@ -39,6 +39,8 @@ func _ready() -> void:
 	
 	print(inverse_lerp(100, 10, 20))
 	print(inverse_lerp(100, 100, 100))
+	
+	print(ResourceLoader.list_directory(\"res://core\"))
 "
 
 [node name="TestScripts" type="Node" unique_id=1658582478]

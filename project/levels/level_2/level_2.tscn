@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_4nbo2"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_8r3qo"]
 [ext_resource type="NavigationMesh" uid="uid://cl62jsei5gceh" path="res://levels/level_2/navigation_mesh.tres" id="3_0butd"]
+[ext_resource type="PackedScene" uid="uid://xnfctn4sv3l0" path="res://levels/level_world_environment.tscn" id="3_1h50e"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_1vf62"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_8y2in"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_5ts7o"]
@@ -45,20 +46,6 @@
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="43_1h50e"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="43_pvqwi"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_un0ug"]
-
-[sub_resource type="Sky" id="Sky_l5wcu"]
-sky_material = SubResource("ProceduralSkyMaterial_un0ug")
-
-[sub_resource type="Environment" id="Environment_25w0s"]
-background_mode = 2
-sky = SubResource("Sky_l5wcu")
-ambient_light_source = 3
-tonemap_mode = 2
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lnqnw"]
-exposure_multiplier = 0.7
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ptf1"]
 size = Vector3(1024, 1000, 800)
@@ -2143,9 +2130,7 @@ explored_area_modulation = 0.5
 [node name="Environment" type="Node3D" parent="." unique_id=792859291]
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=546831564]
-environment = SubResource("Environment_25w0s")
-camera_attributes = SubResource("CameraAttributesPractical_lnqnw")
+[node name="WorldEnvironment" parent="Environment" unique_id=1074922196 instance=ExtResource("3_1h50e")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1316863953]
 transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)
