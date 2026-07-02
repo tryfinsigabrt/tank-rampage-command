@@ -13,6 +13,7 @@
 script = ExtResource("3_lefgh")
 to_spawn = ExtResource("6_5jcfj")
 max_slope_angle_deg = 30.0
+collision_mask = 805307493
 additional_collisions = Array[ExtResource("4_gvayv")]([ExtResource("5_oeo7b")])
 metadata/_custom_type_script = "uid://rchprl2i3qgf"
 
