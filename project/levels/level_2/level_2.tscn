@@ -40,7 +40,9 @@
 [ext_resource type="PackedScene" uid="uid://7o01gebtnvtx" path="res://buildings/city/meshes/office_02.tscn" id="19_1txof"]
 [ext_resource type="PackedScene" uid="uid://bbv3o4cbjg85q" path="res://buildings/city/meshes/city_block.tscn" id="19_xpuws"]
 [ext_resource type="PackedScene" uid="uid://dy5tos0i6j272" path="res://buildings/city/meshes/city_parking_lot.tscn" id="20_sm3vb"]
+[ext_resource type="PackedScene" uid="uid://v8s3au7e2iqa" path="res://buildings/city/meshes/city_t_intersection.tscn" id="22_nouef"]
 [ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="22_s4b5i"]
+[ext_resource type="PackedScene" uid="uid://c42n11oqcw74l" path="res://buildings/city/meshes/city_curve.tscn" id="23_vdtjt"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
@@ -2302,26 +2304,6 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_tdllg")
 skeleton = NodePath("")
 
-[node name="city-intersection7" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=287031468]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, -4)
-mesh = SubResource("ArrayMesh_tdllg")
-skeleton = NodePath("")
-
-[node name="city-intersection8" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=175701705]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, 6)
-mesh = SubResource("ArrayMesh_tdllg")
-skeleton = NodePath("")
-
-[node name="city-intersection9" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=751413432]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, 6)
-mesh = SubResource("ArrayMesh_tdllg")
-skeleton = NodePath("")
-
-[node name="city-intersection3" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1835045372]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -1, 0, 6)
-mesh = SubResource("ArrayMesh_tdllg")
-skeleton = NodePath("")
-
 [node name="city-intersection4" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1628528178]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, 1)
 mesh = SubResource("ArrayMesh_tdllg")
@@ -2553,7 +2535,7 @@ mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_063" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1996119910]
-transform = Transform3D(-2.842171e-14, -100, -2.9802318e-06, -2.9802309e-06, 2.6398646e-15, 99.999954, -100.000046, 2.9802322e-06, 2.2737368e-13, -5.9604645e-08, 4.656613e-09, -12.863168)
+transform = Transform3D(-4.3711393e-06, -100, -4.371139e-06, 0, -4.371139e-06, 99.99999, -100.00001, 4.3711393e-06, 1.9895197e-13, -5.9604645e-08, 4.656613e-09, -12.879834)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
@@ -2603,102 +2585,82 @@ mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_073" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1926158270]
-transform = Transform3D(0, -100, -2.980232e-06, -2.9802316e-06, 1.0855523e-15, 99.99998, -100.00002, 2.9802322e-06, 8.526513e-14, 5.025661, -1.3969839e-09, -5.0000005)
+transform = Transform3D(-4.4585618e-06, -100, -4.371139e-06, -7.1054274e-15, -4.371139e-06, 99.99999, -102.00001, 4.3711393e-06, 1.9895197e-13, 5.0023284, -1.3969839e-09, -4.993334)
 mesh = SubResource("ArrayMesh_keq12")
 skeleton = NodePath("")
 
-[node name="city-street_074" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=630905684]
-transform = Transform3D(0, -100, -2.980232e-06, -2.9802316e-06, 1.0855523e-15, 99.99998, -100.00002, 2.9802322e-06, 8.526513e-14, 5.025661, -1.3969839e-09, -6.0000005)
-mesh = SubResource("ArrayMesh_uxu6t")
-skeleton = NodePath("")
-
 [node name="city-street_075" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1496383007]
-transform = Transform3D(0, -100, -2.980232e-06, -2.9802316e-06, 1.0855523e-15, 99.99998, -100.00002, 2.9802322e-06, 8.526513e-14, 5.025661, 0, -7.0000005)
+transform = Transform3D(-2.842171e-14, -100, -2.9802318e-06, -2.9802309e-06, 2.6398646e-15, 99.999954, -100.000046, 2.9802322e-06, 2.2737368e-13, 5.005661, 0, -6.993335)
 mesh = SubResource("ArrayMesh_qo8mc")
 skeleton = NodePath("")
 
 [node name="city-street_076" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=446284325]
-transform = Transform3D(0, -100, -2.980232e-06, -2.9802316e-06, 1.0855523e-15, 99.99998, -100.00002, 2.9802322e-06, 8.526513e-14, 5.025661, 0, -8)
+transform = Transform3D(-4.4585618e-06, -100, -4.371139e-06, -7.1054274e-15, -4.371139e-06, 99.99999, -102.00001, 4.3711393e-06, 1.9895197e-13, 5.0023284, 0, -7.986667)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_077" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1840321271]
-transform = Transform3D(-2.842171e-14, -100, -2.9802318e-06, -2.9802309e-06, 2.6398646e-15, 99.999954, -100.000046, 2.9802322e-06, 2.2737368e-13, 5.025661, 9.313226e-10, -8.972087)
+transform = Transform3D(-5.684342e-14, -100, -2.9802318e-06, -2.9802306e-06, 3.0839538e-15, 99.99995, -100.00005, 2.9802322e-06, 2.842171e-13, 5.002328, 9.313226e-10, -8.972087)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_078" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=2116093366]
-transform = Transform3D(-2.842171e-14, -100, -2.9802318e-06, -2.9802309e-06, 2.6398646e-15, 99.999954, -100.000046, 2.9802322e-06, 2.2737368e-13, 5.025661, 1.3969839e-09, -9.964073)
+transform = Transform3D(-5.684342e-14, -100, -2.9802318e-06, -2.9802306e-06, 3.0839538e-15, 99.99995, -100.00005, 2.9802322e-06, 2.842171e-13, 5.002328, 1.3969839e-09, -9.964073)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_079" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=928508565]
-transform = Transform3D(-5.684342e-14, -100, -2.9802318e-06, -2.9802306e-06, 3.0839538e-15, 99.99995, -100.00005, 2.9802322e-06, 2.842171e-13, 5.025661, 2.3283064e-09, -10.962215)
+transform = Transform3D(-1.1368684e-13, -100, -2.9802318e-06, -2.9802306e-06, 3.972132e-15, 99.99995, -100.00007, 2.9802322e-06, 2.842171e-13, 4.9989944, 2.3283064e-09, -10.962215)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_080" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1308043817]
-transform = Transform3D(-8.526513e-14, -100, -2.9802318e-06, -2.9802306e-06, 3.528043e-15, 99.99995, -100.00006, 2.9802322e-06, 2.842171e-13, 5.025661, 3.259629e-09, -11.926117)
+transform = Transform3D(-1.1368684e-13, -100, -2.9802318e-06, -2.9802306e-06, 5.0823552e-15, 99.99995, -100.00007, 2.9802322e-06, 2.842171e-13, 5.0023284, 3.259629e-09, -11.962784)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_081" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1713497933]
-transform = Transform3D(-1.1368684e-13, -100, -2.9802318e-06, -2.9802306e-06, 3.972132e-15, 99.99995, -100.00007, 2.9802322e-06, 2.842171e-13, 5.025661, 4.1909516e-09, -12.863168)
-mesh = SubResource("ArrayMesh_ndkwn")
-skeleton = NodePath("")
-
-[node name="city-street_082" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1439126343]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565393e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711434e-06, 100.00003, 3.08326e-06, 5.0211987, 6.0535967e-09, -14.836286)
+transform = Transform3D(-1.1368684e-13, -100, -2.9802318e-06, -2.9802306e-06, 5.5264444e-15, 99.99995, -100.00007, 2.9802322e-06, 2.842171e-13, 5.0023284, 4.1909516e-09, -12.899835)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_083" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1429436926]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.5653874e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.371144e-06, 100.00004, 3.0832603e-06, 4.0211987, 6.0535967e-09, -14.836286)
+transform = Transform3D(-102, 1.509958e-05, 6.9835544e-13, 2.9336986e-16, -4.371139e-06, 99.99999, 1.5401574e-05, 100.00001, 4.371139e-06, 4.0211987, 6.0535967e-09, -14.866289)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_084" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=968207010]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565382e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.000046, 3.0832605e-06, 3.0211987, 6.0535967e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.565359e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832612e-06, 3.0011988, 6.0535967e-09, -14.866288)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_085" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=947208393]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565365e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.00006, 3.083261e-06, 2.0211987, 6.0535967e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.5653476e-08, -3.0758845e-06, -1.03027496e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832616e-06, 2.0011988, 6.0535967e-09, -14.866288)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_086" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1320347360]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565359e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832612e-06, 1.021199, 6.0535967e-09, -14.836286)
-mesh = SubResource("ArrayMesh_ndkwn")
-skeleton = NodePath("")
-
-[node name="city-street_087" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=642834623]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565353e-08, -3.0758845e-06, -1.030275e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832614e-06, 0.021198928, 6.0535967e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.565336e-08, -3.0758845e-06, -1.0302748e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832618e-06, 1.001199, 4.1909516e-09, -14.866289)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_089" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1410407450]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565382e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.000046, 3.0832605e-06, -0.978801, 5.122274e-09, -14.836286)
+transform = Transform3D(-107.5, 1.509958e-05, 6.9835544e-13, 3.5925886e-16, -4.371139e-06, 99.99999, 1.623205e-05, 100.00001, 4.371139e-06, -0.9988012, 9.313226e-10, -14.872959)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_090" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1704608811]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565376e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.00005, 3.0832607e-06, -1.9788008, 5.122274e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.565336e-08, -3.0758845e-06, -1.0302748e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832618e-06, -2.0354676, 1.8626451e-09, -14.872958)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_091" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=875256746]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565365e-08, -3.0758845e-06, -1.0302751e-07, 99.99994, 4.3711443e-06, 100.00006, 3.083261e-06, -2.9788008, 5.122274e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.5653306e-08, -3.0758845e-06, -1.0302747e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832618e-06, -3.0321348, 1.3969839e-09, -14.869623)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
 [node name="city-street_092" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=639660109]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.565353e-08, -3.0758845e-06, -1.030275e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832614e-06, -3.9788008, 5.122274e-09, -14.836286)
-mesh = SubResource("ArrayMesh_ndkwn")
-skeleton = NodePath("")
-
-[node name="city-street_093" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1460607692]
-transform = Transform3D(-100.00007, 7.351371e-06, -9.5653476e-08, -3.0758845e-06, -1.03027496e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832616e-06, -4.9788, 5.122274e-09, -14.836286)
+transform = Transform3D(-100.00007, 7.351371e-06, -9.565325e-08, -3.0758845e-06, -1.0302745e-07, 99.99994, 4.3711443e-06, 100.00007, 3.0832618e-06, -4.032134, 1.8626451e-09, -14.86629)
 mesh = SubResource("ArrayMesh_ndkwn")
 skeleton = NodePath("")
 
@@ -2747,11 +2709,6 @@ transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2
 mesh = SubResource("ArrayMesh_3asup")
 skeleton = NodePath("")
 
-[node name="city-street_037" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=66127204]
-transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 3)
-mesh = SubResource("ArrayMesh_p16kc")
-skeleton = NodePath("")
-
 [node name="city-street_038" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1206381843]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 4)
 mesh = SubResource("ArrayMesh_62wod")
@@ -2763,18 +2720,13 @@ mesh = SubResource("ArrayMesh_62wod")
 skeleton = NodePath("")
 
 [node name="city-street_040" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1155786695]
-transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -3)
+transform = Transform3D(0, -100, -2.9802322e-06, -2.980232e-06, 1.9737392e-16, 99.99999, -100.00001, 2.9802322e-06, 2.842171e-14, 5.0000005, -4.656613e-10, -2.996667)
 mesh = SubResource("ArrayMesh_3asup")
 skeleton = NodePath("")
 
 [node name="city-street_041" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=439973587]
-transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -2)
+transform = Transform3D(0, -100, -2.9802322e-06, -2.9802318e-06, 6.4146313e-16, 99.999985, -100.000015, 2.9802322e-06, 5.684342e-14, 5.000001, -9.313226e-10, -1.9966671)
 mesh = SubResource("ArrayMesh_p16kc")
-skeleton = NodePath("")
-
-[node name="city-street_042" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=134158491]
-transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -1)
-mesh = SubResource("ArrayMesh_62wod")
 skeleton = NodePath("")
 
 [node name="city-street_043" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=222553554]
@@ -2988,13 +2940,13 @@ transform = Transform3D(100, 0, 1.8696154e-13, -1.8257001e-15, -1.1920924e-05, 9
 transform = Transform3D(100, 0, 1.8696154e-13, -2.2697893e-15, -1.19209235e-05, 99.99995, 2.1316282e-14, -100.00004, -1.1920934e-05, 9.974741, -1.3969839e-09, 0.9991872)
 
 [node name="city-street3" parent="World/NavigationRegion3D/City/Expansion/Streets01" unique_id=1869198981 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(100, -8.526513e-14, 3.574918e-13, -3.1579677e-15, -1.1920923e-05, 99.99995, 3.5527137e-14, -100.00006, -1.1920937e-05, 10.936085, -1.3969839e-09, 0.99918735)
+transform = Transform3D(100, -1.1368684e-13, 4.143352e-13, -3.3800123e-15, -1.1920923e-05, 99.99995, 3.907985e-14, -100.00007, -1.1920937e-05, 10.959418, -1.3969839e-09, 0.9991874)
 
 [node name="city-street4" parent="World/NavigationRegion3D/City/Expansion/Streets01" unique_id=1663660156 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(100, -8.526513e-14, 3.574918e-13, -3.1579677e-15, -1.1920923e-05, 99.99995, 3.5527137e-14, -100.00006, -1.1920937e-05, 11.933273, -1.3969839e-09, 0.99918735)
+transform = Transform3D(100, -1.1368684e-13, 4.143352e-13, -3.3800123e-15, -1.1920923e-05, 99.99995, 3.907985e-14, -100.00007, -1.1920937e-05, 11.956607, -1.3969839e-09, 0.9991874)
 
 [node name="city-street5" parent="World/NavigationRegion3D/City/Expansion/Streets01" unique_id=1991663072 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(100, -1.1368684e-13, 4.143352e-13, -3.3800123e-15, -1.1920923e-05, 99.99995, 3.907985e-14, -100.00007, -1.1920937e-05, 12.930286, -1.3969839e-09, 0.9991874)
+transform = Transform3D(105, 2.842171e-14, -1.4161968e-14, -5.181044e-17, -4.371139e-06, 99.999985, 5.3290705e-14, -100.000015, -4.371139e-06, 12.95029, -1.3969839e-09, 0.99918765)
 
 [node name="Streets02" type="Node3D" parent="World/NavigationRegion3D/City/Expansion" unique_id=1360531465]
 transform = Transform3D(1, 1.0362087e-17, 0, -3.1718456e-17, 1, 0, 5.551115e-16, 1.9984014e-15, 1, -19.948833, 9.313226e-10, -0.06367925)
@@ -3015,7 +2967,7 @@ transform = Transform3D(100, -5.684342e-14, 3.0064837e-13, -2.9359231e-15, -1.19
 transform = Transform3D(100, -8.526513e-14, 3.574918e-13, -3.1579677e-15, -1.1920923e-05, 99.99995, 3.5527137e-14, -100.00006, -1.1920937e-05, 12.970286, -1.3969839e-09, 0.99918735)
 
 [node name="city-street6" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1293086945 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(100, -1.1368684e-13, 5.2802207e-13, -3.8241018e-15, -1.1920923e-05, 99.99995, 4.6185278e-14, -100.00007, -1.1920937e-05, 8.013731, -1.3969839e-09, 0.99918735)
+transform = Transform3D(100, -1.1368684e-13, 6.985523e-13, -4.268191e-15, -1.1920923e-05, 99.99995, 5.3290705e-14, -100.00007, -1.1920937e-05, 8.000396, -1.3969839e-09, 0.995854)
 
 [node name="city-street7" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=945543178 instance=ExtResource("8_6fwx2")]
 transform = Transform3D(100, 0, 1.8696154e-13, -2.2697893e-15, -1.19209235e-05, 99.99995, 2.1316282e-14, -100.00004, -1.1920934e-05, 8.986978, 3.259629e-09, -4.000813)
@@ -3036,37 +2988,28 @@ transform = Transform3D(100, -1.1368684e-13, 4.143352e-13, -3.3800123e-15, -1.19
 transform = Transform3D(100, -1.1368684e-13, 6.985523e-13, -4.268191e-15, -1.1920923e-05, 99.99995, 5.3290705e-14, -100.00007, -1.1920937e-05, 8, 0, -4.001)
 
 [node name="city-street13" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1907984647 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.3711407e-06, -100.000046, -1.201659e-05, 1.03027546e-07, -1.201658e-05, 99.99995, -100.00007, 4.3711443e-06, 1.0302861e-07, 8.035749, -4.1909516e-09, -0.018069148)
+transform = Transform3D(-4.3711407e-06, -100.000046, -1.201659e-05, 1.0302753e-07, -1.201658e-05, 99.99995, -100.00007, 4.3711443e-06, 1.0302864e-07, 8.005748, -5.122274e-09, -0.008069128)
 
 [node name="city-street14" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1280593880 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.000046, -1.201659e-05, 1.0302753e-07, -1.2016579e-05, 99.99995, -100.00006, 4.3711443e-06, 1.0302682e-07, 8.035749, -2.7939677e-09, -1.0058317)
+transform = Transform3D(-4.371141e-06, -100.000046, -1.201659e-05, 1.0302753e-07, -1.2016579e-05, 99.99995, -100.00007, 4.3711443e-06, 1.0302682e-07, 8.005749, -3.259629e-09, -1.0058317)
 
 [node name="city-street15" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1766434646 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00005, -1.201659e-05, 1.0302753e-07, -1.2016577e-05, 99.99994, -100.00006, 4.3711443e-06, 1.03029066e-07, 8.035749, -1.8626451e-09, -2.0071762)
+transform = Transform3D(-4.371141e-06, -100.00005, -1.201659e-05, 1.0302753e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.03029066e-07, 8.009083, -2.3283064e-09, -2.0071764)
 
 [node name="city-street16" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1482087666 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00006, -1.20165905e-05, 1.0302753e-07, -1.2016577e-05, 99.99994, -100.00006, 4.3711443e-06, 1.0302901e-07, 8.035749, 1.8626451e-09, -3.0043664)
-
-[node name="city-street17" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=191449550 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00007, -1.20165905e-05, 1.0302752e-07, -1.2016576e-05, 99.99994, -100.00005, 4.3711443e-06, 1.0302668e-07, 8.035749, 3.259629e-09, -4.001377)
-
-[node name="city-street18" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1356225381 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00007, -1.20165905e-05, 1.0302751e-07, -1.2016576e-05, 99.99994, -100.00007, 4.3711443e-06, 1.0302645e-07, 8.033985, -6.519258e-09, 0.9551798)
-
-[node name="city-street19" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1578343172 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.3711407e-06, -100.000046, -1.201659e-05, 1.030275e-07, -1.201658e-05, 99.99995, -100.00007, 4.3711443e-06, 1.0302864e-07, 8.048614, -1.3038516e-08, 5.92492)
+transform = Transform3D(-4.371141e-06, -100.00006, -1.20165905e-05, 1.0302753e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.0302901e-07, 8.002416, 1.3969839e-09, -3.0043666)
 
 [node name="city-street20" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1496264013 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.000046, -1.201659e-05, 1.0302747e-07, -1.2016579e-05, 99.99995, -100.00007, 4.3711443e-06, 1.0302682e-07, 8.054106, -1.3038516e-08, 4.9400887)
+transform = Transform3D(-4.808252e-06, -100, -4.3711393e-06, 0, -4.371139e-06, 99.99998, -110.00002, 4.37114e-06, 2.2737368e-13, 8.004103, -1.5832484e-08, 5.0734234)
 
 [node name="city-street21" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=370034496 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00005, -1.201659e-05, 1.0302747e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.03029066e-07, 8.054106, -1.21071935e-08, 3.9387443)
+transform = Transform3D(-4.371141e-06, -100.00005, -1.201659e-05, 1.03027396e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.03029066e-07, 8.004103, -1.6298145e-08, 3.9754133)
 
 [node name="city-street22" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1102587089 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00006, -1.20165905e-05, 1.0302747e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.0302901e-07, 8.054106, -8.8475645e-09, 2.9415543)
+transform = Transform3D(-4.371141e-06, -100.00006, -1.20165905e-05, 1.0302739e-07, -1.2016577e-05, 99.99994, -100.00007, 4.3711443e-06, 1.0302901e-07, 8.007432, -1.3969839e-08, 2.9815543)
 
 [node name="city-street23" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1470403985 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(-4.371141e-06, -100.00007, -1.20165905e-05, 1.0302745e-07, -1.2016576e-05, 99.99994, -100.00007, 4.3711443e-06, 1.0302668e-07, 8.054106, -2.7939677e-09, 1.9445435)
+transform = Transform3D(-4.4585618e-06, -100, -4.371139e-06, 0, -4.371139e-06, 100, -102, 4.371139e-06, 1.9106854e-13, 8.0041, -6.519258e-09, 1.9912106)
 
 [node name="office" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1902130560 instance=ExtResource("18_pqi81")]
 transform = Transform3D(50, 0, 3.9412917e-13, -8.0182775e-16, -1.1920924e-05, 149.99995, 8.881784e-15, -100.00003, -1.7881393e-05, 7.9999943, 9.313226e-10, -1.3333336)
@@ -3097,6 +3040,27 @@ transform = Transform3D(-2.1855694e-06, 100.00001, 1.8035933e-05, -4.782727e-08,
 
 [node name="office5" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=493205685 instance=ExtResource("19_1txof")]
 transform = Transform3D(-2.1855694e-06, 100.00001, 1.8035933e-05, -4.782727e-08, -1.2023951e-05, 149.99995, 50.000027, 4.371139e-06, 1.4348007e-07, 12.367301, -4.656613e-10, -0.5018326)
+
+[node name="city-t-intersection" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=688990879 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.3711416e-06, 100.000015, 4.3711366e-06, 5.684342e-14, -4.3711393e-06, 99.99995, 100.00007, 4.3711393e-06, 2.2737368e-13, 7.003314, -9.313226e-10, -0.009999871)
+
+[node name="city-t-intersection4" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1244030390 instance=ExtResource("22_nouef")]
+transform = Transform3D(100.00008, -7.1054274e-13, -9.565373e-08, 9.565467e-08, -4.2681118e-06, 99.99995, -6.750156e-14, -100.00004, -4.26811e-06, 13.949976, -1.1641532e-08, 6.0633345)
+
+[node name="city-t-intersection5" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1498713396 instance=ExtResource("22_nouef")]
+transform = Transform3D(100.00008, -7.1054274e-13, -9.565373e-08, 9.565467e-08, -4.2681118e-06, 99.99995, -5.684342e-14, -100.00005, -4.26811e-06, 18.949974, -1.2572855e-08, 6.0633354)
+
+[node name="city-t-intersection6" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1761482854 instance=ExtResource("22_nouef")]
+transform = Transform3D(100.00008, -6.82121e-13, -9.565373e-08, 9.565467e-08, -4.2681118e-06, 99.99995, -3.5527137e-14, -100.00007, -4.26811e-06, 23.949974, -1.3038516e-08, 6.0633354)
+
+[node name="city-t-intersection2" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1196405952 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.371143e-06, -100.000015, -4.363763e-06, 1.9868224e-07, -4.363766e-06, 99.99995, -100.00007, 4.371141e-06, 1.9868222e-07, 24.949974, 2.3283064e-09, -3.9333363)
+
+[node name="city-t-intersection3" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1011251346 instance=ExtResource("22_nouef")]
+transform = Transform3D(1.311343e-05, 100.00002, 4.371137e-06, 7.1054274e-15, -4.3711398e-06, 99.99995, 100.00008, -1.3113422e-05, -7.3896445e-13, 23.956635, 5.5879354e-09, -6.9333405)
+
+[node name="city-curve" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1776588125 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(-100.00001, 8.742279e-06, 7.3739987e-09, 7.3729525e-09, -1.2119612e-05, 99.99997, 8.7422795e-06, 100.000046, 1.2119615e-05, 8.003329, 3.7252903e-09, -5.0033345)
 
 [node name="Streets03" type="Node3D" parent="World/NavigationRegion3D/City/Expansion" unique_id=184560368]
 transform = Transform3D(1, 1.0362084e-17, 0, -1.7840668e-17, 1, 0, 2.7755576e-16, 1.110223e-15, 1, -10.36167, -5.5879354e-09, 5.3038726)
@@ -3240,11 +3204,6 @@ transform = Transform3D(100, 0, 1.8696154e-13, -2.2697893e-15, -1.19209235e-05, 
 mesh = SubResource("ArrayMesh_7q12m")
 skeleton = NodePath("")
 
-[node name="city-street_102" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=875423168]
-transform = Transform3D(100, -5.684342e-14, 3.0064837e-13, -2.9359231e-15, -1.1920923e-05, 99.99995, 3.1974423e-14, -100.00005, -1.1920936e-05, 14.000001, -6.519258e-09, 6)
-mesh = SubResource("ArrayMesh_ydidt")
-skeleton = NodePath("")
-
 [node name="city-street_066" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1993560622]
 transform = Transform3D(100, 0, 1.8696156e-13, -9.375217e-16, -1.1920926e-05, 99.99997, 1.0658141e-14, -100.000015, -1.1920932e-05, 6.0000014, 9.313226e-10, -1)
 mesh = SubResource("ArrayMesh_k5l1q")
@@ -3340,11 +3299,6 @@ transform = Transform3D(-4.3711393e-06, 100.00004, 1.202396e-05, -9.565456e-08, 
 mesh = SubResource("ArrayMesh_ydidt")
 skeleton = NodePath("")
 
-[node name="city-street_104" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=2144484676]
-transform = Transform3D(-4.3711393e-06, 100.00004, 1.202396e-05, -9.565456e-08, -1.2023951e-05, 99.99995, 100.000046, 4.37114e-06, 9.5655224e-08, 14.000001, 6.0535967e-09, -7.000002)
-mesh = SubResource("ArrayMesh_ydidt")
-skeleton = NodePath("")
-
 [node name="city-street_084" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1457661749]
 transform = Transform3D(-4.3711393e-06, 100.00004, 1.202396e-05, -9.565456e-08, -1.2023951e-05, 99.99995, 100.00003, 4.37114e-06, 9.5655224e-08, 14.000001, 2.7939677e-09, -4.0000005)
 mesh = SubResource("ArrayMesh_k5l1q")
@@ -3355,29 +3309,14 @@ transform = Transform3D(-4.3711393e-06, 100.00004, 1.202396e-05, -9.565456e-08, 
 mesh = SubResource("ArrayMesh_7q12m")
 skeleton = NodePath("")
 
-[node name="city-street_086" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=908461089]
-transform = Transform3D(-4.3711393e-06, 100.000046, 1.202396e-05, -9.5654585e-08, -1.2023951e-05, 99.99995, 100.000046, 4.371141e-06, 9.565596e-08, 14.000001, 4.656613e-10, -2.0000017)
-mesh = SubResource("ArrayMesh_ydidt")
-skeleton = NodePath("")
-
 [node name="city-street_087" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1016711835]
 transform = Transform3D(-4.3711393e-06, 100.000046, 1.202396e-05, -9.5654585e-08, -1.2023951e-05, 99.99995, 100.000046, 4.371141e-06, 9.565596e-08, 14.000001, -4.656613e-10, -1.0000014)
 mesh = SubResource("ArrayMesh_k5l1q")
 skeleton = NodePath("")
 
-[node name="city-street_088" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=201460325]
-transform = Transform3D(-4.3711393e-06, 100.000046, 1.202396e-05, -9.5654585e-08, -1.2023951e-05, 99.99995, 100.000046, 4.371141e-06, 9.565596e-08, 14.000001, -1.3969839e-09, -1.758337e-06)
-mesh = SubResource("ArrayMesh_7q12m")
-skeleton = NodePath("")
-
 [node name="city-street_089" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=632685341]
 transform = Transform3D(-4.371139e-06, 100.000046, 1.202396e-05, -9.565457e-08, -1.2023951e-05, 99.99995, 100.00004, 4.371141e-06, 9.5654514e-08, 14.000001, -2.3283064e-09, 0.9999988)
 mesh = SubResource("ArrayMesh_ydidt")
-skeleton = NodePath("")
-
-[node name="city-street_090" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=895906279]
-transform = Transform3D(-4.371139e-06, 100.000046, 1.202396e-05, -9.565457e-08, -1.2023951e-05, 99.99995, 100.00004, 4.371141e-06, 9.5654514e-08, 14.000001, -3.259629e-09, 1.9999988)
-mesh = SubResource("ArrayMesh_k5l1q")
 skeleton = NodePath("")
 
 [node name="city-street_091" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=746140972]
@@ -3386,9 +3325,15 @@ mesh = SubResource("ArrayMesh_7q12m")
 skeleton = NodePath("")
 
 [node name="city-street_092" type="MeshInstance3D" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=722310139]
-transform = Transform3D(-4.371139e-06, 100.000046, 1.202396e-05, -9.565457e-08, -1.2023951e-05, 99.99995, 100.000046, 4.371141e-06, 9.5654514e-08, 14.000001, -5.122274e-09, 3.9999988)
+transform = Transform3D(-4.371139e-06, 100.000046, 1.202396e-05, -9.565457e-08, -1.2023951e-05, 99.99995, 100.00005, 4.371141e-06, 9.5654514e-08, 14.000001, -5.122274e-09, 3.9966657)
 mesh = SubResource("ArrayMesh_7q12m")
 skeleton = NodePath("")
+
+[node name="city-curve" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1587180097 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(100, -4.967049e-08, 2.7005514e-13, -3.5527137e-15, -4.3711384e-06, 99.99995, -4.9670543e-08, -100.00007, -4.3711384e-06, 13.997, 0, 5.997)
+
+[node name="city-curve2" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=2070300635 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(-4.321468e-06, 100.00007, 4.4741664e-06, -9.5654556e-08, -4.474166e-06, 99.99994, 100.00006, 4.321472e-06, 9.565582e-08, -12.946333, 1.8626451e-09, 5.000334)
 
 [node name="city-block" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=999192896 instance=ExtResource("19_xpuws")]
 transform = Transform3D(-8.742278e-06, 200, 8.742278e-06, 0, -8.742279e-06, 199.99998, 200.00002, 8.742278e-06, 3.9790393e-13, 5.0000014, -3.259629e-09, 2.9999988)
@@ -3408,6 +3353,33 @@ transform = Transform3D(-8.742278e-06, 200, 8.742278e-06, 0, -8.742279e-06, 199.
 
 [node name="city-block4" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1671272694 instance=ExtResource("19_xpuws")]
 transform = Transform3D(-8.742278e-06, 200, 8.742278e-06, 0, -8.742279e-06, 199.99992, 200.00008, 8.742278e-06, 6.252776e-13, 11.000001, -6.0535967e-09, 2.9999988)
+
+[node name="city-curve3" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=157127849 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016582e-05, 99.99995, -100.00006, 4.371143e-06, 1.03027304e-07, 15, 4.1909516e-09, -5.996667)
+
+[node name="city-t-intersection" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=430771738 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016584e-05, 99.99996, -100.000046, 4.3711416e-06, 1.03028725e-07, 15.000001, 4.656613e-10, -1)
+
+[node name="city-t-intersection4" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=159121839 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.3711416e-06, 100.000015, 1.202396e-05, -9.565462e-08, -1.2023953e-05, 99.99995, 100.00007, 4.3711375e-06, 9.565446e-08, 4.000003, 1.8626451e-09, -1.9966674)
+
+[node name="city-t-intersection2" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=930150225 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016584e-05, 99.99995, -100.00006, 4.3711425e-06, 1.0302875e-07, 15.000001, -1.3969839e-09, 1.0000001)
+
+[node name="city-t-intersection3" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1298051772 instance=ExtResource("22_nouef")]
+transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016584e-05, 99.99995, -100.00007, 4.371143e-06, 1.0302875e-07, 15.000001, -3.7252903e-09, 3.0000005)
+
+[node name="city-t-intersection5" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1368652193 instance=ExtResource("22_nouef")]
+transform = Transform3D(1.3113432e-05, 100.000015, 1.202396e-05, -9.565463e-08, -1.2023952e-05, 99.99995, 100.00007, -1.3113422e-05, 9.565221e-08, 4.0000033, -2.3283064e-09, 2.0000012)
+
+[node name="city-curve" parent="World/NavigationRegion3D/City" unique_id=1985063192 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016582e-05, 99.99995, -100.00005, 4.3711425e-06, 1.03027304e-07, 5.003334, 1.3504177e-08, -13.8633375)
+
+[node name="city-curve2" parent="World/NavigationRegion3D/City" unique_id=884139740 instance=ExtResource("23_vdtjt")]
+transform = Transform3D(-100.00001, 8.742279e-06, 7.3739987e-09, 7.3729596e-09, -1.2119612e-05, 99.99997, 8.7422795e-06, 100.000046, 1.2119615e-05, -5.0266647, 1.2572855e-08, -14.8633375)
+
+[node name="city-t-intersection" parent="World/NavigationRegion3D/City" unique_id=514446847 instance=ExtResource("22_nouef")]
+transform = Transform3D(-100.00001, 8.74228e-06, 7.373885e-09, 7.3729596e-09, -1.2119612e-05, 99.999954, 8.7422795e-06, 100.00006, 1.2119615e-05, -2.9802322e-07, 1.3504177e-08, -14.870003)
 
 [node name="Water" type="Node3D" parent="World/NavigationRegion3D" unique_id=223732035]
 transform = Transform3D(0.99998033, 0.0017757401, -0.006012327, -0.0018076777, 0.99998426, -0.0053119548, 0.006002802, 0.005322717, 0.9999678, 131.43184, 93.19613, 77.57135)
