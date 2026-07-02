@@ -3405,7 +3405,7 @@ transform = Transform3D(-6.556708e-09, -1.4348189e-10, 0.14999999, 1.5454128e-10
 transform = Transform3D(1.9670123e-08, 1.545416e-10, -0.14999999, -1.4348185e-10, 0.14999999, 1.5454114e-10, 0.14999999, 1.4348181e-10, 1.9670125e-08, 0.37999958, -0.019999966, -10.22)
 
 [node name="brick-ruins-half2" parent="World/NavigationRegion3D/City" unique_id=78785882 instance=ExtResource("27_72cmr")]
-transform = Transform3D(-6.5567076e-09, 1.5454155e-10, -0.14999999, -1.4348181e-10, 0.14999999, 1.5454119e-10, 0.14999999, 1.4348181e-10, -6.5567063e-09, -4.623333, 0.13, -7.8300014)
+transform = Transform3D(-6.5567076e-09, 1.545416e-10, -0.14999999, -1.434818e-10, 0.14999999, 1.5454119e-10, 0.14999999, 1.4348181e-10, -6.5567067e-09, -4.623333, -0.013333309, -7.8300014)
 
 [node name="brick-ruins-full6" parent="World/NavigationRegion3D/City" unique_id=220255150 instance=ExtResource("26_ve7lj")]
 transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901147e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.631218e-09, 3.1506836, -0.007402794, -6.8900337)
@@ -3525,7 +3525,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.1, 0.6, -67.1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 0.6, -130.9)
 
 [node name="ControlPoint3" parent="World/Match/ControlPoints" unique_id=2127438802 instance=ExtResource("42_fl6bb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -235.00003, 0.6, -370.30002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -306.20004, 0.6, -240.1)
 
 [node name="ControlPoint4" parent="World/Match/ControlPoints" unique_id=454768023 instance=ExtResource("42_fl6bb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 379.1, 0.6, -360.80002)
@@ -3547,7 +3547,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 239.85231, -23.4, -268.33118)
 curve = SubResource("Curve3D_hmxt8")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.647705, -23.4, -383.33118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.54771, -23.4, -383.33118)
 curve = SubResource("Curve3D_hmxt8")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
