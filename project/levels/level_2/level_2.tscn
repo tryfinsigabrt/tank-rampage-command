@@ -43,6 +43,8 @@
 [ext_resource type="PackedScene" uid="uid://v8s3au7e2iqa" path="res://buildings/city/meshes/city_t_intersection.tscn" id="22_nouef"]
 [ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="22_s4b5i"]
 [ext_resource type="PackedScene" uid="uid://c42n11oqcw74l" path="res://buildings/city/meshes/city_curve.tscn" id="23_vdtjt"]
+[ext_resource type="PackedScene" uid="uid://c1ipseqpueqgd" path="res://buildings/brick_ruins/brick_ruins_full.tscn" id="26_ve7lj"]
+[ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
@@ -3380,6 +3382,33 @@ transform = Transform3D(-100.00001, 8.742279e-06, 7.3739987e-09, 7.3729596e-09, 
 
 [node name="city-t-intersection" parent="World/NavigationRegion3D/City" unique_id=514446847 instance=ExtResource("22_nouef")]
 transform = Transform3D(-100.00001, 8.74228e-06, 7.373885e-09, 7.3729596e-09, -1.2119612e-05, 99.999954, 8.7422795e-06, 100.00006, 1.2119615e-05, -2.9802322e-07, 1.3504177e-08, -14.870003)
+
+[node name="brick-ruins-full" parent="World/NavigationRegion3D/City" unique_id=1798804167 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901153e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.631215e-09, -4.3759823, -0.007402787, -12.7833605)
+
+[node name="brick-ruins-full2" parent="World/NavigationRegion3D/City" unique_id=87648038 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901151e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.6312156e-09, -1.8959825, -0.0074027875, -12.783361)
+
+[node name="brick-ruins-full3" parent="World/NavigationRegion3D/City" unique_id=1935766385 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901147e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.631217e-09, 3.080684, -0.0074027884, -12.660031)
+
+[node name="brick-ruins-full4" parent="World/NavigationRegion3D/City" unique_id=12459727 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901148e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.6312165e-09, -4.4059825, -0.0074027902, -9.7900305)
+
+[node name="brick-ruins-full5" parent="World/NavigationRegion3D/City" unique_id=1357104096 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901147e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.6312174e-09, 0.7140172, -0.0074027935, -6.890033)
+
+[node name="brick-ruins-half" parent="World/NavigationRegion3D/City" unique_id=998524922 instance=ExtResource("27_72cmr")]
+transform = Transform3D(-6.556708e-09, -1.4348189e-10, 0.14999999, 1.5454128e-10, 0.14999999, 1.4348173e-10, -0.14999999, 1.5454135e-10, -6.5567107e-09, -1.4900002, 0.023333352, -9.39)
+
+[node name="brick-ruins-half3" parent="World/NavigationRegion3D/City" unique_id=2067768301 instance=ExtResource("27_72cmr")]
+transform = Transform3D(1.9670123e-08, 1.545416e-10, -0.14999999, -1.4348185e-10, 0.14999999, 1.5454114e-10, 0.14999999, 1.4348181e-10, 1.9670125e-08, 0.37999958, -0.019999966, -10.22)
+
+[node name="brick-ruins-half2" parent="World/NavigationRegion3D/City" unique_id=78785882 instance=ExtResource("27_72cmr")]
+transform = Transform3D(-6.5567076e-09, 1.5454155e-10, -0.14999999, -1.4348181e-10, 0.14999999, 1.5454119e-10, 0.14999999, 1.4348181e-10, -6.5567063e-09, -4.623333, 0.13, -7.8300014)
+
+[node name="brick-ruins-full6" parent="World/NavigationRegion3D/City" unique_id=220255150 instance=ExtResource("26_ve7lj")]
+transform = Transform3D(-6.6312134e-09, -5.9051675e-10, 0.14999999, 1.4901147e-10, 0.14999999, 5.9051664e-10, -0.14999999, 1.4901155e-10, -6.631218e-09, 3.1506836, -0.007402794, -6.8900337)
 
 [node name="Water" type="Node3D" parent="World/NavigationRegion3D" unique_id=223732035]
 transform = Transform3D(0.99998033, 0.0017757401, -0.006012327, -0.0018076777, 0.99998426, -0.0053119548, 0.006002802, 0.005322717, 0.9999678, 131.43184, 93.19613, 77.57135)
