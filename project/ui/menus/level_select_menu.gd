@@ -21,9 +21,11 @@ func _ready() -> void:
 		level_01.play_clicked.connect(_on_level_1_play_button_pressed)
 
 	level_02.title_text = "Operation Iron Valley"
-	level_02.description_text = "Coming Soon."
-	level_02.play_button_text = "Coming Soon"
-	level_02.play_button_disabled = true
+	level_02.description_text = "Retake control of the city and obtain a strategic foothold."
+	level_02.play_button_text = "Play Level 2"
+	level_02.play_button_disabled = false
+	if not level_02.play_clicked.is_connected(_on_level_2_play_button_pressed):
+		level_02.play_clicked.connect(_on_level_2_play_button_pressed)
 
 func _on_back_button_pressed() -> void:
 	back_button.disabled = true
@@ -36,3 +38,7 @@ func _on_tutorial_play_button_pressed() -> void:
 func _on_level_1_play_button_pressed() -> void:
 	level_01.play_button_disabled = true
 	await GameManager.scene_manager.play_level(1)
+
+func _on_level_2_play_button_pressed() -> void:
+	level_02.play_button_disabled = true
+	await GameManager.scene_manager.play_level(2)

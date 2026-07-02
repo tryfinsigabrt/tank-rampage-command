@@ -5,7 +5,8 @@ const LEVEL_SELECT_MENU_SCENE:PackedScene = preload("uid://su8ucbrnrgb1")
 
 # TODO: We can create a level config with a level resource with display name and resource path
 const ALL_LEVELS:Array[String] = [
-	"res://levels/level_1/level_1.tscn"
+	"res://levels/level_1/level_1.tscn",
+	"res://levels/level_2/level_2.tscn",
 ]
 
 const TUTORIAL_LEVEL:String = "res://levels/tutorial/tutorial.tscn"
