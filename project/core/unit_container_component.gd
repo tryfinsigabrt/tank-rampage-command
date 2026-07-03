@@ -14,8 +14,9 @@ var capacity:int = 4
 
 @export
 var position_distributor:PositionDistributor
+## Position relative to the container unit that inner units will move to upon exit.
 @export
-var exit_position_delta: Vector3 = Vector3(0, 0, 7)
+var exit_position_delta: Vector3 = Vector3(0, 0, 7) # +Z ends up behind container unit
 
 var units:Array[Unit]
 
