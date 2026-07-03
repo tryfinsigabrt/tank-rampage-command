@@ -186,7 +186,7 @@ team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
-[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1778169710]
+[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1778169710 groups=["MatchTeamEliminationCondition"]]
 script = ExtResource("20_e6dmr")
 
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=145325473]
@@ -212,7 +212,7 @@ team = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.936325, -1.4000001, 19.605927)
 team = 2
 
-[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=897496678]
+[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=897496678 groups=["MatchTeamEliminationCondition"]]
 script = ExtResource("20_e6dmr")
 
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=1592727463]
