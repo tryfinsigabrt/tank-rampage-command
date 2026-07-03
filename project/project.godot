@@ -74,6 +74,7 @@ LevelAudio="Dedicated container node in a level to hold one-shot audio sounds wh
 UnitClassTransport="Marine transport unit class"
 Precompilation="Tags a node for precompilation when game loads to reduce first play stutters on visual effects"
 MatchTeamEliminationCondition="Denotes a node that determines an elimination condition for a match team"
+ScrapField="Scrap Field game resource"
 
 [input]
 

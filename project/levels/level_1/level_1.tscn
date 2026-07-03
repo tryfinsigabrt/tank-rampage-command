@@ -25,7 +25,7 @@
 [ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="17_vk63l"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="18_drths"]
 [ext_resource type="Resource" uid="uid://cbi5db4cuvjbe" path="res://units/ai/ai_marine_team_red.tres" id="18_plqb7"]
-[ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="20_e6dmr"]
+[ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="20_e6dmr"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="25_plqb7"]
 [ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="28_e6dmr"]
 

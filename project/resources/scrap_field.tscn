@@ -9,7 +9,7 @@ render_priority = 127
 transparency = 1
 albedo_color = Color(0.5, 0.875, 1, 0.39215687)
 
-[node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource"]]
+[node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource", "ScrapField"]]
 script = ExtResource("1_0d56a")
 path_depth = 3.0
 total_scrap = 20000

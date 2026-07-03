@@ -25,6 +25,9 @@ func _ready() -> void:
 	, ConnectFlags.CONNECT_ONE_SHOT)
 
 func _on_team_asset_added(asset:Node3D) -> void:
+	if not _match_team.active:
+		return
+		
 	var team_component := TeamComponent.get_component(asset)
 	if not team_component or not team_component.is_on_team(_match_team.team):
 		return
@@ -35,6 +38,9 @@ func _on_team_asset_added(asset:Node3D) -> void:
 		buildings_constructed += 1
 		
 func _on_team_asset_destroyed(asset:Node3D, damage_params:DamageParameters) -> void:
+	if not _match_team.active:
+		return
+		
 	var team_component := TeamComponent.get_component(asset)
 	if team_component and team_component.is_on_team(_match_team.team):
 		_asset_lost(asset)

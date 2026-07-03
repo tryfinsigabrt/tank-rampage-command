@@ -46,7 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
-[ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="42_72cmr"]
+[ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="42_72cmr"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="43_1h50e"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="43_pvqwi"]

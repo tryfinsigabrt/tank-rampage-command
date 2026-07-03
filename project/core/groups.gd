@@ -29,6 +29,7 @@ const LevelAudio:StringName = &"LevelAudio"
 const Precompilation:StringName = &"Precompilation"
 
 const MatchTeamEliminationCondition:StringName = &"MatchTeamEliminationCondition"
+const ScrapField:StringName = &"ScrapField"
 
 @warning_ignore_restore("shadowed_global_identifier")
 

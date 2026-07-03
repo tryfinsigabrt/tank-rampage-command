@@ -27,7 +27,10 @@ var _aabb:AABB
 var active:bool:
 	get:
 		return remaining_scrap > 0
-		
+	
+var open:bool:
+	get: return active and _mining_timers_by_command_center.is_empty()
+	
 var remaining_fraction:float:
 	get:
 		return float(remaining_scrap) / total_scrap
