@@ -73,6 +73,7 @@ TeamVisible="Only visible to the current player team"
 LevelAudio="Dedicated container node in a level to hold one-shot audio sounds whose lifetime is tied to that of the level and not an individual team asset"
 UnitClassTransport="Marine transport unit class"
 Precompilation="Tags a node for precompilation when game loads to reduce first play stutters on visual effects"
+MatchTeamEliminationCondition="Denotes a node that determines an elimination condition for a match team"
 
 [input]
 

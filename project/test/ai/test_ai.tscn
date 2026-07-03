@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_bvix3"]
 [ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="16_q4a86"]
+[ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="19_37ytp"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
 [ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="19_q4a86"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="20_81ogd"]
@@ -344,6 +345,9 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
 team = 1
 
+[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1274050098]
+script = ExtResource("19_37ytp")
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
@@ -469,6 +473,9 @@ team = 2
 [node name="EnemyBarracks" parent="World/Match/EnemyTeams/EnemyTeam1/EnemyTeam1" unique_id=153503691 instance=ExtResource("13_v2lud")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.2, 0, -85.8)
 team = 2
+
+[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=1166158279]
+script = ExtResource("19_37ytp")
 
 [node name="Resource" type="Node3D" parent="World/Match" unique_id=1570833790]
 

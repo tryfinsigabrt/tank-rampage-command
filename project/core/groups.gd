@@ -28,6 +28,8 @@ const LevelAudio:StringName = &"LevelAudio"
 
 const Precompilation:StringName = &"Precompilation"
 
+const MatchTeamEliminationCondition:StringName = &"MatchTeamEliminationCondition"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:

@@ -47,6 +47,7 @@
 [ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
+[ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="42_72cmr"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="43_1h50e"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="43_pvqwi"]
@@ -3486,6 +3487,9 @@ team = 1
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -282.1, 0, 83.100006)
 team = 1
 
+[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1969659326]
+script = ExtResource("42_72cmr")
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=2810466]
 
 [node name="EnemyTeam" parent="World/Match/EnemyTeams" unique_id=1717253208 instance=ExtResource("6_dj0pt")]
@@ -3515,6 +3519,9 @@ team = 2
 [node name="EnemyTank4" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=1566813364 instance=ExtResource("22_s4b5i")]
 transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 221.70001, 0, -199.1)
 team = 2
+
+[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=1868844726]
+script = ExtResource("42_72cmr")
 
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=706120660]
 
