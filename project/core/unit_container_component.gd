@@ -12,6 +12,11 @@ const ADDED_META_KEY:StringName = &"load_into_ucont"
 @export
 var capacity:int = 4
 
+@export
+var position_distributor:PositionDistributor
+@export
+var exit_position_delta: Vector3 = Vector3(0, 0, 7)
+
 var units:Array[Unit]
 
 #region Inner Classes
@@ -84,26 +89,39 @@ static func _get_container_meta_value(unit:Unit, key:StringName) -> UnitContaine
 func remove_unit(unit:Unit) -> bool:
 	if unit not in units:
 		return false
-		
+	
 	units.erase(unit)
-	_on_remove(unit)
+	var exit_position := _get_exit_position()
+	_on_remove(unit, exit_position)
 	
 	return true
 
-func _on_remove(unit:Unit) -> void:
+func _on_remove(unit:Unit, exit_position: Vector3) -> void:
 	if _get_container_meta_value(unit, ADDED_META_KEY) == self:
 		unit.remove_meta(ADDED_META_KEY)
 	
 	_enable_unit(unit)
+	SignalBus.on_unit_move_issued.emit(unit, exit_position)
 	
 	on_unit_removed.emit(unit)
-	
+
 func remove_all_units() -> void:
+	if not units:
+		return
+	
+	var exit_position := _get_exit_position()
+	var position_distribution := position_distributor.calculate(units, exit_position)
 	for unit in units:
-		_on_remove(unit)
+		var unit_exit_position := position_distribution[unit.get_instance_id()]
+		_on_remove(unit, unit_exit_position)
 	
 	units.clear()
-	
+
+func _get_exit_position() -> Vector3:
+	var asset_transform := _team_asset.global_transform
+	var exit_position_transform := asset_transform.translated_local(exit_position_delta)
+	return exit_position_transform.origin
+
 func _ready() -> void:
 	if not _team_asset:
 		assert(_team_asset, "%s: Not added to team asset tree" % name)

@@ -12,6 +12,7 @@
 [ext_resource type="Material" uid="uid://dd50ig6r55a2h" path="res://units/human/tank/treads_material.tres" id="10_f00yv"]
 [ext_resource type="Material" uid="uid://2cfu7bky27vv" path="res://units/human/tank/barrel_material.tres" id="10_g02f8"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="11_5psun"]
+[ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="15_g02f8"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="15_qyk6k"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="16_is1o0"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="17_vmbqi"]
@@ -86,6 +87,17 @@ vision = 200.0
 unique_name_in_owner = true
 capacity = 6
 supported_unit_classes = Array[int]([3])
+position_distributor = NodePath("PositionDistributor")
+exit_position_delta = Vector3(0, 0, 12)
+
+[node name="PositionDistributor" type="Node" parent="Components/UnitContainerComponent" unique_id=274371672]
+script = ExtResource("15_g02f8")
+min_spacing_angle_deg = 1.4
+max_spacing_angle_deg = 1.8
+max_angle_degrees = 1.0
+min_unit_separation = 2.0
+max_group_separation = 8.0
+metadata/_custom_type_script = "uid://desdjg6bo36t4"
 
 [node name="NodeViablePositionFinder" parent="Components" unique_id=1836995556 node_paths=PackedStringArray("spawn_locations") instance=ExtResource("11_5psun")]
 unique_name_in_owner = true
