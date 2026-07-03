@@ -75,6 +75,9 @@ func _refresh_commands() -> void:
 		var commands := UNIT_COMMANDS.duplicate()
 		if _has_selected_container_assets():
 			commands.push_back("Exit")
+		if not _has_selected_attacking_assets():
+			commands.remove_at(commands.find("Move And Attack"))
+			commands.remove_at(commands.find("Attack"))
 		_populate_commands(commands)
 		visible = true
 		return
@@ -117,6 +120,16 @@ func _has_selected_container_assets() -> bool:
 		if UnitContainerComponent.get_component(structure, false):
 			return true
 
+	return false
+
+func _has_selected_attacking_assets() -> bool:
+	if _selection_manager == null:
+		return false
+	
+	for unit in _selection_manager.get_selected_units_on_team():
+		if unit._get_weapon() != null:
+			return true
+	
 	return false
 
 func _populate_commands(commands: Array) -> void:
