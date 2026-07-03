@@ -18,12 +18,17 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="17_vmbqi"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="18_pj1jn"]
 [ext_resource type="Resource" uid="uid://6ni7q4dsm12t" path="res://sounds/death/vehicle_death_sfx.tres" id="19_g02f8"]
+[ext_resource type="PackedScene" uid="uid://b4x731qaaiysd" path="res://ui/hud/unit_count_display.tscn" id="19_ay2xi"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="19_j4wgs"]
+[ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="20_d50ei"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_udl3h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
 height = 8.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7klvg"]
+viewport_path = NodePath("UI/UnitCountDisplaySprite/SubViewport")
 
 [node name="MarineTransport" type="CharacterBody3D" unique_id=260396010 groups=["Interactable", "TeamAsset", "Unit", "UnitClassTransport"]]
 collision_layer = 516
@@ -86,7 +91,6 @@ vision = 200.0
 [node name="UnitContainerComponent" parent="Components" unique_id=1753319725 instance=ExtResource("7_5psun")]
 unique_name_in_owner = true
 capacity = 6
-supported_unit_classes = Array[int]([3])
 position_distributor = NodePath("PositionDistributor")
 exit_position_delta = Vector3(0, 0, 12)
 
@@ -115,6 +119,26 @@ health_stat = NodePath("../../Components/HealthStat")
 [node name="CameraYawTracker" type="Node" parent="UI" unique_id=1431253981 node_paths=PackedStringArray("target_node")]
 script = ExtResource("19_j4wgs")
 target_node = NodePath("..")
+
+[node name="UnitCountDisplaySprite" type="Sprite3D" parent="UI" unique_id=673357916]
+transform = Transform3D(0.014, 0, 1.2239189e-09, 0, 0.014, 0, -1.2239189e-09, 0, 0.014, 0, 4.0048637, 0)
+cast_shadow = 0
+billboard = 2
+double_sided = false
+fixed_size = true
+alpha_cut = 1
+texture = SubResource("ViewportTexture_7klvg")
+
+[node name="SubViewport" type="SubViewport" parent="UI/UnitCountDisplaySprite" unique_id=134617278]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+gui_embed_subwindows = true
+size = Vector2i(125, 72)
+
+[node name="UnitCountDisplay" parent="UI/UnitCountDisplaySprite/SubViewport" unique_id=565511781 node_paths=PackedStringArray("unit_container_component") instance=ExtResource("19_ay2xi")]
+unit_container_component = NodePath("../../../../Components/UnitContainerComponent")
+unit_icon = ExtResource("20_d50ei")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)
