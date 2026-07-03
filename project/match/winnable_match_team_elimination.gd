@@ -42,7 +42,7 @@ func _on_match_ready() -> void:
 	_match_team.structures_changed.connect(_on_conditions_changed)
 		
 func _on_conditions_changed() -> void:
-	if _has_command_center():
+	if _has_active_command_center():
 		_remove_elimination_timer()
 		return
 	
@@ -71,9 +71,14 @@ func _on_conditions_changed() -> void:
 		
 	_add_team_elimination_timer()
 	
-func _has_command_center() -> bool:
+func _has_active_command_center() -> bool:
 	for building in _match_team.buildings:
-		if building is CommandCenter:
+		var command_center:CommandCenter = building as CommandCenter
+		if not command_center:
+			continue
+		# Make sure actively mining
+		var mining_component := MiningComponent.get_component(command_center)
+		if mining_component and mining_component.mining:
 			return true
 	return false
 

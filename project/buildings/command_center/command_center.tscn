@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="7_eox5s"]
 [ext_resource type="Resource" uid="uid://vfmdsur3fcjp" path="res://buildings/command_center/command_center_manufacturing.tres" id="7_jfsyt"]
 [ext_resource type="PackedScene" uid="uid://cot3ohmrrukgu" path="res://structures/creation/structure_proxy_asset_spawner.tscn" id="11_eox5s"]
+[ext_resource type="Script" uid="uid://pvbs3oppuwau" path="res://core/mining_component.gd" id="12_kweop"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="12_nsawp"]
 [ext_resource type="PackedScene" uid="uid://bfvwp3be0cbrl" path="res://sounds/command_center_death_sfx.tscn" id="13_vpexs"]
 
@@ -80,6 +81,9 @@ default_spawn_locations = [NodePath("../../BuildLocation")]
 supported_types = ExtResource("7_jfsyt")
 
 [node name="StructureProxyAssetSpawner" parent="Components/ManufacturingComponent" unique_id=138975051 instance=ExtResource("11_eox5s")]
+
+[node name="MiningComponent" type="Node" parent="Components" unique_id=873637087]
+script = ExtResource("12_kweop")
 
 [node name="BuildLocation" type="Marker3D" parent="." unique_id=1933568097]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)

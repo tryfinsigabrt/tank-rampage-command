@@ -130,6 +130,10 @@ func _register_timer_for(command_center:CommandCenter) -> void:
 	if id in _mining_timers_by_command_center:
 		push_warning("%s: Timer already registered for %s" % [name, command_center.name])
 		return
+	
+	var mining_component:MiningComponent = MiningComponent.get_component(command_center)
+	if mining_component:
+		mining_component.add_field(self)
 		
 	var timer:Timer = Timer.new()
 	timer.name = "%d-%s-MiningTimer" % [command_center.team, command_center.name]
@@ -147,14 +151,19 @@ func _deregister_timer_for(command_center_id:int) -> void:
 		return
 		
 	timer.queue_free()
+	
 	_mining_timers_by_command_center.erase(command_center_id)
 	
-func _remove_all_timers() -> void:
-	for timer:Timer in _mining_timers_by_command_center.values():
-		timer.queue_free()
-		
-	_mining_timers_by_command_center.clear()
+	var command_center:CommandCenter = instance_from_id(command_center_id)
+	if command_center:
+		var mining_component:MiningComponent = MiningComponent.get_component(command_center)
+		if mining_component:
+			mining_component.remove_field(self)
 	
+func _remove_all_timers() -> void:
+	for command_center_id:int in _mining_timers_by_command_center.keys():
+		_deregister_timer_for(command_center_id)
+			
 func _on_mining_timer_timeout(command_center_id:int) -> void:
 	var command_center:CommandCenter = instance_from_id(command_center_id) as CommandCenter
 	if not command_center:
