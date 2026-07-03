@@ -29,7 +29,6 @@
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_s4b5i"]
 [ext_resource type="Material" uid="uid://d2i0qvsvxyks2" path="res://buildings/city/building-blue-material.tres" id="15_fl6bb"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="15_fq0us"]
-[ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_qfhyh"]
 [ext_resource type="PackedScene" uid="uid://bmctd4myypt4a" path="res://buildings/city/traffic_lights.tscn" id="16_1h50e"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="16_6fwx2"]
 [ext_resource type="PackedScene" uid="uid://dgk66pok3kgi5" path="res://units/human/marine/human_marine_unit.tscn" id="16_12l1j"]
@@ -51,6 +50,7 @@
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="43_1h50e"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="43_pvqwi"]
+[ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="52_mma45"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ptf1"]
 size = Vector3(1024, 1000, 800)
@@ -3561,10 +3561,10 @@ curve = SubResource("Curve3D_hmxt8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.5523, -23.4, 240.86884)
 curve = SubResource("Curve3D_hmxt8")
 
-[node name="LoopingMatch" parent="World/Match" unique_id=1151452462 instance=ExtResource("15_qfhyh")]
-
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 
-[node name="LevelAudio" type="Node3D" parent="World/Match" unique_id=930035455 groups=["LevelAudio"]]
-
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("5_ubkp0")]
+
+[node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("52_mma45")]
+match_completion_ui_trigger_delay = 1.0
+ui_display_root = NodePath("..")

@@ -205,7 +205,5 @@ curve = SubResource("Curve3D_1ch1d")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 
-[node name="LevelAudio" type="Node3D" parent="World/Match" unique_id=708779230 groups=["LevelAudio"]]
-
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("22_drhmd")]
 metadata/_edit_use_anchors_ = true

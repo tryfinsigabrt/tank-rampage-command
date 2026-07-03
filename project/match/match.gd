@@ -10,6 +10,9 @@ var _player_team:int = -1
 var started:bool:
 	get: return _started
 
+var active:bool:
+	get: return _started and not _game_over
+	
 var teams:Array[MatchTeam]:
 	get: return _match_teams.values()
 	
@@ -21,7 +24,12 @@ var player_team:MatchTeam:
 	
 var winner:MatchTeam:
 	get: return _active_teams.values().front() if _game_over and not _active_teams.is_empty() else null
-	
+
+var _completion_time:float
+var time:float:
+	get:
+		return _completion_time if _game_over else GameManager.game_timer.time_seconds
+		
 func get_team(team:int) -> MatchTeam:
 	return _match_teams.get(team)
 	
@@ -79,4 +87,5 @@ func _on_team_lost(team:MatchTeam) -> void:
 	if _active_teams.erase(team.team):
 		if _active_teams.size() <= 1:
 			_game_over = true
+			_completion_time = GameManager.game_timer.time_seconds
 			SignalBus.match_ended.emit(self)

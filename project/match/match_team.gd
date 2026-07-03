@@ -26,6 +26,7 @@ var config:MatchTeamConfig
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
 @onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent
 @onready var inventory_component: InventoryComponent = %InventoryComponent
+@onready var stat_tracker: MatchTeamStatTracker = %StatTracker
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}
