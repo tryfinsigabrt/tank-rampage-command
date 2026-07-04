@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c8yjs1rsr2fnj" path="res://resources/scrap_token.gd" id="1_wsmsk"]
 [ext_resource type="Material" uid="uid://b1n0ptmlkeqaf" path="res://resources/scrap_token_material.tres" id="2_6urrp"]
-[ext_resource type="Material" uid="uid://bxhllhlm23s2o" path="res://resources/scrap_token_outer_material.tres" id="3_ccneh"]
+[ext_resource type="Material" uid="uid://qvtf2ogru75o" path="res://resources/scrap_token_hex_emissive.tres" id="3_ccneh"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6urrp"]
 material = ExtResource("2_6urrp")
