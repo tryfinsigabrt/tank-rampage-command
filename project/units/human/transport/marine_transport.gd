@@ -57,45 +57,22 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	move_and_slide()
 
 func aim_at(world_location:Vector3) -> void:	
-	var aim_direction:Vector3 = (world_location - global_position).normalized()
-	
-	var heading:Vector3 = get_fire_global_forward()
-	var projected_forward_vector:Vector2 = Vector2(heading.x, heading.z)
-	var projected_aim_dir_turret:Vector2 = Vector2(aim_direction.x, aim_direction.z)
-	
-	#Check if we are almost there
-	#var rotation_dir:float = -projected_forward_vector.cross(projected_aim_dir_turret)
-	##if absf(rotation_dir) > turret_aim_tolerance:
-		##turret.rotate_turret(rotation_dir)
-	#
-	#var aim_pitch:float = aim_direction.y
-	## Technically this is not an angle but using some small value to avoid jitter
-	#if absf(aim_pitch) > pitch_tolerance:
-		#barrel.pitch_barrel(aim_pitch)
+	pass
 
 func shoot() -> void:
 	pass
-	#await barrel.shoot()
 	
 func get_fire_global_position() -> Vector3:
 	return global_position
-	#return barrel.fire_position_marker.global_position
 	
 func get_fire_global_forward() -> Vector3:
-	# Positive as we rotated around
-	#var orig_basis:Basis = barrel.fire_position_marker.global_basis
-	#var corrected_basis:Basis = body.transform.basis
-	#var final_basis:Basis = orig_basis * corrected_basis
-	#return -final_basis.z
 	return -global_basis.z
 
 func get_fire_global_right() -> Vector3:
-	#var final_basis:Basis = barrel.global_basis * body.transform.basis
-	#return final_basis.x
-	return global_basis.x #barrel.fire_position_marker.global_basis.x
+	return global_basis.x
 
 func get_fire_global_up() -> Vector3:
-	return global_basis.y #barrel.global_basis.y
+	return global_basis.y
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
@@ -140,8 +117,8 @@ func _on_unit_removed(unit: Unit) -> void:
 	# Wait a frame so that physics toggle takes effect
 	await get_tree().physics_frame
 	
-	# Just place the unit at the bunker's global position
-	var location:Vector3 = global_position
-	# Face the forward direction of the bunker
-	var direction:Vector3 = -global_basis.z
+	# Just place where the distributor put the unit
+	var location:Vector3 = unit.global_position
+	# Face in direction of placement
+	var direction:Vector3 = global_position.direction_to(location)
 	_node_viable_position_finder.attempt_placement_at(location, direction, unit, true)

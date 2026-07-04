@@ -18,6 +18,9 @@ var position_distributor:PositionDistributor
 @export
 var exit_position_delta: Vector3 = Vector3(0, 0, 7) # +Z ends up behind container unit
 
+@export
+var place_on_remove:bool
+
 var units:Array[Unit]
 
 #region Inner Classes
@@ -92,7 +95,7 @@ func remove_unit(unit:Unit) -> bool:
 		return false
 	
 	units.erase(unit)
-	var exit_position := _get_exit_position()
+	var exit_position := _get_exit_position() if place_on_remove else unit.global_position
 	_on_remove(unit, exit_position)
 	
 	return true
@@ -101,8 +104,9 @@ func _on_remove(unit:Unit, exit_position: Vector3) -> void:
 	if _get_container_meta_value(unit, ADDED_META_KEY) == self:
 		unit.remove_meta(ADDED_META_KEY)
 	
+	unit.global_position = exit_position
+	
 	_enable_unit(unit)
-	SignalBus.on_unit_move_issued.emit(unit, exit_position)
 	
 	on_unit_removed.emit(unit)
 
@@ -110,11 +114,15 @@ func remove_all_units() -> void:
 	if not units:
 		return
 	
-	var exit_position := _get_exit_position()
-	var position_distribution := position_distributor.calculate(units, exit_position)
-	for unit in units:
-		var unit_exit_position := position_distribution[unit.get_instance_id()]
-		_on_remove(unit, unit_exit_position)
+	if place_on_remove and position_distributor:
+		var exit_position := _get_exit_position()
+		var position_distribution := position_distributor.calculate(units, exit_position)
+		for unit in units:
+			var unit_exit_position := position_distribution[unit.get_instance_id()]
+			_on_remove(unit, unit_exit_position)
+	else:
+		for unit in units:
+			_on_remove(unit, unit.global_position)
 	
 	units.clear()
 
