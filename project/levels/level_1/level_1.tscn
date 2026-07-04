@@ -25,8 +25,9 @@
 [ext_resource type="Script" uid="uid://4o2wv5gggw58" path="res://units/human/marine/teams/marine_team.gd" id="17_vk63l"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="18_drths"]
 [ext_resource type="Resource" uid="uid://cbi5db4cuvjbe" path="res://units/ai/ai_marine_team_red.tres" id="18_plqb7"]
-[ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="24_mgcax"]
+[ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="20_e6dmr"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="25_plqb7"]
+[ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="28_e6dmr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
@@ -185,6 +186,9 @@ team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
+[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1778169710 groups=["MatchTeamEliminationCondition"]]
+script = ExtResource("20_e6dmr")
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=145325473]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -279.11038, 0, -376.94025)
 
@@ -207,6 +211,9 @@ team = 2
 [node name="Factory" parent="World/Match/EnemyTeams/EnemyTeam/EnemyTeamDirector" unique_id=782170731 instance=ExtResource("15_mgcax")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.936325, -1.4000001, 19.605927)
 team = 2
+
+[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=897496678 groups=["MatchTeamEliminationCondition"]]
+script = ExtResource("20_e6dmr")
 
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=1592727463]
 
@@ -239,10 +246,10 @@ curve = SubResource("Curve3D_hmxt8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.36487, -23.4, 31.522469)
 curve = SubResource("Curve3D_f313t")
 
-[node name="LoopingMatch" parent="World/Match" unique_id=1151452462 instance=ExtResource("24_mgcax")]
-
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("25_plqb7")]
 
-[node name="LevelAudio" type="Node3D" parent="World/Match" unique_id=1589681071 groups=["LevelAudio"]]
-
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("18_drths")]
+
+[node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("28_e6dmr")]
+match_completion_ui_trigger_delay = 1.0
+ui_display_root = NodePath("..")

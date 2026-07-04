@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cl68okry6be1j"]
+
+[ext_resource type="Script" uid="uid://d1g3ufjwmm8s6" path="res://match/match_completion_monitor.gd" id="1_hcstu"]
+[ext_resource type="PackedScene" uid="uid://b0w5itefev4dg" path="res://match/match_progress_notifications.tscn" id="2_tm7js"]
+
+[node name="MatchCompletionMonitor" type="Node" unique_id=2050669842]
+script = ExtResource("1_hcstu")
+
+[node name="MatchProgressNotifications" parent="." unique_id=795051228 instance=ExtResource("2_tm7js")]
+show_team_wins = false

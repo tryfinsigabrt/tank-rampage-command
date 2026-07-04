@@ -67,7 +67,7 @@ func get_best_open_scrap_field() -> EnemyTeamBlackboard.ScrapFieldData:
 	var curr_time:float = GameManager.game_timer.time_seconds
 	
 	for data in candidate_scrap_fields:
-		var min_dist:float = INF
+		var min_dist:float = 1e9
 		var candidate_loc:Vector3 = data.location
 		for mined_data in mined_scrap_fields:
 			var dist_sq:float = mined_data.location.distance_to(candidate_loc)
@@ -75,12 +75,10 @@ func get_best_open_scrap_field() -> EnemyTeamBlackboard.ScrapFieldData:
 		data.dist_closest_base = min_dist
 	
 	# Score the candidates
-	var max_dist_sq:float = -INF
 	for data in candidate_scrap_fields:
 		var location:Vector3 = data.location
 		var unit_score:float = 0.0
 		var building_score:float = 0.0
-		max_dist_sq = maxf(max_dist_sq, data.dist_closest_base)
 		
 		for unit in units:
 			var dist:float = unit.global_position.distance_to(location)

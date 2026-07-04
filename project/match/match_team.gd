@@ -26,6 +26,7 @@ var config:MatchTeamConfig
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
 @onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent
 @onready var inventory_component: InventoryComponent = %InventoryComponent
+@onready var stat_tracker: MatchTeamStatTracker = %StatTracker
 
 var _units:Dictionary[int, Unit] = {}
 var _buildings:Dictionary[int, Building] = {}
@@ -35,12 +36,21 @@ const IS_PREDEPLOYED_KEY:StringName = "Predeployed"
 
 var units:Array[Unit]:
 	get: return _units.values()
+	
+var unit_count:int:
+	get: return _units.size()
 
 var buildings: Array[Building]:
 	get: return _buildings.values()
+
+var building_count:int:
+	get: return _buildings.size()
 	
 var structures: Array[DefensiveStructure]:
 	get: return _structures.values()
+	
+var structure_count:int:
+	get: return _structures.size()
 	
 var assets: Array[Node3D]:
 	get:
@@ -59,9 +69,14 @@ var assets: Array[Node3D]:
 			cnt += 1
 			
 		return _assets
+
+var total_asset_count:int:
+	get: return _units.size() + _buildings.size() + _structures.size()
+	
+var _active:bool = true
 		
 var active:bool:
-	get: return _units or _buildings
+	get: return _active
 	
 func _ready() -> void:
 	team_visibility_component.team = team
@@ -115,10 +130,17 @@ func _ready() -> void:
 	# Add new units and buildings as they are built
 	SignalBus.on_team_asset_added.connect(_on_asset_added)
 	
+	_match_team_ready()
+
+func _match_team_ready() -> void:
+	if not Groups.get_children_in_group(self, Groups.MatchTeamEliminationCondition, true):
+		push_warning("%s: MatchTeam has no elimination condition - using default" % name)
+		add_child(DefaultMatchTeamElimination.new())
+		
 	SignalBus.match_team_ready.emit(self)
 	match_team_ready.emit()
 	is_match_ready = true
-
+	
 func wait_for_ready() -> void:
 	if is_match_ready:
 		return
@@ -137,7 +159,13 @@ func assign_to_team(asset:Node3D) -> bool:
 			team_assigned = true
 	
 	return team_assigned
-	
+
+func eliminate() -> void:
+	if _active:
+		_active = false
+		await get_tree().process_frame
+		SignalBus.match_team_eliminated.emit(self)
+		
 func _add_unit(unit:Unit) -> void:
 	unit.team = team
 	HealthStat.connect_died_signal(unit, _on_unit_destroyed.bind(unit))
@@ -208,9 +236,6 @@ func _on_unit_destroyed(unit:Unit) -> void:
 	
 	units_changed.emit()
 	
-	@warning_ignore("missing_await")
-	_check_defeated()
-	
 func _on_building_destroyed(building:Building) -> void:
 	print_debug("%s: building=%s destroyed" % [name, building.name])
 	
@@ -218,8 +243,6 @@ func _on_building_destroyed(building:Building) -> void:
 		return
 
 	buildings_changed.emit()
-	@warning_ignore("missing_await")
-	_check_defeated()
 	
 func _on_structure_destroyed(structure:DefensiveStructure) -> void:
 	print_debug("%s: structure=%s destroyed" % [name, structure.name])
@@ -228,13 +251,6 @@ func _on_structure_destroyed(structure:DefensiveStructure) -> void:
 		return
 
 	structures_changed.emit()
-	
-	# Structures not part of win condition
-
-func _check_defeated() -> void:
-	if not active:
-		await get_tree().process_frame
-		SignalBus.match_team_eliminated.emit(self)
 
 #region Iterator
 class It:

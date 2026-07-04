@@ -5,10 +5,24 @@ const notifications_scene:PackedScene = preload("uid://crooxytfm2w0g")
 @export
 var winner_notification_delay_seconds:float = 2.0
 
+@export
+var show_match_start:bool = true
+
+@export
+var show_team_eliminated:bool = true
+
+@export
+var show_team_wins:bool = true
+
 func _ready() -> void:
-	SignalBus.match_ready.connect(_on_match_ready)
-	SignalBus.match_team_eliminated.connect(_on_team_eliminated)
-	SignalBus.match_ended.connect(_on_match_complete)
+	if show_match_start:
+		SignalBus.match_ready.connect(_on_match_ready)
+		
+	if show_team_eliminated:
+		SignalBus.match_team_eliminated.connect(_on_team_eliminated)
+		
+	if show_team_wins:
+		SignalBus.match_ended.connect(_on_match_complete)
 	
 func _on_match_ready(_match_object:Match) -> void:
 	_display_message("Start!")

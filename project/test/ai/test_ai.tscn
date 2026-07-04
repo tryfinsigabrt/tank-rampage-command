@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dskmwqo2h374f"]
 
+[ext_resource type="Script" uid="uid://bkybn73wuntty" path="res://test/match/trigger_winner.gd" id="1_2gujw"]
 [ext_resource type="PackedScene" uid="uid://b0o1pskrhf044" path="res://units/human/tank/human_tank.tscn" id="1_h7ph6"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="1_mushl"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="1_ox246"]
@@ -25,10 +26,10 @@
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="13_v2lud"]
 [ext_resource type="PackedScene" uid="uid://ckc25yksoyxu4" path="res://ai/enemy/enemy_team_director.tscn" id="14_43cal"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="14_bvix3"]
-[ext_resource type="PackedScene" uid="uid://bhkuspigknepx" path="res://match/looping_match.tscn" id="15_ev4ck"]
 [ext_resource type="PackedScene" uid="uid://wjgadko8gu41" path="res://units/human/tank_alt/human_tank2.tscn" id="16_q4a86"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="19_le2i0"]
 [ext_resource type="Resource" uid="uid://bnaoamn82ui40" path="res://conf/teams/ai_team.tres" id="19_q4a86"]
+[ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="20_2gujw"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="20_81ogd"]
 [ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="20_ij0eg"]
 [ext_resource type="Resource" uid="uid://ios6yfj2fxv1" path="res://units/human/marine/teams/marine_magenta_team.tres" id="20_rio5w"]
@@ -39,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="32_q4a86"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="32_r4ybk"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="33_bvix3"]
+[ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="36_37ytp"]
 [ext_resource type="PackedScene" uid="uid://dmbbahkolpx3t" path="res://ui/debug/enemy_team_director_debug_hud.tscn" id="37_7l2ia"]
 [ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="37_ynl2i"]
 
@@ -102,6 +104,9 @@ _data = {
 point_count = 7
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
+
+[node name="TriggerEnd" type="Node" parent="." unique_id=733679230]
+script = ExtResource("1_2gujw")
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_mushl")]
 
@@ -344,6 +349,9 @@ team = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, 185.8)
 team = 1
 
+[node name="EliminationCondition" type="Node" parent="World/Match/PlayerTeam" unique_id=1274050098 groups=["MatchTeamEliminationCondition"]]
+script = ExtResource("20_2gujw")
+
 [node name="EnemyTeams" type="Node3D" parent="World/Match" unique_id=1594109727]
 
 [node name="EnemyTeam1" parent="World/Match/EnemyTeams" unique_id=1164014251 instance=ExtResource("2_ev4ck")]
@@ -470,6 +478,9 @@ team = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.2, 0, -85.8)
 team = 2
 
+[node name="EliminationCondition" type="Node" parent="World/Match/EnemyTeams/EnemyTeam1" unique_id=1166158279 groups=["MatchTeamEliminationCondition"]]
+script = ExtResource("20_2gujw")
+
 [node name="Resource" type="Node3D" parent="World/Match" unique_id=1570833790]
 
 [node name="ScrapField" parent="World/Match/Resource" unique_id=1314478789 instance=ExtResource("32_q4a86")]
@@ -509,7 +520,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.
 
 [node name="LevelAudio" type="Node3D" parent="World" unique_id=1794161654 groups=["LevelAudio"]]
 
-[node name="LoopingMatch" parent="." unique_id=1151452462 instance=ExtResource("15_ev4ck")]
+[node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("36_37ytp")]
+match_completion_ui_trigger_delay = 1.0
+ui_display_root = NodePath("..")
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("19_le2i0")]
 
