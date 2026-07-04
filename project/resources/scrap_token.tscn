@@ -2,10 +2,23 @@
 
 [ext_resource type="Script" uid="uid://c8yjs1rsr2fnj" path="res://resources/scrap_token.gd" id="1_wsmsk"]
 [ext_resource type="Material" uid="uid://b1n0ptmlkeqaf" path="res://resources/scrap_token_material.tres" id="2_6urrp"]
+[ext_resource type="Material" uid="uid://bxhllhlm23s2o" path="res://resources/scrap_token_outer_material.tres" id="3_ccneh"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_wsmsk"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_6urrp"]
 material = ExtResource("2_6urrp")
-size = Vector3(2, 2, 1)
+top_radius = 1.5
+bottom_radius = 1.5
+height = 1.0
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ccneh"]
+material = ExtResource("3_ccneh")
+top_radius = 1.5
+bottom_radius = 1.5
+height = 1.0
+radial_segments = 6
+cap_top = false
+cap_bottom = false
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wsmsk"]
 radius = 3.0
@@ -14,20 +27,18 @@ radius = 3.0
 collision_layer = 128
 collision_mask = 4
 script = ExtResource("1_wsmsk")
+rotation_speed_deg = 90.0
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=813290594]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3457139, 0)
 
-[node name="TopCrystal" type="MeshInstance3D" parent="VisualRoot" unique_id=313440076]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5069592, 0)
-cast_shadow = 0
-mesh = SubResource("PrismMesh_wsmsk")
+[node name="Token" type="MeshInstance3D" parent="VisualRoot" unique_id=227082739]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.00038957596, -0.7580415, 0.0001885555)
+mesh = SubResource("CylinderMesh_6urrp")
 
-[node name="BottomCrystal" type="MeshInstance3D" parent="VisualRoot" unique_id=1830333989]
-transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, -1.4312712, -3.6560685e-08)
-cast_shadow = 0
-mesh = SubResource("PrismMesh_wsmsk")
+[node name="RadialOutline" type="MeshInstance3D" parent="VisualRoot/Token" unique_id=1827593573]
+mesh = SubResource("CylinderMesh_ccneh")
 
 [node name="Overlap" type="CollisionShape3D" parent="." unique_id=666467928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8337827, 0)

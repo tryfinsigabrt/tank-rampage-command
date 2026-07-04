@@ -1,4 +1,8 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://b1n0ptmlkeqaf"]
 
+[ext_resource type="Texture2D" uid="uid://pyx117eh3y4y" path="res://ui/hud/icons/Scrap_48.png" id="1_wpwf2"]
+
 [resource]
-albedo_color = Color(0.5019608, 0.8745098, 1, 1)
+albedo_texture = ExtResource("1_wpwf2")
+uv1_scale = Vector3(2, 2, 2)
+disable_receive_shadows = true
