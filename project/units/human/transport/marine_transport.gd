@@ -8,6 +8,11 @@ class_name MarineTransportUnit extends Unit
 @onready var health_stat: HealthStat = %HealthStat
 @onready var ui: Node3D = %UI
 @onready var _team_comp: TeamComponent = %TeamComponent
+@onready var position_distributor: PositionDistributor = %PositionDistributor
+
+## Position relative to the container unit that inner units will move to upon exit.
+@export
+var exit_position_delta: Vector3 = Vector3(0, 0, 7) # +Z ends up behind container unit
 
 var _has_moved:bool
 var _destroyed: bool = false
@@ -122,3 +127,15 @@ func _on_unit_removed(unit: Unit) -> void:
 	# Face in direction of placement
 	var direction:Vector3 = global_position.direction_to(location)
 	_node_viable_position_finder.attempt_placement_at(location, direction, unit, true)
+
+func _get_exit_position() -> Vector3:
+	var asset_transform := global_transform
+	var exit_position_transform := asset_transform.translated_local(exit_position_delta)
+	return exit_position_transform.origin
+
+func _on_unit_container_component_on_unit_removal_requested(units: Array[Unit]) -> void:
+	var exit_position := _get_exit_position()
+	var position_distribution := position_distributor.calculate(units, exit_position)
+	for unit in units:
+		var unit_exit_position := position_distribution[unit.get_instance_id()]
+		unit.global_position = unit_exit_position

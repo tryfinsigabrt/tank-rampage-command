@@ -12,19 +12,19 @@ var use_model_front_rotation:bool = true
 @onready var node_picker: NodePicker = $NodePicker
 @onready var spawn_location_finder: SpawnLocationFinder = $SpawnLocationFinder
 
-func place_asset(asset:Node3D) -> bool:
+func place_asset(asset:Node3D, offset:Vector3 = Vector3.ZERO) -> bool:
 	spawn_location_finder.bounds = placement_bounds
 
 	# Second time around force the spawn	
 	for i in 2:
 		for spawn_region in spawn_locations:
-			var location:Vector3 = spawn_region.global_position
+			var location:Vector3 = spawn_region.global_position + offset
 			var forward_dir:Vector3 = -spawn_region.global_basis.z
 				
 			var success := _attempt_placement(location, forward_dir, asset, i > 0)
 			if success:
 				return true
-	return false	
+	return false
 
 func attempt_placement_at(at:Vector3, forward_dir:Vector3, asset:Node3D, force:bool = false) -> bool:
 	spawn_location_finder.bounds = placement_bounds

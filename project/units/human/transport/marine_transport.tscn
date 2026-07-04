@@ -33,6 +33,7 @@ viewport_path = NodePath("UI/UnitCountDisplaySprite/SubViewport")
 collision_layer = 516
 collision_mask = 1087
 script = ExtResource("1_g02f8")
+exit_position_delta = Vector3(0, 0, 12)
 movement_speed = 25.0
 unit_class = 4
 attributes = ExtResource("2_oavtb")
@@ -87,14 +88,16 @@ unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
 
-[node name="UnitContainerComponent" parent="Components" unique_id=1753319725 node_paths=PackedStringArray("position_distributor") instance=ExtResource("7_5psun")]
+[node name="UnitContainerComponent" parent="Components" unique_id=1753319725 instance=ExtResource("7_5psun")]
 unique_name_in_owner = true
 capacity = 6
-position_distributor = NodePath("PositionDistributor")
-exit_position_delta = Vector3(0, 0, 12)
-place_on_remove = true
 
-[node name="PositionDistributor" type="Node" parent="Components/UnitContainerComponent" unique_id=274371672]
+[node name="NodeViablePositionFinder" parent="Components" unique_id=1836995556 instance=ExtResource("11_5psun")]
+unique_name_in_owner = true
+placement_bounds = Vector2(30, 30)
+
+[node name="PositionDistributor" type="Node" parent="Components" unique_id=274371672]
+unique_name_in_owner = true
 script = ExtResource("15_g02f8")
 min_spacing_angle_deg = 1.4
 max_spacing_angle_deg = 1.8
@@ -102,10 +105,6 @@ max_angle_degrees = 1.0
 min_unit_separation = 2.0
 max_group_separation = 8.0
 metadata/_custom_type_script = "uid://desdjg6bo36t4"
-
-[node name="NodeViablePositionFinder" parent="Components" unique_id=1836995556 instance=ExtResource("11_5psun")]
-unique_name_in_owner = true
-placement_bounds = Vector2(30, 30)
 
 [node name="UI" type="Node3D" parent="." unique_id=1673194704]
 unique_name_in_owner = true
@@ -151,6 +150,7 @@ update_scale = false
 [connection signal="health_changed" from="Components/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Components/HealthStat" to="." method="_on_took_damage"]
 [connection signal="update_render" from="Components/TeamComponent" to="." method="_update_render"]
+[connection signal="on_unit_removal_requested" from="Components/UnitContainerComponent" to="." method="_on_unit_container_component_on_unit_removal_requested"]
 [connection signal="on_unit_removed" from="Components/UnitContainerComponent" to="." method="_on_unit_removed"]
 
 [editable path="transport-truck"]

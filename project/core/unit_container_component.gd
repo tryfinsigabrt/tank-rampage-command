@@ -2,6 +2,8 @@
 ## remove them from the battlefield
 class_name UnitContainerComponent extends Node
 
+## Opportunity to calculate desired position of units and set them prior to the removal
+signal on_unit_removal_requested(units:Array[Unit])
 signal on_unit_added(unit:Unit)
 signal on_unit_removed(unit:Unit)
 
@@ -11,15 +13,6 @@ const ADDED_META_KEY:StringName = &"load_into_ucont"
 
 @export
 var capacity:int = 4
-
-@export
-var position_distributor:PositionDistributor
-## Position relative to the container unit that inner units will move to upon exit.
-@export
-var exit_position_delta: Vector3 = Vector3(0, 0, 7) # +Z ends up behind container unit
-
-@export
-var place_on_remove:bool
 
 var units:Array[Unit]
 
@@ -95,17 +88,17 @@ func remove_unit(unit:Unit) -> bool:
 		return false
 	
 	units.erase(unit)
-	var exit_position := _get_exit_position() if place_on_remove else unit.global_position
-	_on_remove(unit, exit_position)
+	
+	var requested_removal:Array[Unit] = [unit]
+	on_unit_removal_requested.emit(requested_removal)
+	_on_remove(unit)
 	
 	return true
 
-func _on_remove(unit:Unit, exit_position: Vector3) -> void:
+func _on_remove(unit:Unit) -> void:
 	if _get_container_meta_value(unit, ADDED_META_KEY) == self:
 		unit.remove_meta(ADDED_META_KEY)
-	
-	unit.global_position = exit_position
-	
+		
 	_enable_unit(unit)
 	
 	on_unit_removed.emit(unit)
@@ -114,22 +107,11 @@ func remove_all_units() -> void:
 	if not units:
 		return
 	
-	if place_on_remove and position_distributor:
-		var exit_position := _get_exit_position()
-		var position_distribution := position_distributor.calculate(units, exit_position)
-		for unit in units:
-			var unit_exit_position := position_distribution[unit.get_instance_id()]
-			_on_remove(unit, unit_exit_position)
-	else:
-		for unit in units:
-			_on_remove(unit, unit.global_position)
+	on_unit_removal_requested.emit(units)
+	for unit in units:
+		_on_remove(unit)
 	
 	units.clear()
-
-func _get_exit_position() -> Vector3:
-	var asset_transform := _team_asset.global_transform
-	var exit_position_transform := asset_transform.translated_local(exit_position_delta)
-	return exit_position_transform.origin
 
 func _ready() -> void:
 	if not _team_asset:
