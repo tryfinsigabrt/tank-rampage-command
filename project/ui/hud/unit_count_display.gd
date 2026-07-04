@@ -24,6 +24,7 @@ func set_unit_icon(new_texture: Texture2D) -> void:
 func set_unit_count(count: int) -> void:
 	unit_count = count
 	amount_text.text = str(unit_count)
+	#print("Unit Count Display is now %s" % [unit_count])
 	_sync_display_to_count()
 
 func _update_count() -> void:
@@ -50,10 +51,12 @@ func _get_container_unit_count() -> int:
 	return unit_container_component.units.size()
 
 func _on_container_unit_added(_unit: Unit) -> void:
-	_update_count()
+	#print("Unit Count Display detected a GAIN of a unit")
+	_update_count.call_deferred() # Prevent updating multiple times in one frame
 
 func _on_container_unit_removed(_unit: Unit) -> void:
-	_update_count()
+	#print("Unit Count Display detected a REMOVAL of a unit")
+	_update_count.call_deferred() # Prevent updating multiple times in one frame
 
 
 func _ready() -> void:
