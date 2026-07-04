@@ -88,7 +88,7 @@ unique_name_in_owner = true
 team_asset = NodePath("../..")
 vision = 200.0
 
-[node name="UnitContainerComponent" parent="Components" unique_id=1753319725 instance=ExtResource("7_5psun")]
+[node name="UnitContainerComponent" parent="Components" unique_id=1753319725 node_paths=PackedStringArray("position_distributor") instance=ExtResource("7_5psun")]
 unique_name_in_owner = true
 capacity = 6
 position_distributor = NodePath("PositionDistributor")
