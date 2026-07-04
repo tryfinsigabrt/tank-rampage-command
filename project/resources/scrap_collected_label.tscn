@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://yqwjrehn6327"]
+
+[ext_resource type="Script" uid="uid://cn2d1wvgdtpdh" path="res://resources/scrap_collected_label.gd" id="1_vwwke"]
+
+[node name="ScrapCollectedLabel" type="Label3D" unique_id=862763228]
+pixel_size = 0.05
+billboard = 1
+no_depth_test = true
+render_priority = 127
+text = "+5"
+font_size = 64
+script = ExtResource("1_vwwke")

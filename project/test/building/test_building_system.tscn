@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="28_m666l"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
+[ext_resource type="PackedScene" uid="uid://yqwjrehn6327" path="res://resources/scrap_collected_label.tscn" id="31_34k8n"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="31_yemwc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
@@ -286,6 +287,9 @@ curve = SubResource("Curve3D_jtih4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1256933, 0, 0)
 originating_team = 2
 scrap = 25
+
+[node name="ScrapCollectedLabel" parent="World/ScrapPickups/ScrapToken" unique_id=862763228 instance=ExtResource("31_34k8n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.9879684, 0)
 
 [node name="ScrapToken2" parent="World/ScrapPickups" unique_id=475997813 instance=ExtResource("19_ytr8p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5780883, 0, 0)
