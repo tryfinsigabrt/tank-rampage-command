@@ -15,6 +15,9 @@ var trigger_player_loses:bool:
 			_trigger_match_ended(false)
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+		
 	SignalBus.match_ended.connect(func(_match_obj:Match) -> void:
 		_triggered = true
 	, ConnectFlags.CONNECT_ONE_SHOT
