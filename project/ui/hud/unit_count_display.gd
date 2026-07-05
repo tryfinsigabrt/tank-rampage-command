@@ -58,6 +58,10 @@ func show_display() -> void:
 func hide_display() -> void:
 	#print("Unit display is hiding!")
 	hide()
+	if not display_timer.is_stopped():
+		display_timer.stop()
+	if is_instance_valid(fade_tween):
+		fade_tween.kill()
 
 func fade_out_display() -> void:
 	_handle_fade_out()
