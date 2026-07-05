@@ -18,5 +18,7 @@ unique_name_in_owner = true
 
 [node name="Camera" type="Camera3D" parent="CameraRig/CameraTilt" unique_id=1510512380]
 unique_name_in_owner = true
+near = 16.0
+far = 2048.0
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
