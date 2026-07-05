@@ -1,7 +1,11 @@
 class_name TeamResourceComponent extends Node
 
+const scrap_collected_label_scene:PackedScene = preload("uid://yqwjrehn6327")
+
 var resources:TeamResources
 var team:int
+
+var _is_player:bool
 
 @export
 var default_costs:Array[ConstructionResource]
@@ -18,6 +22,13 @@ func initialize() -> void:
 	SignalBus.on_control_point_neutralized.connect(_on_control_point_neutralized)
 	SignalBus.on_scrap_field_mined.connect(_on_scrap_field_mined)
 	SignalBus.on_scrap_collected.connect(_on_scrap_collected)
+	
+	var player_team:MatchTeam = GameManager.get_player_team()
+	if player_team:
+		_is_player = player_team.team == team
+	else:
+		push_error("%s: Could not determine player team - scrap collection tokens will not display!" % name)
+	
 	
 func get_construction_resource(type:ConstructionResource.Type, default:ConstructionResource = null) -> ConstructionResource:
 	for resource in default_costs:
@@ -93,3 +104,13 @@ func _on_scrap_collected(scrap:ScrapToken, unit:Unit) -> void:
 	
 	# Denying your own scrap won't read well on battlefield unless use different colors so for now just always award
 	resources.scrap.count += scrap.scrap
+	
+	if _is_player:
+		_spawn_token_collected_label(scrap)
+
+func _spawn_token_collected_label(scrap:ScrapToken) -> void:
+	var label:ScrapCollectedLabel = scrap_collected_label_scene.instantiate()
+	label.scrap_amount = scrap.scrap
+	
+	scrap.get_parent().add_child(label)
+	label.global_position = scrap.global_position
