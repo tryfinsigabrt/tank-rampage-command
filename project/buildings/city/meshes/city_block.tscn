@@ -44,5 +44,6 @@ shadow_mesh = SubResource("ArrayMesh_8e0rp")
 
 [node name="city-block" type="MeshInstance3D" unique_id=1050305959]
 transform = Transform3D(400, 0, 0, 0, -4.7683716e-05, 399.99997, 0, -399.99997, -4.7683716e-05, 0, 0, 0)
+cast_shadow = 0
 mesh = SubResource("ArrayMesh_3tdrt")
 skeleton = NodePath("")
