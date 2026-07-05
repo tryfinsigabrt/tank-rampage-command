@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://drviatxal0u4y" path="res://resources/scrap_field.gdshader" id="1_6h5o3"]
 
 [resource]
-render_priority = 0
+render_priority = 127
 shader = ExtResource("1_6h5o3")
 shader_parameter/edge_color = Color(0.42, 0.16, 0.16, 0.85)
 shader_parameter/center_color = Color(0.72, 0.34, 0.24, 0.85)
