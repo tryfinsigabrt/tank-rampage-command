@@ -26,8 +26,8 @@
 radius = 1.6
 height = 8.0
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7klvg"]
-viewport_path = NodePath("UI/UnitCountDisplaySprite/SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_d50ei"]
+viewport_path = NodePath("UI/UnitDisplaySprite/SubViewport")
 
 [node name="MarineTransport" type="CharacterBody3D" unique_id=260396010 groups=["Interactable", "TeamAsset", "Unit", "UnitClassTransport"]]
 collision_layer = 516
@@ -118,25 +118,30 @@ health_stat = NodePath("../../Components/HealthStat")
 script = ExtResource("19_j4wgs")
 target_node = NodePath("..")
 
-[node name="UnitCountDisplaySprite" type="Sprite3D" parent="UI" unique_id=673357916]
-transform = Transform3D(0.014, 0, 1.2239189e-09, 0, 0.014, 0, -1.2239189e-09, 0, 0.014, 0, 4.0048637, 0)
+[node name="UnitDisplaySprite" type="Sprite3D" parent="UI" unique_id=101413119]
+transform = Transform3D(0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0, 4, 0)
 cast_shadow = 0
 billboard = 2
 double_sided = false
 fixed_size = true
 alpha_cut = 1
-texture = SubResource("ViewportTexture_7klvg")
+texture = SubResource("ViewportTexture_d50ei")
 
-[node name="SubViewport" type="SubViewport" parent="UI/UnitCountDisplaySprite" unique_id=134617278]
+[node name="Timer" type="Timer" parent="UI/UnitDisplaySprite" unique_id=610314103]
+
+[node name="SubViewport" type="SubViewport" parent="UI/UnitDisplaySprite" unique_id=231954840]
 transparent_bg = true
 handle_input_locally = false
 gui_disable_input = true
 gui_embed_subwindows = true
 size = Vector2i(125, 72)
 
-[node name="UnitCountDisplay" parent="UI/UnitCountDisplaySprite/SubViewport" unique_id=565511781 node_paths=PackedStringArray("unit_container_component") instance=ExtResource("19_ay2xi")]
+[node name="UnitCountDisplay" parent="UI/UnitDisplaySprite/SubViewport" unique_id=565511781 node_paths=PackedStringArray("unit_container_component", "display_on_target_selected") instance=ExtResource("19_ay2xi")]
+offset_top = -29.0
+offset_bottom = 29.0
 unit_container_component = NodePath("../../../../Components/UnitContainerComponent")
 unit_icon = ExtResource("20_d50ei")
+display_on_target_selected = NodePath("../../../..")
 
 [node name="UnitRemotePosition" type="RemoteTransform3D" parent="." unique_id=1196521052]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 5.5, 0)

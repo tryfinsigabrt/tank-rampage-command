@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4x731qaaiysd"]
 
-[ext_resource type="Script" uid="uid://clm1omg8dts80" path="res://ui/hud/unit_count_display.gd" id="1_iyd8c"]
+[ext_resource type="Script" uid="uid://c5nlhp8xbbiig" path="res://ui/hud/unit_count_display.gd" id="1_iyd8c"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_iyd8c"]
 
@@ -53,3 +53,6 @@ theme_override_font_sizes/font_size = 42
 text = "0"
 label_settings = SubResource("LabelSettings_iyd8c")
 vertical_alignment = 1
+
+[node name="DisplayTimer" type="Timer" parent="." unique_id=397562865]
+unique_name_in_owner = true

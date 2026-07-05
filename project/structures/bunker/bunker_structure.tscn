@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://hrs1rakf5iql" path="res://structures/bunker/bunker.tscn" id="5_0vvam"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="6_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="7_alybg"]
+[ext_resource type="PackedScene" uid="uid://b4x731qaaiysd" path="res://ui/hud/unit_count_display.tscn" id="8_db8ox"]
 [ext_resource type="PackedScene" uid="uid://cvnoobxwdwhuh" path="res://core/unit_container_component.tscn" id="8_txgmq"]
+[ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="9_2pi4j"]
 [ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="9_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="13_xb0ja"]
@@ -17,6 +19,9 @@
 [sub_resource type="Resource" id="Resource_xb0ja"]
 script = ExtResource("2_alybg")
 metadata/_custom_type_script = "uid://b4kxj6okdq31"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_db8ox"]
+viewport_path = NodePath("UI/UnitDisplaySprite/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
 size = Vector3(10, 4, 10)
@@ -49,6 +54,26 @@ health_stat = NodePath("../../Stats/HealthStat")
 [node name="CameraYawTracker" type="Node" parent="UI" unique_id=345308461 node_paths=PackedStringArray("target_node")]
 script = ExtResource("4_txgmq")
 target_node = NodePath("..")
+
+[node name="UnitDisplaySprite" type="Sprite3D" parent="UI" unique_id=1665154013]
+transform = Transform3D(0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0, 1.971427, 0)
+billboard = 2
+double_sided = false
+fixed_size = true
+alpha_cut = 1
+texture = SubResource("ViewportTexture_db8ox")
+
+[node name="SubViewport" type="SubViewport" parent="UI/UnitDisplaySprite" unique_id=1930364344]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+gui_embed_subwindows = true
+size = Vector2i(125, 72)
+
+[node name="UnitCountDisplay" parent="UI/UnitDisplaySprite/SubViewport" unique_id=565511781 node_paths=PackedStringArray("unit_container_component", "display_on_target_selected") instance=ExtResource("8_db8ox")]
+unit_container_component = NodePath("../../../../Components/UnitContainerComponent")
+unit_icon = ExtResource("9_2pi4j")
+display_on_target_selected = NodePath("../../../..")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1410761795]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9805288, -0.0182724)
