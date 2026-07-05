@@ -111,6 +111,5 @@ func _on_scrap_collected(scrap:ScrapToken, unit:Unit) -> void:
 func _spawn_token_collected_label(scrap:ScrapToken) -> void:
 	var label:ScrapCollectedLabel = scrap_collected_label_scene.instantiate()
 	label.scrap_amount = scrap.scrap
-	
+	label.position = scrap.global_position
 	scrap.get_parent().add_child(label)
-	label.global_position = scrap.global_position

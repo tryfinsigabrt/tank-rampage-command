@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cn2d1wvgdtpdh" path="res://resources/scrap_collected_label.gd" id="1_vwwke"]
 
-[node name="ScrapCollectedLabel" type="Label3D" unique_id=862763228]
-pixel_size = 0.05
-billboard = 1
-double_sided = false
-no_depth_test = true
-render_priority = 127
-text = "+5"
-font_size = 64
+[node name="ScrapCollectedLabel" type="Node3D" unique_id=866907915]
+top_level = true
 script = ExtResource("1_vwwke")
+
+[node name="Label" type="Label" parent="." unique_id=941164579]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "+5"
