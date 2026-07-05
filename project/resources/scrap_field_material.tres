@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c60pd8jk2vdoa"]
+
+[ext_resource type="Shader" uid="uid://drviatxal0u4y" path="res://resources/scrap_field.gdshader" id="1_6h5o3"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6h5o3")
+shader_parameter/edge_color = Color(0.42, 0.16, 0.16, 0.85)
+shader_parameter/center_color = Color(0.72, 0.34, 0.24, 0.85)
+shader_parameter/outer_fade_color = Color(0.16, 0.1, 0.09, 1)
+shader_parameter/field_half_extents = Vector2(5, 5)
+shader_parameter/edge_fade_width = 0.3850000175889799
+shader_parameter/center_blend_width = 0.72900003392898
+shader_parameter/crack_color = Color(0.08, 0.05, 0.04, 1)
+shader_parameter/crack_scale = 1.04600004898648
+shader_parameter/crack_strength = 0.5630000267425
+shader_parameter/scrap_color = Color(0.5776784, 0.4357988, 0.41105306, 1)
+shader_parameter/scrap_scale = 2.0
+shader_parameter/scrap_strength = 1.0
+shader_parameter/remaining_fraction = 1.0

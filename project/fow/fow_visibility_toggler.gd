@@ -22,7 +22,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	fow_visibility_component.on_visibility_changed.connect(_on_visibility_changed)
-		
+
 func _on_visibility_changed(node:Node3D, in_visible:bool) -> void:
 	if in_visible or render_behavior == FOWRenderBehavior.VISIBLE or _first_visibility_change:
 		var was_visible:bool = node.visible

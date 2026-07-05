@@ -65,22 +65,6 @@ metadata/_custom_type_script = "uid://j0wvywuecgch"
 script = ExtResource("17_vk63l")
 metadata/_custom_type_script = "uid://4o2wv5gggw58"
 
-[sub_resource type="Curve3D" id="Curve3D_hmxt8"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.3796692, -0.5366993, -0.9120712, 0, 0, 0, 0, 0, 0, -5.732788, 3.6589184, -15.132347, 0, 0, 0, 0, 0, 0, -20.708252, 18.384659, -21.059662, 0, 0, 0, 0, 0, 0, -33.694244, 24.832071, -33.45987, 0, 0, 0, 0, 0, 0, -29.63263, 33.067085, -6.739334, 0, 0, 0, 0, 0, 0, -0.029144287, 18.922235, 22.760872, 0, 0, 0, 0, 0, 0, 5.6539, 6.802351, 17.912773, 0, 0, 0, 0, 0, 0, 5.905548, 6.3083687, 18.151215, 0, 0, 0, 0, 0, 0, 6.0723877, 5.9808254, 18.309326, 0, 0, 0, 0, 0, 0, 10.881317, -5.968828, -3.779831),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 10
-
-[sub_resource type="Curve3D" id="Curve3D_f313t"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.3796692, -0.5366993, -0.9120712, 0, 0, 0, 0, 0, 0, -5.732788, 3.6589184, -15.132347, 0, 0, 0, 0, 0, 0, -20.708252, 18.384659, -21.059662, 0, 0, 0, 0, 0, 0, -33.694244, 24.832071, -33.45987, 0, 0, 0, 0, 0, 0, -61.326385, 9.942467, -0.25761032, 0, 0, 0, 0, 0, 0, -13.519196, 18.922235, 29.15263, 0, 0, 0, 0, 0, 0, 5.6539, 6.802351, 17.912773, 0, 0, 0, 0, 0, 0, 5.905548, 6.3083687, 18.151215, 0, 0, 0, 0, 0, 0, 6.0723877, 5.9808254, 18.309326, 0, 0, 0, 0, 0, 0, 10.881317, -5.968828, -3.779831),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 10
-
 [node name="Level1" type="Node3D" unique_id=493714105]
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=1376564173]
@@ -90,7 +74,6 @@ layer = 10
 metadata/_edit_use_anchors_ = true
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_e6u7d")]
-explored_area_modulation = 0.5
 
 [node name="Environment" type="Node3D" parent="." unique_id=155131152]
 
@@ -235,16 +218,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.538925, 1, -323.72064)
 [node name="Resources" type="Node3D" parent="World/Match" unique_id=1602655195]
 
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("17_e6dmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 316.5523, -23.4, 371.56885)
-curve = SubResource("Curve3D_hmxt8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 304.939, 1, 371.569)
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.87994, -23.4, -383.46402)
-curve = SubResource("Curve3D_hmxt8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.88, 0, -383.464)
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1461303973 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.36487, -23.4, 31.522469)
-curve = SubResource("Curve3D_f313t")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("25_plqb7")]
 

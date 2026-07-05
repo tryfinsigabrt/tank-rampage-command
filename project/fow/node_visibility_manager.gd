@@ -73,7 +73,7 @@ func is_node_visible(node: Node3D, points_to_check: PackedVector3Array = PackedV
 	# If overriding fog of war visibility for testing then always make the node visible to player
 	if not fog_of_war.visible:
 		return true
-		
+
 	if not points_to_check:
 		points_to_check.resize(4)
 		

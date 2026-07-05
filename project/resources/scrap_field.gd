@@ -1,15 +1,19 @@
+@tool
 class_name ScrapField extends Path3D
 
 # By default extrudes along the z axis so need to rotate so points extrude along the y axis (xz plane)
 const PATH_ROTATION_DEG:Vector3 = Vector3(90.0, 0.0, 0.0)
 
 @onready var trigger_collision: CollisionPolygon3D = %TriggerCollision
-@onready var trigger_visual: CSGPolygon3D = %TriggerVisual
+@onready var mesh: MeshInstance3D = %Mesh
 @onready var mining_timers: Node = %MiningTimers
 
 ## How far additionally to extend the path above and below the path points
 @export_range(0.0, 1e9, 0.1, "or_greater")
 var path_depth:float = 20.0
+
+@export_range(0.0, 10.0, 0.01, "or_greater")
+var visual_y_offset:float = 0.05
 
 @export_range(1, 1e9, 1, "or_greater")
 var total_scrap:int = 10000
@@ -23,6 +27,13 @@ var scrap_per_interval:int = 50
 var remaining_scrap:int
 var _mining_timers_by_command_center:Dictionary[int,Timer]
 var _aabb:AABB
+var _last_projected_points:PackedVector2Array = PackedVector2Array()
+var _last_height_extent:Vector2 = Vector2.ZERO
+
+
+func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		call_deferred("_refresh_geometry")
 
 var active:bool:
 	get:
@@ -34,16 +45,19 @@ var open:bool:
 var remaining_fraction:float:
 	get:
 		return float(remaining_scrap) / total_scrap
-	
+
+
 # TODO: Should have a bounds component for these things
 ## Gets an AABB representing the bounds of the node in local space
 func get_bounds() -> AABB:
 	return _aabb
 
+
 ## Gets the AABB representing the bounds of the node in global space
 func get_global_bounds() -> AABB:
 	return global_transform * _aabb
-	
+
+
 func get_mining_teams() -> PackedInt32Array:
 	var teams:PackedInt32Array
 	for command_center_id in _mining_timers_by_command_center:
@@ -51,7 +65,8 @@ func get_mining_teams() -> PackedInt32Array:
 		if command_center and command_center.team not in teams:
 			teams.push_back(command_center.team)
 	return teams
-	
+
+
 func get_estimated_time_to_exhaustion() -> float:
 	if not active:
 		return 0.0
@@ -62,14 +77,25 @@ func get_estimated_time_to_exhaustion() -> float:
 		
 	var remaining_intervals:int = ceili(float(remaining_scrap) / (miners * scrap_per_interval))
 	return remaining_intervals * scrap_mining_interval 
-	
+
+
 func _ready() -> void:
+	_refresh_geometry()
+	_update_visual_state()
+	if Engine.is_editor_hint():
+		call_deferred("_refresh_geometry")
+
+
+func _refresh_geometry() -> void:
 	var point_count:int = curve.point_count
 	if not point_count:
 		push_error("%s: No path points defined!" % name)
+		trigger_collision.polygon = PackedVector2Array()
+		mesh.mesh = null
 		return
 	
-	remaining_scrap = total_scrap
+	if remaining_scrap <= 0:
+		remaining_scrap = total_scrap
 	
 	var projected_points:PackedVector2Array
 	projected_points.resize(point_count)
@@ -85,26 +111,106 @@ func _ready() -> void:
 		
 		projected_points[i] = point_2d
 		
+	_last_projected_points = projected_points
+	_last_height_extent = height_extent
 	_update_polygons.call_deferred(projected_points, height_extent)
-	
+
+
 func _update_polygons(points: PackedVector2Array, height_extent:Vector2) -> void:
 	# Center the collision on path center
 	var center_y: float = (height_extent.x + height_extent.y) * 0.5
 	var poly_pos:Vector3 = Vector3(0.0, center_y, 0.0)
-	var height:float = absf((height_extent.y - height_extent.x) * 0.5) + path_depth
+	var collision_height:float = absf((height_extent.y - height_extent.x) * 0.5) + path_depth
+	var visual_pos := Vector3(0.0, center_y + visual_y_offset, 0.0)
 	
 	trigger_collision.rotation_degrees = PATH_ROTATION_DEG
 	trigger_collision.polygon = points
 	trigger_collision.position = poly_pos
-	trigger_collision.depth = height
+	trigger_collision.depth = collision_height
 	
-	trigger_visual.rotation_degrees = PATH_ROTATION_DEG
-	trigger_visual.polygon = points
-	trigger_visual.position = poly_pos
-	trigger_visual.depth = height
+	mesh.position = visual_pos
+	mesh.mesh = _build_visual_mesh(points)
+
 	
-	_aabb = Collisions.get_aabb_from_colision_polygon(trigger_collision)
-	
+	var min_x := INF
+	var max_x := -INF
+	var min_y := INF
+	var max_y := -INF
+
+	for point in points:
+		min_x = minf(min_x, point.x)
+		max_x = maxf(max_x, point.x)
+		min_y = minf(min_y, point.y)
+		max_y = maxf(max_y, point.y)
+
+	var half_extents := Vector2(
+		maxf((max_x - min_x) * 0.5, 0.001),
+		maxf((max_y - min_y) * 0.5, 0.001)
+	)
+
+	var min_height := center_y - path_depth
+	var max_height := center_y + path_depth
+	_aabb = AABB(
+		Vector3(min_x, min_height, min_y),
+		Vector3(max_x - min_x, max_height - min_height, max_y - min_y)
+	)
+
+	var material := mesh.material_override as ShaderMaterial
+	if material:
+		material.set_shader_parameter("field_half_extents", half_extents)
+		material.set_shader_parameter("remaining_fraction", remaining_fraction)
+
+
+func _update_visual_state() -> void:
+	var material := mesh.material_override as ShaderMaterial
+	if material:
+		material.set_shader_parameter("remaining_fraction", remaining_fraction)
+
+
+func _build_visual_mesh(points: PackedVector2Array) -> ArrayMesh:
+	var indices := Geometry2D.triangulate_polygon(points)
+	if indices.is_empty():
+		return null
+
+	var min_x := INF
+	var max_x := -INF
+	var min_y := INF
+	var max_y := -INF
+	for point in points:
+		min_x = minf(min_x, point.x)
+		max_x = maxf(max_x, point.x)
+		min_y = minf(min_y, point.y)
+		max_y = maxf(max_y, point.y)
+
+	var size_x := maxf(max_x - min_x, 0.001)
+	var size_y := maxf(max_y - min_y, 0.001)
+	var inv_size := Vector2(1.0 / size_x, 1.0 / size_y)
+	var min_point := Vector2(min_x, min_y)
+
+	var vertices := PackedVector3Array()
+	var normals := PackedVector3Array()
+	var uvs := PackedVector2Array()
+	vertices.resize(indices.size())
+	normals.resize(indices.size())
+	uvs.resize(indices.size())
+
+	for i in indices.size():
+		var point := points[indices[i]]
+		vertices[i] = Vector3(point.x, 0.0, point.y)
+		normals[i] = Vector3.UP
+		uvs[i] = (point - min_point) * inv_size
+
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_NORMAL] = normals
+	arrays[Mesh.ARRAY_TEX_UV] = uvs
+
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
+	return mesh
+
+
 func _on_trigger_area_body_entered(body: Node3D) -> void:
 	var command_center:CommandCenter = body as CommandCenter
 	if not command_center:
@@ -115,6 +221,7 @@ func _on_trigger_area_body_entered(body: Node3D) -> void:
 	if active:
 		_register_timer_for(command_center)
 
+
 func _on_trigger_area_body_exited(body: Node3D) -> void:
 	var command_center:CommandCenter = body as CommandCenter
 	if not command_center:
@@ -123,7 +230,8 @@ func _on_trigger_area_body_exited(body: Node3D) -> void:
 	print_debug("%s: Command Center: %s left scrap field" % [name, command_center.name])
 	
 	_deregister_timer_for(command_center.get_instance_id())
-		
+
+
 func _register_timer_for(command_center:CommandCenter) -> void:
 	var id:int = command_center.get_instance_id()
 	
@@ -144,7 +252,8 @@ func _register_timer_for(command_center:CommandCenter) -> void:
 	
 	mining_timers.add_child(timer)
 	_mining_timers_by_command_center[id] = timer
-	
+
+
 func _deregister_timer_for(command_center_id:int) -> void:
 	var timer:Timer = _mining_timers_by_command_center.get(command_center_id)
 	if not timer:
@@ -159,11 +268,13 @@ func _deregister_timer_for(command_center_id:int) -> void:
 		var mining_component:MiningComponent = MiningComponent.get_component(command_center)
 		if mining_component:
 			mining_component.remove_field(self)
-	
+
+
 func _remove_all_timers() -> void:
 	for command_center_id:int in _mining_timers_by_command_center.keys():
 		_deregister_timer_for(command_center_id)
-			
+
+
 func _on_mining_timer_timeout(command_center_id:int) -> void:
 	var command_center:CommandCenter = instance_from_id(command_center_id) as CommandCenter
 	if not command_center:
@@ -180,9 +291,11 @@ func _on_mining_timer_timeout(command_center_id:int) -> void:
 		print_debug("%s: command_center=%s mined %d scrap" % [name, command_center.name, mined_scrap])
 		SignalBus.on_scrap_field_mined.emit(self, command_center, mined_scrap)
 		remaining_scrap -= mined_scrap
+		_update_visual_state()
 	else:
 		print("%s: Resource field exhausted!" % name)
 		_resources_exhausted()
+
 
 func _resources_exhausted() -> void:
 	for command_center_id in _mining_timers_by_command_center:
@@ -192,6 +305,6 @@ func _resources_exhausted() -> void:
 			
 	# Also disable the area
 	trigger_collision.disabled = true
-	trigger_visual.visible = false
-	
+	mesh.visible = false
+	_update_visual_state()
 	_remove_all_timers()
