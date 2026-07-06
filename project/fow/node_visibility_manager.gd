@@ -93,7 +93,7 @@ func is_node_visible(node: Node3D, points_to_check: PackedVector3Array = PackedV
 
 	var visible:bool = false
 	
-	for i in cnt:		
+	for i in cnt:
 		var fow_color:Color = fog_of_war.get_fow_value(points_to_check[i])
 		#print("FOW(%s-%d): %f" % [node.name, i, fow_color[channel]])
 		visible = fow_color[channel] >= visible_threshold

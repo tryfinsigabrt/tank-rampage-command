@@ -11,62 +11,62 @@ var _tooltip_data_by_code: Dictionary = {
 		&"construction_command_center": {
 			"title": "Command Center",
 			"subtitle": "Building",
-			"content": "Extracts scrap and can build structures.",
+			"content": "Allows building battlefield control structures. \nWhen placed above a Scrap field it will extract Scrap over time.",
 		},
 		&"construction_barracks": {
 			"title": "Barracks",
 			"subtitle": "Building",
-			"content": "Produces infantry units.",
+			"content": "Allows training new infantry units.",
 		},
 		&"construction_factory": {
 			"title": "Factory",
 			"subtitle": "Building",
-			"content": "Produces vehicles.",
+			"content": "Allows building armored fighting units and transport units.",
 		},
 		&"construction_tank_spikes": {
 			"title": "Tank Spikes",
 			"subtitle": "Structure",
-			"content": "Stops tanks.",
+			"content": "Place tank spikes from the Inventory to obstruct movement to all vehicles.",
 		},
 		&"construction_barbed_wire": {
 			"title": "Barbed Wire",
 			"subtitle": "Structure",
-			"content": "Stops infatry.",
+			"content": "Place barbed wire from the Inventory to obstruct movement to all infantry.",
 		},
 		&"construction_mine": {
 			"title": "Mine",
 			"subtitle": "Structure",
-			"content": "",
+			"content": "Place mines from the Inventory which explode when enemy units cross over them.",
 		},
 		&"construction_turret": {
 			"title": "Turret",
 			"subtitle": "Structure",
-			"content": "",
+			"content": "Place turrets from the Inventory to defend a position from enemy units.",
 		},
 		&"construction_marine": {
 			"title": "Marine",
 			"subtitle": "Unit",
-			"content": "",
+			"content": "Basic infantry unit, versitile and cheap, but with low health and damage.",
 		},
 		&"construction_tank": {
 			"title": "Tank",
 			"subtitle": "Unit",
-			"content": "",
+			"content": "Armored fighting unit, fast and highly damaging, but expensive.",
 		},
 		&"construction_artillery": {
 			"title": "Artillery",
 			"subtitle": "Unit",
-			"content": "",
+			"content": "Long distance, high damage but slow and vulnerable to close range enemy units.",
 		},
 		&"construction_transport": {
 			"title": "Marine Transport",
 			"subtitle": "Unit",
-			"content": "",
+			"content": "Transport truck can be used to quickly move marine units across large distances.",
 		},
 		&"construction_bunker": {
 			"title": "Bunker",
 			"subtitle": "Structure",
-			"content": "",
+			"content": "Defensive structure can be placed from the Inventory, can be populated by marines to give them protection while defending from enemy.",
 		},
 	}
 	
