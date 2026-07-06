@@ -4,7 +4,7 @@ enum Type
 {
 	None = 0,
 	
-	# Units [1,3]
+	# Units [1,3,12]
 	Marine = 1,
 	Tank = 2,
 	Artillery = 3,
@@ -85,11 +85,11 @@ var scrap_value:int:
 
 static func classify_type(in_type:ConstructionResource.Type) -> Classification:
 	match in_type:
-		1, 2, 3:
+		1, 2, 3, 12:
 			return Classification.Unit
 		4, 5, 6:
 			return Classification.Building
-		7, 8, 9, 10:
+		7, 8, 9, 10, 11:
 			return Classification.Structure
 		_:
 			return Classification.None
