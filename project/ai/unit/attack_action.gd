@@ -235,12 +235,25 @@ func _is_in_range() -> bool:
 	return true
 	
 func _is_target_valid() -> bool:
-	return not _node_was_targeted or \
-	(targeted_node and TeamComponent.first_is_visible_to_second_asset(targeted_node, _controlled_asset))
+	return not _node_was_targeted or _is_valid_targeted_node()
+
+func _is_valid_targeted_node() -> bool:
+	var node := targeted_node
+	if not node:
+		return false
+	# If target node has a health component and is dead then return false
+	var health := HealthStat.get_component(node, false)
+	if health and health.is_dead:
+		return false
+	elif node.is_queued_for_deletion():
+		return false
+		
+	# Target node must be visible to us
+	return TeamComponent.first_is_visible_to_second_asset(node, _controlled_asset)
 	
 func _check_target_los() -> bool:
-	# If targeting unit make sure it is visible to us
-	if targeted_node and not TeamComponent.first_is_visible_to_second_asset(targeted_node, _controlled_asset):
+	# If targeting a node make sure it is still valid
+	if _node_was_targeted and not _is_valid_targeted_node():
 		return false
 		
 	if weapon and not weapon.require_los:

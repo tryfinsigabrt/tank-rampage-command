@@ -275,7 +275,7 @@ func _start_attacking(weapon_state:WeaponState, attack_target:Node3D, attack_ori
 
 	# Capture target by id to avoid "call:Lambda capture at index 2 was freed. Passed "null" instead errors	
 	var target_id:int = attack_target.get_instance_id()
-	# Null out attacking when action frees itself if it is still the curent action
+	# Null out attacking when action frees itself if it is still the current action
 	action.tree_exited.connect(func() -> void:
 		if not weapon_state.attacking == action:
 			return
@@ -283,14 +283,22 @@ func _start_attacking(weapon_state:WeaponState, attack_target:Node3D, attack_ori
 		weapon_state.stop_attacking()
 		weapon_state.restore_parent()
 		# Select a new target
-		if not _exiting_tree and is_instance_valid(weapon_state.weapon) and \
-		(not is_instance_id_valid(target_id) or instance_from_id(target_id).is_queued_for_deletion()):
+		if not _exiting_tree and is_instance_valid(weapon_state.weapon) and _target_is_dead(target_id):
 			unit_scanner.invoke.call_deferred()
 	)
 	
 	weapon_state.attacking = action
 	weapon.show()
 	actions_container.add_child(action)
+	
+func _target_is_dead(target_id:int) -> bool:
+	var target_node:Node = instance_from_id(target_id) as Node
+	if not target_node:
+		return true
+	var health := HealthStat.get_component(target_node, false)
+	if health and health.is_dead:
+		return true
+	return target_node.is_queued_for_deletion()
 	
 #region Component Registration
 static func get_component(node: Node, required:bool = true) -> WeaponTargetingComponent:
