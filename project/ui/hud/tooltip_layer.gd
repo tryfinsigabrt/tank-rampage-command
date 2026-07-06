@@ -68,6 +68,46 @@ var _tooltip_data_by_code: Dictionary = {
 			"subtitle": "Structure",
 			"content": "Defensive structure can be placed from the Inventory, can be populated by marines to give them protection while defending from enemy.",
 		},
+		&"command_move": {
+			"title": "Move",
+			"subtitle": "",
+			"content": "Order the selected units to move to a target position.",
+		},
+		&"command_attack": {
+			"title": "Attack",
+			"subtitle": "",
+			"content": "Order the selected units to attack a specific target.",
+		},
+		&"command_move_and_attack": {
+			"title": "Move And Attack",
+			"subtitle": "",
+			"content": "Move toward a position while engaging enemies encountered along the way.",
+		},
+		&"command_stop": {
+			"title": "Stop",
+			"subtitle": "",
+			"content": "Cancel current movement and orders for the selected units.",
+		},
+		&"command_hold": {
+			"title": "Hold",
+			"subtitle": "",
+			"content": "Hold position and stop the selected units from advancing.",
+		},
+		&"command_exit": {
+			"title": "Exit",
+			"subtitle": "",
+			"content": "Unload all occupants from the selected transport or bunker.",
+		},
+		&"command_set_spawn_point": {
+			"title": "Set Spawn Point",
+			"subtitle": "",
+			"content": "Choose where newly produced units from the selected building should rally.",
+		},
+		&"command_clear_spawn_point": {
+			"title": "Clear Spawn Point",
+			"subtitle": "",
+			"content": "Remove the custom rally point for the selected building.",
+		},
 	}
 	
 	

@@ -24,14 +24,19 @@ const COMMAND_ICONS := {
 @onready var command_icon: TextureRect = %CommandIcon
 
 var _hovered: bool = false
+var _tooltip_code: StringName = &""
+var _hud: HUD
 
 func _ready() -> void:
+	_hud = Groups.get_parent_with_type(self, HUD) as HUD
 	_apply_command_name()
 	_update_border_style()
 
 func _apply_command_name() -> void:
-	tooltip_text = command_name
+	_tooltip_code = _command_name_to_tooltip_code(command_name)
 	command_icon.texture = COMMAND_ICONS.get(command_name)
+	if _hovered:
+		_emit_tooltip_entered()
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -41,10 +46,13 @@ func _gui_input(event: InputEvent) -> void:
 func _on_mouse_entered() -> void:
 	_hovered = true
 	_update_border_style()
+	_emit_tooltip_entered()
 
 func _on_mouse_exited() -> void:
 	_hovered = false
 	_update_border_style()
+	if _hud and _tooltip_code != StringName():
+		_hud.ui_element_exited.emit(_tooltip_code)
 
 func _update_border_style() -> void:
 	var stylebox := get_theme_stylebox("panel") as StyleBoxFlat
@@ -61,3 +69,13 @@ func _update_border_style() -> void:
 	stylebox.border_width_bottom = HUD.BORDER_WIDTH
 	stylebox.border_color = HUD.COMMAND_BORDER_COLOR if _hovered else HUD.DEFAULT_BORDER_COLOR
 	add_theme_stylebox_override("panel", stylebox)
+
+
+func _emit_tooltip_entered() -> void:
+	if _hud == null or _tooltip_code == StringName():
+		return
+	_hud.ui_element_entered.emit(_tooltip_code, "")
+
+
+func _command_name_to_tooltip_code(value: String) -> StringName:
+	return StringName("command_%s" % value.to_snake_case()) if not value.is_empty() else StringName()
