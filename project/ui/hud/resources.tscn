@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_3pf0r"]
 [ext_resource type="Script" uid="uid://dkmwdsmumgog" path="res://ui/hud/resources.gd" id="1_d83mv"]
-[ext_resource type="Texture2D" path="res://ui/hud/icons/personel_48.png" id="3_0msrh"]
-[ext_resource type="Texture2D" path="res://ui/hud/icons/scrap_48.png" id="4_fc13f"]
+[ext_resource type="Texture2D" uid="uid://bj8bcf3nj4tkb" path="res://ui/hud/icons/personel_48.png" id="3_0msrh"]
+[ext_resource type="Texture2D" uid="uid://d05nlngsfvifu" path="res://ui/hud/icons/scrap_48.png" id="4_fc13f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chip"]
 bg_color = Color(0.023529412, 0.043137256, 0.0627451, 0.88)
@@ -51,10 +51,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_chip")
 [node name="ResourcePanelPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel" unique_id=1586868919]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Chips" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding" unique_id=1245785664]
 layout_mode = 2
@@ -67,17 +67,17 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="PersonnelChipPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip" unique_id=1205311271]
-unique_name_in_owner = true
 layout_mode = 2
 
 [node name="PersonnelContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding" unique_id=993481480]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="PersonnelBadge" type="PanelContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=1545242448]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_personnel_badge")
 
 [node name="Center" type="CenterContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent/PersonnelBadge" unique_id=543009365]
@@ -91,7 +91,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="PersonnelText" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/PersonnelChip/PersonnelChipPadding/PersonnelContent" unique_id=172084274]
-custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_constants/separation = 6
 
@@ -117,17 +116,17 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="ScrapChipPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip" unique_id=976786818]
-unique_name_in_owner = true
 layout_mode = 2
 
 [node name="ScrapContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding" unique_id=312761862]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="ScrapBadge" type="PanelContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=1296181524]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_scrap_badge")
 
 [node name="Center" type="CenterContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent/ScrapBadge" unique_id=167100240]
@@ -146,3 +145,11 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9196078, 0.5568628, 1)
 theme_override_font_sizes/font_size = 28
 text = "10000"
+
+[node name="ScrapIncomeValue" type="Label" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding/ScrapContent" unique_id=1147251742]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.7254902, 0.2784314, 1)
+theme_override_font_sizes/font_size = 24
+text = "+100"

@@ -184,6 +184,14 @@ func _on_ui_element_exited(code: StringName) -> void:
 		_hide_time_remaining = HIDE_DELAY
 
 
+func set_tooltip_data(code: StringName, tooltip_data: Dictionary) -> void:
+	if code == StringName():
+		return
+	_tooltip_data_by_code[code] = tooltip_data
+	if tooltip_view.visible and _visible_code == code:
+		tooltip_view.set_tooltip_data(tooltip_data, _current_extra)
+
+
 func _on_tooltip_mouse_entered() -> void:
 	_tooltip_hovered = true
 	_hide_time_remaining = -1.0

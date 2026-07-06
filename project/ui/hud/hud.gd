@@ -15,10 +15,17 @@ func _ready() -> void:
 	SignalBus.on_player_message_requested.connect(_on_player_message_requested)
 	SignalBus.on_player_message_cleared.connect(_on_player_message_cleared)
 
+
 func _on_player_message_requested(message_text: String) -> void:
 	if player_message_panel and player_message_panel.has_method("show_message"):
 		player_message_panel.show_message(message_text)
 
+
 func _on_player_message_cleared() -> void:
 	if player_message_panel and player_message_panel.has_method("clear_message"):
 		player_message_panel.clear_message()
+
+
+func set_tooltip_data(code: StringName, tooltip_data: Dictionary) -> void:
+	if tooltip_layer:
+		tooltip_layer.set_tooltip_data(code, tooltip_data)

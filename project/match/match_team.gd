@@ -72,6 +72,19 @@ var assets: Array[Node3D]:
 
 var total_asset_count:int:
 	get: return _units.size() + _buildings.size() + _structures.size()
+
+
+var scrap_per_minute:float:
+	get:
+		var total := 0.0
+		for building in buildings:
+			if building == null or not is_instance_valid(building):
+				continue
+			var mining_component := MiningComponent.get_component(building, false)
+			if mining_component == null:
+				continue
+			total += mining_component.scrap_per_minute
+		return total
 	
 var _active:bool = true
 		
