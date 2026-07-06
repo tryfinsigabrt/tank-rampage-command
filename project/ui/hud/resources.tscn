@@ -116,6 +116,7 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="ScrapChipPadding" type="MarginContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip" unique_id=976786818]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="ScrapContent" type="HBoxContainer" parent="ResourceRow/ResourcePanel/ResourcePanelPadding/Chips/ScrapChip/ScrapChipPadding" unique_id=312761862]
