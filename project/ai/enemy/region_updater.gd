@@ -3,6 +3,9 @@ extends Node
 @export
 var map_regions:MapRegions
 
+@export
+var region_cache_vision_threshold:float = 0.1
+
 @onready var tick_timer: Timer = $TickTimer
 @onready var cache_cleanup_timer: Timer = $CacheCleanupTimer
 
@@ -46,7 +49,8 @@ func _tick() -> void:
 		var pos:Vector3 = asset.global_position
 
 		if cache_entry:
-			cache_valid = cache_entry.pos.distance_squared_to(pos) < 1.0 and is_equal_approx(vision, cache_entry.vision)
+			var vision_threshold:float = region_cache_vision_threshold * vision
+			cache_valid = is_equal_approx(vision, cache_entry.vision) and cache_entry.pos.distance_squared_to(pos) < vision_threshold
 		else:
 			cache_entry = CacheEntry.new()
 			_region_cache[instance_id] = cache_entry
