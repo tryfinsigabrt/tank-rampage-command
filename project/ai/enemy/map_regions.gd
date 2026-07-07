@@ -116,8 +116,9 @@ func get_regions_for(world_location:Vector3, radius:float) -> Array[MapRegion]:
 	max_indices = max_indices.clamp(Vector2i.ZERO, _region_dim)
 	
 	for y in range(min_indices.y, max_indices.y):
+		var row_base:int = y * _region_dim.x
 		for x in range(min_indices.x, max_indices.x):
-			matching_regions.push_back(regions[_coords_to_index(Vector2i(x, y))])
+			matching_regions.push_back(regions[row_base + x])
 	return matching_regions
 		
 func _world_location_to_grid_location(world_location:Vector3) -> Vector2i:
