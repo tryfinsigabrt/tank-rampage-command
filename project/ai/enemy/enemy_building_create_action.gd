@@ -1,6 +1,6 @@
 class_name EnemyBuildingCreateAction extends Node3D
 
-signal on_building_complete(context: BuildBuildingUtilityContext, building:Building)
+signal on_building_complete(context: BuildBuildingUtilityContext, asset:Node3D)
 
 @export
 var blackboard:EnemyTeamBlackboard
@@ -29,8 +29,10 @@ var angle_test_increment_deg:float = 45.0
 @export
 var spawn_point_randomization_count:int = 100
 
+var _inventory_component:InventoryComponent
+
 class ActivePlacement:
-	var context:BuildBuildingUtilityContext
+	var context:AbstractBuildPlacementUtilityContext
 	var spawner:NodePlacementSpawner
 	var resource_bounds:BoundingCircle
 	var start_time:float
@@ -54,18 +56,47 @@ class ActivePlacement:
 	
 var active_placements:Array[ActivePlacement]
 
-func _ready() -> void:
+func _ready() -> void:	
 	set_process(false)
 	
-func can_create(context: BuildBuildingUtilityContext) -> bool:
-	return building_manufacturing.can_create(context.construction.type)
+	var match_team:MatchTeam = Groups.get_parent_with_type(self, MatchTeam)
+	assert(match_team)
+	_inventory_component = match_team.inventory_component
+
+func can_create(context: AbstractBuildPlacementUtilityContext) -> bool:
+	var resource := context.construction
+	var classification := resource.classification
 	
-func create(context: BuildBuildingUtilityContext) -> Building:
+	match classification:
+		ConstructionResource.Classification.Building:
+			return building_manufacturing.can_create(resource.type)
+		ConstructionResource.Classification.Structure:
+			return _inventory_component.has(resource.type)
+		_:
+			push_warning("%s: Resource %s has unsupported classification of %s" \
+			% [name, resource, EnumUtils.enum_to_string(ConstructionResource.Classification, classification)])
+			return false
+	
+func create(context: AbstractBuildPlacementUtilityContext) -> Node3D:
 	var construction_resource:ConstructionResource = context.construction
-	
+	var classification := construction_resource.classification
+
 	print_debug("%s: Create %s" % [name, EnumUtils.enum_to_string(ConstructionResource.Type, construction_resource.type)])
 
-	var spawner:NodePlacementSpawner = building_manufacturing.create(construction_resource.type)
+	var spawner:NodePlacementSpawner
+	match classification:
+		ConstructionResource.Classification.Building:
+			spawner = building_manufacturing.create(construction_resource.type)
+		ConstructionResource.Classification.Structure:
+			spawner = _inventory_component.create(construction_resource.type)
+		_:
+			push_warning("%s: Resource %s has unsupported classification of %s" \
+			% [name, construction_resource, EnumUtils.enum_to_string(ConstructionResource.Classification, classification)])
+			spawner = null
+			
+	return await _create(context, spawner)
+
+func _create(context: AbstractBuildPlacementUtilityContext, spawner: NodePlacementSpawner)	 -> Node3D:
 	if not spawner:
 		on_building_complete.emit(context, null)
 		return null
@@ -78,8 +109,9 @@ func create(context: BuildBuildingUtilityContext) -> Building:
 
 	set_process(true)
 	
-	var result:Building = await active_placement.latch
+	var result:Node3D = await active_placement.latch
 	on_building_complete.emit(context, result)
+	
 	return result
 	
 func _process(_delta: float) -> void:
@@ -180,7 +212,7 @@ func _fill_next_points(placement:ActivePlacement) -> bool:
 		
 	return not points.is_empty()
 		
-func _try_spawn(placement:ActivePlacement) -> Building:
+func _try_spawn(placement:ActivePlacement) -> Node3D:
 	# Use the bounds guidelines in context along with the bounding sphere to try N locations on arc starting with first center
 	# Expand out in a circular pattern in this radius and then move out 0.5x the asset radius and try locations around that arc
 	# Offset the start angle each time up to the delta angle to increase point test coverage and wrap around once hit delta limit
@@ -199,7 +231,7 @@ func _try_spawn(placement:ActivePlacement) -> Building:
 		# The grounded checks +- 1000 in y so can just pass zero and let it take care of the height projection
 		var target_pos:Vector3 = Vector3(target_grid_pos.x, 0.0, target_grid_pos.y)
 		spawner.move_to(target_pos)
-		var result:Building = spawner.spawn()
+		var result:Node3D = spawner.spawn()
 		if result:
 			return result
 			

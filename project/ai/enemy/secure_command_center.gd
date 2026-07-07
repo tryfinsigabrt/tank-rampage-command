@@ -27,9 +27,10 @@ var ideal_enemy_army_secure_fraction:float = 0.3
 @export
 var assistance_positioning_bounds_multiplier:float = 2.0
 
-func _on_enemy_building_create_action_on_building_complete(_context: BuildBuildingUtilityContext, building: Building) -> void:
-	if not enable_assistance or building is not CommandCenter:
+func _on_enemy_building_create_action_on_building_complete(_context: BuildBuildingUtilityContext, asset: Node3D) -> void:
+	if not enable_assistance or asset is not CommandCenter:
 		return
+	var building:Building = asset
 	
 	var construction_building: ConstructionBuilding = Groups.get_child_with_type(building, ConstructionBuilding)
 	var hold_duration:float = secure_hold_additional_duration
