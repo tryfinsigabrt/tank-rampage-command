@@ -85,4 +85,4 @@ func _cleanup_cache() -> void:
 		if not is_instance_id_valid(key):
 			invalid_cache_keys.push_back(key)
 	for invalid_key in invalid_cache_keys:
-		_region_cache.clear()
+		_region_cache.erase(invalid_key)
