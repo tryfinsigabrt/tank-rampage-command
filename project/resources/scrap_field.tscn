@@ -5,27 +5,27 @@
 [ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="2_robsx"]
 [ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="3_es4kr"]
 
-[sub_resource type="Curve3D" id="Curve3D_scrap_field"]
+[sub_resource type="Curve3D" id="Curve3D_dbx2e"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 5, 0, 7.458435, 0, 0, 0, 0, 0, 0, 5, 0, -5, 0, 0, 0, 0, 0, 0, -5, 0, -5, 0, 0, 0, 0, 0, 0, -8, 0, 4, 0, 0, 0, 0, 0, 0, -4, 0, 2),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19.525536, 0, 0, 0, 0, 0, 0, 0, 0, 4.9514027, 0, 4.1261687, 0, 0, 0, 0, 0, 0, 7.577644e-16, 0, 10.312693, 0, 0, 0, 0, 0, 0, -7.3174276, 0, 6.097856, 0, 0, 0, 0, 0, 0, -19.054771, 0, 1.9446136e-15, 0, 0, 0, 0, 0, 0, -7.418909, 0, -6.182424, 0, 0, 0, 0, 0, 0, -1.8713545e-15, 0, -8.489316, 0, 0, 0, 0, 0, 0, 11.183145, 0, -9.319287),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 5
+point_count = 8
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_dbx2e"]
 _surfaces = [{
-"aabb": AABB(-8, 0, -5, 13, 1e-05, 12.458435),
-"attribute_data": PackedByteArray("2YmdPprWDz8AAAAAWO84P8ZObD4AAAAAxk5sPgAAAAAAAIA/AAAAAAAAgD///38/AACAP///fz/ZiZ0+mtYPP8ZObD4AAAAA"),
+"aabb": AABB(-19.054771, 0, -9.319287, 38.580307, 1e-05, 19.63198),
+"attribute_data": PackedByteArray("26RIPwAAAAAAAIA/ygvzPg9LHz/7Uy8/D0sfP/tTLz9R4Pw+AQCAPzrEmz7rCUk/OsSbPusJST8AAAAAygvzPnVrmj4+niM+dWuaPj6eIz5R4Pw+HyotPdukSD8AAAAA26RIPwAAAAAPSx8/+1MvPzrEmz7rCUk/OsSbPusJST91a5o+Pp4jPtukSD8AAAAA"),
 "format": 34359738391,
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 9,
-"vertex_data": PackedByteArray("AACAwAAAAAAAAABAAAAAwQAAAAAAAIBAAACgwAAAAAAAAKDAAACgwAAAAAAAAKDAAACgQAAAAAAAAKDAAACgQAAAAACAq+5AAACgQAAAAACAq+5AAACAwAAAAAAAAABAAACgwAAAAAAAAKDA/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
+"vertex_count": 18,
+"vertex_data": PackedByteArray("Ke4yQQAAAADNGxXBTDScQQAAAAAAAAAA5HGeQAAAAACTCYRA5HGeQAAAAACTCYRAJWlaJgAAAADKACVBXijqwAAAAACjIcNAXijqwAAAAACjIcNALHCYwQAAAADKHwwntGftwAAAAABr1sXAtGftwAAAAABr1sXAZtgGpwAAAAA91AfBKe4yQQAAAADNGxXBKe4yQQAAAADNGxXB5HGeQAAAAACTCYRAXijqwAAAAACjIcNAXijqwAAAAACjIcNAtGftwAAAAABr1sXAKe4yQQAAAADNGxXB/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
 }]
 
 [node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource", "ScrapField"]]
-curve = SubResource("Curve3D_scrap_field")
+curve = SubResource("Curve3D_dbx2e")
 debug_custom_color = Color(0, 0.9019608, 0, 1)
 script = ExtResource("1_0d56a")
 path_depth = 3.0
@@ -44,7 +44,7 @@ input_ray_pickable = false
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 depth = 3.0
-polygon = PackedVector2Array(5, 7.458435, 5, -5, -5, -5, -8, 4, -4, 2)
+polygon = PackedVector2Array(19.525536, 0, 4.9514027, 4.1261687, 7.577644e-16, 10.312693, -7.3174276, 6.097856, -19.054771, 1.9446136e-15, -7.418909, -6.182424, -1.8713545e-15, -8.489316, 11.183145, -9.319287)
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=507229753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

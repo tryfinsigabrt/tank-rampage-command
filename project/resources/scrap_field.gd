@@ -3,6 +3,7 @@ class_name ScrapField extends Path3D
 
 # By default extrudes along the z axis so need to rotate so points extrude along the y axis (xz plane)
 const PATH_ROTATION_DEG:Vector3 = Vector3(90.0, 0.0, 0.0)
+const RANDOMIZED_POINT_COUNT:int = 8
 
 @onready var trigger_collision: CollisionPolygon3D = %TriggerCollision
 @onready var mesh: MeshInstance3D = %Mesh
@@ -23,6 +24,17 @@ var scrap_mining_interval:float = 5.0
 
 @export_range(1, 1e9, 1, "or_greater")
 var scrap_per_interval:int = 50
+
+@export_range(0.1, 40, 0.1, "or_greater")
+var randomize_radius_x:float = 20.0
+
+@export_range(0.1, 40, 0.1, "or_greater")
+var randomize_radius_z:float = 10.0
+
+@export_range(0.0, 1.0, 0.01)
+var randomize_jitter:float = 0.70
+
+@export_tool_button("Randomize") var randomize_shape_button = _randomize_shape
 
 var remaining_scrap:int
 var _mining_timers_by_command_center:Dictionary[int,Timer]
@@ -84,6 +96,24 @@ func _ready() -> void:
 	_update_visual_state()
 	if Engine.is_editor_hint():
 		call_deferred("_refresh_geometry")
+
+
+func _randomize_shape() -> void:
+	var new_curve := Curve3D.new()
+
+	var rng := RandomNumberGenerator.new()
+	rng.randomize()
+
+	for i in RANDOMIZED_POINT_COUNT:
+		var angle := TAU * float(i) / float(RANDOMIZED_POINT_COUNT)
+		var jitter_scale := rng.randf_range(1.0 - randomize_jitter, 1.0 + randomize_jitter)
+		var x := cos(angle) * randomize_radius_x * jitter_scale
+		var z := sin(angle) * randomize_radius_z * jitter_scale
+		new_curve.add_point(Vector3(x, 0.0, z))
+
+	new_curve.closed = true
+	curve = new_curve
+	_refresh_geometry()
 
 
 func _refresh_geometry() -> void:

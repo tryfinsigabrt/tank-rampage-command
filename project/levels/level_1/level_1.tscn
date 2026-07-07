@@ -65,6 +65,30 @@ metadata/_custom_type_script = "uid://j0wvywuecgch"
 script = ExtResource("17_vk63l")
 metadata/_custom_type_script = "uid://4o2wv5gggw58"
 
+[sub_resource type="Curve3D" id="Curve3D_hmxt8"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 16.359684, 0, 0, 0, 0, 0, 0, 0, 0, 7.8911695, 0, 6.5759745, 0, 0, 0, 0, 0, 0, 7.211886e-16, 0, 9.814919, 0, 0, 0, 0, 0, 0, -5.972201, 0, 4.976834, 0, 0, 0, 0, 0, 0, -13.544003, 0, 1.3822183e-15, 0, 0, 0, 0, 0, 0, -11.129765, 0, -9.274803, 0, 0, 0, 0, 0, 0, -3.2802892e-15, 0, -14.880886, 0, 0, 0, 0, 0, 0, 11.238632, 0, -9.365527),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_e6dmr"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.8671536, 0, 0, 0, 0, 0, 0, 0, 0, 6.5858603, 0, 5.488217, 0, 0, 0, 0, 0, 0, 4.7321703e-16, 0, 6.440184, 0, 0, 0, 0, 0, 0, -11.24864, 0, 9.373867, 0, 0, 0, 0, 0, 0, -16.738867, 0, 1.7082666e-15, 0, 0, 0, 0, 0, 0, -12.903567, 0, -10.752973, 0, 0, 0, 0, 0, 0, -3.6345167e-15, 0, -16.487823, 0, 0, 0, 0, 0, 0, 8.452906, 0, -7.044088),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_xiq7r"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 16.048794, 0, 0, 0, 0, 0, 0, 0, 0, 8.947517, 0, 7.4562645, 0, 0, 0, 0, 0, 0, 4.2980437e-16, 0, 5.849365, 0, 0, 0, 0, 0, 0, -9.960256, 0, 8.300213, 0, 0, 0, 0, 0, 0, -12.075282, 0, 1.2323296e-15, 0, 0, 0, 0, 0, 0, -5.4585614, 0, -4.548801, 0, 0, 0, 0, 0, 0, -3.5961516e-15, 0, -16.313782, 0, 0, 0, 0, 0, 0, 10.640061, 0, -8.866717),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
 [node name="Level1" type="Node3D" unique_id=493714105]
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=1376564173]
@@ -92,7 +116,7 @@ directional_shadow_max_distance = 2000.0
 [node name="World" type="Node3D" parent="." unique_id=1469393695]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=896268034]
-transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0.99998426, 0.005322719, -0.006012329, -0.005311953, 0.9999678, -131.72644, -93.84094, -76.28359)
+transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0.99998426, 0.005322719, -0.006012329, -0.005311953, 0.9999678, -131.09808, -94.23959, -76.40389)
 navigation_mesh = ExtResource("3_f313t")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=1025590860]
@@ -219,12 +243,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.538925, 1, -323.72064)
 
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 304.939, 1, 371.569)
+curve = SubResource("Curve3D_hmxt8")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.88, 0, -383.464)
+curve = SubResource("Curve3D_e6dmr")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1461303973 instance=ExtResource("17_e6dmr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.36487, -23.4, 31.522469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.365, 0, 31.522)
+curve = SubResource("Curve3D_xiq7r")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("25_plqb7")]
 
