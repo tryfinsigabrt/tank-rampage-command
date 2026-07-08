@@ -17,6 +17,13 @@ var visible:bool = true
 @export_range(0.0, 1.0, 0.01)
 var explored_area_modulation:float = 0.3
 
+## Cell size in world units of the explored-area grid for querying the FOW_EXPLORED_CHANNEL without reading the GPU texture
+@export_range(0.5, 32.0, 0.5)
+var explored_grid_cell_size:float = 4.0
+
+@export_range(0.0, 1.0, 0.01)
+var edge_tolerance_scale:float = 1.0
+
 @onready var visible_area_viewport: SubViewport = $VisibleArea
 @onready var visible_multi_mesh_instance: FogOfWarVisibilityInstance = $VisibleArea/MultiMeshInstance2D
 
@@ -41,9 +48,14 @@ var _explored_area_material:ShaderMaterial
 var _world_aabb:AABB
 var _projected_size:Vector2
 
-# Calling Texture2D.get_image is expensive so we need to cache the results and only 
-# refresh it once when it changes
-var _fow_image:Image
+# CPU-side replica of the visible/explored shader computation. Gameplay visibility
+# queries read this instead of the viewport texture — ViewportTexture.get_image
+# stalls the pipeline reading the data back from the GPU (~28ms per call)
+var _visibility_model:FowVisibilityModel = FowVisibilityModel.new()
+
+# World-unit expansion of each vision square approximating the shader's box
+# blur + visible-channel threshold at the edges
+var _visibility_edge_tolerance:float
 
 var player_team:int:
 	get:
@@ -88,11 +100,9 @@ func _process(delta: float) -> void:
 		return
 	
 	visible_multi_mesh_instance.update(_cached_nodes)
+	# Keep the CPU visibility model in sync with what the multimesh renders
+	_visibility_model.update(_cached_nodes, _visibility_edge_tolerance)
 	_accum_delta = 0.
-	
-	await RenderingServer.frame_post_draw
-	#Invalidate the fow cache
-	_fow_image = null
 	
 func _ready() -> void:
 	if not enable:
@@ -115,11 +125,15 @@ func _ready() -> void:
 		_world_aabb = AABB(Vector3.ZERO, Vector3(500.0,500.0,500.0))
 	
 	_projected_size = explored_area_viewport.size
-		
+
+	_visibility_model.configure(_world_aabb, explored_grid_cell_size)
+
 	_explored_area_material = explored_area_rect.material as ShaderMaterial
 	if not _explored_area_material:
 		push_error("%s: ExploredArea subviewport color rect does not have a shader material!" % name)
 		return
+
+	_visibility_edge_tolerance = _compute_visibility_edge_tolerance()
 
 	var visible_area_tex := visible_area_viewport.get_texture()
 	_explored_area_material.set_shader_parameter(&"visible_data_texture", visible_area_tex)
@@ -149,37 +163,47 @@ func project_position(pos:Vector3) -> Vector2:
 func is_node_visible(node: Node3D, visible_threshold:float = node_visibility_manager.visible_channel_threshold, channel:int = FOW_VISIBLE_CHANNEL, require_all:bool = false) -> bool:
 	return node_visibility_manager.is_node_visible(node, PackedVector3Array(), visible_threshold, channel, require_all)
 	
-func get_fow_value(pos:Vector3) -> Color:
-	# Read the value of the texture on explored_area_viewport converting pos to the image pixel coordinates (inverse of project_position)
-	var viewport_pos:Vector2 = project_position(pos)
-
-	var image:Image = _get_or_refresh_fow_image()
-	if not image or image.is_empty():
-		return Color.BLACK
-
-	var image_size:Vector2i = image.get_size()
-	if image_size.x <= 0 or image_size.y <= 0:
-		return Color.BLACK
-
-	var pixel:Vector2i = Vector2i(viewport_pos.floor())
-	pixel.x = clampi(pixel.x, 0, image_size.x - 1)
-	pixel.y = clampi(pixel.y, 0, image_size.y - 1)
-
-	return image.get_pixelv(pixel)
-
-func _get_or_refresh_fow_image() -> Image:
-	if _fow_image:
-		return _fow_image
-		
-	var fow_texture:ViewportTexture = explored_area_viewport.get_texture()
-	if not fow_texture:
-		return null
-	_fow_image = fow_texture.get_image()
-	return _fow_image
+static func fow_channel_to_mask(fow_channel:int) -> int:
+	return 1 << fow_channel
 	
+## Answers the same visible/explored question as the explored_area_viewport
+## texture but from the CPU visibility model - never reads the GPU texture back
+func get_fow_value(pos:Vector3, channel_mask:int = 3) -> Vector2:
+	var fow_value:Vector2
+	var is_visible:bool = false
+	
+	# Visible
+	if (channel_mask & 1) and _visibility_model.is_position_visible(pos):
+		fow_value[0] = 1.0
+		is_visible = true
+	
+	# Explored 
+	if (channel_mask & 2) and (is_visible or _visibility_model.is_position_explored(pos)):
+		fow_value[1] = 1.0
+	
+	return fow_value
+
+## The shader box-blurs the visible quads (blur_amount texels) before the
+## visible-channel threshold is applied, which softens/expands the square
+## edges - approximate that by expanding each vision square by the blur
+## footprint in world units
+func _compute_visibility_edge_tolerance() -> float:
+	if is_zero_approx(edge_tolerance_scale):
+		return 0.0
+		
+	var blur_amount:float = 1.5
+	if _explored_area_material:
+		var blur_param:Variant = _explored_area_material.get_shader_parameter(&"blur_amount")
+		if blur_param != null:
+			blur_amount = blur_param
+
+	var texel_world_size:Vector2 = map_size / _projected_size
+	return blur_amount * maxf(texel_world_size.x, texel_world_size.y) * edge_tolerance_scale
+
 func _clear_explored() -> void:
 	explored_area_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-	
+	_visibility_model.clear_explored()
+
 	# Also need to clear the explored area memory
 	# This didn't work and setting "Transparent BG" on the explored area DID clear it to black
 	# but leaving this here in case we do want to clear it through gameplay

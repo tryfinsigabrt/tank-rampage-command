@@ -27,6 +27,7 @@ shader_parameter/reset = false
 [node name="FogOfWar" type="Node" unique_id=1445970781 groups=["FogOfWar"]]
 process_mode = 1
 script = ExtResource("1_ot6aq")
+edge_tolerance_scale = 0.5
 
 [node name="FowPostProcess" type="MeshInstance3D" parent="." unique_id=92291872]
 material_override = SubResource("ShaderMaterial_5w83h")
