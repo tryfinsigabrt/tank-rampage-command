@@ -62,7 +62,7 @@ update_scale = false
 [node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("4_o2xd8")]
 unique_name_in_owner = true
 team_asset = NodePath("../..")
-vision = 200.0
+vision = 3.0
 
 [node name="DynamicNavObstacle" parent="." unique_id=1588316425 instance=ExtResource("8_o2xd8")]
 affects_unit_classes = Array[int]([1, 2])

@@ -60,7 +60,7 @@ update_scale = false
 [node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("6_16a2b")]
 unique_name_in_owner = true
 team_asset = NodePath("../..")
-vision = 200.0
+vision = 3.0
 assign_team_collision_layers = false
 
 [node name="DamageEmitter" type="Node" parent="." unique_id=944665689]

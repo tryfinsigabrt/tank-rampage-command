@@ -126,7 +126,7 @@ update_scale = false
 [node name="TeamComponent" parent="Components" unique_id=1891015398 node_paths=PackedStringArray("team_asset") instance=ExtResource("8_vluti")]
 unique_name_in_owner = true
 team_asset = NodePath("../..")
-vision = 200.0
+vision = 100.0
 
 [node name="WeaponTargetingComponent" parent="Components" unique_id=1383309094 node_paths=PackedStringArray("my_asset") instance=ExtResource("10_tcarc")]
 unique_name_in_owner = true
