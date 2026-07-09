@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://resources/scrap_field_fade_mask.gdshader" id="1_2swy7"]
+
+[resource]
+shader = ExtResource("1_2swy7")
+shader_parameter/polygon_points = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/edge_fade_width = 0.15

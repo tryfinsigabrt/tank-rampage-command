@@ -3,11 +3,13 @@ class_name ScrapField extends Path3D
 
 # By default extrudes along the z axis so need to rotate so points extrude along the y axis (xz plane)
 const PATH_ROTATION_DEG:Vector3 = Vector3(90.0, 0.0, 0.0)
-const RANDOMIZED_POINT_COUNT:int = 8
+const SHADER_POINT_COUNT:int = 8
 
 @onready var trigger_collision: CollisionPolygon3D = %TriggerCollision
 @onready var mesh: MeshInstance3D = %Mesh
 @onready var mining_timers: Node = %MiningTimers
+@onready var fade_mask_viewport: SubViewport = %FadeMaskViewport
+@onready var fade_mask_rect: ColorRect = %FadeMaskRect
 
 ## How far additionally to extend the path above and below the path points
 @export_range(0.0, 1e9, 0.1, "or_greater")
@@ -39,8 +41,6 @@ var randomize_jitter:float = 0.70
 var remaining_scrap:int
 var _mining_timers_by_command_center:Dictionary[int,Timer]
 var _aabb:AABB
-var _last_projected_points:PackedVector2Array = PackedVector2Array()
-var _last_height_extent:Vector2 = Vector2.ZERO
 
 
 func _enter_tree() -> void:
@@ -92,10 +92,18 @@ func get_estimated_time_to_exhaustion() -> float:
 
 
 func _ready() -> void:
+	_ensure_instance_local_materials()
 	_refresh_geometry()
 	_update_visual_state()
 	if Engine.is_editor_hint():
 		call_deferred("_refresh_geometry")
+
+
+func _ensure_instance_local_materials() -> void:
+	if mesh.material_override:
+		mesh.material_override = mesh.material_override.duplicate()
+	if fade_mask_rect.material:
+		fade_mask_rect.material = fade_mask_rect.material.duplicate()
 
 
 func _randomize_shape() -> void:
@@ -104,8 +112,8 @@ func _randomize_shape() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 
-	for i in RANDOMIZED_POINT_COUNT:
-		var angle := TAU * float(i) / float(RANDOMIZED_POINT_COUNT)
+	for i in SHADER_POINT_COUNT:
+		var angle := TAU * float(i) / float(SHADER_POINT_COUNT)
 		var jitter_scale := rng.randf_range(1.0 - randomize_jitter, 1.0 + randomize_jitter)
 		var x := cos(angle) * randomize_radius_x * jitter_scale
 		var z := sin(angle) * randomize_radius_z * jitter_scale
@@ -118,8 +126,8 @@ func _randomize_shape() -> void:
 
 func _refresh_geometry() -> void:
 	var point_count:int = curve.point_count
-	if not point_count:
-		push_error("%s: No path points defined!" % name)
+	if not point_count or point_count != SHADER_POINT_COUNT:
+		push_error("%s: Exactly 8 points must be defined on the curve!" % name)
 		trigger_collision.polygon = PackedVector2Array()
 		mesh.mesh = null
 		return
@@ -128,7 +136,7 @@ func _refresh_geometry() -> void:
 		remaining_scrap = total_scrap
 	
 	var projected_points:PackedVector2Array
-	projected_points.resize(point_count)
+	projected_points.resize(SHADER_POINT_COUNT)
 	
 	var height_extent:Vector2 = Vector2(INF, -INF)
 	
@@ -141,8 +149,6 @@ func _refresh_geometry() -> void:
 		
 		projected_points[i] = point_2d
 		
-	_last_projected_points = projected_points
-	_last_height_extent = height_extent
 	_update_polygons.call_deferred(projected_points, height_extent)
 
 
@@ -185,10 +191,25 @@ func _update_polygons(points: PackedVector2Array, height_extent:Vector2) -> void
 		Vector3(max_x - min_x, max_height - min_height, max_y - min_y)
 	)
 
+	var normalized_points := PackedVector2Array()
+	normalized_points.resize(SHADER_POINT_COUNT)
+	var min_point := Vector2(min_x, min_y)
+	var size := Vector2(maxf(max_x - min_x, 0.001), maxf(max_y - min_y, 0.001))
+	for i in SHADER_POINT_COUNT:
+		normalized_points[i] = (points[i] - min_point) / size
+
+	var fade_material := fade_mask_rect.material as ShaderMaterial
+	if fade_material:
+		fade_material.set_shader_parameter("polygon_points", normalized_points)
+		fade_material.set_shader_parameter("edge_fade_width", 0.15)
+
+	fade_mask_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
 	var material := mesh.material_override as ShaderMaterial
 	if material:
 		material.set_shader_parameter("field_half_extents", half_extents)
 		material.set_shader_parameter("remaining_fraction", remaining_fraction)
+		material.set_shader_parameter("fade_mask_texture", fade_mask_viewport.get_texture())
 
 
 func _update_visual_state() -> void:
@@ -251,7 +272,7 @@ func _on_trigger_area_body_entered(body: Node3D) -> void:
 	if active:
 		_register_timer_for(command_center)
 
-
+#
 func _on_trigger_area_body_exited(body: Node3D) -> void:
 	var command_center:CommandCenter = body as CommandCenter
 	if not command_center:

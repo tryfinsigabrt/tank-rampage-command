@@ -7,8 +7,8 @@ uniform vec4 edge_color : source_color = vec4(0.42, 0.16, 0.16, 0.85);
 uniform vec4 center_color : source_color = vec4(0.72, 0.34, 0.24, 0.85);
 uniform vec3 outer_fade_color : source_color = vec3(0.16, 0.10, 0.09);
 uniform vec2 field_half_extents = vec2(5.0, 5.0);
-uniform float edge_fade_width : hint_range(0.01, 0.5) = 0.15;
 uniform float center_blend_width : hint_range(0.01, 1.0) = 0.45;
+uniform sampler2D fade_mask_texture : source_color, repeat_disable, filter_linear;
 uniform vec3 crack_color : source_color = vec3(0.08, 0.05, 0.04);
 uniform float crack_scale : hint_range(0.01, 2.0) = 0.35;
 uniform float crack_strength : hint_range(0.0, 1.0) = 0.65;
@@ -45,7 +45,7 @@ void fragment() {
 	vec2 local_xz = local_position.xz;
 	vec2 normalized = abs(local_xz) / field_half_extents;
 	float edge_factor = max(normalized.x, normalized.y);
-	float fade = 1.0 - smoothstep(1.0 - edge_fade_width, 1.0, edge_factor);
+	float fade = texture(fade_mask_texture, UV).r;
 	float center_mask = 1.0 - smoothstep(0.0, center_blend_width, edge_factor);
 	vec3 albedo = mix(edge_color.rgb, center_color.rgb, center_mask);
 	albedo = mix(outer_fade_color, albedo, fade);
@@ -64,4 +64,5 @@ void fragment() {
 	ROUGHNESS = roughness;
 	ALBEDO = albedo;
 	SPECULAR = 0.05;
+	ALPHA = fade;
 }

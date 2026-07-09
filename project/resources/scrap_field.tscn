@@ -2,30 +2,31 @@
 
 [ext_resource type="Script" uid="uid://b1xr0pwiw65au" path="res://resources/scrap_field.gd" id="1_0d56a"]
 [ext_resource type="Material" uid="uid://c60pd8jk2vdoa" path="res://resources/scrap_field_material.tres" id="2_6gsg3"]
+[ext_resource type="Material" path="res://resources/scrap_field_fade_mask_material.tres" id="2_h6b17"]
 [ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="2_robsx"]
 [ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="3_es4kr"]
 
-[sub_resource type="Curve3D" id="Curve3D_dbx2e"]
+[sub_resource type="Curve3D" id="Curve3D_lg5vb"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19.525536, 0, 0, 0, 0, 0, 0, 0, 0, 4.9514027, 0, 4.1261687, 0, 0, 0, 0, 0, 0, 7.577644e-16, 0, 10.312693, 0, 0, 0, 0, 0, 0, -7.3174276, 0, 6.097856, 0, 0, 0, 0, 0, 0, -19.054771, 0, 1.9446136e-15, 0, 0, 0, 0, 0, 0, -7.418909, 0, -6.182424, 0, 0, 0, 0, 0, 0, -1.8713545e-15, 0, -8.489316, 0, 0, 0, 0, 0, 0, 11.183145, 0, -9.319287),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 18.76615, 0, 0, 0, 0, 0, 0, 0, 0, 12.525008, 0, 6.262504, 0, 0, 0, 0, 0, 0, 1.2809888e-15, 0, 10.460067, 0, 0, 0, 0, 0, 0, -20.136219, 0, 10.0681095, 0, 0, 0, 0, 0, 0, -32.077744, 0, 1.964195e-15, 0, 0, 0, 0, 0, 0, -12.353109, 0, -6.1765547, 0, 0, 0, 0, 0, 0, -4.336612e-15, 0, -11.803708, 0, 0, 0, 0, 0, 0, 18.743526, 0, -9.371763),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_dbx2e"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_vrxab"]
 _surfaces = [{
-"aabb": AABB(-19.054771, 0, -9.319287, 38.580307, 1e-05, 19.63198),
-"attribute_data": PackedByteArray("26RIPwAAAAAAAIA/ygvzPg9LHz/7Uy8/D0sfP/tTLz9R4Pw+AQCAPzrEmz7rCUk/OsSbPusJST8AAAAAygvzPnVrmj4+niM+dWuaPj6eIz5R4Pw+HyotPdukSD8AAAAA26RIPwAAAAAPSx8/+1MvPzrEmz7rCUk/OsSbPusJST91a5o+Pp4jPtukSD8AAAAA"),
+"aabb": AABB(-32.077744, 0, -11.803708, 50.843895, 1e-05, 22.263775),
+"attribute_data": PackedByteArray("2OJ/P7C13z0BAIA/lbkHP2STYD/8u08/ZJNgP/y7Tz8XgyE///9/P9WAcD47fns/1YBwPjt+ez8AAAAAlbkHP7ugxj5baIE+u6DGPltogT4XgyE/AAAAANjifz+wtd892OJ/P7C13z1kk2A//LtPP9WAcD47fns/1YBwPjt+ez+7oMY+W2iBPtjifz+wtd89"),
 "format": 34359738391,
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 18,
-"vertex_data": PackedByteArray("Ke4yQQAAAADNGxXBTDScQQAAAAAAAAAA5HGeQAAAAACTCYRA5HGeQAAAAACTCYRAJWlaJgAAAADKACVBXijqwAAAAACjIcNAXijqwAAAAACjIcNALHCYwQAAAADKHwwntGftwAAAAABr1sXAtGftwAAAAABr1sXAZtgGpwAAAAA91AfBKe4yQQAAAADNGxXBKe4yQQAAAADNGxXB5HGeQAAAAACTCYRAXijqwAAAAACjIcNAXijqwAAAAACjIcNAtGftwAAAAABr1sXAKe4yQQAAAADNGxXB/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
+"vertex_data": PackedByteArray("vvKVQQAAAAC+8hXBEyGWQQAAAAAAAAAAb2ZIQQAAAABvZshAb2ZIQQAAAABvZshAJZy4JgAAAABvXCdB+hahwQAAAAD6FiFB+hahwQAAAAD6FiFBnE8AwgAAAAABiQ0nVqZFwQAAAABWpsXAVqZFwQAAAABWpsXAMD6cpwAAAAD92zzBvvKVQQAAAAC+8hXBvvKVQQAAAAC+8hXBb2ZIQQAAAABvZshA+hahwQAAAAD6FiFB+hahwQAAAAD6FiFBVqZFwQAAAABWpsXAvvKVQQAAAAC+8hXB/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
 }]
 
 [node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource", "ScrapField"]]
-curve = SubResource("Curve3D_dbx2e")
+curve = SubResource("Curve3D_lg5vb")
 debug_custom_color = Color(0, 0.9019608, 0, 1)
 script = ExtResource("1_0d56a")
 path_depth = 3.0
@@ -44,7 +45,7 @@ input_ray_pickable = false
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 depth = 3.0
-polygon = PackedVector2Array(19.525536, 0, 4.9514027, 4.1261687, 7.577644e-16, 10.312693, -7.3174276, 6.097856, -19.054771, 1.9446136e-15, -7.418909, -6.182424, -1.8713545e-15, -8.489316, 11.183145, -9.319287)
+polygon = PackedVector2Array(18.76615, 0, 12.525008, 6.262504, 1.2809888e-15, 10.460067, -20.136219, 10.0681095, -32.077744, 1.964195e-15, -12.353109, -6.1765547, -4.336612e-15, -11.803708, 18.743526, -9.371763)
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=507229753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -54,10 +55,23 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 material_override = ExtResource("2_6gsg3")
 cast_shadow = 0
-mesh = SubResource("ArrayMesh_dbx2e")
+mesh = SubResource("ArrayMesh_vrxab")
 
 [node name="MiningTimers" type="Node" parent="." unique_id=1817918814]
 unique_name_in_owner = true
+
+[node name="FadeMaskViewport" type="SubViewport" parent="." unique_id=485054111]
+unique_name_in_owner = true
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(128, 128)
+render_target_update_mode = 1
+
+[node name="FadeMaskRect" type="ColorRect" parent="FadeMaskViewport" unique_id=1118126611]
+unique_name_in_owner = true
+material = ExtResource("2_h6b17")
+offset_right = 128.0
+offset_bottom = 128.0
 
 [node name="Components" type="Node" parent="." unique_id=644016219]
 
