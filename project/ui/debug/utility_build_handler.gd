@@ -36,7 +36,7 @@ func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], ch
 	return clear
 	
 func option_action_to_string(option:UtilityAIOption) -> String:
-	# BuildUnitUtilityContext and BuildBuildingUtilityContext both have construction defined
+	# BuildUnitUtilityContext, BuildBuildingUtilityContext, and BuildStructureUtilityContext all have construction defined
 	var context:Variant = option.context
 	return EnumUtils.enum_to_string(ConstructionResource.Type, context.construction.type)
 

@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
 [ext_resource type="PackedScene" uid="uid://yqwjrehn6327" path="res://resources/scrap_collected_label.tscn" id="31_34k8n"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="31_yemwc"]
+[ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="32_ucwml"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -316,6 +317,9 @@ scrap = 25
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.312649, 0, 6.8470135)
 originating_team = 2
 scrap = 25
+
+[node name="ControlPoint" parent="World" unique_id=588474072 instance=ExtResource("32_ucwml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.875004, 0, 52.318565)
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("30_bbhc4")]
 

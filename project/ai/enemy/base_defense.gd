@@ -5,7 +5,18 @@ class_name BaseDefense extends Node
 @export
 var base_defense_v_threat:Curve
 
+@export
+var structure_defense_bounds_factor:float = 1.5
+
 var _occupied_units:Dictionary[int,bool] = {}
+
+class BaseDefenseContext:
+	var asset_id:int
+	var current_defense:float
+	var ideal_defense:float
+	var bounds:Bounds
+	var requested_defense:float
+	var requested_count:int
 
 class Score:
 	var unit:Unit
@@ -23,6 +34,7 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 		return total_attackers
 
 	var all_buildings: Array[Building] = blackboard.team_info.buildings
+	var all_structures: Array[DefensiveStructure] = blackboard.team_info.structures
 
 	if not total_attackers or not all_buildings:
 		if changed:
@@ -61,44 +73,76 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 	for building in candidate_buildings:
 		var ideal_base_defense:float = building.attributes.defense_strength * defense_scale
 		var bounds:Bounds = Bounds.new(building.get_global_bounds(), building.bounds_type)
+		var structure_influence_bounds:Bounds = bounds.expand_by(bounds.radius * structure_defense_bounds_factor)
 		var building_pos:Vector3 = building.global_position
 		var building_id := building.get_instance_id()
 
 		var current_defense:float = 0.0
+		var requested_defense:float = 0.0
 		
-		var cnt:int = 0
-		for unit in total_attackers:
-			var unit_attr:TeamAssetAttributes = unit.attributes
-			if not unit_attr:
+		for structure in all_structures:
+			var attr:TeamAssetAttributes = structure.attributes
+			if not attr:
 				continue
-			var unit_strength:float = unit_attr.strength
-			var unit_id := unit.get_instance_id()
-	
-			# If the unit is already in attack range of the building then count it toward defense\
-			var current_defended_building:int = defenders.get(unit_id, -1)
-			if current_defended_building == building_id or unit.weapon.is_in_range_bounds(bounds):
-				current_defense += unit_strength
-				if current_defense >= ideal_base_defense:
-					break
-			else:
-				if unit_id in _occupied_units:
+			var strength:float = attr.strength
+			if strength <= 0:
+				continue
+			
+			# See if in range - either via weapon targeting component for structures like bunker or turret
+			# or if the structure is the weapon itself then just check the bounds
+			var weapon_targeting_component:WeaponTargetingComponent = WeaponTargetingComponent.get_component(structure, false)
+			if (weapon_targeting_component and weapon_targeting_component.is_in_range_bounds(bounds)) \
+			   or (not weapon_targeting_component and structure_influence_bounds.overlaps(Bounds.new(structure.get_global_bounds(), structure.bounds_type))):
+					current_defense += strength	
+					if current_defense >= ideal_base_defense:
+						break
+				
+		var cnt:int = 0
+		if current_defense < ideal_base_defense:
+			for unit in total_attackers:
+				var unit_attr:TeamAssetAttributes = unit.attributes
+				if not unit_attr:
 					continue
-				var unit_pos:Vector3 = unit.global_position
-				var dist_sq:float = unit_pos.distance_squared_to(building_pos)
-				# Dist has to be > 0 if weapon not in range
-				var score:float = unit_strength / dist_sq
-				var entry:Score
-				if cnt < unit_scores.size():
-					entry = unit_scores[cnt]
-				else:
-					entry = Score.new()
-					unit_scores.push_back(entry)
-				entry.unit = unit
-				entry.score = score
-				entry.strength = unit_strength
-				cnt += 1
-		# for every attacker
+				var unit_strength:float = unit_attr.strength
+				var unit_id := unit.get_instance_id()
 		
+				# If the unit is already in attack range of the building then count it toward defense
+				var current_defended_building:int = defenders.get(unit_id, -1)
+				if current_defended_building == building_id or unit.weapon.is_in_range_bounds(bounds):
+					current_defense += unit_strength
+					if current_defense >= ideal_base_defense:
+						break
+				else:
+					if unit_id in _occupied_units:
+						continue
+					var unit_pos:Vector3 = unit.global_position
+					var dist_sq:float = unit_pos.distance_squared_to(building_pos)
+					# Dist has to be > 0 if weapon not in range
+					var score:float = unit_strength / dist_sq
+					var entry:Score
+					if cnt < unit_scores.size():
+						entry = unit_scores[cnt]
+					else:
+						entry = Score.new()
+						unit_scores.push_back(entry)
+					entry.unit = unit
+					entry.score = score
+					entry.strength = unit_strength
+					cnt += 1
+					requested_defense += unit_strength
+			# for every attacker
+		# if attackers required
+		
+		var base_defense_context:BaseDefenseContext = BaseDefenseContext.new()
+		base_defense_context.asset_id = building_id
+		base_defense_context.current_defense = current_defense
+		base_defense_context.ideal_defense = ideal_base_defense
+		base_defense_context.bounds = bounds
+		base_defense_context.requested_defense = requested_defense
+		base_defense_context.requested_count = cnt
+
+		blackboard.defense_need_updated.emit(EnemyTeamBlackboard.DefenseNeedType.BUILDING, base_defense_context)
+
 		# No new defenders required - go to next building
 		if cnt == 0:
 			continue

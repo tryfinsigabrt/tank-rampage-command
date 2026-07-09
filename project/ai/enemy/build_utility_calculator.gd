@@ -17,6 +17,9 @@ var behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 @export
 var allow_buildings:bool = false
 
+@export
+var allow_structures:bool = false
+
 ## Initial delay to build any buildings because the unit manufacturing doesn't come in right away
 @export
 var buildings_delay:float = 3.0
@@ -36,6 +39,7 @@ var _construction_resources_by_type: Dictionary[ConstructionResource.Type, Const
 var _building_stats_by_type:Dictionary[ConstructionResource.Type, BuildingStats]
 var _command_center_data:CommandCenterData
 var _can_build_buildings:bool
+var _can_build_structures:bool
 
 func _ready() -> void:
 	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
@@ -64,6 +68,7 @@ func _refresh_available_behaviors() -> void:
 	_manufacturing_by_type.clear()
 	_available_behaviors.clear()
 	_can_build_buildings = false
+	_can_build_structures = false
 	
 	# Map construction resource types to their supported manufacturing centers
 	for building in team_units.buildings:
@@ -71,15 +76,19 @@ func _refresh_available_behaviors() -> void:
 		if manufacturing_component:
 			for resource in manufacturing_component.supported_types.types:
 				var type:ConstructionResource.Type = resource.type
+				var classification:ConstructionResource.Classification = resource.classification
+				
 				# Only add if we have a behavior binding
 				# Some levels for instance may not allow AI to build certain types of units/buildings
-				if type in behaviors:
+				if type in behaviors and (classification != ConstructionResource.Classification.Structure or allow_structures):
 					var manufacturing_options: Array[ManufacturingComponent] = \
 						_manufacturing_by_type.get_or_add(type, [] as Array[ManufacturingComponent])
 						
 					# First time adding - also add behavior binding
 					if not manufacturing_options:
 						_available_behaviors[type] = behaviors[type]
+						if classification == ConstructionResource.Classification.Structure:
+							_can_build_structures = true
 							
 					manufacturing_options.push_back(manufacturing_component)
 	if allow_buildings and GameManager.game_timer.time_seconds > buildings_delay:
@@ -158,7 +167,7 @@ func next_build() -> bool:
 		var type_classification:ConstructionResource.Classification = ConstructionResource.classify_type(type)
 		if type_classification == ConstructionResource.Classification.Unit:
 			# picking candidate with most free slots and all other criteria would be the same so just check if best candidate can build
-			var candidate:ManufacturingComponent = _get_best_unit_manufacturing_component(type)
+			var candidate:ManufacturingComponent = _get_best_manufacturing_component(type)
 			if not candidate:
 				continue
 			# Don't filter out those that can build due to resource constraints as want AI to wait and accumulate resources if that's
@@ -230,7 +239,25 @@ func next_build() -> bool:
 					enemy_building_create_action.create(utility_context)
 					return true
 				return false
+		elif type_classification == ConstructionResource.Classification.Structure:
+			var candidate:ManufacturingComponent = _get_best_manufacturing_component(type)
+			if not candidate:
+				continue
+			if candidate.has_free_slot:
+				# TODO: Determine additional utility fields
+				utility_context = BuildStructureUtilityContext.new()
+				utility_context.id = candidate.get_instance_id()
+				utility_context.construction = candidate.get_build_metadata(type)
+				utility_context.available_personnel = available_personnel
+				utility_context.available_scrap = available_scrap
 				
+				action = func() -> bool:
+					if candidate.can_build(type):
+						@warning_ignore("missing_await")
+						candidate.build(type)
+						return true
+					return false
+						
 		if utility_context:
 			_viable_options.push_back(UtilityAIOption.new(behavior, utility_context, action))
 	# end - For every available behavior
@@ -254,9 +281,9 @@ func next_build() -> bool:
 	
 	return success
 
-#region Unit Manufacturing
+#region Manufacturing
 
-func _get_best_unit_manufacturing_component(type: ConstructionResource.Type) -> ManufacturingComponent:
+func _get_best_manufacturing_component(type: ConstructionResource.Type) -> ManufacturingComponent:
 	var manufacturing_options: Array[ManufacturingComponent] = _manufacturing_by_type.get(type, [] as Array[ManufacturingComponent])
 	if not manufacturing_options:
 		return null

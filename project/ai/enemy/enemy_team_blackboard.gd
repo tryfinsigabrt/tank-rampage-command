@@ -29,6 +29,16 @@ signal match_team_set
 @warning_ignore("unused_signal")
 signal request_support_to_location(location:Vector3, strength:float)
  
+@warning_ignore("unused_signal")
+signal defense_need_updated(type: DefenseNeedType, data:Variant)
+
+enum DefenseNeedType
+{
+	NONE,
+	CONTROL_POINT,
+	BUILDING
+}
+
 class Keys:
 	const enemy_teams_info:StringName = &"enemy_teams_info"
 	const team_info:String = &"team_info"

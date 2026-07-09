@@ -71,6 +71,13 @@ func replace_with(in_aabb:AABB) -> void:
 	if circumscribed_sphere:
 		circumscribed_sphere.replace_with(aabb.get_center(), _calculate_circumscribed_radius())
 
+## Expands the bounds from the center by the given amount equally on all "sides"
+func expand_by(size:float) -> Bounds:
+	if size <= 0:
+		return self
+	var expanded_aabb := aabb.grow(size)
+	return Bounds.new(expanded_aabb, type)
+	
 func distance_to(point:Vector3) -> float:
 	if type == Type.AABB:
 		var closest_point := closest_point_to(point)	

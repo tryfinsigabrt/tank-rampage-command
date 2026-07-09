@@ -101,6 +101,14 @@ var enabled:bool:
 	
 func _ready() -> void:
 	_sync_targeting_distance()
+
+func is_in_range_bounds(bounds:Bounds) -> bool:
+	for id in _weapons:
+		var state:WeaponState = _weapons[id]
+		if is_instance_valid(state.	weapon):
+			if state.weapon.is_in_range_bounds(bounds):
+				return true
+	return false
 	
 func _sync_targeting_distance() -> void:
 	unit_scanner.threshold_distance = max_target_distance

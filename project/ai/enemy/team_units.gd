@@ -28,7 +28,7 @@ var _assets_dirty:Dictionary[StringName,bool] = {}
 
 var _unit_values: Array[Unit]
 var _building_values: Array[Building]
-var _structure_values: Array[Node3D]
+var _structure_values: Array[DefensiveStructure]
 
 var assets_dict:Dictionary[int, Node3D]:
 	get: return _assets
@@ -39,7 +39,7 @@ var units:Array[Unit]:
 var buildings: Array[Building]:
 	get: return _get_assets_array(Groups.Building, _building_values)
 
-var structures: Array[Node3D]:
+var structures: Array[DefensiveStructure]:
 	get: return _get_assets_array(Groups.Structure, _structure_values)
 
 func add_unit(unit:Unit) -> void:

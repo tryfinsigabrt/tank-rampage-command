@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_1hppw")
+strength = 2.0
 attack_priority = 5
 metadata/_custom_type_script = "uid://d0xjpcjnalcme"

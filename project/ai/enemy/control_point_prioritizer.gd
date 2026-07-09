@@ -27,7 +27,7 @@ class AssistContext:
 	
 class ControlPointContext:
 	var score:float
-	var control_point:ControlPoint
+	var control_point_data:ControlPointData
 	var bounds: BoundingCircle
 	var threat_strength:float
 	var assist_context: Array[AssistContext]
@@ -107,6 +107,10 @@ func _evaluate_priorities() -> void:
 		var context := score_control_point(control_point_data, threats)
 		cp_contexts.push_back(context)
 		
+		# If control point isn't enemy controlled, add a defense need
+		if control_point.neutral or control_point.owned_team == blackboard.team:
+			blackboard.defense_need_updated.emit(EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT, context)
+			
 		var assist_context := context.assist_context
 		var score := context.score
 		if score > 0:
@@ -131,7 +135,7 @@ func _evaluate_priorities() -> void:
 		if max_units == 0:
 			continue
 			
-		var control_point := control_point_ctx.control_point
+		var control_point := control_point_ctx.control_point_data.control_point
 		
 		var count:int = 0
 		for context in control_point_ctx.assist_context:
@@ -170,7 +174,8 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 			threat_strength += threat.strength
 	
 	score -= sqrt(threat_strength)
-		
+	
+	# TODO: Need to add in any defensive structures within the influence bounds	
 	var control_point_friendlies: Array[Unit] = control_point.get_units_by_team(our_team)
 	var team_units: Array[Unit] = blackboard.team_info.units
 	
@@ -257,7 +262,7 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 		
 	var cp_context := ControlPointContext.new()
 	cp_context.assist_context = assist_contexts
-	cp_context.control_point = control_point
+	cp_context.control_point_data = control_point_data
 	cp_context.score = score
 	cp_context.threat_strength = threat_strength
 	cp_context.positive_units = positive_units
