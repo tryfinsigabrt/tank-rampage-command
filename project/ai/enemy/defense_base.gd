@@ -45,8 +45,9 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 		
 	for defender_id in base_defenders:
 		var defender:Unit = instance_from_id(defender_id) as Unit
-		if not defender:
+		if not defender or not defender.weapon:
 			continue
+			
 		var building_id:int = base_defenders[defender_id]
 		var building_data:BuildingData
 		if building_id in _building_data:

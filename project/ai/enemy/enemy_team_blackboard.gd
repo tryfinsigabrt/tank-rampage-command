@@ -30,6 +30,9 @@ signal match_team_set
 signal request_support_to_location(location:Vector3, strength:float)
  
 @warning_ignore("unused_signal")
+signal defense_needs_are_updating(type: DefenseNeedType, is_start:bool)
+
+@warning_ignore("unused_signal")
 signal defense_need_updated(type: DefenseNeedType, data:Variant)
 
 enum DefenseNeedType

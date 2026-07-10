@@ -70,6 +70,8 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 
 	var unit_scores:Array[Score]
 	
+	blackboard.defense_needs_are_updating.emit(EnemyTeamBlackboard.DefenseNeedType.BUILDING, true)
+
 	for building in candidate_buildings:
 		var ideal_base_defense:float = building.attributes.defense_strength * defense_scale
 		var bounds:Bounds = Bounds.new(building.get_global_bounds(), building.bounds_type)
@@ -81,21 +83,17 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 		var requested_defense:float = 0.0
 		
 		for structure in all_structures:
-			var attr:TeamAssetAttributes = structure.attributes
-			if not attr:
-				continue
-			var strength:float = attr.strength
-			if strength <= 0:
-				continue
-			
 			# See if in range - either via weapon targeting component for structures like bunker or turret
 			# or if the structure is the weapon itself then just check the bounds
 			var weapon_targeting_component:WeaponTargetingComponent = WeaponTargetingComponent.get_component(structure, false)
-			if (weapon_targeting_component and weapon_targeting_component.is_in_range_bounds(bounds)) \
-			   or (not weapon_targeting_component and structure_influence_bounds.overlaps(Bounds.new(structure.get_global_bounds(), structure.bounds_type))):
-					current_defense += strength	
-					if current_defense >= ideal_base_defense:
-						break
+			if weapon_targeting_component and weapon_targeting_component.is_in_range_bounds(bounds):
+				current_defense += weapon_targeting_component.get_weapon_strength()
+			elif not weapon_targeting_component and structure_influence_bounds.overlaps(Bounds.new(structure.get_global_bounds(), structure.bounds_type)):
+				var attr:TeamAssetAttributes = structure.attributes
+				if attr:
+					current_defense += attr.strength
+			if current_defense >= ideal_base_defense:
+				break
 				
 		var cnt:int = 0
 		if current_defense < ideal_base_defense:
@@ -168,6 +166,8 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 				break
 	# for All buildings
 	
+	blackboard.defense_needs_are_updating.emit(EnemyTeamBlackboard.DefenseNeedType.BUILDING, false)
+
 	if not defenders:
 		if changed:
 			blackboard.on_defense_units_updated.emit()

@@ -95,13 +95,37 @@ scrap = SubResource("Resource_2gujw")
 personnel = SubResource("Resource_37ytp")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
-[sub_resource type="Curve3D" id="Curve3D_37ytp"]
+[sub_resource type="Curve3D" id="Curve3D_2gujw"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.2992783, 0, -9.671661, 0, 0, 0, 0, 0, 0, -15.399086, 0, -28.161499, 0, 0, 0, 0, 0, 0, -39.824768, 0, -33.346832, 0, 0, 0, 0, 0, 0, -68.275894, 0, -27.206299, 0, 0, 0, 0, 0, 0, -73.870605, 0, -1.8254242, 0, 0, 0, 0, 0, 0, -54.28913, 0, 31.94751, 0, 0, 0, 0, 0, 0, -9.463234, 0, 30.71939),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 20.93451, 0, 0, 0, 0, 0, 0, 0, 0, 17.73744, 0, 8.86872, 0, 0, 0, 0, 0, 0, 1.3343077e-15, 0, 10.895809, 0, 0, 0, 0, 0, 0, -11.15101, 0, 5.575505, 0, 0, 0, 0, 0, 0, -9.474692, 0, 5.801384e-16, 0, 0, 0, 0, 0, 0, -20.343292, 0, -10.171646, 0, 0, 0, 0, 0, 0, -1.3625876e-15, 0, -3.7089133, 0, 0, 0, 0, 0, 0, 9.577297, 0, -4.7886486),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 7
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_8m8hx"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.153163, 0, 0, 0, 0, 0, 0, 0, 0, 10.871735, 0, 5.4358673, 0, 0, 0, 0, 0, 0, 2.0632024e-15, 0, 16.847881, 0, 0, 0, 0, 0, 0, -21.451363, 0, 10.725681, 0, 0, 0, 0, 0, 0, -21.784626, 0, 1.3338795e-15, 0, 0, 0, 0, 0, 0, -16.019588, 0, -8.009794, 0, 0, 0, 0, 0, 0, -5.8197504e-15, 0, -15.8411455, 0, 0, 0, 0, 0, 0, 5.1731114, 0, -2.5865557),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_6f442"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 11.549252, 0, 0, 0, 0, 0, 0, 0, 0, 15.784194, 0, 7.892097, 0, 0, 0, 0, 0, 0, 5.754135e-16, 0, 4.698763, 0, 0, 0, 0, 0, 0, -22.683157, 0, 11.3415785, 0, 0, 0, 0, 0, 0, -9.767349, 0, 5.980579e-16, 0, 0, 0, 0, 0, 0, -7.115072, 0, -3.557536, 0, 0, 0, 0, 0, 0, -5.827155e-15, 0, -15.861301, 0, 0, 0, 0, 0, 0, 14.973985, 0, -7.4869924),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_8jcvd"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 13.280495, 0, 0, 0, 0, 0, 0, 0, 0, 13.970324, 0, 6.985162, 0, 0, 0, 0, 0, 0, 4.2700125e-16, 0, 3.486845, 0, 0, 0, 0, 0, 0, -12.563195, 0, 6.2815976, 0, 0, 0, 0, 0, 0, -10.675776, 0, 6.5368116e-16, 0, 0, 0, 0, 0, 0, -6.7705555, 0, -3.3852777, 0, 0, 0, 0, 0, 0, -1.3063842e-15, 0, -3.5559297, 0, 0, 0, 0, 0, 0, 12.300143, 0, -6.1500716),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
 
 [node name="TestAI" type="Node3D" unique_id=1293608661]
 
@@ -484,20 +508,20 @@ script = ExtResource("20_2gujw")
 [node name="Resource" type="Node3D" parent="World/Match" unique_id=1570833790]
 
 [node name="ScrapField" parent="World/Match/Resource" unique_id=1314478789 instance=ExtResource("32_q4a86")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.221565, 0, 189.34573)
-curve = SubResource("Curve3D_37ytp")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.868927, 0, 176.8039)
+curve = SubResource("Curve3D_2gujw")
 
 [node name="ScrapField4" parent="World/Match/Resource" unique_id=140669080 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.64288, 0, 340.16483)
-curve = SubResource("Curve3D_37ytp")
+curve = SubResource("Curve3D_8m8hx")
 
 [node name="ScrapField2" parent="World/Match/Resource" unique_id=622918285 instance=ExtResource("32_q4a86")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.920097, 0, -130.2392)
-curve = SubResource("Curve3D_37ytp")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035591125, 0, -130.2392)
+curve = SubResource("Curve3D_6f442")
 
 [node name="ScrapField3" parent="World/Match/Resource" unique_id=1295188950 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.2968, 0, -342.98682)
-curve = SubResource("Curve3D_37ytp")
+curve = SubResource("Curve3D_8jcvd")
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
 

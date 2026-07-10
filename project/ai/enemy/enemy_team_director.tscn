@@ -44,6 +44,7 @@
 [ext_resource type="Curve" uid="uid://bh0gre8ljapmb" path="res://ai/enemy/sf_unit_score_v_distance.tres" id="40_mkw7c"]
 [ext_resource type="Curve" uid="uid://b6qsw60sdyu20" path="res://ai/enemy/sf_cc_score_v_distance.tres" id="41_7k78q"]
 [ext_resource type="Curve" uid="uid://dvguukhjqcwg2" path="res://ai/enemy/sf_last_visible_multiplier.tres" id="42_s5f31"]
+[ext_resource type="Script" uid="uid://dky5m4p2umtnw" path="res://ai/enemy/defense_structure_prioritizer.gd" id="45_7k78q"]
 
 [node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
 script = ExtResource("1_78fuh")
@@ -219,12 +220,17 @@ sf_last_visible_multiplier = ExtResource("42_s5f31")
 [node name="BuildingLocationFinder" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=663790473]
 script = ExtResource("36_k681l")
 
+[node name="DefenseStructurePrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=212636309]
+script = ExtResource("45_7k78q")
+
 [node name="FailedBuildingCooldownTimer" type="Timer" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=372435691]
 one_shot = true
 
 [node name="DecisionLoopTimer" type="Timer" parent="GlobalServices/BuildPrioritizer" unique_id=1643035029]
 autostart = true
 
+[connection signal="defense_need_updated" from="Blackboard" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" method="_on_blackboard_defense_need_updated"]
+[connection signal="defense_needs_are_updating" from="Blackboard" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" method="_on_blackboard_defense_needs_are_updating"]
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_priorities_changed" from="Blackboard" to="GlobalServices/UnitViabilityChecker" method="_on_attacking_priorities_changed"]
 [connection signal="on_attacking_units_changed" from="Blackboard" to="GlobalServices/EnemyActionPrioritizer/AttackSelector" method="_on_attacking_units_changed"]

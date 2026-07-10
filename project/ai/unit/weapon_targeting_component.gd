@@ -31,6 +31,8 @@ var _exiting_tree:bool
 class WeaponState:
 	var weapon:Weapon
 	var original_owner:Node
+	# Derived from owner team asset attributes
+	var strength:float
 	var original_owner_child_idx:int = -1
 	var owned:bool
 	var attacking:AttackAction
@@ -105,10 +107,18 @@ func _ready() -> void:
 func is_in_range_bounds(bounds:Bounds) -> bool:
 	for id in _weapons:
 		var state:WeaponState = _weapons[id]
-		if is_instance_valid(state.	weapon):
+		if is_instance_valid(state.weapon):
 			if state.weapon.is_in_range_bounds(bounds):
 				return true
 	return false
+	
+func get_weapon_strength() -> float:
+	var strength:float = 0.0
+	for id in _weapons:
+		var state:WeaponState = _weapons[id]
+		if is_instance_valid(state.weapon):
+			strength += state.strength
+	return strength
 	
 func _sync_targeting_distance() -> void:
 	unit_scanner.threshold_distance = max_target_distance
@@ -122,6 +132,7 @@ func add_weapon(id:int, weapon:Weapon, should_duplicate:bool = false) -> bool:
 		
 	var state := WeaponState.new()
 	state.owned = should_duplicate
+	state.strength = _get_weapon_strength(weapon)
 	
 	if should_duplicate:
 		weapon = _duplicate_weapon(weapon)
@@ -142,6 +153,16 @@ func add_weapon(id:int, weapon:Weapon, should_duplicate:bool = false) -> bool:
 	
 	enabled = true	
 	return true
+
+func _get_weapon_strength(weapon:Weapon) -> float:
+	var controller:WeaponController = weapon.weapon_controller
+	if not controller:
+		push_error("%s: Weapon=%s has no existing controller" % [name, weapon.name])
+		return 0.0
+	var attributes:TeamAssetAttributes = TeamAssetAttributes.get_attributes(controller.get_team_asset())
+	if not attributes:
+		return 0.0
+	return attributes.strength
 	
 func _duplicate_weapon(weapon:Weapon) -> Weapon:
 	weapon = weapon.duplicate(DuplicateFlags.DUPLICATE_USE_INSTANTIATION)

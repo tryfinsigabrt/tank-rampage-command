@@ -76,13 +76,21 @@ scrap = SubResource("Resource_ytr8p")
 personnel = SubResource("Resource_jtih4")
 metadata/_custom_type_script = "uid://j0wvywuecgch"
 
-[sub_resource type="Curve3D" id="Curve3D_jtih4"]
+[sub_resource type="Curve3D" id="Curve3D_ucwml"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -2.2992783, 0, -9.671661, 0, 0, 0, 0, 0, 0, -15.399086, 0, -28.161499, 0, 0, 0, 0, 0, 0, -39.824768, 0, -33.346832, 0, 0, 0, 0, 0, 0, -68.275894, 0, -27.206299, 0, 0, 0, 0, 0, 0, -73.870605, 0, -1.8254242, 0, 0, 0, 0, 0, 0, -54.28913, 0, 31.94751, 0, 0, 0, 0, 0, 0, -9.463234, 0, 30.71939),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 9.300234, 0, 0, 0, 0, 0, 0, 0, 0, 9.05638, 0, 4.52819, 0, 0, 0, 0, 0, 0, 1.958453e-15, 0, 15.99251, 0, 0, 0, 0, 0, 0, -15.190345, 0, 7.5951724, 0, 0, 0, 0, 0, 0, -20.020145, 0, 1.22584e-15, 0, 0, 0, 0, 0, 0, -16.765451, 0, -8.382726, 0, 0, 0, 0, 0, 0, -5.5759285e-15, 0, -15.177471, 0, 0, 0, 0, 0, 0, 7.784324, 0, -3.892162),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 7
+point_count = 8
+
+[sub_resource type="Curve3D" id="Curve3D_tl3bm"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 22.756264, 0, 0, 0, 0, 0, 0, 0, 0, 13.711596, 0, 6.855798, 0, 0, 0, 0, 0, 0, 2.0352438e-15, 0, 16.619576, 0, 0, 0, 0, 0, 0, -9.971654, 0, 4.985827, 0, 0, 0, 0, 0, 0, -27.872496, 0, 1.7066418e-15, 0, 0, 0, 0, 0, 0, -17.47474, 0, -8.73737, 0, 0, 0, 0, 0, 0, -5.5595325e-15, 0, -15.132842, 0, 0, 0, 0, 0, 0, 16.43825, 0, -8.219125),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
 
 [node name="TestBuildingSystem" type="Node3D" unique_id=1293608661]
 
@@ -275,12 +283,12 @@ team = 1
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("28_asrh3")]
 
 [node name="ScrapField" parent="World" unique_id=1314478789 instance=ExtResource("18_jtih4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.335, 0, 177.175)
-curve = SubResource("Curve3D_jtih4")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.634998, 0, 177.175)
+curve = SubResource("Curve3D_ucwml")
 
 [node name="ScrapField2" parent="World" unique_id=785074363 instance=ExtResource("18_jtih4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.335, 0, -76.925)
-curve = SubResource("Curve3D_jtih4")
+curve = SubResource("Curve3D_tl3bm")
 
 [node name="ScrapPickups" type="Node3D" parent="World" unique_id=2065443998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, -0.099999905, 98.1)

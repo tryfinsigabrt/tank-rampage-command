@@ -1,4 +1,4 @@
-extends Node
+class_name ControlPointPrioritizer extends Node
 
 @onready var rate_limiter: RateLimiter = $RateLimiter
 @onready var tick: Timer = $Tick
@@ -30,6 +30,7 @@ class ControlPointContext:
 	var control_point_data:ControlPointData
 	var bounds: BoundingCircle
 	var threat_strength:float
+	var our_strength:float
 	var assist_context: Array[AssistContext]
 	var positive_units:int
 	
@@ -97,6 +98,8 @@ func _evaluate_priorities() -> void:
 	
 	var score_sum:float = 0.0
 	
+	blackboard.defense_needs_are_updating.emit(EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT, true)
+	
 	for id in _control_point_info:
 		var control_point_data: ControlPointData = _control_point_info[id]
 		if control_point_data.visible:
@@ -123,6 +126,9 @@ func _evaluate_priorities() -> void:
 		print("%s: CONTROL POINT %s SCORE=%.1f: Top_unit=%.1f" % [name, control_point.name, score, \
 			assist_context.front().score if not assist_context.is_empty() else 0.0])
 	
+	blackboard.defense_needs_are_updating.emit(EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT, false)
+
+
 	prioritized_cps.sort_custom(func(a:ControlPointContext, b:ControlPointContext) -> bool:
 		return a.score > b.score
 	)
@@ -175,9 +181,9 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	
 	score -= sqrt(threat_strength)
 	
-	# TODO: Need to add in any defensive structures within the influence bounds	
 	var control_point_friendlies: Array[Unit] = control_point.get_units_by_team(our_team)
 	var team_units: Array[Unit] = blackboard.team_info.units
+	var all_structures: Array[DefensiveStructure] = blackboard.team_info.structures
 	
 	var cp_position:Vector3 = control_point.global_position
 	var cp_grid_pos:Vector2 = MathUtils.grid_vector(cp_position)
@@ -186,6 +192,16 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	
 	var positive_units:int = 0
 	var our_strength:float = 0
+	
+	for structure in all_structures:
+		# Only count those structures with weapon targeting whose weapon range is in the control bounds
+		var weapon_targeting := WeaponTargetingComponent.get_component(structure, false)
+		if weapon_targeting and weapon_targeting.is_in_range_bounds(control_bounds):
+			var strength:float = weapon_targeting.get_weapon_strength()
+			# Mirroring unit logic
+			our_strength += strength
+			var structure_score:float = 5.0 + sqrt(strength)
+			score += structure_score
 	
 	for unit in team_units:
 		# Only assist if have a weapon - i.e. not a transport type unit
@@ -265,6 +281,7 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	cp_context.control_point_data = control_point_data
 	cp_context.score = score
 	cp_context.threat_strength = threat_strength
+	cp_context.our_strength = our_strength
 	cp_context.positive_units = positive_units
 	cp_context.bounds = BoundingCircle.from_sphere(control_bounds.inscribed_sphere)
 	

@@ -70,7 +70,10 @@ func ray_intersects(ray_origin:Vector2, ray_direction: Vector2) -> bool:
 
 func clone() -> BoundingCircle:
 	return BoundingCircle.new(center, radius)
-
+	
+func expand(radius_increase:float) -> void:
+	self.radius += radius_increase
+	
 func union(other: BoundingCircle) -> BoundingCircle:
 	if not other:
 		return clone()
