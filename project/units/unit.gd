@@ -141,6 +141,9 @@ func get_global_bounds() -> AABB:
 #endregion
 
 func _ready() -> void:
+	if attributes:
+		attributes.register_with(self)
+		
 	team_component.team = team
 	SignalBus.register_unit(self)
 	_calculate_aabb()

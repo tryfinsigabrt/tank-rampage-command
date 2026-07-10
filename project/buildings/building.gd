@@ -33,6 +33,9 @@ var team:int:
 			team_component.team = team
 
 func _ready() -> void:
+	if attributes:
+		attributes.register_with(self)
+		
 	_aabb = Collisions.calculate_aabb(self)
 	team_component.team = team
 	SignalBus.register_building(self)
