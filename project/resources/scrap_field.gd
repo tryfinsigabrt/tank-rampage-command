@@ -36,6 +36,10 @@ var randomize_radius_z:float = 10.0
 @export_range(0.0, 1.0, 0.01)
 var randomize_jitter:float = 0.70
 
+@export var noise_seed:int = 1
+@export var crack_mask_texture:NoiseTexture2D
+@export var scrap_mask_texture:NoiseTexture2D
+
 @export_tool_button("Randomize") var randomize_shape_button = _randomize_shape
 
 var remaining_scrap:int
@@ -104,6 +108,12 @@ func _ensure_instance_local_materials() -> void:
 		mesh.material_override = mesh.material_override.duplicate()
 	if fade_mask_rect.material:
 		fade_mask_rect.material = fade_mask_rect.material.duplicate()
+	if crack_mask_texture:
+		crack_mask_texture = crack_mask_texture.duplicate()
+		_apply_noise_seed(crack_mask_texture, noise_seed)
+	if scrap_mask_texture:
+		scrap_mask_texture = scrap_mask_texture.duplicate()
+		_apply_noise_seed(scrap_mask_texture, noise_seed)
 
 
 func _randomize_shape() -> void:
@@ -120,6 +130,9 @@ func _randomize_shape() -> void:
 		new_curve.add_point(Vector3(x, 0.0, z))
 
 	new_curve.closed = true
+	noise_seed = rng.randi()
+	_apply_noise_seed(crack_mask_texture, noise_seed)
+	_apply_noise_seed(scrap_mask_texture, noise_seed)
 	curve = new_curve
 	_refresh_geometry()
 
@@ -210,12 +223,23 @@ func _update_polygons(points: PackedVector2Array, height_extent:Vector2) -> void
 		material.set_shader_parameter("field_half_extents", half_extents)
 		material.set_shader_parameter("remaining_fraction", remaining_fraction)
 		material.set_shader_parameter("fade_mask_texture", fade_mask_viewport.get_texture())
+		material.set_shader_parameter("crack_mask_texture", crack_mask_texture)
+		material.set_shader_parameter("scrap_mask_texture", scrap_mask_texture)
 
 
 func _update_visual_state() -> void:
 	var material := mesh.material_override as ShaderMaterial
 	if material:
 		material.set_shader_parameter("remaining_fraction", remaining_fraction)
+
+
+func _apply_noise_seed(texture: NoiseTexture2D, seed:int) -> void:
+	if texture == null:
+		return
+	var noise := texture.noise as FastNoiseLite
+	if noise == null:
+		return
+	noise.seed = seed
 
 
 func _build_visual_mesh(points: PackedVector2Array) -> ArrayMesh:

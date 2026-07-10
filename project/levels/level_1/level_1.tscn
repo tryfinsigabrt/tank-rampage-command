@@ -73,10 +73,10 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="Curve3D" id="Curve3D_e6dmr"]
+[sub_resource type="Curve3D" id="Curve3D_g8qib"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30.917, 0, 0, 0, 0, 0, 0, 0, 0, 19.26033, 0, 9.630165, 0, 0, 0, 0, 0, 0, 1.6027313e-15, 0, 13.087294, 0, 0, 0, 0, 0, 0, -24.031382, 0, 12.015691, 0, 0, 0, 0, 0, 0, -33.52758, 0, 2.0529722e-15, 0, 0, 0, 0, 0, 0, -17.922915, 0, -8.961457, 0, 0, 0, 0, 0, 0, -3.812161e-15, 0, -10.37622, 0, 0, 0, 0, 0, 0, 15.068468, 0, -7.534234),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 21.216091, 0, 0, 0, 0, 0, 0, 0, 0, 14.913286, 0, 7.456643, 0, 0, 0, 0, 0, 0, 1.8691849e-15, 0, 15.263052, 0, 0, 0, 0, 0, 0, -10.508902, 0, 5.254451, 0, 0, 0, 0, 0, 0, -27.834911, 0, 1.7043967e-15, 0, 0, 0, 0, 0, 0, -20.789587, 0, -10.3947935, 0, 0, 0, 0, 0, 0, -4.1444373e-15, 0, -11.280633, 0, 0, 0, 0, 0, 0, 23.66003, 0, -11.830015),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -84,7 +84,7 @@ point_count = 8
 [sub_resource type="Curve3D" id="Curve3D_xiq7r"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 14.6423645, 0, 0, 0, 0, 0, 0, 0, 0, 14.837721, 0, 7.4188604, 0, 0, 0, 0, 0, 0, 1.1503042e-15, 0, 9.392946, 0, 0, 0, 0, 0, 0, -11.689566, 0, 5.844783, 0, 0, 0, 0, 0, 0, -9.464908, 0, 5.795584e-16, 0, 0, 0, 0, 0, 0, -21.210358, 0, -10.605179, 0, 0, 0, 0, 0, 0, -4.7890794e-15, 0, -13.035267, 0, 0, 0, 0, 0, 0, 21.58373, 0, -10.791865),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 30.297632, 0, 0, 0, 0, 0, 0, 0, 0, 15.55563, 0, 7.777815, 0, 0, 0, 0, 0, 0, 1.6629384e-15, 0, 13.578922, 0, 0, 0, 0, 0, 0, -11.900766, 0, 5.950383, 0, 0, 0, 0, 0, 0, -23.89224, 0, 1.4629778e-15, 0, 0, 0, 0, 0, 0, -22.89157, 0, -11.445785, 0, 0, 0, 0, 0, 0, -5.251236e-15, 0, -14.293199, 0, 0, 0, 0, 0, 0, 23.968842, 0, -11.984421),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -116,7 +116,7 @@ directional_shadow_max_distance = 2000.0
 [node name="World" type="Node3D" parent="." unique_id=1469393695]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="World" unique_id=896268034]
-transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0.99998426, 0.005322719, -0.006012329, -0.005311953, 0.9999678, -130.6146, -93.765854, -75.66282)
+transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0.99998426, 0.005322719, -0.006012329, -0.005311953, 0.9999678, -550.1237, -98.86101, -42.921852)
 navigation_mesh = ExtResource("3_f313t")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=1025590860]
@@ -247,7 +247,7 @@ curve = SubResource("Curve3D_hmxt8")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.80745, -7.6293945e-06, -383.46735)
-curve = SubResource("Curve3D_e6dmr")
+curve = SubResource("Curve3D_g8qib")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1461303973 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.365, 0, 31.522)

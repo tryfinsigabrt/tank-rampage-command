@@ -1,29 +1,84 @@
 [gd_scene format=4 uid="uid://cj2pwp7gvetlm"]
 
 [ext_resource type="Script" uid="uid://b1xr0pwiw65au" path="res://resources/scrap_field.gd" id="1_0d56a"]
-[ext_resource type="Material" uid="uid://c60pd8jk2vdoa" path="res://resources/scrap_field_material.tres" id="2_6gsg3"]
-[ext_resource type="Material" path="res://resources/scrap_field_fade_mask_material.tres" id="2_h6b17"]
+[ext_resource type="Shader" uid="uid://drviatxal0u4y" path="res://resources/scrap_field.gdshader" id="2_lg5vb"]
 [ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="2_robsx"]
 [ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="3_es4kr"]
+[ext_resource type="Shader" uid="uid://cmhrq4abai78s" path="res://resources/scrap_field_fade_mask.gdshader" id="3_vrxab"]
 
 [sub_resource type="Curve3D" id="Curve3D_lg5vb"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 18.76615, 0, 0, 0, 0, 0, 0, 0, 0, 12.525008, 0, 6.262504, 0, 0, 0, 0, 0, 0, 1.2809888e-15, 0, 10.460067, 0, 0, 0, 0, 0, 0, -20.136219, 0, 10.0681095, 0, 0, 0, 0, 0, 0, -32.077744, 0, 1.964195e-15, 0, 0, 0, 0, 0, 0, -12.353109, 0, -6.1765547, 0, 0, 0, 0, 0, 0, -4.336612e-15, 0, -11.803708, 0, 0, 0, 0, 0, 0, 18.743526, 0, -9.371763),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 9.875711, 0, 0, 0, 0, 0, 0, 0, 0, 11.985141, 0, 5.9925704, 0, 0, 0, 0, 0, 0, 2.0076743e-15, 0, 16.393906, 0, 0, 0, 0, 0, 0, -11.802085, 0, 5.9010425, 0, 0, 0, 0, 0, 0, -21.8807, 0, 1.3398063e-15, 0, 0, 0, 0, 0, 0, -14.061219, 0, -7.0306096, 0, 0, 0, 0, 0, 0, -5.1575133e-15, 0, -14.038097, 0, 0, 0, 0, 0, 0, 16.209007, 0, -8.104504),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_vrxab"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_crack_mask"]
+noise_type = 2
+seed = 1
+frequency = 0.045
+fractal_type = 3
+fractal_octaves = 1
+fractal_ping_pong_strength = 1.0
+cellular_return_type = 4
+domain_warp_enabled = true
+domain_warp_amplitude = 2.31
+domain_warp_frequency = 2.0
+domain_warp_fractal_lacunarity = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lg5vb"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_scrap_mask"]
+noise_type = 5
+seed = 1
+frequency = 0.2225
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vrxab"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
+seamless = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_65xam"]
+viewport_path = NodePath("FadeMaskViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pr3v4"]
+render_priority = 127
+shader = ExtResource("2_lg5vb")
+shader_parameter/edge_color = Color(0.14548832, 0.13017753, 0.13849911, 0.8509804)
+shader_parameter/center_color = Color(0.11433507, 0.101116054, 0.06566055, 0.8509804)
+shader_parameter/outer_fade_color = Color(0.24456888, 0.13747063, 0.013867444, 1)
+shader_parameter/field_half_extents = Vector2(19.044853, 15.2160015)
+shader_parameter/center_blend_width = 0.76500003563898
+shader_parameter/fade_mask_texture = SubResource("ViewportTexture_65xam")
+shader_parameter/crack_color = Color(0.08, 0.05, 0.04, 1)
+shader_parameter/crack_mask_texture = SubResource("NoiseTexture2D_lg5vb")
+shader_parameter/crack_strength = 0.5630000267425
+shader_parameter/scrap_color = Color(0.59607846, 0.4117647, 0.06666667, 1)
+shader_parameter/scrap_mask_texture = SubResource("NoiseTexture2D_vrxab")
+shader_parameter/scrap_strength = 0.610000028975
+shader_parameter/remaining_fraction = 1.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lg5vb"]
 _surfaces = [{
-"aabb": AABB(-32.077744, 0, -11.803708, 50.843895, 1e-05, 22.263775),
-"attribute_data": PackedByteArray("2OJ/P7C13z0BAIA/lbkHP2STYD/8u08/ZJNgP/y7Tz8XgyE///9/P9WAcD47fns/1YBwPjt+ez8AAAAAlbkHP7ugxj5baIE+u6DGPltogT4XgyE/AAAAANjifz+wtd892OJ/P7C13z1kk2A//LtPP9WAcD47fns/1YBwPjt+ez+7oMY+W2iBPtjifz+wtd89"),
+"aabb": AABB(-21.8807, 0, -14.038097, 38.089706, 1e-05, 30.432003),
+"attribute_data": PackedByteArray("H29VP7cu7D6LnGM/foAoP0UPEz8AAIA/63mHPmO7Jz8AAAAAty7sPtg3Uj4hy2s+2DdSPiHLaz5FDxM/AAAAAAAAgD+CqEc+H29VP7cu7D5FDxM/AACAP+t5hz5juyc/63mHPmO7Jz/YN1I+IctrPgAAgD+CqEc+AACAP4KoRz4fb1U/ty7sPut5hz5juyc/"),
 "format": 34359738391,
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 18,
-"vertex_data": PackedByteArray("vvKVQQAAAAC+8hXBEyGWQQAAAAAAAAAAb2ZIQQAAAABvZshAb2ZIQQAAAABvZshAJZy4JgAAAABvXCdB+hahwQAAAAD6FiFB+hahwQAAAAD6FiFBnE8AwgAAAAABiQ0nVqZFwQAAAABWpsXAVqZFwQAAAABWpsXAMD6cpwAAAAD92zzBvvKVQQAAAAC+8hXBvvKVQQAAAAC+8hXBb2ZIQQAAAABvZshA+hahwQAAAAD6FiFB+hahwQAAAAD6FiFBVqZFwQAAAABWpsXAvvKVQQAAAAC+8hXB/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
+"vertex_data": PackedByteArray("6gIeQQAAAAAAAAAAI8M/QQAAAAAjw79ADqsQJwAAAAC4JoNBV9U8wQAAAABX1bxArAuvwQAAAAAhFsEmwfpgwQAAAADB+uDAwfpgwQAAAADB+uDAqtG5pwAAAAAMnGDBDKyBQQAAAAAMrAHB6gIeQQAAAAAAAAAADqsQJwAAAAC4JoNBV9U8wQAAAABX1bxAV9U8wQAAAABX1bxAwfpgwQAAAADB+uDADKyBQQAAAAAMrAHBDKyBQQAAAAAMrAHB6gIeQQAAAAAAAAAAV9U8wQAAAABX1bxA/3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+//3///wAA/7//f///AAD/v/9///8AAP+/")
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_irjxm"]
+shader = ExtResource("3_vrxab")
+shader_parameter/polygon_points = PackedVector2Array(0.8337268, 0.4612939, 0.8891074, 0.65821064, 0.57445174, 1, 0.26460204, 0.65520304, 0, 0.4612939, 0.20529115, 0.23026706, 0.57445174, 0, 1, 0.19497874)
+shader_parameter/edge_fade_width = 0.15
 
 [node name="ScrapField" type="Path3D" unique_id=1314478789 groups=["GameResource", "ScrapField"]]
 curve = SubResource("Curve3D_lg5vb")
@@ -33,6 +88,8 @@ path_depth = 3.0
 total_scrap = 20000
 scrap_mining_interval = 4.0
 scrap_per_interval = 25
+crack_mask_texture = SubResource("NoiseTexture2D_lg5vb")
+scrap_mask_texture = SubResource("NoiseTexture2D_vrxab")
 metadata/_custom_type_script = "uid://b1xr0pwiw65au"
 
 [node name="TriggerArea" type="Area3D" parent="." unique_id=1348559940]
@@ -45,7 +102,7 @@ input_ray_pickable = false
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 depth = 3.0
-polygon = PackedVector2Array(18.76615, 0, 12.525008, 6.262504, 1.2809888e-15, 10.460067, -20.136219, 10.0681095, -32.077744, 1.964195e-15, -12.353109, -6.1765547, -4.336612e-15, -11.803708, 18.743526, -9.371763)
+polygon = PackedVector2Array(9.875711, 0, 11.985141, 5.9925704, 2.0076743e-15, 16.393906, -11.802085, 5.9010425, -21.8807, 1.3398063e-15, -14.061219, -7.0306096, -5.1575133e-15, -14.038097, 16.209007, -8.104504)
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=507229753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -53,9 +110,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 [node name="Mesh" type="MeshInstance3D" parent="VisualRoot" unique_id=1830065206]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-material_override = ExtResource("2_6gsg3")
+material_override = SubResource("ShaderMaterial_pr3v4")
 cast_shadow = 0
-mesh = SubResource("ArrayMesh_vrxab")
+mesh = SubResource("ArrayMesh_lg5vb")
 
 [node name="MiningTimers" type="Node" parent="." unique_id=1817918814]
 unique_name_in_owner = true
@@ -69,7 +126,7 @@ render_target_update_mode = 1
 
 [node name="FadeMaskRect" type="ColorRect" parent="FadeMaskViewport" unique_id=1118126611]
 unique_name_in_owner = true
-material = ExtResource("2_h6b17")
+material = SubResource("ShaderMaterial_irjxm")
 offset_right = 128.0
 offset_bottom = 128.0
 
