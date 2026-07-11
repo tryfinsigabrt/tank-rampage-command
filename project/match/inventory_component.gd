@@ -1,6 +1,6 @@
 class_name InventoryComponent extends Node
 
-signal inventory_changed
+signal inventory_changed(resource:ConstructionResource, count:int)
 
 @export
 var node_placement_spawner_scene:PackedScene
@@ -30,7 +30,8 @@ func add_structure(proxy:StructureProxy) -> void:
 	
 	proxy.count = proxy.resource.count	
 	container.add_child(proxy)
-	inventory_changed.emit()
+	
+	inventory_changed.emit(proxy.resource, proxy.count)
 
 func has(type: ConstructionResource.Type) -> int:
 	return get_count(type) > 0
@@ -73,7 +74,7 @@ func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 	if structure_proxy.count == 0:
 		removed = true
 		type_container.remove_child(structure_proxy)
-	inventory_changed.emit()
+	inventory_changed.emit(structure_proxy.resource, -1)
 	
 	var resource:ConstructionResource = structure_proxy.resource
 	
@@ -85,7 +86,7 @@ func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 	
 	placement_spawner.on_spawn.connect(func(asset:Node3D) -> void:
 		asset.name = structure_proxy.name
-		# No construction scene - the player has already paid the wait cost to have it manufactured, so place immediately			
+		# No construction scene - the player has already paid the wait cost to have it manufactured, so place immediately	
 		spawn_count[0] += 1
 	)
 	
@@ -101,6 +102,6 @@ func create(type:ConstructionResource.Type) -> NodePlacementSpawner:
 			structure_proxy.count += 1
 			if removed:
 				type_container.add_child(structure_proxy)
-			inventory_changed.emit()
+			inventory_changed.emit(structure_proxy.resource, 1)
 	)
 	return placement_spawner

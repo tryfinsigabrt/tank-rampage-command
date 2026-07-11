@@ -1,10 +1,18 @@
 class_name DefensiveStructurePrioritizer extends Node
 
+@onready var enemy_building_create_action: EnemyBuildingCreateAction = %EnemyBuildingCreateAction
+
 var _dirty:bool
+var _inventory_component:InventoryComponent
 
 var _defense_needs_by_type:Dictionary[EnemyTeamBlackboard.DefenseNeedType, Array]
 var _all_needs:Array[DefensiveStructureNeed]
 
+class InventoryData:
+	var resource:ConstructionResource
+	var strength:float
+	var count:int
+	
 class DefensiveStructureNeed:
 	var type:EnemyTeamBlackboard.DefenseNeedType
 	var defended_node:Node3D
@@ -12,10 +20,27 @@ class DefensiveStructureNeed:
 	var build_bounds:BoundingCircle
 	var required_strength:float
 	
+	static func natural_order(a:DefensiveStructureNeed, b:DefensiveStructureNeed) -> bool:
+		return a.score > b.score
+	
+	
+func _ready() -> void:
+	var match_team:MatchTeam = Groups.get_parent_with_type(self, MatchTeam)
+	assert(match_team)
+	await NodeUtils.ensure_ready(match_team)
+	
+	_inventory_component = match_team.inventory_component
+	_inventory_component.inventory_changed.connect(_on_inventory_changed)
 	
 func get_prioritized_current_needs() -> Array[DefensiveStructureNeed]:
+	# Make sure priority data up to date
+	if _dirty:
+		_tick()
+	return _all_needs
+
+func _tick() -> void:
 	if not _dirty:
-		return _all_needs
+		return
 		
 	_all_needs.clear()
 	
@@ -25,12 +50,86 @@ func get_prioritized_current_needs() -> Array[DefensiveStructureNeed]:
 			if is_instance_valid(need.defended_node):
 				_all_needs.push_back(need)
 	
-	_all_needs.sort_custom(func(a:DefensiveStructureNeed, b:DefensiveStructureNeed) -> bool:
-		return a.score > b.score)
-		
+	_all_needs.sort_custom(DefensiveStructureNeed.natural_order)
+	
+	# Build from available inventory based on need
+	_build_from_inventory()
+	
 	_dirty = false
-	return _all_needs
+	
+func _get_inventory_data() -> Dictionary[ConstructionResource.Type, InventoryData]:
+	var data_map:Dictionary[ConstructionResource.Type, InventoryData]
+	if not _inventory_component:
+		return data_map
 		
+	for type in _inventory_component.get_available_types():
+		var resource := _inventory_component.get_resource(type)
+		if not resource:
+			continue
+		
+		var data:InventoryData = InventoryData.new()
+		data.resource = resource
+		
+		var attr := resource.attributes
+		if attr:
+			data.strength = attr.strength
+			
+		data.count = _inventory_component.get_count(type)
+		
+		data_map[type] = data
+	
+	return data_map
+	
+func _build_from_inventory() -> void:
+	var inventory_data := _get_inventory_data()
+	if not inventory_data:
+		return
+		
+	var changed:bool = false
+
+	for need in _all_needs:
+		# Prefer turrets for control point defense
+		while inventory_data and need.required_strength > 0:
+			var selected_inventory:InventoryData = null
+			if need.type == EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT:
+				selected_inventory = inventory_data.get(ConstructionResource.Type.Turret)
+			if not selected_inventory:
+				# Pick weakest one that meets the need or the strongest asset
+				var best_diff:float = INF
+				for type in inventory_data:
+					var inventory := inventory_data[type]
+					# Find closest match that best meets the strength requirement
+					var diff:float = need.required_strength - inventory.strength
+					var better:bool = false
+					if best_diff <= 0:
+						better = diff <= 0 and diff > best_diff
+					else:
+						better = diff < best_diff
+						
+					if better:
+						best_diff = diff
+						selected_inventory = inventory
+			if selected_inventory:
+				_place_defensive_structure(selected_inventory, need)
+				selected_inventory.count -= 1
+				changed = true
+				if selected_inventory.count == 0:
+					inventory_data.erase(selected_inventory.resource.type)
+		
+	if not changed:
+		return
+		
+	_all_needs.sort_custom(DefensiveStructureNeed.natural_order)
+	# Remove strength needs that are now <= 0
+	var remove_index:int = -1
+	for i in _all_needs.size():
+		if _all_needs[i].required_strength <= 0:
+			remove_index = i
+			break
+	if remove_index != -1:
+		for i in _all_needs.size() - remove_index:
+			_all_needs.pop_back()
+
 #region Signal Sinks
 
 func _on_blackboard_defense_needs_are_updating(type: EnemyTeamBlackboard.DefenseNeedType, is_start: bool) -> void:
@@ -88,7 +187,7 @@ func _on_base_defense_updated(type: EnemyTeamBlackboard.DefenseNeedType, data: B
 	
 	need.type = type
 	need.defended_node = asset
-	need.required_strength = maxf(needed_defense, 1.0)
+	need.required_strength = maxf(defense_deficit, 1.0)
 	
 	var score_multiplier:float
 	var bounds_multipler:float
@@ -110,3 +209,31 @@ func _on_base_defense_updated(type: EnemyTeamBlackboard.DefenseNeedType, data: B
 	needs.push_back(need)
 	
 #endregion
+
+func _on_inventory_changed(resource:ConstructionResource, count:int) -> void:
+	# Force re-evaluation
+	if count > 0 and resource.classification == ConstructionResource.Classification.Structure:
+		_dirty = true
+		_tick()
+
+func _place_defensive_structure(inventory_data:InventoryData, need:DefensiveStructureNeed) -> void:
+	var context := DummyPlacementUtilityContext.create_from(inventory_data.resource, need)
+	if not enemy_building_create_action.can_create(context):
+		return
+	
+	# Only decrement the strength if we can actually build the resource, which should always pass 
+	need.required_strength -= inventory_data.strength
+	
+	@warning_ignore("missing_await")
+	enemy_building_create_action.create(context)
+	
+# TODO: This is a little awkward but BuildManufacturingActions requires a utility context and deploying structures is a two step process
+# Build utility is in charge of figuring out what to build and this class is designed on how much we need defense and what to do with available defensive resources
+class DummyPlacementUtilityContext extends AbstractBuildPlacementUtilityContext:
+	static func create_from(resource:ConstructionResource, need:DefensiveStructureNeed) -> DummyPlacementUtilityContext:
+		var context := DummyPlacementUtilityContext.new()
+		context.id = need.defended_node.get_instance_id()
+		context.target_location_bounds = [need.build_bounds]
+		context.construction = resource
+		
+		return context

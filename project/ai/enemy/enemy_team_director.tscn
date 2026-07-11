@@ -223,6 +223,9 @@ script = ExtResource("36_k681l")
 [node name="DefenseStructurePrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=212636309]
 script = ExtResource("45_7k78q")
 
+[node name="Tick" type="Timer" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" unique_id=262582568]
+autostart = true
+
 [node name="FailedBuildingCooldownTimer" type="Timer" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=372435691]
 one_shot = true
 
@@ -256,3 +259,4 @@ autostart = true
 [connection signal="timeout" from="GlobalServices/EnemyScanner/Tick" to="GlobalServices/EnemyScanner" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/UtilityCalculator/Tick" to="GlobalServices/EnemyActionPrioritizer/UtilityCalculator" method="_tick"]
 [connection signal="timeout" from="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer/Tick" to="GlobalServices/EnemyActionPrioritizer/ControlPointPrioritizer" method="_evaluate_priorities"]
+[connection signal="timeout" from="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer/Tick" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" method="_tick"]

@@ -6,6 +6,7 @@ class_name BuildUtilityCalculator extends Node
 
 @onready var base_location_prioritizer: BaseLocationPrioritizer = $BaseLocationPrioritizer
 @onready var building_location_finder: BuildingLocationFinder = $BuildingLocationFinder
+@onready var defense_structure_prioritizer: DefensiveStructurePrioritizer = $DefenseStructurePrioritizer
 
 @onready var enemy_building_create_action: EnemyBuildingCreateAction = %EnemyBuildingCreateAction
 @onready var failed_building_cooldown_timer: Timer = $FailedBuildingCooldownTimer
@@ -41,6 +42,13 @@ var _command_center_data:CommandCenterData
 var _can_build_buildings:bool
 var _can_build_structures:bool
 
+class AggregateDefenseNeeds:
+	var score:float
+	var strength:float
+	var available_infantry_units:int
+	
+var _aggregate_defense_needs:AggregateDefenseNeeds = AggregateDefenseNeeds.new()
+
 func _ready() -> void:
 	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
 	
@@ -67,6 +75,7 @@ func _refresh_construction_resource_mappings() -> void:
 func _refresh_available_behaviors() -> void:
 	_manufacturing_by_type.clear()
 	_available_behaviors.clear()
+	
 	_can_build_buildings = false
 	_can_build_structures = false
 	
@@ -128,6 +137,9 @@ func next_build() -> bool:
 	_viable_options.clear()
 	
 	var team_distributions: Dictionary[ConstructionResource.Type, int]
+	var team_structure_queue:Dictionary[ConstructionResource.Type, int]
+	var unit_class_distributions:Dictionary[Unit.UnitClass, int]
+	
 	var team_assets := team_units.assets_dict
 	var total_units:int = 0
 	var queued_units:int = 0
@@ -139,14 +151,20 @@ func next_build() -> bool:
 		if asset is Unit:
 			total_units += 1
 			_count_unit_by_type(asset, team_distributions)
+			unit_class_distributions[asset.unit_class] = unit_class_distributions.get(asset.unit_class, 0) + 1
 		elif asset is Building:
 			# Consider the queue
 			var manufacturing_comp:ManufacturingComponent = ManufacturingComponent.get_component(asset, false)
 			if manufacturing_comp:
 				for resource in manufacturing_comp.currently_building:
 					var type := resource.type
-					queued_units += 1
 					team_distributions[type] = team_distributions.get(type, 0) + 1
+
+					var classification := resource.classification
+					if classification == ConstructionResource.Classification.Unit:
+						queued_units += 1
+					elif classification == ConstructionResource.Classification.Structure:
+						team_structure_queue[type] = team_structure_queue.get(type, 0) + 1
 	
 	var team_resources: TeamResources = match_team.resources
 	var personnel:PersonnelResource = team_resources.personnel
@@ -158,6 +176,9 @@ func next_build() -> bool:
 	if _can_build_buildings:
 		_refresh_non_command_center_building_stats()
 		_refresh_command_center_building_stats()
+	
+	if _can_build_structures:
+		_refresh_structure_build_data(team_structure_queue)
 	
 	for type in _available_behaviors:
 		var behavior:UtilityAIBehavior = behaviors[type]
@@ -244,12 +265,14 @@ func next_build() -> bool:
 			if not candidate:
 				continue
 			if candidate.has_free_slot:
-				# TODO: Determine additional utility fields
 				utility_context = BuildStructureUtilityContext.new()
 				utility_context.id = candidate.get_instance_id()
 				utility_context.construction = candidate.get_build_metadata(type)
 				utility_context.available_personnel = available_personnel
 				utility_context.available_scrap = available_scrap
+				utility_context.available_infantry_units = unit_class_distributions.get(Unit.UnitClass.Soldier, 0)
+				utility_context.need_score = _aggregate_defense_needs.score
+				utility_context.required_strength = _aggregate_defense_needs.strength
 				
 				action = func() -> bool:
 					if candidate.can_build(type):
@@ -280,7 +303,7 @@ func next_build() -> bool:
 		SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
 	return success
-
+	
 #region Manufacturing
 
 func _get_best_manufacturing_component(type: ConstructionResource.Type) -> ManufacturingComponent:
@@ -387,4 +410,30 @@ func _on_enemy_building_create_action_on_building_complete(context: BuildBuildin
 	
 	failed_building_cooldown_timer.start()
 
+#endregion
+
+#region Structure Manufacturing
+
+func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionResource.Type, int]) -> void:
+	var defense_needs := defense_structure_prioritizer.get_prioritized_current_needs()
+	
+	var total_strength:float = 0.0
+	var total_score:float = 0.0
+	
+	for need in defense_needs:
+		total_score += need.score
+		total_strength += need.required_strength
+	
+	# Subtract out those in progress of building
+	for type in team_structure_queue:
+		var resource:ConstructionResource = _construction_resources_by_type.get(type)
+		if not resource:
+			push_warning("%s: type=%s is in progress of building but no construction resource mapping found!" % [name, EnumUtils.enum_to_string(ConstructionResource.Type, type)])
+			continue
+		var attrs:TeamAssetAttributes = resource.attributes
+		if attrs:
+			total_strength -= attrs.strength
+	
+	_aggregate_defense_needs.score = total_score
+	_aggregate_defense_needs.strength = total_strength
 #endregion

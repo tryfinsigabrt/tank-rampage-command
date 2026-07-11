@@ -42,7 +42,7 @@ func _bind_team_context() -> void:
 	_update_construction_affordability()
 	_refresh_inventory_chips()
 
-	_inventory_component.inventory_changed.connect(_refresh_inventory_chips)
+	_inventory_component.inventory_changed.connect(_refresh_inventory_chips.unbind(2))
 
 	var scrap := _match_team.resources.scrap
 	scrap.count_changed.connect(_on_team_resources_changed)
