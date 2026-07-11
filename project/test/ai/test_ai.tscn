@@ -43,6 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="36_37ytp"]
 [ext_resource type="PackedScene" uid="uid://dmbbahkolpx3t" path="res://ui/debug/enemy_team_director_debug_hud.tscn" id="37_7l2ia"]
 [ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="37_ynl2i"]
+[ext_resource type="PackedScene" uid="uid://cjhdwysw475hc" path="res://ui/debug/debug_team_inventories.tscn" id="40_8m8hx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -116,7 +117,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2gujw"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6f442"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -127,7 +128,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8m8hx"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8jcvd"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -137,26 +138,6 @@ seamless = true
 closed = true
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 6.153163, 0, 0, 0, 0, 0, 0, 0, 0, 10.871735, 0, 5.4358673, 0, 0, 0, 0, 0, 0, 2.0632024e-15, 0, 16.847881, 0, 0, 0, 0, 0, 0, -21.451363, 0, 10.725681, 0, 0, 0, 0, 0, 0, -21.784626, 0, 1.3338795e-15, 0, 0, 0, 0, 0, 0, -16.019588, 0, -8.009794, 0, 0, 0, 0, 0, 0, -5.8197504e-15, 0, -15.8411455, 0, 0, 0, 0, 0, 0, 5.1731114, 0, -2.5865557),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 8
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6f442"]
-width = 256
-height = 256
-noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
-seamless = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8jcvd"]
-width = 256
-height = 256
-noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
-seamless = true
-
-[sub_resource type="Curve3D" id="Curve3D_6f442"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 11.549252, 0, 0, 0, 0, 0, 0, 0, 0, 15.784194, 0, 7.892097, 0, 0, 0, 0, 0, 0, 5.754135e-16, 0, 4.698763, 0, 0, 0, 0, 0, 0, -22.683157, 0, 11.3415785, 0, 0, 0, 0, 0, 0, -9.767349, 0, 5.980579e-16, 0, 0, 0, 0, 0, 0, -7.115072, 0, -3.557536, 0, 0, 0, 0, 0, 0, -5.827155e-15, 0, -15.861301, 0, 0, 0, 0, 0, 0, 14.973985, 0, -7.4869924),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -173,10 +154,10 @@ height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
 seamless = true
 
-[sub_resource type="Curve3D" id="Curve3D_8jcvd"]
+[sub_resource type="Curve3D" id="Curve3D_6f442"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 13.280495, 0, 0, 0, 0, 0, 0, 0, 0, 13.970324, 0, 6.985162, 0, 0, 0, 0, 0, 0, 4.2700125e-16, 0, 3.486845, 0, 0, 0, 0, 0, 0, -12.563195, 0, 6.2815976, 0, 0, 0, 0, 0, 0, -10.675776, 0, 6.5368116e-16, 0, 0, 0, 0, 0, 0, -6.7705555, 0, -3.3852777, 0, 0, 0, 0, 0, 0, -1.3063842e-15, 0, -3.5559297, 0, 0, 0, 0, 0, 0, 12.300143, 0, -6.1500716),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 11.549252, 0, 0, 0, 0, 0, 0, 0, 0, 15.784194, 0, 7.892097, 0, 0, 0, 0, 0, 0, 5.754135e-16, 0, 4.698763, 0, 0, 0, 0, 0, 0, -22.683157, 0, 11.3415785, 0, 0, 0, 0, 0, 0, -9.767349, 0, 5.980579e-16, 0, 0, 0, 0, 0, 0, -7.115072, 0, -3.557536, 0, 0, 0, 0, 0, 0, -5.827155e-15, 0, -15.861301, 0, 0, 0, 0, 0, 0, 14.973985, 0, -7.4869924),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -188,6 +169,26 @@ noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0fyw"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
+seamless = true
+
+[sub_resource type="Curve3D" id="Curve3D_8jcvd"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 13.280495, 0, 0, 0, 0, 0, 0, 0, 0, 13.970324, 0, 6.985162, 0, 0, 0, 0, 0, 0, 4.2700125e-16, 0, 3.486845, 0, 0, 0, 0, 0, 0, -12.563195, 0, 6.2815976, 0, 0, 0, 0, 0, 0, -10.675776, 0, 6.5368116e-16, 0, 0, 0, 0, 0, 0, -6.7705555, 0, -3.3852777, 0, 0, 0, 0, 0, 0, -1.3063842e-15, 0, -3.5559297, 0, 0, 0, 0, 0, 0, 12.300143, 0, -6.1500716),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ccput"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
+seamless = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_021uq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -576,26 +577,26 @@ script = ExtResource("20_2gujw")
 [node name="ScrapField" parent="World/Match/Resource" unique_id=1314478789 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.868927, 0, 176.8039)
 curve = SubResource("Curve3D_2gujw")
-crack_mask_texture = SubResource("NoiseTexture2D_2gujw")
-scrap_mask_texture = SubResource("NoiseTexture2D_8m8hx")
+crack_mask_texture = SubResource("NoiseTexture2D_6f442")
+scrap_mask_texture = SubResource("NoiseTexture2D_8jcvd")
 
 [node name="ScrapField4" parent="World/Match/Resource" unique_id=140669080 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.64288, 0, 340.16483)
 curve = SubResource("Curve3D_8m8hx")
-crack_mask_texture = SubResource("NoiseTexture2D_6f442")
-scrap_mask_texture = SubResource("NoiseTexture2D_8jcvd")
+crack_mask_texture = SubResource("NoiseTexture2D_3rnnd")
+scrap_mask_texture = SubResource("NoiseTexture2D_tdghh")
 
 [node name="ScrapField2" parent="World/Match/Resource" unique_id=622918285 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035591125, 0, -130.2392)
 curve = SubResource("Curve3D_6f442")
-crack_mask_texture = SubResource("NoiseTexture2D_3rnnd")
-scrap_mask_texture = SubResource("NoiseTexture2D_tdghh")
+crack_mask_texture = SubResource("NoiseTexture2D_7cjpt")
+scrap_mask_texture = SubResource("NoiseTexture2D_c0fyw")
 
 [node name="ScrapField3" parent="World/Match/Resource" unique_id=1295188950 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.2968, 0, -342.98682)
 curve = SubResource("Curve3D_8jcvd")
-crack_mask_texture = SubResource("NoiseTexture2D_7cjpt")
-scrap_mask_texture = SubResource("NoiseTexture2D_c0fyw")
+crack_mask_texture = SubResource("NoiseTexture2D_ccput")
+scrap_mask_texture = SubResource("NoiseTexture2D_021uq")
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
 
@@ -625,6 +626,9 @@ ui_display_root = NodePath("..")
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("19_le2i0")]
 
 [node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("20_81ogd")]
+layout_mode = 2
+
+[node name="DebugTeamInventories" parent="DebugHud" unique_id=2033318412 instance=ExtResource("40_8m8hx")]
 layout_mode = 2
 
 [node name="EnemyTeamDirectorDebugHud" parent="DebugHud" unique_id=2076186544 instance=ExtResource("37_7l2ia")]

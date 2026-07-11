@@ -141,7 +141,6 @@ func next_build() -> bool:
 	
 	var team_distributions: Dictionary[ConstructionResource.Type, int]
 	var team_structure_queue:Dictionary[ConstructionResource.Type, int]
-	var available_units_by_class:Dictionary[Unit.UnitClass, int]
 	
 	var team_assets := team_units.assets_dict
 	var total_units:int = 0
@@ -154,9 +153,6 @@ func next_build() -> bool:
 		if asset is Unit:
 			total_units += 1
 			_count_unit_by_type(asset, team_distributions)
-			# Check that unit is not in a container or otherwise unavailable
-			if not UnitContainerComponent.is_in_container(asset):
-				available_units_by_class[asset.unit_class] = available_units_by_class.get(asset.unit_class, 0) + 1
 		elif asset is Building:
 			# Consider the queue
 			var manufacturing_comp:ManufacturingComponent = ManufacturingComponent.get_component(asset, false)
@@ -277,7 +273,7 @@ func next_build() -> bool:
 				utility_context.construction = candidate.get_build_metadata(type)
 				utility_context.available_personnel = available_personnel
 				utility_context.available_scrap = available_scrap
-				utility_context.available_infantry_units = available_units_by_class.get(Unit.UnitClass.Soldier, 0)
+				utility_context.available_infantry_units = _aggregate_defense_needs.available_infantry_units
 				utility_context.need_score = _aggregate_defense_needs.score
 				utility_context.required_strength = _aggregate_defense_needs.strength
 				utility_context.unused_count = team_structure_queue.get(type, 0) + match_team.inventory_component.get_count(type)
@@ -444,5 +440,35 @@ func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionR
 	
 	_aggregate_defense_needs.score = total_strength * score_ratio if total_strength > 0 else 0.0
 	_aggregate_defense_needs.strength = max_strength
+	_aggregate_defense_needs.available_infantry_units = _calculate_elgible_container_units(defense_needs)
 	#print("DEFENSE STRUCTURE SCORE: %.1f" % _aggregate_defense_needs.score)
+	
+	
+func _calculate_elgible_container_units(defense_needs:Array[DefensiveStructurePrioritizer.DefensiveStructureNeed]) -> int:
+	# Check that unit is not in a container or otherwise unavailable
+	var count:int = 0
+	for unit in team_units.units:
+		if unit.unit_class != Unit.UnitClass.Soldier or UnitContainerComponent.is_in_container(unit):
+			continue
+		var position:Vector2 = MathUtils.grid_vector(_get_target_or_current_position(unit))
+		for need in defense_needs:
+			if need.build_bounds.contains(position):
+				count += 1
+				break
+	return count
+	
+func _get_target_or_current_position(unit:Unit) -> Vector3:
+	var directives := AiUnitDirectives.get_component(unit, false)
+	var position:Vector3 = Vector3.INF
+	
+	if directives:
+		position = directives.desired_position
+	if position != Vector3.INF:
+		return position
+		
+	position = unit.get_or_add_actions().get_target_position()
+	if position != Vector3.INF:
+		return position
+	return unit.global_position
+	
 #endregion

@@ -73,6 +73,13 @@ var _state_id_counter:int
 var enabled:bool:
 	get: return _behavior_tree.enabled
 	
+var desired_position:Vector3:
+	get:
+		if not enabled or not _active_state:
+			return Vector3.INF
+		var data := _active_state.data
+		return data.get(UnitDirectiveBlackboard.Keys.Position, Vector3.INF)
+	
 #region States
 func set_defend_position(position:Vector3, time:float, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()

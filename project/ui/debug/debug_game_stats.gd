@@ -20,7 +20,7 @@ func _tick() -> void:
 	for team in game_match.teams:
 		var resources:TeamResources = team.resources
 		var personnel := resources.personnel
-		_team_stat_lines.push_back("TEAM %d: u=%d b=%d s=%d p=%d%s/%d )" % [team.team, team.units.size(), \
+		_team_stat_lines.push_back("TEAM %d: u=%d b=%d s=%d p=%d%s/%d" % [team.team, team.units.size(), \
 			 team.buildings.size(), resources.scrap.count,
 			 personnel.count + personnel.queued_count,
 			 "(+%d)" % personnel.queued_count if personnel.queued_count > 0 else "",

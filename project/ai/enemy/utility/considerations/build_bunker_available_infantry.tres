@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://cqya222qmk42u"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_noqca"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_1pee4"]
+
+[sub_resource type="Curve" id="Curve_srwne"]
+_limits = [0.0, 1.0, 0.0, 4.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(2.998944, 0.7509314), 0.13649787, 0.13649787, 0, 0, Vector2(4, 0.9988469), 0.5586876, 0.0, 0, 0]
+point_count = 3
+script = ExtResource("1_noqca")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("2_1pee4")
+input_key = "available_infantry_units"
+response_curve = SubResource("Curve_srwne")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

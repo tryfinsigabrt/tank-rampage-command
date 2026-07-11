@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://b0yjyqkyagme4"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_07ttd"]
+[ext_resource type="Resource" uid="uid://b01ph2to5ub0n" path="res://ai/enemy/utility/considerations/build_structure_need_utility.tres" id="2_ete5j"]
+[ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="3_4moj8"]
+[ext_resource type="Resource" uid="uid://ckv3sxrjerei0" path="res://ai/enemy/utility/considerations/build_structure_unused_count_utility.tres" id="4_b3nmw"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="5_28cfs"]
+[ext_resource type="Resource" uid="uid://cqya222qmk42u" path="res://ai/enemy/utility/considerations/build_bunker_available_infantry.tres" id="5_ete5j"]
+
+[resource]
+script = ExtResource("5_28cfs")
+name = &"build_structure"
+considerations = Array[ExtResource("1_07ttd")]([ExtResource("2_ete5j"), ExtResource("3_4moj8"), ExtResource("4_b3nmw"), ExtResource("5_ete5j")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

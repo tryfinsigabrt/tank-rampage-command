@@ -21,9 +21,9 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 		var directive:AiUnitDirectives = actor
 		var unit:Unit = directive.unit
 		
-		var unit_actions := unit.get_or_add_actions()
-		if not unit_actions.unload_if_in_container():
-			unit_actions.stop()
+		# Only stop if not in container - otherwise just stay in there until a new order is issued
+		if not UnitContainerComponent.is_in_container(unit):
+			unit.get_or_add_actions().stop()
 	
 	match _state:
 		0: return RUNNING
