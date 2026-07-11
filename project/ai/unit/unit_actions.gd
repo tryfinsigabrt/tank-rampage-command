@@ -210,14 +210,19 @@ func stop() -> void:
 		print_debug("%s(%s): Stop command ordered" % [name, StringUtils.safe_name(unit)])
 
 func hold() -> void:
+	# Ignore hold if in container
+	if UnitContainerComponent.is_in_container(unit):
+		print_debug("%s(%s): Hold command ignored as in a container" % [name, StringUtils.safe_name(unit)])
+		return
+	
 	_clear_all_actions()
 	blackboard.is_hold = true
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): Hold command ordered" % [name, StringUtils.safe_name(unit)])
-
+	
 func _new_action() -> void:
-	_unload_unit_if_in_container()
+	unload_if_in_container()
 	
 	_command_counter += 1
 	_command_id += 1
@@ -228,12 +233,12 @@ func _new_action() -> void:
 	# Call at end of frame so that caller of action has a change to read the command id before the command is issued
 	command_issued.emit.call_deferred(_command_id)
 	
-func _unload_unit_if_in_container() -> void:
+func unload_if_in_container() -> bool:
 	# If unit is in a container need to unload first before issuing new command	
 	var container := UnitContainerComponent.get_container_for_unit(unit)
 	if not container:
-		return
-	container.remove_unit(unit)
+		return false
+	return container.remove_unit(unit)
 		
 func _clear_all_actions() -> void:	
 	blackboard.set_value(UnitBlackboard.Keys.Action, "")

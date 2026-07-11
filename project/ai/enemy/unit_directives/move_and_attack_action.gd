@@ -15,7 +15,11 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	var position:Vector3 = blackboard.position
 	
 	var unit_actions:UnitActions = unit.get_or_add_actions()
-	unit_actions.move_and_attack(position)
+	var load_target:Node3D = blackboard.asset_load
+	if load_target:
+		unit_actions.load_into(load_target)
+	else:
+		unit_actions.move_and_attack(position)
 	
 	_command_id = unit_actions.last_command_id
 	directive.notify_command(_command_id)

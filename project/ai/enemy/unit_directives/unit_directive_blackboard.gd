@@ -9,6 +9,7 @@ class Keys:
 	const BOUNDS:StringName = "BOUNDS"
 	const Position_Callback:StringName = "POSITION_CALLBACK"
 	const CONTROL_POINT:StringName = "CONTROL_POINT"
+	const AssetLoad:String = "ASSET_LOAD"
 	
 var current_action:StringName:
 	get:
@@ -31,6 +32,11 @@ var control_point:ControlPoint:
 		var instance:Variant = get_value(Keys.CONTROL_POINT)
 		return instance as ControlPoint if is_instance_valid(instance) else null
 
+var asset_load:Node3D:
+	get:
+		var instance:Variant = get_value(Keys.AssetLoad)
+		return instance as Node3D if is_instance_valid(instance) else null
+		
 func set_state(state:AiUnitDirectives.State) -> void:
 	clear_state()
 	
@@ -46,6 +52,9 @@ func execute_position_callback() -> void:
 	var new_position:Vector3 = callable.call()
 	update_state_data(Keys.Position, new_position)
 		
+func set_load_into_target(asset:Node3D) -> void:
+	update_state_data(Keys.AssetLoad, asset)
+	
 func update_state_data(key:StringName, value:Variant) -> void:
 	if not key in _data_keys:
 		_data_keys.push_back(key)

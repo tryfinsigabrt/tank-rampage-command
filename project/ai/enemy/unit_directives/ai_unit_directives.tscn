@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://11yk464vxtfq" path="res://ai/enemy/unit_directives/check_bounds.gd" id="11_vju81"]
 [ext_resource type="Script" uid="uid://c55yc3j8iap1c" path="res://ai/enemy/unit_directives/select_position.gd" id="12_l1lbj"]
 [ext_resource type="Script" uid="uid://dyjytflt3emtf" path="res://ai/enemy/unit_directives/hold_control_point.gd" id="13_l1lbj"]
+[ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="14_o4bh8"]
 
 [node name="AiUnitDirectives" type="Node" unique_id=1200788001]
 script = ExtResource("1_b4jg7")
@@ -137,5 +138,11 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 [node name="PriorityTimer" type="Timer" parent="." unique_id=1530248530]
 unique_name_in_owner = true
 one_shot = true
+
+[node name="BunkerSweeper" type="Node" parent="." unique_id=451913372]
+unique_name_in_owner = true
+script = ExtResource("14_o4bh8")
+collision_mask = 16384
+enemy_mode = false
 
 [connection signal="timeout" from="PriorityTimer" to="." method="_on_priority_timer_timeout"]

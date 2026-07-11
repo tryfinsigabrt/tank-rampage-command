@@ -16,6 +16,10 @@ var capacity:int = 4
 
 var units:Array[Unit]
 
+var team_asset:Node3D:
+	get:
+		return _team_asset
+
 #region Inner Classes
 	
 class Data:

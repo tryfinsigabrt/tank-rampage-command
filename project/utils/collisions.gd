@@ -37,6 +37,9 @@ class Layers:
 	## A layer added to team asset collision that has a DynamicNavObstacle node attached
 	const dynamic_obstacle:int = 1 << 13
 	
+	## Dedicated layer for bunker for sweeps
+	const bunker:int = 1 << 14
+	
 	## Layer assigned to assets on team 1
 	const team_1:int = 1 << 28
 	

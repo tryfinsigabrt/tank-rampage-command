@@ -3,25 +3,37 @@ class_name UnitSweeper extends Node
 const MAX_ASSET_RESULT_COUNT:int = 256
 
 @export
-var vision_radius:float = 100.0
+var vision_radius:float = 100.0:
+	set(value):
+		if vision_radius != value and _sweep_rid:
+			vision_radius = value
+			_update_sweep_shape(_sweep_rid)
+		
 
 @export_flags_3d_physics
 var collision_mask:int = Collisions.CompositeMasks.team_asset
 
-var _enemy_sweep_rid:RID
+@export
+var enemy_mode:bool = true
+
+var _sweep_rid:RID
 
 func _ready() -> void:
-	_enemy_sweep_rid = _create_sweep_shape()
+	_sweep_rid = _create_sweep_shape()
 	
 func _exit_tree() -> void:
-	if _enemy_sweep_rid:
-		PhysicsServer3D.free_rid(_enemy_sweep_rid)
+	if _sweep_rid:
+		PhysicsServer3D.free_rid(_sweep_rid)
+		_sweep_rid = RID()
 		
 func _create_sweep_shape() -> RID:
 	var shape_rid := PhysicsServer3D.sphere_shape_create()
-	PhysicsServer3D.shape_set_data(shape_rid, vision_radius)
+	_update_sweep_shape(shape_rid)
 	
 	return shape_rid
+
+func _update_sweep_shape(rid:RID) -> void:
+	PhysicsServer3D.shape_set_data(rid, vision_radius)
 	
 ## Sweep for assets for indicated center point, excluding passed units, and optionally checking if visible to team if > 0
 ## Also excludes assets that are on team if team > 0
@@ -32,9 +44,9 @@ func sweep_assets(center:Vector3, exclude:Array, team:int) -> Array[Node3D]:
 	params.collision_mask = collision_mask
 	params.margin = Collisions.default_collision_margin
 	params.transform = Transform3D(Basis.IDENTITY, center)
-	# Exclude our units
+	# Exclude given assets
 	params.exclude = _to_rids(exclude)
-	params.shape_rid = _enemy_sweep_rid
+	params.shape_rid = _sweep_rid
 	
 	var space_state := get_viewport().world_3d.direct_space_state
 	var results: Array[Dictionary] = space_state.intersect_shape(params, MAX_ASSET_RESULT_COUNT)
@@ -47,8 +59,11 @@ func sweep_assets(center:Vector3, exclude:Array, team:int) -> Array[Node3D]:
 		var include:bool = team <= 0
 		if not include:
 			var team_component := TeamComponent.get_component(asset, false)
-			if team_component and team_component.is_enemy_team(team) and team_component.is_visible_to(team):
-				include = true
+			if team_component:
+				if enemy_mode:
+					include = team_component.is_enemy_team(team) and team_component.is_visible_to(team)
+				else:
+					include = team_component.is_on_team(team)
 		if include and not asset in assets:
 			assets.push_back(asset)
 	
