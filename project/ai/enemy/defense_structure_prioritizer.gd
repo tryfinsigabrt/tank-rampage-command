@@ -85,40 +85,68 @@ func _build_from_inventory() -> void:
 	if not inventory_data:
 		return
 		
-	var changed:bool = false
+	var all_iterations_changed:bool = true
+	var iteration_changed:bool = true
 
-	for need in _all_needs:
-		# Prefer turrets for control point defense
-		while inventory_data and need.required_strength > 0:
+	while inventory_data and _all_needs:
+		if not iteration_changed:
+			all_iterations_changed = false
+		else:
+			iteration_changed = false
+		
+		for need in _all_needs:
 			var selected_inventory:InventoryData = null
+			# Prefer turrets on control point unless it is overkill
 			if need.type == EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT:
-				selected_inventory = inventory_data.get(ConstructionResource.Type.Turret)
+				var candidate_inventory: InventoryData = inventory_data.get(ConstructionResource.Type.Turret)
+				if candidate_inventory and candidate_inventory.strength <= need.required_strength:
+					selected_inventory = candidate_inventory
 			if not selected_inventory:
-				# Pick weakest one that meets the need or the strongest asset
-				var best_diff:float = INF
-				for type in inventory_data:
-					var inventory := inventory_data[type]
-					# Find closest match that best meets the strength requirement
-					var diff:float = need.required_strength - inventory.strength
-					var better:bool = false
-					if best_diff <= 0:
-						better = diff <= 0 and diff > best_diff
-					else:
-						better = diff < best_diff
+				# Pick weakest one that meets the need
+				var best_diff:float = need.required_strength
+				# By default only choose those that don't exceed the strength requirement unless all exceed the requirement
+				if all_iterations_changed:
+					for type in inventory_data:
+						var inventory := inventory_data[type]
+						# Find closest match that best meets the strength requirement
+						var diff:float = need.required_strength - inventory.strength
+						if diff < best_diff and diff >= 0:
+							best_diff = diff
+							selected_inventory = inventory
+				else:
+					var best_diff_abs:float = best_diff
+					for type in inventory_data:
+						var inventory := inventory_data[type]
+						# Find closest match that best meets the strength requirement
+						var diff:float = need.required_strength - inventory.strength
+						var diff_abs:float = absf(diff)
+						var compare:float = diff_abs - best_diff_abs
 						
-					if better:
-						best_diff = diff
-						selected_inventory = inventory
+						var better:bool = false
+						if is_zero_approx(compare):
+							# Prefer exceeding strength than falling short if the magnitude is the same
+							if diff < 0 and best_diff > 0:
+								better = true
+						else:
+							better = compare < 0
+							
+						if better:
+							best_diff = diff
+							best_diff_abs = diff_abs
+							selected_inventory = inventory
 			if selected_inventory:
 				_place_defensive_structure(selected_inventory, need)
 				selected_inventory.count -= 1
-				changed = true
+				iteration_changed = true
 				if selected_inventory.count == 0:
 					inventory_data.erase(selected_inventory.resource.type)
-		
-	if not changed:
-		return
-		
+					if not inventory_data:
+						break
+		# end for
+		_prune_and_sort_needs()
+	#end while				
+
+func _prune_and_sort_needs() -> void:
 	_all_needs.sort_custom(DefensiveStructureNeed.natural_order)
 	# Remove strength needs that are now <= 0
 	var remove_index:int = -1
@@ -129,7 +157,7 @@ func _build_from_inventory() -> void:
 	if remove_index != -1:
 		for i in _all_needs.size() - remove_index:
 			_all_needs.pop_back()
-
+			
 #region Signal Sinks
 
 func _on_blackboard_defense_needs_are_updating(type: EnemyTeamBlackboard.DefenseNeedType, is_start: bool) -> void:
