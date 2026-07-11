@@ -1,6 +1,7 @@
 class_name EnemyBuildingCreateAction extends Node3D
 
-signal on_building_complete(context: BuildBuildingUtilityContext, asset:Node3D)
+signal on_building_complete(context: AbstractBuildPlacementUtilityContext, building:Building)
+signal on_structure_complete(context: AbstractBuildPlacementUtilityContext, structure:DefensiveStructure)
 
 @export
 var blackboard:EnemyTeamBlackboard
@@ -44,7 +45,7 @@ class ActivePlacement:
 	var points:Array[Vector2]
 	var points_index:int
 	
-	func _init(in_context:BuildBuildingUtilityContext, in_spawner:NodePlacementSpawner) -> void:
+	func _init(in_context:AbstractBuildPlacementUtilityContext, in_spawner:NodePlacementSpawner) -> void:
 		context = in_context
 		spawner = in_spawner
 		
@@ -61,6 +62,8 @@ func _ready() -> void:
 	
 	var match_team:MatchTeam = Groups.get_parent_with_type(self, MatchTeam)
 	assert(match_team)
+	await NodeUtils.ensure_ready(match_team)
+	
 	_inventory_component = match_team.inventory_component
 
 func can_create(context: AbstractBuildPlacementUtilityContext) -> bool:
@@ -84,21 +87,28 @@ func create(context: AbstractBuildPlacementUtilityContext) -> Node3D:
 	print_debug("%s: Create %s" % [name, EnumUtils.enum_to_string(ConstructionResource.Type, construction_resource.type)])
 
 	var spawner:NodePlacementSpawner
+	var sig:Signal
+	
 	match classification:
 		ConstructionResource.Classification.Building:
 			spawner = building_manufacturing.create(construction_resource.type)
+			sig = on_building_complete
 		ConstructionResource.Classification.Structure:
 			spawner = _inventory_component.create(construction_resource.type)
+			sig = on_structure_complete
 		_:
 			push_warning("%s: Resource %s has unsupported classification of %s" \
 			% [name, construction_resource, EnumUtils.enum_to_string(ConstructionResource.Classification, classification)])
 			spawner = null
 			
-	return await _create(context, spawner)
+	var result := await _create(context, spawner)
+	if not sig.is_null():
+		sig.emit(context, result)
+	
+	return result
 
 func _create(context: AbstractBuildPlacementUtilityContext, spawner: NodePlacementSpawner)	 -> Node3D:
 	if not spawner:
-		on_building_complete.emit(context, null)
 		return null
 	
 	placement_container.add_child(spawner)
@@ -110,7 +120,6 @@ func _create(context: AbstractBuildPlacementUtilityContext, spawner: NodePlaceme
 	set_process(true)
 	
 	var result:Node3D = await active_placement.latch
-	on_building_complete.emit(context, result)
 	
 	return result
 	

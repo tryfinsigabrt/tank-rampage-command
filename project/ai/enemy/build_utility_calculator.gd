@@ -28,6 +28,9 @@ var buildings_delay:float = 3.0
 @export
 var failed_building_cooldown_time:float = 10.0
 
+@export
+var min_structure_need_score:float = 10.0
+
 var _available_behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 
 var match_team:MatchTeam
@@ -89,7 +92,7 @@ func _refresh_available_behaviors() -> void:
 				
 				# Only add if we have a behavior binding
 				# Some levels for instance may not allow AI to build certain types of units/buildings
-				if type in behaviors and (classification != ConstructionResource.Classification.Structure or allow_structures):
+				if type in behaviors and (classification != ConstructionResource.Classification.Structure or (allow_structures and GameManager.game_timer.time_seconds > buildings_delay)):
 					var manufacturing_options: Array[ManufacturingComponent] = \
 						_manufacturing_by_type.get_or_add(type, [] as Array[ManufacturingComponent])
 						
@@ -138,7 +141,7 @@ func next_build() -> bool:
 	
 	var team_distributions: Dictionary[ConstructionResource.Type, int]
 	var team_structure_queue:Dictionary[ConstructionResource.Type, int]
-	var unit_class_distributions:Dictionary[Unit.UnitClass, int]
+	var available_units_by_class:Dictionary[Unit.UnitClass, int]
 	
 	var team_assets := team_units.assets_dict
 	var total_units:int = 0
@@ -151,7 +154,9 @@ func next_build() -> bool:
 		if asset is Unit:
 			total_units += 1
 			_count_unit_by_type(asset, team_distributions)
-			unit_class_distributions[asset.unit_class] = unit_class_distributions.get(asset.unit_class, 0) + 1
+			# Check that unit is not in a container or otherwise unavailable
+			if not UnitContainerComponent.is_in_container(asset):
+				available_units_by_class[asset.unit_class] = available_units_by_class.get(asset.unit_class, 0) + 1
 		elif asset is Building:
 			# Consider the queue
 			var manufacturing_comp:ManufacturingComponent = ManufacturingComponent.get_component(asset, false)
@@ -261,6 +266,8 @@ func next_build() -> bool:
 					return true
 				return false
 		elif type_classification == ConstructionResource.Classification.Structure:
+			if _aggregate_defense_needs.score < min_structure_need_score:
+				continue
 			var candidate:ManufacturingComponent = _get_best_manufacturing_component(type)
 			if not candidate:
 				continue
@@ -270,10 +277,11 @@ func next_build() -> bool:
 				utility_context.construction = candidate.get_build_metadata(type)
 				utility_context.available_personnel = available_personnel
 				utility_context.available_scrap = available_scrap
-				utility_context.available_infantry_units = unit_class_distributions.get(Unit.UnitClass.Soldier, 0)
+				utility_context.available_infantry_units = available_units_by_class.get(Unit.UnitClass.Soldier, 0)
 				utility_context.need_score = _aggregate_defense_needs.score
 				utility_context.required_strength = _aggregate_defense_needs.strength
-				
+				utility_context.unused_count = team_structure_queue.get(type, 0) + match_team.inventory_component.get_count(type)
+
 				action = func() -> bool:
 					if candidate.can_build(type):
 						@warning_ignore("missing_await")
@@ -287,12 +295,6 @@ func next_build() -> bool:
 	
 	if not _viable_options:
 		return false
-			
-	# TODO: Buildings will be queued using a simple rule-based strategy
-	# First need command center, next need barracks, then factory
-	# Can then proceed to build additional barracks and factory if units are queing up too much
-	# When decide to expand then will start this process over so the checks need to be localized
-	# based on a base or "resource cluster" radius
 	
 	var best_option := UtilityAI.choose_highest(_viable_options)
 	
@@ -402,7 +404,7 @@ func _add_command_center_building_context(context: BuildBuildingUtilityContext) 
 	context.time_to_exhaustion = _command_center_data.time_to_exhaustion
 	context.build_site_score = _command_center_data.best_open_field.score
 
-func _on_enemy_building_create_action_on_building_complete(context: BuildBuildingUtilityContext, building: Building) -> void:
+func _on_enemy_building_create_action_on_building_complete(context: AbstractBuildPlacementUtilityContext, building: Building) -> void:
 	if building or failed_building_cooldown_time <= 0:
 		return
 	
@@ -419,10 +421,16 @@ func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionR
 	
 	var total_strength:float = 0.0
 	var total_score:float = 0.0
+	var max_strength:float = 0.0
 	
 	for need in defense_needs:
 		total_score += need.score
-		total_strength += need.required_strength
+		
+		var strength:float = need.required_strength
+		total_strength += strength
+		max_strength = maxf(strength, max_strength)
+	
+	var score_ratio:float = total_score / total_strength if total_strength > 0 else 1.0
 	
 	# Subtract out those in progress of building
 	for type in team_structure_queue:
@@ -434,6 +442,7 @@ func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionR
 		if attrs:
 			total_strength -= attrs.strength
 	
-	_aggregate_defense_needs.score = total_score
-	_aggregate_defense_needs.strength = total_strength
+	_aggregate_defense_needs.score = total_strength * score_ratio if total_strength > 0 else 0.0
+	_aggregate_defense_needs.strength = max_strength
+	#print("DEFENSE STRUCTURE SCORE: %.1f" % _aggregate_defense_needs.score)
 #endregion

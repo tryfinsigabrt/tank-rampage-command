@@ -1,9 +1,13 @@
 class_name BuildStructureUtilityContext extends AbstractBuildPlacementUtilityContext
-# TODO: Should scale with defense needs
-# Control Points and buildings all should have defense
-# If units are currently fulfilling the defense needs then the value should go down a bit but units are impermanent defense
-# Can look at assistance requests or query ai unit directives
 
 var need_score:float
 var required_strength:float
-var available_infantry_units:int
+
+# Will be used by bunker type to make sure there are units that can fill the bunker
+var available_infantry_units:int	
+
+# Not currently required but adding in case we have structures that require personnel
+var available_personnel:int
+
+# Count of this type in inventory or in progress of building
+var unused_count:int
