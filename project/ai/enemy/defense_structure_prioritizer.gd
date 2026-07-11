@@ -90,6 +90,10 @@ func _build_from_inventory() -> void:
 
 	while inventory_data and _all_needs:
 		if not iteration_changed:
+			# Failsafe if we've gone around again and had no changes to avoid an infinite loop
+			# TODO: This should never happen but currently is so there is a bug in the logic
+			if not all_iterations_changed:
+				break
 			all_iterations_changed = false
 		else:
 			iteration_changed = false
