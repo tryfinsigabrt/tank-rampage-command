@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://7xtpwkcqlouy"]
+
+[ext_resource type="Script" uid="uid://07umqu3cacxd" path="res://ui/dialogue/dialogue_line/dialogue_line.gd" id="1_dvc68"]
+[ext_resource type="Theme" uid="uid://cn7vbmgq21tfl" path="res://ui/dialogue/dialogue_line/dialogue_line_default.tres" id="1_t8vtq"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_c4td6"]
+
+[node name="DialogueLine" type="PanelContainer" unique_id=11127373]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_t8vtq")
+script = ExtResource("1_dvc68")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=819409552]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=961774355]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="IconPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=1923118141]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_type_variation = &"DialogueLineIconPanel"
+
+[node name="IconImage" type="TextureRect" parent="MarginContainer/HBoxContainer/IconPanel" unique_id=1363916228]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_c4td6")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=597775958]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"DialogueLineTextPanel"
+
+[node name="TextLabel" type="Label" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=1484718825]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_type_variation = &"DialogueLineTextLabel"
+text = "THIS IS SOME TEST TEXT"
+autowrap_mode = 2

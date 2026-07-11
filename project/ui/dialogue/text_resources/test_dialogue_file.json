@@ -1,0 +1,17 @@
+{
+	"title": "First Dialogue Test",
+	"lines": [
+		{
+			"icon": "res://ui/dialogue/icons/test_icon_one.png",
+			"background": "res://ui/dialogue/background_images/bunker.PNG",
+			"text": "Line one",
+			"alignment": 0
+		},
+		{
+			"icon": "res://ui/dialogue/icons/test_icon_two.png",
+			"background": "res://ui/dialogue/background_images/enemy_tank.PNG",
+			"text": "Line two",
+			"alignment": 1
+		}
+	]
+}

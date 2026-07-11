@@ -1,0 +1,30 @@
+[gd_resource type="Theme" format=3 uid="uid://cn7vbmgq21tfl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3hir"]
+bg_color = Color(0.04932856, 0.049328566, 0.049328506, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.4841722, 0.4841722, 0.4841722, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i0oe"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 16.0
+content_margin_bottom = 2.0
+bg_color = Color(0.14117648, 0.14117648, 0.14117648, 0.81960785)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6203794, 0.62037945, 0.62037915, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3hir"]
+
+[resource]
+DialogueLineIconPanel/base_type = &"PanelContainer"
+DialogueLineIconPanel/styles/panel = SubResource("StyleBoxFlat_x3hir")
+DialogueLineTextPanel/base_type = &"PanelContainer"
+DialogueLineTextPanel/styles/panel = SubResource("StyleBoxFlat_5i0oe")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_x3hir")
