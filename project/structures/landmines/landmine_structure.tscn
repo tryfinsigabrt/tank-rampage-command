@@ -69,8 +69,7 @@ script = ExtResource("7_xalgg")
 damage_falloff_type = 0
 min_falloff_distance = 1.0
 max_falloff_distance = 1.0
-min_damage = 100.0
-max_damage = 100.0
+min_damage = 500.0
 
 [node name="TriggerArea" type="Area3D" parent="." unique_id=930894120]
 unique_name_in_owner = true
