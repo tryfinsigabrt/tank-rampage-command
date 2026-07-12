@@ -101,6 +101,36 @@ _data = {
 }
 point_count = 8
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_crack_mask"]
+noise_type = 2
+seed = 1
+frequency = 0.045
+fractal_type = 3
+fractal_octaves = 1
+fractal_ping_pong_strength = 1.0
+cellular_return_type = 4
+domain_warp_enabled = true
+domain_warp_amplitude = 2.31
+domain_warp_frequency = 2.0
+domain_warp_fractal_lacunarity = 10.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0fgam"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_scrap_mask"]
+noise_type = 5
+seed = 1
+frequency = 0.2225
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t4sos"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
+seamless = true
+
 [node name="Tutorial" type="Node3D" unique_id=1039357832]
 script = ExtResource("23_8m5ib")
 
@@ -202,6 +232,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7366905, 0, -94.737274)
 curve = SubResource("Curve3D_0fgam")
+crack_mask_texture = SubResource("NoiseTexture2D_0fgam")
+scrap_mask_texture = SubResource("NoiseTexture2D_t4sos")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 
