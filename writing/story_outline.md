@@ -24,21 +24,21 @@
 
 **Commander A**: "Understood. Begin advance deployment. I want engines started and weapons ready to move. Run a satellite scan over the area to ensure everything is in place."
 
-*Solider A*: "Copy that! Command for advance deployment of Panther Militia delivered... and received. Basic area survey started, checking for anomalies... Field looks clear, decoy and training placements all positioned as requested. Here's the report."
+*Soldier A*: "Copy that! Command for advance deployment of Panther Militia delivered... and received. Basic area survey started, checking for anomalies... Field looks clear, decoy and training placements all positioned as requested. Here's the report."
 
 **Commander A**: "Positions look clean. Conditions are 88% to prediction..."
 
-*Solider A*: "Preliminary checks are green. Simulation will begin in t-minus 30 seconds, commander. Units are live and loaded... Field is hot!"
+*Soldier A*: "Preliminary checks are green. Simulation will begin in t-minus 30 seconds, commander. Units are live and loaded... Field is hot!"
 
 **Commander A**: "Hang on... Soldier: immediate background check on decoy troops 6 through 11. Those tanks look like ours but they've got a new coat of paint. If this is another prank by the cadets I'll be spinning heads myself... I want names before this simulation is complete."
 
-*Solider A*: *Gulp!* "Initiating background check on decoys now! Cadets were ex-filled for remote training exercises yesterday... likelihood of prank is less than 14%... Check complete. All decoy troops 6 through 11 identified as under control of military AI 'Steel'. No signs of tampering - all machines built to specification."
+*Soldier A*: *Gulp!* "Initiating background check on decoys now! Cadets were ex-filled for remote training exercises yesterday... likelihood of prank is less than 14%... Check complete. All decoy troops 6 through 11 identified as under control of military AI 'Steel'. No signs of tampering - all machines built to specification."
 
 > Author's note: The name "Steel" just popped into my head and writing dialogue that danced around addressing the AI directly felt unnatural/awkward. Feel free to change the name, or we can change the writing to avoid a reference by name/other identifier (eg. AI #354).
 
 **Commander A**: "Let me see that specification chart, these AI are getting too creative for their own good... Wait... It's more than just the paint. These chips are a newer model, similar but... not the same..."
 
-*Solider A*: "Commander! Anomalous behavior detected from 'Steel' units! Insight logs claim an 'unexpected observation' has been made, 'adjusting parameters for new environment'. Movement patterns are 76% outside of expec-"
+*Soldier A*: "Commander! Anomalous behavior detected from 'Steel' units! Insight logs claim an 'unexpected observation' has been made, 'adjusting parameters for new environment'. Movement patterns are 76% outside of expec-"
 
 **Commander A**: "Can the percentage talk - connect my line to the Panther troops immediately! I'm initiating protocol for Red Alert 19! That field's not a simulation anymore, it's a live-fire war zone."
 
@@ -52,11 +52,11 @@
 
 **Commander B**: "Nonsense. Open a direct space-to-core connection to Steel. Net towers are old tech, maybe this AI 'prefers' the shiny, new-age stuff. These new personality models tend to get a bit obsessive at times."
 
-*Solider B*: "Space-to-core connection started... No response, sir! Steel claims it's expending resources on simulation efforts, unable to divert energy for a comms agent. Engineers are already looking into it."
+*Soldier B*: "Space-to-core connection started... No response, sir! Steel claims it's expending resources on simulation efforts, unable to divert energy for a comms agent. Engineers are already looking into it."
 
 **Commander B**: "Towers *and* satellite comms can't punch through? That can't be an accident. Engineers: I'm flagging Steel as 'off-course', shut down all of Steel's power and data centers ASAP. Begin remediation after Steel is offline. Soldier: Launch all ground units within a 20-kilometer radius of Steel's manufacturing site. The city is less than a day's travel from that location, raise the alarm for local officials and activate defense mechanisms. Better safe than-"
 
-*Solider B*: "Red alert, commander! Defense mechanisms just entered maintenance mode! Engineers' attempts at Steel shutdown have failed - they're escalating now. City officials are requesting an open military call. Would you like me to connect them?"
+*Soldier B*: "Red alert, commander! Defense mechanisms just entered maintenance mode! Engineers' attempts at Steel shutdown have failed - they're escalating now. City officials are requesting an open military call. Would you like me to connect them?"
 
 **Commander B**: "What in the... just now? How did it... Yes, connect the officials. Mark this call as SitRoom 1 for the Panther/Steel event. We need to move fast..."
 
