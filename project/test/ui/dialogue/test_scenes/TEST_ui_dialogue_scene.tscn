@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ba4wxw7e02scs"]
 
-[ext_resource type="Script" uid="uid://k2xrniacclwf" path="res://ui/dialogue/test_scenes/test_ui_dialogue_scene.gd" id="1_mja4b"]
+[ext_resource type="Script" uid="uid://k2xrniacclwf" path="res://test/ui/dialogue/test_scenes/test_ui_dialogue_scene.gd" id="1_mja4b"]
 [ext_resource type="PackedScene" uid="uid://bnwv8scenm2qw" path="res://ui/dialogue/dialogue_handler.tscn" id="2_jnphs"]
-[ext_resource type="JSON" path="res://ui/dialogue/text_resources/test_dialogue_file.json" id="3_b5evg"]
+[ext_resource type="JSON" path="res://test/ui/dialogue/text_resources/test_dialogue_file.json" id="3_b5evg"]
 [ext_resource type="PackedScene" uid="uid://ch0rgm17wqom0" path="res://ui/dialogue/dialogue_container/dialogue_container.tscn" id="5_kv5fp"]
 
 [node name="TestUiDialogueScene" type="Control" unique_id=1475848597]
@@ -22,3 +22,4 @@ text_resource = ExtResource("3_b5evg")
 [node name="DialogueContainer" parent="." unique_id=972685019 instance=ExtResource("5_kv5fp")]
 unique_name_in_owner = true
 layout_mode = 1
+background_image_fade = 0.8

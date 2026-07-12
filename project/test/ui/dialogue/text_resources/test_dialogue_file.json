@@ -1,0 +1,17 @@
+{
+	"title": "First Dialogue Test",
+	"lines": [
+		{
+			"icon": "uid://cgfxxt7sbtq13",
+			"background": "uid://xfrmgoh6eh0k",
+			"text": "Line one",
+			"alignment": 0
+		},
+		{
+			"icon": "uid://dyuunjujnnhoq",
+			"background": "uid://dua15wctd8q72",
+			"text": "Line two",
+			"alignment": 1
+		}
+	]
+}

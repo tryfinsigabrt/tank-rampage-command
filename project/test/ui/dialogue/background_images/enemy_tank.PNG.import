@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyuunjujnnhoq"
-path="res://.godot/imported/test_icon_two.png-054f88b8e801b0387c0b5b2a06fad530.ctex"
+uid="uid://dua15wctd8q72"
+path="res://.godot/imported/enemy_tank.PNG-41b65e27673d7eeb9272047544ea7643.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/dialogue/icons/test_icon_two.png"
-dest_files=["res://.godot/imported/test_icon_two.png-054f88b8e801b0387c0b5b2a06fad530.ctex"]
+source_file="res://test/ui/dialogue/background_images/enemy_tank.PNG"
+dest_files=["res://.godot/imported/enemy_tank.PNG-41b65e27673d7eeb9272047544ea7643.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
