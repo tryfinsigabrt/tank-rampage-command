@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://c4mv1cyq3pg50"]
 
-[ext_resource type="Resource" uid="uid://gky33grfxjwm" path="res://structures/bunker/bunker_attributes.tres" id="1_54e4s"]
+[ext_resource type="Resource" uid="uid://do681iyuuxvga" path="res://structures/turret/turret_attributes.tres" id="1_54e4s"]
 [ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_kw3lv"]
 [ext_resource type="Texture2D" uid="uid://h7i3g1vmycln" path="res://ui/building/icons/turret_structure.png" id="3_54e4s"]
 [ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="4_3ob4p"]

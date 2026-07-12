@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ConstructionResource" format=3 uid="uid://bxylwuiwny8e6"]
+
+[ext_resource type="Resource" uid="uid://gky33grfxjwm" path="res://structures/bunker/bunker_attributes.tres" id="1_ndcl5"]
+[ext_resource type="PackedScene" uid="uid://bhqvo02xg14ia" path="res://buildings/construction/construction_building.tscn" id="2_nde4o"]
+[ext_resource type="Texture2D" uid="uid://b5r3dyk5p1h4" path="res://ui/building/icons/bunker.png" id="3_vr36h"]
+[ext_resource type="Script" uid="uid://c6glk3qgpovpm" path="res://core/placement/collision_specification.gd" id="4_twmhh"]
+[ext_resource type="Resource" uid="uid://2lig2t1hsgw2" path="res://structures/creation/structure_placement_collision_spec.tres" id="5_7hfdt"]
+[ext_resource type="Script" uid="uid://rchprl2i3qgf" path="res://core/placement/node_placement_spawner_resource.gd" id="6_hjiou"]
+[ext_resource type="Script" uid="uid://2hg4jqlk0oc0" path="res://core/construction_resource.gd" id="8_ohd7o"]
+[ext_resource type="PackedScene" uid="uid://cbm8cfutiavev" path="res://structures/bunker/enemy_bunker_structure.tscn" id="9_nde4o"]
+
+[sub_resource type="Resource" id="Resource_ndcl5"]
+script = ExtResource("6_hjiou")
+to_spawn = ExtResource("9_nde4o")
+collision_mask = 805307493
+additional_collisions = Array[ExtResource("4_twmhh")]([ExtResource("5_7hfdt")])
+metadata/_custom_type_script = "uid://rchprl2i3qgf"
+
+[resource]
+script = ExtResource("8_ohd7o")
+team_asset = ExtResource("9_nde4o")
+icon = ExtResource("3_vr36h")
+type = 11
+cost = 300
+time = 20.0
+attributes = ExtResource("1_ndcl5")
+placement_spawner_resource = SubResource("Resource_ndcl5")
+construction_scene = ExtResource("2_nde4o")
+metadata/_custom_type_script = "uid://2hg4jqlk0oc0"

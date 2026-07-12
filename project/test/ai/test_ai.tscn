@@ -117,7 +117,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6f442"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8m8hx"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -128,7 +128,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8jcvd"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6f442"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -142,13 +142,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3rnnd"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8jcvd"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdghh"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3rnnd"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -162,13 +162,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7cjpt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdghh"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0fyw"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7cjpt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -182,13 +182,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ccput"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c0fyw"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_021uq"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ccput"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -577,26 +577,26 @@ script = ExtResource("20_2gujw")
 [node name="ScrapField" parent="World/Match/Resource" unique_id=1314478789 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.868927, 0, 176.8039)
 curve = SubResource("Curve3D_2gujw")
-crack_mask_texture = SubResource("NoiseTexture2D_6f442")
-scrap_mask_texture = SubResource("NoiseTexture2D_8jcvd")
+crack_mask_texture = SubResource("NoiseTexture2D_8m8hx")
+scrap_mask_texture = SubResource("NoiseTexture2D_6f442")
 
 [node name="ScrapField4" parent="World/Match/Resource" unique_id=140669080 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.64288, 0, 340.16483)
 curve = SubResource("Curve3D_8m8hx")
-crack_mask_texture = SubResource("NoiseTexture2D_3rnnd")
-scrap_mask_texture = SubResource("NoiseTexture2D_tdghh")
+crack_mask_texture = SubResource("NoiseTexture2D_8jcvd")
+scrap_mask_texture = SubResource("NoiseTexture2D_3rnnd")
 
 [node name="ScrapField2" parent="World/Match/Resource" unique_id=622918285 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035591125, 0, -130.2392)
 curve = SubResource("Curve3D_6f442")
-crack_mask_texture = SubResource("NoiseTexture2D_7cjpt")
-scrap_mask_texture = SubResource("NoiseTexture2D_c0fyw")
+crack_mask_texture = SubResource("NoiseTexture2D_tdghh")
+scrap_mask_texture = SubResource("NoiseTexture2D_7cjpt")
 
 [node name="ScrapField3" parent="World/Match/Resource" unique_id=1295188950 instance=ExtResource("32_q4a86")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.2968, 0, -342.98682)
 curve = SubResource("Curve3D_8jcvd")
-crack_mask_texture = SubResource("NoiseTexture2D_ccput")
-scrap_mask_texture = SubResource("NoiseTexture2D_021uq")
+crack_mask_texture = SubResource("NoiseTexture2D_c0fyw")
+scrap_mask_texture = SubResource("NoiseTexture2D_ccput")
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("24_oenpu")]
 

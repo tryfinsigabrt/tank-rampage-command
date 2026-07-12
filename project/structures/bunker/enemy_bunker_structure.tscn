@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cbm8cfutiavev"]
+
+[ext_resource type="PackedScene" uid="uid://nt05r3qybt2g" path="res://structures/bunker/bunker_structure.tscn" id="1_kdstg"]
+[ext_resource type="Texture2D" uid="uid://dr8rlv2p3giht" path="res://structures/bunker/cement_baked_diffuse.png" id="2_sy0sc"]
+[ext_resource type="Texture2D" uid="uid://uxebfd7uok44" path="res://structures/bunker/cement_baked_normal.png" id="3_rbkx6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sy0sc"]
+viewport_path = NodePath("UI/UnitDisplaySprite/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wsgi4"]
+albedo_color = Color(1, 0.47999996, 0.39999998, 1)
+albedo_texture = ExtResource("2_sy0sc")
+normal_enabled = true
+normal_texture = ExtResource("3_rbkx6")
+
+[node name="BunkerStructure" unique_id=427098526 instance=ExtResource("1_kdstg")]
+
+[node name="UnitDisplaySprite" parent="UI" parent_id_path=PackedInt32Array(1422772707) index="2" unique_id=1665154013]
+texture = SubResource("ViewportTexture_sy0sc")
+
+[node name="Cube" parent="VisualRoot/Bunker/bunker" parent_id_path=PackedInt32Array(1274962094, 1013236178) index="0" unique_id=2076812124]
+surface_material_override/0 = SubResource("StandardMaterial3D_wsgi4")
+
+[editable path="VisualRoot/Bunker"]
+[editable path="VisualRoot/Bunker/bunker"]

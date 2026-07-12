@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cq8q0vh2srw80"]
+
+[ext_resource type="PackedScene" uid="uid://4ip8egka5br3" path="res://structures/turret/turret_structure.tscn" id="1_darcd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_darcd"]
+albedo_color = Color(0.6, 0.12300003, 0.060000017, 1)
+metallic = 1.0
+roughness = 0.6
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x072u"]
+albedo_color = Color(0.8, 0.17600003, 0.08000002, 1)
+metallic = 1.0
+roughness = 0.6
+disable_receive_shadows = true
+
+[node name="TurretStructure" unique_id=427098526 instance=ExtResource("1_darcd")]
+
+[node name="Base" parent="VisualRoot/Body" parent_id_path=PackedInt32Array(669848381) index="0" unique_id=1732613410]
+surface_material_override/0 = SubResource("StandardMaterial3D_darcd")
+
+[node name="Mount" parent="VisualRoot/YawPivot" parent_id_path=PackedInt32Array(347733249) index="0" unique_id=505075580]
+surface_material_override/0 = SubResource("StandardMaterial3D_x072u")
+
+[editable path="VisualRoot/YawPivot/PitchPivot/Barrel/Weapon"]
