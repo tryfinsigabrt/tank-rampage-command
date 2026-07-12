@@ -63,6 +63,8 @@ func damage(incident_damage_params:DamageParameters, damage_filter:Callable = Ca
 	var hit_position:Vector3 = incident_damage_params.contact_point
 	var amount:float = _calculate_damage(hit_position, hit_position) \
 		* incident_damage_params.damage_multiplier
+	if amount > 0:
+		amount = clampf(amount, min_damage, max_damage)
 	
 	incident_damage_params.damage = amount
 	
@@ -155,10 +157,10 @@ func _calculate_point_damage(impact_point: Vector3, pos:Vector3) -> float:
 		DamageFalloffType.Constant:
 			return max_damage
 		DamageFalloffType.Linear:
-			return _calculate_dist_frac(dist) * max_damage
+			return maxf(_calculate_dist_frac(dist) * max_damage, min_damage)
 		DamageFalloffType.InverseSquare:
 			var falloff := _calculate_dist_frac(dist)
-			return falloff * falloff * max_damage
+			return maxf(falloff * falloff * max_damage, min_damage)
 		_:
 			push_error("Unrecognized damage type: " + str(damage_falloff_type))
 			return max_damage
