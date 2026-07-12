@@ -6,6 +6,7 @@ extends PanelContainer
 @export_range(0.0, 1.0) var background_image_fade := 0.8
 
 @onready var background_image: TextureRect = %BackgroundImage
+@onready var title_label: Label = %TitleLabel
 @onready var dialogue_line_container: VBoxContainer = %DialogueLineContainer
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 
@@ -18,6 +19,9 @@ func reset_dialogue() -> void:
 	var current_dialogue_lines := dialogue_line_container.get_children()
 	for dialogue_line in current_dialogue_lines:
 		dialogue_line.queue_free()
+
+func set_title(new_title: String) -> void:
+	title_label.text = new_title 
 
 # Set to 'null' to remove the background image
 func set_background_image(new_background: Texture2D) -> void:
