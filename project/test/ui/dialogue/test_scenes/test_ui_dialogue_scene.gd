@@ -34,25 +34,17 @@ func next_line() -> void:
 		print("TEST: Nah, we're already done")
 
 
-func _on_new_text_line(_text: String) -> void:
-	print("TEST: New line signal called!")
-
-func _on_new_icon(_icon: Texture2D) -> void:
-	print("TEST: New icon signal called!")
-
-func _on_new_background(_background: Texture2D) -> void:
-	print("TEST: New background signal called!")
+func _on_new_dialogue_step(_dialogue_step: DialogueStep) -> void:
+	print("TEST: New dialogue step signal called!")
 
 func _on_dialogue_finished() -> void:
-	print("TEST: Dialogue finished signal called!")
+	print("TEST: New dialogue finished signal called!")
 	_has_finished = true
 
 func _ensure_signals() -> void:
-	if not dialogue_handler.new_text_line.is_connected(_on_new_text_line):
-		dialogue_handler.new_text_line.connect(_on_new_text_line)
-	if not dialogue_handler.speaker_icon_changed.is_connected(_on_new_icon):
-		dialogue_handler.speaker_icon_changed.connect(_on_new_icon)
-	if not dialogue_handler.background_image_changed.is_connected(_on_new_background):
-		dialogue_handler.background_image_changed.connect(_on_new_background)
+	var test_dialogue_source: DialogueSource = load("uid://5chpds6kp3ot")
+	dialogue_handler.source = test_dialogue_source
+	if not dialogue_handler.new_dialogue_step.is_connected(_on_new_dialogue_step):
+		dialogue_handler.new_dialogue_step.connect(_on_new_dialogue_step)
 	if not dialogue_handler.dialogue_finished.is_connected(_on_dialogue_finished):
 		dialogue_handler.dialogue_finished.connect(_on_dialogue_finished)

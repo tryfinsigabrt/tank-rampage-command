@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://dk05yxlunqyj6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2lhp"]
+bg_color = Color(0.021516219, 0.021516196, 0.021516198, 1)
+
+[resource]
+DialogueContainer/base_type = &"PanelContainer"
+DialogueContainer/styles/panel = SubResource("StyleBoxFlat_v2lhp")

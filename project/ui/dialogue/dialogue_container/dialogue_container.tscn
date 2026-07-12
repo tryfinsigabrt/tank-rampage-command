@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ch0rgm17wqom0"]
 
+[ext_resource type="Theme" uid="uid://dk05yxlunqyj6" path="res://ui/dialogue/dialogue_container/dialogue_container_default.tres" id="1_gnoha"]
 [ext_resource type="Script" uid="uid://cjf72unijeol5" path="res://ui/dialogue/dialogue_container/dialogue_container.gd" id="1_l68oo"]
 
 [node name="DialogueContainer" type="PanelContainer" unique_id=972685019]
@@ -8,20 +9,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_gnoha")
+theme_type_variation = &"DialogueContainer"
 script = ExtResource("1_l68oo")
+background_image_fade = null
 
 [node name="BackgroundImage" type="TextureRect" parent="." unique_id=511337419]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1197813797]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2116994553]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=1197813797]
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="DialogueLineContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=433005090]
+[node name="DialogueLineContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=433005090]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 alignment = 2
