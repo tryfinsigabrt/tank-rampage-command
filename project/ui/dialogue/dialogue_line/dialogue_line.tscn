@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://07umqu3cacxd" path="res://ui/dialogue/dialogue_line/dialogue_line.gd" id="1_dvc68"]
 [ext_resource type="Theme" uid="uid://cn7vbmgq21tfl" path="res://ui/dialogue/dialogue_line/dialogue_line_default.tres" id="1_t8vtq"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_c4td6"]
+[ext_resource type="LabelSettings" uid="uid://dl4m54bk6yepl" path="res://ui/dialogue/dialogue_line/dialogue_line_speaker_label.tres" id="4_bnce7"]
 [ext_resource type="LabelSettings" uid="uid://b5vqn4nuc1r1b" path="res://ui/dialogue/dialogue_line/dialogue_line_label_settings.tres" id="4_mr46e"]
 
 [node name="DialogueLine" type="PanelContainer" unique_id=11127373]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 theme = ExtResource("1_t8vtq")
 theme_type_variation = &"DialogueLine"
 script = ExtResource("1_dvc68")
@@ -28,6 +30,8 @@ theme_override_constants/separation = 18
 [node name="IconPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=1923118141]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_type_variation = &"DialogueLineIconPanel"
 
 [node name="IconImage" type="TextureRect" parent="MarginContainer/HBoxContainer/IconPanel" unique_id=1363916228]
@@ -37,14 +41,37 @@ texture = ExtResource("3_c4td6")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="TextContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer" unique_id=597775958]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1199103537]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="SpeakerContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1429597492]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"DialogueLineSpeakerPanel"
+
+[node name="SpeakerLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/SpeakerContainer" unique_id=1096734632]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_type_variation = &"DialogueLineTextLabel"
+text = "TEST SPEAKER NAME"
+label_settings = ExtResource("4_bnce7")
+vertical_alignment = 1
+
+[node name="TextContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=597775958]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_type_variation = &"DialogueLineTextPanel"
 
-[node name="TextLabel" type="Label" parent="MarginContainer/HBoxContainer/TextContainer" unique_id=1484718825]
+[node name="TextLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/TextContainer" unique_id=1484718825]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 80)
+custom_minimum_size = Vector2(500, 70)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1

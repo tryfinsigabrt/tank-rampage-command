@@ -4,13 +4,28 @@
 		{
 			"icon": "uid://cgfxxt7sbtq13",
 			"background": "uid://xfrmgoh6eh0k",
-			"text": "Line one",
+			"speaker": "Commander",
+			"text": "This line is really long. Like REALLY long. You should probably try to skip this or something, otherwise you might be here for a while. | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim velit blandit quam lacinia, ac ornare sapien bibendum. Praesent faucibus semper fermentum. Maecenas dictum lacinia diam, feugiat laoreet ex iaculis ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce vitae lorem est. Nullam dictum nibh eu enim molestie, eget ullamcorper sem volutpat. Suspendisse potenti. In efficitur tortor id urna sollicitudin posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus volutpat volutpat ornare. Ut pretium placerat mollis. Praesent tempor risus at interdum imperdiet. Maecenas finibus fringilla dapibus. Vestibulum viverra dui at blandit cursus. In lacinia congue ex, id dignissim quam. Praesent malesuada euismod lorem, eu vehicula libero pharetra sit amet. Proin sit amet nibh justo. Donec tempor rhoncus mauris, eu imperdiet lacus convallis sed. Sed vitae lacus scelerisque, egestas elit nec, tempor eros.",
 			"alignment": 0
 		},
 		{
 			"icon": "uid://dyuunjujnnhoq",
 			"background": "uid://dua15wctd8q72",
-			"text": "Line two",
+			"speaker": "General",
+			"text": "Proin tincidunt dolor lectus, non porta tellus sodales ut",
+			"alignment": 1
+		},
+		{
+			"icon": "uid://cgfxxt7sbtq13",
+			"speaker": "Soldier",
+			"text": "333333 | Donec mattis molestie metus, id ornare orci mattis et. Sed mollis nec ligula quis semper. Suspendisse quis purus a nulla rhoncus sodales interdum ac magna. Quisque ac scelerisque metus, ut tincidunt lectus",
+			"alignment": 0
+		},
+		{
+			"icon": "uid://dyuunjujnnhoq",
+			"background": "uid://dua15wctd8q72",
+			"speaker": "Another Person Goes here",
+			"text": "maximus elit libero, at gravida arcu finibus ut tincidunt lectus. Quisque ut tristique lorem, in accumsan nisi. Nullam sagittis odio non ante egestas, vel viverra risus elementum. Nunc faucibus quis ipsum vel ultricies. Sed et nisi rhoncus nunc convallis posuere. Nullam arcu mauris, consequat in hendrerit id, consectetur id urna. Cras fermentum tincidunt blandit. Nunc condimentum est ac leo scelerisque dignissim. Cras laoreet mattis consectetur. ut tincidunt lectus. Quisque ut tristique lorem, in accumsan nisi. Nullam sagittis odio non ante egestas, vel viverra risus elementum. Nunc faucibus quis ipsum vel ultricies. Sed et nisi rhoncus nunc convallis posuere. Nullam arcu mauris, consequat in hendrerit id, consectetur id urna. Cras fermentum tincidunt blandit. Nunc condimentum est ac leo scelerisque dignissim. Cras laoreet mattis consectetur.",
 			"alignment": 1
 		}
 	]

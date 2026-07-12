@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dl4m54bk6yepl"]
+
+[sub_resource type="FontVariation" id="FontVariation_mqiuc"]
+variation_embolden = -0.35
+variation_transform = Transform2D(1, -0.1, 0, 1, 0, 0)
+
+[resource]
+font = SubResource("FontVariation_mqiuc")

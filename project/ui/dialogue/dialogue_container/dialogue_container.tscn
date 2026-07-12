@@ -12,7 +12,6 @@ grow_vertical = 2
 theme = ExtResource("1_gnoha")
 theme_type_variation = &"DialogueContainer"
 script = ExtResource("1_l68oo")
-background_image_fade = null
 
 [node name="BackgroundImage" type="TextureRect" parent="." unique_id=511337419]
 unique_name_in_owner = true
@@ -24,8 +23,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_bottom = 12
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=1197813797]
+unique_name_in_owner = true
 layout_mode = 2
-horizontal_scroll_mode = 3
+follow_focus = true
+horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
 [node name="DialogueLineContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=433005090]

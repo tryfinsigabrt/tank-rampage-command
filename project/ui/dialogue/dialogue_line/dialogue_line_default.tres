@@ -10,6 +10,17 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.4841722, 0.4841722, 0.4841722, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5qwt"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14117648, 0.14117648, 0.14117648, 0.9411765)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0.6203794, 0.62037945, 0.62037915, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i0oe"]
 content_margin_left = 8.0
 content_margin_top = 2.0
@@ -27,5 +38,7 @@ DialogueLine/base_type = &"PanelContainer"
 DialogueLine/styles/panel = SubResource("StyleBoxEmpty_x3hir")
 DialogueLineIconPanel/base_type = &"DialogueLine"
 DialogueLineIconPanel/styles/panel = SubResource("StyleBoxFlat_x3hir")
+DialogueLineSpeakerPanel/base_type = &"PanelContainer"
+DialogueLineSpeakerPanel/styles/panel = SubResource("StyleBoxFlat_k5qwt")
 DialogueLineTextPanel/base_type = &"DialogueLine"
 DialogueLineTextPanel/styles/panel = SubResource("StyleBoxFlat_5i0oe")

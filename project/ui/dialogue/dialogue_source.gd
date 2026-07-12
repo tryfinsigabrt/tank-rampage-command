@@ -39,10 +39,10 @@ func parse_lines_from_file(lines_content: Array[Dictionary]) -> void:
 
 func get_line_at_index(index: int) -> DialogueStep:
 	if index < 0:
-		print("[DialogueSource] Index for line is too small! Getting first line instead.")
+		printerr("[DialogueSource] Index for line is too small! Getting first line instead.")
 		index = 0
 	elif index >= lines.size():
-		print("[DialogueSource] Index for line is too large! Getting last line instead.")
+		printerr("[DialogueSource] Index for line is too large! Getting last line instead.")
 		index = lines.size() - 1
 	
 	return lines.get(index)
