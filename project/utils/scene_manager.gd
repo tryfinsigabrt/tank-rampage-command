@@ -31,7 +31,7 @@ func play_tutorial() -> void:
 	await switch_scene_file(TUTORIAL_LEVEL)
 
 func play_level(level_number:int) -> void:
-	assert(level_number > 0 and level_number <= ALL_LEVELS.size(),"%f: Invalid level number=%d" % level_number)
+	assert(level_number > 0 and level_number <= ALL_LEVELS.size(),"%s: Invalid level number=%d" % [name, level_number])
 	await switch_scene_file(ALL_LEVELS[level_number - 1])
 	
 func quit() -> void:
