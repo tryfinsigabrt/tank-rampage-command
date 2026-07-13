@@ -1,0 +1,70 @@
+{
+	"title": "[SITROOM 1] Panther/Steel",
+	"lines": [
+		{
+			"speaker": "Commander, Onyx",
+			"text": "I saw that movement myself! We've got drone footage surrounding the time of the event! That thing's a wild threat roaming the streets now. Don't tell me we can't take action now!",
+			"alignment": 1
+		},
+		{
+			"speaker": "General, Helio",
+			"text": "Moving without understanding the enemy could only put us at risk. The fact that we still can't disable Steel remotely suggests something or someone is keeping us out - and they want to keep it that way. To move fast, we must move with intent.",
+			"alignment": 0
+		},
+		{
+			"speaker": "Commander, Onyx",
+			"text": "Well we can't just sit here and wait for 'information' to fall into our laps. Lives are on the line! Do you expect me to just watch as my soldiers suffer and civilians abandon their homes? We aren't helpless here! If you won't make the call to move, then I will!",
+			"alignment": 1
+		},
+		{
+			"speaker": "General, Helio",
+			"text": "If you need to move, then get a task force moving on Steel's physical hardware sites. I need scouts, engineers, and soldiers to infiltrate and shutdown anything they can. Let Panther take point - they deserve a chance to return the favor.",
+			"alignment": 0
+		},
+		{
+			"speaker": "Commander, Onyx",
+			"text": "*(grumbles)* ... Understood. We'll show Steel that our bite can crunch right through any metal.",
+			"alignment": 1
+		},
+		{
+			"speaker": "Commander, Orpiment",
+			"text": "Sir, we've finished evacuating nearby settlements and are proceeding with lockdown protocols. Efforts have begun to establish outposts at key strategic positions to fend off enemy advances. Steel's forces have been held off for now, but... it could move again at any time.",
+			"alignment": 1
+		},
+		{
+			"speaker": "General, Helio",
+			"text": "I want you to speak candidly, Commander. What are your thoughts on the situation? More than anything I lack information, I need insights from those who have watched this unfold in real time.",
+			"alignment": 0
+		},
+		{
+			"speaker": "Commander, Orpiment",
+			"text": "Honestly, General?.. I'm afraid that we're being watched. I saw that AI pivot towards the city right as the defensive systems were disabled. That can't be a coincidence, right?",
+			"alignment": 1
+		},
+		{
+			"speaker": "Commander, Orpiment",
+			"text": "Someone has to be listening in, sending Steel strategic attack vectors to target our weak points. What if they start targeting our farms to cut off our food source? Or demolishing forests to deplete our oxygen supply?",
+			"alignment": 1
+		},
+		{
+			"speaker": "General, Helio",
+			"text": "Hmm, a sound theory... One I suspect we'll be putting to the test momentarily...",
+			"alignment": 0
+		},
+		{
+			"speaker": "Soldier",
+			"text": "Sir! Surveillance reports are flagging new movement patterns from Steel! Enemy forces are being diverted from the cities and aimed at multiple new targets. Triangulation calculations are ongoing... Predictions suggest that critical resource sites could be under fire in T-minus 16 hours!",
+			"alignment": 1
+		},
+		{
+			"speaker": "Commander, Orpiment",
+			"text": "No... Not again. Am I compromised? Do I have a wiretap on me?!",
+			"alignment": 1
+		},
+		{
+			"speaker": "General, Helio",
+			"text": "I wish it were as simple as a wiretap. Something tells me we've been staring right at this 'insider' the whole time...",
+			"alignment": 0
+		},
+	]
+}

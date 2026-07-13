@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cjbiodi2t053v"]
+
+[ext_resource type="Script" uid="uid://cfcsl6skarbcj" path="res://ui/dialogue/dialogue_scenes/dialogue_scene.gd" id="1_ryctd"]
+[ext_resource type="Script" uid="uid://dbqkt1fouchsg" path="res://ui/dialogue/dialogue_handler.gd" id="2_1luui"]
+[ext_resource type="JSON" path="res://ui/dialogue/text_resources/dialogue_part_two.json" id="3_100j5"]
+[ext_resource type="Script" uid="uid://d1plpmsmsk8ou" path="res://ui/dialogue/dialogue_source.gd" id="4_vl4wr"]
+[ext_resource type="PackedScene" uid="uid://ch0rgm17wqom0" path="res://ui/dialogue/dialogue_container/dialogue_container.tscn" id="5_jlh1v"]
+
+[sub_resource type="Resource" id="Resource_f080a"]
+script = ExtResource("4_vl4wr")
+file = ExtResource("3_100j5")
+metadata/_custom_type_script = "uid://d1plpmsmsk8ou"
+
+[node name="DialoguePartTwo" type="Control" unique_id=1793532002 node_paths=PackedStringArray("dialogue_handler", "dialogue_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ryctd")
+target_level = 2
+dialogue_handler = NodePath("DialogueHandler")
+dialogue_container = NodePath("DialogueContainer")
+metadata/_custom_type_script = "uid://cfcsl6skarbcj"
+
+[node name="DialogueHandler" type="Node" parent="." unique_id=438669209]
+script = ExtResource("2_1luui")
+source = SubResource("Resource_f080a")
+metadata/_custom_type_script = "uid://dbqkt1fouchsg"
+
+[node name="DialogueContainer" parent="." unique_id=972685019 instance=ExtResource("5_jlh1v")]
+layout_mode = 0
+anchors_preset = 0
