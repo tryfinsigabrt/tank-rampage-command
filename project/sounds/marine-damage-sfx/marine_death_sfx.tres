@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://pjyf08o37vxh"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_fbg8c"]
+[ext_resource type="Resource" uid="uid://c6akfd8wpdm54" path="res://sounds/marine-damage-sfx/marine_death_stream_config.tres" id="2_fbg8c"]
+
+[resource]
+script = ExtResource("1_fbg8c")
+stream_config = ExtResource("2_fbg8c")
+volume_db = 4.0
+volume_max_db = 6.0
+max_distance = 1500.0
+unit_size = 200.0
+play_when_paused = null
+bus = "Sfx"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

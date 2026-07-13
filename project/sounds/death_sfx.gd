@@ -3,9 +3,6 @@ extends Node3D
 @onready var audio_stream_switcher: AudioStreamSwitcher = $AudioStreamSwitcher
 
 @export
-var default_stream:AudioStream
-
-@export
 var audio_player_config:AudioPlayerConfig
 
 @export

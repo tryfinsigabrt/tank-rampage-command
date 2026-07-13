@@ -69,6 +69,7 @@ func play_attached(player_config:AudioPlayerConfig, node:Node3D) -> void:
 func _play_with_config(player:AudioStreamPlayer3D, player_config:AudioPlayerConfig, position:Vector3) -> void:
 	var stream_config := player_config.stream_config
 	
+	player.process_mode = Node.ProcessMode.PROCESS_MODE_ALWAYS if player_config.play_when_paused else Node.ProcessMode.PROCESS_MODE_PAUSABLE
 	player.bus = player_config.bus
 	player.attenuation_model = player_config.attenuation_model
 	player.max_distance = player_config.max_distance

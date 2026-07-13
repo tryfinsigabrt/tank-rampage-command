@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dtxv422oo38u8"]
+
+[ext_resource type="AudioStream" uid="uid://dm1krrfjro2ff" path="res://sounds/marine-damage-sfx/marine-death-01.wav" id="1_k6rp5"]
+[ext_resource type="AudioStream" uid="uid://cgm4xq6qywg5q" path="res://sounds/marine-damage-sfx/marine-death-02.wav" id="2_i603d"]
+[ext_resource type="AudioStream" uid="uid://j8mkvgbrbsvx" path="res://sounds/marine-damage-sfx/marine-death-03.wav" id="3_tqjc0"]
+[ext_resource type="AudioStream" uid="uid://b4o1x5f202ft" path="res://sounds/marine-damage-sfx/marine-death-04.wav" id="4_fyy3e"]
+[ext_resource type="AudioStream" uid="uid://p7owe8hpsv4s" path="res://sounds/marine-damage-sfx/marine-death-05.wav" id="5_q6fy7"]
+[ext_resource type="AudioStream" uid="uid://du0ktmlm5vhdl" path="res://sounds/marine-damage-sfx/marine-death-06.wav" id="6_tfao3"]
+[ext_resource type="AudioStream" uid="uid://cv6sni3vs6f6o" path="res://sounds/marine-damage-sfx/marine-death-07.wav" id="7_48lsu"]
+[ext_resource type="AudioStream" uid="uid://d8sshbpetyir" path="res://sounds/marine-damage-sfx/marine-death-08.wav" id="8_fw3q1"]
+
+[resource]
+random_pitch = 1.005793
+random_volume_offset_db = 1.0
+streams_count = 8
+stream_0/stream = ExtResource("1_k6rp5")
+stream_1/stream = ExtResource("2_i603d")
+stream_2/stream = ExtResource("3_tqjc0")
+stream_3/stream = ExtResource("4_fyy3e")
+stream_4/stream = ExtResource("5_q6fy7")
+stream_5/stream = ExtResource("6_tfao3")
+stream_6/stream = ExtResource("7_48lsu")
+stream_7/stream = ExtResource("8_fw3q1")

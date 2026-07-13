@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AudioStreamConfig" format=3 uid="uid://b82c2ogk0ctna"]
+
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="1_4iws7"]
+[ext_resource type="AudioStream" uid="uid://d0k1h4oylsnlw" path="res://sounds/marine-damage-sfx/marine_hit.tres" id="2_fnivj"]
+
+[resource]
+script = ExtResource("1_4iws7")
+stream = ExtResource("2_fnivj")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"

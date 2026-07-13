@@ -30,6 +30,7 @@ func play(player_config:AudioPlayerConfig) -> void:
 func _play_with_config(player:AudioStreamPlayer, player_config:AudioPlayerConfig) -> void:
 	var stream_config := player_config.stream_config
 	
+	player.process_mode = Node.ProcessMode.PROCESS_MODE_ALWAYS if player_config.play_when_paused else Node.ProcessMode.PROCESS_MODE_PAUSABLE
 	player.bus = player_config.bus
 	player.pitch_scale = player_config.pitch_scale
 	player.volume_db = player_config.volume_db

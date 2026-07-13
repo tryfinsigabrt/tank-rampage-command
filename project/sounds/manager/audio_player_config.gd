@@ -32,6 +32,13 @@ var max_distance:float
 @export_range(0.01, 1e9, 0.01, "or_greater")
 var unit_size:float = 500.0
 
+## Indicate whether the player should be paused when the game is paused
+## false aligns with the default root node behavior that uses Node.ProcessMode value of PROCESS_MODE_PAUSABLE
+## true aligns with PROCESS_MODE_ALWAYS.
+
+@export
+var play_when_paused:bool = false
+
 var valid: bool:
 	get: return stream_config and stream_config.stream
 
