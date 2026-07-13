@@ -1,12 +1,14 @@
 extends Node
 
 signal bus_volume_changed(bus_name: StringName, value: float)
+signal show_fps_changed(value: bool)
 
 const MIN_LINEAR: float = 0.001
 const MUTE_DB: float = -80.0
 const AUDIO_BUSES: PackedStringArray = [&"Master", &"Menu", &"Music", &"Sfx", &"Voice"]
 
 var _bus_volumes: Dictionary[StringName, float] = {}
+var _show_fps := false
 
 func _ready() -> void:
 	for bus_name in AUDIO_BUSES:
@@ -21,6 +23,15 @@ func set_bus_volume(bus_name: StringName, value: float) -> void:
 	_bus_volumes[bus_name] = clamped
 	_apply_bus_volume(bus_name)
 	bus_volume_changed.emit(bus_name, clamped)
+
+func get_show_fps() -> bool:
+	return _show_fps
+
+func set_show_fps(value: bool) -> void:
+	if _show_fps == value:
+		return
+	_show_fps = value
+	show_fps_changed.emit(_show_fps)
 
 func _apply_all_bus_volumes() -> void:
 	for bus_name in AUDIO_BUSES:

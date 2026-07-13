@@ -138,6 +138,26 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
+[node name="GraphicsHeader" type="Label" parent="Padding/Content" unique_id=346592842]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Graphics"
+
+[node name="ShowFpsRow" type="HBoxContainer" parent="Padding/Content" unique_id=2041951104]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="ShowFpsLabel" type="Label" parent="Padding/Content/ShowFpsRow" unique_id=431718678]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Show FPS"
+
+[node name="ShowFpsCheckButton" type="CheckButton" parent="Padding/Content/ShowFpsRow" unique_id=75110550]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+
 [node name="Actions" type="HBoxContainer" parent="Padding/Content" unique_id=399737925]
 layout_mode = 2
 alignment = 2
@@ -153,4 +173,5 @@ text = "Back"
 [connection signal="value_changed" from="Padding/Content/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Padding/Content/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="Padding/Content/VoiceRow/VoiceSlider" to="." method="_on_voice_slider_value_changed"]
+[connection signal="toggled" from="Padding/Content/ShowFpsRow/ShowFpsCheckButton" to="." method="_on_show_fps_check_button_toggled"]
 [connection signal="pressed" from="Padding/Content/Actions/BackButton" to="." method="_on_back_button_pressed"]
