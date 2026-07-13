@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bnb4g7v8cd4wb" path="res://ui/menus/options_menu.tscn" id="4_agjyl"]
 [ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="5_h223f"]
 [ext_resource type="PackedScene" path="res://ui/menus/controls_reference_menu.tscn" id="5_rvydq"]
+[ext_resource type="AudioStream" uid="uid://g4kpofgj0ai3" path="res://sounds/music/menu_theme.ogg" id="8_vuv8w"]
 
 [node name="MainMenu" type="Control" unique_id=310902899]
 layout_mode = 3
@@ -139,6 +140,12 @@ script = ExtResource("5_h223f")
 metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="MainMenuAudio" unique_id=651686801]
+
+[node name="MUSIC - MenuTheme" type="AudioStreamPlayer" parent="." unique_id=1295022290]
+stream = ExtResource("8_vuv8w")
+autoplay = true
+bus = &"Music"
+playback_type = 1
 
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Tutorial" to="." method="_on_tutorial_pressed"]
