@@ -5,7 +5,7 @@
 [ext_resource type="NavigationMesh" uid="uid://c38l4rwogmitd" path="res://levels/tutorial/navigation_mesh.tres" id="3_blmfy"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_awbml"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_8xr47"]
-[ext_resource type="Script" path="res://terrain/terrain_web_region_map.gd" id="5_webtr"]
+[ext_resource type="Script" uid="uid://westilssgnnl" path="res://terrain/terrain_web_region_map.gd" id="5_webtr"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="6_ho438"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="7_4vw5m"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="8_smjjj"]
@@ -115,7 +115,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0fgam"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t4sos"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -126,7 +126,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t4sos"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igt3x"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -165,7 +165,6 @@ transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0
 navigation_mesh = ExtResource("3_blmfy")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=2069507083]
-script = ExtResource("5_webtr")
 data_directory = "res://levels/tutorial/data"
 material = ExtResource("4_awbml")
 assets = ExtResource("5_8xr47")
@@ -175,6 +174,7 @@ collision_layer = 2
 collision_mask = 15
 displacement_sharpness = 0.5
 top_level = true
+script = ExtResource("5_webtr")
 metadata/_edit_lock_ = true
 
 [node name="WorldBoundaries" parent="World/NavigationRegion3D" unique_id=1367598819 instance=ExtResource("6_ho438")]
@@ -234,8 +234,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7366905, 0, -94.737274)
 curve = SubResource("Curve3D_0fgam")
-crack_mask_texture = SubResource("NoiseTexture2D_0fgam")
-scrap_mask_texture = SubResource("NoiseTexture2D_t4sos")
+crack_mask_texture = SubResource("NoiseTexture2D_t4sos")
+scrap_mask_texture = SubResource("NoiseTexture2D_igt3x")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 
