@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d05nlngsfvifu"
-path.s3tc="res://.godot/imported/scrap_48.png-91496acc22f8a5b1c7dda78f3f5a2ae2.s3tc.ctex"
+path.s3tc="res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://ui/hud/icons/scrap_48.png"
-dest_files=["res://.godot/imported/scrap_48.png-91496acc22f8a5b1c7dda78f3f5a2ae2.s3tc.ctex"]
+source_file="res://ui/hud/icons/Scrap_48.png"
+dest_files=["res://.godot/imported/Scrap_48.png-1e02e87aff9345b432dbb256a591bebc.s3tc.ctex"]
 
 [params]
 
