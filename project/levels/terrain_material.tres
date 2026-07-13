@@ -1,4 +1,6 @@
-[gd_resource type="Terrain3DMaterial" format=3 uid="uid://btpobt3g105bp"]
+[gd_resource type="Terrain3DMaterial" load_steps=2 format=3 uid="uid://btpobt3g105bp"]
+
+[ext_resource type="Shader" path="res://terrain/terrain_web_shader.gdshader" id="1_websh"]
 
 [resource]
 _shader_parameters = {
@@ -11,4 +13,6 @@ _shader_parameters = {
 &"shader_uniforms::general": null,
 &"shader_uniforms::mipmaps": null
 }
+shader_override_enabled = true
+shader_override = ExtResource("1_websh")
 world_background = 0

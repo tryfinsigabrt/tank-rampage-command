@@ -5,6 +5,7 @@
 [ext_resource type="NavigationMesh" uid="uid://c38l4rwogmitd" path="res://levels/tutorial/navigation_mesh.tres" id="3_blmfy"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_awbml"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_8xr47"]
+[ext_resource type="Script" path="res://terrain/terrain_web_region_map.gd" id="5_webtr"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="6_ho438"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="7_4vw5m"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="8_smjjj"]
@@ -164,6 +165,7 @@ transform = Transform3D(0.99998033, -0.0018076849, 0.0060027996, 0.0017757328, 0
 navigation_mesh = ExtResource("3_blmfy")
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=2069507083]
+script = ExtResource("5_webtr")
 data_directory = "res://levels/tutorial/data"
 material = ExtResource("4_awbml")
 assets = ExtResource("5_8xr47")

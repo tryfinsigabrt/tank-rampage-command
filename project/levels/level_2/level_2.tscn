@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_5ts7o"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="5_ubkp0"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_yiikh"]
+[ext_resource type="Script" path="res://terrain/terrain_web_region_map.gd" id="5_webtr"]
 [ext_resource type="PackedScene" uid="uid://cx7b217uuaivj" path="res://match/match_team.tscn" id="6_dj0pt"]
 [ext_resource type="Script" uid="uid://d1hpnehtmcoq7" path="res://resources/personnel.gd" id="7_1vf62"]
 [ext_resource type="Texture2D" uid="uid://dliybv7l3j13i" path="res://buildings/city/city-test_0.png" id="7_ihnwd"]
@@ -2245,6 +2246,7 @@ navigation_mesh = ExtResource("3_0butd")
 metadata/_edit_lock_ = true
 
 [node name="Terrain3D" type="Terrain3D" parent="World/NavigationRegion3D" unique_id=585117782]
+script = ExtResource("5_webtr")
 data_directory = "res://levels/level_2/data"
 material = ExtResource("4_1vf62")
 assets = ExtResource("5_yiikh")
