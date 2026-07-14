@@ -12,7 +12,10 @@ var team_component:TeamComponent
 
 @export
 var manufacturing_component:ManufacturingComponent
-		
+
+@export
+var mining_component:MiningComponent
+
 @export
 var attributes:TeamAssetAttributes
 

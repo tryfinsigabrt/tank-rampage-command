@@ -162,7 +162,7 @@ func _build_steps() -> Array[Dictionary]:
 	\n- Use the mouse wheel or [b]+[/b] / [b]-[/b] to zoom.",
 		},
 		{
-			"message": "Use the [b]Construction panel[/b] in the bottom right to build a [b]Barracks[/b] and a [b]Factory[/b].\n\n\
+			"message": "Use the [b]Construction panel[/b] in the bottom right to build a [b]Barracks[/b] and a [b]Factory[/b].\n\
 When you left click on a building icon, choose where you want to place it and left click again to start building\n
 Buildings cost [b]Scrap[/b] to build, you can see how much scrap you have in the [b]Resource panel[/b] in the top right corner",
 		},
@@ -180,7 +180,7 @@ Train some units to be ready to fight the enemy.\n",
 		},
 		{
 			"message": "To select a unit left click on it, or left click and drag to select multiple units.\n
-Command the selected units to move by right clicking. \n\n
+Command the selected units to move by right clicking. \n
 Selected units appear in the bottom left next to the minimap, you can see their health bars and \
 different commands you can issue them on the right.",
 		},

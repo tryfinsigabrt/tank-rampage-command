@@ -75,6 +75,8 @@ func _start_building() -> void:
 			child.visible = false
 		
 	_building.manufacturing_component.active = false
+	if _building.mining_component:
+		_building.mining_component.active = false
 	
 	progress_bar.get_parent().remove_child(progress_bar)
 	
@@ -148,6 +150,8 @@ func _building_complete() -> void:
 		
 	_building.team_component.vision = _final_vision
 	_building.manufacturing_component.active = true
+	if _building.mining_component:
+		_building.mining_component.active = true
 	queue_free()
 
 func _update_progress() -> void:
