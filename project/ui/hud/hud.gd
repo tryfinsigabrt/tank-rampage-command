@@ -16,6 +16,7 @@ var _fps_update_elapsed := 0.0
 
 func _ready() -> void:
 	SignalBus.on_player_message_requested.connect(_on_player_message_requested)
+	SignalBus.on_player_message_next_state_requested.connect(_on_player_message_next_state_requested)
 	SignalBus.on_player_message_cleared.connect(_on_player_message_cleared)
 	PlayerSettings.show_fps_changed.connect(_on_show_fps_changed)
 	set_process(PlayerSettings.get_show_fps())
@@ -39,6 +40,11 @@ func _on_player_message_requested(message_text: String) -> void:
 func _on_player_message_cleared() -> void:
 	if player_message_panel and player_message_panel.has_method("clear_message"):
 		player_message_panel.clear_message()
+
+
+func _on_player_message_next_state_requested(button_text: String, disabled: bool) -> void:
+	if player_message_panel and player_message_panel.has_method("set_next_button_state"):
+		player_message_panel.set_next_button_state(button_text, disabled)
 
 
 func set_tooltip_data(code: StringName, tooltip_data: Dictionary) -> void:

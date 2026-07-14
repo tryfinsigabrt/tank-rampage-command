@@ -62,6 +62,7 @@ signal on_construction_requested(type:ConstructionResource.Type)
 signal on_fow_node_visibility_changed(node:Node3D, visibility:bool)
 
 signal on_player_message_requested(message_text:String)
+signal on_player_message_next_state_requested(button_text:String, disabled:bool)
 signal on_player_message_cleared
 signal on_player_message_next_clicked
 

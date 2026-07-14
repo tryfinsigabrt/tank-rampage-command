@@ -104,7 +104,7 @@ point_count = 8
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_crack_mask"]
 noise_type = 2
-seed = 1
+seed = 275723137
 frequency = 0.045
 fractal_type = 3
 fractal_octaves = 1
@@ -123,10 +123,30 @@ seamless = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_scrap_field_scrap_mask"]
 noise_type = 5
-seed = 1
+seed = 275723137
 frequency = 0.2225
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igt3x"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
+seamless = true
+
+[sub_resource type="Curve3D" id="Curve3D_jqtcf"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19.181591, 0, 0, 0, 0, 0, 0, 0, 0, 22.097322, 0, 11.048661, 0, 0, 0, 0, 0, 0, 1.2099499e-15, 0, 9.879991, 0, 0, 0, 0, 0, 0, -17.607475, 0, 8.803738, 0, 0, 0, 0, 0, 0, -28.602638, 0, 1.7514064e-15, 0, 0, 0, 0, 0, 0, -12.738221, 0, -6.3691106, 0, 0, 0, 0, 0, 0, -6.2111185e-15, 0, -16.905878, 0, 0, 0, 0, 0, 0, 7.95096, 0, -3.97548),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mfiw0"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
+seamless = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agodc"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -232,10 +252,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="Resources" type="Node3D" parent="World/Match" unique_id=1298244886]
 
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7366905, 0, -94.737274)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256.62308, 0, -94.737274)
 curve = SubResource("Curve3D_0fgam")
 crack_mask_texture = SubResource("NoiseTexture2D_t4sos")
 scrap_mask_texture = SubResource("NoiseTexture2D_igt3x")
+
+[node name="ScrapField2" parent="World/Match/Resources" unique_id=407279577 instance=ExtResource("21_4r4nw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.781769, 0, -137.14653)
+curve = SubResource("Curve3D_jqtcf")
+noise_seed = 275723137
+crack_mask_texture = SubResource("NoiseTexture2D_mfiw0")
+scrap_mask_texture = SubResource("NoiseTexture2D_agodc")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 
