@@ -6,7 +6,6 @@ var config: AudioManagerConfig
 
 @onready var _pools: Node = %Pools
 
-## Will be removed after AudioManager pool integration is complete
 var _pools_by_key:Dictionary[String, AudioPlayerPool]
 
 func play_3d(player_config:AudioPlayerConfig, position:Vector3) -> void:
@@ -30,23 +29,26 @@ func play_global(player_config:AudioPlayerConfig) -> void:
 	var pool:AudioPlayerPoolGlobal = _get_pool_for(player_config, AudioManagerConfigEntry.Type.PlayerNonSpatial)
 	pool.play(player_config)
 
+func stop_all_global_matching(bus:String, group:String = "") -> void:
+	_stop_all_matching(bus, AudioManagerConfigEntry.Type.PlayerNonSpatial, group)
+
+func stop_all_3d_matching(bus:String, group:String = "") -> void:
+	_stop_all_matching(bus, AudioManagerConfigEntry.Type.Player3D, group)
+
+func _stop_all_matching(bus:String, type:AudioManagerConfigEntry.Type, group:String) -> void:
+	var pool:AudioPlayerPool = _get_pool_by_key(bus, type, group)
+	if pool:
+		pool.stop()
+	
+func stop_all() -> void:
+	for key in _pools_by_key:
+		_pools_by_key[key].stop()
+	
 func _get_pool_for(player_config:AudioPlayerConfig, type:AudioManagerConfigEntry.Type) -> AudioPlayerPool:
 	var group:String = player_config.group
-	var pool:AudioPlayerPool = null
+	var pool:AudioPlayerPool = _get_pool_by_key(player_config.bus, type, group)
 	
-	if group:
-		var full_key:String = AudioManagerConfigEntry.create_key(player_config.bus, type, group)
-		pool = _pools_by_key.get(full_key)
-		if pool:
-			if OS.is_debug_build():
-				print_debug("%s: Selected pool %s with full_key=%s" % [name, pool.name, full_key])
-			return pool
-			
-	var bus_key:String = AudioManagerConfigEntry.create_key(player_config.bus, type)
-	pool = _pools_by_key.get(bus_key)
 	if pool:
-		if OS.is_debug_build():
-			print_debug("%s: Selected pool %s with bus_key=%s" % [name, pool.name, bus_key])
 		return pool
 	
 	push_warning("%s: Could not find audio pool for config=%s with bus=%s; type=%d; group=%s = creating new default pool dynamically" % 
@@ -60,6 +62,25 @@ func _get_pool_for(player_config:AudioPlayerConfig, type:AudioManagerConfigEntry
 	pool = _create_pool(default_entry)
 	
 	return pool
+	
+func _get_pool_by_key(bus:String, type:AudioManagerConfigEntry.Type, group:String = "") -> AudioPlayerPool:
+	var pool:AudioPlayerPool = null
+	if group:
+		var full_key:String = AudioManagerConfigEntry.create_key(bus, type, group)
+		pool = _pools_by_key.get(full_key)
+		if pool:
+			if OS.is_debug_build():
+				print_debug("%s: Selected pool %s with full_key=%s" % [name, pool.name, full_key])
+			return pool
+			
+	var bus_key:String = AudioManagerConfigEntry.create_key(bus, type)
+	pool = _pools_by_key.get(bus_key)
+	if pool:
+		if OS.is_debug_build():
+			print_debug("%s: Selected pool %s with bus_key=%s" % [name, pool.name, bus_key])
+		return pool
+		
+	return null
 	
 func _ready() -> void:
 	if not config:

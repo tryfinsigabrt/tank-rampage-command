@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://crbu2i60s6pbm"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_veppj"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_fm06l"]
+[ext_resource type="AudioStream" uid="uid://dk1yi85l6ok4y" path="res://sounds/music/desert_level_theme.ogg" id="3_veppj"]
+
+[sub_resource type="Resource" id="Resource_fm06l"]
+script = ExtResource("2_fm06l")
+stream = ExtResource("3_veppj")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_veppj")
+stream_config = SubResource("Resource_fm06l")
+attenuation_model = 3
+volume_db = -12.0
+volume_max_db = -12.0
+play_when_paused = true
+playback_type = 1
+bus = "Music"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

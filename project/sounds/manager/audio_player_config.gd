@@ -39,9 +39,24 @@ var unit_size:float = 500.0
 @export
 var play_when_paused:bool = false
 
+## Indicate whether the audio resource should be restarted if the available
+## player selected is already playing that stream
+## Usually used for music where the concurrency size is 1 and we don't want to restart the same track again
+## if it is already playing
+## Only respected for non-spatial audio type
+@export
+var restart_if_playing:bool = true
+
+@export
+var playback_type:AudioServer.PlaybackType
+
 var valid: bool:
 	get: return stream_config and stream_config.stream
 
+var stream:AudioStream:
+	get:
+		return stream_config.stream if stream_config else null
+		
 func _init() -> void:
 	# Forces the editor to look at our custom property list right away
 	if Engine.is_editor_hint():

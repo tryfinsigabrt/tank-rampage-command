@@ -24,9 +24,16 @@ func play(player_config:AudioPlayerConfig) -> void:
 	if not player_config or not player_config.valid:
 		return
 	
-	var player := _get_available_player()
-	_play_with_config(player, player_config)
+	var player := _get_available_player(player_config)
+	
+	# If player is null that means stream already playing and we don't want to restart it
+	if player:
+		_play_with_config(player, player_config)
 
+func stop() -> void:
+	for player in _players:
+		player.stop()
+		
 func _play_with_config(player:AudioStreamPlayer, player_config:AudioPlayerConfig) -> void:
 	var stream_config := player_config.stream_config
 	
@@ -35,10 +42,11 @@ func _play_with_config(player:AudioStreamPlayer, player_config:AudioPlayerConfig
 	player.pitch_scale = player_config.pitch_scale
 	player.volume_db = player_config.volume_db
 	player.stream = stream_config.stream
-	
+	player.playback_type = player_config.playback_type
+
 	player.play(stream_config.play_from)
 	
-func _get_available_player() -> AudioStreamPlayer:
+func _get_available_player(player_config:AudioPlayerConfig) -> AudioStreamPlayer:
 	# First, look for any player that is completely idle
 	var curr_time:int = Time.get_ticks_usec()
 	var player:AudioStreamPlayer
@@ -58,8 +66,12 @@ func _get_available_player() -> AudioStreamPlayer:
 			min_index = i
 			min_time = time
 			
-	_start_times[min_index] = curr_time
 	player = _players[min_index]
-	player.stop()
 	
-	return player
+	# Only stop the current player if we request restart or if the current playing stream is different than requested
+	if player_config.restart_if_playing or player_config.stream != player.stream:
+		player.stop()
+		_start_times[min_index] = curr_time
+		return player
+		
+	return null

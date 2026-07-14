@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://vs5ui6i07j2b"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_fjabe"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_8vb6q"]
+[ext_resource type="AudioStream" uid="uid://dgbiavp68xb5f" path="res://sounds/music/city_level_theme.ogg" id="3_1w60f"]
+
+[sub_resource type="Resource" id="Resource_rjqpr"]
+script = ExtResource("2_8vb6q")
+stream = ExtResource("3_1w60f")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_fjabe")
+stream_config = SubResource("Resource_rjqpr")
+attenuation_model = 3
+volume_db = -12.0
+volume_max_db = -12.0
+play_when_paused = true
+playback_type = 1
+bus = "Music"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"

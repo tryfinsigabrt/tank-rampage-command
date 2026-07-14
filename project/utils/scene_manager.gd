@@ -3,17 +3,19 @@ class_name SceneManager extends Node
 const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
 const LEVEL_SELECT_MENU_SCENE:PackedScene = preload("uid://su8ucbrnrgb1")
 
-# TODO: We can create a level config with a level resource with display name and resource path
-const ALL_LEVELS:Array[String] = [
-	"res://levels/level_1/level_1.tscn",
-	"res://levels/level_2/level_2.tscn",
-]
+## Called when a scene change function has been called before anything loaded or unloaded
+signal scene_change_requested(new_scene_resource:String)
 
-const TUTORIAL_LEVEL:String = "res://levels/tutorial/tutorial.tscn"
-
+## Called after the new scene's ready function has run
 signal scene_changed(new_scene:Node)
+
+## Called before the existing scene is unloaded
 signal scene_leaving(old_scene:Node)
+
+## Called after the new scene is instantiated but before it is added to the tree
 signal scene_entering(new_scene:Node)
+
+@onready var _game_config_holder: GameConfigHolder = %GameConfigHolder
 
 var paused:bool:
 	get: return get_tree().paused
@@ -25,14 +27,15 @@ func level_select_menu() -> void:
 	await switch_scene(LEVEL_SELECT_MENU_SCENE)
 
 func play_now() -> void:
-	await switch_scene_file(ALL_LEVELS.pick_random())
+	await switch_scene_file(_game_config_holder.game_config.levels.pick_random())
 	
 func play_tutorial() -> void:
-	await switch_scene_file(TUTORIAL_LEVEL)
+	await switch_scene_file(_game_config_holder.game_config.tutorial_level.level_resource)
 
 func play_level(level_number:int) -> void:
-	assert(level_number > 0 and level_number <= ALL_LEVELS.size(),"%s: Invalid level number=%d" % [name, level_number])
-	await switch_scene_file(ALL_LEVELS[level_number - 1])
+	var all_levels := _game_config_holder.game_config.levels
+	assert(level_number > 0 and level_number <= all_levels.size(),"%s: Invalid level number=%d" % [name, level_number])
+	await switch_scene_file(all_levels[level_number - 1].level_resource)
 	
 func quit() -> void:
 	get_tree().quit()
@@ -49,6 +52,8 @@ func pause_game(in_paused:bool) -> void:
 	SignalBus.on_paused.emit(in_paused)
 	
 func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void:
+	scene_change_requested.emit(scene.resource_path)
+	
 	await _switch_scene(func()->Node: 
 		var instantiated:Node = scene.instantiate()
 		if configurator:
@@ -57,6 +62,8 @@ func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void
 	)
 	
 func switch_scene_file(scene_file:String, configurator:Callable = Callable()) -> void:
+	scene_change_requested.emit(scene_file)
+	
 	await _switch_scene(func()->Node: 
 		var scene:PackedScene = load(scene_file)
 		var instantiated:Node = scene.instantiate()
@@ -65,7 +72,7 @@ func switch_scene_file(scene_file:String, configurator:Callable = Callable()) ->
 		return instantiated
 	)
 
-func _switch_scene(scene_loader:Callable) -> void:    
+func _switch_scene(scene_loader:Callable) -> void: 
 	var root := get_tree().root
 	var root_current_scene := root.get_child(root.get_child_count() - 1)
 	scene_leaving.emit(root_current_scene)

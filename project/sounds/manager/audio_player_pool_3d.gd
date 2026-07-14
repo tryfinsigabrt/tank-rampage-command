@@ -65,7 +65,13 @@ func play_attached(player_config:AudioPlayerConfig, node:Node3D) -> void:
 	# Add tracking
 	_attached_players.push_back(AttachedAudio.new(player, node))
 	set_process(true)
+
+func stop() -> void:
+	for player in _players:
+		player.stop()
 	
+	_attached_players.clear()
+		
 func _play_with_config(player:AudioStreamPlayer3D, player_config:AudioPlayerConfig, position:Vector3) -> void:
 	var stream_config := player_config.stream_config
 	
@@ -79,6 +85,7 @@ func _play_with_config(player:AudioStreamPlayer3D, player_config:AudioPlayerConf
 	player.max_db = player_config.volume_max_db
 	player.stream = stream_config.stream
 	player.global_position = position
+	player.playback_type = player_config.playback_type
 	
 	player.play(stream_config.play_from)
 	

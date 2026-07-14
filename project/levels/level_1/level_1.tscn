@@ -29,7 +29,6 @@
 [ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="20_e6dmr"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="25_plqb7"]
 [ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="28_e6dmr"]
-[ext_resource type="AudioStream" uid="uid://dk1yi85l6ok4y" path="res://sounds/music/desert_level_theme.ogg" id="30_xiq7r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
@@ -88,7 +87,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g8qib"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xiq7r"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -99,7 +98,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wa3ku"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g8qib"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -113,13 +112,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vhlys"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wa3ku"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ta3uh"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vhlys"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -133,13 +132,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mnfdo"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ta3uh"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xjrjs"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mnfdo"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -301,20 +300,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.538925, 1, -323.72064)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 304.939, 0.43597412, 371.569)
 curve = SubResource("Curve3D_hmxt8")
-crack_mask_texture = SubResource("NoiseTexture2D_g8qib")
-scrap_mask_texture = SubResource("NoiseTexture2D_wa3ku")
+crack_mask_texture = SubResource("NoiseTexture2D_xiq7r")
+scrap_mask_texture = SubResource("NoiseTexture2D_g8qib")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.80745, -7.6293945e-06, -383.46735)
 curve = SubResource("Curve3D_g8qib")
-crack_mask_texture = SubResource("NoiseTexture2D_vhlys")
-scrap_mask_texture = SubResource("NoiseTexture2D_ta3uh")
+crack_mask_texture = SubResource("NoiseTexture2D_wa3ku")
+scrap_mask_texture = SubResource("NoiseTexture2D_vhlys")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1461303973 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.365, 0, 31.522)
 curve = SubResource("Curve3D_xiq7r")
-crack_mask_texture = SubResource("NoiseTexture2D_mnfdo")
-scrap_mask_texture = SubResource("NoiseTexture2D_xjrjs")
+crack_mask_texture = SubResource("NoiseTexture2D_ta3uh")
+scrap_mask_texture = SubResource("NoiseTexture2D_mnfdo")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("25_plqb7")]
 
@@ -323,10 +322,3 @@ scrap_mask_texture = SubResource("NoiseTexture2D_xjrjs")
 [node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("28_e6dmr")]
 match_completion_ui_trigger_delay = 1.0
 ui_display_root = NodePath("..")
-
-[node name="MUSIC - DesertLevelTheme" type="AudioStreamPlayer" parent="." unique_id=322919576]
-stream = ExtResource("30_xiq7r")
-volume_db = -12.0
-autoplay = true
-bus = &"Music"
-playback_type = 1

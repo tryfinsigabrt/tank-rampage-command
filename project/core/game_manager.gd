@@ -3,6 +3,8 @@ extends Node
 @onready var game_timer: GameTimer = %GameTimer
 @onready var scene_manager: SceneManager = %SceneManager
 @onready var audio_manager: AudioManager = %AudioManager
+@onready var _game_config_holder: GameConfigHolder = %GameConfigHolder
+@onready var _music_manager: MusicManager = $MusicManager
 
 # If called before data refreshed then just query dynamically
 var _scene_ready:bool
@@ -25,6 +27,10 @@ var fog_of_war_visibility_override:bool:
 	get:
 		# When fog of war is not visible then it is enabled for AI calculations but player can see all
 		return not fog_of_war or not fog_of_war_node.visible
+	
+var game_config:GameConfig:
+	get:
+		return _game_config_holder.game_config
 		
 func _ready() -> void:
 	reset_world_state()
@@ -34,6 +40,9 @@ func _ready() -> void:
 	).unbind(1))
 	scene_manager.scene_changed.connect(reset_world_state.unbind(1))
 
+func start_menu_music() -> void:
+	_music_manager.start_menu_music()
+	
 func reset_world_state() -> void:
 	_scene_ready = true
 	game_timer.reset()

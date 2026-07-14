@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="GameConfig" format=3 uid="uid://bd3k4gm2d86vh"]
+
+[ext_resource type="Resource" uid="uid://bfsugg4plx251" path="res://sounds/music/main_menu_music_player.tres" id="1_ku0do"]
+[ext_resource type="Script" uid="uid://cu65nyfll7753" path="res://core/game_config.gd" id="1_wes0h"]
+[ext_resource type="Script" uid="uid://ci2am7uh6v0ip" path="res://core/level_config.gd" id="1_youaw"]
+[ext_resource type="Resource" uid="uid://vs5ui6i07j2b" path="res://sounds/music/level_2_music_player.tres" id="3_afgl8"]
+[ext_resource type="Resource" uid="uid://crbu2i60s6pbm" path="res://sounds/music/level_1_music_player.tres" id="4_xbop8"]
+
+[sub_resource type="Resource" id="Resource_b4byi"]
+script = ExtResource("1_youaw")
+level_resource = "uid://dl6cdn6vje37"
+music_player_resource = ExtResource("4_xbop8")
+metadata/_custom_type_script = "uid://ci2am7uh6v0ip"
+
+[sub_resource type="Resource" id="Resource_mf40k"]
+script = ExtResource("1_youaw")
+level_resource = "uid://duqqdcj3ppr2a"
+music_player_resource = ExtResource("3_afgl8")
+metadata/_custom_type_script = "uid://ci2am7uh6v0ip"
+
+[sub_resource type="Resource" id="Resource_xbop8"]
+script = ExtResource("1_youaw")
+level_resource = "uid://ghoooxko8ev5"
+music_player_resource = ExtResource("4_xbop8")
+metadata/_custom_type_script = "uid://ci2am7uh6v0ip"
+
+[resource]
+script = ExtResource("1_wes0h")
+menu_music_player = ExtResource("1_ku0do")
+tutorial_level = SubResource("Resource_xbop8")
+levels = Array[ExtResource("1_youaw")]([SubResource("Resource_b4byi"), SubResource("Resource_mf40k")])
+metadata/_custom_type_script = "uid://cu65nyfll7753"
