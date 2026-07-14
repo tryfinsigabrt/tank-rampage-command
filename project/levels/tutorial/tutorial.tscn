@@ -140,13 +140,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mfiw0"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jqtcf"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agodc"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mfiw0"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -261,8 +261,8 @@ scrap_mask_texture = SubResource("NoiseTexture2D_igt3x")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.781769, 0, -137.14653)
 curve = SubResource("Curve3D_jqtcf")
 noise_seed = 275723137
-crack_mask_texture = SubResource("NoiseTexture2D_mfiw0")
-scrap_mask_texture = SubResource("NoiseTexture2D_agodc")
+crack_mask_texture = SubResource("NoiseTexture2D_jqtcf")
+scrap_mask_texture = SubResource("NoiseTexture2D_mfiw0")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 

@@ -27,7 +27,7 @@ func level_select_menu() -> void:
 	await switch_scene(LEVEL_SELECT_MENU_SCENE)
 
 func play_now() -> void:
-	await switch_scene_file(_game_config_holder.game_config.levels.pick_random())
+	await switch_scene_file(_game_config_holder.game_config.levels.pick_random().level_resource)
 	
 func play_tutorial() -> void:
 	await switch_scene_file(_game_config_holder.game_config.tutorial_level.level_resource)
