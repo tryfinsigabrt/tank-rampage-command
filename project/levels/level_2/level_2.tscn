@@ -3674,3 +3674,5 @@ ui_display_root = NodePath("..")
 stream = ExtResource("53_rhho1")
 volume_db = -12.0
 autoplay = true
+bus = &"Music"
+playback_type = 1
