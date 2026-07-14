@@ -1,6 +1,7 @@
-[gd_scene format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_u0wod"]
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="2_6wfku"]
 [ext_resource type="Script" path="res://ui/hud/player_message_panel.gd" id="2_jclul"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
@@ -46,7 +47,9 @@ alignment = 2
 
 [node name="NextButton" type="Button" parent="Content/Actions" unique_id=1353490678]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 56)
 layout_mode = 2
+theme = ExtResource("2_6wfku")
 theme_override_font_sizes/font_size = 22
 text = "Next"
 

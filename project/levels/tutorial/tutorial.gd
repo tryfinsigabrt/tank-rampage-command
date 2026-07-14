@@ -173,8 +173,8 @@ You can also build [b]Artilery[/b] units in a factory, a slow moving but devasta
 		},
 		{
 			"message": "Units cost scrap and require [b]Personnel[/b] capacity available.\n
-You can train new units by clicking on the barracks or the factory, then clicking on the unit icon to start training.\n\n
-Train some units to be ready to fight the enemy.",
+You can train new units by clicking on the barracks or the factory, then clicking on the unit icon to start training.\n
+Train some units to be ready to fight the enemy.\n",
 			"can_continue_check": Callable(self, "_has_required_training"),
 			"blocked_message": "Train at least 6 Marines and 3 Tanks",
 		},
