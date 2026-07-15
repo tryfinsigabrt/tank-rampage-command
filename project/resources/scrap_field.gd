@@ -313,6 +313,12 @@ func _register_timer_for(command_center:CommandCenter) -> void:
 	if id in _mining_timers_by_command_center:
 		push_warning("%s: Timer already registered for %s" % [name, command_center.name])
 		return
+
+	var mining_component:MiningComponent = MiningComponent.get_component(command_center)
+	if mining_component:
+		mining_component.add_field(self)
+	else:
+		return
 		
 	var timer:Timer = Timer.new()
 	timer.name = "%d-%s-MiningTimer" % [command_center.team, command_center.name]
@@ -351,11 +357,6 @@ func _on_mining_timer_timeout(command_center_id:int) -> void:
 	if not command_center:
 		_deregister_timer_for(command_center_id)
 		return
-
-	# Command center must be fully built
-	var mining_component:MiningComponent = MiningComponent.get_component(command_center)
-	if mining_component and mining_component.active:
-		mining_component.add_field(self)
 
 	# TODO: Adjust the base mining interval and/or scrap amount if support command center upgrades
 	var mined_scrap:int = mini(scrap_per_interval, remaining_scrap)
