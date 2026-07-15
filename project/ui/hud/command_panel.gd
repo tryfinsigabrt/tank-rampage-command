@@ -23,6 +23,7 @@ var _rally_point_manager: RallyPointManager
 var _unit_container_actions: UnitContainerActions
 
 func _ready() -> void:
+	set_process(false)
 	visible = false
 	_connect_selection_sources()
 	_refresh_commands()
@@ -59,12 +60,27 @@ func _connect_selection_sources() -> void:
 	SignalBus.on_structure_selected.connect(_on_selection_changed)
 	SignalBus.on_structure_deselected.connect(_on_selection_changed)
 
-func _on_selection_changed(_asset: Node3D) -> void:
-	_refresh_commands()
+func _on_selection_changed(asset: Node3D) -> void:
+	if _should_schedule_refresh(asset):
+		_schedule_command_refresh()
 
-func _on_unit_killed(_unit: Unit, _damage: DamageParameters) -> void:
-	_refresh_commands()
+func _on_unit_killed(unit: Unit, _damage: DamageParameters) -> void:
+	if _should_schedule_refresh(unit):
+		_schedule_command_refresh()
 
+func _should_schedule_refresh(asset: Node3D) -> bool:
+	# Only update when own team is affected
+	var team_comp := TeamComponent.get_component(asset, false)
+	return _selection_manager and team_comp and team_comp.is_on_team(_selection_manager.team)
+	
+func _process(_delta: float) -> void:
+	# Using _process to dedup and batch the last refresh command 
+	_refresh_commands()
+	set_process(false)
+
+func _schedule_command_refresh() -> void:
+	set_process(true)
+		
 func _refresh_commands() -> void:
 	_clear_command_chips()
 	if _selection_manager == null:
