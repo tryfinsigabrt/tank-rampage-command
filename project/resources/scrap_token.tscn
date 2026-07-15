@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://c8yjs1rsr2fnj" path="res://resources/scrap_token.gd" id="1_wsmsk"]
 [ext_resource type="Material" uid="uid://b1n0ptmlkeqaf" path="res://resources/scrap_token_material.tres" id="2_6urrp"]
 [ext_resource type="Material" uid="uid://qvtf2ogru75o" path="res://resources/scrap_token_hex_emissive.tres" id="3_ccneh"]
+[ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="4_bah3j"]
+[ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="5_bnovd"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6urrp"]
 material = ExtResource("2_6urrp")
@@ -43,5 +45,15 @@ mesh = SubResource("CylinderMesh_ccneh")
 [node name="Overlap" type="CollisionShape3D" parent="." unique_id=666467928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8337827, 0)
 shape = SubResource("SphereShape3D_wsmsk")
+
+[node name="Components" type="Node" parent="." unique_id=1308048897]
+
+[node name="FOWVisibilityComponent" type="Node" parent="Components" unique_id=2117805670 node_paths=PackedStringArray("root")]
+script = ExtResource("4_bah3j")
+root = NodePath("../..")
+
+[node name="FOWVisibilityToggler" type="Node" parent="Components/FOWVisibilityComponent" unique_id=494258789]
+script = ExtResource("5_bnovd")
+render_behavior = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
