@@ -35,7 +35,9 @@
 [ext_resource type="Resource" uid="uid://rwp7cr3nn0at" path="res://conf/costs/human/bunker_cost.tres" id="26_7yhsa"]
 [ext_resource type="Resource" uid="uid://c4mv1cyq3pg50" path="res://conf/costs/human/turret_cost.tres" id="27_0gw2p"]
 [ext_resource type="Script" uid="uid://xt576yq3qny0" path="res://conf/teams/match_team_config.gd" id="28_myhrv"]
+[ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="33_jqtcf"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="34_0fgam"]
+[ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="38_mfiw0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
 
@@ -115,7 +117,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t4sos"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agodc"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -126,7 +128,7 @@ noise_type = 5
 seed = 275723137
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igt3x"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uyqxh"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -140,13 +142,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jqtcf"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4r4nw"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mfiw0"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_drhmd"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -244,6 +246,10 @@ team = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.74713, -1.4000001, -38.30626)
 team = 2
 
+[node name="DefaultMatchTeamElimination" type="Node" parent="World/Match/EnemyTeams/EnemyTeam" unique_id=648635997]
+script = ExtResource("33_jqtcf")
+metadata/_custom_type_script = "uid://w466qmjb587x"
+
 [node name="ControlPoints" type="Node3D" parent="World/Match" unique_id=462420514]
 
 [node name="ControlPoint1" parent="World/Match/ControlPoints" unique_id=588474072 instance=ExtResource("20_uyqxh")]
@@ -254,17 +260,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256.62308, 0, -94.737274)
 curve = SubResource("Curve3D_0fgam")
-crack_mask_texture = SubResource("NoiseTexture2D_t4sos")
-scrap_mask_texture = SubResource("NoiseTexture2D_igt3x")
+crack_mask_texture = SubResource("NoiseTexture2D_agodc")
+scrap_mask_texture = SubResource("NoiseTexture2D_uyqxh")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=407279577 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.781769, 0, -137.14653)
 curve = SubResource("Curve3D_jqtcf")
 noise_seed = 275723137
-crack_mask_texture = SubResource("NoiseTexture2D_jqtcf")
-scrap_mask_texture = SubResource("NoiseTexture2D_mfiw0")
+crack_mask_texture = SubResource("NoiseTexture2D_4r4nw")
+scrap_mask_texture = SubResource("NoiseTexture2D_drhmd")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("22_drhmd")]
 metadata/_edit_use_anchors_ = true
+
+[node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("38_mfiw0")]
+match_completion_ui_trigger_delay = 1.0
+ui_display_root = NodePath("..")

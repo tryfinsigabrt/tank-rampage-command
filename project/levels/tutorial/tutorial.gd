@@ -163,7 +163,8 @@ func _build_steps() -> Array[Dictionary]:
 		},
 		{
 			"message": "Use the [b]Construction panel[/b] in the bottom right to build a [b]Barracks[/b] and a [b]Factory[/b].\n\
-When you left click on a building icon, choose where you want to place it and left click again to start building\n
+When you left click on a building icon, choose where you want to place it, you can rotate the placement with [b]Z[/b] / [b]X[/b].\n\
+Left click again to start building.\n
 Buildings cost [b]Scrap[/b] to build, you can see how much scrap you have in the [b]Resource panel[/b] in the top right corner",
 		},
 		{
