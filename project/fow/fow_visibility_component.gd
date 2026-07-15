@@ -27,8 +27,7 @@ func _ready() -> void:
 			queue_free()
 			return
 			
-	# Initially not visible
-	on_visibility_changed.emit(root, false)
+	_on_fow_visibility_updated.call_deferred()
 		
 func _on_fow_visibility_updated() -> void:
 	var is_visible:bool = _fow.is_node_visible(root)
