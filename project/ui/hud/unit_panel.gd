@@ -216,7 +216,7 @@ func _disconnect_container_signals() -> void:
 	_watched_containers.clear()
 
 func _on_container_units_changed(_unit: Unit) -> void:
-	_refresh_visibility()
+	_schedule_refresh()
 
 func _unit_class_priority(unit_class: Unit.UnitClass) -> int:
 	match unit_class:

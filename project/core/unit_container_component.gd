@@ -110,12 +110,13 @@ func _on_remove(unit:Unit) -> void:
 func remove_all_units() -> void:
 	if not units:
 		return
-	
-	on_unit_removal_requested.emit(units)
-	for unit in units:
-		_on_remove(unit)
-	
+		
+	var removed_units: Array[Unit] = units.duplicate()
 	units.clear()
+	
+	on_unit_removal_requested.emit(removed_units)
+	for unit in removed_units:
+		_on_remove(unit)
 
 func _ready() -> void:
 	if not _team_asset:
