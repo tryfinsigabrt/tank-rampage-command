@@ -44,7 +44,9 @@ func _ready() -> void:
 func _on_restart_pressed() -> void:
 	@warning_ignore("missing_await")
 	UIUtils.disable_all_buttons(buttons_container, 20.0)
-	get_tree().reload_current_scene()
+	
+	@warning_ignore("missing_await")
+	GameManager.scene_manager.restart_scene()
 
 @warning_ignore("missing_await")
 func _on_main_menu_pressed() -> void:

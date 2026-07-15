@@ -50,7 +50,20 @@ func pause_game(in_paused:bool) -> void:
 		
 	get_tree().paused = in_paused
 	SignalBus.on_paused.emit(in_paused)
+
+
+func restart_scene() -> void:
+	var current_scene := _get_current_scene()
+	if not is_instance_valid(current_scene):
+		push_error("%s: Attempted to reload current scene when current scene is invalid!" % name)
+		return
+	var scene_file:String = current_scene.scene_file_path
+	if not scene_file:
+		push_error("%s: Current root node is not a scene!" % name)
+		return
 	
+	await switch_scene_file(scene_file)
+
 func switch_scene(scene:PackedScene, configurator:Callable = Callable()) -> void:
 	scene_change_requested.emit(scene.resource_path)
 	
@@ -72,9 +85,14 @@ func switch_scene_file(scene_file:String, configurator:Callable = Callable()) ->
 		return instantiated
 	)
 
-func _switch_scene(scene_loader:Callable) -> void: 
+func _get_current_scene() -> Node:
 	var root := get_tree().root
 	var root_current_scene := root.get_child(root.get_child_count() - 1)
+	
+	return root_current_scene
+	
+func _switch_scene(scene_loader:Callable) -> void: 
+	var root_current_scene := _get_current_scene()
 	scene_leaving.emit(root_current_scene)
 	print_debug("%s: Freeing current root scene=%s" % [name, root_current_scene.scene_file_path])
 	root_current_scene.queue_free()
