@@ -5,6 +5,7 @@ var _data_keys:Array
 class Keys:
 	const Action:StringName = "action"
 	const Position:StringName = "POSITION"
+	const TargetNode:StringName = "TARGET_NODE"
 	const TIME:StringName = "TIME"
 	const BOUNDS:StringName = "BOUNDS"
 	const Position_Callback:StringName = "POSITION_CALLBACK"
@@ -19,6 +20,11 @@ var position:Vector3:
 	get:
 		return get_value(Keys.Position, Vector3.INF)
 
+var target_node:Node3D:
+	get:
+		var instance:Variant = get_value(Keys.TargetNode)
+		return instance as Node3D if is_instance_valid(instance) else null
+		
 var bounds:BoundingSphere:
 	get:
 		return get_value(Keys.BOUNDS)

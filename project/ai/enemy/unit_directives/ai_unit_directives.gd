@@ -5,6 +5,7 @@ const ComponentName:StringName = &"AiUnitDirectives"
 const DEFEND_POSITION:StringName = &"defend_position"
 const DEFEND_AREA:StringName = &"defend_area"
 const SECURE_CONTROL_POINT:StringName = &"secure_control_point"
+const ATTACK_TARGET:StringName = &"attack_target"
 
 #region Signals
 @warning_ignore_start("unused_signal")
@@ -162,6 +163,36 @@ func _set_defend_area_key(area:BoundingSphere, time:float, position_callback:Cal
 	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
 		var other_bounds:BoundingSphere = other_data[&"BOUNDS"]
 		return area.is_equal_approx(other_bounds)
+	
+	_add_or_update_state(state)
+	
+	return state
+
+func set_attack_target(target:Node3D, priority:int = 0, tag:String = "") -> State:
+	# Set container bounding radius to be weapon range
+	var target_bounds:BoundingSphere = null
+	var weapon:Weapon = unit.weapon
+	if weapon:
+		# Use max distance range since the bunker gives a boost in range
+		var radius:float = weapon.max_distance_range.y
+		target_bounds = BoundingSphere.new(target.global_position, radius)
+		
+	var state:State = State.new()
+	state.key = ATTACK_TARGET
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		TARGET_NODE = target,
+		BOUNDS = target_bounds,
+	}
+	
+	var target_id:int = target.get_instance_id()
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		if not is_instance_id_valid(target_id):
+			return false
+			
+		var other_target:Variant = other_data[&"TARGET_NODE"]
+		return is_instance_valid(other_target) and target_id == other_target.get_instance_id()
 	
 	_add_or_update_state(state)
 	

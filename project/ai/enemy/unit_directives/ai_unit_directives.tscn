@@ -9,9 +9,13 @@
 [ext_resource type="Script" uid="uid://cj4ph03l8lxpb" path="res://ai/enemy/unit_directives/move_and_attack_action.gd" id="7_1pph0"]
 [ext_resource type="Script" uid="uid://doexeeuhrywnc" path="res://ai/enemy/unit_directives/hold_action.gd" id="8_1pph0"]
 [ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="10_0m4yj"]
+[ext_resource type="Script" uid="uid://f8k36ghl6qk2" path="res://ai/enemy/unit_directives/ensure_target_valid.gd" id="10_n77hp"]
 [ext_resource type="Script" uid="uid://cmnurafp01fhf" path="res://ai/enemy/unit_directives/directive_sequence_composite.gd" id="10_r2fj0"]
+[ext_resource type="Script" uid="uid://dwxdaoapeio3e" path="res://ai/enemy/unit_directives/attack_target.gd" id="11_he4qs"]
 [ext_resource type="Script" uid="uid://11yk464vxtfq" path="res://ai/enemy/unit_directives/check_bounds.gd" id="11_vju81"]
+[ext_resource type="Script" uid="uid://dsf3a8vlolhx8" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="12_1xq5l"]
 [ext_resource type="Script" uid="uid://c55yc3j8iap1c" path="res://ai/enemy/unit_directives/select_position.gd" id="12_l1lbj"]
+[ext_resource type="Script" uid="uid://xqerhmi4t765" path="res://ai/enemy/unit_directives/select_viable_load_target.gd" id="13_13vxk"]
 [ext_resource type="Script" uid="uid://dyjytflt3emtf" path="res://ai/enemy/unit_directives/hold_control_point.gd" id="13_l1lbj"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="14_o4bh8"]
 
@@ -59,6 +63,36 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 script = ExtResource("8_1pph0")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
+[node name="ChooseAttackTarget" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1571839849]
+script = ExtResource("5_j53kv")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="IsAttackTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget" unique_id=1027661737]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"attack_target\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="AttackTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget" unique_id=2109353777]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="EnsureTargetValid" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget/AttackTarget" unique_id=908779954]
+script = ExtResource("10_n77hp")
+metadata/_custom_type_script = "uid://cbnbvj8prv63i"
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget/AttackTarget" unique_id=1203822075]
+script = ExtResource("12_1xq5l")
+metadata/_custom_type_script = "uid://dsf3a8vlolhx8"
+
+[node name="TryFindViableLoadTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget/AttackTarget/AlwaysSucceedDecorator" unique_id=1746576810]
+script = ExtResource("13_13vxk")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="AttackTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseAttackTarget/AttackTarget" unique_id=1696305551]
+script = ExtResource("11_he4qs")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
 [node name="ChooseDefendArea" type="Node" parent="BeehaveTree/ActionChoice" unique_id=276082783]
 script = ExtResource("5_j53kv")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
@@ -85,7 +119,15 @@ metadata/_custom_type_script = "uid://cbnbvj8prv63i"
 script = ExtResource("5_j53kv")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="SelectPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/DefendArea/HeadToPosition/Move" unique_id=919807097]
+[node name="SelectPositionOrContainer" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/DefendArea/HeadToPosition/Move" unique_id=1834413617]
+script = ExtResource("10_0m4yj")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="SelectViableLoadTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/DefendArea/HeadToPosition/Move/SelectPositionOrContainer" unique_id=1672250192]
+script = ExtResource("13_13vxk")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="SelectPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseDefendArea/DefendArea/HeadToPosition/Move/SelectPositionOrContainer" unique_id=919807097]
 script = ExtResource("12_l1lbj")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
@@ -123,7 +165,15 @@ metadata/_custom_type_script = "uid://cbnbvj8prv63i"
 script = ExtResource("5_j53kv")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="SelectPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move" unique_id=1558917198]
+[node name="SelectPositionOrContainer" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move" unique_id=908508319]
+script = ExtResource("10_0m4yj")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
+
+[node name="SelectViableLoadTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move/SelectPositionOrContainer" unique_id=14559369]
+script = ExtResource("13_13vxk")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="SelectPosition" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint/HeadToPosition/Move/SelectPositionOrContainer" unique_id=1860405520]
 script = ExtResource("12_l1lbj")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 

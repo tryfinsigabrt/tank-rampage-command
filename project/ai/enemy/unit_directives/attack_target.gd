@@ -1,11 +1,13 @@
 @tool
 extends ActionLeaf
 
-var _command_id:int
-var _running:bool
+var _state:int
 
 func tick(_actor: Node, _blackboard: Blackboard) -> int:
-	return RUNNING if _running else SUCCESS
+	match _state:
+		0: return RUNNING
+		1: return SUCCESS
+		_: return FAILURE
 	
 func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	var directive:AiUnitDirectives = actor
@@ -17,16 +19,20 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	if load_target:
 		unit_actions.load_into(load_target)
 	else:
-		var position:Vector3 = blackboard.position
-		unit_actions.move_and_attack(position)
+		var target_node:Node3D = blackboard.target_node
+		if unit_actions.get_attack_target() != target_node:
+			unit_actions.attack(target_node)
+		else:
+			_state = 1
+			return
 	
-	_command_id = unit_actions.last_command_id
-	directive.notify_command(_command_id)
-	_running = true
+	var command_id := unit_actions.last_command_id
+	directive.notify_command(command_id)
+	_state = 0
 
 	SignalUtils.connect_with_predicated_disconnect(unit_actions.command_finished,
-		func(command_id:int, destroy:Signal) -> void:
-			if command_id == _command_id:
-				_running = false
+		func(in_command_id:int, destroy:Signal) -> void:
+			if in_command_id == command_id:
+				_state = 1
 				destroy.emit()
-	, str(_command_id))
+	, str(command_id))

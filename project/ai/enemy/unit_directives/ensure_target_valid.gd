@@ -1,8 +1,6 @@
 @tool
-extends ActionLeaf
+extends ConditionLeaf
 
 func tick(_actor: Node, _blackboard: Blackboard) -> int:
 	var blackboard:UnitDirectiveBlackboard = _blackboard
-	blackboard.execute_position_callback()
-	
-	return SUCCESS
+	return SUCCESS if blackboard.target_node else FAILURE

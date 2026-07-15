@@ -17,9 +17,8 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 		if not target:
 			print_debug("%s: Attacker(%s) ordered to attack target=%d is no longer a valid target" % [name, unit.name, target_id])
 			continue
-		# Only attack if not already attacking
-		var actions:UnitActions = unit.get_or_add_actions()
-		if actions.get_attack_target() != target:
-			unit.get_or_add_actions().attack(target)
+			
+		var unit_directives := AiUnitDirectives.get_component(unit)
+		unit_directives.set_attack_target(target, 5)
 	
 	return SUCCESS
