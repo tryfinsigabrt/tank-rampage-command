@@ -2,7 +2,7 @@ class_name AttackPrioritizer extends Node
 
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
-func prioritize_targets(targets:Array[Unit]) -> Array[AttackPriority]:
+func prioritize_targets(targets:Array[Node3D]) -> Array[AttackPriority]:
 	var priorities:Array[AttackPriority]
 	if not targets:
 		return priorities
@@ -32,19 +32,30 @@ func prioritize_targets(targets:Array[Unit]) -> Array[AttackPriority]:
 			if cost:
 				building_value_weights[i] = cost.cost / 500.0
 	
-	for priority in priorities:
-		var unit := priority.unit
+	var attack_attributes:Array[TeamAssetAttributes]
+	attack_attributes.resize(priorities.size())
+	
+	var highest_attack_priority:int = 0
+	for i in priorities.size():
+		var priority := priorities[i]
+		var attributes := TeamAssetAttributes.get_attributes(priority.target, false)
+		highest_attack_priority = maxi(attributes.attack_priority, highest_attack_priority)
+		attack_attributes[i] = attributes
+		
+	for i in priorities.size():
+		var priority := priorities[i]
+		var target := priority.target
 		var weight:float = priority.weight
 		
-		var attack_priorities: TeamAssetAttributes = unit.attributes
+		var attack_priorities := attack_attributes[i]
 		if attack_priorities:
-			weight += maxf(2.0 - attack_priorities.attack_priority, 0.0)
+			weight += maxf(highest_attack_priority - attack_priorities.attack_priority, 0.0)
 			weight += attack_priorities.strength / 10.0
 	
-		for i in building_attackers.size():
-			var attackers:Array = building_attackers[i]
-			if unit in attackers:
-				weight += building_value_weights[i]
+		for j in building_attackers.size():
+			var attackers:Array = building_attackers[j]
+			if target in attackers:
+				weight += building_value_weights[j]
 		
 		priority.weight = weight
 	

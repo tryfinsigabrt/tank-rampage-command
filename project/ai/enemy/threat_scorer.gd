@@ -10,8 +10,11 @@ var ideal_distance:float = 300.0
 
 var _default_ideal_distance:float
 
+var enemy_cluster_calculator: ClusterCircleCreator
+
 func _ready() -> void:
 	_default_ideal_distance = ideal_distance
+	enemy_cluster_calculator = ClusterCircleCreator.new(cluster_calculator.max_cluster_size)
 
 #region Scoring Modifier
 func get_current_scoring_modifier() -> ThreatScoreModifier:
@@ -146,9 +149,9 @@ func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:
 		
 	return matches	
 
-func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[UnitThreatContext]:
+func calculate_threat_inputs(units: Array[Unit], threats:Array[Node3D]) -> Array[UnitThreatContext]:
 	var unit_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(units)
-	var threat_clusters:Array[UnitClustering.UnitCluster] = cluster_calculator.compute_clusters(threats)
+	var threat_clusters:Array[ClusterCircle] = enemy_cluster_calculator.compute_clusters(threats)
 	var contexts: Array[UnitThreatContext]
 	
 	if not unit_clusters or not threat_clusters:
@@ -178,8 +181,8 @@ func calculate_threat_inputs(units: Array[Unit], threats:Array[Unit]) -> Array[U
 		var min_dist:float = sqrt(min_dist_sq)
 		
 		var threat_strength:float = 0.0
-		for threat in threat_cluster.units:
-			threat_strength += threat.strength()
+		for threat:Node3D in threat_cluster.objects:
+			threat_strength += TeamAssetAttributes.get_relative_strength(threat, false)
 			
 		var context: UnitThreatContext = UnitThreatContext.new()
 		

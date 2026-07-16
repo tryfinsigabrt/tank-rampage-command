@@ -40,7 +40,7 @@ func finish() -> void:
 	var context:UnitThreatContext = _chosen_option.context
 	# Draw also in world
 	var cluster_center:Vector2 = context.threat_cluster.center
-	var y:float = context.threat_cluster.units.front().global_position.y
+	var y:float = context.threat_cluster.objects.front().global_position.y
 	var center:Vector3 = Vector3(cluster_center.x, y, cluster_center.y)
 	DebugDraw3D.draw_sphere(center, context.threat_cluster.size, _color_from_index(), draw_duration)
 	

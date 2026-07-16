@@ -1,6 +1,6 @@
 class_name UnitThreatContext
 
-var threat_cluster:UnitClustering.UnitCluster
+var threat_cluster:ClusterCircle
 var friendly_cluster:UnitClustering.UnitCluster
 
 var distance:float

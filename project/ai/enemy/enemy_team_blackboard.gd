@@ -155,9 +155,9 @@ var attack_priorities:Array[AttackPriority]:
 		if value != existing:
 			on_attacking_priorities_changed.emit()
 
-var avoidance_enemies:Array[Unit]:
+var avoidance_enemies:Array[Node3D]:
 	get:
-		return get_value(Keys.avoidance_enemies, [] as Array[Unit])
+		return get_value(Keys.avoidance_enemies, [] as Array[Node3D])
 	set(value):
 		var existing := avoidance_enemies
 		set_value(Keys.avoidance_enemies, value)

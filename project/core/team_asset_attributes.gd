@@ -19,7 +19,17 @@ var defense_strength:float = 0.0
 @export
 var explore_range:Vector2 = Vector2(100.0, 250.0)
 
-
+static func get_relative_strength(node:Node, required:bool = true) -> float:
+	var attributes := get_attributes(node, required)
+	if not attributes:
+		return 0.0
+	var total_strength:float = attributes.strength
+	
+	var health := HealthStat.get_component(node, false)
+	if health:
+		total_strength *= health.health_fraction
+	return total_strength
+	
 #region Meta retrieval
 
 func register_with(owner:Node) -> void:

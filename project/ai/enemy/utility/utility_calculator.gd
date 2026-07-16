@@ -27,7 +27,7 @@ func _ready() -> void:
 	]
 	
 	for option in _all_options:
-		_unit_utilities[option.action] = [] as Array[Unit]
+		_unit_utilities[option.action] = [] as Array[Node3D]
 
 func assess_threats() -> bool:
 	var should_reassess:bool = await rate_limiter.limit()
@@ -61,7 +61,7 @@ func assess_threats() -> bool:
 				option.context = context
 			
 			var decision := UtilityAI.choose_highest(options)
-			_unit_utilities[decision.action].append_array(context.threat_cluster.units)
+			_unit_utilities[decision.action].append_array(context.threat_cluster.objects)
 			SignalBus.on_utility_calculation.emit(name, blackboard.team, options, decision)
 
 	SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
@@ -72,10 +72,10 @@ func assess_threats() -> bool:
 			if action_units:
 				print_debug("%s: Team %d %s priorities(%d): %s" % [name, blackboard.team, action, action_units.size(), action_units])
 
-	var units_to_attack:Array[Unit] = _unit_utilities.get(ATTACK_BEHAVIOR_KEY)
+	var targets_to_attack:Array[Node3D] = _unit_utilities.get(ATTACK_BEHAVIOR_KEY)
 	# Need to duplicate so that signals fire
-	blackboard.attack_priorities = attack_prioritizer.prioritize_targets(units_to_attack)
-	blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Unit]).duplicate()
+	blackboard.attack_priorities = attack_prioritizer.prioritize_targets(targets_to_attack)
+	blackboard.avoidance_enemies = (_unit_utilities.get(FLEE_BEHAVIOR_KEY) as Array[Node3D]).duplicate()
 		
 	_reset_unit_utilities()
 	

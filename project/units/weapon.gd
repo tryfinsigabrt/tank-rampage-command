@@ -398,7 +398,7 @@ func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Diction
 	
 	# Need a new scan for the final target
 	var to_target:Vector3 = origin.direction_to(target)
-	var dev_to_target:Vector3 = to_target.rotated(global_basis.y, deg_to_rad(target_dev_deg))
+	var dev_to_target:Vector3 = to_target.rotated(global_basis.y.normalized(), deg_to_rad(target_dev_deg))
 	var new_target:Vector3 = origin + dev_to_target * cast_distance
 	# Don't change y coordinate of new_target
 	new_target.y = target.y

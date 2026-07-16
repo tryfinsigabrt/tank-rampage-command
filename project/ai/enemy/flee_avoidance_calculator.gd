@@ -18,18 +18,24 @@ func _on_avoidance_enemies_changed() -> void:
 		for unit in blackboard.idle_units:
 			# TODO: Shouldn't need to do this but ran into previously freed
 			if is_instance_valid(unit):
-				heading_dict[unit.get_instance_id()] = _calculate_weighted_avoidance_heading(unit, avoidance_enemies)
+				var avoidance_heading :=  _calculate_weighted_avoidance_heading(unit, avoidance_enemies)
+				if avoidance_heading:
+					heading_dict[unit.get_instance_id()] = avoidance_heading
 	
 	blackboard.explore_heading_bias = heading_dict
 	
-func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Unit]) -> Vector3:
+func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Node3D]) -> Vector3:
 	var total_threat_score:float = 0.0
 	var cumulative_heading:Vector3 = Vector3.ZERO
 	
 	var unit_pos:Vector3 = unit.global_position
 	
 	for enemy in enemies:
-		var enemy_pos:Vector3 = enemy.global_position
+		var enemy_unit:Unit = enemy as Unit
+		if not enemy_unit:
+			continue
+			
+		var enemy_pos:Vector3 = enemy_unit.global_position
 		# To unit so we flee away from the enemy
 		var to_unit:Vector3 = unit_pos - enemy_pos
 		var dist:float = to_unit.length()
@@ -38,7 +44,7 @@ func _calculate_weighted_avoidance_heading(unit:Unit, enemies:Array[Unit]) -> Ve
 		cumulative_heading += to_unit / maxf(0.01, dist ** 3)
 		
 		var firing_range_fract:float = 0.0
-		var weapon:Weapon = enemy.weapon
+		var weapon:Weapon = enemy_unit.weapon
 		if weapon:
 			firing_range_fract = dist / weapon.ideal_fire_range.y
 			

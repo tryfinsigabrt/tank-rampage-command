@@ -20,8 +20,8 @@ func _on_blackboard_on_idle_units_changed() -> void:
 	
 func _on_attacking_priorities_changed() -> void:
 	_refresh_monitors(blackboard.attack_priorities, _monitored_attacking_priorities, _on_attacking_priority_entry_destroyed,
-		func(value:AttackPriority) -> Unit:
-			return value.unit
+		func(value:AttackPriority) -> Node3D:
+			return value.target
 	)
 	
 func _on_attacking_units_changed() -> void:
@@ -49,16 +49,16 @@ func _on_attacking_priority_entry_destroyed(entry:AttackPriority) -> void:
 		blackboard.attack_priorities = updated
 	,
 	func() -> int:
-		var unit:Unit = entry.unit
+		var target:Node3D = entry.target
 		for i in values.size():
 			var value:AttackPriority = values[i]
-			if unit == value.unit:
+			if target == value.target:
 				return i
 		return -1
 	)
 	
 func _on_avoidance_enemy_destroyed(unit:Unit) -> void:
-	_on_destroyed(unit, blackboard.avoidance_enemies, func(updated: Array[Unit]) -> void:
+	_on_destroyed(unit, blackboard.avoidance_enemies, func(updated: Array[Node3D]) -> void:
 		# Trigger signal
 		blackboard.avoidance_enemies = updated
 	)
@@ -106,16 +106,15 @@ func _refresh_monitors(source: Array, id_list:PackedInt64Array, receiver:Callabl
 	for value:Variant in source:
 		if not is_instance_valid(value):
 			continue
-		var unit:Unit = unit_extractor.call(value) if unit_extractor else value
-		if not is_instance_valid(unit):
+		var asset:Node3D = unit_extractor.call(value) if unit_extractor else value
+		if not is_instance_valid(asset):
 			continue
-		var unit_id:int = unit.get_instance_id()
+		var asset_id:int = asset.get_instance_id()
 		# Cannot use is_connected since we are binding a new callable that will always be unique
 		# and easier to just track the ids
-		if not unit_id in id_list:
-			var callable:Callable = receiver.bind(value).unbind(1)
-			if not unit.died.is_connected(callable):
-				unit.died.connect(callable)
+		if not asset_id in id_list:
+			var callable:Callable = receiver.bind(value)
+			HealthStat.connect_died_signal(asset, callable, false)
 
 	_set_monitored_units(source, id_list, unit_extractor)
 	

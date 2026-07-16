@@ -56,6 +56,11 @@ func sweep_assets(center:Vector3, exclude:Array, team:int) -> Array[Node3D]:
 		var asset:Node3D = result.get("collider") as Node3D
 		if not asset or not asset.is_in_group(Groups.TeamAsset):
 			continue
+		# Check if alive if has health stat
+		var health := HealthStat.get_component(asset, false)
+		if health and health.is_dead:
+			continue
+			
 		var include:bool = team <= 0
 		if not include:
 			var team_component := TeamComponent.get_component(asset, false)
