@@ -38,8 +38,10 @@
 [ext_resource type="PackedScene" uid="uid://dwceb47jem5qk" path="res://buildings/city/meshes/office_01.tscn" id="18_pqi81"]
 [ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="18_uuidd"]
 [ext_resource type="PackedScene" uid="uid://7o01gebtnvtx" path="res://buildings/city/meshes/office_02.tscn" id="19_1txof"]
+[ext_resource type="PackedScene" uid="uid://cgauwvtqbg515" path="res://buildings/city/traffic_light_green.tscn" id="19_rhho1"]
 [ext_resource type="PackedScene" uid="uid://bbv3o4cbjg85q" path="res://buildings/city/meshes/city_block.tscn" id="19_xpuws"]
 [ext_resource type="PackedScene" uid="uid://dy5tos0i6j272" path="res://buildings/city/meshes/city_parking_lot.tscn" id="20_sm3vb"]
+[ext_resource type="PackedScene" uid="uid://b2bk2dfxrtjn6" path="res://buildings/city/traffic_light_red.tscn" id="20_xckxy"]
 [ext_resource type="PackedScene" uid="uid://v8s3au7e2iqa" path="res://buildings/city/meshes/city_t_intersection.tscn" id="22_nouef"]
 [ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="22_s4b5i"]
 [ext_resource type="PackedScene" uid="uid://c42n11oqcw74l" path="res://buildings/city/meshes/city_curve.tscn" id="23_vdtjt"]
@@ -3023,6 +3025,78 @@ transform = Transform3D(-0.05, 0, 0, 0, 0.05, -4.371139e-09, 0, 4.371139e-09, 0.
 
 [node name="traffic-lights2" parent="World/NavigationRegion3D/City" unique_id=433921219 instance=ExtResource("16_1h50e")]
 transform = Transform3D(0.05, -3.821371e-16, 4.371139e-09, 0, 0.05, 4.371139e-09, 4.371139e-09, 4.371139e-09, -0.05, -1.05, 0, -0.05)
+
+[node name="TrafficLightGroup" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=645549575]
+transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, -0.5, 1.9814396e-18, -4.5)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroup" unique_id=1039597487 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.5022727e-08, 0.51500005)
+
+[node name="traffic-lights3" parent="World/NavigationRegion3D/City/TrafficLightGroup" unique_id=66180957 instance=ExtResource("16_1h50e")]
+transform = Transform3D(0.05, -4.2837294e-16, 4.371139e-09, 1.8664214e-19, 0.049999997, 4.3711386e-09, 4.3711395e-09, 4.3711395e-09, -0.050000004, -0.52, 4.6334073e-08, -0.5300001)
+
+[node name="TrafficLightGroupT" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=558653779]
+transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, 4.5, -1.7832957e-17, -4.5)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT" unique_id=2020206811 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.5022727e-08, 0.51500005)
+
+[node name="traffic-lights" parent="World/NavigationRegion3D/City/TrafficLightGroupT" unique_id=1484700992 instance=ExtResource("19_rhho1")]
+transform = Transform3D(0.05, 0, -4.371139e-09, 0, 0.05, 0, -4.371139e-09, 0, -0.05, -0.52000004, 0, -0.525)
+
+[node name="TrafficLightGroupT2" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1273267161]
+transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, -5.5000005, 2.1795834e-17, 5.5)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT2" unique_id=1036484832 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
+
+[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT2" unique_id=193351894 instance=ExtResource("20_xckxy")]
+transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
+
+[node name="TrafficLightGroupT3" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=858370907]
+transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, -0.5000005, -6.201068e-17, 5.5000005)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT3" unique_id=295402289 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
+
+[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT3" unique_id=991460160 instance=ExtResource("20_xckxy")]
+transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
+
+[node name="TrafficLightGroupT4" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1513562389]
+transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, 4.4999995, -1.458172e-16, 5.500001)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT4" unique_id=2094892567 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
+
+[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT4" unique_id=1376457597 instance=ExtResource("20_xckxy")]
+transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
+
+[node name="TrafficLightGroup3" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1892529383]
+transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, 4.5, -1.7832957e-17, 0.5000001)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroup3" unique_id=1447160502 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.5022727e-08, 0.51500005)
+
+[node name="traffic-lights3" parent="World/NavigationRegion3D/City/TrafficLightGroup3" unique_id=2029544603 instance=ExtResource("16_1h50e")]
+transform = Transform3D(0.05, -4.2837294e-16, 4.371139e-09, 1.8664214e-19, 0.049999997, 4.3711386e-09, 4.3711395e-09, 4.3711395e-09, -0.050000004, -0.52, 4.6334073e-08, -0.5300001)
+
+[node name="TrafficLightGroup4" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1330025773]
+transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, -5.4999995, 2.1795834e-17, 0.5000001)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroup4" unique_id=1067658876 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.5022727e-08, 0.51500005)
+
+[node name="traffic-lights3" parent="World/NavigationRegion3D/City/TrafficLightGroup4" unique_id=408817160 instance=ExtResource("16_1h50e")]
+transform = Transform3D(0.05, -4.2837294e-16, 4.371139e-09, 1.8664214e-19, 0.049999997, 4.3711386e-09, 4.3711395e-09, 4.3711395e-09, -0.050000004, -0.52, 5.1579438e-08, -0.5900001)
+
+[node name="TrafficLightGroup5" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=225680888]
+transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, -5.4999995, 2.1795834e-17, -4.5)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroup5" unique_id=1541263581 instance=ExtResource("16_1h50e")]
+transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.555, -4.8082523e-08, 0.5500001)
+
+[node name="traffic-lights3" parent="World/NavigationRegion3D/City/TrafficLightGroup5" unique_id=1418448351 instance=ExtResource("16_1h50e")]
+transform = Transform3D(0.05, -4.2837294e-16, 4.371139e-09, 1.8664214e-19, 0.049999997, 4.3711386e-09, 4.3711395e-09, 4.3711395e-09, -0.050000004, -0.58, 5.2453665e-08, -0.6000001)
 
 [node name="Expansion" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1086163164]
 

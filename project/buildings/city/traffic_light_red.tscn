@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b2bk2dfxrtjn6"]
+
+[ext_resource type="PackedScene" uid="uid://d3g12wbu08aqa" path="res://buildings/city/traffic-light-red.fbx" id="2_12d8i"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_r8knt"]
+height = 22.0
+radius = 0.25
+
+[node name="traffic-lights" type="Node3D" unique_id=2020743203]
+transform = Transform3D(-0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="traffic-light-red" parent="." unique_id=1917318671 instance=ExtResource("2_12d8i")]
+transform = Transform3D(0.9935719, -9.896539e-09, 0.11320317, 7.1054274e-15, 1, 8.7422784e-08, -0.11320317, -8.686081e-08, 0.9935719, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1848996890]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1691306523]
+shape = SubResource("CylinderShape3D_r8knt")
