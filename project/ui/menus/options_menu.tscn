@@ -143,6 +143,22 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Graphics"
 
+[node name="AntiAliasingRow" type="HBoxContainer" parent="Padding/Content" unique_id=1422291058]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="AntiAliasingLabel" type="Label" parent="Padding/Content/AntiAliasingRow" unique_id=2021302778]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Anti-Aliasing"
+
+[node name="AntiAliasingOptionButton" type="OptionButton" parent="Padding/Content/AntiAliasingRow" unique_id=1259362084]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="ShowFpsRow" type="HBoxContainer" parent="Padding/Content" unique_id=2041951104]
 layout_mode = 2
 theme_override_constants/separation = 24
@@ -173,5 +189,6 @@ text = "Back"
 [connection signal="value_changed" from="Padding/Content/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Padding/Content/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="value_changed" from="Padding/Content/VoiceRow/VoiceSlider" to="." method="_on_voice_slider_value_changed"]
+[connection signal="item_selected" from="Padding/Content/AntiAliasingRow/AntiAliasingOptionButton" to="." method="_on_anti_aliasing_option_button_item_selected"]
 [connection signal="toggled" from="Padding/Content/ShowFpsRow/ShowFpsCheckButton" to="." method="_on_show_fps_check_button_toggled"]
 [connection signal="pressed" from="Padding/Content/Actions/BackButton" to="." method="_on_back_button_pressed"]
