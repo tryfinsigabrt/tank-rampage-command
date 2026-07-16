@@ -41,7 +41,6 @@
 [ext_resource type="PackedScene" uid="uid://cgauwvtqbg515" path="res://buildings/city/traffic_light_green.tscn" id="19_rhho1"]
 [ext_resource type="PackedScene" uid="uid://bbv3o4cbjg85q" path="res://buildings/city/meshes/city_block.tscn" id="19_xpuws"]
 [ext_resource type="PackedScene" uid="uid://dy5tos0i6j272" path="res://buildings/city/meshes/city_parking_lot.tscn" id="20_sm3vb"]
-[ext_resource type="PackedScene" uid="uid://b2bk2dfxrtjn6" path="res://buildings/city/traffic_light_red.tscn" id="20_xckxy"]
 [ext_resource type="PackedScene" uid="uid://v8s3au7e2iqa" path="res://buildings/city/meshes/city_t_intersection.tscn" id="22_nouef"]
 [ext_resource type="PackedScene" uid="uid://brsw1r4rla4bj" path="res://units/enemy/tank/enemy_tank.tscn" id="22_s4b5i"]
 [ext_resource type="PackedScene" uid="uid://c42n11oqcw74l" path="res://buildings/city/meshes/city_curve.tscn" id="23_vdtjt"]
@@ -2136,7 +2135,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mma45"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rhho1"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -2147,7 +2146,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rhho1"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xckxy"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2161,13 +2160,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xckxy"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k6rpq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k6rpq"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jkvjs"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2181,13 +2180,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jkvjs"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdllg"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2201,13 +2200,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdllg"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igvic"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igvic"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hj2hk"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2354,7 +2353,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 shape = SubResource("BoxShape3D_1fwdr")
 
 [node name="building_004" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=289137660]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 74.99999, 0, -99.99999, -8.940697e-06, 0, 0, 5)
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 74.99999, 0, -99.99999, -8.940697e-06, 0.09, 0, 4.8)
 mesh = SubResource("ArrayMesh_mma45")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("10_xpuws")
@@ -2402,7 +2401,7 @@ mesh = SubResource("ArrayMesh_tdllg")
 skeleton = NodePath("")
 
 [node name="city-intersection4" type="MeshInstance3D" parent="World/NavigationRegion3D/City" unique_id=1628528178]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, 1)
+transform = Transform3D(102, 0, 0, 0, -4.4585618e-06, 100, 0, -102, -4.371139e-06, -6, 0.001, 1)
 mesh = SubResource("ArrayMesh_tdllg")
 skeleton = NodePath("")
 
@@ -3044,32 +3043,32 @@ transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.
 [node name="traffic-lights" parent="World/NavigationRegion3D/City/TrafficLightGroupT" unique_id=1484700992 instance=ExtResource("19_rhho1")]
 transform = Transform3D(0.05, 0, -4.371139e-09, 0, 0.05, 0, -4.371139e-09, 0, -0.05, -0.52000004, 0, -0.525)
 
-[node name="TrafficLightGroupT2" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1273267161]
-transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, -5.5000005, 2.1795834e-17, 5.5)
-
-[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT2" unique_id=1036484832 instance=ExtResource("16_1h50e")]
-transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
-
-[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT2" unique_id=193351894 instance=ExtResource("20_xckxy")]
-transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
-
 [node name="TrafficLightGroupT3" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=858370907]
 transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, -0.5000005, -6.201068e-17, 5.5000005)
 
 [node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT3" unique_id=295402289 instance=ExtResource("16_1h50e")]
-transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
+transform = Transform3D(2.1855695e-09, 0, 0.050000004, -4.3711395e-09, 0.049999997, 1.3322676e-15, 0.05, 4.3711395e-09, -2.1855697e-09, 0.52, 4.065159e-08, -0.46500003)
 
-[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT3" unique_id=991460160 instance=ExtResource("20_xckxy")]
-transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
+[node name="traffic-lights" parent="World/NavigationRegion3D/City/TrafficLightGroupT3" unique_id=118883303 instance=ExtResource("19_rhho1")]
+transform = Transform3D(2.1855695e-09, 0, -0.05, 0, 0.05, 0, -0.05, 0, -2.1855695e-09, -0.51000005, 0.040000003, 0.53)
 
-[node name="TrafficLightGroupT4" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1513562389]
+[node name="TrafficLightGroupT6" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1209196220]
 transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, 4.4999995, -1.458172e-16, 5.500001)
 
-[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT4" unique_id=2094892567 instance=ExtResource("16_1h50e")]
-transform = Transform3D(-0.05, -3.9794872e-17, 1.3877788e-17, -1.9216882e-19, 0.049999997, -4.3711386e-09, 0, 4.3711395e-09, 0.050000004, 0.52, -4.9393865e-08, 0.56500006)
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT6" unique_id=1515695182 instance=ExtResource("16_1h50e")]
+transform = Transform3D(2.1855695e-09, 0, 0.050000004, -4.3711395e-09, 0.049999997, 1.3322676e-15, 0.05, 4.3711395e-09, -2.1855697e-09, 0.52, 4.065159e-08, -0.46500003)
 
-[node name="traffic-lights2" parent="World/NavigationRegion3D/City/TrafficLightGroupT4" unique_id=1376457597 instance=ExtResource("20_xckxy")]
-transform = Transform3D(2.1855695e-09, 0, 0.05, 0, 0.05, 0, 0.05, 0, -2.1855695e-09, -0.49500006, 0, -0.46499997)
+[node name="traffic-lights" parent="World/NavigationRegion3D/City/TrafficLightGroupT6" unique_id=759765445 instance=ExtResource("19_rhho1")]
+transform = Transform3D(2.1855695e-09, 0, -0.05, 0, 0.05, 0, -0.05, 0, -2.1855695e-09, -0.51000005, 0.040000003, 0.565)
+
+[node name="TrafficLightGroupT5" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=2102911319]
+transform = Transform3D(-1, 1.0362081e-17, 8.742278e-08, 1.6761303e-17, 1, 4.440892e-16, -8.742278e-08, 2.220446e-16, -1, -5.5000005, 2.179584e-17, 5.5)
+
+[node name="traffic-lights4" parent="World/NavigationRegion3D/City/TrafficLightGroupT5" unique_id=339409430 instance=ExtResource("16_1h50e")]
+transform = Transform3D(2.1855695e-09, 0, 0.050000004, -4.3711395e-09, 0.049999997, 1.3322676e-15, 0.05, 4.3711395e-09, -2.1855697e-09, 0.52, 4.065159e-08, -0.46500003)
+
+[node name="traffic-lights" parent="World/NavigationRegion3D/City/TrafficLightGroupT5" unique_id=1274281631 instance=ExtResource("19_rhho1")]
+transform = Transform3D(2.1855695e-09, 0, -0.05, 0, 0.05, 0, -0.05, 0, -2.1855695e-09, -0.5500001, 0, 0.525)
 
 [node name="TrafficLightGroup3" type="Node3D" parent="World/NavigationRegion3D/City" unique_id=1892529383]
 transform = Transform3D(1, 1.0362082e-17, 0, -3.9628792e-18, 1, 0, 5.551115e-17, 2.220446e-16, 1, 4.5, -1.7832957e-17, 0.5000001)
@@ -3127,7 +3126,7 @@ transform = Transform3D(100, 0, 1.8696154e-13, -1.8257001e-15, -1.1920924e-05, 9
 transform = Transform3D(100, 0, 1.8696154e-13, -2.2697893e-15, -1.19209235e-05, 99.99995, 2.1316282e-14, -100.00004, -1.1920934e-05, 9.974741, -1.3969839e-09, 0.9991872)
 
 [node name="city-street3" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1639027528 instance=ExtResource("8_6fwx2")]
-transform = Transform3D(100, -2.842171e-14, 2.4380495e-13, -2.7138785e-15, -1.1920923e-05, 99.99995, 2.4868996e-14, -100.000046, -1.1920935e-05, 10.976086, -1.3969839e-09, 0.99918723)
+transform = Transform3D(102, 2.4868999e-14, 1.0870584e-21, 0, -4.371139e-06, 100, 2.5366379e-14, -100, -4.371139e-06, 10.961, 0, 0.999)
 
 [node name="city-street4" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=181197666 instance=ExtResource("8_6fwx2")]
 transform = Transform3D(100, -5.684342e-14, 3.0064837e-13, -2.9359231e-15, -1.1920923e-05, 99.99995, 3.1974423e-14, -100.00005, -1.1920936e-05, 11.973274, -1.3969839e-09, 0.9991873)
@@ -3187,7 +3186,7 @@ transform = Transform3D(50, 0, 3.9412917e-13, -8.0182775e-16, -1.1920924e-05, 14
 transform = Transform3D(50, 0, 5.07816e-13, -1.0238724e-15, -1.19209235e-05, 149.99995, 1.0658141e-14, -100.00004, -1.7881393e-05, 7.9999933, 2.3283064e-09, -3.0000005)
 
 [node name="city-block" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=1050305959 instance=ExtResource("19_xpuws")]
-transform = Transform3D(600, 6.2011004e-14, 2.710587e-21, 0, -1.7484555e-05, 400, 9.30165e-14, -400, -1.7484555e-05, 7.9999943, -4.656613e-10, 0)
+transform = Transform3D(595, 6.2011004e-14, 2.7105873e-21, 0, -1.7484555e-05, 400, 9.224137e-14, -400, -1.7484555e-05, 8, 0, 0)
 
 [node name="office7" parent="World/NavigationRegion3D/City/Expansion/Streets02" unique_id=521204301 instance=ExtResource("18_pqi81")]
 transform = Transform3D(-2.1855694e-06, 100.00004, 1.8035938e-05, -4.782728e-08, -1.2023951e-05, 149.99995, 50.00002, 4.3711407e-06, 1.4348285e-07, 10.833321, 2.7939677e-09, -3.833334)
@@ -3714,26 +3713,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.9, 0.6, 110.59996)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.248, 0, 80.769)
 curve = SubResource("Curve3D_72cmr")
-crack_mask_texture = SubResource("NoiseTexture2D_mma45")
-scrap_mask_texture = SubResource("NoiseTexture2D_rhho1")
+crack_mask_texture = SubResource("NoiseTexture2D_rhho1")
+scrap_mask_texture = SubResource("NoiseTexture2D_xckxy")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1004973095 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.68715, 0, -268.331)
 curve = SubResource("Curve3D_mma45")
-crack_mask_texture = SubResource("NoiseTexture2D_xckxy")
-scrap_mask_texture = SubResource("NoiseTexture2D_k6rpq")
+crack_mask_texture = SubResource("NoiseTexture2D_k6rpq")
+scrap_mask_texture = SubResource("NoiseTexture2D_jkvjs")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.548, 0, -383.331)
 curve = SubResource("Curve3D_rhho1")
-crack_mask_texture = SubResource("NoiseTexture2D_jkvjs")
-scrap_mask_texture = SubResource("NoiseTexture2D_ua8d4")
+crack_mask_texture = SubResource("NoiseTexture2D_ua8d4")
+scrap_mask_texture = SubResource("NoiseTexture2D_tdllg")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.552, 0, 240.869)
 curve = SubResource("Curve3D_xckxy")
-crack_mask_texture = SubResource("NoiseTexture2D_tdllg")
-scrap_mask_texture = SubResource("NoiseTexture2D_igvic")
+crack_mask_texture = SubResource("NoiseTexture2D_igvic")
+scrap_mask_texture = SubResource("NoiseTexture2D_hj2hk")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 
