@@ -20,7 +20,7 @@ func _ready() -> void:
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(2))
 
 func _execute() -> void:
-	var currently_attacking:Dictionary[int, int] = blackboard.currently_attacking
+	var currently_attacking:Dictionary[int, AttackPriority] = blackboard.currently_attacking
 	var attack_priorities:Array[AttackPriority] = blackboard.attack_priorities
 		
 	# See if select new units to attack
@@ -71,7 +71,7 @@ func _execute() -> void:
 		
 		for attacker in _attacker_pool:
 			var available_unit_id:int = attacker.get_instance_id()
-			currently_attacking[available_unit_id] = target_id
+			currently_attacking[available_unit_id] = new_priority
 			attacker_list.push_back(available_unit_id)
 			count += 1
 			_tmp_units.push_back(attacker)
@@ -92,11 +92,11 @@ func _on_command_finished(unit:Unit, command:StringName) -> void:
 	if command == UnitBlackboard.Action.Attack and is_instance_valid(unit) and unit.is_on_team(blackboard.team):
 		print_debug("%s: unit=%s finished attacking" % [name, unit.name])
 		
-		var attacker_mapper: Dictionary[int,int] = blackboard.currently_attacking
+		var attacker_mapper: Dictionary[int,AttackPriority] = blackboard.currently_attacking
 		var attacker_id:int = unit.get_instance_id()
 
-		var target_id:int = attacker_mapper.get(attacker_id, 0)		
-		if target_id == 0:
+		var target_info:AttackPriority = attacker_mapper.get(attacker_id)		
+		if not target_info:
 			# FIXME: Slow path - Need to go through and remove from values
 			# This is happening because the currently_attacking blackboard list has already been updated before the command finishes
 			for other_target_id:int in _currently_attacking_mapping.keys():
@@ -111,7 +111,8 @@ func _on_command_finished(unit:Unit, command:StringName) -> void:
 			attacker_mapper.erase(attacker_id)
 
 			# If the target was destroyed then just remove the array entry and let the UnitViabilityChecker update the currently_attacking array
-			if not is_instance_id_valid(target_id):
+			var target_id:int = target_info.target_id
+			if not target_info.valid:
 				print_debug("%s: target=%d destroyed" % [name, target_id])
 				_currently_attacking_mapping.erase(target_id)
 			else:			

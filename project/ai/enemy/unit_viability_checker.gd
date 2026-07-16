@@ -25,7 +25,10 @@ func _on_attacking_priorities_changed() -> void:
 	)
 	
 func _on_attacking_units_changed() -> void:
-	_refresh_dictionary_monitors(blackboard.currently_attacking, _monitored_attacking, _on_attacking_unit_destroyed)
+	_refresh_dictionary_monitors(blackboard.currently_attacking, _monitored_attacking, _on_attacking_unit_destroyed, _get_target_id_from_attack_priority)
+
+static func _get_target_id_from_attack_priority(target_info:AttackPriority) -> int:
+	return target_info.target_id
 
 func _on_avoidance_enemies_changed() -> void:
 	_refresh_monitors(blackboard.avoidance_enemies, _monitored_avoidance_enemies, _on_avoidance_enemy_destroyed)
@@ -64,9 +67,10 @@ func _on_avoidance_enemy_destroyed(unit:Unit) -> void:
 	)
 		
 func _on_attacking_unit_destroyed(source_unit_id:int, target_unit_id:int, destroyed_param_index:int) -> void:
-	_on_destroyed_dict(source_unit_id, target_unit_id, destroyed_param_index, blackboard.currently_attacking, func(updated: Dictionary[int,int]) -> void:
-		# Trigger signal
-		blackboard.currently_attacking = updated
+	_on_destroyed_dict(source_unit_id, target_unit_id, destroyed_param_index, blackboard.currently_attacking, _get_target_id_from_attack_priority, 
+		func(updated: Dictionary[int,AttackPriority]) -> void:
+			# Trigger signal
+			blackboard.currently_attacking = updated
 	)
 	
 func _on_destroyed(value:Variant, blackboard_value:Array, updater:Callable, blackboard_finder:Callable = Callable()) -> void:
@@ -86,7 +90,7 @@ func _on_destroyed_dict_keys(unit:Unit, blackboard_value: Array, updater:Callabl
 	if blackboard_value.size() != orig_size:
 		updater.call(blackboard_value)
 	
-func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int, blackboard_value: Dictionary[int,int], updater:Callable) -> void:
+func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int, blackboard_value: Dictionary, target_id_source_extractor:Callable, updater:Callable) -> void:
 	var orig_size := blackboard_value.size()
 	if destroyed_param_index == 0:
 		blackboard_value.erase(source_id)
@@ -95,7 +99,7 @@ func _on_destroyed_dict(source_id:int, target_id:int, destroyed_param_index:int,
 		blackboard_value.erase(source_id)
 		
 		for other_source:int in blackboard_value.keys():
-			var other_target: int = blackboard_value[other_source]
+			var other_target: int = target_id_source_extractor.call(blackboard_value[other_source])
 			if other_target == target_id:
 				blackboard_value.erase(other_source)
 				
@@ -150,9 +154,10 @@ func _set_monitored_dictionary_keys_units(source:Dictionary, id_list:PackedInt64
 	id_list.clear()
 	id_list.append_array(source.keys())
 
-func _refresh_dictionary_monitors(source:Dictionary[int,int], ids:Dictionary[int,bool], receiver:Callable) -> void:
-	for source_id in source:
-		var target_id := source[source_id]
+func _refresh_dictionary_monitors(source:Dictionary, ids:Dictionary[int,bool], receiver:Callable, target_id_source_extractor:Callable) -> void:
+	for source_id:int in source:
+		var source_value:Variant = source[source_id]
+		var target_id:int = target_id_source_extractor.call(source_value)
 		var source_unit:Unit = instance_from_id(source_id)
 		var target_unit:Unit = instance_from_id(target_id)
 
@@ -167,11 +172,12 @@ func _refresh_dictionary_monitors(source:Dictionary[int,int], ids:Dictionary[int
 			if not target_unit.died.is_connected(target_callable):
 				target_unit.died.connect(target_callable)
 
-	_set_monitored_dictionary_units(source, ids)
+	_set_monitored_dictionary_units(source, ids, target_id_source_extractor)
 
-func _set_monitored_dictionary_units(source:Dictionary[int,int], ids:Dictionary[int,bool]) -> void:
+func _set_monitored_dictionary_units(source:Dictionary, ids:Dictionary[int,bool], target_id_source_extractor:Callable) -> void:
 	ids.clear()
 	# Monitoring keys and values
-	for key in source:
+	for key:int in source:
 		ids[key] = true
-		ids[source[key]] = true
+		var target_id:int = target_id_source_extractor.call(source[key])
+		ids[target_id] = true

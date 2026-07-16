@@ -48,7 +48,7 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 	
 	# Set blackboard key and return other available units for attacks
 	#var buildings_under_attack: Array[Building] = blackboard.buildings_under_attack
-	var currently_attacking: Dictionary[int,int] = blackboard.currently_attacking
+	var currently_attacking: Dictionary[int,AttackPriority] = blackboard.currently_attacking
 	for attacker_id in currently_attacking:
 		_occupied_units[attacker_id] = true
 		

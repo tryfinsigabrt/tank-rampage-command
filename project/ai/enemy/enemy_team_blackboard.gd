@@ -137,9 +137,9 @@ var base_defend_units:Dictionary[int,int]:
 	set(value):
 		set_value(Keys.base_defend_units, value)
 		
-var currently_attacking:Dictionary[int, int]:
+var currently_attacking:Dictionary[int, AttackPriority]:
 	get:
-		return get_value(Keys.currently_attacking, {} as Dictionary[int, int])
+		return get_value(Keys.currently_attacking, {} as Dictionary[int, AttackPriority])
 	set(value):
 		#var existing := currently_attacking
 		set_value(Keys.currently_attacking, value)
