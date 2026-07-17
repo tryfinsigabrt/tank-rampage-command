@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dngqpi4qhtwby"]
+
+[ext_resource type="PackedScene" uid="uid://ddducuwtobv5" path="res://props/street-signs/speed-limit-sign.fbx" id="1_7812x"]
+[ext_resource type="Shape3D" uid="uid://b658pgjym2uwn" path="res://props/street-signs/sign-collider-cylinder-shape.tres" id="2_x3g4g"]
+
+[node name="speed-limit-25" type="Node3D" unique_id=1486260066]
+
+[node name="speed-limit-sign" parent="." unique_id=640122378 instance=ExtResource("1_7812x")]
+transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="speed-limit-sign" unique_id=63970896]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="speed-limit-sign/StaticBody3D" unique_id=690427200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = ExtResource("2_x3g4g")
