@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://rl6igg0711fg"]
+
+[ext_resource type="PackedScene" uid="uid://c01bvysg0fv4p" path="res://props/street-signs/stopsign.fbx" id="1_61t21"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_38v30"]
+radius = 0.1
+
+[node name="stopsign" type="Node3D" unique_id=1526705396]
+
+[node name="stopsign" parent="." unique_id=1904976883 instance=ExtResource("1_61t21")]
+transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="stopsign" unique_id=1582940379]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="stopsign/StaticBody3D" unique_id=1071535536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0522461, 0)
+shape = SubResource("CylinderShape3D_38v30")

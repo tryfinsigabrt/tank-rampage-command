@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbl8be4l677rs"
-path="res://.godot/imported/no-parking-sign.png-8b8e4e4278aa0e55d171f8c2715fc781.ctex"
+path="res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://props/street-signs/no-parking-sign.png"
-dest_files=["res://.godot/imported/no-parking-sign.png-8b8e4e4278aa0e55d171f8c2715fc781.ctex"]
+source_file="res://props/street-signs/tow-zone-sign.png"
+dest_files=["res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.ctex"]
 
 [params]
 
