@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://c42n11oqcw74l" path="res://buildings/city/meshes/city_curve.tscn" id="23_vdtjt"]
 [ext_resource type="PackedScene" uid="uid://c1ipseqpueqgd" path="res://buildings/brick_ruins/brick_ruins_full.tscn" id="26_ve7lj"]
 [ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
+[ext_resource type="PackedScene" uid="uid://dd8tmmpjlstpe" path="res://props/street-signs/prop_yield_sign.tscn" id="28_k6rpq"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
 [ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="42_72cmr"]
@@ -2136,7 +2137,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xckxy"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jkvjs"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -2147,7 +2148,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k6rpq"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2157,26 +2158,6 @@ seamless = true
 closed = true
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 33.011536, 0, 0, 0, 0, 0, 0, 0, 0, 21.221518, 0, 10.610759, 0, 0, 0, 0, 0, 0, 1.1688185e-15, 0, 9.544127, 0, 0, 0, 0, 0, 0, -11.251659, 0, 5.6258297, 0, 0, 0, 0, 0, 0, -20.61304, 0, 1.2621848e-15, 0, 0, 0, 0, 0, 0, -13.784771, 0, -6.8923855, 0, 0, 0, 0, 0, 0, -3.6225943e-15, 0, -9.860242, 0, 0, 0, 0, 0, 0, 19.430418, 0, -9.715209),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 8
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jkvjs"]
-width = 256
-height = 256
-noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
-seamless = true
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
-width = 256
-height = 256
-noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
-seamless = true
-
-[sub_resource type="Curve3D" id="Curve3D_rhho1"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 20.957718, 0, 0, 0, 0, 0, 0, 0, 0, 19.115406, 0, 9.557703, 0, 0, 0, 0, 0, 0, 1.4050247e-15, 0, 11.472898, 0, 0, 0, 0, 0, 0, -14.006497, 0, 7.0032487, 0, 0, 0, 0, 0, 0, -17.635914, 0, 1.0798882e-15, 0, 0, 0, 0, 0, 0, -8.187145, 0, -4.0935726, 0, 0, 0, 0, 0, 0, -4.1307688e-15, 0, -11.243429, 0, 0, 0, 0, 0, 0, 16.429462, 0, -8.214731),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -2193,10 +2174,10 @@ height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
 seamless = true
 
-[sub_resource type="Curve3D" id="Curve3D_xckxy"]
+[sub_resource type="Curve3D" id="Curve3D_rhho1"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 15.6004925, 0, 0, 0, 0, 0, 0, 0, 0, 22.600111, 0, 11.3000555, 0, 0, 0, 0, 0, 0, 1.4902205e-15, 0, 12.168574, 0, 0, 0, 0, 0, 0, -6.6495337, 0, 3.3247669, 0, 0, 0, 0, 0, 0, -15.434046, 0, 9.450627e-16, 0, 0, 0, 0, 0, 0, -13.992299, 0, -6.9961495, 0, 0, 0, 0, 0, 0, -2.7437123e-15, 0, -7.468037, 0, 0, 0, 0, 0, 0, 20.992031, 0, -10.496016),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 20.957718, 0, 0, 0, 0, 0, 0, 0, 0, 19.115406, 0, 9.557703, 0, 0, 0, 0, 0, 0, 1.4050247e-15, 0, 11.472898, 0, 0, 0, 0, 0, 0, -14.006497, 0, 7.0032487, 0, 0, 0, 0, 0, 0, -17.635914, 0, 1.0798882e-15, 0, 0, 0, 0, 0, 0, -8.187145, 0, -4.0935726, 0, 0, 0, 0, 0, 0, -4.1307688e-15, 0, -11.243429, 0, 0, 0, 0, 0, 0, 16.429462, 0, -8.214731),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -2208,6 +2189,26 @@ noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2r4um"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
+seamless = true
+
+[sub_resource type="Curve3D" id="Curve3D_xckxy"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 15.6004925, 0, 0, 0, 0, 0, 0, 0, 0, 22.600111, 0, 11.3000555, 0, 0, 0, 0, 0, 0, 1.4902205e-15, 0, 12.168574, 0, 0, 0, 0, 0, 0, -6.6495337, 0, 3.3247669, 0, 0, 0, 0, 0, 0, -15.434046, 0, 9.450627e-16, 0, 0, 0, 0, 0, 0, -13.992299, 0, -6.9961495, 0, 0, 0, 0, 0, 0, -2.7437123e-15, 0, -7.468037, 0, 0, 0, 0, 0, 0, 20.992031, 0, -10.496016),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmbt"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
+seamless = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -3541,6 +3542,9 @@ transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e
 [node name="city-t-intersection5" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1368652193 instance=ExtResource("22_nouef")]
 transform = Transform3D(1.3113432e-05, 100.000015, 1.202396e-05, -9.565463e-08, -1.2023952e-05, 99.99995, 100.00007, -1.3113422e-05, 9.565221e-08, 4.0000033, -2.3283064e-09, 2.0000012)
 
+[node name="yield-sign" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=106597247 instance=ExtResource("28_k6rpq")]
+transform = Transform3D(0.03333333, 2.3076098e-10, 1.1589791e-10, -1.228828e-12, 0.033333324, -3.311368e-11, -1.6556844e-11, -9.934105e-11, 0.033333335, 6.1607594, -0.0074027944, -5.956903)
+
 [node name="city-curve" parent="World/NavigationRegion3D/City" unique_id=1985063192 instance=ExtResource("23_vdtjt")]
 transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016582e-05, 99.99995, -100.00005, 4.3711425e-06, 1.03027304e-07, 5.003334, 1.3504177e-08, -13.8633375)
 
@@ -3714,26 +3718,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.9, 0.6, 110.59996)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.248, 0, 80.769)
 curve = SubResource("Curve3D_72cmr")
-crack_mask_texture = SubResource("NoiseTexture2D_xckxy")
-scrap_mask_texture = SubResource("NoiseTexture2D_k6rpq")
+crack_mask_texture = SubResource("NoiseTexture2D_jkvjs")
+scrap_mask_texture = SubResource("NoiseTexture2D_ua8d4")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1004973095 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.68715, 0, -268.331)
 curve = SubResource("Curve3D_mma45")
-crack_mask_texture = SubResource("NoiseTexture2D_jkvjs")
-scrap_mask_texture = SubResource("NoiseTexture2D_ua8d4")
+crack_mask_texture = SubResource("NoiseTexture2D_tdllg")
+scrap_mask_texture = SubResource("NoiseTexture2D_igvic")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.548, 0, -383.331)
 curve = SubResource("Curve3D_rhho1")
-crack_mask_texture = SubResource("NoiseTexture2D_tdllg")
-scrap_mask_texture = SubResource("NoiseTexture2D_igvic")
+crack_mask_texture = SubResource("NoiseTexture2D_hj2hk")
+scrap_mask_texture = SubResource("NoiseTexture2D_2r4um")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.552, 0, 240.869)
 curve = SubResource("Curve3D_xckxy")
-crack_mask_texture = SubResource("NoiseTexture2D_hj2hk")
-scrap_mask_texture = SubResource("NoiseTexture2D_2r4um")
+crack_mask_texture = SubResource("NoiseTexture2D_2fmbt")
+scrap_mask_texture = SubResource("NoiseTexture2D_ljfbl")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 

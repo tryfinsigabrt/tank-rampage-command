@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dd8tmmpjlstpe"]
+
+[ext_resource type="PackedScene" uid="uid://hkryweekjbjn" path="res://props/street-signs/yield-sign.fbx" id="1_ciwur"]
+[ext_resource type="Shape3D" uid="uid://b658pgjym2uwn" path="res://props/street-signs/sign-collider-cylinder-shape.tres" id="2_lqw64"]
+
+[node name="yield-sign" type="Node3D" unique_id=106597247]
+
+[node name="yield-sign" parent="." unique_id=1676380074 instance=ExtResource("1_ciwur")]
+transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="yield-sign" unique_id=695419197]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="yield-sign/StaticBody3D" unique_id=1824659076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = ExtResource("2_lqw64")
