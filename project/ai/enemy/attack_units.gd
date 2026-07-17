@@ -23,8 +23,8 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 			
 		var unit_directives := AiUnitDirectives.get_component(unit)
 		
-		var priority:int = 5
-		priority += floori(target_info.weight / 10.0)
+		var priority:int = 15
+		priority += floori(target_info.weight)
 		unit_directives.set_attack_target(target, priority)
 	
 	return SUCCESS
