@@ -22,6 +22,7 @@ var is_shooting:bool:
 
 var _aim_at_tween:Tween
 var _has_moved:bool
+var _last_target_aim:Quaternion
 
 var _ground_cast_parameters:PhysicsRayQueryParameters3D
 var _surface_normal:Vector3
@@ -114,6 +115,8 @@ func aim_at(world_location:Vector3) -> void:
 	var duration := angle_deg / turning_speed_degrees
 		
 	if is_instance_valid(_aim_at_tween):
+		if _aim_at_tween.is_running() and target_quat.is_equal_approx(_last_target_aim):
+			return
 		_aim_at_tween.kill()
 		_aim_at_tween = null
 
@@ -123,6 +126,7 @@ func aim_at(world_location:Vector3) -> void:
 		.set_ease(Tween.EASE_OUT)
 	
 	_aim_at_tween = tween
+	_last_target_aim = target_quat
 	
 func shoot() -> void:	
 	await _weapon.fire()
