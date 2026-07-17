@@ -92,9 +92,9 @@ func move(target_position:Vector3) -> void:
 	
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, _command_id, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Move, _command_id, _set_command_args({
 		&"position" : target_position
-	} as Dictionary[StringName, Variant])
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Move, target_position])
@@ -112,9 +112,9 @@ func _do_attack(enemy:Node3D) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, {
-		&"target_node": enemy
-	} as Dictionary[StringName, Variant])
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, _set_command_args({
+		&"target_id" : enemy.get_instance_id()
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, StringUtils.safe_name(enemy)])
@@ -137,9 +137,9 @@ func attack_position(target_position:Vector3) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Attack, _command_id, _set_command_args({
 		&"target_position": target_position
-	} as Dictionary[StringName, Variant])
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Attack, target_position])
@@ -153,13 +153,17 @@ func move_and_attack(target_position:Vector3) -> void:
 
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack, _command_id, {
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.MoveAndAttack, _command_id, _set_command_args({
 		&"position": target_position
-	} as Dictionary[StringName, Variant])
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % \
 			[name, StringUtils.safe_name(unit), UnitBlackboard.Action.MoveAndAttack, target_position])
+
+func _set_command_args(args:Dictionary[StringName, Variant]) -> Dictionary[StringName, Variant]:
+	blackboard.set_value(UnitBlackboard.Keys.CommandArgs, args)
+	return args
 	
 func follow(friendly:Unit) -> void:
 	_new_action()
@@ -177,9 +181,9 @@ func follow(friendly:Unit) -> void:
 	
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Follow, _command_id, {
-		&"target_node": friendly
-	} as Dictionary[StringName, Variant])
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Follow, _command_id, _set_command_args({
+		&"target_id": friendly.get_instance_id()
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Follow, StringUtils.safe_name(friendly)])
@@ -195,9 +199,9 @@ func load_into(asset:Node3D) -> void:
 	
 	enabled = true
 	
-	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Load, _command_id, {
-		&"target_node": asset
-	} as Dictionary[StringName, Variant])
+	SignalBus.on_unit_command_scheduled.emit(unit, UnitBlackboard.Action.Load, _command_id, _set_command_args({
+		&"target_id": asset.get_instance_id()
+	} as Dictionary[StringName, Variant]))
 	
 	if LogUtils.debug:
 		print_debug("%s(%s): %s command ordered -> %s" % [name, StringUtils.safe_name(unit), UnitBlackboard.Action.Load, StringUtils.safe_name(asset)])
@@ -244,6 +248,7 @@ func _clear_all_actions() -> void:
 	blackboard.set_value(UnitBlackboard.Keys.Action, "")
 	blackboard.erase_value(UnitBlackboard.Keys.TargetPosition)
 	blackboard.erase_value(UnitBlackboard.Keys.TargetNode)
+	blackboard.erase_value(UnitBlackboard.Keys.CommandArgs)
 	
 	if _move_tracker:
 		_move_tracker.queue_free()

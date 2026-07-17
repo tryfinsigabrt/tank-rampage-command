@@ -6,11 +6,12 @@ func prioritize_targets(targets:Array[Node3D]) -> Array[AttackPriority]:
 	var priorities:Array[AttackPriority]
 	if not targets:
 		return priorities
-		
+	
+	var current_time:float = GameManager.game_timer.time_seconds	
 	priorities.resize(targets.size())
 	
 	for i in priorities.size():
-		priorities[i] = AttackPriority.new(targets[i])
+		priorities[i] = AttackPriority.new(targets[i], current_time)
 	
 	var buildings_under_attack:Array[Building] = blackboard.buildings_under_attack
 	var building_attackers:Array[Array]

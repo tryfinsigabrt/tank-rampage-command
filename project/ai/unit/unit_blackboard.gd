@@ -18,6 +18,7 @@ class Keys:
 	const FollowDistance:StringName = &"follow_distance"
 	const FollowMovementChangeInterval:StringName = &"follow_movement_change_interval"
 	const LoadIntoDistance:StringName = &"load_into_distance"
+	const CommandArgs:StringName = &"command_args"
 	
 var current_action:StringName:
 	get:

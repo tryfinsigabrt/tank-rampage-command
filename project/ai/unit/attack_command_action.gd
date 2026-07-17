@@ -102,8 +102,3 @@ func _should_continue_running(blackboard: Blackboard) -> bool:
 	var current_targeted_position:Vector3 = blackboard.get_value(UnitBlackboard.Keys.TargetPosition, Vector3.INF)
 	
 	return current_target_node == _targeted_node and current_targeted_position.is_equal_approx(_targeted_position)
-
-func _get_action_args() -> Dictionary[StringName, Variant]:
-	return {
-		&"target": _targeted_node
-	}

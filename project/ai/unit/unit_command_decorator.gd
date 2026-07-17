@@ -3,14 +3,16 @@ class_name UnitCommandDecorator extends Decorator
 
 var my_action:StringName
 var action_id:int
+var command_args:Dictionary[StringName, Variant]
 
 var _cleanup_record := CircularBuffer.new(10)
 
 func before_run(actor: Node, blackboard: Blackboard) -> void:
 	my_action = blackboard.get_value(UnitBlackboard.Keys.Action)
 	action_id = blackboard.get_value(UnitBlackboard.Keys.ActionId)
+	command_args = blackboard.get_value(UnitBlackboard.Keys.CommandArgs)
 	
-	SignalBus.on_unit_command_started.emit(actor as Unit, my_action, action_id, _get_action_args())
+	SignalBus.on_unit_command_started.emit(actor as Unit, my_action, action_id, command_args)
 	
 	super(actor, blackboard)
 	
@@ -78,11 +80,9 @@ func _check_running_state(blackboard: Blackboard) -> int:
 	
 #region Hook Methods
 func _cleanup(actor: Node, _blackboard: UnitBlackboard) -> void:
-	SignalBus.on_unit_command_finished.emit(actor as Unit, my_action, action_id, _get_action_args())
+	SignalBus.on_unit_command_finished.emit(actor as Unit, my_action, action_id, command_args)
 	
 func _should_continue_running(_blackboard: Blackboard) -> bool:
 	return true
 	
-func _get_action_args() -> Dictionary[StringName, Variant]:
-	return {}
 #endregion

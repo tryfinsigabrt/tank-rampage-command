@@ -3,14 +3,16 @@ class_name AttackPriority
 var target:Node3D
 var target_id:int
 var weight:float = 1.0
+var time:float
 
 var valid:bool:
 	get:
 		return is_instance_valid(target)
 		
-func _init(in_target:Node3D) -> void:
+func _init(in_target:Node3D, in_time:float) -> void:
 	target = in_target
 	target_id = in_target.get_instance_id()
+	time = in_time
 		
 static func create_target_id_map(priorities: Array[AttackPriority]) -> Dictionary[int, AttackPriority]:
 	var attack_priority_map:Dictionary[int, AttackPriority]
