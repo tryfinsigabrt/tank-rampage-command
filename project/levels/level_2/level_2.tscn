@@ -48,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
 [ext_resource type="PackedScene" uid="uid://dd8tmmpjlstpe" path="res://props/street-signs/prop_yield_sign.tscn" id="28_k6rpq"]
 [ext_resource type="PackedScene" uid="uid://dngqpi4qhtwby" path="res://props/street-signs/prop_speed_limit_25.tscn" id="29_jkvjs"]
+[ext_resource type="PackedScene" uid="uid://cfx8h6ynds6n1" path="res://props/street-signs/prop_no_parking.tscn" id="30_ua8d4"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
 [ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="42_72cmr"]
@@ -3544,10 +3545,13 @@ transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e
 transform = Transform3D(1.3113432e-05, 100.000015, 1.202396e-05, -9.565463e-08, -1.2023952e-05, 99.99995, 100.00007, -1.3113422e-05, 9.565221e-08, 4.0000033, -2.3283064e-09, 2.0000012)
 
 [node name="yield-sign" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=106597247 instance=ExtResource("28_k6rpq")]
-transform = Transform3D(0.03333333, 2.3076098e-10, 1.1589791e-10, -1.228828e-12, 0.033333324, -3.311368e-11, -1.6556844e-11, -9.934105e-11, 0.033333335, 6.1607594, -0.0074027944, -5.956903)
+transform = Transform3D(-1.4570462e-09, 0, 0.033333335, 0, 0.033333324, 0, -0.03333333, 0, -1.4570464e-09, 5.2, 0, -5.957)
 
 [node name="speed-limit-25" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1486260066 instance=ExtResource("29_jkvjs")]
-transform = Transform3D(-1.4570462e-09, 0, 0.033333335, 0, 0.033333324, 0, -0.03333333, 0, -1.4570464e-09, 6.3306837, -0.007402794, -5.9733586)
+transform = Transform3D(-1.4570462e-09, 0, 0.033333335, 0, 0.033333324, 0, -0.03333333, 0, -1.4570464e-09, 6.331, -0.007, -5.975)
+
+[node name="no-parking-sign" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1742384205 instance=ExtResource("30_ua8d4")]
+transform = Transform3D(0.03333333, 2.3076098e-10, 1.1589791e-10, -1.228828e-12, 0.033333324, -3.311368e-11, -1.6556844e-11, -9.934105e-11, 0.033333335, 6.5, 0, -5.975)
 
 [node name="city-curve" parent="World/NavigationRegion3D/City" unique_id=1985063192 instance=ExtResource("23_vdtjt")]
 transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016582e-05, 99.99995, -100.00005, 4.3711425e-06, 1.03027304e-07, 5.003334, 1.3504177e-08, -13.8633375)

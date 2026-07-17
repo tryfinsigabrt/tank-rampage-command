@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bburtkp7ar52n"]
+
+[ext_resource type="PackedScene" uid="uid://ddducuwtobv5" path="res://props/street-signs/speed-limit-sign.fbx" id="1_ixxvn"]
+[ext_resource type="Material" uid="uid://dd3tnj0kwvvdq" path="res://props/street-signs/tow-zone-material.tres" id="2_km43e"]
+
+[node name="sign-mesh" unique_id=640122378 instance=ExtResource("1_ixxvn")]
+
+[node name="SpeedLimit25Sign" parent="." index="0" unique_id=774799648]
+surface_material_override/0 = ExtResource("2_km43e")

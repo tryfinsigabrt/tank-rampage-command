@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dd3tnj0kwvvdq"]
+
+[ext_resource type="Texture2D" uid="uid://cbl8be4l677rs" path="res://props/street-signs/tow-zone-sign.png" id="1_3qhv5"]
+
+[resource]
+albedo_texture = ExtResource("1_3qhv5")
