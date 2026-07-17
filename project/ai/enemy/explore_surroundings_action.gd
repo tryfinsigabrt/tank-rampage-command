@@ -62,7 +62,8 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 					leader = unit
 			# Provide assistance
 			else:
-				unit.get_or_add_actions().follow(leader)
+				# Only follow until the leader's move action completes
+				unit.get_or_add_actions().follow(leader, false)
 						
 	return SUCCESS
 	

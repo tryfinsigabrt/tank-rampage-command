@@ -165,13 +165,19 @@ func _set_command_args(args:Dictionary[StringName, Variant]) -> Dictionary[Strin
 	blackboard.set_value(UnitBlackboard.Keys.CommandArgs, args)
 	return args
 	
-func follow(friendly:Unit) -> void:
+	
+## Follows the indicated friendly unit with an option to either continue following indefinitely (true)
+## or only until the leader's current action completes (false)
+## Following will always be canceled if a new command issued to this unit or the friendly unit dies
+func follow(friendly:Unit, until_canceled:bool = true) -> void:
 	_new_action()
 	_clear_hold()
 	
 	_move_tracker = MoveTracker.new()
 	_move_tracker.leader = friendly
 	_move_tracker.follower = unit
+	_move_tracker.follow_forever = until_canceled
+	
 	add_child(_move_tracker)
 	
 	blackboard.set_value(UnitBlackboard.Keys.Action, UnitBlackboard.Action.Follow)

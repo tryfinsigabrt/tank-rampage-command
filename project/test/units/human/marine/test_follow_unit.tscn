@@ -27,7 +27,7 @@ agent_height = 2.0
 agent_max_climb = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_47qfk"]
-size = Vector3(150, 100, 150)
+size = Vector3(150, 100, 215)
 
 [node name="TestFollowUnit" type="Node3D" unique_id=1293608661]
 
@@ -149,6 +149,7 @@ size = Vector3(10, 500, 1000)
 [node name="WorldBoundaries" parent="World" unique_id=1367598819 instance=ExtResource("2_187am")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/WorldBoundaries" unique_id=1811548351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32.5)
 shape = SubResource("BoxShape3D_47qfk")
 
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("3_80i3w")]

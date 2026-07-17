@@ -1,9 +1,12 @@
 class_name MoveTracker extends Node
 
+
 var leader:Unit
 var follower:Unit
+var follow_forever:bool = true
 
 var _blackboard:Blackboard
+var _tracked_leader_command_id:int = -1
 
 func _ready() -> void:
 	if not is_instance_valid(leader):
@@ -20,7 +23,14 @@ func _ready() -> void:
 	if not leader_unit_nav:
 		queue_free()
 		return
-		
+	
+	# Only follow leader until they finish their current action
+	if not follow_forever:
+		var leader_actions := leader.get_or_add_actions()
+		_tracked_leader_command_id = leader_actions.last_command_id
+		leader_actions.command_finished.connect(_on_leader_command_finished)
+		leader_actions.command_issued.connect(_on_leader_command_issued)
+			
 	_blackboard = follower.get_or_add_actions().blackboard
 	
 	leader.died.connect(_on_leader_killed.unbind(1))
@@ -38,6 +48,9 @@ func _on_leader_killed() -> void:
 		return
 	
 	print_debug("%s: Canceling follow command as leader=%s was killed" % [name, StringUtils.safe_name(leader)])
+	_stop_following()
+	
+func _stop_following() -> void:
 	follower.get_or_add_actions().stop()
 	queue_free()
 	
@@ -52,3 +65,11 @@ func _on_leader_move_finished() -> void:
 
 func _update_target_position(target:Vector3) -> void:
 	_blackboard.set_value(UnitBlackboard.Keys.TargetPosition, target)
+
+func _on_leader_command_issued(command_id:int) -> void:
+	if command_id != _tracked_leader_command_id:
+		_stop_following()
+		
+func _on_leader_command_finished(command_id:int) -> void:
+	if command_id == _tracked_leader_command_id:
+		_stop_following()

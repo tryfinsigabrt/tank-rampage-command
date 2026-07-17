@@ -1,5 +1,8 @@
 extends Control
 
+@export
+var team:int = 2
+
 @onready var label: Label = $Label
 
 var _lines:PackedStringArray
@@ -10,7 +13,7 @@ func _tick() -> void:
 	var units: Array[Node] = get_tree().get_nodes_in_group(Groups.Unit)
 	var marines: Array[HumanMarineUnit]
 	for unit in units:
-		if unit is HumanMarineUnit:
+		if unit is HumanMarineUnit and unit.team == team:
 			marines.push_back(unit)
 	
 	for marine in marines:
