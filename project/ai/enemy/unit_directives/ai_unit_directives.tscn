@@ -20,8 +20,9 @@
 [ext_resource type="Script" uid="uid://dyjytflt3emtf" path="res://ai/enemy/unit_directives/hold_control_point.gd" id="13_l1lbj"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="14_o4bh8"]
 
-[node name="AiUnitDirectives" type="Node" unique_id=1200788001]
+[node name="AiUnitDirectives" type="Node" unique_id=1200788001 node_paths=PackedStringArray("_behavior_tree")]
 script = ExtResource("1_b4jg7")
+_behavior_tree = NodePath("BeehaveTree")
 
 [node name="Blackboard" type="Node" parent="." unique_id=356464779]
 unique_name_in_owner = true
@@ -29,7 +30,6 @@ script = ExtResource("3_ebadl")
 metadata/_custom_type_script = "uid://dme5f24l0edsf"
 
 [node name="BeehaveTree" type="Node" parent="." unique_id=1404365285 node_paths=PackedStringArray("blackboard", "actor")]
-unique_name_in_owner = true
 script = ExtResource("2_ooypq")
 enabled = false
 tick_rate = 30

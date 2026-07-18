@@ -3,12 +3,15 @@ class_name EnemyTeamDirector extends Node3D
 @onready var team_units: TeamUnits = %TeamUnits
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
-@onready var behavior_tree: BeehaveTree = %BeehaveTree
+@export var behavior_tree: BeehaveTree
 @onready var map_regions: MapRegions = %MapRegions
 
 @export
 var team:int
 
+func _enter_tree() -> void:
+	behavior_tree.name = "EnemyTeamDirector-%d" % team
+		
 func _ready() -> void:
 	await _discover_units_and_teams()
 	_init_blackboard()

@@ -200,6 +200,7 @@ seamless = true
 script = ExtResource("1_2gujw")
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_mushl")]
+visible = false
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 

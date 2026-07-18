@@ -20,8 +20,9 @@
 [ext_resource type="Script" uid="uid://clg4ri55p3j4a" path="res://ai/unit/load_into_command_decorator.gd" id="16_altjp"]
 [ext_resource type="Script" uid="uid://ckj0hsokffdu8" path="res://ai/unit/load_when_arrived.gd" id="17_tswba"]
 
-[node name="UnitActions" type="Node3D" unique_id=883247030 groups=["UnitActions"]]
+[node name="UnitActions" type="Node3D" unique_id=883247030 node_paths=PackedStringArray("behavior_tree") groups=["UnitActions"]]
 script = ExtResource("1_l3gab")
+behavior_tree = NodePath("BeehaveTree")
 follow_distance = 10.0
 follow_movement_change_interval = 1.0
 

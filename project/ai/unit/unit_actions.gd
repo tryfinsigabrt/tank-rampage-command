@@ -3,7 +3,9 @@ class_name UnitActions extends Node3D
 signal command_issued(command_id:int)
 signal command_finished(command_id:int)
 
-@onready var behavior_tree: BeehaveTree = $BeehaveTree
+# Change to @export and not onready as we need to rename it for clarity in the Beehave debugger
+@export var behavior_tree: BeehaveTree
+
 @onready var blackboard: UnitBlackboard = $Blackboard
 @onready var idle_state: IdleUnitState = $IdleState
 
@@ -22,6 +24,10 @@ var _move_tracker:MoveTracker
 var last_command_id:int:
 	get:
 		return _command_id
+
+func _enter_tree() -> void:
+	if unit:
+		behavior_tree.name = "UnitActions-t%d-%s" % [unit.team, unit.name]
 
 @export
 var enabled:bool:
@@ -48,7 +54,7 @@ func _ready() -> void:
 	if not unit:
 		push_error("%s: Unit is not set" % name)
 		return
-		
+	
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
 	

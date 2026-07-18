@@ -48,8 +48,9 @@
 [ext_resource type="Curve" uid="uid://dvguukhjqcwg2" path="res://ai/enemy/sf_last_visible_multiplier.tres" id="42_s5f31"]
 [ext_resource type="Script" uid="uid://dky5m4p2umtnw" path="res://ai/enemy/defense_structure_prioritizer.gd" id="45_7k78q"]
 
-[node name="EnemyTeamDirector" type="Node3D" unique_id=20484500]
+[node name="EnemyTeamDirector" type="Node3D" unique_id=20484500 node_paths=PackedStringArray("behavior_tree")]
 script = ExtResource("1_78fuh")
+behavior_tree = NodePath("BeehaveTree")
 
 [node name="Blackboard" type="Node" parent="." unique_id=185824984]
 unique_name_in_owner = true
@@ -57,7 +58,6 @@ script = ExtResource("2_tto3g")
 metadata/_custom_type_script = "uid://dme5f24l0edsf"
 
 [node name="BeehaveTree" type="Node" parent="." unique_id=901334094 node_paths=PackedStringArray("blackboard", "actor")]
-unique_name_in_owner = true
 script = ExtResource("3_72way")
 tick_rate = 10
 blackboard = NodePath("../Blackboard")

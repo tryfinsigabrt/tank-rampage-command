@@ -65,7 +65,7 @@ var evaluation_delay:float = 0.1
 @export
 var control_point_radius_defend_fraction:float = 0.5
 
-@onready var _behavior_tree: BeehaveTree = %BeehaveTree
+@export var _behavior_tree: BeehaveTree
 @onready var blackboard: UnitDirectiveBlackboard = %Blackboard
 @onready var _priority_timer: Timer = %PriorityTimer
 
@@ -238,7 +238,7 @@ func _add_or_update_state(state: State) -> void:
 # Highest priority goes last so can use "pop_back"
 static func _priority_compare(a:State, b:State) -> bool:
 	return a.priority < b.priority
-	
+		
 func _ready() -> void:
 	if not unit:
 		push_error("%s: Added to a non-unit hierarchy!" % name)
@@ -286,6 +286,7 @@ func _enter_tree() -> void:
 	unit = Groups.get_parent_with_type(self, Unit)
 	if unit:
 		Components.add_component(ComponentName, self, unit)
+		_behavior_tree.name = "AIUnitDirectives-t%d-%s" % [unit.team, unit.name]
 
 func _exit_tree() -> void:
 	if unit:
