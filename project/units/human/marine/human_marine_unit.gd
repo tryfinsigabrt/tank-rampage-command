@@ -23,6 +23,9 @@ var is_shooting:bool:
 var _aim_at_tween:Tween
 var _has_moved:bool
 var _last_target_aim:Quaternion
+var _visual_root_rest_transform:Transform3D
+var _fire_origin_rest_transform:Transform3D
+var _ground_basis:Basis
 
 var _ground_cast_parameters:PhysicsRayQueryParameters3D
 var _surface_normal:Vector3
@@ -36,6 +39,9 @@ func _set_visual_overrides(_overrides:AssetVisualTeamResource) -> void:
 	
 func _ready() -> void:
 	super._ready()
+	_visual_root_rest_transform = visual_root.transform
+	_fire_origin_rest_transform = fire_position.transform
+	_ground_basis = global_basis
 	
 	_ground_cast_parameters = PhysicsRayQueryParameters3D.new()
 	_ground_cast_parameters.collision_mask = Collisions.CompositeMasks.ground
@@ -144,15 +150,15 @@ func get_fire_global_forward() -> Vector3:
 	#var corrected_basis:Basis = visual_root.transform.basis
 	#var final_basis:Basis = orig_basis * corrected_basis
 	#return -final_basis.z
-	return global_forward
+	return -_ground_basis.z
 
 func get_fire_global_right() -> Vector3:
 	#return fire_position.global_basis.x
-	return global_right
+	return _ground_basis.x
 
 func get_fire_global_up() -> Vector3:
 	#return fire_position.global_basis.y
-	return global_up
+	return _ground_basis.y
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
@@ -212,10 +218,11 @@ func _reorient_along_surface_normal(delta:float) -> void:
 			_surface_normal = Vector3.ZERO
 		_elapsed_since_cast = 0.0
 		
-	if _surface_normal:
-		global_basis = _basis_from_forward_and_up(global_forward, _surface_normal)
-	else:
-		global_basis = _basis_from_forward_and_up(global_forward, Vector3.UP)
+	var surface_up := _surface_normal if _surface_normal else Vector3.UP
+	_ground_basis = _basis_from_forward_and_up(global_forward, surface_up)
+	var ground_transform := Transform3D(_ground_basis, global_position)
+	visual_root.global_transform = ground_transform * _visual_root_rest_transform
+	fire_position.global_transform = ground_transform * _fire_origin_rest_transform
 
 func _basis_from_forward_and_up(forward_hint:Vector3, up_vector:Vector3) -> Basis:
 	if up_vector.is_zero_approx():
