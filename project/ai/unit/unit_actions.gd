@@ -68,7 +68,8 @@ func _on_command_finished(in_unit: Unit, command:StringName, command_id:int) -> 
 		
 	_command_counter -= 1
 	
-	if _command_counter <= 0:
+	# If command counter naturally goes to zero or if all actions canceled then switch to idle state and reset counter
+	if _command_counter <= 0 or not blackboard.current_action:
 		# Optimization to not tick the tree if there is nothing to do
 		enabled = false
 		_command_counter = 0
