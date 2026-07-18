@@ -55,9 +55,10 @@ func _set_background_image_alpha(new_alpha: float) -> void:
 	background_image.self_modulate = self_modulate_color
 
 
+func _process(_delta: float) -> void:
+	if not last_line_added.all_text_visible():
+		_scroll_to_bottom.call_deferred()
+
 func _scroll_to_bottom() -> void:
 	var max_scroll := scroll_container.get_v_scroll_bar().max_value
 	scroll_container.scroll_vertical = int(max_scroll)
-
-func _ready() -> void:
-	scroll_container.get_v_scroll_bar().changed.connect(_scroll_to_bottom)

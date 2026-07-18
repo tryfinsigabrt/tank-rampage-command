@@ -3,48 +3,58 @@
 	"lines": [
 		{
 			"speaker": "Soldier",
-			"text": "Preparations for Battle Simulation Gamma #37 are nearly complete... Commander, Panther Militia is ready to begin advance deployment."
+			"text": "Preparations for Battle Simulation Gamma #37 are nearly complete... Commander, Panther Militia is ready to begin advance deployment.",
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Understood. Begin advance deployment. I want engines started and weapons ready to move. Run a satellite scan over the area to ensure everything is in place.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Soldier",
-			"text": "Copy that! Command for advance deployment of Panther Militia delivered... and received. Basic area survey started, checking for anomalies... Field looks clear, decoy and training placements all positioned as requested. Here's the report."
+			"text": "Copy that! Command for advance deployment of Panther Militia delivered... and received. Basic area survey started, checking for anomalies... Field looks clear, decoy and training placements all positioned as requested. Here's the report.",
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Positions look clean. Conditions are 88% to prediction...",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Soldier",
-			"text": "Preliminary checks are green. Simulation will begin in t-minus 30 seconds, commander. Units are live and loaded... Field is hot!"
+			"text": "Preliminary checks are green. Simulation will begin in t-minus 30 seconds, commander. Units are live and loaded... Field is hot!",
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Hang on... Soldier: immediate background check on decoy troops 6 through 11. Those tanks look like ours but they've got a new coat of paint. If this is another prank by the cadets I'll be spinning heads myself... I want names before this simulation is complete.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Soldier",
-			"text": "*Gulp!* Initiating background check on decoys now! Cadets were ex-filled for remote training exercises yesterday... likelihood of prank is less than 14%... Check complete. All decoy troops 6 through 11 identified as under control of military AI 'Steel'. No signs of tampering - all machines built to specification."
+			"text": "*Gulp!* Initiating background check on decoys now! Cadets were ex-filled for remote training exercises yesterday... likelihood of prank is less than 14%... Check complete. All decoy troops 6 through 11 identified as under control of military AI 'Steel'. No signs of tampering - all machines built to specification.",
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Let me see that specification chart, these AI are getting too creative for their own good... Wait... It's more than just the paint. These chips are a newer model, similar but... not the same...",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Soldier",
-			"text": "Commander! Anomalous behavior detected from 'Steel' units! Insight logs claim an 'unexpected observation' has been made, 'adjusting parameters for new environment'. Movement patterns are 76% outside of expec-"
+			"text": "Commander! Anomalous behavior detected from 'Steel' units! Insight logs claim an 'unexpected observation' has been made, 'adjusting parameters for new environment'. Movement patterns are 76% outside of expec-",
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Can the percentage talk - connect my line to the Panther troops immediately! I'm initiating protocol for Red Alert 19! That field's not a simulation anymore, it's a live-fire war zone.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 			
 		},
 	]

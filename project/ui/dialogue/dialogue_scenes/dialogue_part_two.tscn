@@ -30,5 +30,4 @@ source = SubResource("Resource_f080a")
 metadata/_custom_type_script = "uid://dbqkt1fouchsg"
 
 [node name="DialogueContainer" parent="." unique_id=972685019 instance=ExtResource("5_jlh1v")]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1

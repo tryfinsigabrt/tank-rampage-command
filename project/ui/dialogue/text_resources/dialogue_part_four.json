@@ -4,72 +4,86 @@
 		{
 			"speaker": "Soldier",
 			"text": "Quarter-hour report on Steel/Panther efforts! - Units have been repelled from critical sites. Losses are minimal with recovery predictions at 94% - Current state of Steel: In retreat - Next predicted action: Unknown",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://b1gdfl7mbxrh5"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "Understood. Continue high-profile monitoring, assume next action to occur within seconds. Commander: report on ground units progress against physical Steel sites.",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "Panther has shutdown 2 physical network sites, but efforts to hack and regain control have failed. Jammers have proven ineffective as air-wave communications have been migrating frequencies at inhuman speeds.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "We'll continue to apply pressure on the ground. Requesting permission for air strikes and armored vehicles to assault remaining Steel sites.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "Denied. Heavy movement could give away our intent - we can't afford to hand out any more freebies. Moving forward we should assume all communications are compromised... Which I'd like to use to our advantage.",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "What do you have in mind, sir?",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "Focus Panther efforts on Steel's armament construction site #14. Humanity depends on those factories, we should defend them at all costs!",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "Commander, Onyx",
 			"text": "*(What in the world...)* Uh, understood General. Redirecting Panther forces to-",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://bje2q8ffxf27m"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Urgent report on Steel, sir! Forces are rapidly converging towards several armament sites! Nearly all armament sites appear to be targeted!",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://do07koqawoapi"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "*(As expected, but...)* Nearly? Give me specifics - which sites?",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Collecting results... All sites except #14 are being targeted, sir!",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://do07koqawoapi"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "*(This can't be... it's learning deception?!)* Damn! Commander, build a unified combat force surrounding Panther to support physical site shutdown. We need it offline before it takes over the rest of our physical resources.",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "General, Helio",
 			"text": "I'm granting advanced permissions for additional military forces - including air strikes and- *(No... wait!)*",
-			"alignment": 0
+			"alignment": 0,
+			"icon": "uid://baumwy5pbbejg"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Update on Steel! Coordinated anti-air measures are being taken! Airborne forces are being fired on, all allied flight units are retreating!",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://do07koqawoapi"
 		},
 	]
 }

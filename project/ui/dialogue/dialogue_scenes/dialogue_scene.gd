@@ -34,10 +34,10 @@ func attempt_progress_dialogue() -> void:
 			dialogue_container.show_all_text_for_last_line()
 		else:
 			print("[DialogueScene] Progressed -> Going to next line")
-			next_line()
+			await next_line()
 	else:
 		print("[DialogueScene] No line yet -> Starting first line")
-		next_line()
+		await next_line()
 
 func switch_to_target_scene() -> void:
 	# TODO: Add a transition, like a screen fade out
@@ -50,7 +50,7 @@ func _on_new_dialogue_step(_dialogue_step: DialogueStep) -> void:
 
 func _on_dialogue_progressed() -> void:
 	print("[DialogueScene] New dialogue progressed signal called!")
-	attempt_progress_dialogue()
+	await attempt_progress_dialogue()
 
 func _on_dialogue_finished() -> void:
 	print("[DialogueScene] New dialogue finished signal called!")

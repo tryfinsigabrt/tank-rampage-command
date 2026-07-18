@@ -3,38 +3,46 @@
 	"lines": [
 		{
 			"speaker": "Commander, Orpiment",
-			"text": "Panther Commander is reporting rogue behaviors from AI 'Steel'. Open a call - get engineers, Panther soldiers, and Steel itself on this line. I want to hear from anyone or any *thing* that can explain what's going on."
+			"text": "Panther Commander is reporting rogue behaviors from AI 'Steel'. Open a call - get engineers, Panther soldiers, and Steel itself on this line. I want to hear from anyone or any *thing* that can explain what's going on.",
+			"icon": "uid://bmueu1f12tf5o"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Calling now... I'm getting an error contacting Steel - all net traffic is being dropped. Looks like a tower got damaged in the Panther Simulation. Backup lines are also failing. I can't get a response from Steel, sir!",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://eyos6mps71q5"
 		},
 		{
 			"speaker": "Commander, Orpiment",
-			"text": "Nonsense. Open a direct space-to-core connection to Steel. Net towers are old tech, maybe this AI 'prefers' the shiny, new-age stuff. These new personality models tend to get a bit obsessive at times."
+			"text": "Nonsense. Open a direct space-to-core connection to Steel. Net towers are old tech, maybe this AI 'prefers' the shiny, new-age stuff. These new personality models tend to get a bit obsessive at times.",
+			"icon": "uid://bmueu1f12tf5o"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Space-to-core connection started... No response, sir! Steel claims it's expending resources on simulation efforts, unable to divert energy for a comms agent. Engineers are already looking into it.",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://eyos6mps71q5"
 		},
 		{
 			"speaker": "Commander, Orpiment",
-			"text": "Towers and satellite comms can't punch through? That can't be an accident. Engineers: I'm flagging Steel as 'off-course', shut down all of Steel's power and data centers ASAP. Begin remediation after Steel is offline."
+			"text": "Towers and satellite comms can't punch through? That can't be an accident. Engineers: I'm flagging Steel as 'off-course', shut down all of Steel's power and data centers ASAP. Begin remediation after Steel is offline.",
+			"icon": "uid://bmueu1f12tf5o"
 		},
 		{
 			"speaker": "Commander, Orpiment",
-			"text": "Soldier: Launch all ground units within a 20-kilometer radius of Steel's manufacturing site. The city is less than a day's travel from that location, raise the alarm for local officials and activate defense mechanisms. Better safe than-"
+			"text": "Soldier: Launch all ground units within a 20-kilometer radius of Steel's manufacturing site. The city is less than a day's travel from that location, raise the alarm for local officials and activate defense mechanisms. Better safe than-",
+			"icon": "uid://bmueu1f12tf5o"
 		},
 		{
 			"speaker": "Soldier",
 			"text": "Red alert, commander! Defense mechanisms just entered maintenance mode! Engineers' attempts at Steel shutdown have failed - they're escalating now. City officials are requesting an open military call. Would you like me to connect them?",
-			"alignment": 1
+			"alignment": 1,
+			"icon": "uid://eyos6mps71q5"
 		},
 		{
 			"speaker": "Commander, Orpiment",
-			"text": "What in the... just now? How did it... Yes, connect the officials. Mark this call as SitRoom 1 for the Panther/Steel event. We need to move fast..."
+			"text": "What in the... just now? How did it... Yes, connect the officials. Mark this call as SitRoom 1 for the Panther/Steel event. We need to move fast...",
+			"icon": "uid://bmueu1f12tf5o"
 		},
 	]
 }
