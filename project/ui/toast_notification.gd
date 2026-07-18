@@ -6,10 +6,15 @@ class_name ToastNotification extends CanvasLayer
 @export
 var message:String = "<PLACEHOLDER>"
 
+@export
+var time_scale:float = 1.0
+
 func _ready() -> void:
 	label.text = message
 	
 	print_debug("%s: Playing toast animation with %s" % [name, label.text])
+	
+	animation_player.speed_scale = time_scale
 	animation_player.play(&"toast_fade")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

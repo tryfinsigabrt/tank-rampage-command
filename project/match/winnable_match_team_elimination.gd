@@ -3,6 +3,9 @@ extends Node
 var _match:Match
 var _match_team:MatchTeam
 
+@export
+var condition:String = "Destroy all enemy command centers and either capture all control points or defeat all enemy units."
+
 func _ready() -> void:
 	_match = get_tree().get_first_node_in_group(Groups.Match) as Match
 	assert(_match)

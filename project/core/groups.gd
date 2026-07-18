@@ -61,6 +61,10 @@ static func get_parent_matching(leaf: Node, predicate:Callable) -> Node:
 static func get_children_in_group(root: Node, group: StringName, return_on_first:bool=false) -> Array[Node]:
 	return get_children_matching(root, func(node: Node) -> bool: return node.is_in_group(group), return_on_first)
 	
+static func get_child_in_group(root: Node, group: StringName) -> Node:
+	var children := get_children_in_group(root, group, true)
+	return null if children.is_empty() else children.front()
+	
 static func get_children_with_type(root: Node, type: Variant, return_on_first:bool=false) -> Array[Node]:
 	return get_children_matching(root, func(node: Node) -> bool: return is_instance_of(node, type), return_on_first)
 

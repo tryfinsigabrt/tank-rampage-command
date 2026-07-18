@@ -200,7 +200,6 @@ seamless = true
 script = ExtResource("1_2gujw")
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_mushl")]
-visible = false
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
@@ -617,8 +616,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -262.96005, 0.049996186, 111.
 
 [node name="ControlPoint5" parent="World/ControlPoints" unique_id=1116214033 instance=ExtResource("32_r4ybk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -211.8219, 0.049996186, -186.55914)
-
-[node name="LevelAudio" type="Node3D" parent="World" unique_id=1794161654 groups=["LevelAudio"]]
 
 [node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("36_37ytp")]
 match_completion_ui_trigger_delay = 1.0
