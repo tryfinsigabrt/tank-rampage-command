@@ -23,6 +23,7 @@ var is_shooting:bool:
 var _aim_at_tween:Tween
 var _has_moved:bool
 var _last_target_aim:Quaternion
+var _aim_target:Vector3 = Vector3.INF
 var _visual_root_rest_transform:Transform3D
 var _fire_origin_rest_transform:Transform3D
 var _ground_basis:Basis
@@ -33,6 +34,9 @@ var _elapsed_since_cast:float = 0.0
 
 @export
 var ground_cast_interval:float = 0.2
+
+@export_range(0.0, 89.0, 0.1)
+var max_aim_pitch_degrees:float = 25.0
 
 func _set_visual_overrides(_overrides:AssetVisualTeamResource) -> void:
 	_set_mesh_material()
@@ -71,6 +75,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	if _is_alive():
+		_upright_body_when_stationary()
 		_reorient_along_surface_normal(delta)
 
 # TODO: Some of this can be moved to unit base class or separate component
@@ -105,8 +110,15 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 	move_and_slide()
 	
 func aim_at(world_location:Vector3) -> void:
+	_aim_target = world_location
+	_update_fire_origin_basis()
+
+	var flat_target := Vector3(world_location.x, global_position.y, world_location.z)
+	if Vector2(flat_target.x - global_position.x, flat_target.z - global_position.z).is_zero_approx():
+		return
+
 	var current_quat := global_transform.basis.get_rotation_quaternion()
-	var target_transform := global_transform.looking_at(world_location, global_up)
+	var target_transform := global_transform.looking_at(flat_target, Vector3.UP)
 	var target_quat := target_transform.basis.get_rotation_quaternion()
 
 	# Calculate the angle between current quat and target rotation quat
@@ -145,20 +157,13 @@ func get_fire_global_position() -> Vector3:
 
 # For the directions use the marine forward because these are used for LOS and gun isn't always at "ready" position	
 func get_fire_global_forward() -> Vector3:
-	## Positive as we rotated around
-	#var orig_basis:Basis = fire_position.global_basis
-	#var corrected_basis:Basis = visual_root.transform.basis
-	#var final_basis:Basis = orig_basis * corrected_basis
-	#return -final_basis.z
-	return -_ground_basis.z
+	return -_get_fire_aim_basis().z
 
 func get_fire_global_right() -> Vector3:
-	#return fire_position.global_basis.x
-	return _ground_basis.x
+	return _get_fire_aim_basis().x
 
 func get_fire_global_up() -> Vector3:
-	#return fire_position.global_basis.y
-	return _ground_basis.y
+	return _get_fire_aim_basis().y
 	
 func _is_moving() -> bool:
 	return game_unit_navigation.enabled
@@ -201,6 +206,13 @@ func _on_weapon_firing_state_changed(firing: bool) -> void:
 	#print("%s: SHOOTING=%s" % [name, firing])
 	_is_shooting = firing and is_alive
 
+func _upright_body_when_stationary() -> void:
+	if not Vector2(velocity.x, velocity.z).is_zero_approx() or is_instance_valid(_aim_at_tween) and _aim_at_tween.is_running():
+		return
+	if global_up.is_equal_approx(Vector3.UP):
+		return
+	global_basis = _basis_from_forward_and_up(global_forward, Vector3.UP)
+
 func _reorient_along_surface_normal(delta:float) -> void:
 	var space_state := get_world_3d().direct_space_state
 	
@@ -223,6 +235,24 @@ func _reorient_along_surface_normal(delta:float) -> void:
 	var ground_transform := Transform3D(_ground_basis, global_position)
 	visual_root.global_transform = ground_transform * _visual_root_rest_transform
 	fire_position.global_transform = ground_transform * _fire_origin_rest_transform
+	_update_fire_origin_basis()
+
+func _update_fire_origin_basis() -> void:
+	fire_position.global_basis = _get_fire_aim_basis() * _fire_origin_rest_transform.basis
+
+func _get_fire_aim_basis() -> Basis:
+	var ground_up := _ground_basis.y.normalized()
+	var fire_forward := -_ground_basis.z
+	if _aim_target.is_finite():
+		var target_direction := fire_position.global_position.direction_to(_aim_target)
+		var target_pitch := asin(clampf(target_direction.dot(ground_up), -1.0, 1.0))
+		var max_pitch := deg_to_rad(max_aim_pitch_degrees)
+		var pitch := clampf(target_pitch, -max_pitch, max_pitch)
+		fire_forward = (fire_forward * cos(pitch) + ground_up * sin(pitch)).normalized()
+
+	var fire_right := fire_forward.cross(ground_up).normalized()
+	var fire_up := fire_right.cross(fire_forward).normalized()
+	return Basis(fire_right, fire_up, -fire_forward)
 
 func _basis_from_forward_and_up(forward_hint:Vector3, up_vector:Vector3) -> Basis:
 	if up_vector.is_zero_approx():
