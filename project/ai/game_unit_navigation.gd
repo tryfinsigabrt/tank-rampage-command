@@ -36,6 +36,9 @@ var enable_simple_nav_fallback:bool = true
 @export
 var enable_avoidance_steering:bool = true
 
+@export
+var always_use_simple_nav:bool = false
+
 ## Minimum size of x or z component of move velocity to actually issue move
 ## Avoids flip flopping when components are small
 @export
@@ -130,7 +133,9 @@ func set_enabled(in_enabled:bool) -> void:
 		print_debug("%s: Navigation toggled - %s to %s" % [name, _unit.name, in_enabled])
 	
 	if in_enabled:
-		if avoidance_enabled:
+		if always_use_simple_nav:
+			_start_simple_nav()
+		elif avoidance_enabled:
 			Avoidance.apply_avoidance_mask_to(_unit)
 			navigation_agent_3d.avoidance_enabled = true
 			navigation_agent_3d.max_speed = _unit.movement_speed
@@ -152,16 +157,18 @@ func _physics_process(delta: float) -> void:
 	var next_position:Vector3
 	if simple_navigation.active:
 		simple_navigation.tick(delta)
+		if not enabled:
+			return
 		next_position = simple_navigation.next_position
 	else:
 		next_position = navigation_agent_3d.get_next_path_position()
-		
+
 	_on_tick_next_target(delta, next_position)
 	
 func _on_tick_next_target(delta:float, next_position:Vector3) -> void:	
 	#print_debug("%s: NEXT POSITION=%s" % [name, next_position])
 	
-	if _is_at_target(next_position):
+	if _is_at_target(current_target):
 		_emit_target_reached()
 		return
 	# If simple navigation not already active and the navigation system failed (finished without reaching target) then enable simple
@@ -249,8 +256,16 @@ func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 	move_canceled.emit(target_position)
 	
 func _on_navigation_agent_3d_navigation_finished() -> void:
-	_emit_target_reached()
-	
+	if _target_reached:
+		return
+
+	if _is_at_target(current_target):
+		_emit_target_reached()
+	elif enable_simple_nav_fallback:
+		_start_simple_nav()
+	else:
+		_emit_target_reached()
+			
 func _emit_target_reached() -> void:
 	if not _target_reached:
 		if LogUtils.verbose:

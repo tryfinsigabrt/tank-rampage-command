@@ -65,7 +65,7 @@ func start() -> void:
 	_target_distance = 0.0
 	_current_target_time = 0.0
 	_next_target = Vector3.INF
-	_current_position = Vector3.INF
+	_current_position = unit.global_position
 	_total_elapsed_time = 0.0
 	_prev_raycast_index = -1
 
@@ -90,11 +90,20 @@ func tick(delta: float) -> void:
 	_total_elapsed_time += delta
 	_current_target_time += delta
 		
-	if _should_choose_new_target():
+	if _should_choose_new_target(delta):
 		_choose_next_target()
 		
-func _should_choose_new_target() -> bool:
-	return _current_target_time >= raycast_timeout or _target_distance >= raycast_distance
+func _should_choose_new_target(delta:float) -> bool:
+	return _next_target == Vector3.INF \
+		or _current_target_time >= raycast_timeout \
+		or _target_distance >= raycast_distance \
+		or _is_at_next_target(delta)
+		
+
+func _is_at_next_target(delta:float) -> bool:
+	var horizontal_delta := MathUtils.grid_vector(_next_target - _current_position)
+	var arrival_distance := maxf(0.1, unit.movement_speed * delta)
+	return horizontal_delta.length_squared() <= arrival_distance * arrival_distance
 	
 func _choose_next_target() -> void:
 	_target_distance = 0.0

@@ -170,6 +170,46 @@ player_team = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9, 0, 29.5)
 team = 1
 
+[node name="Skeleton3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature" parent_id_path=PackedInt32Array(224944543, 326298032, 841724596) index="0" unique_id=1012015045]
+bones/1/position = Vector3(-0.0006381646, 1.3744607, 0.045260496)
+bones/1/rotation = Quaternion(-0.73376125, 0.06003948, 0.6736642, -0.06454721)
+bones/2/rotation = Quaternion(-0.101789795, -0.12930886, -0.19269441, 0.9673609)
+bones/3/rotation = Quaternion(0.2790941, 0.0010541232, 0.057416763, 0.9585451)
+bones/4/rotation = Quaternion(-0.005934028, -0.048701063, -0.10847925, 0.9928873)
+bones/5/rotation = Quaternion(0.102831386, -0.0010936224, -0.021155046, 0.9944733)
+bones/6/rotation = Quaternion(-0.70388544, 0.04779229, 0.70709074, 0.047791995)
+bones/7/rotation = Quaternion(0.019579688, 0.00052733853, -0.06039786, 0.99798226)
+bones/8/rotation = Quaternion(-0.0005931287, -0.0056101154, -0.019344842, 0.99979705)
+bones/9/rotation = Quaternion(-0.015293047, 0.13623367, -0.03298142, 0.99000955)
+bones/10/position = Vector3(0.3422766, -0.4323227, -0.16699946)
+bones/10/rotation = Quaternion(-0.63239336, 0.6066359, 0.44322848, 0.18873255)
+bones/12/position = Vector3(0.05666025, -0.14860909, -0.77270657)
+bones/13/position = Vector3(0.36552036, -0.3456409, 0.27269697)
+bones/13/rotation = Quaternion(-0.1872193, 0.59774125, 0.52673817, -0.5746315)
+bones/15/position = Vector3(-0.09560896, -0.04828055, 0.7601355)
+bones/16/rotation = Quaternion(0.9678015, 0.21387467, -0.122207, -0.051802576)
+bones/17/rotation = Quaternion(-0.379122, 6.771907e-08, -5.0698674e-07, 0.92534673)
+bones/18/rotation = Quaternion(-0.26146114, 0.149594, 0.92637205, -0.22604099)
+bones/19/rotation = Quaternion(-0.5558391, -4.0392752e-08, 7.082059e-07, 0.8312899)
+bones/20/position = Vector3(-0.035303608, 0.12177684, -0.15120642)
+bones/20/rotation = Quaternion(-0.43200988, 0.5620361, 0.55116075, 0.44011918)
+bones/21/position = Vector3(-0.086118735, -0.589383, 0.5684596)
+bones/23/rotation = Quaternion(-0.50777507, 0.491042, 0.48221338, 0.518182)
+bones/24/position = Vector3(0.0063922843, -0.6025781, 0.5706019)
+bones/26/position = Vector3(1.976854, 1.4539478, -0.5588213)
+
+[node name="BoneAttachment3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
+transform = Transform3D(-0.45570773, 0.7119156, -0.534328, -0.8033647, -0.58744633, -0.097529545, -0.3833218, 0.38481534, 0.83963186, -0.33613783, 1.2990693, 0.27183643)
+
+[node name="GameUnitNavigation" parent="World/Match/PlayerTeam/Player/Marine" index="2" unique_id=1412332106]
+always_use_simple_nav = true
+
+[node name="UI" parent="World/Match/PlayerTeam/Player/Marine" index="4" unique_id=534065075]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -7.9, 3, 29.5)
+
+[node name="Weapon" parent="World/Match/PlayerTeam/Player/Marine/FireOrigin" parent_id_path=PackedInt32Array(224944543, 1719011979) index="0" unique_id=107617315]
+transform = Transform3D(0.32249242, 0.5364605, 0.7805081, 0.2297078, 0.7549863, -0.6147253, -0.9182776, 0.37726167, 0.12033502, 1.1078396, -0.8633963, -0.65063286)
+
 [node name="EnemyTeam" parent="World/Match" unique_id=563949230 instance=ExtResource("4_wrqjo")]
 team = 2
 
@@ -266,6 +306,10 @@ layout_mode = 2
 team = 1
 
 [editable path="World/Match/PlayerTeam/Player"]
+[editable path="World/Match/PlayerTeam/Player/Marine"]
+[editable path="World/Match/PlayerTeam/Player/Marine/VisualRoot"]
+[editable path="World/Match/PlayerTeam/Player/Marine/GameUnitNavigation"]
+[editable path="World/Match/PlayerTeam/Player/Marine/FireOrigin/Weapon"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Mesh"]
