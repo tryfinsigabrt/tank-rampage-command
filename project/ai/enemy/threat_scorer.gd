@@ -8,7 +8,12 @@ var threat_score_threshold:float = 0.5
 @export
 var ideal_distance:float = 300.0
 
+## Fraction of the ideal_distance in the default scoring modifier where distance trumps priority
+@export
+var default_small_distance_weapon_min_dist_fraction:float = 2.0
+
 var _default_ideal_distance:float
+var _weapon_min_distance:float
 
 var enemy_cluster_calculator: ClusterCircleCreator
 
@@ -51,6 +56,8 @@ func apply_scoring_modifier_for(unit:Unit) -> void:
 	elif not apply_ranged_score_modifier and current_modifier is RangedUnitScoreModifier:
 		remove_scoring_modifier()
 		ideal_distance = _default_ideal_distance
+		
+	_weapon_min_distance = weapon.min_distance
 		
 #endregion
 	
@@ -120,7 +127,11 @@ func _get_threat_assets(assets: Array, position:Vector3, viable_asset_extractor:
 			score_components[&"priority"] = priority_score
 			total_score = scoring_modifier.get_final_score(entry, score_components)
 		else:
-			total_score = norm_dist_score * 0.6 + priority_score * 0.4
+			var small_dist_threshold:float = _weapon_min_distance * default_small_distance_weapon_min_dist_fraction
+			
+			# Prefer distance if the threat is really close and is an armed asset
+			var dist_priority:float = 1.0 if entry._dist_sq <= small_dist_threshold * small_dist_threshold and entry.threat.is_in_group(Groups.ArmedAsset) else 0.6
+			total_score = norm_dist_score * dist_priority + priority_score * (1.0 - dist_priority)
 		max_score = maxf(total_score, max_score)
 		
 		entry.score = total_score

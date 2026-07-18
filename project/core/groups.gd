@@ -31,6 +31,8 @@ const Precompilation:StringName = &"Precompilation"
 const MatchTeamEliminationCondition:StringName = &"MatchTeamEliminationCondition"
 const ScrapField:StringName = &"ScrapField"
 
+const ArmedAsset:StringName = &"ArmedAsset"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:

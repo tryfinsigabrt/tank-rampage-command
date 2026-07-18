@@ -37,7 +37,7 @@ top_radius = 0.25
 bottom_radius = 0.25
 height = 4.0
 
-[node name="TurretStructure" type="StaticBody3D" unique_id=427098526 node_paths=PackedStringArray("health_stat", "team_component") groups=["Interactable", "Structure", "TeamAsset"]]
+[node name="TurretStructure" type="StaticBody3D" unique_id=427098526 node_paths=PackedStringArray("health_stat", "team_component") groups=["ArmedAsset", "Interactable", "Structure", "TeamAsset"]]
 collision_layer = 1088
 collision_mask = 0
 script = ExtResource("1_o7dn3")
