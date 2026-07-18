@@ -122,7 +122,7 @@ func _move_into_attack_range() -> void:
 	if move_into_range == MoveBehavior.ALWAYS:
 		# Move back by 2 * min attack range
 		var buffer:float = _get_move_buffer_dist()
-		var min_dist:float = minf(fire_range.x + buffer, fire_range.y)
+		var min_dist:float = minf(fire_range.x + buffer, fire_range.y - buffer)
 			
 		var ideal_dist:float = min_dist * 2.0 if fire_range.x / fire_range.y < 0.1 else min_dist
 		_range_move_target = attack_position - attack_dir * ideal_dist
