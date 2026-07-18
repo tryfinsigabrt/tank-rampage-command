@@ -3,7 +3,7 @@ class_name DialogueContainer
 extends PanelContainer
 
 ## Alpha to fade the background image to. 1 = fully opaque, 0 = invisible
-@export_range(0.0, 1.0) var background_image_fade := 0.8
+@export_range(0.0, 1.0) var background_image_fade := 0.7
 
 @onready var background_image: TextureRect = %BackgroundImage
 @onready var title_label: Label = %TitleLabel
@@ -25,8 +25,9 @@ func set_title(new_title: String) -> void:
 
 # Set to 'null' to remove the background image
 func set_background_image(new_background: Texture2D) -> void:
-	background_image.texture = new_background
-	fade_background_image()
+	if is_instance_valid(new_background):
+		background_image.texture = new_background
+		fade_background_image()
 
 func add_new_line(dialogue_step: DialogueStep) -> void:
 	print("[DialogueContainer] Adding new line of dialogue")

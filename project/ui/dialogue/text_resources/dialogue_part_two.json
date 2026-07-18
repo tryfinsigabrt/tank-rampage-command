@@ -4,7 +4,8 @@
 		{
 			"speaker": "Commander, Orpiment",
 			"text": "Panther Commander is reporting rogue behaviors from AI 'Steel'. Open a call - get engineers, Panther soldiers, and Steel itself on this line. I want to hear from anyone or any *thing* that can explain what's going on.",
-			"icon": "uid://bmueu1f12tf5o"
+			"icon": "uid://bmueu1f12tf5o",
+			"background": "uid://dfv35sddlgkib"
 		},
 		{
 			"speaker": "Soldier",
@@ -31,7 +32,8 @@
 		{
 			"speaker": "Commander, Orpiment",
 			"text": "Soldier: Launch all ground units within a 20-kilometer radius of Steel's manufacturing site. The city is less than a day's travel from that location, raise the alarm for local officials and activate defense mechanisms. Better safe than-",
-			"icon": "uid://bmueu1f12tf5o"
+			"icon": "uid://bmueu1f12tf5o",
+			"background": "uid://ckeuftelmyglo"
 		},
 		{
 			"speaker": "Soldier",

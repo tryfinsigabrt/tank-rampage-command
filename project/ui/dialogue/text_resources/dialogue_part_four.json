@@ -5,7 +5,8 @@
 			"speaker": "Soldier",
 			"text": "Quarter-hour report on Steel/Panther efforts! - Units have been repelled from critical sites. Losses are minimal with recovery predictions at 94% - Current state of Steel: In retreat - Next predicted action: Unknown",
 			"alignment": 1,
-			"icon": "uid://b1gdfl7mbxrh5"
+			"icon": "uid://b1gdfl7mbxrh5",
+			"background": "uid://blmvh3625gg40"
 		},
 		{
 			"speaker": "General, Helio",
@@ -23,7 +24,8 @@
 			"speaker": "Commander, Onyx",
 			"text": "We'll continue to apply pressure on the ground. Requesting permission for air strikes and armored vehicles to assault remaining Steel sites.",
 			"alignment": 1,
-			"icon": "uid://bje2q8ffxf27m"
+			"icon": "uid://bje2q8ffxf27m",
+			"background": "uid://by4og6vktja28"
 		},
 		{
 			"speaker": "General, Helio",
@@ -53,7 +55,8 @@
 			"speaker": "Soldier",
 			"text": "Urgent report on Steel, sir! Forces are rapidly converging towards several armament sites! Nearly all armament sites appear to be targeted!",
 			"alignment": 1,
-			"icon": "uid://do07koqawoapi"
+			"icon": "uid://do07koqawoapi",
+			"background": "uid://7xho1dgkvw5s"
 		},
 		{
 			"speaker": "General, Helio",
@@ -77,7 +80,8 @@
 			"speaker": "General, Helio",
 			"text": "I'm granting advanced permissions for additional military forces - including air strikes and- *(No... wait!)*",
 			"alignment": 0,
-			"icon": "uid://baumwy5pbbejg"
+			"icon": "uid://baumwy5pbbejg",
+			"background": "uid://hkiw67pi8c0x"
 		},
 		{
 			"speaker": "Soldier",

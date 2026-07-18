@@ -4,7 +4,8 @@
 		{
 			"speaker": "Soldier",
 			"text": "Preparations for Battle Simulation Gamma #37 are nearly complete... Commander, Panther Militia is ready to begin advance deployment.",
-			"icon": "uid://b1gdfl7mbxrh5"
+			"icon": "uid://b1gdfl7mbxrh5",
+			"background": "uid://dcc81x5dsc5mk"
 		},
 		{
 			"speaker": "Commander, Onyx",
@@ -32,7 +33,8 @@
 			"speaker": "Commander, Onyx",
 			"text": "Hang on... Soldier: immediate background check on decoy troops 6 through 11. Those tanks look like ours but they've got a new coat of paint. If this is another prank by the cadets I'll be spinning heads myself... I want names before this simulation is complete.",
 			"alignment": 1,
-			"icon": "uid://bje2q8ffxf27m"
+			"icon": "uid://bje2q8ffxf27m",
+			"background": "uid://up3tbmw3hb04"
 		},
 		{
 			"speaker": "Soldier",

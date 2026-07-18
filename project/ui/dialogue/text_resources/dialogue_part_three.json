@@ -5,7 +5,8 @@
 			"speaker": "Commander, Onyx",
 			"text": "I saw that movement myself! We've got drone footage surrounding the time of the event! That thing's a wild threat roaming the streets now. Don't tell me we can't take action now!",
 			"alignment": 1,
-			"icon": "uid://bje2q8ffxf27m"
+			"icon": "uid://bje2q8ffxf27m",
+			"background": "uid://blmvh3625gg40"
 		},
 		{
 			"speaker": "General, Helio",
@@ -47,7 +48,8 @@
 			"speaker": "Commander, Orpiment",
 			"text": "Honestly, General?.. I'm afraid that we're being watched. I saw that AI pivot towards the city right as the defensive systems were disabled. That can't be a coincidence, right?",
 			"alignment": 1,
-			"icon": "uid://bmueu1f12tf5o"
+			"icon": "uid://bmueu1f12tf5o",
+			"background": "uid://7xho1dgkvw5s"
 		},
 		{
 			"speaker": "Commander, Orpiment",
