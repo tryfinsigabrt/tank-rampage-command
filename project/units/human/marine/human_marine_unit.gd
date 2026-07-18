@@ -120,8 +120,11 @@ func aim_at(world_location:Vector3) -> void:
 		_aim_at_tween.kill()
 		_aim_at_tween = null
 
+	var parent := get_parent_node_3d()
+	var target_local_quat := target_quat if not parent else parent.global_basis.get_rotation_quaternion().inverse() * target_quat
+
 	var tween := create_tween()
-	tween.tween_property(self, "quaternion", target_quat, duration)\
+	tween.tween_property(self, "quaternion", target_local_quat, duration)\
 		.set_trans(Tween.TRANS_QUART)\
 		.set_ease(Tween.EASE_OUT)
 	
