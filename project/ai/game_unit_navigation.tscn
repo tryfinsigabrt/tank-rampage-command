@@ -18,6 +18,8 @@ script = ExtResource("2_p2f7o")
 
 [node name="SimpleNavigation" type="Node" parent="." unique_id=99106818]
 script = ExtResource("3_rywok")
+raycast_distance = 6.0
+raycast_timeout = 3.0
 raycast_mask = 33
 
 [node name="AvoidanceSteering" type="Node" parent="." unique_id=463391274]
