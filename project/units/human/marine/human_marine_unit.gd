@@ -22,6 +22,7 @@ var is_shooting:bool:
 
 var _aim_at_tween:Tween
 var _has_moved:bool
+var _death_timer:Timer
 var _last_target_aim:Quaternion
 var _aim_target:Vector3 = Vector3.INF
 var _visual_root_rest_transform:Transform3D
@@ -182,9 +183,15 @@ func _die(damage_params: DamageParameters) -> void:
 	died.emit(damage_params)
 	
 	# Delay so can see visuals
-	# TODO: Get animation notification when complete
-	await get_tree().create_timer(2.0).timeout
-	queue_free()
+	_death_timer = Timer.new()
+	_death_timer.name = "DeathTimer"
+	_death_timer.one_shot = true
+	_death_timer.wait_time = 2.0
+	_death_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
+	_death_timer.timeout.connect(queue_free, CONNECT_ONE_SHOT)
+	add_child(_death_timer)
+	
+	_death_timer.start()
 	
 func _on_health_changed(previous_health: float, current_health: float) -> void:
 	if LogUtils.verbose:
@@ -192,9 +199,6 @@ func _on_health_changed(previous_health: float, current_health: float) -> void:
 
 func _took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)
-	if health_stat.is_dead:
-		@warning_ignore("missing_await")
-		_die(damage_params)
 
 func _get_health_stat() -> HealthStat:
 	return health_stat

@@ -171,35 +171,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9, 0, 29.5)
 team = 1
 
 [node name="Skeleton3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature" parent_id_path=PackedInt32Array(224944543, 326298032, 841724596) index="0" unique_id=1012015045]
-bones/1/position = Vector3(-0.0006381646, 1.3744607, 0.045260496)
-bones/1/rotation = Quaternion(-0.73376125, 0.06003948, 0.6736642, -0.06454721)
-bones/2/rotation = Quaternion(-0.101789795, -0.12930886, -0.19269441, 0.9673609)
-bones/3/rotation = Quaternion(0.2790941, 0.0010541232, 0.057416763, 0.9585451)
-bones/4/rotation = Quaternion(-0.005934028, -0.048701063, -0.10847925, 0.9928873)
-bones/5/rotation = Quaternion(0.102831386, -0.0010936224, -0.021155046, 0.9944733)
-bones/6/rotation = Quaternion(-0.70388544, 0.04779229, 0.70709074, 0.047791995)
-bones/7/rotation = Quaternion(0.019579688, 0.00052733853, -0.06039786, 0.99798226)
-bones/8/rotation = Quaternion(-0.0005931287, -0.0056101154, -0.019344842, 0.99979705)
-bones/9/rotation = Quaternion(-0.015293047, 0.13623367, -0.03298142, 0.99000955)
-bones/10/position = Vector3(0.3422766, -0.4323227, -0.16699946)
-bones/10/rotation = Quaternion(-0.63239336, 0.6066359, 0.44322848, 0.18873255)
-bones/12/position = Vector3(0.05666025, -0.14860909, -0.77270657)
-bones/13/position = Vector3(0.36552036, -0.3456409, 0.27269697)
-bones/13/rotation = Quaternion(-0.1872193, 0.59774125, 0.52673817, -0.5746315)
-bones/15/position = Vector3(-0.09560896, -0.04828055, 0.7601355)
-bones/16/rotation = Quaternion(0.9678015, 0.21387467, -0.122207, -0.051802576)
-bones/17/rotation = Quaternion(-0.379122, 6.771907e-08, -5.0698674e-07, 0.92534673)
-bones/18/rotation = Quaternion(-0.26146114, 0.149594, 0.92637205, -0.22604099)
-bones/19/rotation = Quaternion(-0.5558391, -4.0392752e-08, 7.082059e-07, 0.8312899)
-bones/20/position = Vector3(-0.035303608, 0.12177684, -0.15120642)
-bones/20/rotation = Quaternion(-0.43200988, 0.5620361, 0.55116075, 0.44011918)
-bones/21/position = Vector3(-0.086118735, -0.589383, 0.5684596)
-bones/23/rotation = Quaternion(-0.50777507, 0.491042, 0.48221338, 0.518182)
-bones/24/position = Vector3(0.0063922843, -0.6025781, 0.5706019)
-bones/26/position = Vector3(1.976854, 1.4539478, -0.5588213)
+bones/1/position = Vector3(-0.00045660883, 1.3837774, -0.021455083)
+bones/1/rotation = Quaternion(-0.70733976, -0.025263734, 0.7062571, 0.015267449)
+bones/2/rotation = Quaternion(-0.0025830553, -0.045720793, 0.01437279, 0.9988476)
+bones/3/rotation = Quaternion(0.13675511, 0.0010889275, 0.028134, 0.99020475)
+bones/4/rotation = Quaternion(-0.06281347, 0.0679125, 0.090517476, 0.9915891)
+bones/5/rotation = Quaternion(0.22759543, -0.001069597, -0.046822187, 0.97262883)
+bones/6/rotation = Quaternion(-0.7073823, -0.0105808275, 0.7066729, -0.010581118)
+bones/7/rotation = Quaternion(-0.015363203, -0.00041373877, -0.06040232, 0.9980558)
+bones/8/rotation = Quaternion(-4.5975452e-05, -0.00043484487, -0.050247375, 0.9987367)
+bones/9/rotation = Quaternion(-0.00095452426, -0.2009609, 0.081444204, 0.9762073)
+bones/10/position = Vector3(0.34954223, -0.43858254, -0.2259835)
+bones/10/rotation = Quaternion(-0.7428205, 0.46666157, 0.42023897, 0.23204295)
+bones/12/position = Vector3(-0.16416557, -0.08652407, -0.8071219)
+bones/13/position = Vector3(0.3544073, -0.28517747, 0.21756685)
+bones/13/rotation = Quaternion(-0.1822393, 0.63083947, 0.46612895, -0.5929201)
+bones/15/position = Vector3(0.06544287, 0.05012823, 0.8067006)
+bones/16/rotation = Quaternion(0.9456892, 0.19285883, -0.25639316, -0.052344196)
+bones/17/rotation = Quaternion(-0.36764717, 7.308811e-08, -4.8414205e-07, 0.92996544)
+bones/18/rotation = Quaternion(-0.101423785, 0.19595082, 0.93336815, -0.28309113)
+bones/19/rotation = Quaternion(-0.6530456, -1.847309e-08, 8.832646e-07, 0.7573187)
+bones/20/position = Vector3(-0.06884297, 0.12242685, -0.15120691)
+bones/20/rotation = Quaternion(-0.47337848, 0.52770746, 0.51594096, 0.48087707)
+bones/21/position = Vector3(-0.0005596957, -0.5969098, 0.56724465)
+bones/23/rotation = Quaternion(-0.5061782, 0.4926873, 0.483881, 0.5166257)
+bones/24/position = Vector3(-0.026688242, -0.59939253, 0.56733036)
+bones/26/position = Vector3(2.473939, 2.0571434, 1.5569501)
 
 [node name="BoneAttachment3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
-transform = Transform3D(-0.45570773, 0.7119156, -0.534328, -0.8033647, -0.58744633, -0.097529545, -0.3833218, 0.38481534, 0.83963186, -0.33613783, 1.2990693, 0.27183643)
+transform = Transform3D(-0.5795556, 0.6573299, -0.4816972, -0.758537, -0.6511878, 0.024017125, -0.29788813, 0.3793044, 0.8760086, -0.20752256, 1.3706579, 0.2907782)
+
+[node name="MuzzleLocation" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature/Skeleton3D/BoneAttachment3D/GunPropLocal" parent_id_path=PackedInt32Array(224944543, 326298032, 384279234) index="0" unique_id=495197613]
+remote_path = NodePath("../../../../../../FireOrigin")
 
 [node name="GameUnitNavigation" parent="World/Match/PlayerTeam/Player/Marine" index="2" unique_id=1412332106]
 always_use_simple_nav = true
@@ -207,7 +210,10 @@ always_use_simple_nav = true
 [node name="UI" parent="World/Match/PlayerTeam/Player/Marine" index="4" unique_id=534065075]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -7.9, 3, 29.5)
 
-[node name="Weapon" parent="World/Match/PlayerTeam/Player/Marine/FireOrigin" parent_id_path=PackedInt32Array(224944543, 1719011979) index="0" unique_id=107617315]
+[node name="FireOrigin" parent="World/Match/PlayerTeam/Player/Marine" index="7" unique_id=1719011979]
+transform = Transform3D(-0.2832494, -0.6528753, -0.70251805, 0.12973589, 0.6996989, -0.70256597, 0.95023143, -0.29014292, -0.11348823, -0.7295346, 0.92993677, -0.49324036)
+
+[node name="Weapon" parent="World/Match/PlayerTeam/Player/Marine/FireOrigin" index="0" unique_id=107617315]
 transform = Transform3D(0.32249242, 0.5364605, 0.7805081, 0.2297078, 0.7549863, -0.6147253, -0.9182776, 0.37726167, 0.12033502, 1.1078396, -0.8633963, -0.65063286)
 
 [node name="EnemyTeam" parent="World/Match" unique_id=563949230 instance=ExtResource("4_wrqjo")]

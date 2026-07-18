@@ -42,19 +42,22 @@ func die() -> void:
 	on_damage(damage)
 			
 func on_damage(damage_params:DamageParameters) -> void:
+	if is_dead:
+		return
+		
 	var orig_health := health
 	health = health - damage_params.damage
 	var actual_damage:float = orig_health - health
 	
-	if is_zero_approx(actual_damage):
-		return
-	
-	if not is_equal_approx(actual_damage, damage_params.damage):
-		damage_params = damage_params.duplicate()
-		damage_params.damage = actual_damage
+	var dead:bool = is_dead
 		
-	took_damage.emit(damage_params)
-	if is_dead:
+	if dead or not is_zero_approx(actual_damage):
+		if not is_equal_approx(actual_damage, damage_params.damage):
+			damage_params = damage_params.duplicate()
+			damage_params.damage = maxf(actual_damage, 0.001)
+			
+		took_damage.emit(damage_params)
+	if dead:
 		died.emit(damage_params)
 
 ## Attempts to connect the callback to the died signal of a HealthStat child node
