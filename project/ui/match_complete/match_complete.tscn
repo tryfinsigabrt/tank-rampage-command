@@ -112,11 +112,13 @@ layout_mode = 2
 theme_override_constants/separation = 25
 
 [node name="Restart" type="Button" parent="ContentRoot/MainContent/CenterButtons/Buttons" unique_id=1196049919]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Restart"
 
 [node name="MainMenu" type="Button" parent="ContentRoot/MainContent/CenterButtons/Buttons" unique_id=31171304]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"

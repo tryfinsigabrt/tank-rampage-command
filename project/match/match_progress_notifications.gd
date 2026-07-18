@@ -46,17 +46,18 @@ func _on_match_ready(match_object:Match) -> void:
 	_display_message(message)
 	
 func _on_team_eliminated(match_team:MatchTeam) -> void:
-	_display_message("%s eliminated" % match_team.name)
+	_display_message("%s eliminated" % match_team.name, true)
 	
 func _on_match_complete(match_object:Match) -> void:
 	var winning_team:MatchTeam = match_object.winner
 	if winning_team:
 		var message:String = "%s wins!" % winning_team.name
 		await get_tree().create_timer(winner_notification_delay_seconds).timeout
-		_display_message(message)
+		_display_message(message, true)
 	
-func _display_message(message:String) -> void:
+func _display_message(message:String, continue_when_paused:bool = false) -> void:
 	var scene:ToastNotification = notifications_scene.instantiate()
+	scene.process_mode = Node.ProcessMode.PROCESS_MODE_ALWAYS if continue_when_paused else Node.ProcessMode.PROCESS_MODE_PAUSABLE
 	
 	var word_count:int = message.countn(" ") + 1
 	scene.time_scale = MATCH_PROGRESS_NOTIFICATION_SCALE_WORDS.sample(word_count)

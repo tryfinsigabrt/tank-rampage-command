@@ -40,7 +40,18 @@ func _ready() -> void:
 		for child in team_row.get_children():
 			child.reparent(match_teams_container)
 		team_row.queue_free()
-		
+	
+	# Disable unpause and force game paused
+	pause()
+	SignalBus.on_paused.connect(_on_paused)		
+
+static func _on_paused(is_paused:bool) -> void:
+	if not is_paused:
+		pause()
+			
+static func pause() -> void:
+	GameManager.scene_manager.pause_game(true)
+	
 func _on_restart_pressed() -> void:
 	@warning_ignore("missing_await")
 	UIUtils.disable_all_buttons(buttons_container, 20.0)
