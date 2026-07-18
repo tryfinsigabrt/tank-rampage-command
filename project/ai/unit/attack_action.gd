@@ -181,6 +181,7 @@ func _process(delta: float) -> void:
 			_time_out_of_range += delta
 			if _time_out_of_range > auto_expire_out_of_range:
 				queue_free()
+				return
 	
 	if in_range and _check_los:
 		_has_los = _check_target_los()
@@ -193,6 +194,10 @@ func _process(delta: float) -> void:
 	elif not in_range and fire_timer_running:
 		_fire_timer.stop()
 		_weapon_controller.shoot_intent_toggled.emit(false)
+		
+	# If not in range and not currently moving then move into range
+	if not in_range and move_into_range != MoveBehavior.NEVER and _range_move_target == Vector3.INF:
+		_move_into_attack_range()
 		
 func _aim() -> void:
 	var target:Vector3 = _get_target_position()
