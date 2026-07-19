@@ -5,6 +5,9 @@ extends Control
 @onready var level_01: LevelPanel = $RootMargin/Content/Scroll/LevelList/Level01
 @onready var level_02: LevelPanel = $RootMargin/Content/Scroll/LevelList/Level02
 
+const DIALOGUE_PART_ONE = preload("uid://c2q5lmftuw5fx")
+const DIALOGUE_PART_TWO = preload("uid://cjbiodi2t053v")
+
 func _ready() -> void:
 	tutorial.title_text = "Tutorial"
 	tutorial.description_text = "Learn the basics of selection, movement, construction, and resource gathering."
@@ -37,8 +40,8 @@ func _on_tutorial_play_button_pressed() -> void:
 
 func _on_level_1_play_button_pressed() -> void:
 	level_01.play_button_disabled = true
-	await GameManager.scene_manager.play_level(1)
+	await GameManager.scene_manager.switch_scene(DIALOGUE_PART_ONE)
 
 func _on_level_2_play_button_pressed() -> void:
 	level_02.play_button_disabled = true
-	await GameManager.scene_manager.play_level(2)
+	await GameManager.scene_manager.switch_scene(DIALOGUE_PART_TWO)
