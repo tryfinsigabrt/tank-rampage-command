@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="99.885208"
+   height="55.211292"
+   viewBox="0 0 26.427961 14.607988"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="EnterKey.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="11.630994"
+     inkscape:cx="44.321233"
+     inkscape:cy="33.703052"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <rect
+       x="1.1158024"
+       y="1.1158024"
+       width="97.332306"
+       height="39.911392"
+       id="rect3" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-0.73866796,-3.4685278)">
+    <path
+       style="fill:#353535;fill-opacity:1;stroke:none;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2"
+       width="26.427961"
+       height="14.607987"
+       x="0.73866796"
+       y="3.4685278"
+       inkscape:label="KeyBacking"
+       inkscape:path-effect="#path-effect3"
+       sodipodi:type="rect"
+       d="M 1.2678346,3.4685278 H 26.637463 c 0.293158,0 0.529166,0.2360083 0.529166,0.5291666 V 17.547349 c 0,0.293158 -0.236008,0.529166 -0.529166,0.529166 H 1.2678346 c -0.29315831,0 -0.52916664,-0.236008 -0.52916664,-0.529166 V 3.9976944 c 0,-0.2931583 0.23600833,-0.5291666 0.52916664,-0.5291666 z"
+       rx="0.52916664"
+       ry="0.52916664" />
+    <rect
+       style="fill:#3c3c3c;fill-opacity:1;stroke:#6d6d6d;stroke-width:0.264583;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="26.154846"
+       height="10.900137"
+       x="0.87428355"
+       y="3.6012077"
+       inkscape:label="KeyFace" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,7.0291829,5.8076001)"
+       id="text2"
+       style="font-size:18.6667px;text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3);fill:#3c3c3c;fill-opacity:1;stroke:none;stroke-width:1;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"><tspan
+         x="1.1152344"
+         y="18.099602"
+         id="tspan4"><tspan
+           style="fill:#ffffff"
+           id="tspan3">Enter</tspan></tspan></text>
+  </g>
+</svg>
