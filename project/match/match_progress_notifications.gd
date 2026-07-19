@@ -36,7 +36,7 @@ func _on_match_ready(match_object:Match) -> void:
 			continue
 		var condition_node := Groups.get_child_in_group(match_team, Groups.MatchTeamEliminationCondition)
 		# Must define a condition variable
-		if "condition" not in condition_node:
+		if not condition_node or "condition" not in condition_node:
 			continue
 		
 		var condition:String = condition_node.condition
