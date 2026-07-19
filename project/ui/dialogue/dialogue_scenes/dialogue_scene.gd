@@ -1,8 +1,6 @@
 class_name DialogueScene
 extends Control
 
-@export_range(1, 100) var target_level: int = 1
-
 @export var dialogue_handler: DialogueHandler
 @export var dialogue_container: DialogueContainer
 
@@ -40,13 +38,7 @@ func attempt_progress_dialogue() -> void:
 
 func _handle_dialogue_complete() -> void:
 	print("[DialogueScene] Dialogue complete - switching to scene...")
-	await switch_to_target_scene()
-
-
-func switch_to_target_scene() -> void:
-	# TODO: Add a transition, like a screen fade out
-	print("[DialogueScene] Switching to target scene: %s" % [target_level])
-	await GameManager.scene_manager.play_level(target_level)
+	await dialogue_handler.switch_to_target_scene()
 
 
 func _on_new_dialogue_step(_dialogue_step: DialogueStep) -> void:

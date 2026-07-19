@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfcsl6skarbcj" path="res://ui/dialogue/dialogue_scenes/dialogue_scene.gd" id="1_ko4ts"]
 [ext_resource type="Script" uid="uid://dbqkt1fouchsg" path="res://ui/dialogue/dialogue_handler.gd" id="2_mt7r6"]
+[ext_resource type="Resource" uid="uid://ce43h86qdb2wr" path="res://conf/level_one_config.tres" id="3_14yda"]
 [ext_resource type="JSON" path="res://ui/dialogue/text_resources/dialogue_part_one.json" id="3_g7tgy"]
 [ext_resource type="PackedScene" uid="uid://ch0rgm17wqom0" path="res://ui/dialogue/dialogue_container/dialogue_container.tscn" id="3_tew81"]
 [ext_resource type="Script" uid="uid://d1plpmsmsk8ou" path="res://ui/dialogue/dialogue_source.gd" id="4_14yda"]
@@ -25,6 +26,7 @@ metadata/_custom_type_script = "uid://cfcsl6skarbcj"
 
 [node name="DialogueHandler" type="Node" parent="." unique_id=1225392863]
 script = ExtResource("2_mt7r6")
+target_level = ExtResource("3_14yda")
 source = SubResource("Resource_u61q3")
 metadata/_custom_type_script = "uid://dbqkt1fouchsg"
 

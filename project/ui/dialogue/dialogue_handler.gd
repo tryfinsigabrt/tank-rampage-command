@@ -7,6 +7,7 @@ signal new_dialogue_step(dialogue_step: DialogueStep)
 signal dialogue_progressed
 signal dialogue_finished
 
+@export var target_level: LevelConfig
 @export var source: DialogueSource
 
 var current_step: int = -1 # Start at -1 so that we increment to 0 on the first iteration
@@ -51,6 +52,11 @@ func reset() -> void:
 	current_step = -1
 	_last_loaded_step = 0
 
+
+func switch_to_target_scene() -> void:
+	# TODO: Add a transition, like a screen fade out
+	print("[DialogueScene] Switching to target scene: %s" % [target_level.level_resource])
+	await GameManager.scene_manager.switch_scene_file(target_level.level_resource)
 
 func _handle_dialogue_for_step(index: int) -> void:
 	if index >= source.lines.size():

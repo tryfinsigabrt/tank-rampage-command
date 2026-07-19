@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cfcsl6skarbcj" path="res://ui/dialogue/dialogue_scenes/dialogue_scene.gd" id="1_ryctd"]
 [ext_resource type="Script" uid="uid://dbqkt1fouchsg" path="res://ui/dialogue/dialogue_handler.gd" id="2_1luui"]
 [ext_resource type="JSON" path="res://ui/dialogue/text_resources/dialogue_part_two.json" id="3_100j5"]
+[ext_resource type="Resource" uid="uid://bpfx8xrp15sjc" path="res://conf/level_two_config.tres" id="3_vl4wr"]
 [ext_resource type="Script" uid="uid://d1plpmsmsk8ou" path="res://ui/dialogue/dialogue_source.gd" id="4_vl4wr"]
 [ext_resource type="PackedScene" uid="uid://ch0rgm17wqom0" path="res://ui/dialogue/dialogue_container/dialogue_container.tscn" id="5_jlh1v"]
 
@@ -19,13 +20,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ryctd")
-target_level = 2
 dialogue_handler = NodePath("DialogueHandler")
 dialogue_container = NodePath("DialogueContainer")
 metadata/_custom_type_script = "uid://cfcsl6skarbcj"
 
 [node name="DialogueHandler" type="Node" parent="." unique_id=438669209]
 script = ExtResource("2_1luui")
+target_level = ExtResource("3_vl4wr")
 source = SubResource("Resource_f080a")
 metadata/_custom_type_script = "uid://dbqkt1fouchsg"
 

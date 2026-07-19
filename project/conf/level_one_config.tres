@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelConfig" format=3 uid="uid://ce43h86qdb2wr"]
+
+[ext_resource type="Resource" uid="uid://crbu2i60s6pbm" path="res://sounds/music/level_1_music_player.tres" id="1_x0nic"]
+[ext_resource type="Script" uid="uid://ci2am7uh6v0ip" path="res://core/level_config.gd" id="2_dy3jg"]
+
+[resource]
+script = ExtResource("2_dy3jg")
+level_resource = "uid://dl6cdn6vje37"
+music_player_resource = ExtResource("1_x0nic")
+metadata/_custom_type_script = "uid://ci2am7uh6v0ip"
