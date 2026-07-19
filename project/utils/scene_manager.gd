@@ -103,6 +103,7 @@ func _switch_scene(scene_loader:Callable) -> void:
 		print_orphan_nodes()		
 		print_debug("**********END ORPHAN NODES**********")
 	
+	get_tree().paused = false
 	var current_scene:Node = scene_loader.call()
 	
 	scene_entering.emit(current_scene)
@@ -112,6 +113,5 @@ func _switch_scene(scene_loader:Callable) -> void:
 	# So replaced all references to this
 	get_tree().root.add_child(current_scene)
 	get_tree().current_scene = current_scene
-	get_tree().paused = false
 
 	scene_changed.emit(current_scene)

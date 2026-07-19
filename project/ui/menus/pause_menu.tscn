@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" path="res://ui/menus/controls_reference_menu.tscn" id="3_9c2tr"]
 [ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="3_51icm"]
 
-[node name="PauseMenu" type="Control" unique_id=315174667]
+[node name="PauseMenu" type="Control" unique_id=315174667 groups=["PauseMenu"]]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15

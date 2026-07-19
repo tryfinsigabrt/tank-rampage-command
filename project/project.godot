@@ -76,6 +76,7 @@ Precompilation="Tags a node for precompilation when game loads to reduce first p
 MatchTeamEliminationCondition="Denotes a node that determines an elimination condition for a match team"
 ScrapField="Scrap Field game resource"
 ArmedAsset="Asset that has a weapon"
+PauseMenu="Pause Menu Scene"
 
 [input]
 

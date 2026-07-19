@@ -41,11 +41,20 @@ func _ready() -> void:
 			child.reparent(match_teams_container)
 		team_row.queue_free()
 	
+	await _end_gameplay()		
+
+func _end_gameplay() -> void:
+	# Remove pause menu so it doesn't show on top of the results
+	var pause_menu_scene:Node = get_tree().get_first_node_in_group(Groups.PauseMenu)
+	if pause_menu_scene:
+		pause_menu_scene.queue_free()
+		await get_tree().process_frame
+		
 	# Disable unpause and force game paused
 	pause()
-	SignalBus.on_paused.connect(_on_paused)		
-
-static func _on_paused(is_paused:bool) -> void:
+	SignalBus.on_paused.connect(_on_paused)
+	
+func _on_paused(is_paused:bool) -> void:
 	if not is_paused:
 		pause()
 			
