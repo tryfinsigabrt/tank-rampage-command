@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bofb3fo8yq3sd"]
+
+[ext_resource type="StyleBox" uid="uid://xi40coh2g4cb" path="res://ui/dialogue/skip_dialogue/input_hint_style_box.tres" id="1_18crh"]
+[ext_resource type="Script" uid="uid://bwkkjsjdqre2n" path="res://ui/dialogue/skip_dialogue/skip_dialogue.gd" id="1_k7tbh"]
+[ext_resource type="Texture2D" uid="uid://dex36rvv7rakf" path="res://ui/dialogue/skip_dialogue/radial_progress_outline_fill.png" id="2_4f28e"]
+[ext_resource type="Texture2D" uid="uid://bfixd5ukb6d5w" path="res://ui/dialogue/skip_dialogue/radial_progress_outline_backing.png" id="2_o6rxy"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_o1ym5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6rxy"]
+font_size = 14
+
+[node name="SkipDialogue" type="PanelContainer" unique_id=1807631546]
+offset_right = 104.0
+offset_bottom = 104.0
+theme_override_styles/panel = ExtResource("1_18crh")
+script = ExtResource("1_k7tbh")
+time_to_skip = 0.5
+
+[node name="RadialProgressBar" type="TextureProgressBar" parent="." unique_id=2014689766]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+max_value = 0.5
+step = 0.0
+value = 0.4554527777777771
+fill_mode = 4
+texture_under = ExtResource("2_o6rxy")
+texture_progress = ExtResource("2_4f28e")
+
+[node name="MarginContainer" type="MarginContainer" parent="RadialProgressBar" unique_id=108571487]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 17
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RadialProgressBar/MarginContainer" unique_id=1518628513]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ButtonIcon" type="TextureRect" parent="RadialProgressBar/MarginContainer/VBoxContainer" unique_id=544885551]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_o1ym5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="RadialProgressBar/MarginContainer/VBoxContainer" unique_id=336065672]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Skip"
+label_settings = SubResource("LabelSettings_o6rxy")
+horizontal_alignment = 1
+vertical_alignment = 1

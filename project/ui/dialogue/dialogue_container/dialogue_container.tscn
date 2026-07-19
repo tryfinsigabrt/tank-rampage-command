@@ -2,12 +2,16 @@
 
 [ext_resource type="Theme" uid="uid://dk05yxlunqyj6" path="res://ui/dialogue/dialogue_container/dialogue_container_default.tres" id="1_gnoha"]
 [ext_resource type="Script" uid="uid://cjf72unijeol5" path="res://ui/dialogue/dialogue_container/dialogue_container.gd" id="1_l68oo"]
+[ext_resource type="PackedScene" uid="uid://bofb3fo8yq3sd" path="res://ui/dialogue/skip_dialogue/skip_dialogue.tscn" id="3_hjs40"]
+[ext_resource type="Texture2D" uid="uid://n1xwwb0bpwex" path="res://ui/dialogue/skip_dialogue/EscKey-flat.png" id="4_e7slo"]
+[ext_resource type="StyleBox" uid="uid://xi40coh2g4cb" path="res://ui/dialogue/skip_dialogue/input_hint_style_box.tres" id="5_715ck"]
+[ext_resource type="Texture2D" uid="uid://5xfnlygx2xha" path="res://ui/dialogue/skip_dialogue/EnterKey-flat.png" id="5_e7slo"]
 
 [sub_resource type="FontVariation" id="FontVariation_gnoha"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gnoha"]
 font = SubResource("FontVariation_gnoha")
-font_size = 24
+font_size = 28
 outline_size = 4
 outline_color = Color(0.090174995, 0.090174995, 0.090174995, 1)
 shadow_size = 4
@@ -19,6 +23,9 @@ content_margin_right = 4.0
 grow_begin = -32.0
 grow_end = -32.0
 thickness = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_e7slo"]
+font_size = 14
 
 [node name="DialogueContainer" type="PanelContainer" unique_id=972685019]
 anchors_preset = 15
@@ -33,6 +40,8 @@ script = ExtResource("1_l68oo")
 [node name="BackgroundImage" type="TextureRect" parent="." unique_id=511337419]
 unique_name_in_owner = true
 layout_mode = 2
+expand_mode = 3
+stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2116994553]
 layout_mode = 2
@@ -44,7 +53,9 @@ layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1146858951]
 unique_name_in_owner = true
+z_index = 1
 layout_mode = 2
+text = "PLACEHOLDER TITLE"
 label_settings = SubResource("LabelSettings_gnoha")
 horizontal_alignment = 1
 
@@ -67,3 +78,40 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=2022828708]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=409257193]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 61
+
+[node name="SkipDialogue" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=1807631546 instance=ExtResource("3_hjs40")]
+unique_name_in_owner = true
+layout_mode = 2
+button_icon = ExtResource("4_e7slo")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer" unique_id=862939538]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("5_715ck")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer" unique_id=1328693517]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="ProceedInputTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=1355384348]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("5_e7slo")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ProceedLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" unique_id=2001606209]
+layout_mode = 2
+text = "Proceed"
+label_settings = SubResource("LabelSettings_e7slo")
+horizontal_alignment = 1
+vertical_alignment = 1

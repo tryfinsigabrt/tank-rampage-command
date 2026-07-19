@@ -23,8 +23,7 @@ func next_line() -> void:
 		dialogue_container.add_new_line(new_step)
 		dialogue_container.set_background_image(new_step.background_image)
 	else:
-		print("[DialogueScene] Dialogue complete - switching to scene...")
-		await switch_to_target_scene()
+		await _handle_dialogue_complete()
 
 func attempt_progress_dialogue() -> void:
 	if is_instance_valid(dialogue_container.last_line_added):
@@ -38,6 +37,11 @@ func attempt_progress_dialogue() -> void:
 	else:
 		print("[DialogueScene] No line yet -> Starting first line")
 		await next_line()
+
+func _handle_dialogue_complete() -> void:
+	print("[DialogueScene] Dialogue complete - switching to scene...")
+	await switch_to_target_scene()
+
 
 func switch_to_target_scene() -> void:
 	# TODO: Add a transition, like a screen fade out
@@ -55,6 +59,11 @@ func _on_dialogue_progressed() -> void:
 func _on_dialogue_finished() -> void:
 	print("[DialogueScene] New dialogue finished signal called!")
 
+func _on_dialogue_skipped() -> void:
+	print("[DialogueScene] Dialogue has been skipped!")
+	await _handle_dialogue_complete()
+
+
 func _ensure_signals() -> void:
 	if not dialogue_handler.new_dialogue_step.is_connected(_on_new_dialogue_step):
 		dialogue_handler.new_dialogue_step.connect(_on_new_dialogue_step)
@@ -62,6 +71,8 @@ func _ensure_signals() -> void:
 		dialogue_handler.dialogue_progressed.connect(_on_dialogue_progressed)
 	if not dialogue_handler.dialogue_finished.is_connected(_on_dialogue_finished):
 		dialogue_handler.dialogue_finished.connect(_on_dialogue_finished)
+	if not dialogue_container.skip_dialogue.skip_dialogue_triggered.is_connected(_on_dialogue_skipped):
+		dialogue_container.skip_dialogue.skip_dialogue_triggered.connect(_on_dialogue_skipped)
 
 
 func _ready() -> void:

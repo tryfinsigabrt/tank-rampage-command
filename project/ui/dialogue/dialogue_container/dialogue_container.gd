@@ -9,6 +9,7 @@ extends PanelContainer
 @onready var title_label: Label = %TitleLabel
 @onready var dialogue_line_container: VBoxContainer = %DialogueLineContainer
 @onready var scroll_container: ScrollContainer = %ScrollContainer
+@onready var skip_dialogue: SkipDialogue = %SkipDialogue
 
 var dialogue_line_packed: PackedScene = preload("uid://7xtpwkcqlouy")
 var last_line_added: DialogueLine
@@ -57,7 +58,7 @@ func _set_background_image_alpha(new_alpha: float) -> void:
 
 
 func _process(_delta: float) -> void:
-	if not last_line_added.all_text_visible():
+	if is_instance_valid(last_line_added) and not last_line_added.all_text_visible():
 		_scroll_to_bottom.call_deferred()
 
 func _scroll_to_bottom() -> void:
