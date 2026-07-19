@@ -20,7 +20,7 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 	if not assistance_requests:
 		return SUCCESS
 	
-	var available_units := blackboard.idle_units
+	var available_units := TeamUnits.get_potential_attackers(blackboard.idle_units)
 	if not available_units:
 		return SUCCESS
 	

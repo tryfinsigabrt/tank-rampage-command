@@ -117,6 +117,21 @@ func _on_asset_destroyed(asset:Node3D, group: StringName) -> void:
 		_asset_counts[group] = _asset_counts.get(group, 1) - 1
 		_assets_dirty[group] = true
 
+static func get_potential_attackers(candidate_units:Array[Unit]) -> Array[Unit]:
+	# Remove units that do not have weapons
+	var potential_attackers:Array[Unit]
+	potential_attackers.resize(candidate_units.size())
+	
+	var count:int = 0
+	for i in candidate_units.size():
+		var unit := candidate_units[i]
+		if unit.weapon:
+			potential_attackers[count] = unit
+			count += 1
+	
+	potential_attackers.resize(count)
+	return potential_attackers
+	
 func get_average_position() -> Vector3:
 	if not _asset_counts.get(Groups.Unit, 0):
 		return Vector3.ZERO

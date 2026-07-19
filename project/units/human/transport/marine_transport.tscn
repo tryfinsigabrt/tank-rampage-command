@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3mw0r3k4ail3"]
 
 [ext_resource type="Script" uid="uid://dpmqyqdvyheru" path="res://units/human/transport/marine_transport.gd" id="1_g02f8"]
-[ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_oavtb"]
+[ext_resource type="Resource" uid="uid://g8s8bkisi6p2" path="res://units/human/transport/transport_attributes.tres" id="2_ay2xi"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="3_nv4hd"]
 [ext_resource type="PackedScene" uid="uid://dbijxt6ikt1q6" path="res://units/human/transport/transport-truck.gltf" id="4_5sxx5"]
 [ext_resource type="Material" uid="uid://logcxm8m5ipt" path="res://units/human/transport/transport-body-material.tres" id="5_g02f8"]
@@ -36,7 +36,7 @@ script = ExtResource("1_g02f8")
 exit_position_delta = Vector3(0, 0, 12)
 movement_speed = 25.0
 unit_class = 4
-attributes = ExtResource("2_oavtb")
+attributes = ExtResource("2_ay2xi")
 
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
 

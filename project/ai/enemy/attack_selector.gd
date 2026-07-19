@@ -52,7 +52,7 @@ func _execute() -> void:
 		return
 	
 	# Attacking prioritized over other non-defensive actions, so not using idle here
-	var attack_pool_units := base_defense.reserve_defenders(blackboard.team_info.units)
+	var attack_pool_units := base_defense.reserve_defenders(TeamUnits.get_potential_attackers(blackboard.team_info.units))
 	var potential_reassignments:Dictionary[int, Array]
 	
 	var current_time:float = GameManager.game_timer.time_seconds
@@ -133,7 +133,7 @@ func _execute() -> void:
 	
 	if _new_attacks:
 		blackboard.currently_attacking = currently_attacking
-
+	
 func _score_priority_replacement(attacker:Unit, current_time:float, current_priority:AttackPriority, new_priority:AttackPriority) -> int:
 	if current_time - current_priority.time < priority_min_elapsed_time:
 		return -1
