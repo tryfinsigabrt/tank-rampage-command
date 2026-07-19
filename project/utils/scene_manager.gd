@@ -2,6 +2,7 @@ class_name SceneManager extends Node
 
 const MAIN_MENU_SCENE:PackedScene = preload("uid://crt8b4t030yrm")
 const LEVEL_SELECT_MENU_SCENE:PackedScene = preload("uid://su8ucbrnrgb1")
+const CREDITS = preload("uid://dan34avl1rilw")
 
 ## Called when a scene change function has been called before anything loaded or unloaded
 signal scene_change_requested(new_scene_resource:String)
@@ -22,6 +23,9 @@ var paused:bool:
 	
 func main_menu() -> void:
 	await switch_scene(MAIN_MENU_SCENE)
+
+func credits() -> void:
+	await switch_scene(CREDITS)
 
 func level_select_menu() -> void:
 	await switch_scene(LEVEL_SELECT_MENU_SCENE)

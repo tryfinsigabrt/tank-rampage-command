@@ -58,3 +58,7 @@ func _disable_buttons() -> void:
 
 func _on_tutorial_pressed() -> void:
 	await GameManager.scene_manager.play_tutorial()
+
+
+func _on_credits_button_pressed() -> void:
+	await GameManager.scene_manager.credits()

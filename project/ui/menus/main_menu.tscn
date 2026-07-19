@@ -140,9 +140,22 @@ metadata/_custom_type_script = "uid://cvc5lcd1qlwuo"
 
 [node name="MenuAudioPlayer" type="AudioStreamPlayer" parent="MainMenuAudio" unique_id=651686801]
 
+[node name="CreditsButton" type="Button" parent="." unique_id=690448913]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -31.0
+offset_right = 49.0
+offset_bottom = -7.0
+grow_vertical = 0
+text = "Credits"
+
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/LevelSelect" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="CenterContainer/MainMenuContainer/MainMenuButtons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]

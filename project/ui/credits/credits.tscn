@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://dan34avl1rilw"]
+
+[ext_resource type="Texture2D" uid="uid://blmvh3625gg40" path="res://ui/dialogue/background_images/command-center-with-sun.png" id="1_2n5wy"]
+[ext_resource type="Script" uid="uid://djgl0joi0qkil" path="res://ui/credits/credits.gd" id="1_ydyd3"]
+[ext_resource type="Texture2D" uid="uid://dc5a7y68hy2il" path="res://ui/menus/TankRampageCommandLogo.png" id="2_2n5wy"]
+[ext_resource type="Texture2D" uid="uid://ckeuftelmyglo" path="res://ui/dialogue/background_images/allied-awaiting-orders.PNG" id="2_rqgi2"]
+[ext_resource type="Texture2D" uid="uid://7xho1dgkvw5s" path="res://ui/dialogue/background_images/enemy-tank-squad.png" id="3_cva3t"]
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="3_nnsry"]
+[ext_resource type="Texture2D" uid="uid://by4og6vktja28" path="res://ui/dialogue/background_images/marines-by-crumbled-building.png" id="4_2d0lf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2n5wy"]
+bg_color = Color(0.025091276, 0.025091287, 0.025091255, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cva3t"]
+
+[node name="Credits" type="Control" unique_id=695923880]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ydyd3")
+credits_file = "res://credits_sample.txt"
+background_image_rotation = Array[Texture2D]([ExtResource("1_2n5wy"), ExtResource("3_cva3t"), ExtResource("4_2d0lf")])
+
+[node name="BehindBackground" type="PanelContainer" parent="." unique_id=1915190116]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2n5wy")
+
+[node name="BackgroundTexture" type="TextureRect" parent="BehindBackground" unique_id=2002950420]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.87058824)
+layout_mode = 2
+texture = ExtResource("2_rqgi2")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BehindBackground" unique_id=230148825]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="ScrollContents" type="VBoxContainer" parent="BehindBackground/ScrollContainer" unique_id=1232354232]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="LogoContainer" type="MarginContainer" parent="BehindBackground/ScrollContainer/ScrollContents" unique_id=1726906699]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 962)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 95
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 80
+
+[node name="LogoTextureRect" type="TextureRect" parent="BehindBackground/ScrollContainer/ScrollContents/LogoContainer" unique_id=419499645]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_2n5wy")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="CreditsContainer" type="VBoxContainer" parent="BehindBackground/ScrollContainer/ScrollContents" unique_id=1370747691]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 8
+
+[node name="StaticCreditsLabel" type="RichTextLabel" parent="BehindBackground/ScrollContainer/ScrollContents/CreditsContainer" unique_id=610915490]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 22
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="BottomFiller" type="Panel" parent="BehindBackground/ScrollContainer/ScrollContents" unique_id=1358685438]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cva3t")
+
+[node name="MainMenuButton" type="Button" parent="." unique_id=2087531877]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 13.0
+offset_top = 9.0
+offset_right = 151.0
+offset_bottom = 59.0
+theme = ExtResource("3_nnsry")
+theme_override_font_sizes/font_size = 18
+text = "Main Menu"
+alignment = 0
