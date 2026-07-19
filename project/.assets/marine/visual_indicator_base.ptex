@@ -1,0 +1,342 @@
+{
+	"connections": [
+		{
+			"from": "shape",
+			"from_port": 0,
+			"to": "blend2",
+			"to_port": 0
+		},
+		{
+			"from": "blend2",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 0
+		},
+		{
+			"from": "blend2",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 1
+		},
+		{
+			"from": "blend2",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 2
+		},
+		{
+			"from": "blend2",
+			"from_port": 0,
+			"to": "combine",
+			"to_port": 3
+		},
+		{
+			"from": "shape_2",
+			"from_port": 0,
+			"to": "blend2",
+			"to_port": 1
+		},
+		{
+			"from": "shape_4",
+			"from_port": 0,
+			"to": "blend2_2",
+			"to_port": 1
+		},
+		{
+			"from": "shape_3",
+			"from_port": 0,
+			"to": "blend2_2",
+			"to_port": 0
+		},
+		{
+			"from": "blend2_2",
+			"from_port": 0,
+			"to": "combine_2",
+			"to_port": 3
+		},
+		{
+			"from": "combine",
+			"from_port": 0,
+			"to": "blend2_3",
+			"to_port": 0
+		},
+		{
+			"from": "combine_2",
+			"from_port": 0,
+			"to": "blend2_3",
+			"to_port": 1
+		},
+		{
+			"from": "shape_6",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 1
+		},
+		{
+			"from": "shape_5",
+			"from_port": 0,
+			"to": "blend2_4",
+			"to_port": 0
+		},
+		{
+			"from": "blend2_4",
+			"from_port": 0,
+			"to": "combine_3",
+			"to_port": 3
+		},
+		{
+			"from": "blend2_3",
+			"from_port": 0,
+			"to": "blend2_5",
+			"to_port": 0
+		},
+		{
+			"from": "combine_3",
+			"from_port": 0,
+			"to": "blend2_5",
+			"to_port": 1
+		}
+	],
+	"label": "Graph",
+	"longdesc": "",
+	"name": "_Node_822",
+	"node_position": {
+		"x": 0.0,
+		"y": 0.0
+	},
+	"nodes": [
+		{
+			"export_last_target": "Godot/Godot 4 Standard",
+			"export_paths": {
+				"Godot/Godot 4 Standard": "C:/Users/funga/source/repos/godot/tank-rampage-command/project/control_points/base_material"
+			},
+			"name": "Material",
+			"node_position": {
+				"x": 607.257568359375,
+				"y": -840.133972167969
+			},
+			"parameters": {
+				"albedo_color": {
+					"a": 1.0,
+					"b": 1.0,
+					"g": 1.0,
+					"r": 1.0,
+					"type": "Color"
+				},
+				"ao": 1.0,
+				"depth_scale": 0.5,
+				"emission_energy": 1.0,
+				"flags_transparent": true,
+				"metallic": 0.0,
+				"normal": 1.0,
+				"roughness": 1.0,
+				"size": 9.0,
+				"sss": 1.0
+			},
+			"seed_int": 0,
+			"type": "material"
+		},
+		{
+			"name": "shape",
+			"node_position": {
+				"x": -827.157165527344,
+				"y": -837.204772949219
+			},
+			"parameters": {
+				"edge": 0.1,
+				"radius": 1.0,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "shape_2",
+			"node_position": {
+				"x": -836.701110839844,
+				"y": -622.358764648438
+			},
+			"parameters": {
+				"edge": 0.22,
+				"radius": 0.65,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"generic_size": 1,
+			"name": "blend2",
+			"node_position": {
+				"x": -483.32421875,
+				"y": -804.540100097656
+			},
+			"parameters": {
+				"amount1": 1.0,
+				"blend_type1": 11.0
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"name": "combine",
+			"node_position": {
+				"x": -182.290344238281,
+				"y": -757.8017578125
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "combine"
+		},
+		{
+			"name": "shape_3",
+			"node_position": {
+				"x": -765.01416015625,
+				"y": -312.999816894531
+			},
+			"parameters": {
+				"edge": 0.0,
+				"radius": 0.99,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "shape_4",
+			"node_position": {
+				"x": -756.558044433594,
+				"y": -146.153915405273
+			},
+			"parameters": {
+				"edge": 0.02,
+				"radius": 0.97,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"generic_size": 1,
+			"name": "blend2_2",
+			"node_position": {
+				"x": -447.181182861328,
+				"y": -290.335235595703
+			},
+			"parameters": {
+				"amount1": 1.0,
+				"blend_type1": 11.0
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"name": "combine_2",
+			"node_position": {
+				"x": -100.147270202637,
+				"y": -264.596801757813
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "combine"
+		},
+		{
+			"generic_size": 1,
+			"name": "blend2_3",
+			"node_position": {
+				"x": 108.149864196777,
+				"y": -405.521453857422
+			},
+			"parameters": {
+				"amount1": 1.0,
+				"blend_type1": 2
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"name": "shape_5",
+			"node_position": {
+				"x": -654.01416015625,
+				"y": 12.2501564025879
+			},
+			"parameters": {
+				"edge": 0.0,
+				"radius": 0.55,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"name": "combine_3",
+			"node_position": {
+				"x": 10.8527317047119,
+				"y": 60.6531791687012
+			},
+			"parameters": {
+
+			},
+			"seed_int": 0,
+			"type": "combine"
+		},
+		{
+			"name": "shape_6",
+			"node_position": {
+				"x": -645.558044433594,
+				"y": 179.096099853516
+			},
+			"parameters": {
+				"edge": 0.02,
+				"radius": 0.53,
+				"shape": 0.0,
+				"sides": 6.0
+			},
+			"seed_int": 0,
+			"type": "shape"
+		},
+		{
+			"generic_size": 1,
+			"name": "blend2_4",
+			"node_position": {
+				"x": -336.181213378906,
+				"y": 34.9147644042969
+			},
+			"parameters": {
+				"amount1": 1.0,
+				"blend_type1": 11.0
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		},
+		{
+			"generic_size": 1,
+			"name": "blend2_5",
+			"node_position": {
+				"x": 343.149871826172,
+				"y": -80.5214614868164
+			},
+			"parameters": {
+				"amount1": 1.0,
+				"blend_type1": 2
+			},
+			"seed_int": 0,
+			"type": "blend2"
+		}
+	],
+	"parameters": {
+
+	},
+	"seed_int": 0,
+	"shortdesc": "",
+	"type": "graph"
+}
