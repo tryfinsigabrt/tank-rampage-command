@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://pvbs3oppuwau" path="res://core/mining_component.gd" id="12_kweop"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="12_nsawp"]
 [ext_resource type="PackedScene" uid="uid://bfvwp3be0cbrl" path="res://sounds/command_center_death_sfx.tscn" id="13_vpexs"]
+[ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="15_8ax38"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ejy1"]
 radius = 20.0
@@ -94,6 +95,8 @@ default_avoidance_layers = 1
 extra_bounds_padding = 2.0
 
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("13_vpexs")]
+
+[node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("15_8ax38")]
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

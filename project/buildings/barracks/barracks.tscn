@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://7gsl50b8qqwx" path="res://buildings/rally_point_component.tscn" id="12_ewlsq"]
 [ext_resource type="PackedScene" uid="uid://cmcmfvsfjvfvt" path="res://ai/dynamic_nav_obstacle.tscn" id="13_25xcf"]
 [ext_resource type="PackedScene" uid="uid://01etokioo21k" path="res://sounds/building_death_sfx.tscn" id="14_al3h0"]
+[ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="15_4l7hf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1e70b"]
 size = Vector3(10, 4, 10)
@@ -92,6 +93,8 @@ default_avoidance_layers = 1
 extra_bounds_padding = 2.0
 
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("14_al3h0")]
+
+[node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("15_4l7hf")]
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

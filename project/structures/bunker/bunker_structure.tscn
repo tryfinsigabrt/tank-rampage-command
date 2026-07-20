@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="9_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="13_xb0ja"]
+[ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="16_db8ox"]
 
 [sub_resource type="Resource" id="Resource_xb0ja"]
 script = ExtResource("2_alybg")
@@ -150,6 +151,8 @@ max_angle_degrees = 1.0
 min_unit_separation = 3.0
 max_group_separation = 8.0
 metadata/_custom_type_script = "uid://desdjg6bo36t4"
+
+[node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("16_db8ox")]
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

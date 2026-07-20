@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="16_v4h76"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_w7n8l"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_cr4qw"]
+[ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="21_o2ah8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tifhs"]
 resource_name = "Body"
@@ -1320,6 +1321,8 @@ update_rotation = false
 update_scale = false
 
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("20_cr4qw")]
+
+[node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("21_o2ah8")]
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://cqymyfwga7coe" path="res://sounds/explosions/explosion_distant_large.tres" id="21_chb8j"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="21_em114"]
 [ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="25_b3o5j"]
+[ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="26_chb8j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2wif"]
 radius = 1.5
@@ -187,6 +188,8 @@ rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("21_em114")]
 
 [node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("25_b3o5j")]
+
+[node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("26_chb8j")]
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]
