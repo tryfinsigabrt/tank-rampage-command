@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://xnfctn4sv3l0" path="res://levels/level_world_environment.tscn" id="1_r2v1s"]
+
+[node name="Environment" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_r2v1s")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)
+light_energy = 0.8
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 0.5
+directional_shadow_max_distance = 2000.0

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_blmfy"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_g00wj"]
+[ext_resource type="PackedScene" path="res://levels/level_environment.tscn" id="2_env01"]
 [ext_resource type="NavigationMesh" uid="uid://c38l4rwogmitd" path="res://levels/tutorial/navigation_mesh.tres" id="3_blmfy"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_awbml"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_8xr47"]
@@ -166,19 +167,7 @@ metadata/_edit_use_anchors_ = true
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_g00wj")]
 explored_area_modulation = 0.5
 
-[node name="Environment" type="Node3D" parent="." unique_id=1163312648]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=72420042]
-environment = SubResource("Environment_vi6ws")
-camera_attributes = SubResource("CameraAttributesPractical_f313t")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1757603109]
-transform = Transform3D(0.1316508, 0.9912962, -2.488255e-08, -0.8252499, 0.10959877, 0.5540313, 0.54920906, -0.07293865, 0.83249587, 0, 22, 0)
-light_energy = 0.8
-shadow_enabled = true
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.5
-directional_shadow_max_distance = 2000.0
+[node name="Environment" parent="." unique_id=1163312648 instance=ExtResource("2_env01")]
 
 [node name="World" type="Node3D" parent="." unique_id=111854781]
 

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_4nbo2"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_8r3qo"]
 [ext_resource type="NavigationMesh" uid="uid://cl62jsei5gceh" path="res://levels/level_2/navigation_mesh.tres" id="3_0butd"]
-[ext_resource type="PackedScene" uid="uid://xnfctn4sv3l0" path="res://levels/level_world_environment.tscn" id="3_1h50e"]
+[ext_resource type="PackedScene" path="res://levels/level_environment.tscn" id="3_1h50e"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_1vf62"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_8y2in"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_5ts7o"]
@@ -2228,18 +2228,7 @@ metadata/_edit_use_anchors_ = true
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("2_8r3qo")]
 explored_area_modulation = 0.5
 
-[node name="Environment" type="Node3D" parent="." unique_id=792859291]
-metadata/_edit_lock_ = true
-
-[node name="WorldEnvironment" parent="Environment" unique_id=1074922196 instance=ExtResource("3_1h50e")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1316863953]
-transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)
-light_energy = 0.8
-shadow_enabled = true
-directional_shadow_mode = 0
-directional_shadow_fade_start = 0.5
-directional_shadow_max_distance = 2000.0
+[node name="Environment" parent="." unique_id=792859291 instance=ExtResource("3_1h50e")]
 metadata/_edit_lock_ = true
 
 [node name="World" type="Node3D" parent="." unique_id=552073371]
