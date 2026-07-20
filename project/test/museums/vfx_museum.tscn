@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cte4jalives85" path="res://addons/sk_fly_camera/src/fly_camera.gd" id="2_24ide"]
 [ext_resource type="PackedScene" uid="uid://cidyx3ws41l3p" path="res://test/museums/vfx_demo.tscn" id="3_bgbxl"]
 [ext_resource type="PackedScene" uid="uid://dwkvxfs4bso5h" path="res://particles/hit/artillery_explosion_vfx_spawner.tscn" id="4_24ide"]
+[ext_resource type="PackedScene" uid="uid://tc8ev7virs8m" path="res://particles/explosion/explosion_vfx.tscn" id="5_txann"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnysw"]
 ground_bottom_color = Color(0, 0, 0, 1)
@@ -64,6 +65,11 @@ use_default_controls = true
 repeat_delay = 5.0
 wait_for_free = false
 vfx_scene = ExtResource("4_24ide")
+
+[node name="Explosion" parent="Effects" unique_id=753055475 instance=ExtResource("3_bgbxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.200001, 0, -7.2000003)
+repeat_delay = 10.0
+vfx_scene = ExtResource("5_txann")
 
 [node name="Props" type="Node3D" parent="." unique_id=1393340467]
 

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bri2n7836smiu"]
+
+[ext_resource type="Script" uid="uid://bsk3kwiihelsy" path="res://particles/death_vfx.gd" id="1_sih6q"]
+[ext_resource type="PackedScene" uid="uid://tc8ev7virs8m" path="res://particles/explosion/explosion_vfx.tscn" id="2_1704e"]
+
+[node name="ExplosionDeathVfx" type="Node3D" unique_id=1300446191]
+script = ExtResource("1_sih6q")
+vfx_scene = ExtResource("2_1704e")
