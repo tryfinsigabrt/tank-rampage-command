@@ -5,6 +5,7 @@
 
 [node name="TankShadow" unique_id=1886418627 instance=ExtResource("1_ax3dl")]
 
-[node name="quad" parent="." index="0" unique_id=1612256418]
+[node name="quad" parent="." index="0" unique_id=1254011525]
 transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
 material_override = ExtResource("2_821ey")
+transparency = 0.25

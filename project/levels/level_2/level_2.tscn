@@ -2139,7 +2139,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jkvjs"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -2150,7 +2150,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdllg"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2164,13 +2164,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdllg"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igvic"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igvic"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hj2hk"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2184,13 +2184,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hj2hk"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2r4um"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2r4um"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmbt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2204,13 +2204,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmbt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydidt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -3726,26 +3726,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.9, 0.6, 110.59996)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.248, 0, 80.769)
 curve = SubResource("Curve3D_72cmr")
-crack_mask_texture = SubResource("NoiseTexture2D_jkvjs")
-scrap_mask_texture = SubResource("NoiseTexture2D_ua8d4")
+crack_mask_texture = SubResource("NoiseTexture2D_ua8d4")
+scrap_mask_texture = SubResource("NoiseTexture2D_tdllg")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1004973095 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.68715, 0, -268.331)
 curve = SubResource("Curve3D_mma45")
-crack_mask_texture = SubResource("NoiseTexture2D_tdllg")
-scrap_mask_texture = SubResource("NoiseTexture2D_igvic")
+crack_mask_texture = SubResource("NoiseTexture2D_igvic")
+scrap_mask_texture = SubResource("NoiseTexture2D_hj2hk")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.548, 0, -383.331)
 curve = SubResource("Curve3D_rhho1")
-crack_mask_texture = SubResource("NoiseTexture2D_hj2hk")
-scrap_mask_texture = SubResource("NoiseTexture2D_2r4um")
+crack_mask_texture = SubResource("NoiseTexture2D_2r4um")
+scrap_mask_texture = SubResource("NoiseTexture2D_2fmbt")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.552, 0, 240.869)
 curve = SubResource("Curve3D_xckxy")
-crack_mask_texture = SubResource("NoiseTexture2D_2fmbt")
-scrap_mask_texture = SubResource("NoiseTexture2D_ljfbl")
+crack_mask_texture = SubResource("NoiseTexture2D_ljfbl")
+scrap_mask_texture = SubResource("NoiseTexture2D_ydidt")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 

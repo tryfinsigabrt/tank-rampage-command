@@ -44,23 +44,28 @@ attributes = ExtResource("2_ay2xi")
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, -0.5)
 
-[node name="Body" parent="transport-truck" index="0" unique_id=477948010]
+[node name="Body" parent="transport-truck" index="0" unique_id=2055439339]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("5_g02f8")
 surface_material_override/1 = ExtResource("6_g02f8")
 surface_material_override/2 = ExtResource("7_5yhg2")
 surface_material_override/3 = ExtResource("8_g02f8")
 
-[node name="Wheels" parent="transport-truck" index="1" unique_id=1981125211]
+[node name="Wheels" parent="transport-truck" index="1" unique_id=911510439]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("10_f00yv")
 
-[node name="Frame" parent="transport-truck" index="3" unique_id=646955922]
+[node name="Frame" parent="transport-truck" index="3" unique_id=205040332]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 surface_material_override/1 = ExtResource("5_g02f8")
 
-[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1044182427]
+[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1957731376]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("6_g02f8")
 
-[node name="Interior" parent="transport-truck" index="5" unique_id=169645634]
+[node name="Interior" parent="transport-truck" index="5" unique_id=883974159]
+cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=1002010230]
