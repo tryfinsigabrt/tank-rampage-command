@@ -1,7 +1,5 @@
 class_name BunkerStructure extends DefensiveStructure
 
-@onready var _visual_root: Node3D = $VisualRoot
-@onready var _ui: Node3D = %UI
 @onready var _unit_container_component: UnitContainerComponent = %UnitContainerComponent
 @onready var _node_viable_position_finder: NodeViablePositionFinder = %NodeViablePositionFinder
 @onready var targeting_component: WeaponTargetingComponent = %WeaponTargetingComponent
@@ -15,8 +13,7 @@ var _destroyed:bool
 var _position_offsets_by_unit_id:Dictionary[int,Vector3]
 	
 func _do_update_render(in_visible:bool) -> void:
-	_visual_root.visible = in_visible
-	_ui.visible = in_visible
+	visible = in_visible
 
 func _die(_damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)

@@ -105,8 +105,7 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 	damaged.emit(damage_params)
 
 func _update_render(in_render:bool) -> void:
-	model_root.visible = in_render
-	ui.visible = in_render
+	visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat
