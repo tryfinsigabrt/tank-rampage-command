@@ -189,6 +189,7 @@ rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("21_em114")]
 
 [node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("25_b3o5j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.115, 0)
 
 [node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("27_shdw0")]
 
