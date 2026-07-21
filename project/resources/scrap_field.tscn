@@ -64,7 +64,7 @@ shader_parameter/scrap_mask_texture = SubResource("NoiseTexture2D_vrxab")
 shader_parameter/scrap_strength = 0.610000028975
 shader_parameter/remaining_fraction = 1.0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_lg5vb"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_a4kh1"]
 _surfaces = [{
 "aabb": AABB(-21.8807, 0, -14.038097, 38.089706, 1e-05, 30.432003),
 "attribute_data": PackedByteArray("H29VP7cu7D6LnGM/foAoP0UPEz8AAIA/63mHPmO7Jz8AAAAAty7sPtg3Uj4hy2s+2DdSPiHLaz5FDxM/AAAAAAAAgD+CqEc+H29VP7cu7D5FDxM/AACAP+t5hz5juyc/63mHPmO7Jz/YN1I+IctrPgAAgD+CqEc+AACAP4KoRz4fb1U/ty7sPut5hz5juyc/"),
@@ -112,7 +112,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 material_override = SubResource("ShaderMaterial_pr3v4")
 cast_shadow = 0
-mesh = SubResource("ArrayMesh_lg5vb")
+mesh = SubResource("ArrayMesh_a4kh1")
 
 [node name="MiningTimers" type="Node" parent="." unique_id=1817918814]
 unique_name_in_owner = true
@@ -138,7 +138,6 @@ root = NodePath("../..")
 
 [node name="FOWVisibilityToggler" type="Node" parent="Components/FOWVisibilityComponent" unique_id=2056828883]
 script = ExtResource("3_es4kr")
-render_behavior = 1
 
 [connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
 [connection signal="body_exited" from="TriggerArea" to="." method="_on_trigger_area_body_exited"]
