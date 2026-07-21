@@ -52,17 +52,17 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	if OS.is_debug_build():
 		DebugDraw3D.draw_sphere(_target_position, 5.0, Color.ORANGE, 3.0)
 		
-	_scanner = scanner_scene.instantiate()
-	_scanner.my_asset = _unit
 	var weapon := _unit.weapon
 	if weapon:
+		_scanner = scanner_scene.instantiate()
+		_scanner.my_asset = _unit
 		threat_max_distance_threshold = maxf(threat_max_distance_threshold, weapon.ideal_fire_range.y)
+			
+		_scanner.threshold_distance = threat_max_distance_threshold
+		_scanner.threats_detected.connect(_threats_detected)
+		add_child(_scanner)
 		
-	_scanner.threshold_distance = threat_max_distance_threshold
-	_scanner.threats_detected.connect(_threats_detected)
-	add_child(_scanner)
-	
-	threat_scorer.apply_scoring_modifier_for(_unit)
+		threat_scorer.apply_scoring_modifier_for(_unit)
 
 	_connect_move_signal()
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
