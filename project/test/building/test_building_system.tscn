@@ -29,12 +29,15 @@
 [ext_resource type="PackedScene" uid="uid://cj2pwp7gvetlm" path="res://resources/scrap_field.tscn" id="18_jtih4"]
 [ext_resource type="PackedScene" uid="uid://bxxopcco6kl1o" path="res://resources/scrap_token.tscn" id="19_ytr8p"]
 [ext_resource type="PackedScene" uid="uid://c13btm25dkrpo" path="res://ui/hud/hud.tscn" id="19_yuq8o"]
+[ext_resource type="PackedScene" uid="uid://nt05r3qybt2g" path="res://structures/bunker/bunker_structure.tscn" id="28_12l1a"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="28_asrh3"]
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="28_m666l"]
+[ext_resource type="PackedScene" uid="uid://4ip8egka5br3" path="res://structures/turret/turret_structure.tscn" id="29_xf1vw"]
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="30_bbhc4"]
 [ext_resource type="PackedScene" uid="uid://yqwjrehn6327" path="res://resources/scrap_collected_label.tscn" id="31_34k8n"]
 [ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="31_yemwc"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="32_ucwml"]
+[ext_resource type="Script" uid="uid://c2pfdakwoth8" path="res://test/destroy_on_select.gd" id="36_tl3bm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -97,7 +100,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ucwml"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2avet"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -108,7 +111,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tl3bm"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmvnq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -122,13 +125,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cke7o"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ds3kt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_12l1a"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cv5jk"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -322,19 +325,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 30, 169.90001)
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -42, 0, 185.8)
 team = 1
 
+[node name="BunkerStructure" parent="World/Match" unique_id=427098526 instance=ExtResource("28_12l1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.6, 0, 125.1)
+team = 1
+
+[node name="TurretStructure" parent="World/Match" unique_id=1143411310 instance=ExtResource("29_xf1vw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.2, 0, 146.3)
+team = 1
+
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("28_asrh3")]
 
 [node name="ScrapField" parent="World" unique_id=1314478789 instance=ExtResource("18_jtih4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.634998, 0, 177.175)
 curve = SubResource("Curve3D_ucwml")
-crack_mask_texture = SubResource("NoiseTexture2D_ucwml")
-scrap_mask_texture = SubResource("NoiseTexture2D_tl3bm")
+crack_mask_texture = SubResource("NoiseTexture2D_2avet")
+scrap_mask_texture = SubResource("NoiseTexture2D_dmvnq")
 
 [node name="ScrapField2" parent="World" unique_id=785074363 instance=ExtResource("18_jtih4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.335, 0, -76.925)
 curve = SubResource("Curve3D_tl3bm")
-crack_mask_texture = SubResource("NoiseTexture2D_cke7o")
-scrap_mask_texture = SubResource("NoiseTexture2D_12l1a")
+crack_mask_texture = SubResource("NoiseTexture2D_ds3kt")
+scrap_mask_texture = SubResource("NoiseTexture2D_cv5jk")
 
 [node name="ScrapPickups" type="Node3D" parent="World" unique_id=2065443998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, -0.099999905, 98.1)
@@ -381,6 +392,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.875004, 0, 52.318565)
 layout_mode = 2
 
 [node name="Hud" parent="." unique_id=1903012534 instance=ExtResource("19_yuq8o")]
+
+[node name="KillAsset" type="Node" parent="." unique_id=1738563480]
+script = ExtResource("36_tl3bm")
 
 [editable path="World/Match/PlayerTeam/Barracks"]
 [editable path="World/Match/PlayerTeam/CommandCenter"]

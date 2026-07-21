@@ -153,6 +153,9 @@ max_group_separation = 8.0
 metadata/_custom_type_script = "uid://desdjg6bo36t4"
 
 [node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("16_db8ox")]
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_scale": 1.33
+})
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

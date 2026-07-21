@@ -146,6 +146,9 @@ default_avoidance_layers = 1
 affects_unit_classes = Array[int]([1, 2, 3])
 
 [node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("17_6606p")]
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_scale": 1.25
+})
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

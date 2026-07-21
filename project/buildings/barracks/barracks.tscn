@@ -95,6 +95,9 @@ extra_bounds_padding = 2.0
 [node name="DeathSfx" parent="." unique_id=928613514 instance=ExtResource("14_al3h0")]
 
 [node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("15_4l7hf")]
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_scale": 1.5
+})
 
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]

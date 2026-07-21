@@ -193,6 +193,9 @@ rotation_angle_v_distance_fraction = ExtResource("2_jjc22")
 [node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("27_shdw0")]
 
 [node name="ExplosionDeathVfx" parent="." unique_id=1300446191 instance=ExtResource("26_chb8j")]
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_scale": 1.25
+})
 
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_on_took_damage"]

@@ -6,3 +6,6 @@
 [node name="ExplosionDeathVfx" type="Node3D" unique_id=1300446191]
 script = ExtResource("1_sih6q")
 vfx_scene = ExtResource("2_1704e")
+scene_properties = Dictionary[StringName, Variant]({
+&"explosion_scale": 1.0
+})
