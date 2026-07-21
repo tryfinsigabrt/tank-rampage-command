@@ -78,9 +78,10 @@ var up:Vector3:
 func _orientation_basis() -> Node3D:
 	return self
 	
-func _do_update_render(in_visible:bool) -> void:
-	visual_root.visible = in_visible
-	ui_root.visible = in_visible
+## Override hook if derived classes need to do additional work when visibility changes
+## _changed_to_visible can be checked to see if the node was ever visible
+func _do_update_render(_in_visible:bool) -> void:
+	pass
 	
 #endregion
 
@@ -96,11 +97,10 @@ func _update_render(in_visible: bool) -> void:
 	# For now, once we see a building we keep it visible
 	# There is a chance the team could move/destroy own buildings but unlikely
 	# and buildings are not like units in that once visible they should be visible in state last seen
-	if not in_visible and _changed_to_visible:
-		return
+	# UI and vfx should be hidden when building only shows because it was previously seen
+	if not _changed_to_visible:
+		visible = in_visible
 		
 	if in_visible:
 		_changed_to_visible = true
-		
-	_do_update_render(in_visible)
-	
+	ui_root.visible = in_visible	
