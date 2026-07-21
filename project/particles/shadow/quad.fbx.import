@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://de0d5qo3g514s"
-path="res://.godot/imported/quad.fbx-9fb5577188adcdcb5510649a1277364b.scn"
+path="res://.godot/imported/quad.fbx-237e24ab1f94e3e8c83d00a1ab942004.scn"
 
 [deps]
 
-source_file="res://particles/quad.fbx"
-dest_files=["res://.godot/imported/quad.fbx-9fb5577188adcdcb5510649a1277364b.scn"]
+source_file="res://particles/shadow/quad.fbx"
+dest_files=["res://.godot/imported/quad.fbx-237e24ab1f94e3e8c83d00a1ab942004.scn"]
 
 [params]
 

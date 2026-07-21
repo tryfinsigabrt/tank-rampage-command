@@ -17,10 +17,11 @@
 [ext_resource type="PackedScene" uid="uid://bs46upv5xhqe4" path="res://units/human/tank/hero/mesh/wheels_right.tscn" id="15_bakst"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="16_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://bdxsrffyy652h" path="res://units/human/tank/hero/mesh/wheels_left.tscn" id="16_4wo5m"]
-[ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="16_v2578"]
+[ext_resource type="PackedScene" uid="uid://mrdn8a3gifoh" path="res://particles/treadmark/treadmarks_vfx.tscn" id="16_v2578"]
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_3jpjq"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_o8pnh"]
 [ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="21_bakst"]
+[ext_resource type="PackedScene" path="res://particles/shadow/tank-shadow-blob.tscn" id="22_shdw0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -33,19 +34,22 @@ script = ExtResource("1_itvlm")
 unit_class = 1
 attributes = ExtResource("2_l52bp")
 
-[node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("16_v2578")]
+[node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("16_v2578")]
+
+[node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("22_shdw0")]
+transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0)
 
 [node name="Body" parent="." unique_id=1516550406 instance=ExtResource("10_v2578")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
 
-[node name="BodyMain" parent="Body/Mesh" index="0"]
+[node name="BodyMain" parent="Body/Mesh" index="0" unique_id=1339019699]
 material_override = ExtResource("5_3jpjq")
 
 [node name="Turret" parent="Body" unique_id=1883946968 instance=ExtResource("11_3jpjq")]
 unique_name_in_owner = true
 
-[node name="Turret" parent="Body/Turret/Mesh" index="0"]
+[node name="Turret" parent="Body/Turret/Mesh" index="0" unique_id=1965806163]
 material_override = ExtResource("7_l52bp")
 
 [node name="Barrel" parent="Body/Turret" unique_id=1198725874 instance=ExtResource("12_l52bp")]

@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dyuiht2eu8wnl"]
+
+[ext_resource type="Texture2D" uid="uid://dmbrerjmaxceq" path="res://particles/shadow/tank-shadow.png" id="1_c02cv"]
+
+[resource]
+render_priority = 127
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_c02cv")
+disable_receive_shadows = true

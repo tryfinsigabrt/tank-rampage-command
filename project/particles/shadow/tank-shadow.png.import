@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmbrerjmaxceq"
-path.s3tc="res://.godot/imported/tank-shadow.png-a8d5c28a6b24116abee1bb539c63ee2e.s3tc.ctex"
+path.s3tc="res://.godot/imported/tank-shadow.png-63bcd3a1399ca2006de1dfccd18ed991.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://particles/tank-shadow.png"
-dest_files=["res://.godot/imported/tank-shadow.png-a8d5c28a6b24116abee1bb539c63ee2e.s3tc.ctex"]
+source_file="res://particles/shadow/tank-shadow.png"
+dest_files=["res://.godot/imported/tank-shadow.png-63bcd3a1399ca2006de1dfccd18ed991.s3tc.ctex"]
 
 [params]
 

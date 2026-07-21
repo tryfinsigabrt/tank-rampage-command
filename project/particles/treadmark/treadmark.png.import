@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4jfhifn24kly"
-path.s3tc="res://.godot/imported/treadmark.png-58823173b87ab99151c2cf041fdd43c1.s3tc.ctex"
+path.s3tc="res://.godot/imported/treadmark.png-1cbef60e8150acbfb209576c7c3dcf21.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://particles/treadmark.png"
-dest_files=["res://.godot/imported/treadmark.png-58823173b87ab99151c2cf041fdd43c1.s3tc.ctex"]
+source_file="res://particles/treadmark/treadmark.png"
+dest_files=["res://.godot/imported/treadmark.png-1cbef60e8150acbfb209576c7c3dcf21.s3tc.ctex"]
 
 [params]
 

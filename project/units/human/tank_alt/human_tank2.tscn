@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6awqg74wnvfp" path="res://units/human/tank/human_tank.gd" id="1_w7n8l"]
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_g0ku4"]
-[ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="2_l1idh"]
+[ext_resource type="PackedScene" uid="uid://mrdn8a3gifoh" path="res://particles/treadmark/treadmarks_vfx.tscn" id="2_l1idh"]
 [ext_resource type="Script" uid="uid://bvtrnnjd2rn7u" path="res://units/human/tank/hero/mesh/body.gd" id="3_xjs78"]
 [ext_resource type="Material" uid="uid://bb48u0k46q7ti" path="res://units/human/tank_alt/textures/tank_alt-body.tres" id="4_pba8h"]
 [ext_resource type="Texture2D" uid="uid://blbbc17dugiyh" path="res://units/human/tank_alt/mesh/tank_alt_NormalMap.png" id="6_hs18c"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cls0e1xlsdpko" path="res://ui/camera_yaw_tracker.gd" id="17_w7n8l"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_cr4qw"]
 [ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="21_o2ah8"]
+[ext_resource type="PackedScene" path="res://particles/shadow/tank-shadow-blob.tscn" id="22_shdw0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tifhs"]
 resource_name = "Body"
@@ -909,7 +910,9 @@ script = ExtResource("1_w7n8l")
 unit_class = 1
 attributes = ExtResource("2_g0ku4")
 
-[node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("2_l1idh")]
+[node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("2_l1idh")]
+
+[node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("22_shdw0")]
 
 [node name="Body" type="Node3D" parent="." unique_id=1516550406]
 unique_name_in_owner = true

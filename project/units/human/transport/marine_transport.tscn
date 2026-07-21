@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpmqyqdvyheru" path="res://units/human/transport/marine_transport.gd" id="1_g02f8"]
 [ext_resource type="Resource" uid="uid://g8s8bkisi6p2" path="res://units/human/transport/transport_attributes.tres" id="2_ay2xi"]
-[ext_resource type="PackedScene" uid="uid://tm8qx3m38w4t" path="res://units/human/tank/tank_particle_fx.tscn" id="3_nv4hd"]
+[ext_resource type="PackedScene" uid="uid://mrdn8a3gifoh" path="res://particles/treadmark/treadmarks_vfx.tscn" id="3_nv4hd"]
 [ext_resource type="PackedScene" uid="uid://dbijxt6ikt1q6" path="res://units/human/transport/transport-truck.gltf" id="4_5sxx5"]
 [ext_resource type="Material" uid="uid://logcxm8m5ipt" path="res://units/human/transport/transport-body-material.tres" id="5_g02f8"]
 [ext_resource type="Material" uid="uid://dl8vajhb3poys" path="res://units/human/artillery/barrel_material.tres" id="6_g02f8"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="20_d50ei"]
 [ext_resource type="PackedScene" uid="uid://p21sm8ww765t" path="res://sounds/vehicle_death_sfx.tscn" id="20_udl3h"]
 [ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="22_d50ei"]
+[ext_resource type="PackedScene" path="res://particles/shadow/tank-shadow-blob.tscn" id="23_shdw0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83yeg"]
 radius = 1.6
@@ -39,33 +40,36 @@ movement_speed = 25.0
 unit_class = 4
 attributes = ExtResource("2_ay2xi")
 
-[node name="TankParticleFX" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
+[node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("3_nv4hd")]
+
+[node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("23_shdw0")]
+transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1.2, 0, 0, 0.6459453)
 
 [node name="transport-truck" parent="." unique_id=219350285 instance=ExtResource("4_5sxx5")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, -0.5)
 
-[node name="Body" parent="transport-truck" index="0" unique_id=477948010]
+[node name="Body" parent="transport-truck" index="0" unique_id=2055439339]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("5_g02f8")
 surface_material_override/1 = ExtResource("6_g02f8")
 surface_material_override/2 = ExtResource("7_5yhg2")
 surface_material_override/3 = ExtResource("8_g02f8")
 
-[node name="Wheels" parent="transport-truck" index="1" unique_id=1981125211]
+[node name="Wheels" parent="transport-truck" index="1" unique_id=911510439]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_f00yv")
 
-[node name="Frame" parent="transport-truck" index="3" unique_id=646955922]
+[node name="Frame" parent="transport-truck" index="3" unique_id=205040332]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 surface_material_override/1 = ExtResource("5_g02f8")
 
-[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1044182427]
+[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1957731376]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("6_g02f8")
 
-[node name="Interior" parent="transport-truck" index="5" unique_id=169645634]
+[node name="Interior" parent="transport-truck" index="5" unique_id=883974159]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 

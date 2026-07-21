@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://ty5imsycf66d"]
 
-[ext_resource type="Texture2D" uid="uid://b4jfhifn24kly" path="res://particles/treadmark.png" id="1_0ck1p"]
+[ext_resource type="Texture2D" uid="uid://b4jfhifn24kly" path="res://particles/treadmark/treadmark.png" id="1_0ck1p"]
 
 [resource]
 render_priority = 127

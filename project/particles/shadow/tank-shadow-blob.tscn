@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" uid="uid://de0d5qo3g514s" path="res://particles/shadow/quad.fbx" id="1_ax3dl"]
+[ext_resource type="Material" path="res://particles/shadow/tank-shadow-material.tres" id="2_821ey"]
+[ext_resource type="Script" path="res://particles/shadow/tank_shadow_blob.gd" id="3_snc3b"]
+
+[node name="TankShadow" instance=ExtResource("1_ax3dl")]
+script = ExtResource("3_snc3b")
+
+[node name="quad" parent="." index="0"]
+transform = Transform3D(900, 0, 0, 0, 900, 0, 0, 0, 900, 0, 0, 0)
+material_override = ExtResource("2_821ey")
+transparency = 0.25
