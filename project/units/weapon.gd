@@ -353,6 +353,9 @@ func _orient_shoot_vfx() -> void:
 func _spawn_shoot_vfx() -> void:
 	if not is_instance_valid(shoot_vfx_container):
 		return
+	# Don't spawn if weapon not visible in scene
+	if not is_visible_in_tree():
+		return
 
 	for child in shoot_vfx_container.get_children():
 		child.queue_free()
@@ -368,6 +371,10 @@ func _spawn_shoot_vfx() -> void:
 	shoot_vfx_container.add_child(_shoot_vfx)
 
 func _spawn_hit_vfx() -> void:
+	# Don't spawn if weapon not visible in scene
+	if not is_visible_in_tree():
+		return
+		
 	var hit_vfx_scene: PackedScene = HIT_VFX_SCENES.get(hit_vfx_size)
 	if hit_vfx_scene == null:
 		return

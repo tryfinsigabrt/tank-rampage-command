@@ -209,7 +209,7 @@ team = 2
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -37)
 team = 2
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 7, 5.5, -37)
 
 [node name="EnemyTank02" parent="World/Match/EnemyTeam/Enemies" unique_id=295616966 instance=ExtResource("7_hs6vl")]
@@ -222,7 +222,7 @@ material_override = ExtResource("10_fx5ip")
 [node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("11_wwlmm")
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 42, 5.5, -33)
 
 [node name="EnemyTank03" parent="World/Match/EnemyTeam/Enemies" unique_id=260396010 instance=ExtResource("7_hs6vl")]
@@ -235,7 +235,7 @@ material_override = ExtResource("12_lmb3x")
 [node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("13_8rcwx")
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -33, 5.5, -67)
 
 [node name="EnemyTank04" parent="World/Match/EnemyTeam/Enemies" unique_id=186169172 instance=ExtResource("7_hs6vl")]
@@ -248,7 +248,7 @@ material_override = ExtResource("14_gsalf")
 [node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank04/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("15_r7cmo")
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank04" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank04" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -66, 5.5, 27)
 
 [node name="Marine9" parent="World/Match/EnemyTeam/Enemies" unique_id=193490902 instance=ExtResource("6_eaydl")]

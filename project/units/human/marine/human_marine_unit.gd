@@ -150,7 +150,7 @@ func aim_at(world_location:Vector3) -> void:
 	_aim_at_tween = tween
 	_last_target_aim = target_quat
 	
-func shoot() -> void:	
+func shoot() -> void:
 	await _weapon.fire()
 
 func get_fire_global_position() -> Vector3:
