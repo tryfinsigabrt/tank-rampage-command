@@ -68,7 +68,7 @@ vfx_scene = ExtResource("4_24ide")
 
 [node name="Explosion" parent="Effects" unique_id=753055475 instance=ExtResource("3_bgbxl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.200001, 0, -7.2000003)
-repeat_delay = 10.0
+repeat_delay = 5.0
 vfx_scene = ExtResource("5_txann")
 
 [node name="Props" type="Node3D" parent="." unique_id=1393340467]
