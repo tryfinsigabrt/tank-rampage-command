@@ -911,6 +911,7 @@ unit_class = 1
 attributes = ExtResource("2_g0ku4")
 
 [node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("2_l1idh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11498955, 0)
 
 [node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("22_shdw0")]
 

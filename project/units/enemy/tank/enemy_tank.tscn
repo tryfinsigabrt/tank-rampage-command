@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://6awqg74wnvfp" path="res://units/human/tank/human_tank.gd" id="1_7hbsx"]
 [ext_resource type="Resource" uid="uid://dymf86c2gmmh7" path="res://units/human/tank/tank_attributes.tres" id="2_nel6y"]
-[ext_resource type="PackedScene" uid="uid://mrdn8a3gifoh" path="res://particles/treadmark/treadmarks_vfx.tscn" id="3_4m458"]
 [ext_resource type="Script" uid="uid://bvtrnnjd2rn7u" path="res://units/human/tank/hero/mesh/body.gd" id="4_qxocs"]
 [ext_resource type="Material" uid="uid://xw56s42443ao" path="res://units/enemy/tank/mesh/enemy_tank_body_material.tres" id="5_fpfc7"]
 [ext_resource type="Material" uid="uid://crsolsviuncba" path="res://units/enemy/tank/mesh/enemy_tank_turret_material.tres" id="7_fpfc7"]
@@ -441,8 +440,6 @@ collision_mask = 1087
 script = ExtResource("1_7hbsx")
 unit_class = 1
 attributes = ExtResource("2_nel6y")
-
-[node name="TreadmarksVfx" parent="." unique_id=382872393 instance=ExtResource("3_4m458")]
 
 [node name="TankShadow" parent="." unique_id=1886418627 instance=ExtResource("22_shdw0")]
 transform = Transform3D(0.85, 0, 0, 0, 0.85, 0, 0, 0, 0.85, 0, 0, 0)
