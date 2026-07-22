@@ -171,35 +171,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9, 0, 29.5)
 team = 1
 
 [node name="Skeleton3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature" parent_id_path=PackedInt32Array(224944543, 326298032, 841724596) index="0" unique_id=1012015045]
-bones/1/position = Vector3(-0.00045660883, 1.3837774, -0.021455083)
-bones/1/rotation = Quaternion(-0.70733976, -0.025263734, 0.7062571, 0.015267449)
-bones/2/rotation = Quaternion(-0.0025830553, -0.045720793, 0.01437279, 0.9988476)
-bones/3/rotation = Quaternion(0.13675511, 0.0010889275, 0.028134, 0.99020475)
-bones/4/rotation = Quaternion(-0.06281347, 0.0679125, 0.090517476, 0.9915891)
-bones/5/rotation = Quaternion(0.22759543, -0.001069597, -0.046822187, 0.97262883)
-bones/6/rotation = Quaternion(-0.7073823, -0.0105808275, 0.7066729, -0.010581118)
-bones/7/rotation = Quaternion(-0.015363203, -0.00041373877, -0.06040232, 0.9980558)
-bones/8/rotation = Quaternion(-4.5975452e-05, -0.00043484487, -0.050247375, 0.9987367)
-bones/9/rotation = Quaternion(-0.00095452426, -0.2009609, 0.081444204, 0.9762073)
-bones/10/position = Vector3(0.34954223, -0.43858254, -0.2259835)
-bones/10/rotation = Quaternion(-0.7428205, 0.46666157, 0.42023897, 0.23204295)
-bones/12/position = Vector3(-0.16416557, -0.08652407, -0.8071219)
-bones/13/position = Vector3(0.3544073, -0.28517747, 0.21756685)
-bones/13/rotation = Quaternion(-0.1822393, 0.63083947, 0.46612895, -0.5929201)
-bones/15/position = Vector3(0.06544287, 0.05012823, 0.8067006)
-bones/16/rotation = Quaternion(0.9456892, 0.19285883, -0.25639316, -0.052344196)
-bones/17/rotation = Quaternion(-0.36764717, 7.308811e-08, -4.8414205e-07, 0.92996544)
-bones/18/rotation = Quaternion(-0.101423785, 0.19595082, 0.93336815, -0.28309113)
-bones/19/rotation = Quaternion(-0.6530456, -1.847309e-08, 8.832646e-07, 0.7573187)
-bones/20/position = Vector3(-0.06884297, 0.12242685, -0.15120691)
-bones/20/rotation = Quaternion(-0.47337848, 0.52770746, 0.51594096, 0.48087707)
-bones/21/position = Vector3(-0.0005596957, -0.5969098, 0.56724465)
-bones/23/rotation = Quaternion(-0.5061782, 0.4926873, 0.483881, 0.5166257)
-bones/24/position = Vector3(-0.026688242, -0.59939253, 0.56733036)
-bones/26/position = Vector3(2.473939, 2.0571434, 1.5569501)
+bones/1/position = Vector3(-0.00040562637, 1.3864245, 4.0858984e-05)
+bones/1/rotation = Quaternion(-0.7072041, -0.004194389, 0.70697343, -0.0057831607)
+bones/2/rotation = Quaternion(-0.021238513, -0.0492529, -0.03598894, 0.9979119)
+bones/3/rotation = Quaternion(0.16857815, 0.001083288, 0.034680802, 0.98507744)
+bones/4/rotation = Quaternion(-0.04077746, 0.008108092, 0.028989311, 0.99871475)
+bones/5/rotation = Quaternion(0.18967678, -0.0010788852, -0.039021347, 0.98107034)
+bones/6/rotation = Quaternion(-0.7071, 0.00020020394, 0.70711356, 0.00019991312)
+bones/7/rotation = Quaternion(8.136709e-05, 2.2119852e-06, -0.060409434, 0.9981737)
+bones/8/rotation = Quaternion(-2.546903e-06, -2.4074445e-05, -0.05269794, 0.9986105)
+bones/9/rotation = Quaternion(5.503978e-06, -0.0012454172, 0.0736913, 0.99728036)
+bones/10/position = Vector3(0.35713455, -0.43914223, -0.2191956)
+bones/10/rotation = Quaternion(-0.8564826, 0.254944, 0.42574704, 0.1420591)
+bones/12/position = Vector3(0.006306646, 0.0477464, -0.80657065)
+bones/13/position = Vector3(0.34015986, -0.29583862, 0.24749243)
+bones/13/rotation = Quaternion(-0.25191844, 0.588089, 0.47748527, -0.6022429)
+bones/15/position = Vector3(0.0056694206, 0.04816627, 0.8065179)
+bones/16/rotation = Quaternion(0.96458715, 0.231909, -0.09246778, -0.085085765)
+bones/17/rotation = Quaternion(-0.35201555, 6.326419e-08, -4.5527253e-07, 0.9359942)
+bones/18/rotation = Quaternion(-0.14454816, 0.2085463, 0.93253684, -0.25688377)
+bones/19/rotation = Quaternion(-0.65443647, -4.0413575e-09, 9.0046245e-07, 0.756117)
+bones/20/position = Vector3(-0.069382325, 0.122437306, -0.15120693)
+bones/20/rotation = Quaternion(-0.47827494, 0.52327627, 0.51140505, 0.48569545)
+bones/21/position = Vector3(-0.00021254666, -0.59694034, 0.56723976)
+bones/23/rotation = Quaternion(-0.4946726, 0.5042364, 0.49559152, 0.50540465)
+bones/24/position = Vector3(-0.000119725795, -0.59699494, 0.5672483)
+bones/26/position = Vector3(2.0296178, 1.9518905, 0.007081513)
 
 [node name="BoneAttachment3D" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature/Skeleton3D" index="1" unique_id=547164330]
-transform = Transform3D(-0.5795556, 0.6573299, -0.4816972, -0.758537, -0.6511878, 0.024017125, -0.29788813, 0.3793044, 0.8760086, -0.20752256, 1.3706579, 0.2907782)
+transform = Transform3D(-0.46767324, 0.73207664, -0.4953235, -0.8552147, -0.5163797, 0.044277117, -0.22336066, 0.44431484, 0.8675797, -0.24970976, 1.3636134, 0.27556235)
 
 [node name="MuzzleLocation" parent="World/Match/PlayerTeam/Player/Marine/VisualRoot/Armature/Skeleton3D/BoneAttachment3D/GunPropLocal" parent_id_path=PackedInt32Array(224944543, 326298032, 384279234) index="0" unique_id=495197613]
 remote_path = NodePath("../../../../../../FireOrigin")
@@ -211,7 +211,7 @@ always_use_simple_nav = true
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -7.9, 3, 29.5)
 
 [node name="FireOrigin" parent="World/Match/PlayerTeam/Player/Marine" index="7" unique_id=1719011979]
-transform = Transform3D(-0.2832494, -0.6528753, -0.70251805, 0.12973589, 0.6996989, -0.70256597, 0.95023143, -0.29014292, -0.11348823, -0.7295346, 0.92993677, -0.49324036)
+transform = Transform3D(-0.27936321, -0.5483293, -0.7885776, 0.07331112, 0.8063304, -0.5871726, 0.9573835, -0.22174628, -0.18514344, -0.7343526, 1.0752177, -0.5240612)
 
 [node name="Weapon" parent="World/Match/PlayerTeam/Player/Marine/FireOrigin" index="0" unique_id=107617315]
 transform = Transform3D(0.32249242, 0.5364605, 0.7805081, 0.2297078, 0.7549863, -0.6147253, -0.9182776, 0.37726167, 0.12033502, 1.1078396, -0.8633963, -0.65063286)
@@ -225,30 +225,30 @@ team = 2
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -67.3)
 team = 2
 
-[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="1" unique_id=1516550406]
+[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="2" unique_id=1516550406]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Weapon" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Turret/Barrel/Pivot/FireOrigin" parent_id_path=PackedInt32Array(1223720870, 1198725874, 104605609) index="0" unique_id=413668482]
 damage_v_distance = ExtResource("10_wrqjo")
 accuracy_v_velocity_alignment = ExtResource("11_y45xs")
 
-[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="2" unique_id=1002010230]
+[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="3" unique_id=1002010230]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 7, 5.5, -67.3)
 
 [node name="HealthBar" parent="World/Match/EnemyTeam/Enemies/EnemyTank01/UI" index="0" unique_id=1686186120]
 transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
 
-[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="6" unique_id=1196521052]
+[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="7" unique_id=1196521052]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
 
 [node name="EnemyTank02" parent="World/Match/EnemyTeam/Enemies" unique_id=295616966 instance=ExtResource("7_wqs4u")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, 54.8, 0, -65.9)
 team = 2
 
-[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="1" unique_id=1516550406]
+[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="2" unique_id=1516550406]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Mesh" index="0"]
@@ -261,23 +261,23 @@ material_override = ExtResource("11_1fh0n")
 damage_v_distance = ExtResource("10_wrqjo")
 accuracy_v_velocity_alignment = ExtResource("11_y45xs")
 
-[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="2" unique_id=1002010230]
+[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="3" unique_id=1002010230]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 54.8, 5.5, -65.9)
 
 [node name="HealthBar" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/UI" index="0" unique_id=1686186120]
 transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
 
-[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="6" unique_id=1196521052]
+[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="7" unique_id=1196521052]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
 
 [node name="EnemyTank03" parent="World/Match/EnemyTeam/Enemies" unique_id=260396010 instance=ExtResource("7_wqs4u")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, -33, 0, -67)
 team = 2
 
-[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="1" unique_id=1516550406]
+[node name="Body" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="2" unique_id=1516550406]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="BodyMain" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Mesh" index="0"]
@@ -290,16 +290,16 @@ material_override = ExtResource("13_spucr")
 damage_v_distance = ExtResource("10_wrqjo")
 accuracy_v_velocity_alignment = ExtResource("11_y45xs")
 
-[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="2" unique_id=1002010230]
+[node name="Collision" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="3" unique_id=1002010230]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.6500001, -0.1)
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -33, 5.5, -67)
 
 [node name="HealthBar" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/UI" index="0" unique_id=1686186120]
 transform = Transform3D(1, 0, 6.3573026e-08, 0, 1, 0, -6.3573026e-08, 0, 1, 0, 0, 0)
 
-[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="6" unique_id=1196521052]
+[node name="UnitRemotePosition" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="7" unique_id=1196521052]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 5.5, 0)
 
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("14_6t6ga")]

@@ -27,5 +27,6 @@ script = ExtResource("4_lfjhi")
 raycast_delta_angle_deg = 15.0
 
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
+[connection signal="path_changed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_path_changed"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
 [connection signal="on_destination_reached" from="SimpleNavigation" to="." method="_on_simple_navigation_destination_reached"]

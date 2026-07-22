@@ -8,7 +8,9 @@ signal move_canceled(target:Vector3)
 
 var _unit:Unit
 var _current_target_position: Vector3
+var _original_target_position: Vector3
 var _target_reached:bool = true
+var _target_projected:bool = false
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 @onready var stuck_detector: StuckDetector = $StuckDetector
@@ -69,7 +71,7 @@ var paused:bool:
 
 var current_target:Vector3:
 	get:
-		return _current_target_position
+		return _original_target_position
 
 func _ready() -> void:
 	_unit = get_parent() as Unit
@@ -107,10 +109,13 @@ func move_to(target:Vector3) -> void:
 	if LogUtils.verbose:
 		print_debug("%s: move_to - unit=%s; target=%s" % [name, _unit.name, target])
 	
+	_original_target_position = target
 	_current_target_position = target
+	
 	navigation_agent_3d.target_position = target
 	
 	_target_reached = false
+	_target_projected = false
 	
 	move_started.emit(target)
 
@@ -168,7 +173,7 @@ func _physics_process(delta: float) -> void:
 func _on_tick_next_target(delta:float, next_position:Vector3) -> void:	
 	#print_debug("%s: NEXT POSITION=%s" % [name, next_position])
 	
-	if _is_at_target(current_target):
+	if _is_at_target(_current_target_position):
 		_emit_target_reached()
 		return
 	# If simple navigation not already active and the navigation system failed (finished without reaching target) then enable simple
@@ -210,10 +215,10 @@ func _on_tick_next_target(delta:float, next_position:Vector3) -> void:
 
 func _start_simple_nav() -> void:
 	navigation_agent_3d.avoidance_enabled = false
-	simple_navigation.goal_location = current_target
+	simple_navigation.goal_location = _current_target_position
 	
 	stuck_detector.reset()
-	stuck_detector.goal_position = current_target
+	stuck_detector.goal_position = _current_target_position
 	
 	simple_navigation.start()
 	
@@ -246,20 +251,20 @@ func _on_unit_move_canceled(unit: Unit, target_position:Vector3) -> void:
 		return
 		
 	# Only cancel if target position matches current target
-	if not target_position.is_equal_approx(current_target):
+	if not target_position.is_equal_approx(_original_target_position):
 		return
 	
 	if LogUtils.verbose:
-		print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, target_position])
+		print_debug("%s: Unit move canceled: %s -> %s" % [name, unit.name, _original_target_position])
 	_stop_navigation()
 	
-	move_canceled.emit(target_position)
+	move_canceled.emit(_original_target_position)
 	
 func _on_navigation_agent_3d_navigation_finished() -> void:
 	if _target_reached:
 		return
-
-	if _is_at_target(current_target):
+	
+	if _is_at_target(_current_target_position):
 		_emit_target_reached()
 	elif enable_simple_nav_fallback:
 		_start_simple_nav()
@@ -269,14 +274,14 @@ func _on_navigation_agent_3d_navigation_finished() -> void:
 func _emit_target_reached() -> void:
 	if not _target_reached:
 		if LogUtils.verbose:
-			print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _current_target_position])
+			print_debug("%s: Target Reached - unit=%s; pos=%s; target=%s" % [name, _unit.name, _unit.global_position, _original_target_position])
 		
 		_target_reached = true
 		
 		_stop_navigation()
-		SignalBus.on_destination_reached.emit(_unit, _current_target_position)
+		SignalBus.on_destination_reached.emit(_unit, _original_target_position)
 		
-		move_completed.emit(_current_target_position)
+		move_completed.emit(_original_target_position)
 
 func _stop_navigation() -> void:
 	_clear_velocity()
@@ -304,3 +309,13 @@ func _get_sanitized_velocity(input:Vector3) -> Vector3:
 
 func _on_simple_navigation_destination_reached() -> void:
 	_emit_target_reached()
+
+func _on_navigation_agent_3d_path_changed() -> void:
+	if _target_projected:
+		return
+		
+	# Update current target with nav mesh projected target position
+	# Keep original target position for comparison to original requested target when move completes or is canceled
+	_current_target_position = navigation_agent_3d.get_final_position()
+	stuck_detector.goal_position = _current_target_position
+	_target_projected = true
