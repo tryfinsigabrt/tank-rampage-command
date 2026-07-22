@@ -18,6 +18,7 @@ config/name="tank-rampage-command"
 config/version="0.2.1"
 run/main_scene="uid://c15qtg2d1emrk"
 config/features=PackedStringArray("4.6", "Forward Plus")
+boot_splash/image="uid://dik0usiohl4hj"
 config/icon="res://icon.svg"
 
 [audio]
