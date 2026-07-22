@@ -19,7 +19,7 @@ one_shot = true
 wait_time = 0.2
 
 [node name="BuildProgressBar" parent="." unique_id=1520694492 instance=ExtResource("2_3ndg4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 1, 0, -1, 0)
 
 [connection signal="timeout" from="BuildTimer" to="." method="_building_complete"]
 [connection signal="timeout" from="ProgressBarTimer" to="." method="_update_progress"]
