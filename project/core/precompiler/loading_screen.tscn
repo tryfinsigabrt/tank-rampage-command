@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://xnfctn4sv3l0" path="res://levels/level_world_environment.tscn" id="1_orhdc"]
 [ext_resource type="PackedScene" uid="uid://dp5fgxr25rrbd" path="res://core/precompiler/precompilation_3d.tscn" id="2_k1dqr"]
 [ext_resource type="Texture2D" uid="uid://dc5a7y68hy2il" path="res://ui/menus/TankRampageCommandLogo.png" id="2_tyqfn"]
+[ext_resource type="Texture2D" uid="uid://dik0usiohl4hj" path="res://ui/menus/trc-boot-splash.png" id="4_ypn60"]
 [ext_resource type="PackedScene" uid="uid://bh4m2d75hvtc3" path="res://ui/project_version_label.tscn" id="5_e1n70"]
+[ext_resource type="StyleBox" uid="uid://dspjo5xppqgbk" path="res://core/precompiler/loading_progress_bar_fill_box.tres" id="7_x1qhh"]
 
 [sub_resource type="Animation" id="Animation_e1n70"]
 resource_name = "LoadingAnimation"
@@ -73,6 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Root" unique_id=1327223349]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,6 +83,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.5079715, 0.5079715, 0.5079715, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Root" unique_id=973796434]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ypn60")
 
 [node name="PrecompilationViewport" type="SubViewportContainer" parent="Root" unique_id=176397364]
 layout_mode = 1
@@ -103,6 +115,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 5
 current = true
 
 [node name="TitleContainer" type="VBoxContainer" parent="Root" unique_id=868292795]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -130,19 +143,31 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 
-[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=1166904708]
+[node name="VersionContainer" type="CenterContainer" parent="Root" unique_id=1235456535]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -150.0
-offset_right = 300.0
-offset_bottom = 150.0
+offset_left = -77.5
+offset_top = -17.0
+offset_right = 77.5
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Root/VersionContainer" unique_id=1522688974]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Root/VersionContainer/VBox" unique_id=1591097427]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+
+[node name="ProjectVersionLabel" parent="Root/VersionContainer/VBox" unique_id=1641581669 instance=ExtResource("5_e1n70")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Root" unique_id=1930552437]
 layout_mode = 1
@@ -160,6 +185,7 @@ layout_mode = 2
 [node name="ProgressBar" type="ProgressBar" parent="Root/MarginContainer/VBoxContainer" unique_id=500311034]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_styles/fill = ExtResource("7_x1qhh")
 max_value = 1.0
 indeterminate = true
 editor_preview_indeterminate = false
