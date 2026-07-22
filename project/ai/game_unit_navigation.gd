@@ -316,6 +316,8 @@ func _on_navigation_agent_3d_path_changed() -> void:
 		
 	# Update current target with nav mesh projected target position
 	# Keep original target position for comparison to original requested target when move completes or is canceled
+	# get_final_position can cause a path to be generated (per Godot source code) which would result in infinite recursion
+	# as the signal callback called again so be sure to set the guard flag BEFORE calling that function
+	_target_projected = true
 	_current_target_position = navigation_agent_3d.get_final_position()
 	stuck_detector.goal_position = _current_target_position
-	_target_projected = true
