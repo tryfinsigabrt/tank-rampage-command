@@ -13,6 +13,5 @@ unique_name_in_owner = true
 transform = Transform3D(0.1316508, 0.9912962, -3.7358937e-08, -0.7795835, 0.10353396, 0.6176814, 0.61230516, -0.08131823, 0.7864286, 0, 22, 0)
 light_energy = 0.8
 shadow_enabled = true
-directional_shadow_mode = 0
 directional_shadow_fade_start = 0.5
 directional_shadow_max_distance = 2000.0

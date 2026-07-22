@@ -6,6 +6,7 @@ const ZOOM_UPDATED:int = 1 << 2
 
 signal camera_changed(flags:int)
 signal ground_view_polygon_changed(polygon:PackedVector3Array)
+signal zoom_level_updated(distance: float)
 
 # Zoom done on the camera
 @onready var camera: Camera3D = %Camera
@@ -283,6 +284,10 @@ func _apply_zoom_velocity() -> void:
 	if calculated_zoom > camera_zoom_range.x and calculated_zoom < camera_zoom_range.y:
 		_camera_total_zoom += _camera_current_zoom_speed
 		camera.translate_object_local(Vector3(0.0, 0.0, _camera_current_zoom_speed))
+		var zoom_distance := _get_center_ground_plane_distance()
+		if zoom_distance >= 0.0:
+			print_debug("%s: zoom_level_updated=%f" % [name, zoom_distance])
+			zoom_level_updated.emit(zoom_distance)
 		
 	_camera_current_zoom_speed = 0.0
 	_mouse_zoom = 0
@@ -337,6 +342,25 @@ func _update_ground_view_polygon() -> void:
 
 	if polygon.size() == 4:
 		ground_view_polygon_changed.emit(polygon)
+
+
+func _get_center_ground_plane_distance() -> float:
+	if camera == null or not is_instance_valid(camera):
+		return -1.0
+
+	var viewport := get_viewport()
+	if viewport == null:
+		return -1.0
+
+	var center := viewport.get_visible_rect().size * 0.5
+	var from := camera.project_ray_origin(center)
+	var direction := camera.project_ray_normal(center)
+	var ground_plane := Plane(Vector3.UP, Vector3.ZERO)
+	var hit: Variant = ground_plane.intersects_ray(from, direction)
+	if hit == null:
+		return -1.0
+
+	return from.distance_to(hit as Vector3)
 
 
 #endregion
