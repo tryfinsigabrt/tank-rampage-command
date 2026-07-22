@@ -9,9 +9,11 @@ signal back_requested
 @onready var voice_slider: HSlider = %VoiceSlider
 @onready var show_fps_check_button: CheckButton = %ShowFpsCheckButton
 @onready var anti_aliasing_option_button: OptionButton = %AntiAliasingOptionButton
+@onready var shadow_quality_option_button: OptionButton = %ShadowQualityOptionButton
 
 func _ready() -> void:
 	_populate_anti_aliasing_options()
+	_populate_shadow_quality_options()
 	_sync_from_settings()
 
 func _sync_from_settings() -> void:
@@ -22,6 +24,7 @@ func _sync_from_settings() -> void:
 	voice_slider.value = PlayerSettings.get_bus_volume(&"Voice")
 	show_fps_check_button.button_pressed = PlayerSettings.get_show_fps()
 	anti_aliasing_option_button.select(PlayerSettings.get_anti_aliasing())
+	shadow_quality_option_button.select(PlayerSettings.get_shadow_quality())
 
 
 func _populate_anti_aliasing_options() -> void:
@@ -29,6 +32,13 @@ func _populate_anti_aliasing_options() -> void:
 	anti_aliasing_option_button.add_item("Off", PlayerSettings.AntiAliasing.OFF)
 	anti_aliasing_option_button.add_item("MSAA 2x", PlayerSettings.AntiAliasing.MSAA_2X)
 	anti_aliasing_option_button.add_item("MSAA 4x", PlayerSettings.AntiAliasing.MSAA_4X)
+
+
+func _populate_shadow_quality_options() -> void:
+	shadow_quality_option_button.clear()
+	shadow_quality_option_button.add_item("Low", PlayerSettings.ShadowQuality.LOW)
+	shadow_quality_option_button.add_item("Medium", PlayerSettings.ShadowQuality.MEDIUM)
+	shadow_quality_option_button.add_item("High", PlayerSettings.ShadowQuality.HIGH)
 
 func _on_master_slider_value_changed(value: float) -> void:
 	PlayerSettings.set_bus_volume(&"Master", value)
@@ -51,6 +61,10 @@ func _on_show_fps_check_button_toggled(toggled_on: bool) -> void:
 
 func _on_anti_aliasing_option_button_item_selected(index: int) -> void:
 	PlayerSettings.set_anti_aliasing(anti_aliasing_option_button.get_item_id(index) as PlayerSettings.AntiAliasing)
+
+
+func _on_shadow_quality_option_button_item_selected(index: int) -> void:
+	PlayerSettings.set_shadow_quality(shadow_quality_option_button.get_item_id(index) as PlayerSettings.ShadowQuality)
 
 func _on_back_button_pressed() -> void:
 	back_requested.emit()

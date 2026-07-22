@@ -2,6 +2,7 @@ extends Node
 
 signal bus_volume_changed(bus_name: StringName, value: float)
 signal show_fps_changed(value: bool)
+signal shadow_quality_updated(value: int)
 
 const MIN_LINEAR: float = 0.001
 const MUTE_DB: float = -80.0
@@ -13,15 +14,23 @@ enum AntiAliasing {
 	MSAA_4X,
 }
 
+enum ShadowQuality {
+	LOW,
+	MEDIUM,
+	HIGH,
+}
+
 var _bus_volumes: Dictionary[StringName, float] = {}
 var _show_fps := false
 var _anti_aliasing: AntiAliasing = AntiAliasing.OFF
+var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
 
 func _ready() -> void:
 	for bus_name in AUDIO_BUSES:
 		_bus_volumes[bus_name] = 1.0
 	_apply_all_bus_volumes()
 	set_anti_aliasing(_anti_aliasing)
+	set_shadow_quality(_shadow_quality)
 
 
 func get_bus_volume(bus_name: StringName) -> float:
@@ -64,6 +73,15 @@ func set_anti_aliasing(value: AntiAliasing) -> void:
 			viewport.msaa_3d = Viewport.MSAA_2X
 		AntiAliasing.MSAA_4X:
 			viewport.msaa_3d = Viewport.MSAA_4X
+
+
+func get_shadow_quality() -> ShadowQuality:
+	return _shadow_quality
+
+
+func set_shadow_quality(value: ShadowQuality) -> void:
+	_shadow_quality = value
+	shadow_quality_updated.emit(_shadow_quality)
 
 
 func _apply_all_bus_volumes() -> void:
