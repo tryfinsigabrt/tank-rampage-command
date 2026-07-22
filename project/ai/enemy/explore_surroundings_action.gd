@@ -32,9 +32,12 @@ var _cluster_creator:ClusterCircleCreator = ClusterCircleCreator.new(preferred_u
 	
 var _blackboard:EnemyTeamBlackboard
 
-const FOLLOWER_UNIT_CLASSES: Array[Unit.UnitClass] = [
-	Unit.UnitClass.Artillery
-]
+const UNIT_CLASS_LEADER_RANK: Dictionary[Unit.UnitClass, int] = {
+	Unit.UnitClass.Transport: 3,
+	Unit.UnitClass.Tank: 2,
+	Unit.UnitClass.Soldier: 1,
+	Unit.UnitClass.Artillery: 0
+}
 
 const REGION_PENALTY_V_TIME:Curve = preload("res://ai/enemy/explore_region_penalty_v_time.tres")
 
@@ -88,14 +91,13 @@ func _get_unit_groups() -> Array[Array]:
 			for j in range(1, sub_clusters.size()):
 				clusters.push_back(sub_clusters[j])
 		var units:Array = cluster.objects
-		# Sort so that artillery units are last and will be followers
+		# Sort so that artillery units are last and will be followers 
+		# and troop transports are first and will be leaders so other units move into them
 		units.sort_custom(func(a:Unit, b:Unit) -> bool:
-			var a_follower:bool = a.unit_class in FOLLOWER_UNIT_CLASSES
-			var b_follower:bool = b.unit_class in FOLLOWER_UNIT_CLASSES
-			if a_follower != b_follower:
-				# a not a follower so comes first
-				return b_follower
-			return true
+			var a_rank:int = UNIT_CLASS_LEADER_RANK.get(a.unit_class, -1)
+			var b_rank:int = UNIT_CLASS_LEADER_RANK.get(b.unit_class, -1)
+			# Leader units have a higher rank value so place them first
+			return a_rank > b_rank
 		)
 		groups.push_back(units)
 		i += 1
@@ -135,7 +137,7 @@ func _select_move_target(unit:Unit, heading_bias:Vector3) -> Vector3:
 	#var end:int = Time.get_ticks_usec()
 	#print("%s: MOVE EXECUTION TIME(ms):%.3f" % [name, (end - start) / 1000.0])
 	
-	if heading_bias:
+	if heading_bias or not unit.weapon:
 		unit.get_or_add_actions().move(target_pos)
 	else:
 		unit.get_or_add_actions().move_and_attack(target_pos)

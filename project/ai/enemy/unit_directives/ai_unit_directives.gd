@@ -6,6 +6,8 @@ const DEFEND_POSITION:StringName = &"defend_position"
 const DEFEND_AREA:StringName = &"defend_area"
 const SECURE_CONTROL_POINT:StringName = &"secure_control_point"
 const ATTACK_TARGET:StringName = &"attack_target"
+const LOAD_INTO_TARGET_AND_WAIT:StringName = &"load_into_target_and_wait"
+const LOAD_UNITS_AND_MOVE_TO_POSITION:StringName = &"load_units_and_move_to"
 
 #region Signals
 @warning_ignore_start("unused_signal")
@@ -199,6 +201,56 @@ func set_attack_target(target:Node3D, priority:int = 0, tag:String = "") -> Stat
 	return state
 #endregion
 
+## Load into the give target container and wait for it to unload
+func set_load_into_target_and_wait(target:Node3D, priority:int = 0, tag:String = "") -> State:
+	var state:State = State.new()
+	state.key = LOAD_INTO_TARGET_AND_WAIT
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		ASSET_LOAD = target,
+	}
+	
+	var target_id:int = target.get_instance_id()
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		if not is_instance_id_valid(target_id):
+			return false
+			
+		var other_target:Variant = other_data[&"TARGET_NODE"]
+		return is_instance_valid(other_target) and target_id == other_target.get_instance_id()
+	
+	# TODO: Create directive state
+	#_add_or_update_state(state)
+	# return state
+	return null
+
+## Used by transports to optimally load the given units (moving toward them to close gap)
+## and then head to the given target and then unload once at the target
+# Ideally it should change its heading and flee if under attack and far from destination
+func set_load_units_and_move_to_with_unload(units:Array[Unit], target:Vector3, priority:int = 0, tag:String = "") -> State:
+	var unit_ids:PackedInt64Array
+	unit_ids.resize(units.size())
+	for i in units.size():
+		unit_ids.push_back(units[i].get_instance_id())
+	unit_ids.sort()
+	
+	var state:State = State.new()
+	state.key = LOAD_UNITS_AND_MOVE_TO_POSITION
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		POSITION = target,
+		LOAD_UNITS = unit_ids
+	}
+	
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		return unit_ids == other_data[UnitDirectiveBlackboard.Keys.LoadUnits]
+	
+	# TODO: Create directive state
+	#_add_or_update_state(state)
+	# return state
+	return null
+	
 func has_state(matcher:Callable) -> bool:
 	if _active_state and matcher.call(_active_state):
 		return true

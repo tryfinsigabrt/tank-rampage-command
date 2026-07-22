@@ -18,7 +18,10 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 		unit_actions.load_into(load_target)
 	else:
 		var position:Vector3 = blackboard.position
-		unit_actions.move_and_attack(position)
+		if unit.weapon:
+			unit_actions.move_and_attack(position)
+		else:
+			unit_actions.move(position)
 	
 	_command_id = unit_actions.last_command_id
 	directive.notify_command(_command_id)

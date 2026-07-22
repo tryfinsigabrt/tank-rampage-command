@@ -11,6 +11,7 @@ class Keys:
 	const Position_Callback:StringName = "POSITION_CALLBACK"
 	const CONTROL_POINT:StringName = "CONTROL_POINT"
 	const AssetLoad:String = "ASSET_LOAD"
+	const LoadUnits:String = "LOAD_UNITS"
 	
 var current_action:StringName:
 	get:
@@ -42,7 +43,23 @@ var asset_load:Node3D:
 	get:
 		var instance:Variant = get_value(Keys.AssetLoad)
 		return instance as Node3D if is_instance_valid(instance) else null
+
+var load_units:Array[Unit]:
+	get:
+		var unit_ids:PackedInt64Array = get_value(Keys.LoadUnits, PackedInt64Array())
+		var units:Array[Unit]
+		units.resize(unit_ids.size())
+		var count:int = 0
+		for id in unit_ids:
+			var unit:Unit = instance_from_id(id) as Unit
+			if unit:
+				units[count] = unit
+				count += 1
+		if count != units.size():
+			units.resize(count)
 		
+		return units
+			
 func set_state(state:AiUnitDirectives.State) -> void:
 	clear_state()
 	
