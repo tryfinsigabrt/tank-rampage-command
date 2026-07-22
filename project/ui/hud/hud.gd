@@ -22,6 +22,11 @@ func _ready() -> void:
 	set_process(PlayerSettings.get_show_fps())
 	_on_show_fps_changed(PlayerSettings.get_show_fps())
 
+func _input(event: InputEvent) -> void:
+	# Currently only provide this option in a debug build when the HUD needs to be hidden to be able to fully see
+	# the debug HUD stats
+	if OS.is_debug_build() and event.is_action_pressed("toggle_hud"):
+		visible = not visible
 
 func _process(delta: float) -> void:
 	_fps_update_elapsed += delta
