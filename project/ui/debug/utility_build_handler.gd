@@ -26,11 +26,9 @@ func start(team:int, _index:int, _scores: Dictionary[UtilityAIOption, float], ch
 	_build_counts_by_type[type] = _build_counts_by_type.get(type, 0) + 1
 	
 	var id:int = context.id
-	#var clear:bool = id in _rendered_components
 	var clear:bool = _rendered_components.size() > 5
 	if clear:
 		_rendered_components.clear()
-		_index = 1
 		
 	_rendered_components.push_back(id)
 	return clear

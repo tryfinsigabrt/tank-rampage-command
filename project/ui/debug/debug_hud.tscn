@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://5p46t68yyp1k" path="res://ui/debug/debug_hud.gd" id="1_kodiw"]
 
-[node name="DebugHud" type="HFlowContainer" unique_id=1595490819]
+[node name="DebugHud" type="VFlowContainer" unique_id=1187791366]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 script = ExtResource("1_kodiw")

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ghoooxko8ev5"]
 
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_blmfy"]
+[ext_resource type="PackedScene" uid="uid://bs0s6qhyue08n" path="res://levels/level_environment.tscn" id="2_env01"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_g00wj"]
-[ext_resource type="PackedScene" path="res://levels/level_environment.tscn" id="2_env01"]
 [ext_resource type="NavigationMesh" uid="uid://c38l4rwogmitd" path="res://levels/tutorial/navigation_mesh.tres" id="3_blmfy"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_awbml"]
 [ext_resource type="Terrain3DAssets" uid="uid://cwupbjdwt31yf" path="res://levels/terrain_assets.tres" id="5_8xr47"]
@@ -39,20 +39,12 @@
 [ext_resource type="Script" uid="uid://w466qmjb587x" path="res://match/default_match_team_elimination.gd" id="33_jqtcf"]
 [ext_resource type="PackedScene" uid="uid://bcn1p0rk1et4w" path="res://core/kill_depth.tscn" id="34_0fgam"]
 [ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="38_mfiw0"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2j4y6"]
-
-[sub_resource type="Sky" id="Sky_l5wcu"]
-sky_material = SubResource("ProceduralSkyMaterial_2j4y6")
-
-[sub_resource type="Environment" id="Environment_vi6ws"]
-background_mode = 2
-sky = SubResource("Sky_l5wcu")
-ambient_light_source = 3
-tonemap_mode = 2
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_f313t"]
-exposure_multiplier = 0.7
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="40_0gw2p"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="41_myhrv"]
+[ext_resource type="PackedScene" uid="uid://cjhdwysw475hc" path="res://ui/debug/debug_team_inventories.tscn" id="42_4pju4"]
+[ext_resource type="PackedScene" uid="uid://dmbbahkolpx3t" path="res://ui/debug/enemy_team_director_debug_hud.tscn" id="43_1ch1d"]
+[ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="44_6p5wt"]
+[ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="45_w2cd1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_myhrv"]
 size = Vector3(1000, 1000, 500)
@@ -118,7 +110,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jqtcf"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rqxrq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -129,7 +121,7 @@ noise_type = 5
 seed = 275723137
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mfiw0"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cuhoe"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -143,13 +135,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agodc"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5d5s2"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uyqxh"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_42kj2"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -157,6 +149,26 @@ seamless = true
 
 [node name="Tutorial" type="Node3D" unique_id=1039357832]
 script = ExtResource("23_8m5ib")
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("40_0gw2p")]
+visible = false
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("41_myhrv")]
+layout_mode = 2
+
+[node name="DebugTeamInventories" parent="DebugHud" unique_id=1634715070 instance=ExtResource("42_4pju4")]
+layout_mode = 2
+
+[node name="EnemyTeamDirectorDebugHud" parent="DebugHud" unique_id=2076186544 instance=ExtResource("43_1ch1d")]
+visible = false
+layout_mode = 2
+
+[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=2054487946 instance=ExtResource("44_6p5wt")]
+layout_mode = 2
+
+[node name="UnitActionsDebugHud" parent="DebugHud" unique_id=442782189 instance=ExtResource("45_w2cd1")]
+visible = false
+layout_mode = 2
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=334730572]
 layer = 10
@@ -249,15 +261,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.261452, 1, -203.00739)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256.62308, 0, -94.737274)
 curve = SubResource("Curve3D_0fgam")
-crack_mask_texture = SubResource("NoiseTexture2D_jqtcf")
-scrap_mask_texture = SubResource("NoiseTexture2D_mfiw0")
+crack_mask_texture = SubResource("NoiseTexture2D_rqxrq")
+scrap_mask_texture = SubResource("NoiseTexture2D_cuhoe")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=407279577 instance=ExtResource("21_4r4nw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.781769, 0, -137.14653)
 curve = SubResource("Curve3D_jqtcf")
 noise_seed = 275723137
-crack_mask_texture = SubResource("NoiseTexture2D_agodc")
-scrap_mask_texture = SubResource("NoiseTexture2D_uyqxh")
+crack_mask_texture = SubResource("NoiseTexture2D_5d5s2")
+scrap_mask_texture = SubResource("NoiseTexture2D_42kj2")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("34_0fgam")]
 

@@ -24,6 +24,6 @@ func _tick() -> void:
 			var count:int = inventory.get_count(type)
 			values.push_back("%s:%d" % [EnumUtils.enum_to_string(ConstructionResource.Type, type), count])
 			
-		_team_stat_lines.push_back("TEAM %d: %s" % [team.team, " ".join(values) if values else "NONE"])
+		_team_stat_lines.push_back("TEAM %d: %s" % [team.team, " ".join(values) if values else "NO INV"])
 	
 	team_stats.text = "\n".join(_team_stat_lines)

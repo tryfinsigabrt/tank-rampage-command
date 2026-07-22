@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cw0hkpwye3afk" path="res://ui/menus/pause_menu.tscn" id="1_4nbo2"]
 [ext_resource type="PackedScene" uid="uid://ds5a0jcur5xqb" path="res://fow/fog_of_war.tscn" id="2_8r3qo"]
 [ext_resource type="NavigationMesh" uid="uid://cl62jsei5gceh" path="res://levels/level_2/navigation_mesh.tres" id="3_0butd"]
-[ext_resource type="PackedScene" path="res://levels/level_environment.tscn" id="3_1h50e"]
+[ext_resource type="PackedScene" uid="uid://bs0s6qhyue08n" path="res://levels/level_environment.tscn" id="3_1h50e"]
 [ext_resource type="Terrain3DMaterial" uid="uid://btpobt3g105bp" path="res://levels/terrain_material.tres" id="4_1vf62"]
 [ext_resource type="PackedScene" uid="uid://d0gcmhup8s6gs" path="res://core/world_boundaries.tscn" id="4_8y2in"]
 [ext_resource type="PackedScene" uid="uid://cwnbatyg51nvp" path="res://match/match.tscn" id="5_5ts7o"]
@@ -57,6 +57,12 @@
 [ext_resource type="PackedScene" uid="uid://bawj8i061xrd2" path="res://core/blocking_volume.tscn" id="43_pvqwi"]
 [ext_resource type="PackedScene" uid="uid://cl68okry6be1j" path="res://match/match_completion_monitor.tscn" id="52_mma45"]
 [ext_resource type="PackedScene" uid="uid://rl6igg0711fg" path="res://props/street-signs/prop_stopsign.tscn" id="54_xckxy"]
+[ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="58_ljfbl"]
+[ext_resource type="PackedScene" uid="uid://dgwv34455hgs8" path="res://ui/debug/debug_game_stats.tscn" id="59_ydidt"]
+[ext_resource type="PackedScene" uid="uid://cjhdwysw475hc" path="res://ui/debug/debug_team_inventories.tscn" id="60_rb2r3"]
+[ext_resource type="PackedScene" uid="uid://dmbbahkolpx3t" path="res://ui/debug/enemy_team_director_debug_hud.tscn" id="61_cesre"]
+[ext_resource type="PackedScene" uid="uid://di8abaeq2tkdk" path="res://ui/debug/utility_ai_debug_hud.tscn" id="62_k5l1q"]
+[ext_resource type="PackedScene" uid="uid://dlsal285n8vg3" path="res://ui/debug/unit_actions_debug_hud.tscn" id="63_3tjso"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ptf1"]
 size = Vector3(1024, 1000, 800)
@@ -2139,7 +2145,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ua8d4"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -2150,7 +2156,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tdllg"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydidt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2164,13 +2170,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_igvic"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rb2r3"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hj2hk"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cesre"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2184,13 +2190,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2r4um"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k5l1q"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmbt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3tjso"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2204,13 +2210,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f0mp7"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydidt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7q12m"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2218,6 +2224,25 @@ seamless = true
 
 [node name="Level2" type="Node3D" unique_id=1679824873]
 metadata/_edit_lock_ = true
+
+[node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("58_ljfbl")]
+visible = false
+
+[node name="DebugGameStats" parent="DebugHud" unique_id=159246388 instance=ExtResource("59_ydidt")]
+layout_mode = 2
+
+[node name="DebugTeamInventories" parent="DebugHud" unique_id=1716761102 instance=ExtResource("60_rb2r3")]
+layout_mode = 2
+
+[node name="UtilityAiDebugHud" parent="DebugHud" unique_id=2054487946 instance=ExtResource("62_k5l1q")]
+layout_mode = 2
+
+[node name="EnemyTeamDirectorDebugHud" parent="DebugHud" unique_id=2076186544 instance=ExtResource("61_cesre")]
+layout_mode = 2
+
+[node name="UnitActionsDebugHud" parent="DebugHud" unique_id=442782189 instance=ExtResource("63_3tjso")]
+visible = false
+layout_mode = 2
 
 [node name="PauseMenuLayer" type="CanvasLayer" parent="." unique_id=1066912548]
 layer = 10
@@ -3715,26 +3740,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.9, 0.6, 110.59996)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.248, 0, 80.769)
 curve = SubResource("Curve3D_72cmr")
-crack_mask_texture = SubResource("NoiseTexture2D_ua8d4")
-scrap_mask_texture = SubResource("NoiseTexture2D_tdllg")
+crack_mask_texture = SubResource("NoiseTexture2D_ljfbl")
+scrap_mask_texture = SubResource("NoiseTexture2D_ydidt")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1004973095 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.68715, 0, -268.331)
 curve = SubResource("Curve3D_mma45")
-crack_mask_texture = SubResource("NoiseTexture2D_igvic")
-scrap_mask_texture = SubResource("NoiseTexture2D_hj2hk")
+crack_mask_texture = SubResource("NoiseTexture2D_rb2r3")
+scrap_mask_texture = SubResource("NoiseTexture2D_cesre")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.548, 0, -383.331)
 curve = SubResource("Curve3D_rhho1")
-crack_mask_texture = SubResource("NoiseTexture2D_2r4um")
-scrap_mask_texture = SubResource("NoiseTexture2D_2fmbt")
+crack_mask_texture = SubResource("NoiseTexture2D_k5l1q")
+scrap_mask_texture = SubResource("NoiseTexture2D_3tjso")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.552, 0, 240.869)
 curve = SubResource("Curve3D_xckxy")
-crack_mask_texture = SubResource("NoiseTexture2D_ljfbl")
-scrap_mask_texture = SubResource("NoiseTexture2D_ydidt")
+crack_mask_texture = SubResource("NoiseTexture2D_f0mp7")
+scrap_mask_texture = SubResource("NoiseTexture2D_7q12m")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 
