@@ -18,16 +18,20 @@ grow_vertical = 2
 theme = ExtResource("1_qc8qn")
 script = ExtResource("2_5ssi0")
 
-[node name="Logo" type="TextureRect" parent="." unique_id=956368259]
+[node name="LogoContainer" type="MarginContainer" parent="." unique_id=925373671]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -383.0
-offset_top = 149.0
-offset_right = 381.0
-offset_bottom = 595.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
 grow_horizontal = 2
+theme_override_constants/margin_top = -50
+
+[node name="Logo" type="TextureRect" parent="LogoContainer" unique_id=956368259]
+custom_minimum_size = Vector2(764, 446)
+layout_mode = 2
 texture = ExtResource("3_1njj5")
 expand_mode = 1
 stretch_mode = 5
