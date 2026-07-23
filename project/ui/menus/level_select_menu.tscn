@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_tvlfg"]
 [ext_resource type="PackedScene" uid="uid://duuf5gpbaix6p" path="res://ui/menus/level_panel.tscn" id="2_uhb52"]
+[ext_resource type="Texture2D" uid="uid://bq4klvrpo7ho4" path="res://ui/menus/trc-background-light.jpg" id="3_fhobr"]
 [ext_resource type="Script" uid="uid://c4bocj7tgd1pd" path="res://ui/menus/level_select_menu.gd" id="3_m3o25"]
 [ext_resource type="Script" uid="uid://cvc5lcd1qlwuo" path="res://ui/menus/menu_audio.gd" id="4_j7w7g"]
 
@@ -14,6 +15,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_tvlfg")
 script = ExtResource("3_m3o25")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=433194627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_fhobr")
+expand_mode = 2
 
 [node name="RootMargin" type="MarginContainer" parent="." unique_id=5023541]
 layout_mode = 1
