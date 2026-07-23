@@ -55,6 +55,9 @@ class ActivePlacement:
 		start_time = GameManager.game_timer.time_seconds
 		resource_bounds = BoundingCircle.from_aabb(spawner.asset_aabb, true)
 	
+	func _to_string() -> String:
+		return EnumUtils.enum_to_string(ConstructionResource.Type, context.construction.type)
+		
 var active_placements:Array[ActivePlacement]
 
 func _ready() -> void:	
@@ -147,7 +150,7 @@ func _process(_delta: float) -> void:
 		placement.spawner.queue_free()
 	
 	if to_remove:	
-		print_debug("%s: Removed %d active placements" % [name, to_remove.size()])
+		print_debug("%s: Removed %d active placements: %s" % [name, to_remove.size(), to_remove])
 			
 	if not active_placements:
 		print_debug("%s: No remaining active placements" % name)

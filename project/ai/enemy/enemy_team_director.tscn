@@ -213,6 +213,7 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 })
 allow_buildings = true
 allow_structures = true
+utility_tolerance_threshold = 0.03
 
 [node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")

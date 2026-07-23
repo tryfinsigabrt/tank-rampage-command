@@ -29,6 +29,36 @@ static func choose_highest(
 	return options.filter(within_tolerance).pick_random()
 
 
+## Choose randomly between the highest-scoring options making sure the score is above a minimum.
+## An option is considered one of the highest-scoring options if it is within the specified tolerance of
+## the option(s) with the maximum score.
+## Note that this function can return null if nothing meets the min score
+static func choose_highest_over_min_score(
+	options: Array[UtilityAIOption], min_score:float, tolerance: float = 0.0
+) -> UtilityAIOption:
+	# Calculate the scores for every option.
+	var scores: Dictionary[UtilityAIOption, float] = {}
+	var viable_options:Array[UtilityAIOption]
+	
+	for option in options:
+		var score := option.evaluate()
+		if score >= min_score:
+			scores[option] = score
+			viable_options.push_back(option)
+
+	if not viable_options:
+		return null
+		
+	# Identify the highest-scoring viable_options by sorting them in descending order
+	viable_options.sort_custom(func(a, b): return scores[a] > scores[b])
+
+	# Choose randomly between all options within the specified tolerance.
+	var high_score: float = scores[viable_options[0]]
+	var within_tolerance := func(o): return (
+		absf(high_score - scores[o]) <= tolerance
+	)
+	return viable_options.filter(within_tolerance).pick_random()
+	
 ## Choose randomly between all options. The probability of choosing a specific
 ## option is based on its calculated utility.
 ## [br][br]

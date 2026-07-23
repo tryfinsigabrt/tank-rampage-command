@@ -1,5 +1,7 @@
 class_name BuildUtilityCalculator extends Node
 
+const MIN_BUILD_UTILITY_SCORE_V_TIME = preload("uid://py6g420vrkwr")
+
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 @onready var team_units: TeamUnits = %TeamUnits
 @onready var enemy_teams: EnemyTeams = %EnemyTeams
@@ -31,6 +33,9 @@ var failed_building_cooldown_time:float = 10.0
 @export
 var min_structure_need_score:float = 10.0
 
+@export_range(0.0, 1.0, 0.001)
+var utility_tolerance_threshold:float = 0.001
+
 var _available_behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 
 var match_team:MatchTeam
@@ -44,6 +49,8 @@ var _building_stats_by_type:Dictionary[ConstructionResource.Type, BuildingStats]
 var _command_center_data:CommandCenterData
 var _can_build_buildings:bool
 var _can_build_structures:bool
+var _last_score_above_threshold_time:float = 0.0
+var _minimum_score:float = 0.0
 
 class AggregateDefenseNeeds:
 	var score:float
@@ -56,11 +63,19 @@ func _ready() -> void:
 	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
 	
 func refresh() -> void:
-	_refresh_available_behaviors()
+	_refresh_behavior_data()
 	_refresh_enemy_data()
 	
+func _refresh_behavior_data() -> void:
+	_refresh_available_behaviors()	
 	# First obtain available behaviors where the mapping is relevant
 	_refresh_construction_resource_mappings()
+	
+func _refresh_min_score() -> void:
+	# Have a minimum score threshold that decreases as more time elapses since the last build
+	var current_time:float = GameManager.game_timer.time_seconds
+	var delta_build_time:float = current_time - _last_score_above_threshold_time
+	_minimum_score = MIN_BUILD_UTILITY_SCORE_V_TIME.sample(delta_build_time)
 	
 func _refresh_construction_resource_mappings() -> void:
 	if not match_team:
@@ -85,7 +100,7 @@ func _refresh_available_behaviors() -> void:
 	# Map construction resource types to their supported manufacturing centers
 	for building in team_units.buildings:
 		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
-		if manufacturing_component:
+		if manufacturing_component and manufacturing_component.active:
 			for resource in manufacturing_component.supported_types.types:
 				var type:ConstructionResource.Type = resource.type
 				var classification:ConstructionResource.Classification = resource.classification
@@ -137,6 +152,7 @@ func next_build() -> bool:
 	if not match_team:
 		return false
 	
+	_refresh_min_score()
 	_viable_options.clear()
 	
 	var team_distributions: Dictionary[ConstructionResource.Type, int]
@@ -180,7 +196,7 @@ func next_build() -> bool:
 	
 	if _can_build_structures:
 		_refresh_structure_build_data(team_structure_queue)
-	
+		
 	for type in _available_behaviors:
 		var behavior:UtilityAIBehavior = behaviors[type]
 		var utility_context:Variant = null
@@ -292,11 +308,16 @@ func next_build() -> bool:
 	if not _viable_options:
 		return false
 	
-	var best_option := UtilityAI.choose_highest(_viable_options)
-	
+	var best_option := UtilityAI.choose_highest_over_min_score(_viable_options, _minimum_score, utility_tolerance_threshold)
 	SignalBus.on_utility_calculation.emit(name, blackboard.team, _viable_options, best_option)
 	
-	var success:bool = best_option.action.call()
+	var success:bool
+	if best_option:
+		_last_score_above_threshold_time = GameManager.game_timer.time_seconds
+		success = best_option.action.call()
+	else:
+		success = false
+		
 	if not success:
 		SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
@@ -442,7 +463,6 @@ func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionR
 	_aggregate_defense_needs.strength = max_strength
 	_aggregate_defense_needs.available_infantry_units = _calculate_elgible_container_units(defense_needs)
 	#print("DEFENSE STRUCTURE SCORE: %.1f" % _aggregate_defense_needs.score)
-	
 	
 func _calculate_elgible_container_units(defense_needs:Array[DefensiveStructurePrioritizer.DefensiveStructureNeed]) -> int:
 	# Check that unit is not in a container or otherwise unavailable
