@@ -97,7 +97,8 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 				var unit_id := unit.get_instance_id()
 		
 				# If the unit is already in attack range of the building then count it toward defense
-				var current_defended_building:int = defenders.get(unit_id, -1)
+				var defense_context:EnemyTeamBlackboard.BaseDefenseContext = defenders.get(unit_id)
+				var current_defended_building:int = defense_context.asset_id if defense_context else -1
 				if current_defended_building == building_id or unit.weapon.is_in_range_bounds(bounds):
 					current_defense += unit_strength
 					if current_defense >= ideal_base_defense:

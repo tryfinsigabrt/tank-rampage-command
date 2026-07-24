@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://woa50sqkcenb" path="res://ui/debug/debug_hud.tscn" id="14_lc1ba"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="15_44c18"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="16_t2ffh"]
+[ext_resource type="PackedScene" uid="uid://nt05r3qybt2g" path="res://structures/bunker/bunker_structure.tscn" id="19_wb87s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w7djc"]
 
@@ -38,7 +39,7 @@ agent_radius = 3.0
 agent_max_slope = 60.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_47qfk"]
-size = Vector3(150, 100, 150)
+size = Vector3(500, 100, 700)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3d5hb"]
 transparency = 1
@@ -51,6 +52,7 @@ albedo_color = Color(1, 0, 0, 0.09803922)
 [node name="TestArtilleryUnit" type="Node3D" unique_id=1293608661]
 
 [node name="FogOfWar" parent="." unique_id=1445970781 instance=ExtResource("1_2f8fs")]
+visible = false
 
 [node name="Environment" type="Node3D" parent="." unique_id=767500655]
 
@@ -74,6 +76,7 @@ material = ExtResource("1_70hy1")
 [node name="WorldBoundaries" parent="World" unique_id=1367598819 instance=ExtResource("2_fvcoc")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/WorldBoundaries" unique_id=1811548351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -131.54376)
 shape = SubResource("BoxShape3D_47qfk")
 
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("3_0fgt4")]
@@ -85,15 +88,8 @@ team = 1
 player_team = NodePath("..")
 
 [node name="Artillery" parent="World/Match/PlayerTeam/Player" unique_id=1517178385 instance=ExtResource("7_44c18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9241276, 0, -0.25313568)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 15)
 team = 1
-
-[node name="UI" parent="World/Match/PlayerTeam/Player/Artillery" index="4" unique_id=1745454053]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -0.9241276, 5.5, -0.25313568)
-
-[node name="Weapon" parent="World/Match/PlayerTeam/Player/Artillery/WeaponTrace" parent_id_path=PackedInt32Array(1517178385, 37322823) index="0" unique_id=107617315]
-min_distance = 50.0
-max_distance_range = Vector2(200, 1000)
 
 [node name="Structures" type="Node3D" parent="World/Match/PlayerTeam" unique_id=1792821259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.281992, 0, -70.66237)
@@ -196,7 +192,7 @@ team = 2
 transform = Transform3D(-0.9659258, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.9659258, 7, 0, -67.3)
 team = 2
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank01" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 7, 5.5, -67.3)
 
 [node name="EnemyTank02" parent="World/Match/EnemyTeam/Enemies" unique_id=295616966 instance=ExtResource("7_w10yo")]
@@ -209,7 +205,7 @@ material_override = ExtResource("10_308ec")
 [node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank02/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("11_wj0es")
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank02" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 54.8, 5.5, -65.9)
 
 [node name="EnemyTank03" parent="World/Match/EnemyTeam/Enemies" unique_id=260396010 instance=ExtResource("7_w10yo")]
@@ -222,19 +218,19 @@ material_override = ExtResource("12_o6aet")
 [node name="Turret" parent="World/Match/EnemyTeam/Enemies/EnemyTank03/Body/Turret/Mesh" index="0"]
 material_override = ExtResource("13_ux3hc")
 
-[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="5" unique_id=1673194704]
+[node name="UI" parent="World/Match/EnemyTeam/Enemies/EnemyTank03" index="6" unique_id=1673194704]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -33, 5.5, -67)
 
 [node name="CommandCenter" parent="World/Match/EnemyTeam" unique_id=1674660700 instance=ExtResource("7_bkddm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, 0, -117.99118)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0822754, 0, -131.0858)
 team = 2
 
 [node name="Barracks" parent="World/Match/EnemyTeam" unique_id=404914555 instance=ExtResource("15_44c18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.539406, 0, -91.049255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.445145, 0, -104.215256)
 team = 2
 
 [node name="Factory" parent="World/Match/EnemyTeam" unique_id=1143212309 instance=ExtResource("16_t2ffh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.695923, 0, -93.38885)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.695923, 0, -106.48346)
 team = 2
 
 [node name="Structures" type="Node3D" parent="World/Match/EnemyTeam" unique_id=13561955]
@@ -345,6 +341,10 @@ team = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.4, 0, 68.1)
 team = 2
 
+[node name="BunkerStructure" parent="World/Match/EnemyTeam" unique_id=427098526 instance=ExtResource("19_wb87s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -285)
+team = 2
+
 [node name="DamageVisualization" type="Node3D" parent="World" unique_id=601634826]
 visible = false
 
@@ -365,9 +365,6 @@ material = SubResource("StandardMaterial3D_bkddm")
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("14_lc1ba")]
 
 [editable path="World/Match/PlayerTeam/Player"]
-[editable path="World/Match/PlayerTeam/Player/Artillery"]
-[editable path="World/Match/PlayerTeam/Player/Artillery/GameUnitNavigation"]
-[editable path="World/Match/PlayerTeam/Player/Artillery/WeaponTrace/Weapon"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Mesh"]

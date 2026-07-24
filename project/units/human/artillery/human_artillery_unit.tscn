@@ -75,7 +75,7 @@ transform = Transform3D(1, 0, -4.973799e-14, 0, 0.6945459, -0.7194495, 7.1054274
 
 [node name="FireOrigin" type="Marker3D" parent="VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel" unique_id=1775582211]
 unique_name_in_owner = true
-transform = Transform3D(-0.12500001, 0, -1.0927847e-08, 0, 0.125, 0, 1.0927848e-08, 0, -0.125, -0.014263812, 0.87683225, 0.40354744)
+transform = Transform3D(-0.12500001, 0, -1.8874475e-08, 0, 0.125, 0, 1.8874477e-08, 0, -0.125, -0.014263812, 0.87683225, 0.40354744)
 
 [node name="ArtilleryBody" parent="VisualRoot" unique_id=832701472 instance=ExtResource("8_a7cds")]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
@@ -132,17 +132,18 @@ update_scale = false
 unique_name_in_owner = true
 gizmo_extents = 2.62
 
-[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "weapon_controller", "launch_trace_node") instance=ExtResource("7_uf7ra")]
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "launch_trace_node", "weapon_controller") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
 shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
 shoot_sfx = NodePath("ArtilleryShootSfx")
 hit_vfx = NodePath("HitVfx")
 min_distance = 75.0
-max_distance_range = Vector2(200, 450)
+max_distance_range = Vector2(150, 300)
 cooldown_time_range = Vector2(6, 8)
 fire_time_range = Vector2(0, 1)
 fire_time_v_distance = ExtResource("6_uf7ra")
+target_dev_v_distance = ExtResource("7_jjc22")
 accuracy_v_velocity_alignment = ExtResource("14_pxuev")
 movement_accuracy_penalty = 5.0
 max_spread_angle = 16.0
@@ -150,15 +151,14 @@ friendly_fire = true
 damage_mask = 5231
 allow_source_damage = true
 type = 2
-weapon_controller = NodePath("WeaponController")
 launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
-target_dev_v_distance = ExtResource("7_jjc22")
 prefer_close_shots = false
+weapon_controller = NodePath("WeaponController")
 
 [node name="DamageEmitter" parent="WeaponTrace/Weapon" index="2" unique_id=1547374086]
 damage_falloff_type = 2
-min_falloff_distance = 10.0
-max_falloff_distance = 25.0
+min_falloff_distance = 5.0
+max_falloff_distance = 20.0
 min_damage = 10.0
 max_damage = 1000.0
 

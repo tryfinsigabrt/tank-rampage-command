@@ -45,11 +45,15 @@ const HIT_VFX_SCENES := {
 	HitVfx.SizePreset.NORMAL: preload("res://particles/hit/default_hit_vfx.tscn"),
 }
 
+@export_group("Range")
+
 @export
 var min_distance:float = 10.0
 
 @export
 var max_distance_range:Vector2 = Vector2(500,750)
+
+@export_group("Fire Time")
 
 @export
 var cooldown_time_range:Vector2 = Vector2(1.5,2.0)
@@ -60,9 +64,19 @@ var fire_time_range:Vector2 = Vector2(0.05,0.1)
 @export
 var fire_time_v_distance:Curve
 
+@export_group("Penalties")
+
+## Add curve to reduce max damage with distance fraction over range
+## Damage can never exceed the max damage configured on weapon damage emitter
 @export
 var damage_v_distance:Curve
 
+## Size of the impact probability zone vs fraction of min to max firing distance
+## Only used for launch or drop trace style weapons
+@export
+var target_dev_v_distance:Curve
+
+@export_subgroup("Movement")
 @export
 var accuracy_v_velocity_alignment:Curve
 
@@ -72,9 +86,13 @@ var movement_accuracy_penalty:float
 @export_range(0.0, 90.0, 0.1)
 var max_spread_angle:float = 22.5
 
+@export_subgroup("")
+@export_group("")
+
 @export
 var enable_debug_draw:bool = true
 
+@export_group("Damage")
 ## Whether the weapon can damage allies
 @export
 var friendly_fire:bool = false
@@ -84,7 +102,19 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 
 @export var allow_source_damage:bool
 
+@export_group("Shooting Behavior")
 @export var type: TraceType = TraceType.Standard
+
+## Node to use to do the launch trace for launch-based weapons
+## Defaults to self if not assigned
+@export
+var launch_trace_node:Node3D
+
+## Indicates whether this weapon prefers getting as close as possible or hanging back.
+@export
+var prefer_close_shots:bool = true
+
+@export_group("")
 
 @export
 var weapon_controller:WeaponController
@@ -109,19 +139,6 @@ var require_los:bool:
 var allow_position_attack:bool:
 	get:
 		return type != TraceType.Standard
-		
-## Node to use to do the launch trace for launch-based weapons
-## Defaults to self if not assigned
-@export
-var launch_trace_node:Node3D
-
-## Size of the impact probability zone vs fraction of min to max firing distance
-@export
-var target_dev_v_distance:Curve
-
-## Indicates whether this weapon prefers getting as close as possible or hanging back.
-@export
-var prefer_close_shots:bool = true
 
 var ideal_fire_range:Vector2:
 	get:
@@ -479,7 +496,9 @@ func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
 	if target_dev_v_distance:
 		var origin:Vector3 = global_position
 		var dist:float = origin.distance_to(target)
-		var distance_fraction:float = clampf(dist / (max_distance_range.y - min_distance), 0.0, 1.0)
+		var dist_over_min:float = dist - min_distance
+		var total_range:float = max_distance_range.y - min_distance
+		var distance_fraction:float = clampf(dist_over_min / total_range, 0.0, 1.0)
 		var radius:float = target_dev_v_distance.sample_baked(distance_fraction)
 		if radius > 0:
 			var offset:Vector2 = MathUtils.get_random_point_in_circle(radius)
