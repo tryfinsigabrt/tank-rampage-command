@@ -21,7 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ydyd3")
-credits_file = "res://credits_sample.txt"
+credits_file = "res://credits.txt"
 background_image_rotation = Array[Texture2D]([ExtResource("1_2n5wy"), ExtResource("3_cva3t"), ExtResource("4_2d0lf")])
 
 [node name="BehindBackground" type="PanelContainer" parent="." unique_id=1915190116]

@@ -1,0 +1,19 @@
+Justin Montgomery: Project lead, core gameplay, [MORE TO COME]
+
+Antonio Martinović: Models (barracks, tree), level design (stage 1, tutorial), building panel (including hover effects, commands, cancellation), additional marine animations (run and shoot), assorted gameplay UI (incl. inventory, messaging, occupants), camera movement, visual effects (shooting variations, hit effects), icon standardizations, options menu, menu styling, level select, tooltips, scrap randomization and related shader, shadow settings
+
+Christer Kaitila: Music (city, desert, menu), artillery model, command center, city models, minimap, brick ruins, treadmarks, factory textures, barbed wire, logo, shadow, unit barks, terrain textures, sounds (gunshot, marine damage, explosion), street signs
+
+Michael Avrie: Marine (with animations), marine transport (model and construction support), tree, sandbags, large tank spikes, land mine, cloth netting spike, grass
+
+Jesse Rupe: Contextual UI improvements (non-attacking, transport unit display, unit counts, timers), story and dialog writing, dialog system incl. UI (background, speaker icons, skip button), credits scene
+
+Liyi Zhang: Bunker model with texture, human and enemy tank models with implementation, alt. tank mesh with textures
+
+fizzybuzzybeezy: Menu button sounds, audio loader
+
+Connor Fitzpatrick: Tank sounds
+
+Chris DeLeon: Artillery explosion particle effect, compiled credits
+
+fizzybuzzybeezy, Mo Shah, Meatball: Playtesters
