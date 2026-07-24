@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://0yr6nb2026pu"
+path="res://.godot/imported/Bunker Load 1.mp3-05eb24031c7adf94fca1fe2be7d9acea.mp3str"
+
+[deps]
+
+source_file="res://sounds/Bunker sounds and misc/Bunker Load 1.mp3"
+dest_files=["res://.godot/imported/Bunker Load 1.mp3-05eb24031c7adf94fca1fe2be7d9acea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
