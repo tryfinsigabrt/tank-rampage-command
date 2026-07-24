@@ -47,9 +47,8 @@
 [ext_resource type="PackedScene" uid="uid://c1ipseqpueqgd" path="res://buildings/brick_ruins/brick_ruins_full.tscn" id="26_ve7lj"]
 [ext_resource type="PackedScene" uid="uid://ds613utqpenu7" path="res://buildings/brick_ruins/brick_ruins_half.tscn" id="27_72cmr"]
 [ext_resource type="PackedScene" uid="uid://dd8tmmpjlstpe" path="res://props/street-signs/prop_yield_sign.tscn" id="28_k6rpq"]
-[ext_resource type="PackedScene" uid="uid://dngqpi4qhtwby" path="res://props/street-signs/prop_speed_limit_25.tscn" id="29_jkvjs"]
-[ext_resource type="PackedScene" uid="uid://cfx8h6ynds6n1" path="res://props/street-signs/prop_no_parking.tscn" id="30_ua8d4"]
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="32_xpuws"]
+[ext_resource type="PackedScene" uid="uid://bburtkp7ar52n" path="res://props/street-signs/sign-mesh.tscn" id="38_2fmbt"]
 [ext_resource type="Material" uid="uid://ryc8t66twttc" path="res://terrain/water/water.tres" id="42_1txof"]
 [ext_resource type="Script" uid="uid://b1qewko8fkshf" path="res://match/winnable_match_team_elimination.gd" id="42_72cmr"]
 [ext_resource type="PackedScene" uid="uid://tgbgf0gnros4" path="res://control_points/control_point.tscn" id="42_fl6bb"]
@@ -2145,7 +2144,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fmbt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -2156,7 +2155,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydidt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ljfbl"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2170,13 +2169,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rb2r3"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydidt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cesre"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rb2r3"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2190,13 +2189,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k5l1q"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cesre"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3tjso"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k5l1q"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -2210,13 +2209,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f0mp7"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3tjso"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7q12m"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f0mp7"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -3558,15 +3557,6 @@ transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e
 [node name="city-t-intersection5" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1368652193 instance=ExtResource("22_nouef")]
 transform = Transform3D(1.3113432e-05, 100.000015, 1.202396e-05, -9.565463e-08, -1.2023952e-05, 99.99995, 100.00007, -1.3113422e-05, 9.565221e-08, 4.0000033, -2.3283064e-09, 2.0000012)
 
-[node name="yield-sign" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=106597247 instance=ExtResource("28_k6rpq")]
-transform = Transform3D(-1.4570462e-09, 0, 0.033333335, 0, 0.033333324, 0, -0.03333333, 0, -1.4570464e-09, 5.2, 0, -5.957)
-
-[node name="speed-limit-25" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1486260066 instance=ExtResource("29_jkvjs")]
-transform = Transform3D(-1.4570462e-09, 0, 0.033333335, 0, 0.033333324, 0, -0.03333333, 0, -1.4570464e-09, 6.331, -0.007, -5.975)
-
-[node name="no-parking-sign" parent="World/NavigationRegion3D/City/Expansion/RightNeighborhood" unique_id=1742384205 instance=ExtResource("30_ua8d4")]
-transform = Transform3D(0.03333333, 2.3076098e-10, 1.1589791e-10, -1.228828e-12, 0.033333324, -3.311368e-11, -1.6556844e-11, -9.934105e-11, 0.033333335, 6.5, 0, -5.975)
-
 [node name="city-curve" parent="World/NavigationRegion3D/City" unique_id=1985063192 instance=ExtResource("23_vdtjt")]
 transform = Transform3D(-4.3711407e-06, -100.000015, -1.2016587e-05, 1.03027546e-07, -1.2016582e-05, 99.99995, -100.00005, 4.3711425e-06, 1.03027304e-07, 5.003334, 1.3504177e-08, -13.8633375)
 
@@ -3624,6 +3614,173 @@ shape = SubResource("BoxShape3D_pvqwi")
 transform = Transform3D(0.99999946, -9.968062e-10, 0, 4.7293724e-11, 1, 0, 1.8626451e-09, 0, 1, -375.20978, 67.26133, 320.5117)
 gameplay_draw = false
 shape = SubResource("BoxShape3D_1h50e")
+
+[node name="Signs" type="Node3D" parent="World/NavigationRegion3D" unique_id=2017261401]
+transform = Transform3D(29.999413, 0.053272005, -0.18036991, -0.054230332, 29.999535, -0.15935862, 0.18008408, 0.15968165, 29.999035, 148.5703, 93.43939, 67.87613)
+
+[node name="stopsign" parent="World/NavigationRegion3D/Signs" unique_id=1526705396 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.57497e-09, 2.298555e-10, 0.03333333, 1.759164e-11, 0.03333332, -5.230601e-12, -0.03333333, -1.00375847e-10, -1.4601069e-09, 5.097352, -0.0074027926, -7.073359)
+
+[node name="stopsign3" parent="World/NavigationRegion3D/Signs" unique_id=1740455348 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.3391228e-09, 2.2985548e-10, -0.03333333, 1.8522966e-10, 0.03333332, 4.4659007e-10, 0.03333333, -1.00375847e-10, -1.4539853e-09, 13.884019, -0.0074026897, 3.0699735)
+
+[node name="stopsign4" parent="World/NavigationRegion3D/Signs" unique_id=331934673 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.3391228e-09, 2.2985548e-10, -0.03333333, 1.8522966e-10, 0.03333332, 4.4659007e-10, 0.03333333, -1.00375847e-10, -1.4539853e-09, 13.900685, -0.007402701, 1.0299734)
+
+[node name="stopsign5" parent="World/NavigationRegion3D/Signs" unique_id=115069600 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.3391228e-09, 2.2985548e-10, -0.03333333, 1.8522966e-10, 0.03333332, 4.4659007e-10, 0.03333333, -1.00375847e-10, -1.4539853e-09, 13.900685, -0.007402712, -0.9500265)
+
+[node name="stopsign6" parent="World/NavigationRegion3D/Signs" unique_id=1896294744 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.57497e-09, 2.298555e-10, 0.03333333, 1.7591605e-11, 0.03333332, -5.2305855e-12, -0.03333333, -1.00375847e-10, -1.4601069e-09, 5.154018, -0.0074026007, -2.060027)
+
+[node name="stopsign7" parent="World/NavigationRegion3D/Signs" unique_id=910516591 instance=ExtResource("54_xckxy")]
+transform = Transform3D(-1.57497e-09, 2.298555e-10, 0.03333333, 1.7591605e-11, 0.03333332, -5.2305855e-12, -0.03333333, -1.00375847e-10, -1.4601069e-09, -11.90265, -0.0074026003, 0.9599737)
+
+[node name="yield-sign" parent="World/NavigationRegion3D/Signs" unique_id=106597247 instance=ExtResource("28_k6rpq")]
+transform = Transform3D(0.03333333, 2.3470614e-10, 1.158979e-10, -1.2288279e-12, 0.03333332, -3.3113675e-11, -1.6556844e-11, -1.1589788e-10, 0.03333333, 0.05735147, -0.0074027856, -13.78336)
+
+[node name="sign-mesh" parent="World/NavigationRegion3D/Signs" unique_id=640122378 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-9.075083e-08, -7.7416296e-11, 2.1, 6.2584857e-09, 2.1, 7.7416296e-11, -2.1, 6.2584853e-09, -9.075083e-08, 168.27946, 0.22208434, -112.27924)
+top_level = true
+
+[node name="sign-mesh2" parent="World/NavigationRegion3D/Signs" unique_id=1247641470 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.7416296e-11, -1.0430838e-09, 7.7417184e-11, 2.1, -6.2584857e-09, 1.0430838e-09, 6.258485e-09, 2.1, 224.34946, 0.22208457, -188.50925)
+top_level = true
+
+[node name="sign-mesh3" parent="World/NavigationRegion3D/Signs" unique_id=798050364 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-9.2837e-08, -7.741674e-11, -2.1, -6.258484e-09, 2.1, -7.741763e-11, 2.1, 6.2584844e-09, -9.2837e-08, 136.56946, 0.22208428, -93.799255)
+top_level = true
+
+[node name="sign-mesh4" parent="World/NavigationRegion3D/Signs" unique_id=1205445992 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.7642483e-07, -7.741675e-11, 2.1, 6.258485e-09, 2.1, 7.741474e-11, -2.1, 6.2584844e-09, 2.7642483e-07, 167.85945, 0.2220837, 102.13074)
+top_level = true
+
+[node name="sign-mesh6" parent="World/NavigationRegion3D/Signs" unique_id=966008725 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-9.2837e-08, -7.741674e-11, -2.1, -6.258484e-09, 2.1, -7.741766e-11, 2.1, 6.2584844e-09, -9.2837e-08, 136.14899, 0.20999996, 112.631)
+top_level = true
+
+[node name="sign-mesh7" parent="World/NavigationRegion3D/Signs" unique_id=510976984 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-9.075083e-08, -7.741673e-11, 2.1, 6.258485e-09, 2.1, 7.741582e-11, -2.1, 6.2584844e-09, -9.075083e-08, 17.288988, 0.21000014, 47.53099)
+top_level = true
+
+[node name="sign-mesh8" parent="World/NavigationRegion3D/Signs" unique_id=254167749 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.741674e-11, -1.8254474e-07, -7.741674e-11, 2.1, 6.2584826e-09, 1.8254474e-07, 6.2584835e-09, -2.1, -132.02101, 0.21000001, 94.571)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh11" parent="World/NavigationRegion3D/Signs" unique_id=1463618174 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741673e-11, 3.6613255e-07, 7.7418384e-11, 2.1, -6.2584844e-09, -3.6613255e-07, 6.2584835e-09, 2.1, -164.78102, 0.21000019, 32.621002)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh12" parent="World/NavigationRegion3D/Signs" unique_id=623052127 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-4.5792646e-07, -7.741674e-11, 2.1, 6.258484e-09, 2.1, 7.741674e-11, -2.1, 6.2584826e-09, -4.5792646e-07, -70.70105, 0.21000068, -128.65901)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh13" parent="World/NavigationRegion3D/Signs" unique_id=2045141375 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(6.415143e-07, -7.741673e-11, -2.1, -6.258482e-09, 2.1, -7.742002e-11, 2.1, 6.2584835e-09, 6.415143e-07, -51.171062, 0.21000078, -162.889)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh14" parent="World/NavigationRegion3D/Signs" unique_id=1567075166 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-8.251021e-07, -7.7416726e-11, 2.1, 6.258485e-09, 2.1, 7.741782e-11, -2.1, 6.2584835e-09, -8.251021e-07, 325.98892, 0.21000089, -189.55913)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh15" parent="World/NavigationRegion3D/Signs" unique_id=1423033085 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(6.415143e-07, -7.741673e-11, -2.1, -6.258482e-09, 2.1, -7.742005e-11, 2.1, 6.2584835e-09, 6.415143e-07, 314.2289, 0.21000098, -220.21913)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh16" parent="World/NavigationRegion3D/Signs" unique_id=1077514374 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-8.251021e-07, -7.7416726e-11, 2.1, 6.258485e-09, 2.1, 7.7417794e-11, -2.1, 6.2584835e-09, -8.251021e-07, 85.53901, 0.21000026, 21.070925)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh17" parent="World/NavigationRegion3D/Signs" unique_id=16568017 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(1.00869e-06, -7.741672e-11, -2.1, -6.258482e-09, 2.1, -7.742113e-11, 2.1, 6.2584835e-09, 1.00869e-06, 68.109, 0.21000037, -8.539066)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh18" parent="World/NavigationRegion3D/Signs" unique_id=1722636569 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.1689606e-07, -7.741896e-11, 2.1, 6.258482e-09, 9.1689606e-07, 6.258483e-09, -2.1, 18.338863, 0.2100012, -289.09903)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh26" parent="World/NavigationRegion3D/Signs" unique_id=851487943 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.1689606e-07, -7.741896e-11, 2.1, 6.258482e-09, 9.1689606e-07, 6.258483e-09, -2.1, -132.02113, 0.21000117, -280.06897)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh28" parent="World/NavigationRegion3D/Signs" unique_id=521103583 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.1689606e-07, -7.741896e-11, 2.1, 6.258482e-09, 9.1689606e-07, 6.258483e-09, -2.1, -132.02103, 0.21000037, -12.31897)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh29" parent="World/NavigationRegion3D/Signs" unique_id=1818426184 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741718e-11, 1.1004839e-06, 7.742143e-11, 2.1, -6.258484e-09, -1.1004839e-06, 6.258483e-09, 2.1, -162.26108, 0.2100007, -125.92895)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh27" parent="World/NavigationRegion3D/Signs" unique_id=619230293 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741718e-11, 1.1004839e-06, 7.742143e-11, 2.1, -6.258484e-09, -1.1004839e-06, 6.258483e-09, 2.1, -164.57115, 0.21000129, -323.11896)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh22" parent="World/NavigationRegion3D/Signs" unique_id=147582926 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.1689606e-07, -7.741896e-11, 2.1, 6.258482e-09, 9.1689606e-07, 6.258483e-09, -2.1, 167.85889, 0.21000102, -230.71906)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh24" parent="World/NavigationRegion3D/Signs" unique_id=843518680 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.1689606e-07, -7.741896e-11, 2.1, 6.258482e-09, 9.1689606e-07, 6.258483e-09, -2.1, 167.85896, 0.21000056, -72.799065)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh25" parent="World/NavigationRegion3D/Signs" unique_id=2021711940 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741718e-11, 1.1004839e-06, 7.742143e-11, 2.1, -6.258484e-09, -1.1004839e-06, 6.258483e-09, 2.1, 135.72894, 0.21000072, -127.819046)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh23" parent="World/NavigationRegion3D/Signs" unique_id=1034840460 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741719e-11, 7.3330824e-07, 7.742032e-11, 2.1, -6.258484e-09, -7.3330824e-07, 6.258483e-09, 2.1, 135.51884, 0.2100013, -322.90906)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh19" parent="World/NavigationRegion3D/Signs" unique_id=252537894 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741718e-11, 1.1004839e-06, 7.742143e-11, 2.1, -6.258484e-09, -1.1004839e-06, 6.258483e-09, 2.1, -14.631134, 0.2100012, -289.09903)
+top_level = true
+sign_type = 2
+
+[node name="sign-mesh20" parent="World/NavigationRegion3D/Signs" unique_id=133889512 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.741718e-11, 1.1004839e-06, 7.742143e-11, 2.1, -6.258484e-09, -1.1004839e-06, 6.258483e-09, 2.1, -13.791047, 0.21000072, -124.45903)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh30" parent="World/NavigationRegion3D/Signs" unique_id=979479266 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-1.1922779e-06, -7.7417184e-11, 2.1, 6.258484e-09, 2.1, 7.7419404e-11, -2.1, 6.258482e-09, -1.1922779e-06, 81.54895, 0.21000074, -128.86908)
+top_level = true
+sign_type = 1
+
+[node name="sign-mesh21" parent="World/NavigationRegion3D/Signs" unique_id=1854416643 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-2.1, -7.7417184e-11, -9.168961e-07, -7.7418925e-11, 2.1, 6.258482e-09, 9.168961e-07, 6.258483e-09, -2.1, 15.60897, 0.21000062, -87.709045)
+top_level = true
+sign_type = 3
+
+[node name="sign-mesh9" parent="World/NavigationRegion3D/Signs" unique_id=62778289 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.7433867e-07, -7.7416726e-11, -2.1, -6.258484e-09, 2.1, -7.7418745e-11, 2.1, 6.2584844e-09, 2.7433867e-07, -113.96101, 0.20999987, 140.351)
+top_level = true
+sign_type = 4
+
+[node name="sign-mesh10" parent="World/NavigationRegion3D/Signs" unique_id=1731309728 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(-4.579265e-07, -7.741672e-11, 2.1, 6.258485e-09, 2.1, 7.74169e-11, -2.1, 6.2584844e-09, -4.579265e-07, -113.961006, 0.20999978, 171.431)
+top_level = true
+sign_type = 4
+
+[node name="sign-mesh5" parent="World/NavigationRegion3D/Signs" unique_id=1432181108 instance=ExtResource("38_2fmbt")]
+transform = Transform3D(2.1, -7.7417184e-11, -3.6821874e-07, 7.741674e-11, 2.1, -6.2584853e-09, 3.6821874e-07, 6.258484e-09, 2.1, 235.05945, 0.22208376, 81.55074)
+top_level = true
 
 [node name="Match" parent="World" unique_id=1741120106 instance=ExtResource("5_5ts7o")]
 
@@ -3740,26 +3897,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 287.9, 0.6, 110.59996)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -291.248, 0, 80.769)
 curve = SubResource("Curve3D_72cmr")
-crack_mask_texture = SubResource("NoiseTexture2D_ljfbl")
-scrap_mask_texture = SubResource("NoiseTexture2D_ydidt")
+crack_mask_texture = SubResource("NoiseTexture2D_2fmbt")
+scrap_mask_texture = SubResource("NoiseTexture2D_ljfbl")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1004973095 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 255.68715, 0, -268.331)
 curve = SubResource("Curve3D_mma45")
-crack_mask_texture = SubResource("NoiseTexture2D_rb2r3")
-scrap_mask_texture = SubResource("NoiseTexture2D_cesre")
+crack_mask_texture = SubResource("NoiseTexture2D_ydidt")
+scrap_mask_texture = SubResource("NoiseTexture2D_rb2r3")
 
 [node name="ScrapField4" parent="World/Match/Resources" unique_id=581981585 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.548, 0, -383.331)
 curve = SubResource("Curve3D_rhho1")
-crack_mask_texture = SubResource("NoiseTexture2D_k5l1q")
-scrap_mask_texture = SubResource("NoiseTexture2D_3tjso")
+crack_mask_texture = SubResource("NoiseTexture2D_cesre")
+scrap_mask_texture = SubResource("NoiseTexture2D_k5l1q")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1255382615 instance=ExtResource("43_1h50e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 381.552, 0, 240.869)
 curve = SubResource("Curve3D_xckxy")
-crack_mask_texture = SubResource("NoiseTexture2D_f0mp7")
-scrap_mask_texture = SubResource("NoiseTexture2D_7q12m")
+crack_mask_texture = SubResource("NoiseTexture2D_3tjso")
+scrap_mask_texture = SubResource("NoiseTexture2D_f0mp7")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("16_6fwx2")]
 
@@ -3768,6 +3925,3 @@ scrap_mask_texture = SubResource("NoiseTexture2D_7q12m")
 [node name="MatchCompletionMonitor" parent="." unique_id=2050669842 node_paths=PackedStringArray("ui_display_root") instance=ExtResource("52_mma45")]
 match_completion_ui_trigger_delay = 1.0
 ui_display_root = NodePath("..")
-
-[node name="stopsign" parent="." unique_id=1526705396 instance=ExtResource("54_xckxy")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 170, 0, -222)

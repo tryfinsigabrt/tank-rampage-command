@@ -8,8 +8,8 @@
 [node name="sign-mesh" parent="." unique_id=640122378 instance=ExtResource("1_vj4my")]
 transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="sign-mesh" unique_id=63970896]
+[node name="StaticBody3D2" type="StaticBody3D" parent="sign-mesh" unique_id=63970896]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="sign-mesh/StaticBody3D" unique_id=690427200]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sign-mesh/StaticBody3D2" unique_id=690427200]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = ExtResource("2_6lbn8")

@@ -19,8 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://b4svm8vx6x4xc" path="res://buildings/command_center/command_center.tscn" id="17_soewx"]
 [ext_resource type="PackedScene" uid="uid://bu6shtu528dnq" path="res://buildings/factory/factory.tscn" id="18_ehnlb"]
 [ext_resource type="PackedScene" uid="uid://qqhe12mqtl6y" path="res://buildings/barracks/barracks.tscn" id="19_bhdle"]
+[ext_resource type="PackedScene" uid="uid://rl6igg0711fg" path="res://props/street-signs/prop_stopsign.tscn" id="20_av5le"]
 [ext_resource type="PackedScene" uid="uid://b3mw0r3k4ail3" path="res://units/human/transport/marine_transport.tscn" id="21_bhdle"]
+[ext_resource type="PackedScene" uid="uid://dd8tmmpjlstpe" path="res://props/street-signs/prop_yield_sign.tscn" id="21_hgqwe"]
 [ext_resource type="PackedScene" uid="uid://ireagkacr4lv" path="res://buildings/city/city.tscn" id="21_ue1ox"]
+[ext_resource type="PackedScene" uid="uid://bburtkp7ar52n" path="res://props/street-signs/sign-mesh.tscn" id="22_hgqwe"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdxvd"]
 material = ExtResource("1_domqp")
@@ -648,6 +651,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.400001, 0.100002766, -63.
 
 [node name="Barracks" parent="Buildings" unique_id=404914555 instance=ExtResource("19_bhdle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0.3, -63.7)
+
+[node name="stopsign" parent="Buildings" unique_id=1526705396 instance=ExtResource("20_av5le")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.3, 0, 9.8)
+
+[node name="yield-sign" parent="Buildings" unique_id=106597247 instance=ExtResource("21_hgqwe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.2, 0, 10.900001)
+
+[node name="sign-mesh" parent="Buildings" unique_id=640122378 instance=ExtResource("22_hgqwe")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -30.808987, 0, 10.450458)
+sign_type = 2
+
+[node name="sign-mesh2" parent="Buildings" unique_id=537487011 instance=ExtResource("22_hgqwe")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -28.498987, 0, 10.450458)
+sign_type = 3
+
+[node name="sign-mesh3" parent="Buildings" unique_id=875160357 instance=ExtResource("22_hgqwe")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -25.978987, 0, 10.450458)
+sign_type = 4
+
+[node name="sign-mesh4" parent="Buildings" unique_id=1578339883 instance=ExtResource("22_hgqwe")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -25.978987, 0, 14.440457)
+sign_type = 1
+
+[node name="sign-mesh5" parent="Buildings" unique_id=1283546991 instance=ExtResource("22_hgqwe")]
+transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -30.178986, 0, 14.440457)
 
 [node name="MarineTransport" parent="." unique_id=11993427 instance=ExtResource("21_bhdle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.170295, 0, 10.591998)

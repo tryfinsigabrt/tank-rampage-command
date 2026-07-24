@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://5r85erjwmgkk"]
+
+[ext_resource type="Texture2D" uid="uid://c0jwkj6hdbm2x" path="res://props/street-signs/speed-limit-25.png" id="1_b2s8u"]
+
+[resource]
+albedo_texture = ExtResource("1_b2s8u")

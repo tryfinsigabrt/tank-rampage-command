@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://rx823tvchp81"]
+
+[ext_resource type="Texture2D" uid="uid://6fdlwyvmfev7" path="res://props/street-signs/stoplight-sign.png" id="1_b5vlh"]
+
+[resource]
+albedo_texture = ExtResource("1_b5vlh")
