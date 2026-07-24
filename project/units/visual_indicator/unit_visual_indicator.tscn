@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://3pkwfxt4elnt"]
+
+[ext_resource type="Texture2D" uid="uid://yijtmq6io5ep" path="res://units/human/marine/material/unit_visual_indicator.png" id="1_gpnog"]
+[ext_resource type="Script" uid="uid://sc0gttl6dhdp" path="res://units/visual_indicator/unit_visual_indicator.gd" id="1_uenig"]
+
+[node name="UnitVisualIndicator" type="Sprite3D" unique_id=1196944910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+transparency = 0.2
+visibility_range_begin = 300.0
+visibility_range_begin_margin = 2.0
+axis = 1
+double_sided = false
+render_priority = 127
+texture = ExtResource("1_gpnog")
+script = ExtResource("1_uenig")
+metadata/_custom_type_script = "uid://sc0gttl6dhdp"

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="3_ioppa"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="4_5cd41"]
 [ext_resource type="Curve" uid="uid://ge0t07i488es" path="res://units/human/tank/damage/damage_v_distance.tres" id="4_h2q4u"]
-[ext_resource type="Texture2D" uid="uid://btbhlr0n2iau3" path="res://units/human/marine/material/unit_base_indicator.png" id="5_33nnn"]
+[ext_resource type="PackedScene" uid="uid://3pkwfxt4elnt" path="res://units/visual_indicator/unit_visual_indicator.tscn" id="5_33nnn"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="5_ijg8w"]
 [ext_resource type="Curve" uid="uid://dfo3vjo1h3fye" path="res://units/human/tank/damage/accuracy_v_velocity_alignment.tres" id="5_mtu0e"]
 [ext_resource type="AnimationLibrary" uid="uid://dc46vdoqu5b7s" path="res://units/human/marine/marine_unit_anim_lib.tres" id="6_u1d32"]
@@ -205,12 +205,10 @@ libraries/human_marine_anims = ExtResource("6_u1d32")
 
 [node name="VisualBase" type="Sprite3D" parent="VisualRoot" unique_id=1547805244]
 transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0.03, 0)
-cast_shadow = 0
+[node name="UnitVisualIndicator" parent="VisualRoot" unique_id=1196944910 node_paths=PackedStringArray("root_unit") instance=ExtResource("5_33nnn")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.3, 0.308)
 modulate = Color(0.8666667, 1, 0, 1)
-axis = 1
-double_sided = false
-render_priority = 127
-texture = ExtResource("5_33nnn")
+root_unit = NodePath("../..")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
 unique_name_in_owner = true
