@@ -56,7 +56,7 @@ health_stat = NodePath("../../Stats/HealthStat")
 script = ExtResource("4_txgmq")
 target_node = NodePath("..")
 
-[node name="UnitDisplaySprite" type="Sprite3D" parent="UI" unique_id=1665154013]
+[node name="UnitDisplaySprite" type="Sprite3D" parent="UI" unique_id=1665154013 groups=["TeamVisible"]]
 transform = Transform3D(0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0, 1.971427, 0)
 billboard = 2
 double_sided = false
