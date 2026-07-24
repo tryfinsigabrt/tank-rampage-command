@@ -41,7 +41,10 @@ class Units:
 	const Artillery:StringName = &"UnitClassArtillery"
 	const Soldier:StringName = &"UnitClassSoldier"
 	const Transport:StringName = &"UnitClassTransport"
-		
+
+class Structures:
+	const Bunker:StringName = &"StructureBunker"
+			
 static func get_parent_in_group(leaf: Node, group: StringName) -> Node:
 	return get_parent_matching(leaf, func(node: Node) -> bool: return node.is_in_group(group) )
 	

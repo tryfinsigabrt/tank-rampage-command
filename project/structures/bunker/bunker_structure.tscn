@@ -27,7 +27,7 @@ viewport_path = NodePath("UI/UnitDisplaySprite/SubViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0ja"]
 size = Vector3(10, 4, 10)
 
-[node name="BunkerStructure" type="StaticBody3D" unique_id=427098526 node_paths=PackedStringArray("health_stat", "team_component") groups=["ArmedAsset", "Interactable", "Structure", "TeamAsset"]]
+[node name="BunkerStructure" type="StaticBody3D" unique_id=427098526 node_paths=PackedStringArray("health_stat", "team_component") groups=["ArmedAsset", "Interactable", "Structure", "StructureBunker", "TeamAsset"]]
 collision_layer = 17472
 collision_mask = 0
 script = ExtResource("1_fjwdy")

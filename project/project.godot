@@ -89,6 +89,7 @@ MatchTeamEliminationCondition="Denotes a node that determines an elimination con
 ScrapField="Scrap Field game resource"
 ArmedAsset="Asset that has a weapon"
 PauseMenu="Pause Menu Scene"
+StructureBunker="Group for the Bunker Structure type"
 
 [input]
 

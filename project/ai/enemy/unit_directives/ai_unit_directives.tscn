@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://dcjfgmvh2b4tx" path="res://ai/enemy/unit_directives/is_target_state_active.gd" id="21_vna3v"]
 [ext_resource type="Script" uid="uid://cp6ghaqjehp" path="res://ai/enemy/unit_directives/follow_forever.gd" id="22_652qd"]
 [ext_resource type="Script" uid="uid://c610mbc78pqjw" path="res://ai/enemy/unit_directives/select_load_target_along_path.gd" id="25_w4kkk"]
+[ext_resource type="Script" uid="uid://ddjb50ckty4xy" path="res://ai/enemy/available_load_target_finder.gd" id="27_4cc7m"]
 
 [node name="AiUnitDirectives" type="Node" unique_id=1200788001 node_paths=PackedStringArray("_behavior_tree")]
 script = ExtResource("1_b4jg7")
@@ -311,5 +312,9 @@ unique_name_in_owner = true
 script = ExtResource("14_o4bh8")
 collision_mask = 16384
 enemy_mode = false
+
+[node name="LoadTargetFinder" type="Node" parent="." unique_id=487071935]
+unique_name_in_owner = true
+script = ExtResource("27_4cc7m")
 
 [connection signal="timeout" from="PriorityTimer" to="." method="_on_priority_timer_timeout"]
