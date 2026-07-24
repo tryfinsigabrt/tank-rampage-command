@@ -132,7 +132,7 @@ update_scale = false
 unique_name_in_owner = true
 gizmo_extents = 2.62
 
-[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "launch_trace_node", "weapon_controller") instance=ExtResource("7_uf7ra")]
+[node name="Weapon" parent="WeaponTrace" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "hit_vfx", "launch_trace_node", "launch_trace_direction_origin", "weapon_controller") instance=ExtResource("7_uf7ra")]
 unique_name_in_owner = true
 shoot_vfx_size = 2
 shoot_vfx_origin_path = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
@@ -152,6 +152,7 @@ damage_mask = 5231
 allow_source_damage = true
 type = 2
 launch_trace_node = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode/Barrel/FireOrigin")
+launch_trace_direction_origin = NodePath("../../VisualRoot/TurretPivot/Turret/BarrelPivotNode")
 prefer_close_shots = false
 weapon_controller = NodePath("WeaponController")
 

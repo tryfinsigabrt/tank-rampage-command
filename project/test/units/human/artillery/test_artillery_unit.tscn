@@ -91,6 +91,12 @@ player_team = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 15)
 team = 1
 
+[node name="UI" parent="World/Match/PlayerTeam/Player/Artillery" index="4" unique_id=1745454053]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5, 5.5, 15)
+
+[node name="Weapon" parent="World/Match/PlayerTeam/Player/Artillery/WeaponTrace" parent_id_path=PackedInt32Array(1517178385, 37322823) index="0" unique_id=107617315]
+enable_debug_draw = true
+
 [node name="Structures" type="Node3D" parent="World/Match/PlayerTeam" unique_id=1792821259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.281992, 0, -70.66237)
 
@@ -365,6 +371,9 @@ material = SubResource("StandardMaterial3D_bkddm")
 [node name="DebugHud" parent="." unique_id=1595490819 instance=ExtResource("14_lc1ba")]
 
 [editable path="World/Match/PlayerTeam/Player"]
+[editable path="World/Match/PlayerTeam/Player/Artillery"]
+[editable path="World/Match/PlayerTeam/Player/Artillery/GameUnitNavigation"]
+[editable path="World/Match/PlayerTeam/Player/Artillery/WeaponTrace/Weapon"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body"]
 [editable path="World/Match/EnemyTeam/Enemies/EnemyTank01/Body/Mesh"]

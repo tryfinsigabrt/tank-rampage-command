@@ -5,6 +5,7 @@
 
 [node name="Weapon" type="Node3D" unique_id=107617315]
 script = ExtResource("1_jedj3")
+shoot_vfx_use_model_front = false
 enable_debug_draw = false
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=1206839657]

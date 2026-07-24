@@ -27,7 +27,8 @@ enum TraceType
 @export var shoot_vfx_size: ShootVfx.SizePreset = ShootVfx.SizePreset.SMALL
 @export var shoot_vfx_origin_path: NodePath
 @export var shoot_vfx_rotation_offset_degrees: Vector3 = Vector3.ZERO
-@export var shoot_vfx_use_model_front:bool = true
+## Whether the VFX source node uses Godot's standard -Z forward direction.
+@export var shoot_vfx_use_model_front:bool = false
 
 @export var shoot_sfx:ShootSfx
 
@@ -109,6 +110,11 @@ var damage_mask:int = Collisions.CompositeMasks.visibility
 ## Defaults to self if not assigned
 @export
 var launch_trace_node:Node3D
+
+## Optional node at the rear of the muzzle bore. When assigned, the vector from
+## this node to launch_trace_node defines the actual launch direction.
+@export
+var launch_trace_direction_origin:Node3D
 
 ## Indicates whether this weapon prefers getting as close as possible or hanging back.
 @export
@@ -360,16 +366,45 @@ func _orient_shoot_vfx() -> void:
 		return
 
 	var vfx_origin := _shoot_vfx_origin_node if is_instance_valid(_shoot_vfx_origin_node) else self
+	var fire_forward := _get_shoot_vfx_forward(vfx_origin)
+	var vfx_basis := _get_shoot_vfx_basis(vfx_origin, fire_forward)
 	_shoot_vfx.orient(
 		vfx_origin.global_position,
-		vfx_origin.global_basis.x,
-		vfx_origin.global_basis.y,
-		vfx_origin.global_basis.z if shoot_vfx_use_model_front else -vfx_origin.global_basis.z,
+		vfx_basis.x,
+		vfx_basis.y,
+		vfx_basis.z,
 	)
 	_shoot_vfx.rotate_object_local(Vector3.RIGHT, deg_to_rad(shoot_vfx_rotation_offset_degrees.x))
 	_shoot_vfx.rotate_object_local(Vector3.UP, deg_to_rad(shoot_vfx_rotation_offset_degrees.y))
 	_shoot_vfx.rotate_object_local(Vector3.BACK, deg_to_rad(shoot_vfx_rotation_offset_degrees.z))
 
+func _get_node_forward(node: Node3D) -> Vector3:
+	var local_forward := Vector3.BACK if shoot_vfx_use_model_front else Vector3.FORWARD
+	return node.global_position.direction_to(node.to_global(local_forward))
+
+func _get_shoot_vfx_forward(fallback_node: Node3D) -> Vector3:
+	if is_instance_valid(launch_trace_direction_origin) and is_instance_valid(launch_trace_node):
+		var direction := launch_trace_direction_origin.global_position.direction_to(launch_trace_node.global_position)
+		if not direction.is_zero_approx():
+			return direction
+	return _get_node_forward(fallback_node)
+
+func _get_launch_trace_direction() -> Vector3:
+	if is_instance_valid(launch_trace_direction_origin) and is_instance_valid(launch_trace_node):
+		var direction := launch_trace_direction_origin.global_position.direction_to(launch_trace_node.global_position)
+		if not direction.is_zero_approx():
+			return direction
+	return -launch_trace_node.global_basis.z.normalized()
+
+func _get_shoot_vfx_basis(origin: Node3D, muzzle_forward: Vector3) -> Basis:
+	# ShootVfx rotates its local +X particle direction onto -Z with its yaw correction.
+	# Therefore its Z basis axis must be opposite the desired muzzle direction.
+	var vfx_forward := -muzzle_forward
+	var vfx_up := origin.global_basis.y.slide(vfx_forward).normalized()
+	if vfx_up.is_zero_approx():
+		vfx_up = Vector3.UP.slide(vfx_forward).normalized()
+	var vfx_right := vfx_up.cross(vfx_forward).normalized()
+	return Basis(vfx_right, vfx_up, vfx_forward)
 
 func _spawn_shoot_vfx() -> void:
 	if not is_instance_valid(shoot_vfx_container):
@@ -524,12 +559,14 @@ func _launch_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> boo
 	var origin:Vector3 = launch_trace_node.global_position
 	
 	var trace_dist:float = 0.5 * origin.distance_to(target)
-	var trace_dir:Vector3 = -launch_trace_node.global_transform.basis.z
+	var trace_dir := _get_launch_trace_direction()
 	
 	query.from = origin
 	query.to = origin + trace_dir * trace_dist
 	
 	var is_hit := _check_hit(query, result)
+	if _is_debug_draw_enabled():
+		_draw_debug(origin, result["hit_or_end"], not is_hit)
 	
 	# Don't fire if going to hit an obstacle on launch
 	if is_hit:
