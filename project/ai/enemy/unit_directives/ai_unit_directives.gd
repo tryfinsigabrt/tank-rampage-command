@@ -2,12 +2,18 @@ class_name AiUnitDirectives extends Node
 
 const ComponentName:StringName = &"AiUnitDirectives"
 
+#region State Keys
 const DEFEND_POSITION:StringName = &"defend_position"
 const DEFEND_AREA:StringName = &"defend_area"
 const SECURE_CONTROL_POINT:StringName = &"secure_control_point"
 const ATTACK_TARGET:StringName = &"attack_target"
 const LOAD_INTO_TARGET_AND_WAIT:StringName = &"load_into_target_and_wait"
 const LOAD_UNITS_AND_MOVE_TO_POSITION:StringName = &"load_units_and_move_to"
+const EXPLORE_LOCATION = &"explore_location"
+const FOLLOW_EXPLORER = &"follow_explorer"
+const FLEE = &"flee"
+
+#endregion
 
 #region Signals
 @warning_ignore_start("unused_signal")
@@ -35,6 +41,22 @@ class State:
 	var state:StateActivity
 	var is_equal:Callable
 	
+	var running:bool:
+		get:
+			return state == StateActivity.STARTED
+			
+	var active:bool:
+		get:
+			return state != StateActivity.COMPLETED and state != StateActivity.CANCELED
+	
+	var dormant:bool:
+		get:
+			return state == StateActivity.NONE
+	
+	var inactive:bool:
+		get:
+			return not active
+			
 	@warning_ignore("unused_signal")
 	signal started
 	@warning_ignore("unused_signal")
@@ -54,7 +76,15 @@ class State:
 			return false
 		# Invoke state-specific equality condition
 		return is_equal.call(other.data)
-			
+	
+	func wait_for_start() -> void:
+		if state == StateActivity.NONE:
+			await started
+	
+	func wait_for_completion() -> void:
+		if active:
+			await finished
+					
 var unit:Unit
 
 var _requested_states:Array[State]
@@ -82,7 +112,11 @@ var desired_position:Vector3:
 			return Vector3.INF
 		var data := _active_state.data
 		return data.get(UnitDirectiveBlackboard.Keys.Position, Vector3.INF)
-	
+
+var active_state:State:
+	get:
+		return _active_state
+			
 #region States
 func set_defend_position(position:Vector3, time:float, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()
@@ -199,8 +233,72 @@ func set_attack_target(target:Node3D, priority:int = 0, tag:String = "") -> Stat
 	_add_or_update_state(state)
 	
 	return state
-#endregion
 
+func set_lead_explore_location(target:Vector3, priority:int = 0, tag:String = "") -> State:
+	var nav := GameUnitNavigation.get_component(unit)
+	var target_radius:float = nav.distance_threshold * 2.0 if nav else 10.0
+	var bounds := BoundingSphere.new(target, target_radius)
+	
+	var state:State = State.new()
+	state.key = EXPLORE_LOCATION
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		(UnitDirectiveBlackboard.Keys.Position) : target,
+		(UnitDirectiveBlackboard.Keys.BOUNDS) : bounds,
+	}
+	
+	state.is_equal = func(_other_data:Dictionary[StringName, Variant]) -> bool:
+		# As long as we are the explorer just keep replacing the state
+		return true
+	
+	_add_or_update_state(state)
+	
+	return state
+
+func set_follow_explorer(explorer:Unit, explorer_state:State, priority:int = 0, tag:String = "") -> State:
+	var state:State = State.new()
+	state.key = FOLLOW_EXPLORER
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		(UnitDirectiveBlackboard.Keys.TargetNode) : explorer,
+		(UnitDirectiveBlackboard.Keys.TargetState) : explorer_state,
+	}
+	
+	var explorer_id:int = explorer.get_instance_id()
+	
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		var other_state:State = other_data[UnitDirectiveBlackboard.Keys.TargetState]
+		if other_state != explorer_state:
+			return false
+		var other_explorer:Unit = other_data[UnitDirectiveBlackboard.Keys.TargetNode]
+		return other_explorer and explorer_id == other_explorer.get_instance_id()
+		
+	_add_or_update_state(state)
+	
+	return state
+
+func set_flee(target_location:Vector3, priority:int = 0, tag:String = "") -> State:
+	var state:State = State.new()
+	state.key = FLEE
+	state.priority = priority
+	state.tag = tag
+	state.data = {
+		(UnitDirectiveBlackboard.Keys.Position) : target_location,
+	}
+		
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		var other_pos:Vector3 = other_data[&"POSITION"]
+		return other_pos.is_equal_approx(target_location)
+		
+	_add_or_update_state(state)
+	
+	return state
+		
+#endregion
+	
+#region Future Work States
 ## Load into the give target container and wait for it to unload
 func set_load_into_target_and_wait(target:Node3D, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()
@@ -250,62 +348,22 @@ func set_load_units_and_move_to_with_unload(units:Array[Unit], target:Vector3, p
 	#_add_or_update_state(state)
 	# return state
 	return null
+
+#endregion
+
+#region Public API
+
+func has_active_state(matcher:Callable) -> bool:
+	return _active_state and matcher.call(_active_state)
 	
 func has_state(matcher:Callable) -> bool:
-	if _active_state and matcher.call(_active_state):
+	if has_active_state(matcher):
 		return true
+		
 	for state in _requested_states:
 		if matcher.call(state):
 			return true
 	return false
-	
-func _add_or_update_state(state: State) -> void:
-	# If the key exists already, update in place
-	if _active_state and _active_state.equals(state):
-		_active_state = state.replace(_active_state)
-	else:
-		var existing_index:int = -1
-		for i in _requested_states.size():
-			var existing_state:State = _requested_states[i]
-			if existing_state.equals(state):
-				existing_index = i
-				break
-		if existing_index != -1:
-			var existing_state:State = _requested_states[existing_index]
-			_requested_states[existing_index] = state.replace(existing_state)
-			# If not same priority, then have to do full resort
-			if not is_equal_approx(state.priority, existing_state.priority):
-				_requested_states.sort_custom(_priority_compare)
-		# Adding a new state, place at right location in priority queue
-		else:
-			_state_id_counter += 1
-			state.id = _state_id_counter
-			var index:int = _requested_states.bsearch_custom(state, _priority_compare)
-			_requested_states.insert(index, state)
-			
-	# Reschedule if top priority changed
-	if not _active_state or (_requested_states and _active_state.priority < _requested_states.back().priority):
-		_schedule_if_stopped()
-	
-# Highest priority goes last so can use "pop_back"
-static func _priority_compare(a:State, b:State) -> bool:
-	return a.priority < b.priority
-		
-func _ready() -> void:
-	if not unit:
-		push_error("%s: Added to a non-unit hierarchy!" % name)
-		queue_free()
-		return
-		
-	_recent_commands = CircularBuffer.new(10)
-	_priority_timer.wait_time = evaluation_delay
-	
-func _on_command_issued(command_id:int) -> void:
-	# We issued this command
-	if _recent_commands.contains(command_id):
-		return
-	print_debug("%s(%s): Unexpected command %d -> Canceling execution" % [name, unit.name, command_id])
-	stop()
 	
 func start() -> void:
 	print_debug("%s(%s): Start" % [name, unit.name])
@@ -329,24 +387,6 @@ func stop() -> void:
 	
 func notify_command(command_id:int) -> void:
 	_recent_commands.add(command_id)
-	
-#region Component Registration
-static func get_component(node: Node, required:bool = true) -> AiUnitDirectives:
-	return Components.get_component(ComponentName, node, required) as AiUnitDirectives
-		
-func _enter_tree() -> void:
-	unit = Groups.get_parent_with_type(self, Unit)
-	if unit:
-		Components.add_component(ComponentName, self, unit)
-		_behavior_tree.name = "AIUnitDirectives-t%d-%s" % [unit.team, unit.name]
-
-func _exit_tree() -> void:
-	if unit:
-		Components.remove_component(ComponentName, self, unit)
-	if _active_state:
-		on_canceled.emit(_active_state)
-		_active_state = null
-#endregion
 
 func completed() -> void:
 	var curr_state := _active_state
@@ -380,7 +420,79 @@ func started() -> void:
 	_active_state.state = StateActivity.STARTED
 	curr_state.started.emit()
 	on_started.emit(curr_state)
+
+#endregion
+
+#region Component Registration
+static func get_component(node: Node, required:bool = true) -> AiUnitDirectives:
+	return Components.get_component(ComponentName, node, required) as AiUnitDirectives
+		
+func _enter_tree() -> void:
+	unit = Groups.get_parent_with_type(self, Unit)
+	if unit:
+		Components.add_component(ComponentName, self, unit)
+		_behavior_tree.name = "AIUnitDirectives-t%d-%s" % [unit.team, unit.name]
+
+func _exit_tree() -> void:
+	if unit:
+		Components.remove_component(ComponentName, self, unit)
+	if _active_state:
+		on_canceled.emit(_active_state)
+		_active_state = null
+#endregion
+
+#region lifecycle hooks
+func _ready() -> void:
+	if not unit:
+		push_error("%s: Added to a non-unit hierarchy!" % name)
+		queue_free()
+		return
+		
+	_recent_commands = CircularBuffer.new(10)
+	_priority_timer.wait_time = evaluation_delay
 	
+#endregion
+
+#region private methods
+func _add_or_update_state(state: State) -> void:
+	# If the key exists already, update in place
+	if _active_state and _active_state.equals(state):
+		_active_state = state.replace(_active_state)
+	else:
+		var existing_index:int = -1
+		for i in _requested_states.size():
+			var existing_state:State = _requested_states[i]
+			if existing_state.equals(state):
+				existing_index = i
+				break
+		if existing_index != -1:
+			var existing_state:State = _requested_states[existing_index]
+			_requested_states[existing_index] = state.replace(existing_state)
+			# If not same priority, then have to do full resort
+			if not is_equal_approx(state.priority, existing_state.priority):
+				_requested_states.sort_custom(_priority_compare)
+		# Adding a new state, place at right location in priority queue
+		else:
+			_state_id_counter += 1
+			state.id = _state_id_counter
+			var index:int = _requested_states.bsearch_custom(state, _priority_compare)
+			_requested_states.insert(index, state)
+			
+	# Reschedule if top priority changed
+	if not _active_state or (_requested_states and _active_state.priority < _requested_states.back().priority):
+		_schedule_if_stopped()
+	
+# Highest priority goes last so can use "pop_back"
+static func _priority_compare(a:State, b:State) -> bool:
+	return a.priority < b.priority
+	
+func _on_command_issued(command_id:int) -> void:
+	# We issued this command
+	if _recent_commands.contains(command_id):
+		return
+	print_debug("%s(%s): Unexpected command %d -> Canceling execution" % [name, unit.name, command_id])
+	stop()
+		
 func _schedule_next() -> void:
 	_active_state = null
 	 
@@ -393,6 +505,22 @@ func _schedule_if_stopped() -> void:
 	if _priority_timer.is_stopped():
 		_priority_timer.start()
 
+
+func _switch_state(state:State) -> void:
+	print_debug("%s(%s): Switching state to %s" % [name, unit.name, state])
+	if not _behavior_tree.enabled:
+		_behavior_tree.enabled = true
+		# Stop execution if another command issued outside the ecosystem
+		var unit_actions := unit.get_or_add_actions()
+		if not unit_actions.command_issued.is_connected(_on_command_issued):
+			unit_actions.command_issued.connect(_on_command_issued)	
+		
+	_active_state = state
+	blackboard.set_state(state)
+	
+#endregion
+
+#region Scene Signal Connections
 func _on_priority_timer_timeout() -> void:
 	if not _requested_states:
 		return
@@ -409,14 +537,4 @@ func _on_priority_timer_timeout() -> void:
 	if switch_state:
 		_switch_state(_requested_states.pop_back())
 
-func _switch_state(state:State) -> void:
-	print_debug("%s(%s): Switching state to %s" % [name, unit.name, state])
-	if not _behavior_tree.enabled:
-		_behavior_tree.enabled = true
-		# Stop execution if another command issued outside the ecosystem
-		var unit_actions := unit.get_or_add_actions()
-		if not unit_actions.command_issued.is_connected(_on_command_issued):
-			unit_actions.command_issued.connect(_on_command_issued)	
-		
-	_active_state = state
-	blackboard.set_state(state)
+#endregion

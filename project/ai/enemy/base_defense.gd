@@ -10,21 +10,13 @@ var structure_defense_bounds_factor:float = 1.5
 
 var _occupied_units:Dictionary[int,bool] = {}
 
-class BaseDefenseContext:
-	var asset_id:int
-	var current_defense:float
-	var ideal_defense:float
-	var bounds:Bounds
-	var requested_defense:float
-	var requested_count:int
-
 class Score:
 	var unit:Unit
 	var score:float
 	var strength:float
 	
 func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
-	var defenders:Dictionary[int,int] = blackboard.base_defend_units
+	var defenders:Dictionary[int,EnemyTeamBlackboard.BaseDefenseContext] = blackboard.base_defend_units
 	var changed:bool = _remove_invalid_entries(defenders)
 	
 	var total_enemies:int = blackboard.visible_enemy_count
@@ -131,7 +123,7 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 			# for every attacker
 		# if attackers required
 		
-		var base_defense_context:BaseDefenseContext = BaseDefenseContext.new()
+		var base_defense_context := EnemyTeamBlackboard.BaseDefenseContext.new()
 		base_defense_context.asset_id = building_id
 		base_defense_context.current_defense = current_defense
 		base_defense_context.ideal_defense = ideal_base_defense
@@ -159,7 +151,7 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 			var unit := score.unit
 			var unit_id := unit.get_instance_id()
 			
-			defenders[unit_id] = building_id
+			defenders[unit_id] = base_defense_context
 			_occupied_units[unit_id] = true
 			current_defense += score.strength
 			if current_defense >= ideal_base_defense:
@@ -183,14 +175,15 @@ func reserve_defenders(total_attackers:Array[Unit]) -> Array[Unit]:
 		
 	return final_attackers
 
-func _remove_invalid_entries(defenders:Dictionary[int,int]) -> bool:
+func _remove_invalid_entries(defenders:Dictionary[int, EnemyTeamBlackboard.BaseDefenseContext]) -> bool:
 	var changed:bool = false
 	for defender_id:int in defenders.keys():
 		if not is_instance_id_valid(defender_id):
 			defenders.erase(defender_id)
 			changed = true
 			continue
-		var building_id:int = defenders[defender_id]
+		var context: EnemyTeamBlackboard.BaseDefenseContext = defenders[defender_id]
+		var building_id:int = context.asset_id
 		if not is_instance_id_valid(building_id):
 			defenders.erase(defender_id)
 			changed = true

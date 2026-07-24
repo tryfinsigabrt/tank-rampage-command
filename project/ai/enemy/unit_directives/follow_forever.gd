@@ -1,6 +1,9 @@
 @tool
 extends ActionLeaf
 
+@export
+var follow_forever:bool
+
 var _command_id:int
 var _running:bool
 
@@ -11,19 +14,14 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	var directive:AiUnitDirectives = actor
 	var unit:Unit = directive.unit
 	var blackboard:UnitDirectiveBlackboard = _blackboard
-		
+	
+	var leader:Unit = blackboard.target_node as Unit
+	if not leader:
+		_running = false
+		return
+	
 	var unit_actions:UnitActions = unit.get_or_add_actions()
-	var load_target:Node3D = blackboard.asset_load
-	if load_target:
-		unit_actions.load_into(load_target)
-	else:
-		var position:Vector3 = blackboard.position
-		var heading_bias:Vector3 = blackboard.heading_bias
-		
-		if unit.weapon and not heading_bias:
-			unit_actions.move_and_attack(position)
-		else:
-			unit_actions.move(position)
+	unit_actions.follow(leader, follow_forever)
 	
 	_command_id = unit_actions.last_command_id
 	directive.notify_command(_command_id)

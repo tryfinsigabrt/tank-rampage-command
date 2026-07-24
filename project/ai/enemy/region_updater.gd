@@ -78,9 +78,14 @@ func _tick() -> void:
 			visible_regions = map_regions.get_regions_for(pos, vision)
 			cache_entry.visible_regions = visible_regions
 		
+		var explored_count:int = map_regions.explored_count
 		for region in visible_regions:
+			if not region.explored:
+				explored_count += 1
 			region.explored = true
 			region.last_visible_game_time = time
+		
+		map_regions.explored_count = explored_count
 	# For all assets
 
 func _cleanup_cache() -> void:

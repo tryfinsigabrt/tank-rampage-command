@@ -58,7 +58,7 @@ func _ready() -> void:
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
 	
-	_unit_nav = Groups.get_child_with_type(unit, GameUnitNavigation)
+	_unit_nav = GameUnitNavigation.get_component(unit, false)
 	if _unit_nav:
 		_initial_stuck_detection = _unit_nav.enable_stuck_detection
 	

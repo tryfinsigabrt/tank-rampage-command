@@ -77,7 +77,7 @@ func tick(_actor: Node, in_blackboard: Blackboard) -> int:
 			_candidate_units.erase(unit.get_instance_id())
 			
 			var directive:AiUnitDirectives = AiUnitDirectives.get_component(unit)
-			directive.set_defend_position(target, request.min_duration)
+			directive.set_defend_position(target, request.min_duration, request.priority)
 			if request.strength <= 0:
 				break
 				

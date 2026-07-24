@@ -34,6 +34,7 @@ func _on_command_finished(unit:Unit, _command:StringName, _command_id:int, _args
 	
 	# Wait to let command queue settle
 	await get_tree().process_frame
+		
 	if unit.get_or_add_actions().is_idle():
 		var available_units:Array[Unit] = blackboard.idle_units
 		available_units.push_back(unit)

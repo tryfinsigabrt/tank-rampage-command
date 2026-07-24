@@ -19,6 +19,13 @@
 [ext_resource type="Script" uid="uid://xqerhmi4t765" path="res://ai/enemy/unit_directives/select_viable_load_target.gd" id="13_13vxk"]
 [ext_resource type="Script" uid="uid://dyjytflt3emtf" path="res://ai/enemy/unit_directives/hold_control_point.gd" id="13_l1lbj"]
 [ext_resource type="Script" uid="uid://n74p4a36jjpx" path="res://ai/unit/unit_sweeper.gd" id="14_o4bh8"]
+[ext_resource type="Script" uid="uid://d4gnuf33k36g" path="res://ai/enemy/unit_directives/is_follow_target_valid.gd" id="19_tf0fh"]
+[ext_resource type="Script" uid="uid://d3570f6tsa7fk" path="res://ai/enemy/unit_directives/arrived_at_current_target.gd" id="19_w4kkk"]
+[ext_resource type="Script" uid="uid://o62hmgnwowv4" path="res://ai/enemy/unit_directives/is_target_state_running.gd" id="20_o27lu"]
+[ext_resource type="Script" uid="uid://we22430vcb44" path="res://addons/beehave/nodes/decorators/time_limiter.gd" id="21_652qd"]
+[ext_resource type="Script" uid="uid://dcjfgmvh2b4tx" path="res://ai/enemy/unit_directives/is_target_state_active.gd" id="21_vna3v"]
+[ext_resource type="Script" uid="uid://cp6ghaqjehp" path="res://ai/enemy/unit_directives/follow_forever.gd" id="22_652qd"]
+[ext_resource type="Script" uid="uid://c610mbc78pqjw" path="res://ai/enemy/unit_directives/select_load_target_along_path.gd" id="25_w4kkk"]
 
 [node name="AiUnitDirectives" type="Node" unique_id=1200788001 node_paths=PackedStringArray("_behavior_tree")]
 script = ExtResource("1_b4jg7")
@@ -184,6 +191,115 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="HoldControlPoint" type="Node" parent="BeehaveTree/ActionChoice/ChooseSecureControlPoint/SecureControlPoint" unique_id=2013257716]
 script = ExtResource("13_l1lbj")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ChooseLeadExploreLocation" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1267690411]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="IsLeadExploreLocation" type="Node" parent="BeehaveTree/ActionChoice/ChooseLeadExploreLocation" unique_id=1562636427]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"explore_location\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="LeadExploreLocation" type="Node" parent="BeehaveTree/ActionChoice/ChooseLeadExploreLocation" unique_id=616891180]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cmnurafp01fhf"
+
+[node name="MoveUntilStateComplete" type="Node" parent="BeehaveTree/ActionChoice/ChooseLeadExploreLocation/LeadExploreLocation" unique_id=518832983]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/ActionChoice/ChooseLeadExploreLocation/LeadExploreLocation/MoveUntilStateComplete" unique_id=1900959939]
+script = ExtResource("7_1pph0")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ArrivedAtCurrentTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseLeadExploreLocation/LeadExploreLocation/MoveUntilStateComplete" unique_id=1096678923]
+script = ExtResource("19_w4kkk")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ChooseFollowExplorer" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1770273505]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="IsFollowExplorer" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer" unique_id=586737962]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"follow_explorer\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="FollowExplorer" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer" unique_id=310290427]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cmnurafp01fhf"
+
+[node name="IsFollowTargetValid" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer" unique_id=1395425812]
+script = ExtResource("19_tf0fh")
+metadata/_custom_type_script = "uid://cbnbvj8prv63i"
+
+[node name="DormantFollow" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer" unique_id=1327740671]
+script = ExtResource("4_uef0l")
+metadata/_custom_type_script = "uid://cw22yurt5l74k"
+
+[node name="IsTargetStateRunning" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/DormantFollow" unique_id=1946110905]
+script = ExtResource("20_o27lu")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="FollowWhileDormant" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/DormantFollow" unique_id=1051422441]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="IsTargetStateActive" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/DormantFollow/FollowWhileDormant" unique_id=18820564]
+script = ExtResource("21_vna3v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="TimeLimiterDecorator" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/DormantFollow/FollowWhileDormant" unique_id=286074836]
+script = ExtResource("21_652qd")
+wait_time = 30.0
+metadata/_custom_type_script = "uid://we22430vcb44"
+
+[node name="FollowTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/DormantFollow/FollowWhileDormant/TimeLimiterDecorator" unique_id=278938967]
+script = ExtResource("22_652qd")
+follow_forever = true
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="FollowUntilCompleted" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer" unique_id=1007708653]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="IsTargetStateActive" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/FollowUntilCompleted" unique_id=1746472311]
+script = ExtResource("21_vna3v")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="FollowTarget" type="Node" parent="BeehaveTree/ActionChoice/ChooseFollowExplorer/FollowExplorer/FollowUntilCompleted" unique_id=1867228833]
+script = ExtResource("22_652qd")
+follow_forever = true
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="ChooseFlee" type="Node" parent="BeehaveTree/ActionChoice" unique_id=1953469409]
+script = ExtResource("10_lq52q")
+metadata/_custom_type_script = "uid://dcojdhvj8qcw0"
+
+[node name="IsFlee" type="Node" parent="BeehaveTree/ActionChoice/ChooseFlee" unique_id=239047134]
+script = ExtResource("6_j53kv")
+left_operand = "get_value(\"action\")"
+right_operand = "\"flee\""
+metadata/_custom_type_script = "uid://uoy6r3dbnq25"
+
+[node name="Flee" type="Node" parent="BeehaveTree/ActionChoice/ChooseFlee" unique_id=947002561]
+script = ExtResource("10_r2fj0")
+metadata/_custom_type_script = "uid://cmnurafp01fhf"
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/ActionChoice/ChooseFlee/Flee" unique_id=1921364748]
+script = ExtResource("12_1xq5l")
+metadata/_custom_type_script = "uid://dsf3a8vlolhx8"
+
+[node name="SelectLoadTargetAlongPath" type="Node" parent="BeehaveTree/ActionChoice/ChooseFlee/Flee/AlwaysSucceedDecorator" unique_id=474901080]
+script = ExtResource("25_w4kkk")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"
+
+[node name="MoveAndAttack" type="Node" parent="BeehaveTree/ActionChoice/ChooseFlee/Flee" unique_id=1556794862]
+script = ExtResource("7_1pph0")
 metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="PriorityTimer" type="Timer" parent="." unique_id=1530248530]

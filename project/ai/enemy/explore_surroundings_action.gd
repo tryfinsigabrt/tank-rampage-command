@@ -28,6 +28,9 @@ var enable_map_region_use:bool = true
 @export
 var map_region_score_random_threshold:float = 0.25
 
+@export
+var flee_priority:int = 1000
+
 var _cluster_creator:ClusterCircleCreator = ClusterCircleCreator.new(preferred_unit_group_proximity)
 	
 var _blackboard:EnemyTeamBlackboard
@@ -52,21 +55,33 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 	self._blackboard = blackboard
 	
 	var heading_bias_dict: Dictionary[int, Vector3] = _blackboard.explore_heading_bias
-		
+	var current_explorer_count:int = _get_current_explorer_count()
+	var priority:int = _calculate_explore_priority(current_explorer_count)
+
 	for group in _get_unit_groups():
 		var leader:Unit = null
+		var leader_state:AiUnitDirectives.State = null
+		
+		if OS.is_debug_build():
+			print("%s: EXPLORE PRIORITY = %d" % [name, priority])
+
 		for unit:Unit in group:
 			var unit_id:int = unit.get_instance_id()
 			var heading_bias:Vector3 = heading_bias_dict.get(unit_id, Vector3.ZERO)
-			if not leader or heading_bias:
+			var unit_directives := AiUnitDirectives.get_component(unit)
+			if not leader or not leader_state or heading_bias:
 				var target_pos:Vector3 = _select_move_target(unit, heading_bias)
 				# Only select as leader if not getting a flee vector heading, and we didn't bail out and return a "non-move"
-				if not heading_bias and not target_pos.is_equal_approx(unit.global_position):
+				var at_target:bool = target_pos.is_equal_approx(unit.global_position)
+				if not heading_bias and not at_target:
 					leader = unit
+					leader_state = unit_directives.set_lead_explore_location(target_pos, priority)
+				elif not at_target:
+					unit_directives.set_flee(target_pos, flee_priority)
+					
 			# Provide assistance
 			else:
-				# Only follow until the leader's move action completes
-				unit.get_or_add_actions().follow(leader, false)
+				unit_directives.set_follow_explorer(leader, leader_state, priority)
 						
 	return SUCCESS
 	
@@ -103,6 +118,23 @@ func _get_unit_groups() -> Array[Array]:
 		i += 1
 		
 	return groups
+
+func _calculate_explore_priority(explorer_count:int) -> int:
+	var map_regions:MapRegions = _blackboard.map_regions
+	var explored_fraction:float = map_regions.explored_count / maxf(map_regions.count, 1.0)
+	
+	return roundi(maxf((25 - explorer_count) * (1.0 - explored_fraction), 0))
+
+func _get_current_explorer_count() -> int:
+	var explorer_count:int = 0
+	for 	unit in _blackboard.team_info.units:
+		var directive := AiUnitDirectives.get_component(unit)
+		if directive.has_active_state(func(state:AiUnitDirectives.State) -> bool:
+			return state.key == AiUnitDirectives.FOLLOW_EXPLORER\
+			 	   or state.key == AiUnitDirectives.EXPLORE_LOCATION
+		):
+			explorer_count += 1
+	return explorer_count
 	
 func _get_available_units() -> Array[Unit]:
 	var candidate_units := _blackboard.idle_units
@@ -110,6 +142,7 @@ func _get_available_units() -> Array[Unit]:
 	available_units.resize(candidate_units.size())
 	
 	var count:int = 0
+	
 	for i in available_units.size():
 		var unit:Variant = candidate_units[i]
 		# TODO: Shouldn't have to do this - the monitor should be taking care of this but it's not working properly as still 
@@ -136,12 +169,6 @@ func _select_move_target(unit:Unit, heading_bias:Vector3) -> Vector3:
 	var target_pos:Vector3 = _get_move_target(unit, heading_bias)
 	#var end:int = Time.get_ticks_usec()
 	#print("%s: MOVE EXECUTION TIME(ms):%.3f" % [name, (end - start) / 1000.0])
-	
-	if heading_bias or not unit.weapon:
-		unit.get_or_add_actions().move(target_pos)
-	else:
-		unit.get_or_add_actions().move_and_attack(target_pos)
-	
 	return target_pos
 
 func _get_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:

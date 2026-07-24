@@ -206,7 +206,7 @@ func _on_control_point_defense_updated(type: EnemyTeamBlackboard.DefenseNeedType
 	var needs:Array[DefensiveStructureNeed] = _defense_needs_by_type[type]
 	needs.push_back(need)
 	
-func _on_base_defense_updated(type: EnemyTeamBlackboard.DefenseNeedType, data: BaseDefense.BaseDefenseContext) -> void:	
+func _on_base_defense_updated(type: EnemyTeamBlackboard.DefenseNeedType, data: EnemyTeamBlackboard.BaseDefenseContext) -> void:	
 	var needed_defense:float = data.ideal_defense
 	var current_defense:float = data.current_defense
 	var defense_deficit:float = needed_defense - current_defense

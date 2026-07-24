@@ -12,6 +12,8 @@ class Keys:
 	const CONTROL_POINT:StringName = "CONTROL_POINT"
 	const AssetLoad:String = "ASSET_LOAD"
 	const LoadUnits:String = "LOAD_UNITS"
+	const TargetState:String = "TARGET_STATE"
+	const HeadingBias:String = "HEADING_BIAS"
 	
 var current_action:StringName:
 	get:
@@ -59,7 +61,14 @@ var load_units:Array[Unit]:
 			units.resize(count)
 		
 		return units
-			
+var target_state:AiUnitDirectives.State:
+	get:
+		return get_value(Keys.TargetState)
+
+var heading_bias:Vector3:
+	get:
+		return get_value(Keys.HeadingBias, Vector3.ZERO)
+				
 func set_state(state:AiUnitDirectives.State) -> void:
 	clear_state()
 	
@@ -79,7 +88,7 @@ func set_load_into_target(asset:Node3D) -> void:
 	update_state_data(Keys.AssetLoad, asset)
 	
 func update_state_data(key:StringName, value:Variant) -> void:
-	if not key in _data_keys:
+	if key not in _data_keys:
 		_data_keys.push_back(key)
 	set_value(key, value)
 	

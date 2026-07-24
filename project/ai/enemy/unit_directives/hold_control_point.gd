@@ -42,4 +42,3 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 		push_warning("%s: Control Point Hold requested, but control point is not valid" % name)
 		_state = -1
 		return
-		

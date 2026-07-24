@@ -125,7 +125,7 @@ static func get_potential_attackers(candidate_units:Array[Unit]) -> Array[Unit]:
 	var count:int = 0
 	for i in candidate_units.size():
 		var unit := candidate_units[i]
-		if unit.weapon:
+		if is_instance_valid(unit) and unit.weapon:
 			potential_attackers[count] = unit
 			count += 1
 	

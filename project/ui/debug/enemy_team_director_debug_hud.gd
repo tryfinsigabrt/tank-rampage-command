@@ -37,7 +37,7 @@ func _on_base_defense_units_updated(enemy_team_director:EnemyTeamDirector) -> vo
 		return
 	
 	var team_id:int = enemy_team_director.team
-	var defenders:Dictionary[int,int] = enemy_team_director.blackboard.base_defend_units
+	var defenders:Dictionary[int, EnemyTeamBlackboard.BaseDefenseContext] = enemy_team_director.blackboard.base_defend_units
 	var building_unit_counts:Dictionary[Building,Dictionary]
 	_buffer1.clear()
 	
@@ -45,7 +45,7 @@ func _on_base_defense_units_updated(enemy_team_director:EnemyTeamDirector) -> vo
 		var defender:Unit = instance_from_id(defender_id) as Unit
 		if not defender:
 			continue
-		var building:Building = instance_from_id(defenders[defender_id]) as Building
+		var building:Building = instance_from_id(defenders[defender_id].asset_id) as Building
 		if not building:
 			continue
 			

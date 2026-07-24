@@ -1,5 +1,7 @@
 class_name SecureCommandCenter extends Node
 
+const ASSISTANCE_PRIORITY_V_STRENGTH = preload("uid://gx25ih6immna")
+
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
 
 ## Temporary flag during testing
@@ -62,6 +64,9 @@ func _issue_assistance(resource_or_asset:Node3D, strength:float, time:float) -> 
 	assistance.strength = strength
 	assistance.location = location
 	assistance.min_duration = time
+	assistance.priority = roundi(ASSISTANCE_PRIORITY_V_STRENGTH.sample(strength))
+	
+	print_debug("%s: Assistance request issued for %s with strength = %.1f and priority = %d" % [name, resource_or_asset.name, strength, assistance.priority])
 	
 	blackboard.assistance_requests.push_back(assistance)
 	

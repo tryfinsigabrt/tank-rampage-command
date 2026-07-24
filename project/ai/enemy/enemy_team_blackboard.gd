@@ -119,19 +119,27 @@ class ScrapFieldData:
 			if data.id == field_id:
 				return data
 		return null
-		
+
+class BaseDefenseContext:
+	var asset_id:int
+	var current_defense:float
+	var ideal_defense:float
+	var bounds:Bounds
+	var requested_defense:float
+	var requested_count:int
+			
 var enemy_teams_info:EnemyTeams:
 	get:
 		return get_value(Keys.enemy_teams_info)
 	set(value):
 		set_value(Keys.enemy_teams_info, value)
 
-var base_defend_units:Dictionary[int,int]:
+var base_defend_units:Dictionary[int, BaseDefenseContext]:
 	get:
 		if has_value(Keys.base_defend_units):
 			return get_value(Keys.base_defend_units)
 		else:
-			var empty: Dictionary[int,int]
+			var empty: Dictionary[int,BaseDefenseContext]
 			base_defend_units = empty
 			return empty
 	set(value):

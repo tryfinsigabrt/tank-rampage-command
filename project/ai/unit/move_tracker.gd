@@ -18,7 +18,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	
-	var leader_unit_nav:GameUnitNavigation= Groups.get_child_with_type(leader, GameUnitNavigation)
+	var leader_unit_nav:GameUnitNavigation = GameUnitNavigation.get_component(leader)
 	assert(leader_unit_nav, "%s: Leader unit=%s does not have GameUnitNavigation" % [name, leader.name])
 	if not leader_unit_nav:
 		queue_free()

@@ -1,5 +1,8 @@
 class_name ControlPointPrioritizer extends Node
 
+const CONTROL_POINT_PRIORITY_V_SCORE = preload("uid://d2ge5cdbdbcv")
+const CONTROL_POINT_HOLD_TIME_V_THREAT_STRENGTH = preload("uid://cn5lq3njt51nd")
+
 @onready var rate_limiter: RateLimiter = $RateLimiter
 @onready var tick: Timer = $Tick
 @onready var blackboard: EnemyTeamBlackboard = %Blackboard
@@ -135,12 +138,15 @@ func _evaluate_priorities() -> void:
 	
 	# Initial simple strategy - take up to max units mitigated by how many available units and ones we want to capture
 	for control_point_ctx in prioritized_cps:
-		var score_weight:float = control_point_ctx.score / score_sum
+		var score:float = control_point_ctx.score
+		var score_weight:float = score / score_sum
 		var max_units:int = min(max_units_per_control_point, control_point_ctx.positive_units, floori(
 			available_units.size() * score_weight))
 		if max_units == 0:
 			continue
-			
+		
+		var priority:int = roundi(CONTROL_POINT_PRIORITY_V_SCORE.sample(score))	
+		var hold_time:float = CONTROL_POINT_HOLD_TIME_V_THREAT_STRENGTH.sample(control_point_ctx.threat_strength)
 		var control_point := control_point_ctx.control_point_data.control_point
 		
 		var count:int = 0
@@ -151,15 +157,13 @@ func _evaluate_priorities() -> void:
 				continue
 						
 			var unit_directives := AiUnitDirectives.get_component(unit)
-			# TODO: hard coding a high priority of 20
-			# Hold for an additional capture time * 2 after captured without being contested
-			unit_directives.set_defend_control_point(control_point, control_point.capture_time * 2.0, 20, "CONTROL_POINT")
+			unit_directives.set_defend_control_point(control_point, hold_time, priority, "CONTROL_POINT")
 			
 			count += 1
 			available_units.erase(unit_id)
 			if count == max_units:
 				break
-		print("%s: CONTROL POINT %s: %d units dispatched" % [name, control_point.name, count])	
+		print("%s: CONTROL POINT %s: %d units dispatched with defense score = %.1f and priority = %d" % [name, control_point.name, count, score, priority])	
 	
 func score_control_point(control_point_data: ControlPointData, threats: Array[EnemyThreatContext]) -> ControlPointContext:
 	var score:float = 0.0
@@ -202,6 +206,8 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 			our_strength += strength
 			var structure_score:float = 5.0 + sqrt(strength)
 			score += structure_score
+	
+	var cummulative_unit_score:float = 0.0
 	
 	for unit in team_units:
 		# Only assist if have a weapon - i.e. not a transport type unit
@@ -249,13 +255,14 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 		assist_contexts.push_back(assist_context)
 		
 		if unit_score > 0:
-			score += unit_score
+			cummulative_unit_score += unit_score
 			positive_units += 1
 	
 	# END For every team unit
 	
+	var under_threat_bonus_score:float = 0.0
 	if control_point.owned_team == our_team:
-		score += 5.0
+		under_threat_bonus_score += 5.0
 		if control_point.is_being_captured():
 			score += 50.0
 		elif control_point.is_constested():
@@ -275,7 +282,11 @@ func score_control_point(control_point_data: ControlPointData, threats: Array[En
 	# Penalty if known to be enemy occupied and we are not currently capturing as need a stronger attacking force
 	elif known_state == ControlPointState.THEIRS:
 		score -= 6.0
-		
+	
+	# If under threat then give the score a boost
+	if threat_strength > 0:
+		score += cummulative_unit_score + under_threat_bonus_score
+			
 	var cp_context := ControlPointContext.new()
 	cp_context.assist_context = assist_contexts
 	cp_context.control_point_data = control_point_data

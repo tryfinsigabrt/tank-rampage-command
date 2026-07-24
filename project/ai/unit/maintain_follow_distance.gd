@@ -18,7 +18,7 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	_next_execution_time = 0.0
 	
 	_unit = actor as Unit
-	_game_unit_nav = Groups.get_child_with_type(_unit, GameUnitNavigation) if _unit else null
+	_game_unit_nav = GameUnitNavigation.get_component(_unit) if _unit else null
 	_leader = blackboard.get_value(UnitBlackboard.Keys.TargetNode)
 	
 	if is_instance_valid(_unit):

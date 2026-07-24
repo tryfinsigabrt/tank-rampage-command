@@ -15,11 +15,17 @@ const INVALID_COORDS:Vector2i = Vector2i.MIN
 const SQRT_TWO:float = sqrt(2.0)
 const HALF_SQRT_TWO:float = SQRT_TWO * 0.5
 
+var explored_count:int = 0
+
 var region_dims:Vector2i:
 	get: return _region_dim
 	
 var valid:bool:
 	get: return not regions.is_empty()
+
+var count:int:
+	get:
+		return regions.size()
 	
 func _ready() -> void:
 	var world_boundaries:WorldBoundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
