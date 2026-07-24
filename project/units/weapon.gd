@@ -144,6 +144,10 @@ var ideal_fire_range:Vector2:
 	get:
 		return Vector2(min_distance, max_distance_range.x)
 
+var total_fire_range:Vector2:
+	get:
+		return Vector2(min_distance, max_distance_range.y)
+		
 var _grid_velocity_at_fire_time:Vector2
 
 func is_in_range(target:Vector3) -> bool:

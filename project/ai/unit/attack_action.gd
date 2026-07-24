@@ -80,7 +80,7 @@ func _ready() -> void:
 	_controlled_unit = _controlled_asset as Unit
 	
 	fire_interval = weapon.cooldown_time_range.x
-	fire_range = weapon.ideal_fire_range
+	fire_range = weapon.ideal_fire_range if weapon.prefer_close_shots else weapon.total_fire_range
 		
 	_move_into_attack_range()
 	
