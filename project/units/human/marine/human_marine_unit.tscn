@@ -203,8 +203,6 @@ update_scale = false
 [node name="AnimationPlayer" parent="VisualRoot" index="2" unique_id=737157955]
 libraries/human_marine_anims = ExtResource("6_u1d32")
 
-[node name="VisualBase" type="Sprite3D" parent="VisualRoot" unique_id=1547805244]
-transform = Transform3D(1.15, 0, 0, 0, 1.15, 0, 0, 0, 1.15, 0, 0.03, 0)
 [node name="UnitVisualIndicator" parent="VisualRoot" unique_id=1196944910 node_paths=PackedStringArray("root_unit") instance=ExtResource("5_33nnn")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.3, 0.308)
 modulate = Color(0.8666667, 1, 0, 1)
