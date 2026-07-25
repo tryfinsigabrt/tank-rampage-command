@@ -32,13 +32,13 @@ uv1_world_triplanar = true
 disable_receive_shadows = true
 billboard_mode = 1
 fixed_size = true
-point_size = 10.0
+use_point_size = true
+point_size = 2.0
 use_z_clip_scale = true
 z_clip_scale = 0.94
 fov_override = 100.3
 
-[sub_resource type="QuadMesh" id="QuadMesh_33nnn"]
-size = Vector2(0.025, 0.022)
+[sub_resource type="PointMesh" id="PointMesh_33nnn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yqf8"]
 height = 2.3
@@ -238,7 +238,7 @@ material_override = SubResource("StandardMaterial3D_33nnn")
 cast_shadow = 0
 ignore_occlusion_culling = true
 gi_mode = 0
-mesh = SubResource("QuadMesh_33nnn")
+mesh = SubResource("PointMesh_33nnn")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
 unique_name_in_owner = true
