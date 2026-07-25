@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dm2y07qfn66dv"]
+
+[ext_resource type="AudioStream" uid="uid://7dx3lplnjl4u" path="res://sounds/bunker/bunker_open_short_01.mp3" id="1_rbpdb"]
+[ext_resource type="AudioStream" uid="uid://c8wkddagsr2el" path="res://sounds/bunker/bunker_open_short_02.mp3" id="2_hhp5d"]
+[ext_resource type="AudioStream" uid="uid://dtkwsakci4ab" path="res://sounds/bunker/bunker_open_very_short_01.mp3" id="3_uydou"]
+[ext_resource type="AudioStream" uid="uid://m2tpfkqifys2" path="res://sounds/bunker/bunker_open_very_short_02.mp3" id="4_csi1t"]
+
+[resource]
+random_pitch = 1.0594631
+random_volume_offset_db = 2.0
+streams_count = 4
+stream_0/stream = ExtResource("1_rbpdb")
+stream_1/stream = ExtResource("2_hhp5d")
+stream_2/stream = ExtResource("3_uydou")
+stream_2/weight = 2.0
+stream_3/stream = ExtResource("4_csi1t")
+stream_3/weight = 2.0

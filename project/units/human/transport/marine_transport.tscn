@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="15_g02f8"]
 [ext_resource type="PackedScene" uid="uid://d151phd3t42ye" path="res://ai/game_unit_navigation.tscn" id="15_qyk6k"]
 [ext_resource type="PackedScene" uid="uid://dcsegqdbxoa0i" path="res://units/stats/health_stat.tscn" id="16_is1o0"]
+[ext_resource type="Script" uid="uid://djdofq365fdsg" path="res://sounds/unit_container_audio.gd" id="16_scibi"]
+[ext_resource type="Resource" uid="uid://gore0u4g0ug6" path="res://sounds/transport/transport_load_player.tres" id="17_i6ns3"]
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="17_vmbqi"]
 [ext_resource type="PackedScene" uid="uid://j43jw0xttqg3" path="res://units/ui/health_bar.tscn" id="18_pj1jn"]
 [ext_resource type="PackedScene" uid="uid://b4x731qaaiysd" path="res://ui/hud/unit_count_display.tscn" id="19_ay2xi"]
@@ -49,27 +51,27 @@ transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1.2, 0, 0, 0.6459453)
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, -0.5)
 
-[node name="Body" parent="transport-truck" index="0" unique_id=477948010]
+[node name="Body" parent="transport-truck" index="0" unique_id=929764633]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("5_g02f8")
 surface_material_override/1 = ExtResource("6_g02f8")
 surface_material_override/2 = ExtResource("7_5yhg2")
 surface_material_override/3 = ExtResource("8_g02f8")
 
-[node name="Wheels" parent="transport-truck" index="1" unique_id=1981125211]
+[node name="Wheels" parent="transport-truck" index="1" unique_id=392211545]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_f00yv")
 
-[node name="Frame" parent="transport-truck" index="3" unique_id=646955922]
+[node name="Frame" parent="transport-truck" index="3" unique_id=279897216]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 surface_material_override/1 = ExtResource("5_g02f8")
 
-[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1044182427]
+[node name="UnderbodyDetail" parent="transport-truck" index="4" unique_id=1684537826]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("6_g02f8")
 
-[node name="Interior" parent="transport-truck" index="5" unique_id=169645634]
+[node name="Interior" parent="transport-truck" index="5" unique_id=1499144072]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("10_g02f8")
 
@@ -101,6 +103,10 @@ vision = 200.0
 [node name="UnitContainerComponent" parent="Components" unique_id=1753319725 instance=ExtResource("7_5psun")]
 unique_name_in_owner = true
 capacity = 6
+
+[node name="UnitContainerAudio" type="Node" parent="Components/UnitContainerComponent" unique_id=1364781337]
+script = ExtResource("16_scibi")
+unit_load_start_audio = ExtResource("17_i6ns3")
 
 [node name="NodeViablePositionFinder" parent="Components" unique_id=1836995556 instance=ExtResource("11_5psun")]
 unique_name_in_owner = true

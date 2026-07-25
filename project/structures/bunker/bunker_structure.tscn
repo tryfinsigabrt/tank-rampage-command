@@ -14,7 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://cjbx8quekjxbg" path="res://ui/building/icons/marine.png" id="9_2pi4j"]
 [ext_resource type="PackedScene" uid="uid://catcqlv77h1kq" path="res://ai/unit/weapon_targeting_component.tscn" id="9_bjwuk"]
 [ext_resource type="PackedScene" uid="uid://dw0ynn0f21bgb" path="res://structures/node_viable_position_finder.tscn" id="10_ud41o"]
+[ext_resource type="Script" uid="uid://djdofq365fdsg" path="res://sounds/unit_container_audio.gd" id="12_2pi4j"]
+[ext_resource type="Resource" uid="uid://dnw2q2ett0q5h" path="res://sounds/bunker/bunker_load_player.tres" id="13_r8ei3"]
 [ext_resource type="Script" uid="uid://desdjg6bo36t4" path="res://player/position_distributor.gd" id="13_xb0ja"]
+[ext_resource type="Resource" uid="uid://c2yil2ng36wxj" path="res://sounds/bunker/bunker_load_finish_player.tres" id="14_d752d"]
+[ext_resource type="Resource" uid="uid://4cgxtjamqv35" path="res://sounds/bunker/bunker_open_player.tres" id="15_sovfh"]
 [ext_resource type="PackedScene" uid="uid://bri2n7836smiu" path="res://particles/explosion/explosion_death_vfx.tscn" id="16_db8ox"]
 
 [sub_resource type="Resource" id="Resource_xb0ja"]
@@ -99,6 +103,14 @@ vision = 100.0
 
 [node name="UnitContainerComponent" parent="Components" unique_id=58222699 instance=ExtResource("8_txgmq")]
 unique_name_in_owner = true
+
+[node name="UnitContainerAudio" type="Node" parent="Components/UnitContainerComponent" unique_id=35294562]
+script = ExtResource("12_2pi4j")
+unit_load_start_audio = ExtResource("13_r8ei3")
+unit_load_complete_audio = ExtResource("14_d752d")
+unit_unload_start_audio = ExtResource("15_sovfh")
+load_complete_delay = 2.0
+unload_complete_delay = 2.0
 
 [node name="WeaponTargetingComponent" parent="Components" unique_id=1383309094 node_paths=PackedStringArray("my_asset", "targeting_locations") instance=ExtResource("9_bjwuk")]
 unique_name_in_owner = true

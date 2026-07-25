@@ -100,7 +100,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2avet"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_12l1a"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -111,7 +111,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmvnq"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xf1vw"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -125,13 +125,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ds3kt"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2avet"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cv5jk"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dmvnq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -338,14 +338,14 @@ team = 1
 [node name="ScrapField" parent="World" unique_id=1314478789 instance=ExtResource("18_jtih4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.634998, 0, 177.175)
 curve = SubResource("Curve3D_ucwml")
-crack_mask_texture = SubResource("NoiseTexture2D_2avet")
-scrap_mask_texture = SubResource("NoiseTexture2D_dmvnq")
+crack_mask_texture = SubResource("NoiseTexture2D_12l1a")
+scrap_mask_texture = SubResource("NoiseTexture2D_xf1vw")
 
 [node name="ScrapField2" parent="World" unique_id=785074363 instance=ExtResource("18_jtih4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.335, 0, -76.925)
 curve = SubResource("Curve3D_tl3bm")
-crack_mask_texture = SubResource("NoiseTexture2D_ds3kt")
-scrap_mask_texture = SubResource("NoiseTexture2D_cv5jk")
+crack_mask_texture = SubResource("NoiseTexture2D_2avet")
+scrap_mask_texture = SubResource("NoiseTexture2D_dmvnq")
 
 [node name="ScrapPickups" type="Node3D" parent="World" unique_id=2065443998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, -0.099999905, 98.1)

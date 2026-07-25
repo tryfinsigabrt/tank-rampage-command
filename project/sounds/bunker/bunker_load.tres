@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://bm5x6g4uvn2d8"]
+
+[ext_resource type="AudioStream" uid="uid://bwyxqc61gnnsv" path="res://sounds/bunker/bunker_load_01.mp3" id="1_wq45r"]
+[ext_resource type="AudioStream" uid="uid://dokk8y3qab34l" path="res://sounds/bunker/bunker_load_02.mp3" id="2_y64h0"]
+[ext_resource type="AudioStream" uid="uid://bcpm2qb340il6" path="res://sounds/bunker/bunker_load_03.mp3" id="3_tcq5a"]
+
+[resource]
+random_pitch = 1.0594631
+random_volume_offset_db = 2.0
+streams_count = 3
+stream_0/stream = ExtResource("1_wq45r")
+stream_1/stream = ExtResource("2_y64h0")
+stream_2/stream = ExtResource("3_tcq5a")

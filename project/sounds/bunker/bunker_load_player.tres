@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioPlayerConfig" format=3 uid="uid://dnw2q2ett0q5h"]
+
+[ext_resource type="Script" uid="uid://disy04kq6bpx4" path="res://sounds/manager/audio_player_config.gd" id="1_fxjb3"]
+[ext_resource type="Script" uid="uid://bvp3etmkg05wu" path="res://sounds/audio_stream_config.gd" id="2_0gvnk"]
+[ext_resource type="AudioStream" uid="uid://bm5x6g4uvn2d8" path="res://sounds/bunker/bunker_load.tres" id="3_fxjb3"]
+
+[sub_resource type="Resource" id="Resource_0gvnk"]
+script = ExtResource("2_0gvnk")
+stream = ExtResource("3_fxjb3")
+metadata/_custom_type_script = "uid://bvp3etmkg05wu"
+
+[resource]
+script = ExtResource("1_fxjb3")
+stream_config = SubResource("Resource_0gvnk")
+group = "UnitContainer"
+attenuation_model = 3
+restart_if_playing = false
+bus = "Sfx"
+metadata/_custom_type_script = "uid://disy04kq6bpx4"
