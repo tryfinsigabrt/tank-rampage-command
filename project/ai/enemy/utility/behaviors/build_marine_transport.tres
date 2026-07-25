@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" format=3 uid="uid://uobj78vbkk5e"]
+
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_l4rpo"]
+[ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_16vvy"]
+[ext_resource type="Resource" uid="uid://cpb5510wo8ch" path="res://ai/enemy/utility/considerations/build_remaining_personnel_product.tres" id="2_gbypg"]
+[ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="3_cj6k6"]
+[ext_resource type="Resource" uid="uid://gptd6fu2buvi" path="res://ai/enemy/utility/considerations/build_container_utilization_utility.tres" id="4_4f3bo"]
+[ext_resource type="Resource" uid="uid://inxibxjd7iey" path="res://ai/enemy/utility/considerations/build_container_coverage_utility.tres" id="5_cj6k6"]
+[ext_resource type="Resource" uid="uid://h51oe2lkyi3q" path="res://ai/enemy/utility/considerations/build_container_avg_excess_utility.tres" id="6_4f3bo"]
+
+[resource]
+script = ExtResource("2_16vvy")
+name = &"build_marine_transport"
+considerations = Array[ExtResource("1_l4rpo")]([ExtResource("2_gbypg"), ExtResource("3_cj6k6"), ExtResource("4_4f3bo"), ExtResource("5_cj6k6"), ExtResource("6_4f3bo")])
+metadata/_custom_type_script = "uid://b7ujv54xng8gk"

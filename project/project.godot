@@ -90,6 +90,7 @@ ScrapField="Scrap Field game resource"
 ArmedAsset="Asset that has a weapon"
 PauseMenu="Pause Menu Scene"
 StructureBunker="Group for the Bunker Structure type"
+UnitContainer="Indicates whether a team asset is a unit container"
 
 [input]
 

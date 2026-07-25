@@ -79,6 +79,7 @@ func sample(delta: float, current_position:Vector3, next_target:Vector3) -> bool
 		stuck.emit()
 		return false
 	
+	_last_sample_time = last_sample_dt
 	var not_stuck:bool = _add_sample(current_position)
 	if not_stuck:
 		_last_stuck_time = -1.0

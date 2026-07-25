@@ -25,6 +25,7 @@ static func group_for_class(in_class:UnitClass) -> StringName:
 		UnitClass.Tank: return Groups.Units.Tank
 		UnitClass.Artillery: return Groups.Units.Artillery
 		UnitClass.Soldier: return Groups.Units.Soldier
+		UnitClass.Transport: return Groups.Units.Transport
 		_:
 			push_warning("Invalid unit_class=%d" % [in_class])
 			return &""

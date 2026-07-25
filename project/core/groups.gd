@@ -34,6 +34,8 @@ const ScrapField:StringName = &"ScrapField"
 const ArmedAsset:StringName = &"ArmedAsset"
 const PauseMenu:StringName = &"PauseMenu"
 
+const UnitContainer:StringName = &"UnitContainer"
+
 @warning_ignore_restore("shadowed_global_identifier")
 
 class Units:

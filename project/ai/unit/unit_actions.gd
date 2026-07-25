@@ -290,7 +290,9 @@ func is_hold() -> bool:
 
 func _on_idle_state_threat_selected(threat: Node3D) -> void:
 	# Don't clear hold
-	_do_attack(threat)
+	# TODO: Units without weapons should probably flee
+	if unit.weapon:
+		_do_attack(threat)
 	
 func _clear_hold() -> void:
 	blackboard.erase_value(UnitBlackboard.Keys.HoldIssued)

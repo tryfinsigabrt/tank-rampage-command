@@ -113,7 +113,15 @@ static func type_from_building(building:Building) -> Type:
 	if building is Factory:
 		return Type.Factory
 	return Type.None
-				
+	
+func matches(asset:Node3D) -> bool:
+	return asset and team_asset and asset.scene_file_path == team_asset.resource_path
+
+func is_unit_container() -> bool:
+	if not team_asset:
+		return false
+	return Groups.scene_has_group(team_asset, Groups.UnitContainer, true)
+	
 func can_build(resources:TeamResources) -> bool:
 	if not resources:
 		return true
@@ -181,4 +189,4 @@ func refund_cost(resources:TeamResources) -> void:
 	resources.scrap.count += cost / 2
 	
 func _to_string() -> String:
-	return "type=%s; team_asset=%s" % [type, team_asset.resource_path]
+	return "type=%s; team_asset=%s" % [type, team_asset.resource_path if team_asset else ""]

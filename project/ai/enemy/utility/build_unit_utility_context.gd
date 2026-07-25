@@ -1,5 +1,7 @@
 class_name BuildUnitUtilityContext
 
+const CONTAINER_PREFIX:String = "container."
+
 var id:int
 var construction:ConstructionResource
 var attributes:TeamAssetAttributes:
@@ -49,3 +51,12 @@ var remaining_personnel:int:
 ## How many more of this given type does the enemy have over us?
 ## If multiple enemies take the max
 var enemy_delta:int
+
+var container:ContainerUtility
+
+# Resolve container property names
+func _get(property: StringName) -> Variant:
+	if property.begins_with(CONTAINER_PREFIX):
+		return container.get(property.substr(CONTAINER_PREFIX.length()))
+	# Invoke default behavior of "get" for normal property names
+	return null

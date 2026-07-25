@@ -240,10 +240,13 @@ func set_lead_explore_location(followers:Array[Unit], target:Vector3, priority:i
 	var bounds := BoundingSphere.new(target, target_radius)
 	
 	var unit_ids:PackedInt64Array
-	unit_ids.resize(followers.size())
-	for i in followers.size():
-		unit_ids.push_back(followers[i].get_instance_id())
-	unit_ids.sort()
+	
+	var container := UnitContainerComponent.get_component(unit, false)
+	if container:
+		for follower in followers:
+			if container.supports_unit(follower):
+				unit_ids.push_back(follower.get_instance_id())
+		unit_ids.sort()
 	
 	var state:State = State.new()
 	state.key = EXPLORE_LOCATION
@@ -340,10 +343,13 @@ func set_load_into_target_and_wait(target:Node3D, priority:int = 0, tag:String =
 # Ideally it should change its heading and flee if under attack and far from destination
 func set_load_units_and_move_to_with_unload(units:Array[Unit], target:Vector3, priority:int = 0, tag:String = "") -> State:
 	var unit_ids:PackedInt64Array
-	unit_ids.resize(units.size())
-	for i in units.size():
-		unit_ids.push_back(units[i].get_instance_id())
-	unit_ids.sort()
+	
+	var container := UnitContainerComponent.get_component(unit, false)
+	if container:
+		for requested_unit in units:
+			if container.supports_unit(requested_unit):
+				unit_ids.push_back(requested_unit.get_instance_id())
+		unit_ids.sort()
 	
 	var state:State = State.new()
 	state.key = LOAD_UNITS_AND_MOVE_TO_POSITION

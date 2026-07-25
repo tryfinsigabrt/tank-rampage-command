@@ -44,6 +44,7 @@
 [ext_resource type="Resource" uid="uid://cag12c7an1ap6" path="res://ai/enemy/utility/behaviors/build_structure.tres" id="39_s5f31"]
 [ext_resource type="Resource" uid="uid://b0yjyqkyagme4" path="res://ai/enemy/utility/behaviors/build_bunker.tres" id="40_4y1ah"]
 [ext_resource type="Curve" uid="uid://bh0gre8ljapmb" path="res://ai/enemy/sf_unit_score_v_distance.tres" id="40_mkw7c"]
+[ext_resource type="Resource" uid="uid://uobj78vbkk5e" path="res://ai/enemy/utility/behaviors/build_marine_transport.tres" id="41_4fiok"]
 [ext_resource type="Curve" uid="uid://b6qsw60sdyu20" path="res://ai/enemy/sf_cc_score_v_distance.tres" id="41_7k78q"]
 [ext_resource type="Curve" uid="uid://dvguukhjqcwg2" path="res://ai/enemy/sf_last_visible_multiplier.tres" id="42_s5f31"]
 [ext_resource type="Script" uid="uid://dky5m4p2umtnw" path="res://ai/enemy/defense_structure_prioritizer.gd" id="45_7k78q"]
@@ -199,7 +200,7 @@ script = ExtResource("16_vitsf")
 [node name="BuildPrioritizer" type="Node" parent="GlobalServices" unique_id=1129068084]
 script = ExtResource("22_1exag")
 
-[node name="BuildUtilityCalculator" type="Node" parent="GlobalServices/BuildPrioritizer" unique_id=883994613]
+[node name="BuildUtilityCalculator" type="Node" parent="GlobalServices/BuildPrioritizer" unique_id=883994613 node_paths=PackedStringArray("prototype_instance_container")]
 script = ExtResource("23_wflob")
 behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 1: ExtResource("26_ex0vg"),
@@ -209,11 +210,13 @@ behaviors = Dictionary[int, ExtResource("24_iv7ch")]({
 5: ExtResource("35_qp5pp"),
 6: ExtResource("35_qp5pp"),
 10: ExtResource("39_s5f31"),
-11: ExtResource("40_4y1ah")
+11: ExtResource("40_4y1ah"),
+12: ExtResource("41_4fiok")
 })
 allow_buildings = true
 allow_structures = true
 utility_tolerance_threshold = 0.03
+prototype_instance_container = NodePath("../../PrototypeInstances")
 
 [node name="BaseLocationPrioritizer" type="Node" parent="GlobalServices/BuildPrioritizer/BuildUtilityCalculator" unique_id=1492349054]
 script = ExtResource("27_tfuuw")
@@ -236,6 +239,8 @@ one_shot = true
 
 [node name="DecisionLoopTimer" type="Timer" parent="GlobalServices/BuildPrioritizer" unique_id=1643035029]
 autostart = true
+
+[node name="PrototypeInstances" type="Node" parent="GlobalServices" unique_id=2146201046]
 
 [connection signal="defense_need_updated" from="Blackboard" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" method="_on_blackboard_defense_need_updated"]
 [connection signal="defense_needs_are_updating" from="Blackboard" to="GlobalServices/BuildPrioritizer/BuildUtilityCalculator/DefenseStructurePrioritizer" method="_on_blackboard_defense_needs_are_updating"]

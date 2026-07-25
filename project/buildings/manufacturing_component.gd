@@ -128,6 +128,10 @@ func get_build_metadata(type: ConstructionResource.Type) -> ConstructionResource
 	return _indexed_types.get(type)
 
 
+func supports_type(type: ConstructionResource.Type) -> bool:
+	return type in _indexed_types
+	
+
 func can_build(type: ConstructionResource.Type) -> bool:
 	if not active:
 		return false

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://inxibxjd7iey"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_gxn1r"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_rrpvp"]
+
+[sub_resource type="Curve" id="Curve_4f3bo"]
+_limits = [0.0, 1.0, 0.0, 5.0]
+_data = [Vector2(0.0028142594, 1), 0.0, -0.56099904, 0, 0, Vector2(5, 0.0048314333), 0.0, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_gxn1r")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("2_rrpvp")
+input_key = "container.coverage"
+response_curve = SubResource("Curve_4f3bo")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

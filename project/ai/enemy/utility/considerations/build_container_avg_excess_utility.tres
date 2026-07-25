@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://h51oe2lkyi3q"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_dl4ho"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_hiaos"]
+
+[sub_resource type="Curve" id="Curve_gxpnn"]
+_limits = [0.0, 1.0, 0.0, 3.0]
+_data = [Vector2(0.0028142594, 1), 0.0, 0.0, 0, 0, Vector2(1.0093809, 1), 0.0, 0.0, 0, 0, Vector2(3, 0), -0.0045781634, 0.0, 0, 0]
+point_count = 3
+script = ExtResource("1_dl4ho")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_hiaos")
+input_key = "container.avg_excess_count"
+response_curve = SubResource("Curve_gxpnn")
+metadata/_custom_type_script = "uid://dcep36176g5w8"

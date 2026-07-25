@@ -61,17 +61,14 @@ func _ready() -> void:
 		return
 		
 	_is_player = match_team.is_player_team if match_team else true
-	_ghost_asset = resource.to_spawn.instantiate() as StaticBody3D
+	_ghost_asset = SceneUtils.instantiate_placeholder(resource.to_spawn, asset_container, Vector3.UP * above_ground_height)\
+		as StaticBody3D
 
 	if not _ghost_asset:
 		push_error("%s: Could not spawn scene=%s as StaticBody3D!" % [name, resource.to_spawn.resource_path])
 		return
 		
 	_active = false
-	_ghost_asset.visible = false
-	_ghost_asset.position = Vector3.UP * above_ground_height
-	asset_container.add_child(_ghost_asset)
-	_disable_all_interactions(_ghost_asset)
 	
 	_world_boundaries = get_tree().get_first_node_in_group(Groups.WorldBoundaries) as WorldBoundaries
 	
@@ -80,16 +77,6 @@ func _ready() -> void:
 	_update_upright_heading()
 	
 	_asset_aabb = _ghost_asset.get_bounds() if _ghost_asset.has_method("get_bounds") else Collisions.calculate_aabb(_ghost_asset)
-
-func _disable_all_interactions(node: Node) -> void:
-	# Some structures like land mines also have an area node so need to get all children as well
-	for static_body:CollisionObject3D in Groups.get_children_with_type(node, CollisionObject3D):
-		# This will disable collision
-		static_body.process_mode = Node.PROCESS_MODE_DISABLED
-	
-	# Disable any dynamic obstacles added
-	for dynamic_obstacle:Node in Groups.get_children_with_type(node, DynamicNavObstacle):
-		dynamic_obstacle.queue_free()
 	
 func activate() -> void:
 	if _active:

@@ -62,6 +62,7 @@ var load_units:Array[Unit]:
 			units.resize(count)
 		
 		return units
+		
 var target_state:AiUnitDirectives.State:
 	get:
 		return get_value(Keys.TargetState)

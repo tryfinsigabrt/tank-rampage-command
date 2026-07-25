@@ -192,4 +192,7 @@ func _ray_cast(state: PhysicsDirectSpaceState3D, target:Vector3) -> bool:
 	return state.intersect_ray(_ray_cast_params).is_empty()
 	
 func _is_at_target(new_position: Vector3) -> bool:
-	return new_position.distance_squared_to(goal_location) <= target_distance_threshold * target_distance_threshold
+	var projected_new_pos := MathUtils.grid_vector(new_position)
+	var projected_goal_pos := MathUtils.grid_vector(goal_location)
+	
+	return projected_new_pos.distance_squared_to(projected_goal_pos) <= target_distance_threshold * target_distance_threshold

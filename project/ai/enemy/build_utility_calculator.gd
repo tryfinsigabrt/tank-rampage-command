@@ -36,6 +36,9 @@ var min_structure_need_score:float = 10.0
 @export_range(0.0, 1.0, 0.001)
 var utility_tolerance_threshold:float = 0.001
 
+@export
+var prototype_instance_container:Node
+
 var _available_behaviors:Dictionary[ConstructionResource.Type, UtilityAIBehavior]
 
 var match_team:MatchTeam
@@ -61,6 +64,7 @@ var _aggregate_defense_needs:AggregateDefenseNeeds = AggregateDefenseNeeds.new()
 
 func _ready() -> void:
 	failed_building_cooldown_timer.wait_time = failed_building_cooldown_time
+	assert(prototype_instance_container)
 	
 func refresh() -> void:
 	_refresh_behavior_data()
@@ -224,6 +228,7 @@ func next_build() -> bool:
 				#print("ARMY FRACTION(%s): %d / %d -> %.2f" % [EnumUtils.enum_to_string(ConstructionResource.Type, type), team_distributions.get(type, 0), live_and_queued_total_units,  utility_context.army_fraction])
 				
 				utility_context.enemy_delta = enemy_count / float(team_count) if team_count > 0 else 1.0 if enemy_count > 0 else 0.5
+				utility_context.container = _create_container_utility_context(utility_context.construction, utility_context)
 				
 				action = func() -> bool:
 					if candidate.can_build(type):
@@ -293,7 +298,8 @@ func next_build() -> bool:
 				utility_context.need_score = _aggregate_defense_needs.score
 				utility_context.required_strength = _aggregate_defense_needs.strength
 				utility_context.unused_count = team_structure_queue.get(type, 0) + match_team.inventory_component.get_count(type)
-
+				utility_context.container = _create_container_utility_context(utility_context.construction, utility_context)
+				
 				action = func() -> bool:
 					if candidate.can_build(type):
 						@warning_ignore("missing_await")
@@ -461,10 +467,10 @@ func _refresh_structure_build_data(team_structure_queue:Dictionary[ConstructionR
 	
 	_aggregate_defense_needs.score = total_strength * score_ratio if total_strength > 0 else 0.0
 	_aggregate_defense_needs.strength = max_strength
-	_aggregate_defense_needs.available_infantry_units = _calculate_elgible_container_units(defense_needs)
+	_aggregate_defense_needs.available_infantry_units = _calculate_eligible_container_units(defense_needs)
 	#print("DEFENSE STRUCTURE SCORE: %.1f" % _aggregate_defense_needs.score)
 	
-func _calculate_elgible_container_units(defense_needs:Array[DefensiveStructurePrioritizer.DefensiveStructureNeed]) -> int:
+func _calculate_eligible_container_units(defense_needs:Array[DefensiveStructurePrioritizer.DefensiveStructureNeed]) -> int:
 	# Check that unit is not in a container or otherwise unavailable
 	var count:int = 0
 	for unit in team_units.units:
@@ -490,5 +496,74 @@ func _get_target_or_current_position(unit:Unit) -> Vector3:
 	if position != Vector3.INF:
 		return position
 	return unit.global_position
+
+func _create_container_utility_context(resource:ConstructionResource, base_context:Variant) -> ContainerUtility:
+	if not resource or not resource.is_unit_container():
+		return null
+	
+	var instance:Node = _get_or_create_prototype_instance_for(resource)
+	if not instance:
+		return null
+	
+	var unit_container_proto := UnitContainerComponent.get_component(instance)
+	if not unit_container_proto:
+		return null
+		
+	var utility:ContainerUtility = ContainerUtility.new()
+	utility.def_capacity_per_count = unit_container_proto.capacity
+	
+	var team_assets := team_units.assets_dict
+	var resource_type: ConstructionResource.Type = resource.type
+
+	for id in team_assets:
+		if not is_instance_id_valid(id):
+			continue
+		var asset:Node3D = team_assets[id]
+		# One of our containers
+		if resource.matches(asset):
+			var unit_container := UnitContainerComponent.get_component(asset)
+			if unit_container:
+				utility.count += 1
+				utility.total_capacity += unit_container.capacity
+				
+				var current_count:int = unit_container.count
+				if current_count > 0:
+					utility.used_capacity = current_count
+				else:
+					utility.empty_count += 1
+			
+		# Supported container instance
+		elif asset is Unit and unit_container_proto.supports_unit(asset):
+			utility.candidate_unit_count += 1
+		elif asset is Building:
+			# Consider the queue
+			var manufacturing_comp:ManufacturingComponent = ManufacturingComponent.get_component(asset, false)
+			if manufacturing_comp and manufacturing_comp.supports_type(resource_type):
+				# Consider queued build as capacity
+				var queued_count:int = 0
+				for build_resource in manufacturing_comp.currently_building:
+					var type := build_resource.type
+					if type == resource_type:
+						queued_count += 1
+				utility.add_unused_capacity(queued_count)
+	
+	if base_context is BuildStructureUtilityContext:
+		# Consider unused count as capacity
+		utility.add_unused_capacity(base_context.unused_count)
+			
+	return utility
+	
+func _get_or_create_prototype_instance_for(resource:ConstructionResource) -> Node:
+	var scene:PackedScene = resource.team_asset
+	if not scene:
+		push_error("%s: No team_asset set for resource=%s" % [name, resource])
+		return null
+	
+	# Check existing instances
+	for child in prototype_instance_container.get_children():
+		if resource.matches(child):
+			return child
+	
+	return SceneUtils.instantiate_placeholder(scene, prototype_instance_container, Vector3.UP * 10000)
 	
 #endregion
