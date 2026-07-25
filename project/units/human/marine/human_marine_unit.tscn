@@ -22,6 +22,24 @@
 [ext_resource type="Script" uid="uid://bqjbxaxvi068h" path="res://sounds/hit_sfx.gd" id="19_oyiib"]
 [ext_resource type="Resource" uid="uid://bpwwnp2q0ib4v" path="res://sounds/marine-damage-sfx/marine_hit_sfx.tres" id="20_33nnn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33nnn"]
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(1, 0.9843137, 0, 1)
+metallic_specular = 0.0
+uv1_world_triplanar = true
+disable_receive_shadows = true
+billboard_mode = 1
+fixed_size = true
+point_size = 10.0
+use_z_clip_scale = true
+z_clip_scale = 0.94
+fov_override = 100.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_33nnn"]
+size = Vector2(0.025, 0.022)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8yqf8"]
 height = 2.3
 
@@ -211,6 +229,16 @@ axis = 1
 double_sided = false
 render_priority = 127
 texture = ExtResource("5_33nnn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VisualRoot" unique_id=1194867721]
+transform = Transform3D(1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, 1, 0, 0, 0)
+layers = 512
+sorting_offset = 2.0
+material_override = SubResource("StandardMaterial3D_33nnn")
+cast_shadow = 0
+ignore_occlusion_culling = true
+gi_mode = 0
+mesh = SubResource("QuadMesh_33nnn")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=270795460]
 unique_name_in_owner = true

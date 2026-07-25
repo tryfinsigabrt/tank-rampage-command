@@ -411,6 +411,7 @@ toggle_hud={
 [layer_names]
 
 3d_render/layer_1="default"
+3d_render/layer_10="minimap"
 3d_render/layer_17="team_1"
 3d_render/layer_18="team_2"
 3d_physics/layer_1="world_static"

@@ -18,6 +18,7 @@ unique_name_in_owner = true
 
 [node name="Camera" type="Camera3D" parent="CameraRig/CameraTilt" unique_id=1510512380]
 unique_name_in_owner = true
+cull_mask = 1048063
 near = 16.0
 far = 2048.0
 
