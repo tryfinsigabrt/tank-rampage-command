@@ -1,4 +1,4 @@
-Justin Montgomery: Project lead, core gameplay, [MORE TO COME]
+Justin Montgomery: Project lead, core gameplay, weapons and damage systems, unit selection and commands, computer player behavior (combat and construction), structures feature, fog of war, urban levels, scrap fields, new unit production (incl. queue), terrain textures and shaping, pathing and targeting, tuning, explosion vfx, prototype tank model (tutorial area), collision and graphic optimizations, resource system, selection outline, internal debugging and utility features, asset integration, assorted bug fixing
 
 Antonio Martinović: Models (barracks, tree), level design (stage 1, tutorial), building panel (including hover effects, commands, cancellation), additional marine animations (run and shoot), assorted gameplay UI (incl. inventory, messaging, occupants), camera movement, visual effects (shooting variations, hit effects), icon standardizations, options menu, menu styling, level select, tooltips, scrap randomization and related shader, shadow settings
 
@@ -8,7 +8,7 @@ Michael Avrie: Marine (with animations), marine transport (model and constructio
 
 Jesse Rupe: Contextual UI improvements (non-attacking, transport unit display, unit counts, timers), story and dialog writing, dialog system incl. UI (background, speaker icons, skip button), credits scene
 
-Liyi Zhang: Bunker model with texture, human and enemy tank models with implementation, alt. tank mesh with textures
+Liyi Zhang: Bunker model with texture, human and enemy tank art and related implementation
 
 fizzybuzzybeezy: Menu button sounds, audio loader
 
