@@ -98,7 +98,14 @@ func update_state_data(key:StringName, value:Variant) -> void:
 	if key not in _data_keys:
 		_data_keys.push_back(key)
 	set_value(key, value)
+
+func erase_state_key(key:StringName) -> void:
+	if not key:
+		return
 	
+	_data_keys.erase(key)
+	erase_value(key)
+		
 func clear_state() -> void:
 	erase_value(Keys.Action)
 	
