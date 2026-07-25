@@ -234,10 +234,16 @@ func set_attack_target(target:Node3D, priority:int = 0, tag:String = "") -> Stat
 	
 	return state
 
-func set_lead_explore_location(target:Vector3, priority:int = 0, tag:String = "") -> State:
+func set_lead_explore_location(followers:Array[Unit], target:Vector3, priority:int = 0, tag:String = "") -> State:
 	var nav := GameUnitNavigation.get_component(unit)
 	var target_radius:float = nav.distance_threshold * 2.0 if nav else 10.0
 	var bounds := BoundingSphere.new(target, target_radius)
+	
+	var unit_ids:PackedInt64Array
+	unit_ids.resize(followers.size())
+	for i in followers.size():
+		unit_ids.push_back(followers[i].get_instance_id())
+	unit_ids.sort()
 	
 	var state:State = State.new()
 	state.key = EXPLORE_LOCATION
@@ -246,11 +252,17 @@ func set_lead_explore_location(target:Vector3, priority:int = 0, tag:String = ""
 	state.data = {
 		(UnitDirectiveBlackboard.Keys.Position) : target,
 		(UnitDirectiveBlackboard.Keys.BOUNDS) : bounds,
+		(UnitDirectiveBlackboard.Keys.LoadUnits) : unit_ids
 	}
 	
-	state.is_equal = func(_other_data:Dictionary[StringName, Variant]) -> bool:
-		# As long as we are the explorer just keep replacing the state
-		return true
+	var is_container:bool = UnitContainerComponent.has_component(unit)
+	
+	state.is_equal = func(other_data:Dictionary[StringName, Variant]) -> bool:
+		# As long as we are the explorer just keep replacing the state, unless we are a transport and then the unit ids need to match
+		if is_container:
+			return true
+		
+		return unit_ids == other_data[UnitDirectiveBlackboard.Keys.LoadUnits]
 	
 	_add_or_update_state(state)
 	
@@ -299,6 +311,7 @@ func set_flee(target_location:Vector3, priority:int = 0, tag:String = "") -> Sta
 #endregion
 	
 #region Future Work States
+# TODO: These probably aren't needed and covered by follow/lead states
 ## Load into the give target container and wait for it to unload
 func set_load_into_target_and_wait(target:Node3D, priority:int = 0, tag:String = "") -> State:
 	var state:State = State.new()

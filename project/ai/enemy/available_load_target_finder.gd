@@ -1,13 +1,13 @@
 class_name AvailableLoadTargetFinder extends Node
 
+const BUNKER_SUPPORTED_GROUPS:PackedStringArray = [Groups.Structures.Bunker]
+const TRANSPORT_SUPPORTED_GROUPS:PackedStringArray = [Groups.Units.Transport]
+
 ## Maximum angle unit can deviate along path to the target
 @export
 var max_angle_degrees:float = 15.0
-
-@export
-var supported_groups:PackedStringArray
 	
-func find_best_load_target_along_path(unit:Unit, target_position:Vector3) -> Node3D:
+func find_best_load_target_along_path(unit:Unit, target_position:Vector3, supported_groups:PackedStringArray = PackedStringArray()) -> Node3D:
 	var match_team:MatchTeam = GameManager.find_match_team_by_id(unit.team)
 	if not match_team:
 		push_warning("%s: Could not determine match team for unit=%s" % [name, unit.name])
@@ -23,7 +23,7 @@ func find_best_load_target_along_path(unit:Unit, target_position:Vector3) -> Nod
 		if asset == unit:
 			continue
 		
-		if supported_groups and not _in_supported_group(asset):
+		if supported_groups and not _in_supported_group(asset, supported_groups):
 			continue
 			
 		var unit_container:UnitContainerComponent = UnitContainerComponent.get_component(asset, false)
@@ -45,7 +45,7 @@ func find_best_load_target_along_path(unit:Unit, target_position:Vector3) -> Nod
 		
 	return best_load_target
 
-func _in_supported_group(node:Node) -> bool:
+static func _in_supported_group(node:Node, supported_groups:PackedStringArray) -> bool:
 	for group in supported_groups:
 		if node.is_in_group(group):
 			return true

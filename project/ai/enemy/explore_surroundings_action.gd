@@ -60,7 +60,8 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 
 	for group in _get_unit_groups():
 		var leader:Unit = null
-		var leader_state:AiUnitDirectives.State = null
+		var followers:Array[Unit]
+		var leader_pos:Vector3
 		
 		if OS.is_debug_build():
 			print("%s: EXPLORE PRIORITY = %d" % [name, priority])
@@ -68,21 +69,27 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 		for unit:Unit in group:
 			var unit_id:int = unit.get_instance_id()
 			var heading_bias:Vector3 = heading_bias_dict.get(unit_id, Vector3.ZERO)
-			var unit_directives := AiUnitDirectives.get_component(unit)
-			if not leader or not leader_state or heading_bias:
+			if not leader or heading_bias:
 				var target_pos:Vector3 = _select_move_target(unit, heading_bias)
 				# Only select as leader if not getting a flee vector heading, and we didn't bail out and return a "non-move"
 				var at_target:bool = target_pos.is_equal_approx(unit.global_position)
 				if not heading_bias and not at_target:
 					leader = unit
-					leader_state = unit_directives.set_lead_explore_location(target_pos, priority)
+					leader_pos = target_pos
 				elif not at_target:
+					var unit_directives := AiUnitDirectives.get_component(unit)
 					unit_directives.set_flee(target_pos, flee_priority)
 					
 			# Provide assistance
 			else:
-				unit_directives.set_follow_explorer(leader, leader_state, priority)
-						
+				followers.push_back(unit)
+				
+		if leader:
+			var leader_state := AiUnitDirectives.get_component(leader
+				).set_lead_explore_location(followers, leader_pos, priority)
+			for follower in followers:
+				AiUnitDirectives.get_component(follower).set_follow_explorer(leader, leader_state, priority)
+				
 	return SUCCESS
 	
 func _get_unit_groups() -> Array[Array]:

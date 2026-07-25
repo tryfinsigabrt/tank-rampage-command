@@ -1,6 +1,9 @@
 @tool
 extends ActionLeaf
 
+@export
+var position_blackboard_key:StringName = UnitDirectiveBlackboard.Keys.Position
+
 var _command_id:int
 var _running:bool
 
@@ -17,7 +20,11 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 	if load_target:
 		unit_actions.load_into(load_target)
 	else:
-		var position:Vector3 = blackboard.position
+		var position:Vector3 = blackboard.get_vector_value(position_blackboard_key)
+		if position == Vector3.INF:
+			_running = false
+			return
+			
 		var heading_bias:Vector3 = blackboard.heading_bias
 		
 		if unit.weapon and not heading_bias:
