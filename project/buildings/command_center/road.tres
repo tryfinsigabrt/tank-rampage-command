@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://luwprkc84pp4"]
+
+[ext_resource type="Texture2D" uid="uid://ccgtoba77ac4x" path="res://buildings/command_center/CommandCenter_4.png" id="1_ediwt"]
+
+[resource]
+resource_name = "road"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ediwt")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_filter = 5

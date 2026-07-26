@@ -7,3 +7,4 @@
 albedo_texture = ExtResource("1_dwrct")
 emission_enabled = true
 emission_texture = ExtResource("2_nhl1y")
+texture_filter = 5

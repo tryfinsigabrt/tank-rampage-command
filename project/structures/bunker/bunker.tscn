@@ -8,13 +8,14 @@
 albedo_texture = ExtResource("2_2sllx")
 normal_enabled = true
 normal_texture = ExtResource("2_yfbqp")
+texture_filter = 5
 
 [node name="Bunker" type="Node3D" unique_id=1274962094]
 
 [node name="bunker" parent="." unique_id=1013236178 instance=ExtResource("1_2t3jb")]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 
-[node name="Cube" parent="bunker" index="0" unique_id=1489915978]
+[node name="Cube" parent="bunker" index="0" unique_id=166210054]
 surface_material_override/0 = SubResource("StandardMaterial3D_2sllx")
 
 [editable path="bunker"]

@@ -5,4 +5,5 @@
 [resource]
 cull_mode = 2
 albedo_texture = ExtResource("1_acyny")
+texture_filter = 5
 disable_receive_shadows = true

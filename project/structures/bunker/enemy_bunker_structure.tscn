@@ -12,13 +12,14 @@ albedo_color = Color(1, 0.47999996, 0.39999998, 1)
 albedo_texture = ExtResource("2_sy0sc")
 normal_enabled = true
 normal_texture = ExtResource("3_rbkx6")
+texture_filter = 5
 
 [node name="BunkerStructure" unique_id=427098526 instance=ExtResource("1_kdstg")]
 
 [node name="UnitDisplaySprite" parent="UI" parent_id_path=PackedInt32Array(1422772707) index="2" unique_id=1665154013]
 texture = SubResource("ViewportTexture_sy0sc")
 
-[node name="Cube" parent="VisualRoot/Bunker/bunker" parent_id_path=PackedInt32Array(1274962094, 1013236178) index="0" unique_id=2076812124]
+[node name="Cube" parent="VisualRoot/Bunker/bunker" parent_id_path=PackedInt32Array(1274962094, 1013236178) index="0" unique_id=166210054]
 surface_material_override/0 = SubResource("StandardMaterial3D_wsgi4")
 
 [editable path="VisualRoot/Bunker"]

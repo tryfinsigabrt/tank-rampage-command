@@ -9,3 +9,4 @@ metallic_specular = 0.75
 normal_enabled = true
 normal_texture = ExtResource("2_cq1bb")
 uv1_scale = Vector3(16, 4, 4)
+texture_filter = 5

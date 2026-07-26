@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cpkv7hu3uolfe"]
+
+[ext_resource type="Texture2D" uid="uid://cmphdo7pcyw11" path="res://buildings/city/city-test_4.png" id="1_56cum"]
+
+[resource]
+resource_name = "city-street.014"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_56cum")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_filter = 5

@@ -61,7 +61,7 @@ shape = SubResource("SphereShape3D_4ejy1")
 
 [node name="VisualRoot" type="Node3D" parent="." unique_id=1922179023]
 
-[node name="CommandCenter" parent="VisualRoot" unique_id=26042040 instance=ExtResource("6_4uqvn")]
+[node name="CommandCenter" parent="VisualRoot" unique_id=1664619206 instance=ExtResource("6_4uqvn")]
 transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
 
 [node name="RootPosition" type="RemoteTransform3D" parent="." unique_id=121004541]
@@ -104,3 +104,5 @@ scene_properties = Dictionary[StringName, Variant]({
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+
+[editable path="VisualRoot/CommandCenter"]

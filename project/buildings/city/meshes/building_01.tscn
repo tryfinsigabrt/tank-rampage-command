@@ -1,23 +1,7 @@
 [gd_scene format=4 uid="uid://bauoaschj3m5j"]
 
-[ext_resource type="Texture2D" uid="uid://dliybv7l3j13i" path="res://buildings/city/city-test_0.png" id="1_kbal3"]
-[ext_resource type="Texture2D" uid="uid://cd5bt1n00sewr" path="res://buildings/city/city-test_1.png" id="2_w2jsd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwqqv"]
-resource_name = "building1"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_kbal3")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u37ng"]
-resource_name = "rooftop"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_w2jsd")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
+[ext_resource type="Material" uid="uid://d2i0qvsvxyks2" path="res://buildings/city/building-blue-material.tres" id="1_tv0jk"]
+[ext_resource type="Material" uid="uid://oab55ea6p1od" path="res://buildings/city/building-rooftop.tres" id="2_tv0jk"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lp5tc"]
 _surfaces = [{
@@ -51,7 +35,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 30,
 "index_data": PackedByteArray("AAABAAIAAQADAAIABAAFAAYABQAHAAYACAAJAAoACQALAAoADAANAA4ADQAPAA4AEAARABIAEQATABIA"),
-"material": SubResource("StandardMaterial3D_xwqqv"),
+"material": ExtResource("1_tv0jk"),
 "name": "building1",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -63,7 +47,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_u37ng"),
+"material": ExtResource("2_tv0jk"),
 "name": "rooftop",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),

@@ -102,3 +102,5 @@ scene_properties = Dictionary[StringName, Variant]({
 [connection signal="died" from="Stats/HealthStat" to="." method="_die"]
 [connection signal="health_changed" from="Stats/HealthStat" to="." method="_on_health_changed"]
 [connection signal="took_damage" from="Stats/HealthStat" to="." method="_took_damage"]
+
+[editable path="VisualRoot/BarracksModel"]

@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://kt1fclunvcxl"]
+
+[ext_resource type="Texture2D" uid="uid://bnpflcs5q7ph" path="res://buildings/command_center/CommandCenter_3.png" id="1_q4t23"]
+
+[resource]
+resource_name = "blue-tech"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_q4t23")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_filter = 5

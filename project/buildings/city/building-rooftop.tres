@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://oab55ea6p1od"]
+
+[ext_resource type="Texture2D" uid="uid://cd5bt1n00sewr" path="res://buildings/city/city-test_1.png" id="1_7pxlw"]
+
+[resource]
+resource_name = "rooftop"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_7pxlw")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_filter = 5

@@ -37,7 +37,65 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"blue-tech": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/blue-tech.tres",
+"use_external/path": "uid://kt1fclunvcxl"
+},
+"command-wall-mat": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/command-wall-mat.tres",
+"use_external/path": "uid://bxcesfpg6f4u4"
+},
+"girders": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/girders.tres",
+"use_external/path": "uid://bt8pygga6hr13"
+},
+"girders.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/girders.001.tres",
+"use_external/path": "uid://c5b6pujfuk6h3"
+},
+"girders.003": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/girders.003.tres",
+"use_external/path": "uid://cgwvvy8y7ew6s"
+},
+"road": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/road.tres",
+"use_external/path": "uid://luwprkc84pp4"
+},
+"white-tech": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/white-tech.tres",
+"use_external/path": "uid://cbc3au5e7dksn"
+},
+"windows-yellow": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/windows-yellow.tres",
+"use_external/path": "uid://kjn1l36h7xaq"
+},
+"windows.003": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/windows.003.tres",
+"use_external/path": "uid://jkcsvf36nc3j"
+},
+"windows.008": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/windows.008.tres",
+"use_external/path": "uid://bxjlydxw0gsnl"
+},
+"windows.009": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://buildings/command_center/windows.009.tres",
+"use_external/path": "uid://b3546ch6684t2"
+}
+}
+}
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1

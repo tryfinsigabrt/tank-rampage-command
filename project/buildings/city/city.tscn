@@ -5,11 +5,15 @@
 [ext_resource type="Material" uid="uid://du1ont6ojvfgr" path="res://buildings/city/building-gold-material.tres" id="3_dtfag"]
 [ext_resource type="Texture2D" uid="uid://dliybv7l3j13i" path="res://buildings/city/city-test_0.png" id="4_6oyut"]
 [ext_resource type="Texture2D" uid="uid://cd5bt1n00sewr" path="res://buildings/city/city-test_1.png" id="5_jrp62"]
+[ext_resource type="Material" uid="uid://ba7gi2f2hbqsw" path="res://buildings/city/city-block.tres" id="6_mvhi4"]
 [ext_resource type="Material" uid="uid://cttdi0gs6b8t8" path="res://buildings/city/building-white-material.tres" id="6_vt7vm"]
-[ext_resource type="Texture2D" uid="uid://bmwyu18fgqrq7" path="res://buildings/city/city-test_2.png" id="7_mvhi4"]
 [ext_resource type="Material" uid="uid://ckt5y6pge7xaf" path="res://buildings/city/parking-lot-material.tres" id="8_5fpg3"]
+[ext_resource type="Material" uid="uid://6by65q1hlmd1" path="res://buildings/city/city-t-intersection-material.tres" id="8_mvhi4"]
 [ext_resource type="Texture2D" uid="uid://dbaq8d4l6vjg0" path="res://buildings/city/city-test_3.png" id="9_csa8n"]
 [ext_resource type="Texture2D" uid="uid://d0bbjobj5xvkt" path="res://buildings/city/city-test_5.png" id="10_1fwdr"]
+[ext_resource type="Material" uid="uid://cytk6u8y133be" path="res://buildings/city/city-street-fadedout.tres" id="10_vt7vm"]
+[ext_resource type="Material" uid="uid://oab55ea6p1od" path="res://buildings/city/building-rooftop.tres" id="11_6oyut"]
+[ext_resource type="Material" uid="uid://cpkv7hu3uolfe" path="res://buildings/city/city-street-material.tres" id="11_jrp62"]
 [ext_resource type="Texture2D" uid="uid://cmphdo7pcyw11" path="res://buildings/city/city-test_4.png" id="11_mjyax"]
 [ext_resource type="PackedScene" uid="uid://bmctd4myypt4a" path="res://buildings/city/traffic_lights.tscn" id="12_04170"]
 
@@ -26,6 +30,7 @@ albedo_texture = ExtResource("4_6oyut")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.0
+texture_filter = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u37ng"]
 resource_name = "rooftop"
@@ -34,6 +39,7 @@ albedo_texture = ExtResource("5_jrp62")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 0.0
+texture_filter = 5
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_y4y3w"]
 _surfaces = [{
@@ -161,14 +167,6 @@ size = Vector3(0.01, 0.01, 0.010009999)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mjyax"]
 size = Vector3(0.01, 0.01, 0.010009999)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bojik"]
-resource_name = "city-block"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("7_mvhi4")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_8e0rp"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
@@ -191,7 +189,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_bojik"),
+"material": ExtResource("6_mvhi4"),
 "name": "city-block",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -364,15 +362,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ffaq3")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j4p6"]
-resource_name = "Material.003"
-transparency = 4
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("10_1fwdr")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_7m4rn"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
@@ -395,7 +384,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_5j4p6"),
+"material": ExtResource("10_vt7vm"),
 "name": "Material.003",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -485,14 +474,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_elb71")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xvop"]
-resource_name = "city-street.003"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("11_mjyax")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_8hmuk"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
@@ -515,7 +496,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_6xvop"),
+"material": ExtResource("11_jrp62"),
 "name": "city-street.003",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -524,14 +505,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8hmuk")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hs3y6"]
-resource_name = "city-street.015"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("11_mjyax")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_e8qyl"]
 _surfaces = [{
@@ -555,7 +528,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_hs3y6"),
+"material": ExtResource("11_jrp62"),
 "name": "city-street.015",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -845,14 +818,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_4v0t2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oco7a"]
-resource_name = "city-street.014"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("11_mjyax")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_62syq"]
 _surfaces = [{
 "aabb": AABB(0, 0, 0, 0.01, 0.01, 1e-05),
@@ -875,7 +840,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_oco7a"),
+"material": ExtResource("11_jrp62"),
 "name": "city-street.014",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -884,14 +849,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_62syq")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1epmp"]
-resource_name = "city-street.012"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("11_mjyax")
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_3trkr"]
 _surfaces = [{
@@ -915,7 +872,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_1epmp"),
+"material": ExtResource("11_jrp62"),
 "name": "city-street.012",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -1000,7 +957,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 30,
 "index_data": PackedByteArray("AAABAAIAAQADAAIABAAFAAYABQAHAAYACAAJAAoACQALAAoADAANAA4ADQAPAA4AEAARABIAEQATABIA"),
-"material": SubResource("StandardMaterial3D_xwqqv"),
+"material": ExtResource("2_5iaqv"),
 "name": "building1",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -1012,7 +969,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAABAAIAAQADAAIA"),
-"material": SubResource("StandardMaterial3D_u37ng"),
+"material": ExtResource("11_6oyut"),
 "name": "rooftop",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -1174,13 +1131,19 @@ size = Vector3(0.01, 0.01, 0.010009999)
 
 [node name="City" unique_id=2029838145 instance=ExtResource("1_icurv")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="building" parent_id_path=PackedInt32Array(109959686) index="0" unique_id=719064656]
+[node name="building" parent="." index="0" unique_id=1899382983]
+surface_material_override/1 = ExtResource("11_6oyut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="building" index="0" unique_id=719064656]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building/StaticBody3D" index="0" unique_id=1340563334]
 shape = SubResource("BoxShape3D_6oyut")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="building_001" parent_id_path=PackedInt32Array(1951515658) index="0" unique_id=1658782905]
+[node name="building_001" parent="." index="1" unique_id=463677715]
+surface_material_override/1 = ExtResource("11_6oyut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="building_001" index="0" unique_id=1658782905]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_001/StaticBody3D" index="0" unique_id=1572091405]
@@ -1191,6 +1154,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_d4qum")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_dtfag")
+surface_material_override/1 = ExtResource("11_6oyut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="building_005" index="0" unique_id=1718170323]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1203,6 +1167,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_d4qum")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_dtfag")
+surface_material_override/1 = ExtResource("11_6oyut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="building_006" index="0" unique_id=1239427211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1215,6 +1180,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_d4qum")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_dtfag")
+surface_material_override/1 = ExtResource("11_6oyut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="building_007" index="0" unique_id=2012053466]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1222,7 +1188,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_007/StaticBody3D" index="0" unique_id=172036433]
 shape = SubResource("BoxShape3D_5fpg3")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="building_002" parent_id_path=PackedInt32Array(1255151572) index="0" unique_id=1602905840]
+[node name="building_002" parent="." index="5" unique_id=204173061]
+surface_material_override/1 = ExtResource("11_6oyut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="building_002" index="0" unique_id=1602905840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_002/StaticBody3D" index="0" unique_id=527605624]
@@ -1233,6 +1202,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 74.99999, 0, -99.99999, -8
 mesh = SubResource("ArrayMesh_8bvgx")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_vt7vm")
+surface_material_override/1 = ExtResource("11_6oyut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="building_003" index="0" unique_id=1001997679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
@@ -1245,12 +1215,16 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 74.99999, 0, -99.99999, -8
 mesh = SubResource("ArrayMesh_8bvgx")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_vt7vm")
+surface_material_override/1 = ExtResource("11_6oyut")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="building_004" index="0" unique_id=995759614]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="building_004/StaticBody3D" index="0" unique_id=1368085163]
 shape = SubResource("BoxShape3D_mjyax")
+
+[node name="city-block" parent="." index="8" unique_id=809889421]
+surface_material_override/0 = ExtResource("6_mvhi4")
 
 [node name="city-block2" type="MeshInstance3D" parent="." index="9" unique_id=361718127]
 transform = Transform3D(400, 0, 0, 0, -4.7683716e-05, 399.99997, 0, -399.99997, -4.7683716e-05, 0, 0, 5)
@@ -1268,97 +1242,132 @@ mesh = SubResource("ArrayMesh_3tdrt")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("8_5fpg3")
 
+[node name="city-intersection" parent="." index="12" unique_id=556261419]
+surface_material_override/0 = ExtResource("8_mvhi4")
+
 [node name="city-intersection2" type="MeshInstance3D" parent="." index="13" unique_id=1534920298]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -1, 0, -4)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection6" type="MeshInstance3D" parent="." index="14" unique_id=887257907]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, -4)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection7" type="MeshInstance3D" parent="." index="15" unique_id=287031468]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, -4)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection8" type="MeshInstance3D" parent="." index="16" unique_id=175701705]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, 6)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection9" type="MeshInstance3D" parent="." index="17" unique_id=751413432]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, 6)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection3" type="MeshInstance3D" parent="." index="18" unique_id=1835045372]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -1, 0, 6)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection4" type="MeshInstance3D" parent="." index="19" unique_id=1628528178]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -6, 0, 1)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
 [node name="city-intersection5" type="MeshInstance3D" parent="." index="20" unique_id=1509505980]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, 1)
 mesh = SubResource("ArrayMesh_kcfrn")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("8_mvhi4")
 
-[node name="city-street-faded-out" parent="." index="22" unique_id=165731032]
+[node name="city-street" parent="." index="21" unique_id=1424444755]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street-faded-out" parent="." index="22" unique_id=186065212]
 transform = Transform3D(0, 100, 2.9802322e-06, 2.9802322e-06, 0, 100, 100, 2.9802322e-06, 0, -1, 0, 6)
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out2" type="MeshInstance3D" parent="." index="23" unique_id=1226444903]
 transform = Transform3D(0, 100, 2.9802322e-06, 2.9802322e-06, 0, 100, 100, 2.9802322e-06, 0, 4, 0, 6)
 mesh = SubResource("ArrayMesh_bdpoj")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out3" type="MeshInstance3D" parent="." index="24" unique_id=1042325691]
 transform = Transform3D(0, 100, 2.9802322e-06, 2.9802322e-06, 0, 100, 100, 2.9802322e-06, 0, -6, 0, 6)
 mesh = SubResource("ArrayMesh_bdpoj")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
-[node name="city-street-faded-out_001" parent="." index="25" unique_id=1167218602]
+[node name="city-street-faded-out_001" parent="." index="25" unique_id=1752317446]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 9, 0, 1)
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_008" type="MeshInstance3D" parent="." index="26" unique_id=1827976336]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 5, 0, -4)
 mesh = SubResource("ArrayMesh_kfsg5")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_009" type="MeshInstance3D" parent="." index="27" unique_id=1823210467]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 5, 0, 6)
 mesh = SubResource("ArrayMesh_kfsg5")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
-[node name="city-street-faded-out_002" parent="." index="28" unique_id=176096946]
+[node name="city-street-faded-out_002" parent="." index="28" unique_id=1718107169]
 transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -6, 0, 0)
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_004" type="MeshInstance3D" parent="." index="29" unique_id=141436325]
 transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -10, 0, 5)
 mesh = SubResource("ArrayMesh_wh78p")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_005" type="MeshInstance3D" parent="." index="30" unique_id=811476832]
 transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -6, 0, -5)
 mesh = SubResource("ArrayMesh_wh78p")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
-[node name="city-street-faded-out_003" parent="." index="31" unique_id=1496210220]
+[node name="city-street-faded-out_003" parent="." index="31" unique_id=1208379689]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -9)
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_006" type="MeshInstance3D" parent="." index="32" unique_id=453597649]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, -5)
 mesh = SubResource("ArrayMesh_325mp")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
 
 [node name="city-street-faded-out_007" type="MeshInstance3D" parent="." index="33" unique_id=2130140212]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -5)
 mesh = SubResource("ArrayMesh_325mp")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("10_vt7vm")
+
+[node name="city-street_001" parent="." index="34" unique_id=686139707]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_002" parent="." index="35" unique_id=1812575161]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_003" parent="." index="36" unique_id=1757331326]
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street2" type="MeshInstance3D" parent="." index="37" unique_id=288051645]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 5, 0, 1)
@@ -1380,217 +1389,293 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_rhvh3")
 skeleton = NodePath("")
 
+[node name="city-street_004" parent="." index="41" unique_id=335626412]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_005" parent="." index="42" unique_id=1114132770]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_006" parent="." index="43" unique_id=677438573]
+surface_material_override/0 = ExtResource("11_jrp62")
+
 [node name="city-street_014" type="MeshInstance3D" parent="." index="44" unique_id=1179624550]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -5, 0, 1)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_016" type="MeshInstance3D" parent="." index="45" unique_id=1275609239]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -2, 0, -4)
 mesh = SubResource("ArrayMesh_jpvs0")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_017" type="MeshInstance3D" parent="." index="46" unique_id=1229032754]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -3, 0, -4)
 mesh = SubResource("ArrayMesh_eunqu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_018" type="MeshInstance3D" parent="." index="47" unique_id=1914096325]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -4, 0, -4)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_019" type="MeshInstance3D" parent="." index="48" unique_id=1715661544]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -5, 0, -4)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_020" type="MeshInstance3D" parent="." index="49" unique_id=808258512]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -2, 0, 6)
 mesh = SubResource("ArrayMesh_jpvs0")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_021" type="MeshInstance3D" parent="." index="50" unique_id=1014170657]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -3, 0, 6)
 mesh = SubResource("ArrayMesh_eunqu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_022" type="MeshInstance3D" parent="." index="51" unique_id=199368626]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -4, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_023" type="MeshInstance3D" parent="." index="52" unique_id=643315815]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -5, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_052" type="MeshInstance3D" parent="." index="53" unique_id=1530918645]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -7, 0, 6)
 mesh = SubResource("ArrayMesh_jpvs0")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_053" type="MeshInstance3D" parent="." index="54" unique_id=805527210]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -8, 0, 6)
 mesh = SubResource("ArrayMesh_eunqu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_054" type="MeshInstance3D" parent="." index="55" unique_id=232373349]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -9, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_055" type="MeshInstance3D" parent="." index="56" unique_id=1354703601]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -10, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_024" type="MeshInstance3D" parent="." index="57" unique_id=85687825]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 3, 0, 6)
 mesh = SubResource("ArrayMesh_jpvs0")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_025" type="MeshInstance3D" parent="." index="58" unique_id=1847322685]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 2, 0, 6)
 mesh = SubResource("ArrayMesh_eunqu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_026" type="MeshInstance3D" parent="." index="59" unique_id=741168263]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 1, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_027" type="MeshInstance3D" parent="." index="60" unique_id=1790676694]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 6)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_028" type="MeshInstance3D" parent="." index="61" unique_id=1556951490]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 3, 0, -4)
 mesh = SubResource("ArrayMesh_jpvs0")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_029" type="MeshInstance3D" parent="." index="62" unique_id=404581459]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 2, 0, -4)
 mesh = SubResource("ArrayMesh_eunqu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_030" type="MeshInstance3D" parent="." index="63" unique_id=477460985]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 1, 0, -4)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_031" type="MeshInstance3D" parent="." index="64" unique_id=1931333773]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, -4)
 mesh = SubResource("ArrayMesh_skda8")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_007" parent="." index="65" unique_id=1851909337]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_008" parent="." index="66" unique_id=709547040]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_009" parent="." index="67" unique_id=1943084447]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_010" parent="." index="68" unique_id=62635742]
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_048" type="MeshInstance3D" parent="." index="69" unique_id=1010940648]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -5)
 mesh = SubResource("ArrayMesh_j7dgg")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_049" type="MeshInstance3D" parent="." index="70" unique_id=1004478864]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -6)
 mesh = SubResource("ArrayMesh_6si7x")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_050" type="MeshInstance3D" parent="." index="71" unique_id=380547097]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -7)
 mesh = SubResource("ArrayMesh_dun4n")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_051" type="MeshInstance3D" parent="." index="72" unique_id=1534264012]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, -8)
 mesh = SubResource("ArrayMesh_88m7y")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_011" parent="." index="73" unique_id=441989268]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_012" parent="." index="74" unique_id=799670564]
+surface_material_override/0 = ExtResource("11_jrp62")
+
+[node name="city-street_013" parent="." index="75" unique_id=628225379]
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_015" type="MeshInstance3D" parent="." index="76" unique_id=2031902749]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 0, 0, 5)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_032" type="MeshInstance3D" parent="." index="77" unique_id=1985201823]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, 2)
 mesh = SubResource("ArrayMesh_uui5u")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_033" type="MeshInstance3D" parent="." index="78" unique_id=1955595994]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, 3)
 mesh = SubResource("ArrayMesh_mhggy")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_034" type="MeshInstance3D" parent="." index="79" unique_id=316469051]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, 4)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_035" type="MeshInstance3D" parent="." index="80" unique_id=547700779]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, 5)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_036" type="MeshInstance3D" parent="." index="81" unique_id=1712672675]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 2)
 mesh = SubResource("ArrayMesh_uui5u")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_037" type="MeshInstance3D" parent="." index="82" unique_id=66127204]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 3)
 mesh = SubResource("ArrayMesh_mhggy")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_038" type="MeshInstance3D" parent="." index="83" unique_id=1206381843]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 4)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_039" type="MeshInstance3D" parent="." index="84" unique_id=1515497755]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 5)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_040" type="MeshInstance3D" parent="." index="85" unique_id=1155786695]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -3)
 mesh = SubResource("ArrayMesh_uui5u")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_041" type="MeshInstance3D" parent="." index="86" unique_id=439973587]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -2)
 mesh = SubResource("ArrayMesh_mhggy")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_042" type="MeshInstance3D" parent="." index="87" unique_id=134158491]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, -1)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_043" type="MeshInstance3D" parent="." index="88" unique_id=222553554]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, 5, 0, 0)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_044" type="MeshInstance3D" parent="." index="89" unique_id=1268618401]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, -3)
 mesh = SubResource("ArrayMesh_uui5u")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_045" type="MeshInstance3D" parent="." index="90" unique_id=1111497070]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, -2)
 mesh = SubResource("ArrayMesh_mhggy")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_046" type="MeshInstance3D" parent="." index="91" unique_id=1154549726]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, -1)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
 [node name="city-street_047" type="MeshInstance3D" parent="." index="92" unique_id=1649537901]
 transform = Transform3D(0, -100, -2.9802322e-06, -2.9802322e-06, 0, 100, -100, 2.9802322e-06, 0, -5, 0, 0)
 mesh = SubResource("ArrayMesh_6uupx")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("11_jrp62")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="office" parent_id_path=PackedInt32Array(720151664) index="0" unique_id=1984807975]
+[node name="office" parent="." index="93" unique_id=807409605]
+surface_material_override/0 = ExtResource("2_5iaqv")
+surface_material_override/1 = ExtResource("11_6oyut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="office" index="0" unique_id=1984807975]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office/StaticBody3D" index="0" unique_id=1349550181]
@@ -1651,7 +1736,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office6/StaticBody3D" index="0" unique_id=1557078528]
 shape = SubResource("BoxShape3D_lh45j")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="office_001" parent_id_path=PackedInt32Array(1763698605) index="0" unique_id=2116502248]
+[node name="office_001" parent="." index="99" unique_id=2008540237]
+surface_material_override/0 = ExtResource("2_5iaqv")
+surface_material_override/1 = ExtResource("11_6oyut")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="office_001" index="0" unique_id=2116502248]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_001/StaticBody3D" index="0" unique_id=1161871906]
@@ -1705,7 +1794,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_007/StaticBody3D" index="0" unique_id=398730907]
 shape = SubResource("BoxShape3D_ahslk")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="office_002" parent_id_path=PackedInt32Array(811220700) index="0" unique_id=1541105762]
+[node name="StaticBody3D" type="StaticBody3D" parent="office_002" parent_id_path=PackedInt32Array(466799769) index="0" unique_id=1541105762]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_002/StaticBody3D" index="0" unique_id=1377025384]
@@ -1733,7 +1822,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_009/StaticBody3D" index="0" unique_id=265799830]
 shape = SubResource("BoxShape3D_li2i3")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="office_003" parent_id_path=PackedInt32Array(1959209154) index="0" unique_id=427742391]
+[node name="StaticBody3D" type="StaticBody3D" parent="office_003" parent_id_path=PackedInt32Array(696142034) index="0" unique_id=427742391]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.005, 0.0050049997)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="office_003/StaticBody3D" index="0" unique_id=1288269869]

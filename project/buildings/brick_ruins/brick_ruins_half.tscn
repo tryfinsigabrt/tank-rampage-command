@@ -21,7 +21,7 @@ size = Vector3(0.025, 0.01, 0.01)
 
 [node name="brick-ruins-half" unique_id=998524922 instance=ExtResource("1_6msho")]
 
-[node name="brick-ruins-half" parent="." index="0" unique_id=117601585]
+[node name="brick-ruins-half" parent="." index="0" unique_id=761163169]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 4, 0, -3.35)
 material_override = ExtResource("2_k286t")
 
