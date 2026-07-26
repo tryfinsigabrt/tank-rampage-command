@@ -103,7 +103,7 @@ func _refresh_available_behaviors() -> void:
 	
 	# Map construction resource types to their supported manufacturing centers
 	for building in team_units.buildings:
-		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
+		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building, false)
 		if manufacturing_component and manufacturing_component.active:
 			for resource in manufacturing_component.supported_types.types:
 				var type:ConstructionResource.Type = resource.type
@@ -382,7 +382,7 @@ func _refresh_non_command_center_building_stats() -> void:
 		
 	for building in team_units.buildings:
 		var building_type := ConstructionResource.type_from_building(building)
-		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building)
+		var manufacturing_component:ManufacturingComponent = ManufacturingComponent.get_component(building, false)
 		if manufacturing_component:
 			var stats:BuildingStats = _get_building_stats_record(building_type)
 			stats.total_buildings += 1

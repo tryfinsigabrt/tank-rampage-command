@@ -100,7 +100,7 @@ func get_general_building_bounds(type:ConstructionResource.Type) -> Array[Boundi
 				continue
 			valid_count += 1
 			var building:Building = object
-			var team_component:TeamComponent = TeamComponent.get_component(building)
+			var team_component:TeamComponent = TeamComponent.get_component(building, false)
 			var vision_radius:float
 			if team_component:
 				vision_radius = team_component.vision * vision_fow_fraction

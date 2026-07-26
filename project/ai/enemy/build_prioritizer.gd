@@ -44,7 +44,7 @@ func _on_personnel_count_changed(_prev_value:int, _new_value:int) -> void:
 		_on_resources_available()
 
 func _on_resources_available() -> void:
-	if _building:
+	if _building or not is_inside_tree():
 		return
 		
 	_building = true
