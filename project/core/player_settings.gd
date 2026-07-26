@@ -29,7 +29,7 @@ var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
 var _anisotropic_filtering: Viewport.AnisotropicFiltering = ProjectSettings.get_setting("rendering/textures/default_filters/anisotropic_filtering_level", Viewport.ANISOTROPY_4X)
 var _scaling_3d: float = ProjectSettings.get_setting("rendering/scaling_3d/scale", 1.0)
 var _fsr_is_enabled: bool = false if ProjectSettings.get_setting("rendering/scaling_3d/mode", 0) == 0 else true
-var _fsr_sharpness: float = ProjectSettings.get_setting("rendering/scaling_3d/fsr_sharpness", 0.2)
+var _fsr_sharpness: int = remap_fsr_sharpness(ProjectSettings.get_setting("rendering/scaling_3d/fsr_sharpness", 0.2))
 var _max_fps: int = Engine.max_fps ## 0 means uncapped
 
 func _ready() -> void:
@@ -119,17 +119,28 @@ func set_fsr(enabled: bool) -> void:
 	else:
 		get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
 	_save_settings_data()
+	
+static func remap_fsr_sharpness(native: float) -> int:
+	var remapped: int = roundi(remap(native, 2.0, 0.0, 0.0, 100.0))
+	return remapped
 
-func get_fsr_sharpness() -> float: # 0.0 to 1.0
-	var fsr_sharpness: float = get_viewport().fsr_sharpness
-	return 1.0 - (fsr_sharpness / 2.0)
+func get_fsr_sharpness() -> int: # 0 to 100 with 100 being sharpest
+	#var remapped_fsr_sharpness: float = 1.0 - (get_viewport().fsr_sharpness / 2.0)
+	var remapped_fsr_sharpness: int = remap_fsr_sharpness(get_viewport().fsr_sharpness)
+	
+	if not _fsr_sharpness == remapped_fsr_sharpness:
+		print("FSR Sharpness local property adjusted to match viewport.")
+		_fsr_sharpness = remapped_fsr_sharpness
+	return _fsr_sharpness
 
-func set_fsr_sharpness(value: float) -> void:
-	value = clampf(value, 0.0, 1.0)
+func set_fsr_sharpness(value: int) -> void:
+	value = clampi(value, 0, 100)
 	_fsr_sharpness = value
-	var remapped: float = remap(_fsr_sharpness, 0.0, 1.0, 2.0, 0.0)
-	get_viewport().fsr_sharpness = remapped
-	print("FSR sharpness set to %.2f percent, actual value %.2f" % [_fsr_sharpness, remapped])
+	
+	## For some strange reason, this value 0.0 represents sharpest, and 2.0 represents no sharpening.
+	var native: float = remap(_fsr_sharpness, 0.0, 100.0, 2.0, 0.0)
+	get_viewport().fsr_sharpness = native
+	print("FSR sharpness set to %d percent, actual value %.2f" % [_fsr_sharpness, native])
 	_save_settings_data()
 
 func get_max_fps() -> int:

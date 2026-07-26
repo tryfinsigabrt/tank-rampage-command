@@ -63,7 +63,7 @@ func _populate_upscaling_options() -> void:
 	fsr_check_button.button_pressed = false if not can_use_fsr else PlayerSettings.get_fsr_enabled()
 	
 	fsr_sharpness_spin_box.editable = can_use_fsr
-	var fsr_sharpness: float = PlayerSettings.get_fsr_sharpness() * 100.0
+	var fsr_sharpness: float = PlayerSettings.get_fsr_sharpness()
 	fsr_sharpness_spin_box.set_value_no_signal(fsr_sharpness)
 	
 	if not can_use_fsr:
@@ -110,4 +110,4 @@ func _on_fsr_check_button_toggled(toggled_on: bool) -> void:
 	PlayerSettings.set_fsr(toggled_on)
 
 func _on_fsr_sharpness_spin_box_value_changed(value: float) -> void:
-	PlayerSettings.set_fsr_sharpness(value / 100.0)
+	PlayerSettings.set_fsr_sharpness(value)
