@@ -109,6 +109,8 @@ func move_to(target:Vector3) -> void:
 	if LogUtils.verbose:
 		print_debug("%s: move_to - unit=%s; target=%s" % [name, _unit.name, target])
 	
+	var previous_target := _original_target_position
+	
 	_original_target_position = target
 	_current_target_position = target
 	
@@ -120,7 +122,8 @@ func move_to(target:Vector3) -> void:
 	move_started.emit(target)
 
 	if not _is_at_target(target):
-		stuck_detector.goal_position = target
+		if previous_target.distance_squared_to(target) > distance_threshold * distance_threshold:
+			stuck_detector.goal_position = target
 		simple_navigation.goal_location = target
 		simple_navigation.stop()
 		
