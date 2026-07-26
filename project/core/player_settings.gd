@@ -26,6 +26,7 @@ var _anti_aliasing: AntiAliasing = AntiAliasing.OFF
 var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
 var _anisotropic_filtering: Viewport.AnisotropicFiltering = ProjectSettings.get_setting("rendering/textures/default_filters/anisotropic_filtering_level", Viewport.ANISOTROPY_4X)
 var _scaling_3d: float = ProjectSettings.get_setting("rendering/scaling_3d/scale", 1.0)
+var _max_fps: int = Engine.max_fps ## 0 means uncapped
 
 func _ready() -> void:
 	for bus_name in AUDIO_BUSES:
@@ -100,6 +101,13 @@ func set_scaling_3d(value: float) -> void:
 	_scaling_3d = clampf(value, 0.2, 4.0)
 	ProjectSettings.set_setting("rendering/scaling_3d/scale", _scaling_3d)
 	get_viewport().scaling_3d_scale = _scaling_3d
+
+func get_max_fps() -> int:
+	return _max_fps
+
+func set_max_fps(value: int) -> void:
+	_max_fps = maxi(value, 0)
+	Engine.max_fps = _max_fps
 
 func _apply_all_bus_volumes() -> void:
 	for bus_name in AUDIO_BUSES:
