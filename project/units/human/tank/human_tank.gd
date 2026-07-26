@@ -119,7 +119,8 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 		_die(damage_params)
 
 func _update_render(in_render:bool) -> void:
-	visible = in_render
+	body.visible = in_render
+	ui.visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat

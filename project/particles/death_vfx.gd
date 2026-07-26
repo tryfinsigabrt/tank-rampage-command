@@ -12,7 +12,6 @@ var spawn_container:NodePath
 var scene_properties:Dictionary[StringName, Variant]
 
 var _container:Node
-var _team_asset:Node3D
 
 func _ready() -> void:
 	assert(vfx_scene, "Vfx Scene not set!")
@@ -22,10 +21,8 @@ func _ready() -> void:
 	if not team_asset:
 		queue_free()
 		return
-		
-	_team_asset = team_asset
-	_container = get_node_or_null(spawn_container)
 	
+	_container = get_node_or_null(spawn_container)
 	if not _container:
 		_container = team_asset.get_parent()
 		if not _container:
@@ -34,8 +31,7 @@ func _ready() -> void:
 	HealthStat.connect_died_signal(team_asset, _spawn_death_scene)	
 	
 func _spawn_death_scene() -> void:
-	# Only spawn if team asset is visible in tree (not obscured by fog of war)
-	if not vfx_scene or not _team_asset.is_visible_in_tree():
+	if not vfx_scene:
 		return
 	
 	var instance:Node = vfx_scene.instantiate()

@@ -19,7 +19,8 @@ func _ready() -> void:
 	_on_team_changed()
 	
 func _do_update_render(in_visible:bool) -> void:
-	visible = in_visible
+	visual_root.visible = in_visible
+	ui.visible = in_visible
 
 func _die(_damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)

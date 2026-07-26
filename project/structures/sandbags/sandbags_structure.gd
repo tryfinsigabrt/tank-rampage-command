@@ -1,7 +1,11 @@
 class_name Sandbags extends DefensiveStructure
 
+@onready var visual_root: Node3D = $VisualRoot
+@onready var ui: Node3D = %UI
+	
 func _do_update_render(in_visible:bool) -> void:
-	visible = in_visible
+	visual_root.visible = in_visible
+	ui.visible = in_visible
 
 func _die(_damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)
