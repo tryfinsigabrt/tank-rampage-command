@@ -176,8 +176,7 @@ func _load_initials_settings() -> void:
 func apply_settings(settings: Dictionary) -> void:
 	print("[PlayerSettings] Applying Settings: ", settings)
 	if settings.has("bus_volumes"):
-		var loaded_bus_volumes: Dictionary[StringName, float] = {}
-		loaded_bus_volumes.assign(settings.get("bus_volumes"))
+		_bus_volumes.assign(settings.get("bus_volumes"))
 		_apply_all_bus_volumes()
 	if settings.has("show_fps"): set_show_fps(settings.get("show_fps"))
 	if settings.has("fsr_enabled"): set_fsr(settings.get("fsr_enabled"))
@@ -188,6 +187,7 @@ func apply_settings(settings: Dictionary) -> void:
 		set_anisotropic_filtering(settings.get("anisotropic_filtering"))
 	if settings.has("scaling_3d"): set_scaling_3d(settings.get("scaling_3d"))
 	if settings.has("max_fps"): set_max_fps(settings.get("max_fps"))
+	if settings.has("ui_scale"): set_ui_scale(settings.get("ui_scale"))
 
 
 func _save_settings_data() -> void:
