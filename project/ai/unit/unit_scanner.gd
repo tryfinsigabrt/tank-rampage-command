@@ -1,7 +1,12 @@
 class_name UnitScanner extends Node
 
 @export
-var threshold_distance:float = 500.0
+var threshold_distance:float = 500.0:
+	set(value):
+		threshold_distance = value
+		if not is_node_ready():
+			return
+		_sync_vision()
 
 @export
 var my_asset:Node3D
@@ -51,8 +56,11 @@ func _initialize() -> void:
 	else:
 		push_warning("%s: match not in tree - slow path taken" % name)
 		
-	sweeper.vision_radius = threshold_distance	
+	_sync_vision()
 	_init = true
+	
+func _sync_vision() -> void:
+	sweeper.vision_radius = threshold_distance
 	
 func _ready() -> void:
 	_on_enable_changed()

@@ -170,5 +170,6 @@ metadata/_custom_type_script = "uid://cv74jjdrwevpr"
 
 [node name="ThreatScorer" parent="." unique_id=65921218 instance=ExtResource("10_iprnb")]
 unique_name_in_owner = true
+ideal_distance = 100.0
 
 [connection signal="threat_selected" from="IdleState" to="." method="_on_idle_state_threat_selected"]

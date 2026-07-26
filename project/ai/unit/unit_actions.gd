@@ -8,6 +8,7 @@ signal command_finished(command_id:int)
 
 @onready var blackboard: UnitBlackboard = $Blackboard
 @onready var idle_state: IdleUnitState = $IdleState
+@onready var _threat_scorer: ThreatScorer = %ThreatScorer
 
 @export
 var unit:Unit
@@ -55,6 +56,8 @@ func _ready() -> void:
 		push_error("%s: Unit is not set" % name)
 		return
 	
+	_set_idle_state_and_threat_distances()
+	
 	behavior_tree.actor_node_path = unit.get_path()
 	behavior_tree.actor = unit
 	
@@ -67,7 +70,21 @@ func _ready() -> void:
 	
 	SignalBus.on_unit_command_finished.connect(_on_command_finished.unbind(1))
 	_update_tree_state.call_deferred()
-		
+
+func _set_idle_state_and_threat_distances() -> void:
+	var weapon := unit.weapon
+	if not weapon:
+		return
+	
+	var ideal_fire_distance: float = weapon.ideal_fire_range.y
+	var max_fire_distance:float = weapon.total_fire_range.y
+	
+	var current_idle_range := idle_state.attack_range
+	
+	# This can get overriden by the scoring modifiers but set a better default for all cases
+	idle_state.attack_range = Vector2(ideal_fire_distance, maxf(max_fire_distance, current_idle_range.y))
+	_threat_scorer.ideal_distance = ideal_fire_distance
+			
 func _on_command_finished(in_unit: Unit, command:StringName, command_id:int) -> void:
 	if in_unit != unit:
 		return
