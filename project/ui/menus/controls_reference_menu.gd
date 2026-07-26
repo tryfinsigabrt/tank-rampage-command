@@ -91,6 +91,7 @@ const KEY_COLOR := Color(0.7372549, 0.88235295, 0.7254902, 1)
 @onready var right_column: VBoxContainer = %RightColumn
 
 func _ready() -> void:
+	hide()
 	_populate_columns()
 
 func _populate_columns() -> void:
