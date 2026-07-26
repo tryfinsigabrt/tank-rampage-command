@@ -26,6 +26,8 @@ var _anti_aliasing: AntiAliasing = AntiAliasing.OFF
 var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
 var _anisotropic_filtering: Viewport.AnisotropicFiltering = ProjectSettings.get_setting("rendering/textures/default_filters/anisotropic_filtering_level", Viewport.ANISOTROPY_4X)
 var _scaling_3d: float = ProjectSettings.get_setting("rendering/scaling_3d/scale", 1.0)
+var _fsr_is_enabled: bool = false if ProjectSettings.get_setting("rendering/scaling_3d/mode", 0) == 0 else true
+var _fsr_sharpness: float = ProjectSettings.get_setting("rendering/scaling_3d/fsr_sharpness", 0.2)
 var _max_fps: int = Engine.max_fps ## 0 means uncapped
 
 func _ready() -> void:
@@ -101,6 +103,28 @@ func set_scaling_3d(value: float) -> void:
 	_scaling_3d = clampf(value, 0.2, 4.0)
 	ProjectSettings.set_setting("rendering/scaling_3d/scale", _scaling_3d)
 	get_viewport().scaling_3d_scale = _scaling_3d
+
+func get_fsr_enabled() -> bool:
+	return _fsr_is_enabled
+
+func set_fsr(enabled: bool) -> void:
+	_fsr_is_enabled = enabled
+	
+	if _fsr_is_enabled:
+		get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR2
+	else:
+		get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
+
+func get_fsr_sharpness() -> float: # 0.0 to 1.0
+	var fsr_sharpness: float = get_viewport().fsr_sharpness
+	return 1.0 - (fsr_sharpness / 2.0)
+
+func set_fsr_sharpness(value: float) -> void:
+	value = clampf(value, 0.0, 1.0)
+	_fsr_sharpness = value
+	var remapped: float = remap(_fsr_sharpness, 0.0, 1.0, 2.0, 0.0)
+	get_viewport().fsr_sharpness = remapped
+	print("FSR sharpness set to %.2f percent, actual value %.2f" % [_fsr_sharpness, remapped])
 
 func get_max_fps() -> int:
 	return _max_fps
