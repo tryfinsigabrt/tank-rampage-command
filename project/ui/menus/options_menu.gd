@@ -11,15 +11,20 @@ signal back_requested
 @onready var anti_aliasing_option_button: OptionButton = %AntiAliasingOptionButton
 @onready var shadow_quality_option_button: OptionButton = %ShadowQualityOptionButton
 @onready var aniso_option_button: OptionButton = %AnisoOptionButton
-@onready var scaling_3d_spinbox: SpinBox = %Scaling3DSpinbox
 @onready var fps_spinbox: SpinBox = %FPSSpinbox
 @onready var scaling_ui_spinbox: SpinBox = %ScalingUISpinbox
+@onready var scaling_3d_spinbox: SpinBox = %Scaling3DSpinbox
+
+@onready var can_use_fsr: bool = RenderingServer.get_current_rendering_method() == "forward_plus"
+@onready var fsr_check_button: CheckButton = %FSRCheckButton
+@onready var fsr_sharpness_spin_box: SpinBox = %FSRSharpnessSpinBox
 
 
 func _ready() -> void:
 	hide()
 	_populate_anti_aliasing_options()
 	_populate_shadow_quality_options()
+	_populate_upscaling_options()
 	_sync_from_settings()
 	
 func _on_back_button_pressed() -> void:
@@ -38,6 +43,7 @@ func _sync_from_settings() -> void:
 	scaling_3d_spinbox.set_value_no_signal(PlayerSettings.get_scaling_3d())
 	fps_spinbox.set_value_no_signal(Engine.max_fps)
 	scaling_ui_spinbox.set_value_no_signal(PlayerSettings.get_ui_scale())
+	_populate_upscaling_options()
 
 func _populate_anti_aliasing_options() -> void:
 	anti_aliasing_option_button.clear()
@@ -51,6 +57,18 @@ func _populate_shadow_quality_options() -> void:
 	shadow_quality_option_button.add_item("Low", PlayerSettings.ShadowQuality.LOW)
 	shadow_quality_option_button.add_item("Medium", PlayerSettings.ShadowQuality.MEDIUM)
 	shadow_quality_option_button.add_item("High", PlayerSettings.ShadowQuality.HIGH)
+
+func _populate_upscaling_options() -> void:
+	fsr_check_button.disabled = not can_use_fsr
+	fsr_check_button.button_pressed = false if not can_use_fsr else PlayerSettings.get_fsr_enabled()
+	
+	fsr_sharpness_spin_box.editable = can_use_fsr
+	var fsr_sharpness: float = PlayerSettings.get_fsr_sharpness() * 100.0
+	fsr_sharpness_spin_box.set_value_no_signal(fsr_sharpness)
+	
+	if not can_use_fsr:
+		fsr_check_button.tooltip_text = "FSR upscaling is not available on Web."
+		fsr_sharpness_spin_box.tooltip_text = "FSR upscaling is not available on Web."
 
 func _on_master_slider_value_changed(value: float) -> void:
 	PlayerSettings.set_bus_volume(&"Master", value)
@@ -87,3 +105,9 @@ func _on_fps_spinbox_value_changed(value: float) -> void:
 
 func _on_scaling_ui_spinbox_value_changed(value: float) -> void:
 	PlayerSettings.set_ui_scale(value)
+
+func _on_fsr_check_button_toggled(toggled_on: bool) -> void:
+	PlayerSettings.set_fsr(toggled_on)
+
+func _on_fsr_sharpness_spin_box_value_changed(value: float) -> void:
+	PlayerSettings.set_fsr_sharpness(value / 100.0)
