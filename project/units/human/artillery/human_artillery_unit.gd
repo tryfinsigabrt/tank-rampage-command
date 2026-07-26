@@ -35,6 +35,7 @@ var move_aim_reset_delay_seconds:float = 60.0
 @onready var game_unit_navigation: GameUnitNavigation = %GameUnitNavigation
 @onready var _team_comp: TeamComponent = %TeamComponent
 @onready var yaw_pitch_aiming_component: YawPitchAimingComponent = %YawPitchAimingComponent
+@onready var _tank_shadow: Node3D = $TankShadow
 
 @export
 var turret_rotation_node:Node3D
@@ -143,6 +144,7 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 func _update_render(in_render:bool) -> void:
 	visual_root.visible = in_render
 	ui.visible = in_render
+	_tank_shadow.visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat
