@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b4r4l0vdaccbd" path="res://ui/menus/options_menu.gd" id="2_t3t0a"]
 
 [node name="OptionsMenu" type="PanelContainer" unique_id=1965383992]
+visible = false
 custom_minimum_size = Vector2(760, 800)
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,10 +41,9 @@ horizontal_alignment = 1
 [node name="TabContainer" type="TabContainer" parent="Padding/Content" unique_id=2083870511]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Audio" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1710935895]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -152,6 +152,7 @@ step = 0.01
 value = 1.0
 
 [node name="Graphics" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1037921197]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
