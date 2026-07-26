@@ -10,11 +10,20 @@ signal back_requested
 @onready var show_fps_check_button: CheckButton = %ShowFpsCheckButton
 @onready var anti_aliasing_option_button: OptionButton = %AntiAliasingOptionButton
 @onready var shadow_quality_option_button: OptionButton = %ShadowQualityOptionButton
+@onready var aniso_option_button: OptionButton = %AnisoOptionButton
+@onready var scaling_3d_spinbox: SpinBox = %Scaling3DSpinbox
+@onready var fps_spinbox: SpinBox = %FPSSpinbox
+@onready var scaling_ui_spinbox: SpinBox = %ScalingUISpinbox
+
 
 func _ready() -> void:
+	hide()
 	_populate_anti_aliasing_options()
 	_populate_shadow_quality_options()
 	_sync_from_settings()
+	
+func _on_back_button_pressed() -> void:
+	back_requested.emit()
 
 func _sync_from_settings() -> void:
 	master_slider.value = PlayerSettings.get_bus_volume(&"Master")
@@ -25,7 +34,10 @@ func _sync_from_settings() -> void:
 	show_fps_check_button.button_pressed = PlayerSettings.get_show_fps()
 	anti_aliasing_option_button.select(PlayerSettings.get_anti_aliasing())
 	shadow_quality_option_button.select(PlayerSettings.get_shadow_quality())
-
+	aniso_option_button.select(PlayerSettings.get_anisotropic_filtering())
+	scaling_3d_spinbox.set_value_no_signal(PlayerSettings.get_scaling_3d())
+	fps_spinbox.set_value_no_signal(Engine.max_fps)
+	scaling_ui_spinbox.set_value_no_signal(PlayerSettings.get_ui_scale())
 
 func _populate_anti_aliasing_options() -> void:
 	anti_aliasing_option_button.clear()
@@ -58,13 +70,20 @@ func _on_voice_slider_value_changed(value: float) -> void:
 func _on_show_fps_check_button_toggled(toggled_on: bool) -> void:
 	PlayerSettings.set_show_fps(toggled_on)
 
-
 func _on_anti_aliasing_option_button_item_selected(index: int) -> void:
 	PlayerSettings.set_anti_aliasing(anti_aliasing_option_button.get_item_id(index) as PlayerSettings.AntiAliasing)
 
-
 func _on_shadow_quality_option_button_item_selected(index: int) -> void:
 	PlayerSettings.set_shadow_quality(shadow_quality_option_button.get_item_id(index) as PlayerSettings.ShadowQuality)
+	
+func _on_anisotropic_filtering_selected(idx: int) -> void:
+	PlayerSettings.set_anisotropic_filtering(aniso_option_button.get_item_id(idx) as Viewport.AnisotropicFiltering)
 
-func _on_back_button_pressed() -> void:
-	back_requested.emit()
+func _on_scaling_3d_spinbox_value_changed(value: float) -> void:
+	PlayerSettings.set_scaling_3d(value)
+
+func _on_fps_spinbox_value_changed(value: float) -> void:
+	PlayerSettings.set_max_fps(int(value))
+
+func _on_scaling_ui_spinbox_value_changed(value: float) -> void:
+	PlayerSettings.set_ui_scale(value)
