@@ -80,7 +80,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_60i3m"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xjrjs"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -91,7 +91,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2jmd8"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ya87f"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -105,13 +105,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wx43u"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lu7vs"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tr4hg"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wl75l"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -125,13 +125,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s81jn"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xf1kb"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n5t7a"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q3akp"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -221,31 +221,31 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -20.
 team = 1
 
 [node name="Marine01" parent="World/Match/PlayerTeam/Player" unique_id=224944543 instance=ExtResource("16_xywve")]
-transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -58.003357, 1.1306114, -37.583374)
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -58.003357, 0.029661417, -37.583374)
 team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine02" parent="World/Match/PlayerTeam/Player" unique_id=166778139 instance=ExtResource("16_xywve")]
-transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -55.815002, 0.8306112, -30.681824)
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -55.815002, -0.061955392, -30.681824)
 team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine03" parent="World/Match/PlayerTeam/Player" unique_id=1284351538 instance=ExtResource("16_xywve")]
-transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -53.512085, 1.530611, -33.4812)
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -53.512085, 0.031041741, -33.4812)
 team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine04" parent="World/Match/PlayerTeam/Player" unique_id=1530606227 instance=ExtResource("16_xywve")]
-transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.500793, 1.1306114, -35.085846)
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.500793, 0.029661417, -35.085846)
 team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
 
 [node name="Marine05" parent="World/Match/PlayerTeam/Player" unique_id=1735315936 instance=ExtResource("16_xywve")]
-transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.478638, 1.1306114, -32.077576)
+transform = Transform3D(-0.25881913, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881913, -59.478638, 0.029661417, -32.077576)
 team = 1
 attributes = ExtResource("18_plqb7")
 team_resource = SubResource("Resource_plqb7")
@@ -301,20 +301,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.538925, 1, -323.72064)
 [node name="ScrapField" parent="World/Match/Resources" unique_id=1314478789 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 304.939, 0.43597412, 371.569)
 curve = SubResource("Curve3D_hmxt8")
-crack_mask_texture = SubResource("NoiseTexture2D_60i3m")
-scrap_mask_texture = SubResource("NoiseTexture2D_2jmd8")
+crack_mask_texture = SubResource("NoiseTexture2D_xjrjs")
+scrap_mask_texture = SubResource("NoiseTexture2D_ya87f")
 
 [node name="ScrapField2" parent="World/Match/Resources" unique_id=1921597796 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.80745, -7.6293945e-06, -383.46735)
 curve = SubResource("Curve3D_g8qib")
-crack_mask_texture = SubResource("NoiseTexture2D_wx43u")
-scrap_mask_texture = SubResource("NoiseTexture2D_tr4hg")
+crack_mask_texture = SubResource("NoiseTexture2D_lu7vs")
+scrap_mask_texture = SubResource("NoiseTexture2D_wl75l")
 
 [node name="ScrapField3" parent="World/Match/Resources" unique_id=1461303973 instance=ExtResource("17_e6dmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.365, 0, 31.522)
 curve = SubResource("Curve3D_xiq7r")
-crack_mask_texture = SubResource("NoiseTexture2D_s81jn")
-scrap_mask_texture = SubResource("NoiseTexture2D_n5t7a")
+crack_mask_texture = SubResource("NoiseTexture2D_xf1kb")
+scrap_mask_texture = SubResource("NoiseTexture2D_q3akp")
 
 [node name="KillDepth" parent="World/Match" unique_id=1499628816 instance=ExtResource("25_plqb7")]
 
