@@ -1,10 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://pkepwt33pfmr"]
 
 [ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_hiqoc"]
-[ext_resource type="Script" path="res://ui/menus/controls_reference_menu.gd" id="2_x7fkt"]
+[ext_resource type="Script" uid="uid://csnt20x5s8ch6" path="res://ui/menus/controls_reference_menu.gd" id="2_x7fkt"]
 
-[node name="ControlsReferenceMenu" type="Control"]
-visible = false
+[node name="ControlsReferenceMenu" type="PanelContainer" unique_id=1315429022]
 custom_minimum_size = Vector2(1200, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -20,56 +19,49 @@ grow_vertical = 2
 theme = ExtResource("1_hiqoc")
 script = ExtResource("2_x7fkt")
 
-[node name="Padding" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="Content" type="VBoxContainer" parent="Padding"]
+[node name="Content" type="VBoxContainer" parent="." unique_id=1133918633]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Header" type="Label" parent="Padding/Content"]
+[node name="Header" type="Label" parent="Content" unique_id=1722218217]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.99607843, 0.9647059, 0.7019608, 1)
 theme_override_font_sizes/font_size = 52
 text = "Controls"
 horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Padding/Content"]
+[node name="Scroll" type="ScrollContainer" parent="Content" unique_id=100948901]
 custom_minimum_size = Vector2(0, 560)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Columns" type="HBoxContainer" parent="Padding/Content/Scroll"]
+[node name="Columns" type="HBoxContainer" parent="Content/Scroll" unique_id=265657149]
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="LeftColumn" type="VBoxContainer" parent="Padding/Content/Scroll/Columns"]
+[node name="LeftColumn" type="VBoxContainer" parent="Content/Scroll/Columns" unique_id=1124981534]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 24
 
-[node name="RightColumn" type="VBoxContainer" parent="Padding/Content/Scroll/Columns"]
+[node name="RightColumn" type="VBoxContainer" parent="Content/Scroll/Columns" unique_id=2010775557]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 24
 
-[node name="Actions" type="HBoxContainer" parent="Padding/Content"]
+[node name="Actions" type="HBoxContainer" parent="Content" unique_id=923484305]
 layout_mode = 2
 alignment = 2
 
-[node name="BackButton" type="Button" parent="Padding/Content/Actions"]
+[node name="BackButton" type="Button" parent="Content/Actions" unique_id=761720824]
 custom_minimum_size = Vector2(180, 72)
 layout_mode = 2
 theme_override_font_sizes/font_size = 34
 text = "Back"
 
-[connection signal="pressed" from="Padding/Content/Actions/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Content/Actions/BackButton" to="." method="_on_back_button_pressed"]
