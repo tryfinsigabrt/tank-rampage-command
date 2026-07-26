@@ -70,6 +70,8 @@ func _on_weapon_setup(weapon: Weapon) -> void:
 	if not weapon_attributes:
 		return
 	weapon.max_distance_range *= weapon_attributes.range_bonus
+	weapon.visible = true
+	weapon.shoot_vfx_use_model_front = true
 
 
 func _on_unit_container_component_on_unit_removal_requested(units: Array[Unit]) -> void:
