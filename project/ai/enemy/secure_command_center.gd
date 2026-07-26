@@ -66,7 +66,8 @@ func _issue_assistance(resource_or_asset:Node3D, strength:float, time:float) -> 
 	assistance.min_duration = time
 	assistance.priority = roundi(ASSISTANCE_PRIORITY_V_STRENGTH.sample(strength))
 	
-	print_debug("%s: Assistance request issued for %s with strength = %.1f and priority = %d" % [name, resource_or_asset.name, strength, assistance.priority])
+	if LogUtils.debug:
+		print_debug("%s: Assistance request issued for %s with strength = %.1f and priority = %d" % [name, resource_or_asset.name, strength, assistance.priority])
 	
 	blackboard.assistance_requests.push_back(assistance)
 	

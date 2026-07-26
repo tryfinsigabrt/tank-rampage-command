@@ -306,8 +306,9 @@ func _get_best_move_target(unit:Unit, heading_bias_raw:Vector3) -> Vector3:
 	# If the max score is 0 then fall back to a default strategy
 	var selected_region_data:RegionScore = region_scores[selected_index]
 	if selected_region_data.score <= 0.0:
-		print_debug("%s: unit=%s with %d regions had max candidate score of %.3f - falling back to default strategy" % 
-			[name, unit.name, region_scores.size(), selected_region_data.score])
+		if LogUtils.debug:
+			print_debug("%s: unit=%s with %d regions had max candidate score of %.3f - falling back to default strategy" % 
+				[name, unit.name, region_scores.size(), selected_region_data.score])
 		return current_pos
 	
 	var selected_region:MapRegion = selected_region_data.region

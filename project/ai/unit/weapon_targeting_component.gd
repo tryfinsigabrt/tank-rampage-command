@@ -221,7 +221,9 @@ func remove_weapon(id:int) -> bool:
 func _on_unit_scanner_threats_detected(threats: Array[Node3D]) -> void:
 	var scores := threat_scorer.get_threat_assets(threats, my_asset.global_position)
 	
-	print_debug("%s: Discovered %d threats" % [name, scores.size()])
+	if LogUtils.debug:
+		print_debug("%s: Discovered %d threats" % [name, scores.size()])
+		
 	var num_assignments:int = mini(scores.size(), _weapons.size() if not single_target else mini(_weapons.size(), 1))
 	if num_assignments == 0:
 		_stop_all()

@@ -56,8 +56,10 @@ func create(type: ConstructionResource.Type) -> NodePlacementSpawner:
 	
 	placement_spawner.on_spawn.connect(func(asset:Node3D) -> void:
 		asset.name = _create_asset_name(type)
-		print_debug("%s: Assigning asset %s resource=%s" % \
-			[name, asset.name, EnumUtils.enum_to_string(ConstructionResource.Type, type)])
+		
+		if LogUtils.debug:
+			print_debug("%s: Assigning asset %s resource=%s" % \
+				[name, asset.name, EnumUtils.enum_to_string(ConstructionResource.Type, type)])
 		if resources:
 			resource.spend_personnel_only(resources)
 		resource.assign_to(asset)

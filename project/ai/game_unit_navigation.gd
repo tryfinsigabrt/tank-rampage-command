@@ -59,8 +59,9 @@ var paused:bool:
 	set(value):
 		if not enabled or value == _paused:
 			return
+		if LogUtils.debug:	
+			print_debug("%s: Paused toggled - %s to %s" % [name, StringUtils.safe_name(_unit), value])
 			
-		print_debug("%s: Paused toggled - %s to %s" % [name, StringUtils.safe_name(_unit), value])
 		_paused = value
 		_set_processing(not value)
 		if value:

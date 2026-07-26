@@ -110,7 +110,9 @@ func _update() -> void:
 			_set_avoidance_heading(heading)
 			return
 	# If we get here then cannot avoid it but pick biggest angle and random sign
-	print_debug("%s-%s: Could not find an ideal avoidance heading, choosing max angle" % [_unit.name, name])
+	if LogUtils.debug:
+		print_debug("%s-%s: Could not find an ideal avoidance heading, choosing max angle" % [_unit.name, name])
+	
 	_set_avoidance_heading(heading * MathUtils.randf_sgn())
 
 func _set_avoidance_heading(heading:Vector3) -> void:

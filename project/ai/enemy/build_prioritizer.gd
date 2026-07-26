@@ -51,14 +51,17 @@ func _on_resources_available() -> void:
 	var available_personnel:int = _team_resources.personnel.remaining
 	var available_scrap:int = _team_resources.scrap.count
 	
-	print_debug("%s: Resources Available: Personnel:%d, Scrap:%d" % [name, available_personnel, available_scrap])
+	if LogUtils.debug:
+		print_debug("%s: Resources Available: Personnel:%d, Scrap:%d" % [name, available_personnel, available_scrap])
 	
 	build_utility_calculator.refresh()
 	
 	var build_count:int = 0
 	while build_utility_calculator.next_build():
 		build_count += 1
+	
+	if LogUtils.debug:	
+		print_debug("%s: Queued %d build commands" % [name, build_count])
 		
-	print_debug("%s: Queued %d build commands" % [name, build_count])
 	decision_loop_timer.start()
 	_building = false

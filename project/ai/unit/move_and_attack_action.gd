@@ -68,13 +68,15 @@ func before_run(actor: Node, blackboard: Blackboard) -> void:
 	SignalBus.on_unit_move_issued.emit(_unit, _target_position)
 
 func _threats_detected(threats:Array[Node3D]) -> void:
-	print_debug("%s: %d threats detected" % [name, threats.size()])		
+	if LogUtils.debug:
+		print_debug("%s: %d threats detected" % [name, threats.size()])		
 	# If currently engaging a threat, don't stop unless new threat is much closer
 	
 	var unit_position:Vector3 = _unit.global_position
 	var ranked_threats: Array[UnitScore] = threat_scorer.get_threat_assets(threats, unit_position)
 	if not ranked_threats:
-		print_debug("%s: No credible threats to attack" % name)
+		if LogUtils.debug:
+			print_debug("%s: No credible threats to attack" % name)
 		return
 		
 	var top_threat:UnitScore = ranked_threats.front()

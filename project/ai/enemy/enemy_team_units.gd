@@ -45,7 +45,8 @@ func mark_known(asset:Node3D) -> UnitData:
 	return unit_data
 	
 func _on_asset_deleted(asset: Node3D) -> void:
-	print_debug("%s: asset deleted: %s" % [name, asset])
+	if LogUtils.debug:
+		print_debug("%s: asset deleted: %s" % [name, asset])
 	assets.erase(asset.get_instance_id())
 	
 func mark_seen(asset:Node3D) -> UnitData:

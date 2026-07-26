@@ -43,7 +43,8 @@ func _move_camera_to_cursor(local_pos:Vector2) -> void:
 	
 	var world_pos:Vector3 = result["position"]
 	
-	print_debug("%s: Minimap position: %s -> %s" % [name, viewport_pos, world_pos])
+	if LogUtils.debug:
+		print_debug("%s: Minimap position: %s -> %s" % [name, viewport_pos, world_pos])
 	
 	_camera.move_to(world_pos)
 

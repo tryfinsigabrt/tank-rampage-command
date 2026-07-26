@@ -85,7 +85,9 @@ func _evaluate_priorities() -> void:
 	var process := await rate_limiter.limit()
 	if not process:
 		return
-	print_debug("%s: Evaluate Priorities" % name)	
+		
+	if LogUtils.debug:
+		print_debug("%s: Evaluate Priorities" % name)	
 	
 	var threats: Array[EnemyThreatContext] = blackboard.threats
 	
@@ -126,8 +128,9 @@ func _evaluate_priorities() -> void:
 			score_sum += score
 			prioritized_cps.push_back(context)
 		
-		print("%s: CONTROL POINT %s SCORE=%.1f: Top_unit=%.1f" % [name, control_point.name, score, \
-			assist_context.front().score if not assist_context.is_empty() else 0.0])
+		if OS.is_debug_build():
+			print("%s: CONTROL POINT %s SCORE=%.1f: Top_unit=%.1f" % [name, control_point.name, score, \
+				assist_context.front().score if not assist_context.is_empty() else 0.0])
 	
 	blackboard.defense_needs_are_updating.emit(EnemyTeamBlackboard.DefenseNeedType.CONTROL_POINT, false)
 
@@ -163,7 +166,9 @@ func _evaluate_priorities() -> void:
 			available_units.erase(unit_id)
 			if count == max_units:
 				break
-		print("%s: CONTROL POINT %s: %d units dispatched with defense score = %.1f and priority = %d" % [name, control_point.name, count, score, priority])	
+				
+		if OS.is_debug_build():
+			print("%s: CONTROL POINT %s: %d units dispatched with defense score = %.1f and priority = %d" % [name, control_point.name, count, score, priority])	
 	
 func score_control_point(control_point_data: ControlPointData, threats: Array[EnemyThreatContext]) -> ControlPointContext:
 	var score:float = 0.0

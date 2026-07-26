@@ -544,7 +544,8 @@ func _on_priority_timer_timeout() -> void:
 	if not _requested_states:
 		return
 	
-	print_debug("%s(%s): Evaluating priorities: %s" % [name, unit.name, _requested_states])	
+	if LogUtils.debug:
+		print_debug("%s(%s): Evaluating priorities: %s" % [name, unit.name, _requested_states])	
 	# Check if we should switch priorities
 	var switch_state:bool = true
 	

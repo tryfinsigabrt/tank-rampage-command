@@ -183,7 +183,8 @@ func _on_command_finished(unit:Unit, command:StringName, _command_id:int, comman
 				attackers.erase(attacker_id)
 				if attackers:
 					# Others still attacking - keep in currently attacking
-					print_debug("%s: target=%d still has other attackers=%s" % [name, target_id, attackers])
+					if LogUtils.debug:
+						print_debug("%s: target=%d still has other attackers=%s" % [name, target_id, attackers])
 				else:
 					print_debug("%s: target=%d has no more attackers" % [name, target_id])
 					_currently_attacking_mapping.erase(target_id)

@@ -286,7 +286,8 @@ func _apply_zoom_velocity() -> void:
 		camera.translate_object_local(Vector3(0.0, 0.0, _camera_current_zoom_speed))
 		var zoom_distance := _get_center_ground_plane_distance()
 		if zoom_distance >= 0.0:
-			print_debug("%s: zoom_level_updated=%f" % [name, zoom_distance])
+			if LogUtils.debug:
+				print_debug("%s: zoom_level_updated=%f" % [name, zoom_distance])
 			zoom_level_updated.emit(zoom_distance)
 		
 	_camera_current_zoom_speed = 0.0

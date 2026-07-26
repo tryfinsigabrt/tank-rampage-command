@@ -51,7 +51,8 @@ func _on_build_completed(_resouce:ConstructionResource, node:Node3D) -> void:
 	var unit:Unit = node as Unit
 	if not unit or not has_rally_point:
 		return
-		
-	print_debug("%s: Sending unit %s to the rally point: %s" % [name, unit.name, rally_point])
+	
+	if LogUtils.debug:	
+		print_debug("%s: Sending unit %s to the rally point: %s" % [name, unit.name, rally_point])
 	# Issue move and attack to the rally point
 	unit.get_or_add_actions().move_and_attack(rally_point)
