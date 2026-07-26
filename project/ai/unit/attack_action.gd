@@ -93,7 +93,7 @@ func _ready() -> void:
 	add_child(_fire_timer)
 
 var firing:bool:
-	get: return not _fire_timer.is_stopped()
+	get: return is_instance_valid(_fire_timer) and not _fire_timer.is_stopped()
 	
 func _exit_tree() -> void:
 	if SignalBus.on_destination_reached.is_connected(_move_finished):
