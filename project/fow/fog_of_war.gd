@@ -209,7 +209,7 @@ func _clear_explored() -> void:
 	# but leaving this here in case we do want to clear it through gameplay
 	
 	_explored_area_material.set_shader_parameter(&"reset", true)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.2).timeout
 	_explored_area_material.set_shader_parameter(&"reset", false)
 
 func _init_post_process_shader(fow_texture: ViewportTexture) -> void:
