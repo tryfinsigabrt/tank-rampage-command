@@ -10,6 +10,7 @@ signal back_requested
 @onready var show_fps_check_button: CheckButton = %ShowFpsCheckButton
 @onready var anti_aliasing_option_button: OptionButton = %AntiAliasingOptionButton
 @onready var shadow_quality_option_button: OptionButton = %ShadowQualityOptionButton
+@onready var aniso_option_button: OptionButton = %AnisoOptionButton
 
 func _ready() -> void:
 	_populate_anti_aliasing_options()
@@ -25,6 +26,7 @@ func _sync_from_settings() -> void:
 	show_fps_check_button.button_pressed = PlayerSettings.get_show_fps()
 	anti_aliasing_option_button.select(PlayerSettings.get_anti_aliasing())
 	shadow_quality_option_button.select(PlayerSettings.get_shadow_quality())
+	aniso_option_button.select(PlayerSettings.get_anisotropic_filtering())
 
 
 func _populate_anti_aliasing_options() -> void:
@@ -65,6 +67,9 @@ func _on_anti_aliasing_option_button_item_selected(index: int) -> void:
 
 func _on_shadow_quality_option_button_item_selected(index: int) -> void:
 	PlayerSettings.set_shadow_quality(shadow_quality_option_button.get_item_id(index) as PlayerSettings.ShadowQuality)
+	
+func _on_anisotropic_filtering_selected(idx: int) -> void:
+	PlayerSettings.set_anisotropic_filtering(aniso_option_button.get_item_id(idx) as Viewport.AnisotropicFiltering)
 
 func _on_back_button_pressed() -> void:
 	back_requested.emit()

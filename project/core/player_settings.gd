@@ -24,6 +24,7 @@ var _bus_volumes: Dictionary[StringName, float] = {}
 var _show_fps := false
 var _anti_aliasing: AntiAliasing = AntiAliasing.OFF
 var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
+var _anisotropic_filtering: Viewport.AnisotropicFiltering = ProjectSettings.get_setting("rendering/textures/default_filters/anisotropic_filtering_level", Viewport.ANISOTROPY_4X)
 
 func _ready() -> void:
 	for bus_name in AUDIO_BUSES:
@@ -31,7 +32,7 @@ func _ready() -> void:
 	_apply_all_bus_volumes()
 	set_anti_aliasing(_anti_aliasing)
 	set_shadow_quality(_shadow_quality)
-
+	set_anisotropic_filtering(_anisotropic_filtering)
 
 func get_bus_volume(bus_name: StringName) -> float:
 	return _bus_volumes.get(bus_name, 1.0)
@@ -83,6 +84,13 @@ func set_shadow_quality(value: ShadowQuality) -> void:
 	_shadow_quality = value
 	shadow_quality_updated.emit(_shadow_quality)
 
+func get_anisotropic_filtering() -> Viewport.AnisotropicFiltering:
+	return _anisotropic_filtering
+
+func set_anisotropic_filtering(value: Viewport.AnisotropicFiltering) -> void:
+	_anisotropic_filtering = value
+	get_viewport().anisotropic_filtering_level = _anisotropic_filtering
+	print("Aniso set to enum idx %s" % get_viewport().anisotropic_filtering_level)
 
 func _apply_all_bus_volumes() -> void:
 	for bus_name in AUDIO_BUSES:

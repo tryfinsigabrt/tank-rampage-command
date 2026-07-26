@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://b4r4l0vdaccbd" path="res://ui/menus/options_menu.gd" id="2_t3t0a"]
 
 [node name="OptionsMenu" type="PanelContainer" unique_id=1965383992]
-visible = false
-custom_minimum_size = Vector2(760, 0)
+custom_minimum_size = Vector2(760, 800)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,22 +37,36 @@ theme_override_font_sizes/font_size = 52
 text = "Options"
 horizontal_alignment = 1
 
-[node name="AudioHeader" type="Label" parent="Padding/Content" unique_id=1158630948]
+[node name="TabContainer" type="TabContainer" parent="Padding/Content" unique_id=2083870511]
 layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+
+[node name="Audio" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1710935895]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="AudioHeader" type="Label" parent="Padding/Content/TabContainer/Audio" unique_id=1158630948]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 1
 theme_override_font_sizes/font_size = 32
 text = "Audio"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MasterRow" type="HBoxContainer" parent="Padding/Content" unique_id=950337910]
+[node name="MasterRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Audio" unique_id=950337910]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="MasterLabel" type="Label" parent="Padding/Content/MasterRow" unique_id=1397370684]
+[node name="MasterLabel" type="Label" parent="Padding/Content/TabContainer/Audio/MasterRow" unique_id=1397370684]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Master"
 
-[node name="MasterSlider" type="HSlider" parent="Padding/Content/MasterRow" unique_id=392086015]
+[node name="MasterSlider" type="HSlider" parent="Padding/Content/TabContainer/Audio/MasterRow" unique_id=392086015]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -62,17 +75,17 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="MenuRow" type="HBoxContainer" parent="Padding/Content" unique_id=1145338790]
+[node name="MenuRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Audio" unique_id=1145338790]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="MenuLabel" type="Label" parent="Padding/Content/MenuRow" unique_id=839381651]
+[node name="MenuLabel" type="Label" parent="Padding/Content/TabContainer/Audio/MenuRow" unique_id=839381651]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Menu"
 
-[node name="MenuSlider" type="HSlider" parent="Padding/Content/MenuRow" unique_id=743251942]
+[node name="MenuSlider" type="HSlider" parent="Padding/Content/TabContainer/Audio/MenuRow" unique_id=743251942]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -81,17 +94,17 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="MusicRow" type="HBoxContainer" parent="Padding/Content" unique_id=338861208]
+[node name="MusicRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Audio" unique_id=338861208]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="MusicLabel" type="Label" parent="Padding/Content/MusicRow" unique_id=557253698]
+[node name="MusicLabel" type="Label" parent="Padding/Content/TabContainer/Audio/MusicRow" unique_id=557253698]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Music"
 
-[node name="MusicSlider" type="HSlider" parent="Padding/Content/MusicRow" unique_id=1112007330]
+[node name="MusicSlider" type="HSlider" parent="Padding/Content/TabContainer/Audio/MusicRow" unique_id=1112007330]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -100,17 +113,17 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SfxRow" type="HBoxContainer" parent="Padding/Content" unique_id=1801479367]
+[node name="SfxRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Audio" unique_id=1801479367]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="SfxLabel" type="Label" parent="Padding/Content/SfxRow" unique_id=841860443]
+[node name="SfxLabel" type="Label" parent="Padding/Content/TabContainer/Audio/SfxRow" unique_id=841860443]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Sound Effects"
 
-[node name="SfxSlider" type="HSlider" parent="Padding/Content/SfxRow" unique_id=1251410548]
+[node name="SfxSlider" type="HSlider" parent="Padding/Content/TabContainer/Audio/SfxRow" unique_id=1251410548]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -119,17 +132,17 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="VoiceRow" type="HBoxContainer" parent="Padding/Content" unique_id=2053839620]
+[node name="VoiceRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Audio" unique_id=2053839620]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="VoiceLabel" type="Label" parent="Padding/Content/VoiceRow" unique_id=2006447075]
+[node name="VoiceLabel" type="Label" parent="Padding/Content/TabContainer/Audio/VoiceRow" unique_id=2006447075]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Unit Voices"
 
-[node name="VoiceSlider" type="HSlider" parent="Padding/Content/VoiceRow" unique_id=1901033437]
+[node name="VoiceSlider" type="HSlider" parent="Padding/Content/TabContainer/Audio/VoiceRow" unique_id=1901033437]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
@@ -138,57 +151,93 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="GraphicsHeader" type="Label" parent="Padding/Content" unique_id=346592842]
+[node name="Graphics" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1037921197]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="GraphicsHeader" type="Label" parent="Padding/Content/TabContainer/Graphics" unique_id=346592842]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Graphics"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AntiAliasingRow" type="HBoxContainer" parent="Padding/Content" unique_id=1422291058]
+[node name="AntiAliasingRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Graphics" unique_id=1422291058]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="AntiAliasingLabel" type="Label" parent="Padding/Content/AntiAliasingRow" unique_id=2021302778]
+[node name="AntiAliasingLabel" type="Label" parent="Padding/Content/TabContainer/Graphics/AntiAliasingRow" unique_id=2021302778]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Anti-Aliasing"
 
-[node name="AntiAliasingOptionButton" type="OptionButton" parent="Padding/Content/AntiAliasingRow" unique_id=1259362084]
+[node name="AntiAliasingOptionButton" type="OptionButton" parent="Padding/Content/TabContainer/Graphics/AntiAliasingRow" unique_id=1259362084]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="ShadowQualityRow" type="HBoxContainer" parent="Padding/Content" unique_id=1003479671]
+[node name="ShadowQualityRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Graphics" unique_id=1003479671]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="ShadowQualityLabel" type="Label" parent="Padding/Content/ShadowQualityRow" unique_id=902512617]
+[node name="ShadowQualityLabel" type="Label" parent="Padding/Content/TabContainer/Graphics/ShadowQualityRow" unique_id=902512617]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Shadow Quality"
 
-[node name="ShadowQualityOptionButton" type="OptionButton" parent="Padding/Content/ShadowQualityRow" unique_id=1982840049]
+[node name="ShadowQualityOptionButton" type="OptionButton" parent="Padding/Content/TabContainer/Graphics/ShadowQualityRow" unique_id=1982840049]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="ShowFpsRow" type="HBoxContainer" parent="Padding/Content" unique_id=2041951104]
+[node name="ShowFpsRow" type="HBoxContainer" parent="Padding/Content/TabContainer/Graphics" unique_id=2041951104]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="ShowFpsLabel" type="Label" parent="Padding/Content/ShowFpsRow" unique_id=431718678]
+[node name="ShowFpsLabel" type="Label" parent="Padding/Content/TabContainer/Graphics/ShowFpsRow" unique_id=431718678]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Show FPS"
 
-[node name="ShowFpsCheckButton" type="CheckButton" parent="Padding/Content/ShowFpsRow" unique_id=75110550]
+[node name="ShowFpsCheckButton" type="CheckButton" parent="Padding/Content/TabContainer/Graphics/ShowFpsRow" unique_id=75110550]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
+
+[node name="AnisoFiltering" type="HBoxContainer" parent="Padding/Content/TabContainer/Graphics" unique_id=502316937]
+layout_mode = 2
+
+[node name="AnisoLabel" type="Label" parent="Padding/Content/TabContainer/Graphics/AnisoFiltering" unique_id=1126714904]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Anisotropic Filtering"
+
+[node name="AnisoOptionButton" type="OptionButton" parent="Padding/Content/TabContainer/Graphics/AnisoFiltering" unique_id=842874382]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+selected = 2
+item_count = 5
+popup/item_0/text = "Disabled (fastest)"
+popup/item_0/id = 0
+popup/item_1/text = "2x"
+popup/item_1/id = 1
+popup/item_2/text = "4x"
+popup/item_2/id = 2
+popup/item_3/text = "8x"
+popup/item_3/id = 3
+popup/item_4/text = "16x"
+popup/item_4/id = 4
 
 [node name="Actions" type="HBoxContainer" parent="Padding/Content" unique_id=399737925]
 layout_mode = 2
@@ -200,12 +249,13 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 34
 text = "Back"
 
-[connection signal="value_changed" from="Padding/Content/MasterRow/MasterSlider" to="." method="_on_master_slider_value_changed"]
-[connection signal="value_changed" from="Padding/Content/MenuRow/MenuSlider" to="." method="_on_menu_slider_value_changed"]
-[connection signal="value_changed" from="Padding/Content/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="Padding/Content/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
-[connection signal="value_changed" from="Padding/Content/VoiceRow/VoiceSlider" to="." method="_on_voice_slider_value_changed"]
-[connection signal="item_selected" from="Padding/Content/AntiAliasingRow/AntiAliasingOptionButton" to="." method="_on_anti_aliasing_option_button_item_selected"]
-[connection signal="item_selected" from="Padding/Content/ShadowQualityRow/ShadowQualityOptionButton" to="." method="_on_shadow_quality_option_button_item_selected"]
-[connection signal="toggled" from="Padding/Content/ShowFpsRow/ShowFpsCheckButton" to="." method="_on_show_fps_check_button_toggled"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Audio/MasterRow/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Audio/MenuRow/MenuSlider" to="." method="_on_menu_slider_value_changed"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Audio/MusicRow/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Audio/SfxRow/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Audio/VoiceRow/VoiceSlider" to="." method="_on_voice_slider_value_changed"]
+[connection signal="item_selected" from="Padding/Content/TabContainer/Graphics/AntiAliasingRow/AntiAliasingOptionButton" to="." method="_on_anti_aliasing_option_button_item_selected"]
+[connection signal="item_selected" from="Padding/Content/TabContainer/Graphics/ShadowQualityRow/ShadowQualityOptionButton" to="." method="_on_shadow_quality_option_button_item_selected"]
+[connection signal="toggled" from="Padding/Content/TabContainer/Graphics/ShowFpsRow/ShowFpsCheckButton" to="." method="_on_show_fps_check_button_toggled"]
+[connection signal="item_selected" from="Padding/Content/TabContainer/Graphics/AnisoFiltering/AnisoOptionButton" to="." method="_on_anisotropic_filtering_selected"]
 [connection signal="pressed" from="Padding/Content/Actions/BackButton" to="." method="_on_back_button_pressed"]
