@@ -40,10 +40,9 @@ horizontal_alignment = 1
 [node name="TabContainer" type="TabContainer" parent="Padding/Content" unique_id=2083870511]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Audio" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1710935895]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -152,6 +151,7 @@ step = 0.01
 value = 1.0
 
 [node name="Graphics" type="VBoxContainer" parent="Padding/Content/TabContainer" unique_id=1037921197]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -279,6 +279,26 @@ value = 1.0
 alignment = 2
 suffix = "x"
 
+[node name="ScalingUI" type="HBoxContainer" parent="Padding/Content/TabContainer/Graphics" unique_id=1727478541]
+layout_mode = 2
+
+[node name="ScalingUILabel" type="Label" parent="Padding/Content/TabContainer/Graphics/ScalingUI" unique_id=1234764331]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "UI Scale"
+
+[node name="ScalingUISpinbox" type="SpinBox" parent="Padding/Content/TabContainer/Graphics/ScalingUI" unique_id=307088664]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.2
+max_value = 4.0
+step = 0.1
+value = 1.0
+alignment = 2
+suffix = "x"
+
 [node name="Actions" type="HBoxContainer" parent="Padding/Content" unique_id=399737925]
 layout_mode = 2
 alignment = 2
@@ -300,4 +320,5 @@ text = "Back"
 [connection signal="value_changed" from="Padding/Content/TabContainer/Graphics/FPSCap/FPSSpinbox" to="." method="_on_fps_spinbox_value_changed"]
 [connection signal="item_selected" from="Padding/Content/TabContainer/Graphics/AnisoFiltering/AnisoOptionButton" to="." method="_on_anisotropic_filtering_selected"]
 [connection signal="value_changed" from="Padding/Content/TabContainer/Graphics/Scaling3D/Scaling3DSpinbox" to="." method="_on_scaling_3d_spinbox_value_changed"]
+[connection signal="value_changed" from="Padding/Content/TabContainer/Graphics/ScalingUI/ScalingUISpinbox" to="." method="_on_scaling_ui_spinbox_value_changed"]
 [connection signal="pressed" from="Padding/Content/Actions/BackButton" to="." method="_on_back_button_pressed"]

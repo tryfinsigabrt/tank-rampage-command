@@ -109,6 +109,14 @@ func set_max_fps(value: int) -> void:
 	_max_fps = maxi(value, 0)
 	Engine.max_fps = _max_fps
 
+func get_ui_scale() -> float:
+	return ProjectSettings.get_setting("display/window/stretch/scale", 1.0)
+
+func set_ui_scale(value: float) -> void:
+	value = clampf(value, 0.2, 4.0)
+	ProjectSettings.set_setting("display/window/stretch/scale", value)
+	get_tree().root.content_scale_factor = value
+
 func _apply_all_bus_volumes() -> void:
 	for bus_name in AUDIO_BUSES:
 		_apply_bus_volume(bus_name)

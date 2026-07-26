@@ -13,6 +13,7 @@ signal back_requested
 @onready var aniso_option_button: OptionButton = %AnisoOptionButton
 @onready var scaling_3d_spinbox: SpinBox = %Scaling3DSpinbox
 @onready var fps_spinbox: SpinBox = %FPSSpinbox
+@onready var scaling_ui_spinbox: SpinBox = %ScalingUISpinbox
 
 
 func _ready() -> void:
@@ -36,6 +37,7 @@ func _sync_from_settings() -> void:
 	aniso_option_button.select(PlayerSettings.get_anisotropic_filtering())
 	scaling_3d_spinbox.set_value_no_signal(PlayerSettings.get_scaling_3d())
 	fps_spinbox.set_value_no_signal(Engine.max_fps)
+	scaling_ui_spinbox.set_value_no_signal(PlayerSettings.get_ui_scale())
 
 func _populate_anti_aliasing_options() -> void:
 	anti_aliasing_option_button.clear()
@@ -82,3 +84,6 @@ func _on_scaling_3d_spinbox_value_changed(value: float) -> void:
 
 func _on_fps_spinbox_value_changed(value: float) -> void:
 	PlayerSettings.set_max_fps(int(value))
+
+func _on_scaling_ui_spinbox_value_changed(value: float) -> void:
+	PlayerSettings.set_ui_scale(value)
