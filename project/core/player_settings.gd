@@ -25,6 +25,7 @@ var _show_fps := false
 var _anti_aliasing: AntiAliasing = AntiAliasing.OFF
 var _shadow_quality: ShadowQuality = ShadowQuality.MEDIUM
 var _anisotropic_filtering: Viewport.AnisotropicFiltering = ProjectSettings.get_setting("rendering/textures/default_filters/anisotropic_filtering_level", Viewport.ANISOTROPY_4X)
+var _scaling_3d: float = ProjectSettings.get_setting("rendering/scaling_3d/scale", 1.0)
 
 func _ready() -> void:
 	for bus_name in AUDIO_BUSES:
@@ -91,6 +92,14 @@ func set_anisotropic_filtering(value: Viewport.AnisotropicFiltering) -> void:
 	_anisotropic_filtering = value
 	get_viewport().anisotropic_filtering_level = _anisotropic_filtering
 	print("Aniso set to enum idx %s" % get_viewport().anisotropic_filtering_level)
+	
+func get_scaling_3d() -> float:
+	return _scaling_3d
+
+func set_scaling_3d(value: float) -> void:
+	_scaling_3d = clampf(value, 0.2, 4.0)
+	ProjectSettings.set_setting("rendering/scaling_3d/scale", _scaling_3d)
+	get_viewport().scaling_3d_scale = _scaling_3d
 
 func _apply_all_bus_volumes() -> void:
 	for bus_name in AUDIO_BUSES:
