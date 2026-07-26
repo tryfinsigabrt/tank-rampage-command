@@ -208,9 +208,10 @@ func fire() -> void:
 	await _cooldown()
 	_fire_pending = false
 
-	_orient_shoot_vfx()
-	if is_instance_valid(_shoot_vfx):
-		_shoot_vfx.shoot()
+	if _should_display_shoot_vfx():
+		_orient_shoot_vfx()
+		if is_instance_valid(_shoot_vfx):
+			_shoot_vfx.shoot()
 	
 	if shoot_sfx:
 		shoot_sfx.play_shoot()
@@ -223,6 +224,15 @@ func fire() -> void:
 	await _delay_impact()
 	_hit_scan()
 
+func _should_display_shoot_vfx() -> bool:
+	# We should only also display if the team component associated with the team asset indicates to render
+	if not is_visible_in_tree():
+		return false
+	if not _team_asset:
+		return true
+	var team_component := TeamComponent.get_component(_team_asset, false)
+	return not team_component or team_component.render
+	
 func simulate_fire_at(target:Node3D, world_location:Vector3) -> Array[DamageParameters]:
 	var damage_params := DamageParameters.new()
 	damage_params.contact_point = world_location
@@ -409,9 +419,6 @@ func _get_shoot_vfx_basis(origin: Node3D, muzzle_forward: Vector3) -> Basis:
 func _spawn_shoot_vfx() -> void:
 	if not is_instance_valid(shoot_vfx_container):
 		return
-	# Don't spawn if weapon not visible in scene
-	if not is_visible_in_tree():
-		return
 
 	for child in shoot_vfx_container.get_children():
 		child.queue_free()
@@ -427,10 +434,6 @@ func _spawn_shoot_vfx() -> void:
 	shoot_vfx_container.add_child(_shoot_vfx)
 
 func _spawn_hit_vfx() -> void:
-	# Don't spawn if weapon not visible in scene
-	if not is_visible_in_tree():
-		return
-		
 	var hit_vfx_scene: PackedScene = HIT_VFX_SCENES.get(hit_vfx_size)
 	if hit_vfx_scene == null:
 		return

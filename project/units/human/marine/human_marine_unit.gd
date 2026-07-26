@@ -172,6 +172,7 @@ func _is_moving() -> bool:
 func _update_render(in_render:bool) -> void:
 	visual_root.visible = in_render
 	ui.visible = in_render
+	weapon.visible = in_render
 
 func _die(damage_params: DamageParameters) -> void:
 	print_debug("%s: Die" % name)

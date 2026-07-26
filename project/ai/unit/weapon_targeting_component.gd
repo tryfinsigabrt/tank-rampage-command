@@ -144,6 +144,7 @@ func add_weapon(id:int, weapon:Weapon, should_duplicate:bool = false) -> bool:
 	if should_duplicate:
 		_set_up_weapon(weapon)
 		state.original_owner = weapons_container
+		
 		weapons_container.add_child(weapon)
 		# Use this to modify the weapon like give it a range bonus in case of the bunker
 		on_weapon_setup.emit(weapon)

@@ -145,6 +145,7 @@ func _update_render(in_render:bool) -> void:
 	visual_root.visible = in_render
 	ui.visible = in_render
 	_tank_shadow.visible = in_render
+	weapon.visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat
