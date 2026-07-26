@@ -33,12 +33,8 @@ var _fsr_sharpness: float = ProjectSettings.get_setting("rendering/scaling_3d/fs
 var _max_fps: int = Engine.max_fps ## 0 means uncapped
 
 func _ready() -> void:
-	for bus_name in AUDIO_BUSES:
-		_bus_volumes[bus_name] = 1.0
-	_apply_all_bus_volumes()
-	set_anti_aliasing(_anti_aliasing)
-	set_shadow_quality(_shadow_quality)
-	set_anisotropic_filtering(_anisotropic_filtering)
+	_load_settings_data()
+
 
 func get_bus_volume(bus_name: StringName) -> float:
 	return _bus_volumes.get(bus_name, 1.0)
@@ -168,11 +164,20 @@ func _apply_bus_volume(bus_name: StringName) -> void:
 	var volume_db := MUTE_DB if linear <= MIN_LINEAR else linear_to_db(linear)
 	AudioServer.set_bus_volume_db(bus_index, volume_db)
 
+func _load_initials_settings() -> void:
+	for bus_name in AUDIO_BUSES:
+		_bus_volumes[bus_name] = 1.0
+	_apply_all_bus_volumes()
+	set_anti_aliasing(_anti_aliasing)
+	set_shadow_quality(_shadow_quality)
+	set_anisotropic_filtering(_anisotropic_filtering)
+
 
 func apply_settings(settings: Dictionary) -> void:
 	print("[PlayerSettings] Applying Settings: ", settings)
 	if settings.has("bus_volumes"):
-		_bus_volumes = settings.get("bus_volumes")
+		var loaded_bus_volumes: Dictionary[StringName, float] = {}
+		loaded_bus_volumes.assign(settings.get("bus_volumes"))
 		_apply_all_bus_volumes()
 	if settings.has("show_fps"): set_show_fps(settings.get("show_fps"))
 	if settings.has("fsr_enabled"): set_fsr(settings.get("fsr_enabled"))
@@ -196,7 +201,8 @@ func _save_settings_data() -> void:
 
 func _load_settings_data() -> void:
 	if not FileAccess.file_exists(SAVE_FILE):
-		push_warning("No save file detected! (This might be OK!)")
+		push_warning("No save file detected! Using defaults. (This might be OK!)")
+		_load_initials_settings()
 		return
 	
 	var save_file := FileAccess.open(SAVE_FILE, FileAccess.READ)
