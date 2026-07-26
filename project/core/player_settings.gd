@@ -212,16 +212,20 @@ func _save_settings_data() -> void:
 
 func _load_settings_data() -> void:
 	if not FileAccess.file_exists(SAVE_FILE):
-		push_warning("No save file detected! Using defaults. (This might be OK!)")
+		push_warning("[PlayerSettings] No save file detected! Using defaults. (This might be OK!)")
 		_load_initials_settings()
 		return
 	
 	var save_file := FileAccess.open(SAVE_FILE, FileAccess.READ)
 	var json_settings := save_file.get_line()
-	var settings: Dictionary = JSON.parse_string(json_settings)
-	print("[PlayerSettings] Loaded settings: ", settings)
-	if settings != null:
-		apply_settings(settings)
+	if json_settings != null and not json_settings.is_empty():
+		var settings: Dictionary = JSON.parse_string(json_settings)
+		print("[PlayerSettings] Loaded settings: ", settings)
+		if settings != null:
+			apply_settings(settings)
+	else:
+		push_warning("[PlayerSettings] Settings file exists, but is empty! Using defaults.")
+		_load_initials_settings()
 
 
 func _build_settings_dict() -> Dictionary:
