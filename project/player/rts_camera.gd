@@ -28,14 +28,14 @@ signal zoom_level_updated(distance: float)
 @export var pos_z:float = 100.0
 
 ## Pixels to trigger pan on screen edge
-@export var camera_pan_margin_pixels:float = 5.0
-@export var camera_pan_speed:Vector2 = Vector2(20.0, 100.0)
+@export var camera_pan_margin_pixels:float = 50.0
+@export var camera_pan_speed:Vector2 = Vector2(20.0, 250.0)
 @export var camera_drag_pan_speed:float = 0.25
 @export var camera_movement_smoothing:float = 12.0
 @export var camera_rotation_speed:float = 1.0
-@export var camera_zoom_speed:float = 100
-@export var camera_zoom_mouse_multiplier:int = 5
-@export var camera_zoom_range:Vector2 = Vector2(10.0, 300.0)
+@export var camera_zoom_speed:float = 250.0
+@export var camera_zoom_mouse_multiplier:int = 20
+@export var camera_zoom_range:Vector2 = Vector2(10.0, 1000.0)
 
 
 var _camera_movement_velocity:Vector3 = Vector3.ZERO
