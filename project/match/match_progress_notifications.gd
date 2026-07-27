@@ -46,12 +46,12 @@ func _on_match_ready(match_object:Match) -> void:
 	_display_message(message)
 	
 func _on_team_eliminated(match_team:MatchTeam) -> void:
-	_display_message("%s eliminated" % match_team.name, true)
+	_display_message("%s Eliminated" % match_team.team_name, true)
 	
 func _on_match_complete(match_object:Match) -> void:
 	var winning_team:MatchTeam = match_object.winner
 	if winning_team:
-		var message:String = "%s wins!" % winning_team.name
+		var message:String = "%s Wins!" % winning_team.team_name
 		await get_tree().create_timer(winner_notification_delay_seconds).timeout
 		_display_message(message, true)
 	

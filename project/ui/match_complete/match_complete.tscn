@@ -1,7 +1,23 @@
 [gd_scene format=3 uid="uid://fig34p3igsvy"]
 
 [ext_resource type="Script" uid="uid://btrujr0ab6epm" path="res://ui/match_complete/match_complete.gd" id="1_k0aov"]
-[ext_resource type="Theme" uid="uid://i51stanuycjn" path="res://ui/theme/hud_theme.tres" id="1_rv6xr"]
+[ext_resource type="Theme" uid="uid://c512lo5ix3p4s" path="res://ui/theme/menu_theme.tres" id="1_rv6xr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rv6xr"]
+content_margin_left = 22.0
+content_margin_top = 22.0
+content_margin_right = 22.0
+content_margin_bottom = 22.0
+bg_color = Color(0.02745098, 0.16862746, 0.2, 0.39215687)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14509805, 0.40784314, 0.47058824, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="MatchComplete" type="MarginContainer" unique_id=1411280477]
 process_mode = 3
@@ -21,36 +37,40 @@ color = Color(0, 0, 0, 0.39215687)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MainContent" type="VBoxContainer" parent="ContentRoot" unique_id=2096429683]
+[node name="PanelContainer" type="PanelContainer" parent="ContentRoot" unique_id=382117434]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rv6xr")
+
+[node name="MainContent" type="VBoxContainer" parent="ContentRoot/PanelContainer" unique_id=2096429683]
 layout_mode = 2
 
-[node name="Spacer2" type="Control" parent="ContentRoot/MainContent" unique_id=1809821155]
+[node name="Spacer2" type="Control" parent="ContentRoot/PanelContainer/MainContent" unique_id=1809821155]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="CenterHeader" type="CenterContainer" parent="ContentRoot/MainContent" unique_id=1499716689]
+[node name="CenterHeader" type="CenterContainer" parent="ContentRoot/PanelContainer/MainContent" unique_id=1499716689]
 layout_mode = 2
 
-[node name="MainHeader" type="VBoxContainer" parent="ContentRoot/MainContent/CenterHeader" unique_id=576935295]
+[node name="MainHeader" type="VBoxContainer" parent="ContentRoot/PanelContainer/MainContent/CenterHeader" unique_id=576935295]
 layout_mode = 2
 
-[node name="TitleHeader" type="Label" parent="ContentRoot/MainContent/CenterHeader/MainHeader" unique_id=1784805462]
+[node name="TitleHeader" type="Label" parent="ContentRoot/PanelContainer/MainContent/CenterHeader/MainHeader" unique_id=1784805462]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Victory!"
 
-[node name="GameTimeLabel" type="Label" parent="ContentRoot/MainContent/CenterHeader/MainHeader" unique_id=46763407]
+[node name="GameTimeLabel" type="Label" parent="ContentRoot/PanelContainer/MainContent/CenterHeader/MainHeader" unique_id=46763407]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Time: 28:07"
 
-[node name="Spacer" type="Control" parent="ContentRoot/MainContent" unique_id=819014468]
+[node name="Spacer" type="Control" parent="ContentRoot/PanelContainer/MainContent" unique_id=819014468]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="MatchTeams" type="GridContainer" parent="ContentRoot/MainContent" unique_id=351828275]
+[node name="MatchTeams" type="GridContainer" parent="ContentRoot/PanelContainer/MainContent" unique_id=351828275]
 unique_name_in_owner = true
 layout_direction = 2
 layout_mode = 2
@@ -58,70 +78,70 @@ theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 10
 columns = 7
 
-[node name="Team" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=679912643]
+[node name="Team" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=679912643]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Team"
 
-[node name="Units Killed" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=1225231560]
+[node name="Units Killed" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=1225231560]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Units Killed"
 
-[node name="UnitsBuilt" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=1827274506]
+[node name="UnitsBuilt" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=1827274506]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Built"
 
-[node name="UnitsLost" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=685151074]
+[node name="UnitsLost" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=685151074]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Lost"
 
-[node name="BuildingsRazed" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=1147954717]
+[node name="BuildingsRazed" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=1147954717]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Buildings Razed"
 
-[node name="BuildingsBuilt" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=1744791841]
+[node name="BuildingsBuilt" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=1744791841]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Built"
 
-[node name="BuildingsLost" type="Label" parent="ContentRoot/MainContent/MatchTeams" unique_id=1331722052]
+[node name="BuildingsLost" type="Label" parent="ContentRoot/PanelContainer/MainContent/MatchTeams" unique_id=1331722052]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Lost"
 
-[node name="Spacer3" type="Control" parent="ContentRoot/MainContent" unique_id=1604568895]
+[node name="Spacer3" type="Control" parent="ContentRoot/PanelContainer/MainContent" unique_id=1604568895]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="CenterButtons" type="CenterContainer" parent="ContentRoot/MainContent" unique_id=1650027080]
+[node name="CenterButtons" type="CenterContainer" parent="ContentRoot/PanelContainer/MainContent" unique_id=1650027080]
 layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="ContentRoot/MainContent/CenterButtons" unique_id=370858042]
+[node name="Buttons" type="HBoxContainer" parent="ContentRoot/PanelContainer/MainContent/CenterButtons" unique_id=370858042]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="Restart" type="Button" parent="ContentRoot/MainContent/CenterButtons/Buttons" unique_id=1196049919]
+[node name="Restart" type="Button" parent="ContentRoot/PanelContainer/MainContent/CenterButtons/Buttons" unique_id=1196049919]
 process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Restart"
 
-[node name="MainMenu" type="Button" parent="ContentRoot/MainContent/CenterButtons/Buttons" unique_id=31171304]
+[node name="MainMenu" type="Button" parent="ContentRoot/PanelContainer/MainContent/CenterButtons/Buttons" unique_id=31171304]
 process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"
 
-[connection signal="pressed" from="ContentRoot/MainContent/CenterButtons/Buttons/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="ContentRoot/MainContent/CenterButtons/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="ContentRoot/PanelContainer/MainContent/CenterButtons/Buttons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="ContentRoot/PanelContainer/MainContent/CenterButtons/Buttons/MainMenu" to="." method="_on_main_menu_pressed"]

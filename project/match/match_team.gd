@@ -22,6 +22,14 @@ var resources:TeamResources:
 @export
 var config:MatchTeamConfig
 
+
+@export
+var _team_name:String
+
+var team_name:String:
+	get:
+		return _team_name if _team_name else name.replace("Team", "")
+
 @onready var asset_container: Node3D = $Assets
 @onready var team_resources:TeamResourceComponent = %TeamResourceComponent
 @onready var team_visibility_component: TeamVisibilityComponent = %TeamVisibilityComponent

@@ -15,7 +15,7 @@ func _ready() -> void:
 	if not match_team:
 		return
 	
-	_team.text = str(match_team.team)
+	_team.text = match_team.team_name
 	
 	var stats:MatchTeamStatTracker = match_team.stat_tracker
 	
