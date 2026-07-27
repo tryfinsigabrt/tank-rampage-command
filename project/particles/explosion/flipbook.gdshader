@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_never, blend_add;
 
-uniform sampler2D atlas_texture : source_color, filter_linear_mipmap, repeat_disable;
+uniform sampler2D atlas_texture : source_color, filter_linear, repeat_disable;
 uniform int columns : hint_range(1, 64, 1) = 4;
 uniform int rows : hint_range(1, 64, 1) = 4;
 uniform float animation_cycles : hint_range(0.1, 10.0, 0.1) = 1.0;
@@ -14,7 +14,9 @@ vec2 flipbook_uv(vec2 uv, vec2 atlas_grid, float frame_index) {
 		mod(frame_index, atlas_grid.x),
 		floor(frame_index / atlas_grid.x)
 	);
-	return fract(uv) * frame_size + frame * frame_size;
+	vec2 half_texel = 0.5 / vec2(textureSize(atlas_texture, 0));
+	vec2 frame_uv = mix(half_texel, frame_size - half_texel, fract(uv));
+	return frame_uv + frame * frame_size;
 }
 
 void vertex() {
