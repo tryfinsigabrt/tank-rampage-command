@@ -2,6 +2,11 @@
 .godot/
 /android/
 
+# Allow the build folder itself to be included so it can be .gdignore'd
+/build/*
+!/build/.gdignore
+
+
 # Godot 4.1+ specific ignores
 export_credentials.cfg
 

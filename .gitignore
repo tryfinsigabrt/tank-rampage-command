@@ -3,7 +3,6 @@
 data_*/
 mono_crash.*.json
 
-build/
 logs/
 
 # Mac OS ignores
