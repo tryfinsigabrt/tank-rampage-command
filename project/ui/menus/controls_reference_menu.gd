@@ -193,7 +193,7 @@ func _format_mouse_event(event: InputEventMouseButton) -> String:
 
 func _format_key_event(event: InputEventKey) -> String:
 	var parts: Array[String] = _modifier_parts(event.shift_pressed, event.ctrl_pressed, event.alt_pressed, event.meta_pressed)
-	var key_text := OS.get_keycode_string(DisplayServer.keyboard_get_keycode_from_physical(event.physical_keycode))
+	var key_text := OS.get_keycode_string(event.physical_keycode)
 	if key_text.is_empty():
 		key_text = OS.get_keycode_string(event.keycode)
 	parts.push_back(key_text)
