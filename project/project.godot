@@ -19,7 +19,7 @@ config/version="1.0.0"
 run/main_scene="uid://c15qtg2d1emrk"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/image="uid://dik0usiohl4hj"
-config/icon="res://icon.svg"
+config/icon="uid://dc5a7y68hy2il"
 
 [audio]
 
