@@ -9,7 +9,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_bhy6q"]
 radius = 30.0
 
-[node name="ControlPoint" type="Node3D" unique_id=588474072 groups=["ControlPoint", "Interactable", "TeamAsset"]]
+[node name="ControlPoint" type="Node3D" unique_id=588474072 groups=["ControlPoint", "Interactable", "Precompilation", "TeamAsset"]]
 script = ExtResource("1_lu8dd")
 neutral_color = Color(0.95, 0.95, 0.95, 1)
 owned_color = Color(0.09600002, 0.3983999, 0.96, 1)
