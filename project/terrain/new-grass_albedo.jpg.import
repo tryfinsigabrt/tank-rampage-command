@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brp3qkp7syp3"
-path.bptc="res://.godot/imported/new-grass_albedo.jpg-764f5acd3a2741b81e22a8ad53eafd00.bptc.ctex"
+path="res://.godot/imported/new-grass_albedo.jpg-764f5acd3a2741b81e22a8ad53eafd00.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/new-grass_albedo.jpg"
-dest_files=["res://.godot/imported/new-grass_albedo.jpg-764f5acd3a2741b81e22a8ad53eafd00.bptc.ctex"]
+dest_files=["res://.godot/imported/new-grass_albedo.jpg-764f5acd3a2741b81e22a8ad53eafd00.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

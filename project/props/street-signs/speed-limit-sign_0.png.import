@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bljpr0twm5gpt"
-path.s3tc="res://.godot/imported/speed-limit-sign_0.png-df74b717e7b20e8f787ea494085d8d65.s3tc.ctex"
+path="res://.godot/imported/speed-limit-sign_0.png-df74b717e7b20e8f787ea494085d8d65.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "d24d51139c2ce85d74ce9be6fc91544a"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/street-signs/speed-limit-sign_0.png"
-dest_files=["res://.godot/imported/speed-limit-sign_0.png-df74b717e7b20e8f787ea494085d8d65.s3tc.ctex"]
+dest_files=["res://.godot/imported/speed-limit-sign_0.png-df74b717e7b20e8f787ea494085d8d65.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

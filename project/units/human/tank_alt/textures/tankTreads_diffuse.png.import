@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxq8rhsi8t8ax"
-path.s3tc="res://.godot/imported/tankTreads_diffuse.png-f438e26c714f4cf98fd4b442c93f2987.s3tc.ctex"
+path="res://.godot/imported/tankTreads_diffuse.png-f438e26c714f4cf98fd4b442c93f2987.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://units/human/tank_alt/textures/tankTreads_diffuse.png"
-dest_files=["res://.godot/imported/tankTreads_diffuse.png-f438e26c714f4cf98fd4b442c93f2987.s3tc.ctex"]
+dest_files=["res://.godot/imported/tankTreads_diffuse.png-f438e26c714f4cf98fd4b442c93f2987.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbl8be4l677rs"
-path.s3tc="res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.s3tc.ctex"
+path="res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/street-signs/tow-zone-sign.png"
-dest_files=["res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.s3tc.ctex"]
+dest_files=["res://.godot/imported/tow-zone-sign.png-025569b51619b36713b65882deb946c3.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

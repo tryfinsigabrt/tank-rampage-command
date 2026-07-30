@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csgrmrjrbdniw"
-path.bptc="res://.godot/imported/snow-diffuse.jpg-7123dab2878c0807e767de9f19015424.bptc.ctex"
+path="res://.godot/imported/snow-diffuse.jpg-7123dab2878c0807e767de9f19015424.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/snow-diffuse.jpg"
-dest_files=["res://.godot/imported/snow-diffuse.jpg-7123dab2878c0807e767de9f19015424.bptc.ctex"]
+dest_files=["res://.godot/imported/snow-diffuse.jpg-7123dab2878c0807e767de9f19015424.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

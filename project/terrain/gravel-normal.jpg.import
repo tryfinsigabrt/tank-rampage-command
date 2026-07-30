@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqvok2jvc0343"
-path.bptc="res://.godot/imported/gravel-normal.jpg-49064fcbf672122502f5961b129d4853.bptc.ctex"
+path="res://.godot/imported/gravel-normal.jpg-49064fcbf672122502f5961b129d4853.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/gravel-normal.jpg"
-dest_files=["res://.godot/imported/gravel-normal.jpg-49064fcbf672122502f5961b129d4853.bptc.ctex"]
+dest_files=["res://.godot/imported/gravel-normal.jpg-49064fcbf672122502f5961b129d4853.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

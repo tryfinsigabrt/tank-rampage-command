@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/city-rooftop-normal.png-caeaf566d2d97f800c6d9
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

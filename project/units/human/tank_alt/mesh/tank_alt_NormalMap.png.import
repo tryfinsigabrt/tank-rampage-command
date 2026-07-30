@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blbbc17dugiyh"
-path.s3tc="res://.godot/imported/tank_alt_NormalMap.png-903c4ae57c878a7b12ab1eebc39fe318.s3tc.ctex"
+path="res://.godot/imported/tank_alt_NormalMap.png-903c4ae57c878a7b12ab1eebc39fe318.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "e83938055c6586e7adcd439ef339bdd5"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://units/human/tank_alt/mesh/tank_alt_NormalMap.png"
-dest_files=["res://.godot/imported/tank_alt_NormalMap.png-903c4ae57c878a7b12ab1eebc39fe318.s3tc.ctex"]
+dest_files=["res://.godot/imported/tank_alt_NormalMap.png-903c4ae57c878a7b12ab1eebc39fe318.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ptl04xvhm6n4"
-path.s3tc="res://.godot/imported/NormalMap.png-e72c886806ba343c0856543c0b6c094e.s3tc.ctex"
+path="res://.godot/imported/NormalMap.png-e72c886806ba343c0856543c0b6c094e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://units/human/tank_alt/textures/NormalMap.png"
-dest_files=["res://.godot/imported/NormalMap.png-e72c886806ba343c0856543c0b6c094e.s3tc.ctex"]
+dest_files=["res://.godot/imported/NormalMap.png-e72c886806ba343c0856543c0b6c094e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cckdsm7y3yr0d"
-path.s3tc="res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.s3tc.ctex"
+path="res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "7c4f3866655337da986a2aba92d4e0ce"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/landmine/landmine_Paint.png"
-dest_files=["res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.s3tc.ctex"]
+dest_files=["res://.godot/imported/landmine_Paint.png-3af48bd2fe8fe355ad64be860a373141.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

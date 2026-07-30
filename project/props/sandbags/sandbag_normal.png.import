@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2g7fylb7kr6h"
-path.s3tc="res://.godot/imported/sandbag_normal.png-be7ef06b46564076a56074d5f655dd41.s3tc.ctex"
+path="res://.godot/imported/sandbag_normal.png-be7ef06b46564076a56074d5f655dd41.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/sandbags/sandbag_normal.png"
-dest_files=["res://.godot/imported/sandbag_normal.png-be7ef06b46564076a56074d5f655dd41.s3tc.ctex"]
+dest_files=["res://.godot/imported/sandbag_normal.png-be7ef06b46564076a56074d5f655dd41.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

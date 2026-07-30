@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqljqpe76nld0"
-path.s3tc="res://.godot/imported/stopsign_0.png-81a0f829b65810a8d5635d35506ce431.s3tc.ctex"
+path="res://.godot/imported/stopsign_0.png-81a0f829b65810a8d5635d35506ce431.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "645578abfe3205da864b6c2a20931419"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/street-signs/stopsign_0.png"
-dest_files=["res://.godot/imported/stopsign_0.png-81a0f829b65810a8d5635d35506ce431.s3tc.ctex"]
+dest_files=["res://.godot/imported/stopsign_0.png-81a0f829b65810a8d5635d35506ce431.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

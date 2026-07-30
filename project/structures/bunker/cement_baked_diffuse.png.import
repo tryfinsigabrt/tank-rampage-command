@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dr8rlv2p3giht"
-path.s3tc="res://.godot/imported/cement_baked_diffuse.png-0d275ea79952d20d37015619e6e1261c.s3tc.ctex"
+path="res://.godot/imported/cement_baked_diffuse.png-0d275ea79952d20d37015619e6e1261c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://structures/bunker/cement_baked_diffuse.png"
-dest_files=["res://.godot/imported/cement_baked_diffuse.png-0d275ea79952d20d37015619e6e1261c.s3tc.ctex"]
+dest_files=["res://.godot/imported/cement_baked_diffuse.png-0d275ea79952d20d37015619e6e1261c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

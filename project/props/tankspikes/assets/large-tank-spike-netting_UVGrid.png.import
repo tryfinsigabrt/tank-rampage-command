@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xoowar8o0ohq"
-path.s3tc="res://.godot/imported/large-tank-spike-netting_UVGrid.png-b118fc69a63f114c18af1408d78ed88a.s3tc.ctex"
+path="res://.godot/imported/large-tank-spike-netting_UVGrid.png-b118fc69a63f114c18af1408d78ed88a.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "5251a685620ecec968e08d819a2a66a5"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/tankspikes/assets/large-tank-spike-netting_UVGrid.png"
-dest_files=["res://.godot/imported/large-tank-spike-netting_UVGrid.png-b118fc69a63f114c18af1408d78ed88a.s3tc.ctex"]
+dest_files=["res://.godot/imported/large-tank-spike-netting_UVGrid.png-b118fc69a63f114c18af1408d78ed88a.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

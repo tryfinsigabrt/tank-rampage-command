@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cb2re7tl78yt1"
-path.s3tc="res://.godot/imported/marine_orm.png-a59633506effabf6d1e220f0e0ab8a10.s3tc.ctex"
+path="res://.godot/imported/marine_orm.png-a59633506effabf6d1e220f0e0ab8a10.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://units/human/marine/material/marine_orm.png"
-dest_files=["res://.godot/imported/marine_orm.png-a59633506effabf6d1e220f0e0ab8a10.s3tc.ctex"]
+dest_files=["res://.godot/imported/marine_orm.png-a59633506effabf6d1e220f0e0ab8a10.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

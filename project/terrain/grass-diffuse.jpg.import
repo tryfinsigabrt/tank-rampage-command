@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://06mjoowet1ld"
-path.bptc="res://.godot/imported/grass-diffuse.jpg-5e56cfd276a2e08b914e7327e60c091b.bptc.ctex"
+path="res://.godot/imported/grass-diffuse.jpg-5e56cfd276a2e08b914e7327e60c091b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/grass-diffuse.jpg"
-dest_files=["res://.godot/imported/grass-diffuse.jpg-5e56cfd276a2e08b914e7327e60c091b.bptc.ctex"]
+dest_files=["res://.godot/imported/grass-diffuse.jpg-5e56cfd276a2e08b914e7327e60c091b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

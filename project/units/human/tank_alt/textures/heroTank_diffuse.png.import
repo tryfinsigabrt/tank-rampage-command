@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4tfrk1m5rkmo"
-path.s3tc="res://.godot/imported/heroTank_diffuse.png-ee3aa4d305fce23bb1b43835bc7f4c2d.s3tc.ctex"
+path="res://.godot/imported/heroTank_diffuse.png-ee3aa4d305fce23bb1b43835bc7f4c2d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://units/human/tank_alt/textures/heroTank_diffuse.png"
-dest_files=["res://.godot/imported/heroTank_diffuse.png-ee3aa4d305fce23bb1b43835bc7f4c2d.s3tc.ctex"]
+dest_files=["res://.godot/imported/heroTank_diffuse.png-ee3aa4d305fce23bb1b43835bc7f4c2d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

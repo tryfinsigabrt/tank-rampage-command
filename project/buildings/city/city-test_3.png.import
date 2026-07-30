@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbaq8d4l6vjg0"
-path.s3tc="res://.godot/imported/city-test_3.png-e18bd6ba4608318fe744fe0c3714ac3d.s3tc.ctex"
+path="res://.godot/imported/city-test_3.png-e18bd6ba4608318fe744fe0c3714ac3d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "baafbca2447297d918ca49c445a3ffa0"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://buildings/city/city-test_3.png"
-dest_files=["res://.godot/imported/city-test_3.png-e18bd6ba4608318fe744fe0c3714ac3d.s3tc.ctex"]
+dest_files=["res://.godot/imported/city-test_3.png-e18bd6ba4608318fe744fe0c3714ac3d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

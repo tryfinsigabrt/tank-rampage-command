@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q8bivkwwd1i3"
-path.s3tc="res://.godot/imported/tree_1_tree_1_bark_albedo.png-adcce6553072473c4caa11688e4c8f90.s3tc.ctex"
+path="res://.godot/imported/tree_1_tree_1_bark_albedo.png-adcce6553072473c4caa11688e4c8f90.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "d1c726ad91b189d3db496256ac3a22d8"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/tree/tree_1_tree_1_bark_albedo.png"
-dest_files=["res://.godot/imported/tree_1_tree_1_bark_albedo.png-adcce6553072473c4caa11688e4c8f90.s3tc.ctex"]
+dest_files=["res://.godot/imported/tree_1_tree_1_bark_albedo.png-adcce6553072473c4caa11688e4c8f90.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

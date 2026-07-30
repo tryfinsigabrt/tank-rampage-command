@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgwaq5hjfljdq"
-path.s3tc="res://.godot/imported/skyscraper1-emissive.png-35732ad65401e63fc1351a7cef387934.s3tc.ctex"
+path="res://.godot/imported/skyscraper1-emissive.png-35732ad65401e63fc1351a7cef387934.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://buildings/city/skyscraper1-emissive.png"
-dest_files=["res://.godot/imported/skyscraper1-emissive.png-35732ad65401e63fc1351a7cef387934.s3tc.ctex"]
+dest_files=["res://.godot/imported/skyscraper1-emissive.png-35732ad65401e63fc1351a7cef387934.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

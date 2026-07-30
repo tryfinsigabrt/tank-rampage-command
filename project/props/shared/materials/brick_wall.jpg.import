@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c76e0h40kug85"
-path.s3tc="res://.godot/imported/brick_wall.jpg-b3dc8fa19c8daf4bfc65950f8b605d0c.s3tc.ctex"
+path="res://.godot/imported/brick_wall.jpg-b3dc8fa19c8daf4bfc65950f8b605d0c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/shared/materials/brick_wall.jpg"
-dest_files=["res://.godot/imported/brick_wall.jpg-b3dc8fa19c8daf4bfc65950f8b605d0c.s3tc.ctex"]
+dest_files=["res://.godot/imported/brick_wall.jpg-b3dc8fa19c8daf4bfc65950f8b605d0c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

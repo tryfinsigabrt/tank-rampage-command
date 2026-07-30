@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5yws75cb883h"
-path.s3tc="res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.s3tc.ctex"
+path="res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/tankspikes/assets/large-tank-spikes_orm.png"
-dest_files=["res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.s3tc.ctex"]
+dest_files=["res://.godot/imported/large-tank-spikes_orm.png-369a6d60f3ce7a369695761f457fb87c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

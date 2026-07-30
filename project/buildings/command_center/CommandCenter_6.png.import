@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crpt6lchojvkp"
-path.s3tc="res://.godot/imported/CommandCenter_6.png-00aa22c032bd283c4dfafcd6b4d53361.s3tc.ctex"
+path="res://.godot/imported/CommandCenter_6.png-00aa22c032bd283c4dfafcd6b4d53361.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "79fa24eee1670fb1251fb7123b7dec4f"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://buildings/command_center/CommandCenter_6.png"
-dest_files=["res://.godot/imported/CommandCenter_6.png-00aa22c032bd283c4dfafcd6b4d53361.s3tc.ctex"]
+dest_files=["res://.godot/imported/CommandCenter_6.png-00aa22c032bd283c4dfafcd6b4d53361.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1myxwtk2b1ax"
-path.s3tc="res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.s3tc.ctex"
+path="res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "6afcb67d69b12e6e1629ce2090b0d2fa"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://buildings/barracks/barracks_brick_wall.jpg"
-dest_files=["res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.s3tc.ctex"]
+dest_files=["res://.godot/imported/barracks_brick_wall.jpg-bb02481923136c6f28309d3e14ffbbe2.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

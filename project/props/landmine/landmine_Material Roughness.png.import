@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c057th6vd4lev"
-path.s3tc="res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.s3tc.ctex"
+path="res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "1498ce80cf6c0e9283a9fc4fb5e71e88"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/landmine/landmine_Material Roughness.png"
-dest_files=["res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.s3tc.ctex"]
+dest_files=["res://.godot/imported/landmine_Material Roughness.png-2fb2447fb3726d284d466d8c11ffa33f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

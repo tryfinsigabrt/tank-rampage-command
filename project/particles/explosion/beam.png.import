@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://18d1rtpkcqjt"
-path.s3tc="res://.godot/imported/beam.png-81f781f9a19885feab97ce74c5334d70.s3tc.ctex"
+path="res://.godot/imported/beam.png-81f781f9a19885feab97ce74c5334d70.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://particles/explosion/beam.png"
-dest_files=["res://.godot/imported/beam.png-81f781f9a19885feab97ce74c5334d70.s3tc.ctex"]
+dest_files=["res://.godot/imported/beam.png-81f781f9a19885feab97ce74c5334d70.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

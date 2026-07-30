@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dabpomw653h4s"
-path.s3tc="res://.godot/imported/brick-ruins-half_0.png-252f4dcd1eccfa249e1b22507244a597.s3tc.ctex"
+path="res://.godot/imported/brick-ruins-half_0.png-252f4dcd1eccfa249e1b22507244a597.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "45940afdf206f677d5f0073ae6af3360"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://buildings/brick_ruins/brick-ruins-half_0.png"
-dest_files=["res://.godot/imported/brick-ruins-half_0.png-252f4dcd1eccfa249e1b22507244a597.s3tc.ctex"]
+dest_files=["res://.godot/imported/brick-ruins-half_0.png-252f4dcd1eccfa249e1b22507244a597.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

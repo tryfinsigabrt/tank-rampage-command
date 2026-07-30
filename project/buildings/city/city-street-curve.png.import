@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqw5gshl8tr2m"
-path.s3tc="res://.godot/imported/city-street-curve.png-8f479e5b5410b6a28173c4ff5a3fc07f.s3tc.ctex"
+path="res://.godot/imported/city-street-curve.png-8f479e5b5410b6a28173c4ff5a3fc07f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://buildings/city/city-street-curve.png"
-dest_files=["res://.godot/imported/city-street-curve.png-8f479e5b5410b6a28173c4ff5a3fc07f.s3tc.ctex"]
+dest_files=["res://.godot/imported/city-street-curve.png-8f479e5b5410b6a28173c4ff5a3fc07f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

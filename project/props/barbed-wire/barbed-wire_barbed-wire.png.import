@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpac1dtdx5to2"
-path.s3tc="res://.godot/imported/barbed-wire_barbed-wire.png-c6594cff8dedac66f6521a5b0cb8478c.s3tc.ctex"
+path="res://.godot/imported/barbed-wire_barbed-wire.png-c6594cff8dedac66f6521a5b0cb8478c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "40fe792d74896cc8e03fe2dd202d9aad"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://props/barbed-wire/barbed-wire_barbed-wire.png"
-dest_files=["res://.godot/imported/barbed-wire_barbed-wire.png-c6594cff8dedac66f6521a5b0cb8478c.s3tc.ctex"]
+dest_files=["res://.godot/imported/barbed-wire_barbed-wire.png-c6594cff8dedac66f6521a5b0cb8478c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

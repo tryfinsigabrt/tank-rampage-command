@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://omjk6kb3731g"
-path.s3tc="res://.godot/imported/ArtilleryUnit_0.png-c324f06912d919460e66893e1ec8902d.s3tc.ctex"
+path="res://.godot/imported/ArtilleryUnit_0.png-c324f06912d919460e66893e1ec8902d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "1efa7fd5aa7c796a9789cc2d28bc2476"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://units/human/artillery/ArtilleryUnit_0.png"
-dest_files=["res://.godot/imported/ArtilleryUnit_0.png-c324f06912d919460e66893e1ec8902d.s3tc.ctex"]
+dest_files=["res://.godot/imported/ArtilleryUnit_0.png-c324f06912d919460e66893e1ec8902d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

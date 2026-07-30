@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kg00v4ucftlx"
-path.s3tc="res://.godot/imported/brick-ruins-corner-a_0.png-0281de51da0892431799ab0a3c497687.s3tc.ctex"
+path="res://.godot/imported/brick-ruins-corner-a_0.png-0281de51da0892431799ab0a3c497687.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "45940afdf206f677d5f0073ae6af3360"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://buildings/brick_ruins/brick-ruins-corner-a_0.png"
-dest_files=["res://.godot/imported/brick-ruins-corner-a_0.png-0281de51da0892431799ab0a3c497687.s3tc.ctex"]
+dest_files=["res://.godot/imported/brick-ruins-corner-a_0.png-0281de51da0892431799ab0a3c497687.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

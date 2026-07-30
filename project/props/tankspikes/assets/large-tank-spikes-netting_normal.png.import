@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg1mxwx5y0urd"
-path.s3tc="res://.godot/imported/large-tank-spikes-netting_normal.png-b74ede8b2bc6f222914dedfa92722943.s3tc.ctex"
+path="res://.godot/imported/large-tank-spikes-netting_normal.png-b74ede8b2bc6f222914dedfa92722943.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/tankspikes/assets/large-tank-spikes-netting_normal.png"
-dest_files=["res://.godot/imported/large-tank-spikes-netting_normal.png-b74ede8b2bc6f222914dedfa92722943.s3tc.ctex"]
+dest_files=["res://.godot/imported/large-tank-spikes-netting_normal.png-b74ede8b2bc6f222914dedfa92722943.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

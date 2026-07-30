@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcgtm5q8yj1c4"
-path.bptc="res://.godot/imported/snow-normal.jpg-abaf7a33246c802ac2d436c6380d2a1a.bptc.ctex"
+path="res://.godot/imported/snow-normal.jpg-abaf7a33246c802ac2d436c6380d2a1a.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/snow-normal.jpg"
-dest_files=["res://.godot/imported/snow-normal.jpg-abaf7a33246c802ac2d436c6380d2a1a.bptc.ctex"]
+dest_files=["res://.godot/imported/snow-normal.jpg-abaf7a33246c802ac2d436c6380d2a1a.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

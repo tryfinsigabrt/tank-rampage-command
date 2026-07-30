@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dy8ml4k0wf2bt"
-path.bptc="res://.godot/imported/gravel-diffuse.jpg-662d3b372648574c3a1859ea98b93600.bptc.ctex"
+path="res://.godot/imported/gravel-diffuse.jpg-662d3b372648574c3a1859ea98b93600.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/gravel-diffuse.jpg"
-dest_files=["res://.godot/imported/gravel-diffuse.jpg-662d3b372648574c3a1859ea98b93600.bptc.ctex"]
+dest_files=["res://.godot/imported/gravel-diffuse.jpg-662d3b372648574c3a1859ea98b93600.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

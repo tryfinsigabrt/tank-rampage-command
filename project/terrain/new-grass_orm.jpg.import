@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7awrbrccl72f"
-path.bptc="res://.godot/imported/new-grass_orm.jpg-2d84d296cc02236792967531c842081c.bptc.ctex"
+path="res://.godot/imported/new-grass_orm.jpg-2d84d296cc02236792967531c842081c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://terrain/new-grass_orm.jpg"
-dest_files=["res://.godot/imported/new-grass_orm.jpg-2d84d296cc02236792967531c842081c.bptc.ctex"]
+dest_files=["res://.godot/imported/new-grass_orm.jpg-2d84d296cc02236792967531c842081c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

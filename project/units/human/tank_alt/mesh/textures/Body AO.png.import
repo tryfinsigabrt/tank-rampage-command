@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxjxr7tnx36na"
-path.s3tc="res://.godot/imported/Body AO.png-3a6edd2dd034bef479906fc1f506b71b.s3tc.ctex"
+path="res://.godot/imported/Body AO.png-3a6edd2dd034bef479906fc1f506b71b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://units/human/tank_alt/mesh/textures/Body AO.png"
-dest_files=["res://.godot/imported/Body AO.png-3a6edd2dd034bef479906fc1f506b71b.s3tc.ctex"]
+dest_files=["res://.godot/imported/Body AO.png-3a6edd2dd034bef479906fc1f506b71b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

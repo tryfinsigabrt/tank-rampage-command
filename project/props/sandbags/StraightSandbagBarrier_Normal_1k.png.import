@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://clh375nej4mfk"
-path.s3tc="res://.godot/imported/StraightSandbagBarrier_Normal_1k.png-cd2118feb42c77411a2e11f1f4115a1b.s3tc.ctex"
+path="res://.godot/imported/StraightSandbagBarrier_Normal_1k.png-cd2118feb42c77411a2e11f1f4115a1b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://props/sandbags/StraightSandbagBarrier_Normal_1k.png"
-dest_files=["res://.godot/imported/StraightSandbagBarrier_Normal_1k.png-cd2118feb42c77411a2e11f1f4115a1b.s3tc.ctex"]
+dest_files=["res://.godot/imported/StraightSandbagBarrier_Normal_1k.png-cd2118feb42c77411a2e11f1f4115a1b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
