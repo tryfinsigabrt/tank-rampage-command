@@ -34,7 +34,8 @@ func run() -> Signal:
 	await tree.process_frame
 	await tree.process_frame
 	
-	node.queue_free()
+	if is_instance_valid(node):
+		node.queue_free()
 	
 	var end:int = Time.get_ticks_usec()
 	print_debug("Precompiled %s in %.1fms" % [scene.resource_path, (end - start) / 1000.0])
