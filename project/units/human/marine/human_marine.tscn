@@ -39,7 +39,7 @@ shadow_mesh = SubResource("ArrayMesh_jehmy")
 
 [node name="marine" unique_id=326298032 instance=ExtResource("1_8rv8m")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1239858802) index="0" unique_id=453488310]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(841724596) index="0" unique_id=1012015045]
 bones/1/position = Vector3(-0.0008318536, 1.404882, -0.0021417262)
 bones/2/rotation = Quaternion(-0.0882933, -0.009203403, -0.017909775, 0.995891)
 bones/3/rotation = Quaternion(0.090009816, 0.0010950468, 0.0185173, 0.99576813)
@@ -72,7 +72,7 @@ bones/24/rotation = Quaternion(0.0018070347, -7.224069e-11, 0.9999984, -3.075189
 bones/25/rotation = Quaternion(0.9986992, 5.539901e-05, -0.004699273, -0.05077285)
 bones/26/position = Vector3(2.0084636, 1.9623741, -0.0064786286)
 
-[node name="BaseMarine" parent="Armature/Skeleton3D" index="0" unique_id=349299337]
+[node name="BaseMarine" parent="Armature/Skeleton3D" index="0" unique_id=528268255]
 cast_shadow = 0
 surface_material_override/0 = ExtResource("2_8rv8m")
 
@@ -87,7 +87,7 @@ cast_shadow = 0
 mesh = SubResource("ArrayMesh_6irl0")
 skeleton = NodePath("")
 
-[node name="GunProp" parent="." index="1" unique_id=2058600577]
+[node name="GunProp" parent="." index="1" unique_id=1624418971]
 visible = false
 
 [node name="AnimationOffscreenDisabler" type="VisibleOnScreenNotifier3D" parent="." index="3" unique_id=625650635 node_paths=PackedStringArray("animation_player")]

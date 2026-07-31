@@ -8,6 +8,9 @@ var wait_time:float = 0.1
 @export
 var outline_materials:Array[Material]
 
+func get_precompilation_wait_time() -> float:
+	return wait_time * (outline_materials.size() + 1)
+	
 func _ready() -> void:
 	for material in outline_materials:
 		MaterialUtils.set_overlay_material(mesh, material, null, true)

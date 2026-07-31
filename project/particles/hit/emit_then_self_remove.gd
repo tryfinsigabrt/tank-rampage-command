@@ -18,7 +18,7 @@ func _ready() -> void:
 		
 	for child in get_children():
 		if child is GPUParticles3D:
-			child.emitting = true
+			child.restart()
 
 	await get_tree().create_timer(remove_delay).timeout
 	queue_free()

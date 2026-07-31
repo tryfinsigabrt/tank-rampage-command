@@ -110,6 +110,7 @@ material = SubResource("StandardMaterial3D_28ymd")
 [node name="Artillery Explosion" type="Node3D" unique_id=1694489606 groups=["Precompilation"]]
 script = ExtResource("1_0i3p6")
 remove_delay = 20.0
+metadata/precompilation_wait_time = 3.0
 
 [node name="Orange shockwave" type="GPUParticles3D" parent="." unique_id=1923439105]
 emitting = false

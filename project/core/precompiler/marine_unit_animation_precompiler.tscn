@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bey8mor7encub"]
+
+[ext_resource type="Script" uid="uid://bcxto35ivulhv" path="res://core/precompiler/animation_precompiler.gd" id="1_iq8ve"]
+[ext_resource type="PackedScene" uid="uid://dnchimu2caqyv" path="res://units/human/marine/human_marine.tscn" id="2_7i8d5"]
+[ext_resource type="AnimationLibrary" uid="uid://dc46vdoqu5b7s" path="res://units/human/marine/marine_unit_anim_lib.tres" id="3_7i8d5"]
+
+[node name="MarineUnitAnimationPrecompiler" type="Node3D" unique_id=1291346927 groups=["Precompilation"]]
+script = ExtResource("1_iq8ve")
+animation_root_scene = ExtResource("2_7i8d5")
+animation_libary = ExtResource("3_7i8d5")
+animation_cycles = Dictionary[StringName, float]({
+&"Death": 0.2,
+&"Idle": 0.2,
+&"Run": 0.2,
+&"Shoot": 0.2
+})

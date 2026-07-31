@@ -31,6 +31,16 @@ func run() -> Signal:
 				particle_node.emitting = true
 		await tree.create_timer(1.0).timeout
 	
+	# Look first for method then for metadata key
+	var wait_time:float = 0.0
+	if node.has_method("get_precompilation_wait_time"):
+		wait_time = node.get_precompilation_wait_time()
+	else:
+		wait_time = node.get_meta("precompilation_wait_time", 0.0)
+		
+	if wait_time > 0:
+		await tree.create_timer(wait_time).timeout
+			
 	await tree.process_frame
 	await tree.process_frame
 	
