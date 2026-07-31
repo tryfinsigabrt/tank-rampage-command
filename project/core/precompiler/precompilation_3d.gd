@@ -5,6 +5,9 @@ class_name Precompilation3D extends Node3D
 var max_concurrency:int = 3
 
 
+## Keep precompiled resources alive so the shaders are not released after the loading screen
+static var _PRECOMPILED_SCENES:Array[PackedScene]
+
 #region Signals
 signal started(total_count:int)
 signal progress_changed(progress:float, count:int)
@@ -37,6 +40,7 @@ func run() -> void:
 	
 func _precompile_scenes() -> Signal:
 	var scenes:Array[PackedScene] = _get_tagged_scenes()
+	_PRECOMPILED_SCENES = scenes
 	
 	started.emit(scenes.size())
 	
