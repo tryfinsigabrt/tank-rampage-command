@@ -8,6 +8,11 @@ var yaw_root:Node3D
 @export
 var pitch_root:Node3D
 
+## Node whose local -Z axis defines the weapon's firing direction.
+## Defaults to pitch_root so existing scenes inherit the pitch rotation.
+@export
+var fire_direction_node:Node3D
+
 var team_asset:Node3D
 
 @export
@@ -74,8 +79,9 @@ func aim_at(weapon:Weapon, world_location:Vector3) -> bool:
 	
 func get_fire_alignment_basis() -> Basis:
 	var reference_up := team_asset.global_basis.y.normalized()
-	# Turret is rotated 180 due to parent visual_root so negate the basis vector +Z is model forward
-	var fire_forward := (yaw_root.global_basis.z).slide(reference_up).normalized()
+	var fire_direction := fire_direction_node if fire_direction_node else pitch_root
+	# Local +Z is the model's rear axis, so -Z is the firing direction.
+	var fire_forward := fire_direction.global_basis.z.normalized()
 
 	# Right-handed frame: right = forward x up
 	var fire_right := fire_forward.cross(reference_up).normalized()
