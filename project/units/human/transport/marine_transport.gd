@@ -9,6 +9,7 @@ class_name MarineTransportUnit extends Unit
 @onready var ui: Node3D = %UI
 @onready var _team_comp: TeamComponent = %TeamComponent
 @onready var position_distributor: PositionDistributor = %PositionDistributor
+@onready var _tank_shadow: Node3D = $TankShadow
 
 ## Position relative to the container unit that inner units will move to upon exit.
 @export
@@ -61,7 +62,7 @@ func move(input_direction:Vector2, speed_override:float = -1.0) -> void:
 
 	move_and_slide()
 
-func aim_at(world_location:Vector3) -> void:	
+func aim_at(_world_location:Vector3) -> void:	
 	pass
 
 func shoot() -> void:
@@ -107,6 +108,7 @@ func _on_took_damage(damage_params: DamageParameters) -> void:
 func _update_render(in_render:bool) -> void:
 	model_root.visible = in_render
 	ui.visible = in_render
+	_tank_shadow.visible = in_render
 
 func _get_health_stat() -> HealthStat:
 	return health_stat
