@@ -94,7 +94,7 @@ mesh = SubResource("CylinderMesh_sjp2e")
 
 [node name="Weapon" parent="VisualRoot/YawPivot/PitchPivot/Barrel" unique_id=107617315 node_paths=PackedStringArray("shoot_sfx", "weapon_controller") instance=ExtResource("9_ukj7n")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1984148, 0.011338472)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.198, 0)
 shoot_vfx_size = 1
 shoot_vfx_rotation_offset_degrees = Vector3(0, 0, -90)
 shoot_sfx = NodePath("TankShootSfx")
