@@ -309,7 +309,7 @@ func _hit_scan() -> void:
 		
 	# Use physics server rather than ray 3D
 	var query := _create_trace_query()
-	var cast_distance:float = _randv(max_distance_range)
+	var cast_distance:float = max_distance_range.y
 	var result:Dictionary
 	
 	var is_hit:bool = _weapon_trace(query, result, cast_distance)
