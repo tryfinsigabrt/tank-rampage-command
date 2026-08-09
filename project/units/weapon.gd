@@ -221,8 +221,11 @@ func fire() -> void:
 	if _team_asset is CharacterBody3D:
 		_grid_velocity_at_fire_time = MathUtils.grid_vector(_team_asset.velocity)
 	
-	await _delay_impact()
-	_hit_scan()
+	var shoot_intent:ShootIntent = _capture_shoot_intent()
+
+	if shoot_intent:
+		await _delay_impact()
+		_hit_scan(shoot_intent)
 
 func _should_display_shoot_vfx() -> bool:
 	# We should only also display if the team component associated with the team asset indicates to render
@@ -302,8 +305,8 @@ func _calculate_damage_multiplier(dist:float) -> float:
 	var range_fract:float = minf(dist / max_distance_range.y, 1.0)
 	var mult:float = damage_v_distance.sample_baked(range_fract)
 	return mult
-	
-func _hit_scan() -> void:
+
+func _capture_shoot_intent() -> ShootIntent:
 	if _mask_requires_refresh:
 		_refresh_damage_mask()
 		
@@ -312,24 +315,30 @@ func _hit_scan() -> void:
 	var cast_distance:float = max_distance_range.y
 	var result:Dictionary
 	
-	var is_hit:bool = _weapon_trace(query, result, cast_distance)
+	return _create_shoot_intent(query, result, cast_distance)
+		
+func _hit_scan(intent:ShootIntent) -> void:
+	var is_hit:bool = _weapon_trace(intent)
 	if not is_hit:
 		return
 		
-	if not _apply_accuracy_modifier(query, result, cast_distance):
+	if not _apply_accuracy_modifier(intent):
 		return
 		
-	var damage_params := _create_damage_params(query, result)
+	var damage_params := _create_damage_params(intent.query, intent.result)
 	if not damage_params:
 		return
 		
+	_do_damage(damage_params)
+
+func _do_damage(damage_params:DamageParameters) -> void:
 	damage_emitter.damage(damage_params)
 	
 	hit_vfx.start(damage_params)
 	
 	if shoot_sfx:
 		shoot_sfx.play_hit(damage_params)
-
+		
 func _check_hit(query: PhysicsRayQueryParameters3D, out_result:Dictionary) -> bool:
 	var space := get_world_3d().direct_space_state
 	var result := space.intersect_ray(query)
@@ -449,14 +458,14 @@ func _on_fire_state_timer_timeout() -> void:
 	
 #region Trace Helpers
 
-func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+func _apply_accuracy_modifier(intent:ShootIntent) -> bool:
 	# Always use fire location for from for accuracy modification
 	# since for standard trace it does this and other drop traces from will be from sky which isn't what we want
 	
-	var origin := global_position
-	var target := query.to
+	var origin := intent.origin
+	var target := intent.query.to
 	
-	var hit_position: Vector3 = result["position"]
+	var hit_position: Vector3 = intent.result["position"]
 	var target_dev_deg:float = _calculate_final_target_deviation_deg(origin, hit_position)
 	
 	if is_zero_approx(target_dev_deg):
@@ -464,13 +473,13 @@ func _apply_accuracy_modifier(query: PhysicsRayQueryParameters3D, result:Diction
 	
 	# Need a new scan for the final target
 	var to_target:Vector3 = origin.direction_to(target)
-	var dev_to_target:Vector3 = to_target.rotated(global_basis.y.normalized(), deg_to_rad(target_dev_deg))
-	var new_target:Vector3 = origin + dev_to_target * cast_distance
+	var dev_to_target:Vector3 = to_target.rotated(intent.up, deg_to_rad(target_dev_deg))
+	var new_target:Vector3 = origin + dev_to_target * intent.cast_distance
 	# Don't change y coordinate of new_target
 	new_target.y = target.y
 	
-	query.to = new_target
-	return _check_hit(query, result)
+	intent.query.to = new_target
+	return _check_hit(intent.query, intent.result)
 	
 func _create_damage_params(query: PhysicsRayQueryParameters3D, result: Dictionary) -> DamageParameters:
 	var damage_params := DamageParameters.from_ray_intersect(result)
@@ -506,37 +515,63 @@ func _create_trace_query() -> PhysicsRayQueryParameters3D:
 
 #region Trace Types
 
-func _weapon_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+#region Shoot Intent
+## Capture shoot intent before impact delay so that cannot pivot target after shot already fired
+## especially important with artillery
+class ShootIntent:
+	func _init(weapon:Weapon, in_query:PhysicsRayQueryParameters3D, in_result:Dictionary, in_cast_distance:float) -> void:
+		query = in_query
+		result = in_result
+		cast_distance = in_cast_distance
+		up = weapon.global_basis.y.normalized()
+		
+	## Query object used for hit testing
+	var query: PhysicsRayQueryParameters3D
+	var result:Dictionary
+	var cast_distance:float
+	
+	## Origin of firing
+	var origin:Vector3
+	## Target of firing - not used in all trace types
+	var target:Vector3
+	
+	## Direction of firing - not used in all trace types
+	var direction:Vector3
+	
+	var up:Vector3
+
+func _create_shoot_intent(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> ShootIntent:
+	var intent:ShootIntent = ShootIntent.new(self, query, result, cast_distance)
+	var should_shoot:bool
+	
 	match type:
 		TraceType.Standard:
-			return _standard_trace(query, result, cast_distance)
+			should_shoot = _standard_intent(intent)
 		TraceType.Drop:
-			return _drop_trace(query, result)
+			should_shoot = _drop_intent(intent)
 		TraceType.Launch:
-			return _launch_trace(query, result)
+			should_shoot = _launch_intent(intent)
 		_:
 			assert(false, "Unsupported trace type=%s" % type)
-			result["hit_or_end"] = Vector3.INF
-			return false
+			should_shoot = false
 			
-func _standard_trace(query: PhysicsRayQueryParameters3D, result:Dictionary, cast_distance:float) -> bool:
+	return intent if should_shoot else null
+	
+func _standard_intent(intent: ShootIntent) -> bool:
 	var origin:Vector3 = global_position
-	var target:Vector3 = origin + weapon_controller.get_fire_global_forward() * cast_distance
-
-	query.from = origin
-	query.to = target
+	var direction:Vector3 = weapon_controller.get_fire_global_forward()
+	var target:Vector3 = origin + direction * intent.cast_distance
 	
-	var is_hit := _check_hit(query, result)
+	intent.origin = origin
+	intent.direction = direction
+	intent.target = target
 	
-	if _is_debug_draw_enabled():
-		_draw_debug(origin, result["hit_or_end"], is_hit)
+	return true
 	
-	return is_hit
-	
-func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
+func _drop_intent(intent: ShootIntent) -> bool:
 	var target:Vector3 = fire_target
+	var origin:Vector3 = global_position
 	if target_dev_v_distance:
-		var origin:Vector3 = global_position
 		var dist:float = origin.distance_to(target)
 		var dist_over_min:float = dist - min_distance
 		var total_range:float = max_distance_range.y - min_distance
@@ -546,35 +581,73 @@ func _drop_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
 			var offset:Vector2 = MathUtils.get_random_point_in_circle(radius)
 			target.x += offset.x
 			target.z += offset.y
-		
-	query.from = target + 1000 * Vector3.UP
-	query.to = target - 1000 * Vector3.UP
-	
-	var is_hit := _check_hit(query, result)
-	
-	if _is_debug_draw_enabled():
-		_draw_debug(query.from, result["hit_or_end"], is_hit)
-	
-	return is_hit
 
-func _launch_trace(query: PhysicsRayQueryParameters3D, result:Dictionary) -> bool:
+	intent.origin = origin
+	intent.target = target
+	
+	return true
+	
+func _launch_intent(intent: ShootIntent) -> bool:	
 	var target:Vector3 = fire_target
 	var origin:Vector3 = launch_trace_node.global_position
 	
 	var trace_dist:float = 0.5 * origin.distance_to(target)
 	var trace_dir := _get_launch_trace_direction()
 	
+	var query := intent.query
+
 	query.from = origin
 	query.to = origin + trace_dir * trace_dist
 	
-	var is_hit := _check_hit(query, result)
+	var is_hit := _check_hit(query, intent.result)
 	if _is_debug_draw_enabled():
-		_draw_debug(origin, result["hit_or_end"], not is_hit)
+		_draw_debug(origin, intent.result["hit_or_end"], not is_hit)
 	
 	# Don't fire if going to hit an obstacle on launch
 	if is_hit:
 		return false
 		
-	return _drop_trace(query, result)
+	return _drop_intent(intent)
+	
+#endregion
+
+func _weapon_trace(intent:ShootIntent) -> bool:
+	match type:
+		TraceType.Standard:
+			return _standard_trace(intent)
+		TraceType.Drop:
+			return _drop_trace(intent)
+		TraceType.Launch:
+			return _launch_trace(intent)
+		_:
+			assert(false, "Unsupported trace type=%s" % type)
+			intent.result["hit_or_end"] = Vector3.INF
+			return false
+			
+func _standard_trace(intent:ShootIntent) -> bool:
+	intent.query.from = intent.origin
+	intent.query.to = intent.target
+	
+	var is_hit := _check_hit(intent.query, intent.result)
+	
+	if _is_debug_draw_enabled():
+		_draw_debug(intent.origin, intent.result["hit_or_end"], is_hit)
+	
+	return is_hit
+	
+func _drop_trace(intent:ShootIntent) -> bool:
+	intent.query.from = intent.target + 1000 * Vector3.UP
+	intent.query.to = intent.target - 1000 * Vector3.UP
+	
+	var is_hit := _check_hit(intent.query, intent.result)
+	
+	if _is_debug_draw_enabled():
+		_draw_debug(intent.query.from, intent.result["hit_or_end"], is_hit)
+	
+	return is_hit
+
+func _launch_trace(intent:ShootIntent) -> bool:
+	# We already detected obstacle hit during shoot intent creation so here we just do a normal drop trace
+	return _drop_trace(intent)
 
 #endregion
