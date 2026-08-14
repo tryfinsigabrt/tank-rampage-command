@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_ckt8x"]
 
 [sub_resource type="Curve" id="Curve_f61vc"]
-_limits = [0.0, 1.0, 0.0, 3.0]
-_data = [Vector2(0, 1), 0.0, -0.03924884, 0, 0, Vector2(2.9933774, 0), -0.49528843, 0.0, 0, 0]
+_limits = [0.0, 1.0, 0.0, 4.0]
+_data = [Vector2(0, 1), 0.0, -0.03924884, 0, 0, Vector2(4, 0), -0.49528843, 0.0, 0, 0]
 point_count = 2
 script = ExtResource("1_b3kwd")
 metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
