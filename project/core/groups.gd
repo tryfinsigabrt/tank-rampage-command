@@ -27,6 +27,7 @@ const TeamVisible:StringName = &"TeamVisible"
 const LevelAudio:StringName = &"LevelAudio"
 
 const Precompilation:StringName = &"Precompilation"
+const Compiler:StringName = &"Compiler"
 
 const MatchTeamEliminationCondition:StringName = &"MatchTeamEliminationCondition"
 const ScrapField:StringName = &"ScrapField"
@@ -143,9 +144,15 @@ static func scene_has_engine_type(scene: PackedScene, node_types:PackedStringArr
 			return true
 			
 	return false
+	
 static func scene_path_has_group(path: String, group_name: StringName, root_only:bool = false) -> bool:
 	var scene := ResourceLoader.load(path, "PackedScene") as PackedScene
 	if scene == null:
 		return false
 	return scene_has_group(scene, group_name, root_only)
 	
+static func is_precompiler_running(ref:Node) -> bool:
+	var compiler:Node = ref.get_tree().get_first_node_in_group(Groups.Compiler)
+	if not compiler:
+		return false
+	return compiler.is_ancestor_of(ref)

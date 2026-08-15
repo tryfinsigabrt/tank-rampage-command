@@ -4,7 +4,7 @@ var _inventory_component:InventoryComponent
 
 func _ready() -> void:
 	var match_team:MatchTeam = Groups.get_parent_with_type(self, MatchTeam)
-	assert(match_team, "%s: Spawner not added to a hierarchy with a MatchTeam!" % name)
+	assert(match_team or Groups.is_precompiler_running(self), "%s: Spawner not added to a hierarchy with a MatchTeam!" % name)
 	if not match_team:
 		return
 		

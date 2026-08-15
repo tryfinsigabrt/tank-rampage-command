@@ -105,7 +105,7 @@ func _ready() -> void:
 
 	_match_team = Groups.get_parent_with_type(self, MatchTeam)
 
-	if not _match_team:
+	if not _match_team and not Groups.is_precompiler_running(self):
 		push_error("%s: ManufacturingComponent has no MatchTeam parent!" % name)
 
 	if supported_types:

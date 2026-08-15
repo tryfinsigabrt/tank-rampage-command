@@ -18,7 +18,8 @@ func _ready() -> void:
 		await NodeUtils.ensure_ready(_match_team)
 		_container = _match_team.asset_container
 	if not _container:
-		push_error("%s: UnitSpawner has no MatchTeam parent!" % name)
+		if not Groups.is_precompiler_running(self):
+			push_error("%s: UnitSpawner has no MatchTeam parent!" % name)
 		_container = self
 	assert(node_picker, "%s: Node Picker not set!" % name)
 	assert(spawn_location_finder, "%s: Spawn Location Finder not set!" % name)

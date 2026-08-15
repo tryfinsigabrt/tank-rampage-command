@@ -12,7 +12,8 @@ func _ready() -> void:
 		
 	var player:Player = get_tree().get_first_node_in_group(Groups.Player) as Player
 	if not player:
-		push_error("%s: No player node in scene - camera positioning not available" % name)
+		if not Groups.is_precompiler_running(self):
+			push_error("%s: No player node in scene - camera positioning not available" % name)
 		queue_free()
 		return
 	
