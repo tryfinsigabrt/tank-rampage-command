@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d10exlndjkehi" path="res://core/team_component.tscn" id="2_bhy6q"]
 [ext_resource type="Script" uid="uid://oogfqulupsxq" path="res://fow/fow_visibility_component.gd" id="3_42e4k"]
 [ext_resource type="Script" uid="uid://bk14gax2hugna" path="res://fow/fow_visibility_toggler.gd" id="4_wh27p"]
+[ext_resource type="Script" uid="uid://dpwlf0crhtkc3" path="res://control_points/visibility_team_tracking_component.gd" id="5_wh27p"]
 [ext_resource type="Texture2D" uid="uid://nbobjr6oi0s2" path="res://control_points/control_point.png" id="6_wh27p"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bhy6q"]
@@ -28,6 +29,9 @@ root = NodePath("../..")
 
 [node name="FOWVisibilityToggler" type="Node" parent="Components/FOWVisibilityComponent" unique_id=1332115049]
 script = ExtResource("4_wh27p")
+
+[node name="VisibilityTeamTrackingComponent" type="Node" parent="Components" unique_id=1952746380]
+script = ExtResource("5_wh27p")
 
 [node name="ControlBounds" type="Area3D" parent="." unique_id=1124531281]
 collision_layer = 2048

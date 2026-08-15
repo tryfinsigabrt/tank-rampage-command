@@ -33,6 +33,7 @@ var player_team:int
 var neutral:bool:
 	get:
 		return team_component.is_neutral()
+		
 var owned:bool:
 	get:
 		return not neutral
