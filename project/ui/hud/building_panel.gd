@@ -105,6 +105,8 @@ func _set_current_manufacturing(component: ManufacturingComponent) -> void:
 		return
 
 	_disconnect_manufacturing_signals()
+	_disconnect_resource_change_signals()
+	
 	_current_manufacturing = component
 	if _current_manufacturing == null:
 		return
@@ -113,8 +115,38 @@ func _set_current_manufacturing(component: ManufacturingComponent) -> void:
 	_current_manufacturing.build_canceled.connect(_on_manufacturing_changed.unbind(1))
 	_current_manufacturing.build_completed.connect(_on_manufacturing_changed.unbind(1))
 	_current_manufacturing.build_started.connect(_on_manufacturing_changed)
+	
+	_connect_resource_change_signals()
 
+func _connect_resource_change_signals() -> void:
+	var match_team := Groups.get_parent_with_type(_current_manufacturing, MatchTeam) as MatchTeam
+	if not match_team or not match_team.resources:
+		return
+		
+	var scrap := match_team.resources.scrap
+	scrap.count_changed.connect(_update_affordability.unbind(2))
 
+	var personnel := match_team.resources.personnel
+	personnel.count_changed.connect(_update_affordability.unbind(2))
+	personnel.cap_changed.connect(_update_affordability.unbind(2))
+	personnel.queued_count_changed.connect(_update_affordability.unbind(2))
+
+func _disconnect_resource_change_signals() -> void:
+	if _current_manufacturing == null:
+		return
+		
+	var match_team := Groups.get_parent_with_type(_current_manufacturing, MatchTeam) as MatchTeam
+	if not match_team or not match_team.resources:
+		return
+		
+	var scrap := match_team.resources.scrap
+	scrap.count_changed.disconnect(_update_affordability)
+
+	var personnel := match_team.resources.personnel
+	personnel.count_changed.disconnect(_update_affordability)
+	personnel.cap_changed.disconnect(_update_affordability)
+	personnel.queued_count_changed.disconnect(_update_affordability)
+	
 func _disconnect_manufacturing_signals() -> void:
 	if _current_manufacturing == null:
 		return
@@ -129,7 +161,9 @@ func _on_manufacturing_changed(_resource: ConstructionResource) -> void:
 	_populate_build_row()
 	_populate_queue_row()
 
-
+func _update_affordability() -> void:
+	_populate_build_row()
+	
 func _populate_build_row() -> void:
 	var chips := _get_build_chips()
 	var resources := _get_supported_resources()
