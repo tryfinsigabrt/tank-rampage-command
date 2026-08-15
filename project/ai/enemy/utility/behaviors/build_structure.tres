@@ -5,9 +5,10 @@
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="2_p2lr0"]
 [ext_resource type="Resource" uid="uid://ho4kj80rfhkm" path="res://ai/enemy/utility/considerations/build_remaining_scrap_utility.tres" id="3_67ott"]
 [ext_resource type="Resource" uid="uid://ckv3sxrjerei0" path="res://ai/enemy/utility/considerations/build_structure_unused_count_utility.tres" id="4_67ott"]
+[ext_resource type="Resource" uid="uid://bfxhikrau4em6" path="res://ai/enemy/utility/considerations/build_other_demand.tres" id="5_px1na"]
 
 [resource]
 script = ExtResource("2_p2lr0")
 name = &"build_structure"
-considerations = Array[ExtResource("1_12jgt")]([ExtResource("2_oiqo1"), ExtResource("3_67ott"), ExtResource("4_67ott")])
+considerations = Array[ExtResource("1_12jgt")]([ExtResource("2_oiqo1"), ExtResource("3_67ott"), ExtResource("4_67ott"), ExtResource("5_px1na")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

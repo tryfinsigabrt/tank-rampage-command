@@ -6,10 +6,11 @@
 [ext_resource type="Resource" uid="uid://n1jrhsuvw506" path="res://ai/enemy/utility/considerations/build_bldg_curr_unit_count.tres" id="3_8x11j"]
 [ext_resource type="Resource" uid="uid://dsov5likosdu3" path="res://ai/enemy/utility/considerations/build_bldg_avg_queue_depth.tres" id="4_hfc3c"]
 [ext_resource type="Resource" uid="uid://3jvfx3e8mrd5" path="res://ai/enemy/utility/considerations/build_bldg_curr_building_count.tres" id="5_pvfv8"]
+[ext_resource type="Resource" uid="uid://bfxhikrau4em6" path="res://ai/enemy/utility/considerations/build_other_demand.tres" id="6_hfc3c"]
 
 [resource]
 script = ExtResource("2_c2xk1")
 name = &"build_building"
 aggregation = 1
-considerations = Array[ExtResource("1_svsnk")]([ExtResource("2_l6i3g"), ExtResource("3_8x11j"), ExtResource("4_hfc3c"), ExtResource("5_pvfv8")])
+considerations = Array[ExtResource("1_svsnk")]([ExtResource("2_l6i3g"), ExtResource("3_8x11j"), ExtResource("4_hfc3c"), ExtResource("5_pvfv8"), ExtResource("6_hfc3c")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

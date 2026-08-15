@@ -36,6 +36,11 @@ var min_structure_need_score:float = 10.0
 @export_range(0.0, 1.0, 0.001)
 var utility_tolerance_threshold:float = 0.001
 
+## Max time since last build request to keep the current build pressure values 
+## This prevents an old demand from persisting long past when it was relevant
+@export
+var build_pressure_timeout:float = 5.0
+
 @export
 var prototype_instance_container:Node
 
@@ -54,6 +59,12 @@ var _can_build_buildings:bool
 var _can_build_structures:bool
 var _last_score_above_threshold_time:float = 0.0
 var _minimum_score:float = 0.0
+
+# When a build is requested but cannot build it due to resource constraints or other constraints
+# Then the value is ticked up. Once a build is done it is reset back to 0
+# The score is proportional to points against - sum of all other types minus yours clamped to 0
+var _build_pressure_by_type:Dictionary[ConstructionResource.Type,int]
+var _build_pressure_last_request:Dictionary[ConstructionResource.Type, float]
 
 class AggregateDefenseNeeds:
 	var score:float
@@ -74,6 +85,7 @@ func _refresh_behavior_data() -> void:
 	_refresh_available_behaviors()	
 	# First obtain available behaviors where the mapping is relevant
 	_refresh_construction_resource_mappings()
+	_refresh_build_pressure()
 	
 func _refresh_min_score() -> void:
 	# Have a minimum score threshold that decreases as more time elapses since the last build
@@ -94,6 +106,16 @@ func _refresh_construction_resource_mappings() -> void:
 		if construction_resource:
 			_construction_resources_by_type[type] = construction_resource
 
+func _refresh_build_pressure() -> void:
+	var current_time:float = GameManager.game_timer.time_seconds
+	var min_last_request_time:float = current_time - build_pressure_timeout
+	
+	for type in _build_pressure_last_request:
+		var last_request_time:float = _build_pressure_last_request[type]
+		# Erase old request counts
+		if last_request_time < min_last_request_time:
+			_build_pressure_by_type.erase(type)
+			
 func _refresh_available_behaviors() -> void:
 	_manufacturing_by_type.clear()
 	_available_behaviors.clear()
@@ -151,7 +173,8 @@ func _count_unit_by_type(unit:Unit, team_distributions:Dictionary[ConstructionRe
 	var type:ConstructionResource.Type = ConstructionResource.type_from_unit_class(unit.unit_class)
 	if type:
 		team_distributions[type] = team_distributions.get(type, 0) + 1	
-		
+
+## Schedules next build, returning true if an asset could be built this cycle and false otherwise		
 func next_build() -> bool:
 	if not match_team:
 		return false
@@ -200,7 +223,7 @@ func next_build() -> bool:
 	
 	if _can_build_structures:
 		_refresh_structure_build_data(team_structure_queue)
-		
+	
 	for type in _available_behaviors:
 		var behavior:UtilityAIBehavior = behaviors[type]
 		var utility_context:Variant = null
@@ -229,13 +252,16 @@ func next_build() -> bool:
 				
 				utility_context.enemy_delta = enemy_count / float(team_count) if team_count > 0 else 1.0 if enemy_count > 0 else 0.5
 				utility_context.container = _create_container_utility_context(utility_context.construction, utility_context)
+				utility_context.other_demand = _calculate_other_demand(type)
 				
 				action = func() -> bool:
-					if candidate.can_build(type):
+					var result := candidate.can_build(type)
+					if result:
 						@warning_ignore("missing_await")
 						candidate.build(type)
-						return true
-					return false
+					_update_demand(type, result)
+					return result						
+					
 		elif type_classification == ConstructionResource.Classification.Building:
 			if type not in _construction_resources_by_type:
 				continue
@@ -246,6 +272,12 @@ func next_build() -> bool:
 				
 			var is_command_center:bool = type == ConstructionResource.Type.CommandCenter
 			var viable_locations:Array[BoundingCircle]
+			
+			# TODO: Need to reserve the resources for desired buildings so another loop doesn't steal them
+			# Trouble is for a highly desirable but expensive build eventually other things steal resources
+			# This is especially apparent with having 2 barracks built before the first factory
+			# It isn't that we should never build 2 buildings but need to consider how many of other types we currently have and have it proportional to that
+			# This is only for barracks and factory as command centers have their own separate utilities
 			
 			if is_command_center:
 				var best_scrap_field_data := _command_center_data.best_open_field
@@ -269,6 +301,7 @@ func next_build() -> bool:
 			utility_context.available_scrap = available_scrap
 			utility_context.curr_unit_count = total_units
 			utility_context.target_location_bounds = viable_locations
+			utility_context.other_demand = _calculate_other_demand(type)
 			
 			# Command center-specific context
 			if is_command_center:
@@ -277,11 +310,13 @@ func next_build() -> bool:
 				_add_non_command_center_building_context(type, utility_context)
 				
 			action = func() -> bool:
-				if enemy_building_create_action.can_create(utility_context):
+				var result := enemy_building_create_action.can_create(utility_context)
+				if result:
 					@warning_ignore("missing_await")
 					enemy_building_create_action.create(utility_context)
-					return true
-				return false
+				_update_demand(type, result)
+				return result
+				
 		elif type_classification == ConstructionResource.Classification.Structure:
 			if _aggregate_defense_needs.score < min_structure_need_score:
 				continue
@@ -299,13 +334,15 @@ func next_build() -> bool:
 				utility_context.required_strength = _aggregate_defense_needs.strength
 				utility_context.unused_count = team_structure_queue.get(type, 0) + match_team.inventory_component.get_count(type)
 				utility_context.container = _create_container_utility_context(utility_context.construction, utility_context)
+				utility_context.other_demand = _calculate_other_demand(type)
 				
 				action = func() -> bool:
-					if candidate.can_build(type):
+					var result := candidate.can_build(type)
+					if result:	
 						@warning_ignore("missing_await")
 						candidate.build(type)
-						return true
-					return false
+					_update_demand(type, result)
+					return result
 						
 		if utility_context:
 			_viable_options.push_back(UtilityAIOption.new(behavior, utility_context, action))
@@ -328,7 +365,25 @@ func next_build() -> bool:
 		SignalBus.on_utility_calculation_complete.emit(name, blackboard.team)
 	
 	return success
+
+func _update_demand(type:ConstructionResource.Type, result:bool) -> void:
+	if result:
+		_build_pressure_by_type.erase(type)
+		_build_pressure_last_request.erase(type)
+	else:
+		var current_time:float = GameManager.game_timer.time_seconds
+		_build_pressure_last_request[type] = current_time	
+		_build_pressure_by_type[type] = _build_pressure_by_type.get(type, 0) + 1
+			
+func _calculate_other_demand(type: ConstructionResource.Type) -> int:
+	var value:int = 0
+	for other_type in _build_pressure_by_type:
+		# Lower the score if our type is in demand otherwise raise it
+		var sgn:int = -1 if other_type == type else 1
+		value += sgn * _build_pressure_by_type[other_type]
 	
+	return maxi(value, 0)
+		
 #region Manufacturing
 
 func _get_best_manufacturing_component(type: ConstructionResource.Type) -> ManufacturingComponent:

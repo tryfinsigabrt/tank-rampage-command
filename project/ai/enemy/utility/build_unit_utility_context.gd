@@ -32,6 +32,9 @@ var army_fraction:float
 var available_scrap:int
 var available_personnel:int
 
+## How much other types are being demanded more than this type
+var other_demand:int
+
 var cost:int:
 	get:
 		return construction.cost

@@ -6,9 +6,10 @@
 [ext_resource type="Resource" uid="uid://ckv3sxrjerei0" path="res://ai/enemy/utility/considerations/build_structure_unused_count_utility.tres" id="4_b3nmw"]
 [ext_resource type="Script" uid="uid://b7ujv54xng8gk" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="5_28cfs"]
 [ext_resource type="Resource" uid="uid://cqya222qmk42u" path="res://ai/enemy/utility/considerations/build_bunker_available_infantry.tres" id="5_ete5j"]
+[ext_resource type="Resource" uid="uid://bfxhikrau4em6" path="res://ai/enemy/utility/considerations/build_other_demand.tres" id="6_4moj8"]
 
 [resource]
 script = ExtResource("5_28cfs")
 name = &"build_structure"
-considerations = Array[ExtResource("1_07ttd")]([ExtResource("2_ete5j"), ExtResource("3_4moj8"), ExtResource("4_b3nmw"), ExtResource("5_ete5j")])
+considerations = Array[ExtResource("1_07ttd")]([ExtResource("2_ete5j"), ExtResource("3_4moj8"), ExtResource("4_b3nmw"), ExtResource("5_ete5j"), ExtResource("6_4moj8")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

@@ -7,10 +7,11 @@
 [ext_resource type="Resource" uid="uid://rrjsijy364ej" path="res://ai/enemy/utility/considerations/build_cc_time_to_exhaustion.tres" id="4_5u0fr"]
 [ext_resource type="Resource" uid="uid://n1jrhsuvw506" path="res://ai/enemy/utility/considerations/build_bldg_curr_unit_count.tres" id="5_lg4ea"]
 [ext_resource type="Resource" uid="uid://c6avo4t7dgjc8" path="res://ai/enemy/utility/considerations/build_cc_available_sites.tres" id="6_5u0fr"]
+[ext_resource type="Resource" uid="uid://bfxhikrau4em6" path="res://ai/enemy/utility/considerations/build_other_demand.tres" id="7_lg4ea"]
 
 [resource]
 script = ExtResource("2_ru10b")
 name = &"build_command_center"
 aggregation = 1
-considerations = Array[ExtResource("1_gf51e")]([ExtResource("2_hvqv5"), ExtResource("3_uchin"), ExtResource("4_5u0fr"), ExtResource("5_lg4ea"), ExtResource("6_5u0fr")])
+considerations = Array[ExtResource("1_gf51e")]([ExtResource("2_hvqv5"), ExtResource("3_uchin"), ExtResource("4_5u0fr"), ExtResource("5_lg4ea"), ExtResource("6_5u0fr"), ExtResource("7_lg4ea")])
 metadata/_custom_type_script = "uid://b7ujv54xng8gk"

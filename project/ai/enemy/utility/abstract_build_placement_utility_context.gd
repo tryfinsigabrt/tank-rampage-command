@@ -20,3 +20,6 @@ var remaining_scrap:float:
 var type:ConstructionResource.Type:
 	get:
 		return construction.type
+
+## How much other types are being demanded more than this type
+var other_demand:int

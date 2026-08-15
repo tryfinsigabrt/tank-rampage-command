@@ -68,7 +68,7 @@ domain_warp_amplitude = 2.31
 domain_warp_frequency = 2.0
 domain_warp_fractal_lacunarity = 10.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6e14"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6kxmt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
@@ -79,7 +79,7 @@ noise_type = 5
 seed = 1
 frequency = 0.2225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dfuov"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n1qel"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -93,13 +93,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_shfxr"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_encwq"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_npbod"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p3rrt"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -113,13 +113,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n1a36"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nceww"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hno20"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rbspj"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -133,13 +133,13 @@ _data = {
 }
 point_count = 8
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dew6j"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v6rxe"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_crack_mask")
 seamless = true
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e0460"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mjnhr"]
 width = 256
 height = 256
 noise = SubResource("FastNoiseLite_scrap_field_scrap_mask")
@@ -345,26 +345,26 @@ script = ExtResource("20_1x5h5")
 [node name="ScrapField" parent="World/Match/Resource" unique_id=1314478789 instance=ExtResource("34_jhpgo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.868927, 0, 176.8039)
 curve = SubResource("Curve3D_2gujw")
-crack_mask_texture = SubResource("NoiseTexture2D_p6e14")
-scrap_mask_texture = SubResource("NoiseTexture2D_dfuov")
+crack_mask_texture = SubResource("NoiseTexture2D_6kxmt")
+scrap_mask_texture = SubResource("NoiseTexture2D_n1qel")
 
 [node name="ScrapField4" parent="World/Match/Resource" unique_id=140669080 instance=ExtResource("34_jhpgo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -202.64288, 0, 340.16483)
 curve = SubResource("Curve3D_8m8hx")
-crack_mask_texture = SubResource("NoiseTexture2D_shfxr")
-scrap_mask_texture = SubResource("NoiseTexture2D_npbod")
+crack_mask_texture = SubResource("NoiseTexture2D_encwq")
+scrap_mask_texture = SubResource("NoiseTexture2D_p3rrt")
 
 [node name="ScrapField2" parent="World/Match/Resource" unique_id=622918285 instance=ExtResource("34_jhpgo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035591125, 0, -130.2392)
 curve = SubResource("Curve3D_6f442")
-crack_mask_texture = SubResource("NoiseTexture2D_n1a36")
-scrap_mask_texture = SubResource("NoiseTexture2D_hno20")
+crack_mask_texture = SubResource("NoiseTexture2D_nceww")
+scrap_mask_texture = SubResource("NoiseTexture2D_rbspj")
 
 [node name="ScrapField3" parent="World/Match/Resource" unique_id=1295188950 instance=ExtResource("34_jhpgo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 264.2968, 0, -342.98682)
 curve = SubResource("Curve3D_8jcvd")
-crack_mask_texture = SubResource("NoiseTexture2D_dew6j")
-scrap_mask_texture = SubResource("NoiseTexture2D_e0460")
+crack_mask_texture = SubResource("NoiseTexture2D_v6rxe")
+scrap_mask_texture = SubResource("NoiseTexture2D_mjnhr")
 
 [node name="KillDepth" parent="World" unique_id=1499628816 instance=ExtResource("35_0tmue")]
 

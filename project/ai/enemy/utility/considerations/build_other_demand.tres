@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UtilityAIConsideration" format=3 uid="uid://bfxhikrau4em6"]
+
+[ext_resource type="Script" uid="uid://dcl4aj81cp4ob" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_53ntd"]
+[ext_resource type="Script" uid="uid://dcep36176g5w8" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="1_ryuxd"]
+
+[sub_resource type="Curve" id="Curve_lhjp4"]
+_limits = [0.0, 1.0, 0.0, 30.0]
+_data = [Vector2(0, 1), 0.0, -0.094739325, 0, 0, Vector2(30, 0), -0.0059714643, -0.060212165, 0, 0]
+point_count = 2
+script = ExtResource("1_53ntd")
+metadata/_custom_type_script = "uid://dcl4aj81cp4ob"
+
+[resource]
+script = ExtResource("1_ryuxd")
+input_key = "other_demand"
+response_curve = SubResource("Curve_lhjp4")
+metadata/_custom_type_script = "uid://dcep36176g5w8"
