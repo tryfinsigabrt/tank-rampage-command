@@ -156,3 +156,11 @@ static func is_precompiler_running(ref:Node) -> bool:
 	if not compiler:
 		return false
 	return compiler.is_ancestor_of(ref)
+
+static func is_node_or_ancestor_queued_for_deletion(node: Node) -> bool:
+	var current: Node = node
+	while current != null:
+		if current.is_queued_for_deletion():
+			return true
+		current = current.get_parent()
+	return false
