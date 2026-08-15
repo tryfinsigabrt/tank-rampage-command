@@ -1,7 +1,11 @@
 class_name VisibilityTeamTrackingComponent extends Node
 
+## Fires when the root asset of this component changes visibility for the given team
+signal visibility_changed(team:int, in_visible:bool)
+
 var _root:Node3D
 var _visibility_by_team:Dictionary[int,Callable]
+var _visible_to_player:bool
 
 static var _FALSE_CALLABLE:Callable = func() -> bool: return false
 
@@ -38,6 +42,12 @@ func _initialize(match_obj:Match) -> void:
 		if team == player_team_id:
 			var fow := GameManager.fog_of_war_node
 			if fow:
+				fow.fow_visibility_updated.connect(func() -> void:
+					var is_visible:bool = fow.is_node_visible(_root)
+					if is_visible != _visible_to_player:
+						_visible_to_player = is_visible
+						visibility_changed.emit(team, is_visible)
+				)
 				_visibility_by_team[team] = func() -> bool:
 					return fow.is_node_visible(_root) if is_instance_valid(fow) else false
 			else:
@@ -46,6 +56,15 @@ func _initialize(match_obj:Match) -> void:
 		else:
 			# Derive AI visibility from team visibility component that uses AI vision
 			var visibility_component := match_team.team_visibility_component
+			visibility_component.visibility_changed.connect(
+				func(node:Node3D, is_visible:bool) -> void:
+					if node == _root:
+						visibility_changed.emit(team, is_visible)
+			)
 			_visibility_by_team[team] = func() -> bool:
 				return visibility_component.is_visible(_root) if is_instance_valid(visibility_component) else false
-		
+	
+	# Dispatch initial visibility
+	for team in _visibility_by_team:
+		var initial_visibility:bool = _visibility_by_team[team].call()
+		visibility_changed.emit(team, initial_visibility)
