@@ -82,6 +82,9 @@ func _on_control_point_visibility_changed(control_point: ControlPoint, in_is_vis
 	await _evaluate_priorities()
 	
 func _evaluate_priorities() -> void:
+	if GameManager.is_scene_exiting(self):
+		return
+		
 	var process := await rate_limiter.limit()
 	if not process:
 		return

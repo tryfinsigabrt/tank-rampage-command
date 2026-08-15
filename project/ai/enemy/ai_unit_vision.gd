@@ -99,6 +99,9 @@ func _on_area_exited(area: Area3D) -> void:
 	_on_area_visibility(area, false)
 	
 func _on_area_visibility(area: Area3D, in_visible:bool) -> void:
+	if GameManager.is_scene_exiting(self):
+		return
+
 	var resource:Node3D = Groups.get_scene_root_if_in_group(area, Groups.GameResource)
 	if resource:
 		_team_visibility_component.mark_object_visibility(resource, in_visible)
