@@ -42,6 +42,10 @@ func play_level(level_number:int) -> void:
 	await switch_scene_file(all_levels[level_number - 1].level_resource)
 	
 func quit() -> void:
+	# Dispatch scene leaving so that clean up is uniform across switching scenes and quitting
+	var root_current_scene := _get_current_scene()
+	scene_leaving.emit(root_current_scene)
+	
 	get_tree().quit()
 	
 func toggle_pause() -> void:

@@ -9,6 +9,9 @@ extends Node
 # If called before data refreshed then just query dynamically
 var _scene_ready:bool
 
+var _exiting_scene:Node
+var _entering_scene:Node
+
 var fog_of_war:bool:
 	get:
 		if _scene_ready:
@@ -34,10 +37,15 @@ var game_config:GameConfig:
 		
 func _ready() -> void:
 	reset_world_state()
-	#scene_manager.scene_entering.connect(reset_world_state.unbind(1))
-	scene_manager.scene_leaving.connect((func() -> void:
+	
+	scene_manager.scene_leaving.connect(func(scene:Node) -> void:
 		_scene_ready = false
-	).unbind(1))
+		_entering_scene = null
+		_exiting_scene = scene
+	)
+	scene_manager.scene_entering.connect(func(scene:Node) -> void:
+		_entering_scene = scene
+	)
 	scene_manager.scene_changed.connect(reset_world_state.unbind(1))
 
 func start_menu_music() -> void:
@@ -103,3 +111,11 @@ func find_match_team(node: Node) -> MatchTeam:
 			return match_team
 			
 	return null
+
+func is_scene_exiting(node:Node) -> bool:
+	if node.is_queued_for_deletion():
+		return true
+	# Check if exiting scene is valid and if node is not part of entering scene
+	if is_instance_valid(_exiting_scene) and (not is_instance_valid(_entering_scene) or not _entering_scene.is_ancestor_of(node)):
+		return true
+	return false
