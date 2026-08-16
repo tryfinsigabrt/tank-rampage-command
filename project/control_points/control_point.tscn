@@ -56,6 +56,7 @@ texture = ExtResource("6_wh27p")
 unique_name_in_owner = true
 one_shot = true
 
+[connection signal="visibility_changed" from="Components/VisibilityTeamTrackingComponent" to="." method="_on_team_visibility_changed"]
 [connection signal="body_entered" from="ControlBounds" to="." method="_on_control_bounds_body_entered"]
 [connection signal="body_exited" from="ControlBounds" to="." method="_on_control_bounds_body_exited"]
 [connection signal="timeout" from="CaptureTimer" to="." method="_on_capture_timer_timeout"]

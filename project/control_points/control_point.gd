@@ -37,7 +37,10 @@ var neutral:bool:
 var owned:bool:
 	get:
 		return not neutral
-		
+
+var _visible_to_player:bool
+var _last_seen_enemy_controlled:bool
+
 # TODO: Add the bounds and AABB functionality to a component called BoundsComponent!
 ## Gets an AABB representing the bounds of the structure in local space
 func get_bounds() -> AABB:
@@ -81,7 +84,13 @@ func _assign_ownership_material(team:int) -> void:
 	if team <= 0:
 		color = neutral_color
 	elif player_team > 0 and player_team != team:
-		color = enemy_color
+		# Only show enemy color if the control point is currently visible to player or it was last seen enemy controlled
+		if _visible_to_player or _last_seen_enemy_controlled:
+			color = enemy_color
+			# Be sure to update the state if it was visible
+			_last_seen_enemy_controlled = true
+		else:
+			color = neutral_color
 	else:
 		color = owned_color
 		
@@ -210,3 +219,18 @@ func _update_render(in_visible: bool) -> void:
 	
 	visual_root.visible = in_visible
 	#ui.visible = in_visible
+
+
+func _on_team_visibility_changed(team: int, in_visible: bool) -> void:
+	if team != player_team:
+		return
+	
+	_visible_to_player = in_visible
+	
+	var enemy_controlled:bool = owned and owned_team != player_team
+	# Refresh state
+	if enemy_controlled != _last_seen_enemy_controlled: 
+		_last_seen_enemy_controlled = enemy_controlled
+		# Color only affected if enemy controlled
+		if enemy_controlled:
+			_assign_ownership_material(owned_team)	
