@@ -181,7 +181,7 @@ team = 1
 player_team = NodePath("..")
 
 [node name="PlayerTank" parent="World/Match/PlayerTeam/Player" unique_id=1709231356 instance=ExtResource("9_s44mt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 87.00001)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999833, 122.40001)
 team = 1
 
 [node name="PlayerTank2" parent="World/Match/PlayerTeam/Player" unique_id=1000018207 instance=ExtResource("9_s44mt")]

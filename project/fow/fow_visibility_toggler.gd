@@ -27,6 +27,7 @@ func _on_visibility_changed(node:Node3D, in_visible:bool) -> void:
 	if in_visible or render_behavior == FOWRenderBehavior.VISIBLE or _first_visibility_change:
 		var was_visible:bool = node.visible
 		node.visible = in_visible
-		_first_visibility_change = false
+		if in_visible:
+			_first_visibility_change = false
 		if was_visible != in_visible:
 			SignalBus.on_fow_node_visibility_changed.emit(node, in_visible)

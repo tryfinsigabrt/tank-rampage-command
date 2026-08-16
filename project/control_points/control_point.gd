@@ -74,7 +74,6 @@ func _ready() -> void:
 	_assign_ownership_material(team_component.team)
 
 	_aabb = Collisions.calculate_aabb(control_bounds)
-	team_component.update_render.connect(_update_render)
 	
 	SignalBus.register_control_point(self)
 	
@@ -205,21 +204,6 @@ func _on_capture_timer_timeout() -> void:
 		capture_timer.start()
 		
 		SignalBus.on_control_point_neutralized.emit(previous_owner, self)
-
-# TODO: Duplicated with buildings
-func _update_render(in_visible: bool) -> void:
-	# For now, once we see a building we keep it visible
-	# There is a chance the team could move/destroy own buildings but unlikely
-	# and buildings are not like units in that once visible they should be visible in state last seen
-	if not in_visible and _changed_to_visible:
-		return
-		
-	if in_visible:
-		_changed_to_visible = true
-	
-	visual_root.visible = in_visible
-	#ui.visible = in_visible
-
 
 func _on_team_visibility_changed(team: int, in_visible: bool) -> void:
 	if team != player_team:
